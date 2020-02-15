@@ -10,7 +10,8 @@
 
     .logo {
         width: $side-nav-width;
-        border-right: 1px solid $border-color;
+        background-color: $brand-primary;
+        /*border-right: 1px solid $border-color;*/
         @include transition(all 0.2s ease); 
 
         @include screen-laptop-only {
@@ -112,7 +113,8 @@
     &.header-folded {
 
         .logo {
-            width: $side-nav-folded;
+            width: 140px;
+            // width: $side-nav-folded;
         }
     }
 }
@@ -126,7 +128,8 @@
         .header {
 
             .logo {
-                width: $side-nav-folded;
+                //width: $side-nav-folded;
+                width: 140px;
 
                 img {
                     display: none;
@@ -197,4 +200,16 @@
             background-color: #{nth($theme, 2)};
         }
     }
+}
+
+.mainmenu{
+    background: $black;
+    //height: 70px;
+    border-bottom: 1px solid #edf2f9;
+    position: fixed;
+    top: 70px;
+    width: 100%;
+    z-index: 1000;
+    display: -webkit-box;
+    display: flex;
 }

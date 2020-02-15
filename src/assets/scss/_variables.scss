@@ -17,6 +17,7 @@ $magenta:                   #eb2f96 !default;
 $volcano:                   #fa541c !default;
 $lime:                      #a0d911 !default;
 $geekblue:                  #2f54eb !default;
+$mts:                       #ff4020 !default;
 
 
 // Create grayscale
@@ -60,6 +61,9 @@ $tone-geekblue-light:       rgba($geekblue, 0.1) !default;
 $tone-purple:               $purple !default;  
 $tone-purple-light:         rgba($purple, 0.1) !default;
 
+$tone-mts:                 $mts !default;  
+$tone-mts-light:           rgba($mts, 0.1) !default;
+
 
 $tone-loop: (
     "magenta"     $tone-magenta     $tone-magenta-light,
@@ -72,11 +76,12 @@ $tone-loop: (
     "cyan"        $tone-cyan        $tone-cyan-light,
     "blue"        $tone-blue        $tone-blue-light,
     "geekblue"    $tone-geekblue    $tone-geekblue-light,
-    "purple"      $tone-purple      $tone-purple-light
+    "purple"      $tone-purple      $tone-purple-light,
+    "mts"         $tone-mts         $tone-mts-light
 );
 
 // State Colors
-$brand-primary:             $blue !default;
+$brand-primary:             $mts !default;
 $brand-secondary:           $purple !default;
 $brand-success:             $cyan !default;
 $brand-info:                $blue !default;
@@ -120,7 +125,7 @@ $theme-color-loop: (
 // Links
 //
 // Style anchor elements.
-$link-color:                $blue !default;
+$link-color:                $mts !default;
 $link-decoration:           none !default;
 $link-hover-color:          darken($link-color, 15%) !default;
 $link-hover-decoration:     underline !default;
@@ -582,7 +587,7 @@ $dropdown-max-height:            15.625rem !default;
 // Define colors theme color for menu
 $menu-spacing-y:                45px;
 $menu-text:                     rgba($gray-dark, 0.75) !default;
-$menu-dark-bg:                  #223143 !default;
+$menu-dark-bg:                  $black !default;
 $menu-dark-bg-sub:              #181f29 !default;
 $menu-dark-text:                #99abb4 !default;
 
