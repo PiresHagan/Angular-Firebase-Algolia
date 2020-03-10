@@ -8,11 +8,11 @@ import { FullLayout_ROUTES } from "./shared/routes/full-layout.routes";
 import { CommonLayout_ROUTES } from "./shared/routes/common-layout.routes";
 
 const appRoutes: Routes = [
-    {
+    /* {
         path: '',
         redirectTo: '/dashboard/default',
         pathMatch: 'full',
-    },
+    }, */
     { 
         path: '', 
         component: CommonLayoutComponent,

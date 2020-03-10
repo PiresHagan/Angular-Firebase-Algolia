@@ -14,7 +14,8 @@
         }    
         
         .main-content {
-            padding: calc(#{$header-height} + #{$layout-content-gutter}) $layout-content-gutter $layout-content-gutter $layout-content-gutter;
+            padding: calc(#{$header-height} + #{$main-nav-height} + #{$layout-content-gutter}) $layout-content-gutter $layout-content-gutter $layout-content-gutter;
+            padding: calc(#{$header-height} + #{$main-nav-height}) 0 0 0;
             min-height: calc(100vh - #{$footer-height});
 
             @include screen-mobile {
@@ -109,7 +110,8 @@
 
         @include screen-tablet-above {
             .page-container {
-                padding-left: $side-nav-folded;
+                padding-left: 0;
+                //padding-left: $side-nav-folded;
             }    
         }
     }

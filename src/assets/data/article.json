@@ -1,0 +1,48 @@
+{
+    "original_id": "",
+    "title": "",
+    "slug": "",
+    "content": "",
+    "exerpt": "",
+    "status": "",
+    "meta_title": "",
+    "meta_description": "",
+    "language": "",
+    "viewCount": "",
+    "created_at": "",
+    "updated_at": "",
+    "published_at": "",
+    "photo": {
+        "id": "",
+        "url": "",
+        "alt": ""
+    },
+    "category": {
+        "id": "",
+        "language": "",
+        "title": "",
+        "slug": ""
+    },
+    "topics": [
+        {
+            "id": "",
+            "language": "",
+            "title": "",
+            "slug": ""
+        },
+        {
+            "id": "",
+            "language": "",
+            "title": "",
+            "slug": ""
+        }
+    ],
+    "author": {
+        "id": "",
+        "first_name": "",
+        "last_name": "",
+        "avatar": "",
+        "slug": ""
+    }
+
+}
