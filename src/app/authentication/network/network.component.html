@@ -1,0 +1,70 @@
+<div class="container-fluid p-h-0 p-v-20 h-100 bg" style="background-image: url('assets/images/others/login-3.png')">
+    <div class="d-flex flex-column justify-content-between h-100">
+        <div class="d-none d-md-block"></div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-7 col-lg-7 m-h-auto">
+                    <nz-card class="m-b-60 shadow-lg">
+                        <div class="d-flex align-items-center justify-content-between m-b-30">
+                            <img class="img-fluid" alt="" src="assets/images/logo/logo.png">
+                            <h2 class="m-b-0">Your network</h2>
+                        </div>
+                        <form nz-form [formGroup]="networkForm" class="login-form" (ngSubmit)="submitForm()">
+                            <p class="m-b-30">Let them know that you are a My Trending Stories contributor and notify them when you publish content.</p>
+                            <nz-list [nzDataSource]="networkList" [nzRenderItem]="network" [nzItemLayout]="'horizontal'">
+                                <ng-template #network let-item>
+                                    <nz-list-item [nzActions]="[moreAction]">
+                                        <ng-template #moreAction>
+                                            <!-- <span class="m-r-10 text-gray" *ngIf="item.status">{{item.link}}</span> -->
+                                            <nz-switch [ngModel]="item.status" formControlName="google"[nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate" appGoogleSignin></nz-switch>
+                                            <ng-template #checkedTemplate><i class="font-size-12" nz-icon nzType="check"></i></ng-template>
+                                            <ng-template #unCheckedTemplate><i class="font-size-12" nz-icon nzType="close"></i></ng-template>
+                                        </ng-template>
+                                        <nz-list-item-meta
+                                            [nzTitle]="networkName"
+                                            [nzAvatar]="networkIcon">
+                                            <ng-template #networkIcon>
+                                                <nz-avatar [nzIcon]="item.icon" [ngStyle]="{'color': item.avatarColor, 'background': item.avatarBg}"></nz-avatar>
+                                            </ng-template>
+                                            <ng-template #networkName>
+                                                <div class="font-size-15 font-weight-semibold m-t-10">{{item.name}}</div>
+                                            </ng-template>
+                                        </nz-list-item-meta>
+                                    </nz-list-item>
+                                </ng-template>
+                            </nz-list>
+                            <br/>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <nz-form-item>
+                                    <nz-form-control>
+                                        <label nz-checkbox>
+                                            <span><a>Do it later</a></span>
+                                        </label>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-control>
+                                        <div >
+                                            <button nz-button class="login-form-button" [nzType]="'primary'">Next</button>
+                                        </div>
+                                    </nz-form-control>
+                                </nz-form-item>   
+                            </div>
+                        </form>
+                    </nz-card>
+                </div>
+            </div>
+        </div>
+        <div class="d-none d-md-flex p-h-40 justify-content-between">
+            <span class="">© 2019 ThemeNate</span>
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a class="text-dark text-link" target="_blank" href="https://mytrendingstories.com/terms/">Terms</a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="text-dark text-link" target="_blank" href="https://mytrendingstories.com/contact/">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "my-trending-stories-dev"
+  },
+  "targets": {
+    "my-trending-stories-dev": {
+      "hosting": {
+        "enlink": [
+          "my-trending-stories-dev"
+        ]
+      }
+    }
   }
 }

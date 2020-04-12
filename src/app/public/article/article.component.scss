@@ -1,0 +1,56 @@
+.article-single{
+    max-width: 800px;
+    margin: 50px auto;
+}
+
+.article-like-box{
+    margin:20px 0px;
+}
+
+.featured-img{
+    width: 100%;
+}
+
+.article-single .article-head .article-author {
+    border-bottom: 2px solid #ecedef;
+    border-top: 2px solid #ecedef;
+    color: #000;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 23px;
+    margin-top: 29px;
+    letter-spacing: 1px;
+    overflow: hidden;
+  }
+  .article-single .article-head .article-author .author-avatar {
+    display: inline;
+  }
+  .article-single .article-head .article-author .info {
+    display: inline;
+    font-size: 12px;
+  }
+  .article-single .article-head .article-author .category {
+    text-transform: uppercase;
+  }
+  .article-single .article-head .article-author span {
+    line-height: 25px;
+  }
+  .article-single .article-head .article-author img.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+  }
+  .article-single .article-head .article-author a:hover {
+    opacity: 0.65;
+  }
+  
+  .article-body{
+      font-size: 16px;;
+  }
+
+  .comment-reply-form{
+      display: none;
+  }

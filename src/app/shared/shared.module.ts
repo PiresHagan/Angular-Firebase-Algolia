@@ -24,7 +24,7 @@ import { SearchPipe } from './pipes/search.pipe';
         PerfectScrollbarModule
     ],
     declarations: [
-        SearchPipe
+        SearchPipe,
     ],
     providers: [
         ThemeConstantService

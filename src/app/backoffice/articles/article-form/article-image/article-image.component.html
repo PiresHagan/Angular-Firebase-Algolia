@@ -1,0 +1,51 @@
+<nz-card>
+    <div class="container">
+      <br/>
+      <nz-steps [nzCurrent]="1">
+        <nz-step nzTitle="Content"></nz-step>
+        <nz-step nzTitle="Featured image"></nz-step>
+        <nz-step nzTitle="Optimize"></nz-step>
+        <nz-step nzTitle="Promote"></nz-step>
+        <nz-step nzTitle="Publish"></nz-step>
+      </nz-steps>
+      <br/>
+      <nz-divider></nz-divider>
+  
+      <nz-upload
+        nzType="drag"
+        [nzMultiple]="true"
+        [nzLimit]="2"
+        nzAction="https://jsonplaceholder.typicode.com/posts/"
+        (nzChange)="handleChange($event)"
+        >
+        <p class="ant-upload-drag-icon">
+            <i nz-icon nzType="inbox"></i>
+        </p>
+        <p class="ant-upload-text">Click or drag file to this area to upload</p>
+        <p class="ant-upload-hint">
+            Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files
+        </p>
+        </nz-upload>
+      <form nz-form>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6" nzFor="title">Title</nz-form-label>
+          <nz-form-control [nzSpan]="14">
+            <input nz-input name="title" type="text" id="title">
+          </nz-form-control>
+        </nz-form-item >
+        <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="title">Alternative text</nz-form-label>
+            <nz-form-control [nzSpan]="14">
+                <input nz-input name="alternative text" type="text" id="alternative">
+            </nz-form-control>
+        </nz-form-item >
+        <nz-form-item>
+            <nz-form-control>
+                <div >
+                    <button nz-button class="login-form-button" [nzType]="'primary'">Next</button>
+                </div>
+            </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+  </nz-card>

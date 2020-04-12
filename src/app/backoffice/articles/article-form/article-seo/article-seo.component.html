@@ -1,0 +1,66 @@
+<nz-card>
+    <div class="container">
+        <br/>
+        <nz-steps [nzCurrent]="2">
+        <nz-step nzTitle="Content"></nz-step>
+        <nz-step nzTitle="Featured image"></nz-step>
+        <nz-step nzTitle="Optimize"></nz-step>
+        <nz-step nzTitle="Promote"></nz-step>
+        <nz-step nzTitle="Publish"></nz-step>
+        </nz-steps>
+        <br/>
+        <nz-divider></nz-divider>
+    
+        <form nz-form>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="title">Meta Title</nz-form-label>
+            <nz-form-control [nzSpan]="14">
+            <input nz-input name="title" type="text" id="title">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="content">Meta Description</nz-form-label>
+            <nz-form-control [nzSpan]="14">
+                <textarea rows="4" nz-input name="content"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="content">Keywords</nz-form-label>
+            <nz-form-control [nzSpan]="14">
+                <textarea rows="4" nz-input name="content"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="title">Facebook Title</nz-form-label>
+            <nz-form-control [nzSpan]="14">
+            <input nz-input name="title" type="text" id="title">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="content">Facebook Description</nz-form-label>
+            <nz-form-control [nzSpan]="14">
+                <textarea rows="4" nz-input name="content"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="title">Twitter Title</nz-form-label>
+            <nz-form-control [nzSpan]="14">
+            <input nz-input name="title" type="text" id="title">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="content">Twitter Description</nz-form-label>
+            <nz-form-control [nzSpan]="14">
+                <textarea rows="4" nz-input name="content"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control>
+                <div >
+                    <button nz-button class="login-form-button" [nzType]="'primary'">Next</button>
+                </div>
+            </nz-form-control>
+        </nz-form-item>
+        </form>
+    </div>
+</nz-card>

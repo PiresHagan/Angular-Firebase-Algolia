@@ -12,17 +12,27 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { CommonLayoutComponent } from './layouts/common-layout/common-layout.component';
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
+import { BackofficeLayoutComponent } from './layouts/backoffice-layout/backoffice-layout.component';
 
 import { NgChartjsModule } from 'ng-chartjs';
 import { ThemeConstantService } from './shared/services/theme-constant.service';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { QuillModule } from 'ngx-quill';
 
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>) ={};
 registerLocaleData(en);
 
 @NgModule({
     declarations: [
         AppComponent,
         CommonLayoutComponent,
-        FullLayoutComponent
+        FullLayoutComponent,
+        BackofficeLayoutComponent
     ],
     imports: [
         BrowserModule,
@@ -31,7 +41,12 @@ registerLocaleData(en);
         AppRoutingModule,
         TemplateModule,
         SharedModule,
-        NgChartjsModule
+        NgChartjsModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireAuthModule,
+        AngularFirestoreModule,
+        NgxMaskModule.forRoot(options),
+        QuillModule.forRoot(),
     ],
     providers: [
         { 

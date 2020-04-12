@@ -202,16 +202,3 @@
         }
     }
 }
-
-.mainmenu{
-    background: $black;
-    //height: 70px;
-    border-bottom: 0;
-    position: fixed;
-    top: 70px;
-    width: 100%;
-    z-index: 1000;
-    display: -webkit-box;
-    display: flex;
-    text-transform: uppercase;
-}

@@ -11,6 +11,8 @@ import { FooterComponent } from "./footer/footer.component";
 
 import { SideNavDirective } from "../directives/side-nav.directive";
 import { ThemeConstantService } from '../services/theme-constant.service';
+import { HeaderBackofficeComponent } from './header/header-backoffice.component';
+import { MainmenuComponent } from './mainmenu/mainmenu.component';
 
 @NgModule({
     exports: [
@@ -19,7 +21,9 @@ import { ThemeConstantService } from '../services/theme-constant.service';
         QuickViewComponent,
         SideNavComponent,
         SideNavDirective,
-        FooterComponent
+        FooterComponent,
+        HeaderBackofficeComponent,
+        MainmenuComponent,
     ],
     imports: [
         RouterModule,
@@ -31,7 +35,9 @@ import { ThemeConstantService } from '../services/theme-constant.service';
         QuickViewComponent,
         SideNavComponent,
         SideNavDirective,
-        FooterComponent
+        FooterComponent,
+        HeaderBackofficeComponent,
+        MainmenuComponent
     ],
     providers: [ 
         ThemeConstantService

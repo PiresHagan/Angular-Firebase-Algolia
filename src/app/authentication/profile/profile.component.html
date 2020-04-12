@@ -1,0 +1,105 @@
+<div class="container-fluid p-h-0 p-v-20 h-100 bg" style="background-image: url('assets/images/others/login-3.png')">
+    <div class="d-flex flex-column justify-content-between h-100">
+        <div class="d-none d-md-block"></div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-7 col-lg-7 m-h-auto">
+                    <nz-card class="m-b-60 shadow-lg">
+                        <div class="d-flex align-items-center justify-content-between m-b-30">
+                            <img class="img-fluid" alt="" src="assets/images/logo/logo.png">
+                            <h2 class="m-b-0">Your profile</h2>
+                        </div>
+                        <div class="media align-items-center">
+                            <nz-avatar  [nzSize]="80" nzIcon="user" [nzSrc]="avatarUrl"></nz-avatar>
+                            <div class="m-l-20 m-r-20">
+                                <h5 class="m-b-5 font-size-18">Set your Avatar</h5>
+                                <p class="opacity-07 font-size-13 m-b-0">
+                                    Recommended Dimensions: <br>
+                                    120x120 Max fil size: 5MB
+                                </p>
+                            </div>
+                            <nz-upload 
+                                nzName="avatar"
+                                [nzShowUploadList]="false"
+                                (nzChange)="handleChange($event)">
+                                <button nz-button nzType="primary" nzGhost>
+                                    <span>Upload</span>
+                                </button>
+                            </nz-upload>
+                        </div>
+                         <form nz-form [formGroup]="profileForm" class="login-form" (ngSubmit)="submitForm()">
+                                <hr class="m-v-25">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <nz-form-item>
+                                            <nz-form-label>Phone Number</nz-form-label>
+                                            <nz-form-control>
+                                                <input nz-input placeholder="Phone Number" formControlName="phone"  mask="(000) 000-0000" [showMaskTyped] = "true" >
+                                            </nz-form-control>
+                                        </nz-form-item>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <nz-form-item>
+                                            <nz-form-label>Date of Birth</nz-form-label>
+                                            <nz-form-control>
+                                                <nz-date-picker class="w-100" nzFormat="yyyy/MM/dd" formControlName="birth" nzPlaceHolder="Date of Birth"></nz-date-picker>
+                                            </nz-form-control>
+                                        </nz-form-item>
+                                    </div>
+                                   <!-- <div class="col-md-4">
+                                        <nz-form-item>
+                                            <nz-form-label>Language</nz-form-label>
+                                            <nz-form-control>
+                                                <nz-select class="w-100" [(ngModel)]="selectedLanguage" nzPlaceHolder="Language">
+                                                    <nz-option nzValue="US" nzLabel="English"></nz-option>
+                                                    <nz-option nzValue="FR" nzLabel="French"></nz-option>
+                                                    <nz-option nzValue="ES" nzLabel="Spanish"></nz-option>
+                                                </nz-select>
+                                            </nz-form-control>
+                                        </nz-form-item>
+                                    </div>-->
+                                    <div class="col-md-12">
+                                        <nz-form-item>
+                                            <nz-form-label>Short biography</nz-form-label>
+                                            <nz-form-control>
+                                                <textarea rows="4" nz-input name="content" formControlName="biography"></textarea>
+                                            </nz-form-control>
+                                        </nz-form-item>
+                                    </div>
+                                </div>
+                            <!-- </nz-card>  -->
+                            <br/>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <nz-form-item>
+                                    <nz-form-control>
+                                        <label nz-checkbox formControlName="later">
+                                            <span><a>Do it later</a></span>
+                                        </label>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-control>
+                                        <div >
+                                            <button nz-button class="login-form-button" [nzType]="'primary'">Next</button>
+                                        </div>
+                                    </nz-form-control>
+                                </nz-form-item>   
+                            </div>
+                        </form>
+                    </nz-card>
+                </div>
+            </div>
+        </div>
+        <div class="d-none d-md-flex p-h-40 justify-content-between">
+            <span class="">© 2019 ThemeNate</span>
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a class="text-dark text-link" target="_blank" href="https://mytrendingstories.com/terms/">Terms</a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="text-dark text-link" target="_blank" href="https://mytrendingstories.com/contact/">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

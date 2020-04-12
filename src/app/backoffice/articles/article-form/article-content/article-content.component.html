@@ -1,0 +1,59 @@
+<nz-card>
+  <div class="container-fluid">
+    <br />
+    <nz-steps [nzCurrent]="0">
+      <nz-step nzTitle="Compose"></nz-step>
+      <nz-step nzTitle="Promote"></nz-step>
+      <nz-step nzTitle="Publish"></nz-step>
+      <!-- <nz-step nzTitle="Publish"></nz-step> -->
+    </nz-steps>
+    <br />
+    <nz-divider></nz-divider>
+
+    <form nz-form id="scrolling-container">
+
+      <h5 class="m-b-20">New Article</h5>
+      <div class="row">
+        <div class="col-md-9">
+          
+          <div id="codex-editor"></div>
+          <nz-form-item>
+            <!-- <nz-form-label [nzSpan]="6" nzFor="title">Title</nz-form-label> -->
+            <!-- <nz-form-control [nzSpan]="14"> -->
+            <input nz-input name="title" type="text" id="title" placeholder="Title" [(ngModel)]="article.title">
+            <!-- </nz-form-control> -->
+          </nz-form-item>
+          <nz-form-item>
+            <textarea rows="3" nz-input [(ngModel)]="article.excerpt" placeholder="Excerpt" name="excerpt"></textarea>
+          </nz-form-item>
+          <nz-form-item>
+            <quill-editor [style]="{height: '300px'}" [modules]="editorConfig" placeholder="Content" [(ngModel)]="article.content" name="content"></quill-editor>
+          </nz-form-item>
+
+        </div>
+
+        <div class="col-md-3">
+          <nz-form-item>
+            <nz-select class="m-r-10" nzAllowClear nzPlaceHolder="Category">
+              <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+              <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+            </nz-select>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-select [(ngModel)]="tagValue" nzMode="tags" [nzMaxTagCount]="5" nzPlaceHolder="Maximum 5 tags">
+              <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+            </nz-select>
+          </nz-form-item>
+            
+          <nz-form-item>
+            <button nz-button class="login-form-button" [nzType]="'primary'" nzBlock>Next</button>
+          </nz-form-item>
+        </div>
+
+      </div>
+    </form>
+
+    {{article | json}}
+  </div>
+</nz-card>
