@@ -31,7 +31,7 @@
                            <div class="">
                                <div class="pull-left">
                                    <div class="is-card-btn">
-                                    <button nz-button nzType="primary" class="cat-red-bg cat-bubble">{{article.categoryObj.title}}</button>
+                                    <button nz-button nzType="primary" class="cat-yellow-bg cat-bubble">{{article.categoryObj.title}}</button>
                                </div>
                             </div>
                                 <div class="is-card-author-group pull-right">
@@ -56,7 +56,7 @@
                            <div class="">
                                <div class="pull-left">
                                    <div class="is-card-btn">
-                                    <button nz-button nzType="primary" class="cat-red-bg cat-bubble">{{article.categoryObj.title}}</button>
+                                    <button nz-button nzType="primary" class="cat-yellow-bg cat-bubble">{{article.categoryObj.title}}</button>
                                    </div></div>
                                 <div class="is-card-author-group pull-right">
                                     <span class="is-card-author">{{article._author}}</span>
@@ -161,7 +161,7 @@
                 YOU MIGHT ALSO LIKE :
             </div>
             <div class="is-member">
-                <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='show-tooltip'" (mouseout)="showTooltip=''">
+                <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
                     <a href="#" class="is-profile-img-link"><img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/></a>
                     <div class="is-member-hover">
                         <div class="is-member-profile-header">
@@ -178,7 +178,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="is-member-item">
+                <div class="is-member-item"  [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
                     <a href="#" class="is-profile-img-link"><img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/></a>
                     <div class="is-member-hover">
                         <div class="is-member-profile-header">
@@ -195,7 +195,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="is-member-item">
+                <div class="is-member-item"  [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
                     <a href="#" class="is-profile-img-link"><img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/></a>
                     <div class="is-member-hover">
                         <div class="is-member-profile-header">
@@ -244,7 +244,7 @@
                 <div class="col-sm-15" *ngFor="let article of category.articles">    
 
                     <div class="item-card item-card-life-and-styles">
-                        <a [routerLink]="article.slug">
+                        <a [routerLink]="article.slug"  [ngClass]="category.class">
                             <div class="item-card-image">
                                 <img [src]="article.featured_imageObj.image" [alt]="article.featured_imageObj.title">
                             </div>
