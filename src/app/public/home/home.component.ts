@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   entertainment: any;
   life: any;
   categories: any[] = new Array();
+  showTooltip: string = '';
 
   constructor(private articleService: ArticleService) { }
 

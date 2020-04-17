@@ -161,7 +161,7 @@
                 YOU MIGHT ALSO LIKE :
             </div>
             <div class="is-member">
-                <div class="is-member-item">
+                <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='show-tooltip'" (mouseout)="showTooltip=''">
                     <a href="#" class="is-profile-img-link"><img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/></a>
                     <div class="is-member-hover">
                         <div class="is-member-profile-header">
