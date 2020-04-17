@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { CategoryComponent } from './category/category.component';
 import { ArticleComponent } from './article/article.component';
-import { MemberComponent } from './member/member.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
@@ -32,10 +32,10 @@ const routes: Routes = [
     }
   },
   {
-    path: 'member',
-    component: MemberComponent,
+    path: 'profile',
+    component: ProfileComponent,
     data: {
-      title: 'Member',
+      title: 'Profile',
       headerDisplay: "none"
     }
   },
