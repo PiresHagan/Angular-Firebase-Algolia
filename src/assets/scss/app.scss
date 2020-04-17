@@ -304,3 +304,15 @@
 .line-bottom {
   border-bottom: 2px solid #e8eaec;
 }
+
+
+@media screen and (max-width:991px){
+   
+  .ant-layout-sider-zero-width-trigger{
+      top:81px !important;
+      background: #000;
+  }
+
+
+
+}
