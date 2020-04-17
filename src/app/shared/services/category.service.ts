@@ -12,7 +12,7 @@ export class CategoryService {
   constructor(private afAuth: AngularFireAuth, private db: AngularFirestore) { }
 
   getAll(){
-    return this.db.collection<Category>('categories').snapshotChanges().pipe(
+    return this.db.collection<Category[]>('categories').snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();

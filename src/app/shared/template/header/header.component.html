@@ -26,8 +26,21 @@
                 </nz-drawer>
             </li>
 
-            <!-- TODO add the language dropdown -->
             <li>
+                <a routerLink="/auth/login">
+                    <!-- <i nz-icon nzType="user" theme="outline"></i> -->
+                    Login
+                </a>
+            </li>
+
+            <li>
+                <button routerLink="/auth/signup" nz-button nzType="primary">
+                    Sign up
+                </button>
+            </li>
+
+            <!-- TODO add the language dropdown -->
+            <!-- <li>
                 <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="popNotification" [nzPlacement]="'bottomRight'">
                     <nz-badge nzDot>
                         <i nz-icon nzType="bell" theme="outline"></i>
@@ -63,8 +76,8 @@
                         </perfect-scrollbar>
                     </div>
                 </nz-dropdown-menu>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
                 <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="popLanguage" [nzPlacement]="'bottomRight'">
                     EN
                 </a>
@@ -96,8 +109,8 @@
                         </li>
                     </ul>
                 </nz-dropdown-menu>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
                 <span class="p-h-10 pointer" nz-dropdown [nzDropdownMenu]="profile" [nzTrigger]="'click'" [nzPlacement]="'bottomRight'">
                     <nz-avatar [nzIcon]="'user'" nzSrc="assets/images/avatars/thumb-3.jpg"></nz-avatar>
                 </span>
@@ -150,7 +163,7 @@
                         </li>
                     </ul>
                 </nz-dropdown-menu >
-            </li>   
+            </li> -->
             <!-- <li class="hide">
                 <a (click)="quickViewToggle()">
                     <i nz-icon nzType="appstore" theme="outline"></i>

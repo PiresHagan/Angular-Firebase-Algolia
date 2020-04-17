@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ArticleService } from 'src/app/shared/services/article.service';
+import { Article } from 'src/app/shared/interfaces/article.type';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +10,111 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  heroLarge: any;
+  heroSmall: any;
+  business: any;
+  creative: any;
+  entertainment: any;
+  life: any;
+  categories: any[] = new Array();
+
+  constructor(private articleService: ArticleService) { }
 
   ngOnInit(): void {
+    this.articleService.getHeroLargeArticle().subscribe( article => {
+      this.heroLarge = article[0];
+      console.log('Hero Large', this.heroLarge);
+    });
+    
+    this.articleService.getHeroSmallArticle().subscribe( articles => {
+      this.heroSmall = articles;
+      console.log('Hero Small', articles);
+    });
+
+    this.articleService.getCategoryRow('business').subscribe( articles => {
+      const category = {
+        'articles': articles,
+        'title': 'Business',
+        'slug': 'business',
+        'class': 'cat-light-blue',
+        'item-card': 'item-card-business',
+      };
+      this.categories.push(category);
+      console.log('Business', articles);
+    });
+
+    this.articleService.getCategoryRow('creative').subscribe( articles => {
+      const category = {
+        'articles': articles,
+        'title': 'Creative',
+        'slug': 'creative',
+        'class': 'cat-orange',
+        'item-card': 'item-card-creative',
+      };
+      this.categories.push(category);
+      console.log('Creative', articles);
+    });
+
+    this.articleService.getCategoryRow('entertainment').subscribe( articles => {
+      const category = {
+        'articles': articles,
+        'title': 'Entertainment',
+        'slug': 'entertainment',
+        'class': 'cat-red',
+        'item-card': 'item-card-entertainment',
+      };
+      this.categories.push(category);
+      console.log('Entertainment', articles);
+    });
+
+    this.articleService.getCategoryRow('life-and-styles').subscribe( articles => {
+      const category = {
+        'articles': articles,
+        'title': 'Life and styles',
+        'slug': 'life-and-styles',
+        'class': 'cat-yellow',
+        'item-card': 'item-card-life-and-styles',
+      };
+      this.categories.push(category);
+      console.log('life-and-styles', articles);
+    });
+
+    this.articleService.getCategoryRow('news').subscribe( articles => {
+      const category = {
+        'articles': articles,
+        'title': 'News',
+        'slug': 'news',
+        'class': 'cat-orange',
+        'item-card': 'item-card-news',
+      };
+      this.categories.push(category);
+      console.log('news', articles);
+    });
+
+    this.articleService.getCategoryRow('religion').subscribe( articles => {
+      const category = {
+        'articles': articles,
+        'title': 'Religion',
+        'slug': 'religion',
+        'class': 'cat-cyan',
+        'item-card': 'item-card-religion',
+      };
+      this.categories.push(category);
+      console.log('religion', articles);
+    });
+
+    this.articleService.getCategoryRow('tech-and-science').subscribe( articles => {
+      const category = {
+        'articles': articles,
+        'title': 'Tech and science',
+        'slug': 'tech-and-science',
+        'class': 'cat-green',
+        'item-card': 'item-card-tech-and-science',
+      };
+      this.categories.push(category);
+      console.log('tech-and-science', articles, this.categories);
+    });
   }
+
 
 }

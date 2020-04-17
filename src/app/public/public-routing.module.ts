@@ -16,7 +16,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'category',
+    path: 'category/:slug',
     component: CategoryComponent,
     data: {
       title: 'Category ',

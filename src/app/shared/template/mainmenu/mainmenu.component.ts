@@ -16,6 +16,8 @@ export class MainmenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.categories = this.categoryService.getAll();
+
+    console.log('Categories', this.categories);
   }
 
 }
