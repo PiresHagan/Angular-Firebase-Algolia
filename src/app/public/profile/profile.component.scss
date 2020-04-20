@@ -451,7 +451,54 @@
           }
         }
       }
-      
+      .title-content-page-author{
+          .author-avatar{
+              width:100%;
+              max-width: 200px;
+              margin: auto;
+              float: none;
+          }
+          .author-info{
+              width:100%;
+              padding-left: 0px;
+              .toolbar{
+                .is-author-name{
+                    font-size: 28px;
+                    margin-top: 10px;
+                }
+                .follow-author{
+                    float:none;
+                    margin-left: 0px;
+                    margin-top: 10px;
+                }
+              }
+              .author-social{
+                  .author-twitter{
+                      width:32px;
+                      height: 32px;
+                  }
+                  .author-facebook {
+                    width:32px;
+                    height: 32px; 
+                  }
+              }
+              
+          }
+      }
+
+
+      .is-followeres-main{
+        .avatar-list{
+            .avatar-single{
+                margin: 0px 6px;
+                a{
+                    width: 55px;
+                    height: 55px;
+                }
+            }
+        }
+      }
+
     }
     @media screen and (min-width:581px) and (max-width:767px){
       .col-sm-15{
@@ -476,6 +523,40 @@
       }
     }
     
+
+    .title-content-page-author{
+        .author-avatar{
+            width:100%;
+            max-width: 200px;
+            margin: auto;
+            float: none;
+        }
+        .author-info{
+            width:100%;
+            padding-left: 0px;
+            .toolbar{
+              .is-author-name{
+                  font-size: 28px;
+                  margin-top: 10px;
+              }
+              .follow-author{
+                  margin-left: 0px;
+                  margin-top: 15px;
+              }
+            }
+            
+        }
+    }
+    .is-followeres-main{
+        .avatar-list{
+            .avatar-single{
+                margin: 0px 7px;
+            }
+        }
+      }
+
+
+
     }
   
     @media screen and (min-width:768px) and (max-width:991px){
