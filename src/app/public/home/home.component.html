@@ -1,78 +1,113 @@
 <section class="is-hero">
     <div class="row">
-        <div class="col-sm full-width-sm">
+        <div class="col-7 full-width-sm">
             <a class="is-hero-card" href="#">
                 <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + heroLarge.featured_imageObj.image + ')'}"></div>
+                <div class="is-profile-main">
+                    <div class="is-card-author-group">
+                        <img class="avatar"
+                            [src]="heroLarge.authorObj.avatarObj.image"
+                            [alt]="heroLarge._author">&nbsp;
+                        <span class="is-card-author">{{heroLarge.authorObj.first_name}} {{heroLarge.authorObj.last_name}}</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="is-card-btn">
+                        <button nz-button nzType="primary">{{heroLarge.categoryObj.title}}</button>
+                    </div>
+                    
+                </div>
                 <div class="is-card-content">
                    <h2  class="is-small-title">
                        <span href="https://mytrendingstories.com/category/">Today's stories</span>
-                       {{heroLarge.title}}
+                       <div>{{heroLarge.title}}</div>
                    </h2> 
-                   
-                   <div class="is-card-author-group">
-                    <img class="avatar"
-                        [src]="heroLarge.authorObj.avatarObj.image"
-                        [alt]="heroLarge._author">&nbsp;
-
-                    <span class="is-card-author">{{heroLarge.authorObj.first_name}} {{heroLarge.authorObj.last_name}}</span>
-                </div>
-                <div class="is-card-btn">
-                    <button nz-button nzType="primary" class="cat-red-bg cat-bubble">{{heroLarge.categoryObj.title}}</button>
-                </div>
                 <p class="is-card-description">{{heroLarge.summary | slice:0:100 }}</p>
+                <button type="button" class="is-read-more">Read More <img src="assets/images/read-more-icon.png" /></button>
                 </div>
             </a>
         </div>
-        <div class="col-sm full-width-sm">
-                <div class="row h-50">
-                    <a *ngFor="let article of heroSmall | slice:1:3" [routerLink]="article.slug" class="is-hero-card col-sm is-small-card">
-                        <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + article.featured_imageObj.image + ')'}"></div>
-                        <div class="is-card-content">
-                           <div class="">
-                               <div class="pull-left">
-                                   <div class="is-card-btn">
-                                    <button nz-button nzType="primary" class="cat-yellow-bg cat-bubble">{{article.categoryObj.title}}</button>
+
+        <div class="col-5 full-width-sm">
+            <a class="is-hero-card" href="#">
+                <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + heroLarge.featured_imageObj.image + ')'}"></div>
+                <div class="is-profile-main">
+                    <div class="is-card-author-group">
+                        <img class="avatar"
+                            [src]="heroLarge.authorObj.avatarObj.image"
+                            [alt]="heroLarge._author">&nbsp;
+                        <span class="is-card-author">{{heroLarge.authorObj.first_name}} {{heroLarge.authorObj.last_name}}</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="is-card-btn">
+                        <button nz-button nzType="primary">{{heroLarge.categoryObj.title}}</button>
+                    </div>
+                    
+                </div>
+                <div class="is-card-content">
+                   <h2  class="is-small-title">
+                       <span href="https://mytrendingstories.com/category/">Today's stories</span>
+                       <div>{{heroLarge.title}}</div>
+                   </h2> 
+                <p class="is-card-description">{{heroLarge.summary | slice:0:100 }}</p>
+                <button type="button" class="is-read-more">Read More <img src="assets/images/read-more-icon.png" /></button>
+                </div>
+            </a>
+        </div>
+       
+    </div>
+    <div class="row">
+        <div class="w-100 full-width-sm">
+            <div class="row is-row-height pt-18">
+                <div  *ngFor="let article of heroSmall | slice:1:3" [routerLink]="article.slug" class="col-6">
+                <a class="is-hero-card is-small-card">
+                    
+                    <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + article.featured_imageObj.image + ')'}"></div>
+                    <div class="is-profile-main">
+                        <div class="is-card-author-group">
+                            <img class="avatar"
+                                [src]="article.authorObj.avatarObj.image"
+                                [alt]="article._author">
+                                <span class="is-card-author">{{article._author}}</span>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="is-card-btn">
+                            <button nz-button nzType="primary">{{article.categoryObj.title}}</button>
+                       </div>
+
+                    </div>
+                    <div class="is-card-content">
+                        <p class="is-card-description">{{article.title}}</p>
+                        <button type="button" class="is-read-more">Read More <img src="assets/images/read-more-icon.png" /></button>
+                    </div>
+                </a>
+            </div>
+            </div>
+
+            <!-- <div class="row is-row-height">
+                <a *ngFor="let article of heroSmall | slice:3:5" [routerLink]="article.slug" class="is-hero-card col-sm is-small-card">
+                    <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + article.featured_imageObj.image + ')'}"></div>
+                    <div class="is-card-content">
+                       <div class="">
+                           <div class="pull-left">
+                               <div class="is-card-btn">
+                                <button nz-button nzType="primary" class="cat-yellow-bg cat-bubble">{{article.categoryObj.title}}</button>
                                </div>
                             </div>
-                                <div class="is-card-author-group pull-right">
-                                    <span class="is-card-author">{{article._author}}</span>
-                                    <img class="avatar"
-                                        [src]="article.authorObj.avatarObj.image"
-                                        [alt]="article._author">
-                
-                                    
-                                </div><div class="clearfix"></div>
-                            </div>
-                            <p class="is-card-description">{{article.title}}</p>
-                        
+                            <div class="is-card-author-group pull-right">
+                                <span class="is-card-author">{{article._author}}</span>
+                                <img class="avatar"
+                                    [src]="article.authorObj.avatarObj.image"
+                                    [alt]="article._author">
+            
+                                
+                            </div><div class="clearfix"></div>
                         </div>
-                    </a>
-                </div>
-
-                <div class="row h-50">
-                    <a *ngFor="let article of heroSmall | slice:3:5" [routerLink]="article.slug" class="is-hero-card col-sm is-small-card">
-                        <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + article.featured_imageObj.image + ')'}"></div>
-                        <div class="is-card-content">
-                           <div class="">
-                               <div class="pull-left">
-                                   <div class="is-card-btn">
-                                    <button nz-button nzType="primary" class="cat-yellow-bg cat-bubble">{{article.categoryObj.title}}</button>
-                                   </div></div>
-                                <div class="is-card-author-group pull-right">
-                                    <span class="is-card-author">{{article._author}}</span>
-                                    <img class="avatar"
-                                        [src]="article.authorObj.avatarObj.image"
-                                        [alt]="article._author">
-                
-                                    
-                                </div><div class="clearfix"></div>
-                            </div>
-                            <p class="is-card-description">{{article.title}}</p>
-                        
-                        </div>
-                    </a>
-                </div>
-        </div>
+                        <p class="is-card-description">{{article.title}}</p>
+                    
+                    </div>
+                </a>
+            </div> -->
+    </div>
     </div>
 
 </section>
@@ -156,13 +191,17 @@
 </section> -->
 
 <section class="is-follower-member">
-    <div class="row">
-            <div class="is-follower-title">
-                YOU MIGHT ALSO LIKE :
+    <div class="container">
+            <div class="is-comman-title">
+                You might also like :
             </div>
             <div class="is-member">
+                
                 <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
-                    <a href="#" class="is-profile-img-link"><img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/></a>
+                    <a href="#" class="is-profile-img-link">
+                        <img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/>
+                        <div class="is-overlay-number">01</div>
+                    </a>
                     <div class="is-member-hover">
                         <div class="is-member-profile-header">
                             <h3>Jonathan  Cring </h3>
@@ -178,8 +217,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="is-member-item"  [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
-                    <a href="#" class="is-profile-img-link"><img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/></a>
+                <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
+                    <a href="#" class="is-profile-img-link">
+                        <img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/>
+                        <div class="is-overlay-number">02</div>
+                    </a>
                     <div class="is-member-hover">
                         <div class="is-member-profile-header">
                             <h3>Jonathan  Cring </h3>
@@ -195,8 +237,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="is-member-item"  [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
-                    <a href="#" class="is-profile-img-link"><img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/></a>
+                <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
+                    <a href="#" class="is-profile-img-link">
+                        <img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/>
+                        <div class="is-overlay-number">03</div>
+                    </a>
                     <div class="is-member-hover">
                         <div class="is-member-profile-header">
                             <h3>Jonathan  Cring </h3>
@@ -212,48 +257,84 @@
                         </div>
                     </div>
                 </div>
+                <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
+                    <a href="#" class="is-profile-img-link">
+                        <img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/>
+                        <div class="is-overlay-number">04</div>
+                    </a>
+                    <div class="is-member-hover">
+                        <div class="is-member-profile-header">
+                            <h3>Jonathan  Cring </h3>
+                            <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
+                        </div>
+                        <div class="is-member-profile-body">
+                            <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
+                            <div class="is-profile-tag">
+                                <span class="is-tag is-red">Entertainment</span>
+                                <span class="is-tag is-purple">Opinion</span>
+                                <span class="is-tag is-yellow">Life and Styles</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
+                    <a href="#" class="is-profile-img-link">
+                        <img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/>
+                        <div class="is-overlay-number">05</div>
+                    </a>
+                    <div class="is-member-hover">
+                        <div class="is-member-profile-header">
+                            <h3>Jonathan  Cring </h3>
+                            <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
+                        </div>
+                        <div class="is-member-profile-body">
+                            <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
+                            <div class="is-profile-tag">
+                                <span class="is-tag is-red">Entertainment</span>
+                                <span class="is-tag is-purple">Opinion</span>
+                                <span class="is-tag is-yellow">Life and Styles</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
             </div>
         <div class="is-more-btn">
-            <button nz-button nzType="primary" class="is-see-more">VIEW ALL <br /> TODAY'S STORIES</button>
+            <button nz-button nzType="primary" class="is-see-more">View all today's stories</button>
         </div>
     </div>
 
 </section>
-<!-- <section id="follower-suggestions">
-    <img src="assets/images/placeholders/home-members.png" width="100%" />
-</section> -->
 
-
-<section class="cat-box line-bottom" *ngFor="let category of categories">
-    <div class="container-fluid">
+<section class="is-cat-box-card-main">
+    <div class="cat-box" *ngFor="let category of categories">
+    <div class="container">
         <div class="cat-box-title">
-            <h2 [ngClass]="category.class" class="no-padding no-margin">
+            <div class="is-comman-title">
+                {{category.title}}
+            </div>
+            <!-- <h2 [ngClass]="category.class" class="no-padding no-margin">
                 <a [ngClass]="category.class" [routerLink]="['/category/', category.slug]">
                     {{category.title}}
                 </a>
-            </h2>
-            <span>
-                <a [routerLink]="['/category/', category.slug]" [ngClass]="category.class">
-                    Show more {{category.title}} <i class="fa fa-angle-right"></i>
-                </a>
-            </span>
+            </h2> -->
+            
         </div>
         <div class="cat-box-gallery">
             <div class="row article-row">
-
                 <div class="col-sm-15" *ngFor="let article of category.articles">    
 
                     <div class="item-card item-card-life-and-styles">
-                        <a [routerLink]="article.slug"  [ngClass]="category.class">
+                        <a [routerLink]="article.slug">
                             <div class="item-card-image">
                                 <img [src]="article.featured_imageObj.image" [alt]="article.featured_imageObj.title">
+                                <h3 class="is-category-title">{{article.categoryObj.title}}</h3>
                             </div>
                             <div class="item-card-content">
                                 <div class="item-card-category cat-yellow">
-                                    <h3 [ngClass]="category.class">{{article.categoryObj.title}}</h3>
-                                    <div class="pull-right">
-                                        <span class="item-card-author">{{article._author}}</span>
+                                    <div class="is-avatar-dv">
                                         <img class="avatar" [src]="article.authorObj.avatarObj.image" [alt]="article._author">
+                                        <span class="item-card-author">{{article._author}}</span>
                                     </div>
                                 </div>
                                 <div class="item-card-title">
@@ -261,6 +342,7 @@
                                 </div>
                                 <div class="item-card-texte">
                                     <p>{{article.summary}}</p>
+                                    <button type="button" class="is-read-more">Read More <img src="assets/images/read-more-icon-red.png" /></button>
                                 </div>
                             </div>
                         </a>
@@ -268,10 +350,14 @@
 
 
                 </div>
-
-
+                <div class="is-card-arrow">
+                    <a [routerLink]="['/category/', category.slug]">
+                        <!-- Show more {{category.title}}  -->
+                        <img src="assets/images/right-arrow.png" />
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
+    </div></div>
 </section>
 

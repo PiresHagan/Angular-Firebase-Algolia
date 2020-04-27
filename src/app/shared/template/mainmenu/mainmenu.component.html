@@ -2,7 +2,8 @@
     <nz-layout class="layout">
         <nz-sider nzCollapsible nzBreakpoint="lg" [nzCollapsedWidth]="0">
     <ul nz-menu [nzMode]="'horizontal'" nzTheme="dark">
-        <li nz-menu-item *ngFor="let item of (categories | async)" [routerLink]="['/category', item.slug]" [ngClass]="[item.bg_color_class]">{{item.title}}</li>
+        <li nz-menu-item *ngFor="let item of (categories | async)" [routerLink]="['/category', item.slug]">{{item.title}}</li>
+        
         <!-- <li nz-menu-item [routerLink]="['/category']">Business</li>
         <li nz-menu-item [routerLink]="['/category']">News</li>
         <li nz-menu-item [routerLink]="['/category']">Sport</li>

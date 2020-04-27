@@ -1,27 +1,102 @@
 
 /*Hero Section*/
+
+.is-read-more{
+  background: transparent;
+  border:0px;
+  color:#ffff;
+  display: flex;
+  align-items: center;
+  font-family: "josefin_sansregular";
+  font-size: 25px;
+  padding-left: 0px;
+  outline: none;
+  position: relative;
+  cursor: pointer;
+  padding: 0px;
+  &:before{
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 1px;
+    background: #fff;
+  }
+  img{
+    margin-left: 10px;
+  }
+}
 .is-hero{
-  .row,.col-sm{
+  .row, .col-sm{
     padding: 0px;
     margin: 0px;
+  }
+  .is-row-height{
+    height: 400px;
+    &.pt-18{
+      padding-top: 18px;
+    }
   }
   .is-hero-card{
     width:100%;
     height: 100%;
     position: relative;
     display: inline-block;
-    padding: 50px;
-   
-
+    padding: 25px;
     overflow: hidden;
     &:after{
       content: '';
       position: absolute;
       width:100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.65);
       top:0px;
       left:0px;
+    }
+    .is-profile-main{
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      .divider{
+        width: 100%;
+        height: 1px;
+        background: #fff;
+        margin: 0px 10px;
+      }
+      .is-card-author-group{
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        flex: 1;
+        white-space: nowrap;
+      img{
+        width: 55px;
+        height: 55px;
+        border-radius: 100%;
+
+      }
+      .is-card-author{
+        font-size: 15px;
+        color: #fff;
+        margin-left: 10px;
+        font-family: "josefin_sansregular";
+      }
+    }
+    .is-card-btn{
+      flex: 1;
+        white-space: nowrap;
+      text-align: right;
+      button{
+        color: #fff;
+        font-family: "josefin_sansregular";
+        font-size: 20px;
+        background: transparent;
+        border: 0px;
+      }
+    }
     }
 
     .is-card-bg{
@@ -39,37 +114,39 @@
     }
     .is-card-content{
       position: relative;
-      max-width: 340px;
+      max-width: 90%;
       z-index: 1;
       .is-small-title{
-        font-size: 38px;
+        font-size: 45px;
         color: #fff;
-
+        padding-top: 20px;
+        line-height: normal;
+        font-family: 'josefin_sansbold';
+        position: relative;
+        padding-bottom: 25px;
+        margin-bottom: 25px;
+        div{
+          line-height: 60px;
+        }
         span{
+          font-family: "josefin_sansregular";
           display: block;
-          color: #f64747;
-          font-size: 22px;
-          text-transform: uppercase;
-          &:hover{
-            color: #fff;
-          }
-        }
-      }
-      .is-card-author-group{
-          display:flex;
-          align-items: center;
-        img{
-          width: 32px;
-          height: 32px;
-          border-radius: 100%;
-
-        }
-        .is-card-author{
-          font-size: 12px;
           color: #fff;
-          margin-left: 10px;
+          font-size: 20px;
+          text-transform: capitalize;
+          padding-bottom: 20px;
+        }
+        &:before{
+          content: '';
+          position: absolute;
+          bottom: 0px;
+          left: 0px;
+          width: 60px;
+          height: 3px;
+          background: #fff;
         }
       }
+    
       .is-card-btn{
         display: inline-block;
         margin: 15px 0px 10px 0px;
@@ -85,10 +162,12 @@
         }
       }
       .is-card-description{
-        font-size: 14px;
+        font-size: 21px;
         color: #fff;
         line-height: 24px;
+        font-family: 'open_sansregular';
       }
+     
     }
     &.is-small-card{
       padding: 15px;
@@ -102,9 +181,6 @@
         margin-top: 10px;
       }
       .is-card-content{
-        position: absolute;
-        left: 15px;
-        bottom: 0px;
         width: calc(100% - 30px);
         max-width: 100%;
       }
@@ -114,36 +190,59 @@
     }
   }
 }
+
+
+.is-comman-title{
+  color: #000;
+  padding: 40px 0px 12px 0px;
+  font-weight: bold;
+  font-size: 32px;
+  width: 100%;
+  text-align: center;
+  font-family: "josefin_sanssemibold";
+  position: relative;
+  margin-bottom: 30px;
+  &::before{
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    width: 60px;
+    height: 2px;
+    background: #000;
+    margin: auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+
+
 /*Follow Member*/
 .is-follower-member{
   background-color: #fff;
-  padding:0px;
-  .row{
-    margin:0px;
+  padding:0px 0px 0px 0px;
+  .container{
+    width: 1780px;
+    margin: auto;
+    padding: 0px 15px;
+  }
     .col-lg-1{
       padding: 0px;
     }
   
-    .is-follower-title{
-      background-color: #abb0b7;
-      color: #FFF;
-      padding: 25px 15px;
-      float: left;
-      text-transform: uppercase;
-      font-weight: bold;
-      font-size: 14px;
-      line-height: 18px;
-      max-width: 135px;
-    }
     .is-member{
       display: flex;
       -webkit-box-pack: center;
       justify-content: center;
-      width: calc(100% - 285px);
+      width: 100%;
       align-items: center;
+      padding-top: 80px;
+      
       .is-member-item{
         margin: 0px 10px;
         position: relative;
+        width: 20%;
+        padding: 0px 20px;
         
         .is-member-hover{
           width: 275px;
@@ -152,8 +251,8 @@
           overflow: hidden;
           position: absolute;
           z-index: 10;
-          bottom: 65px;
-          right: -112px;
+          bottom: 225px;
+          right: 0px;
           display: none;
           border-radius: 10px;
           padding-bottom: 20px;
@@ -231,28 +330,26 @@
         }
       }
       .is-profile-img-link{
-        width: 60px;
-        height: 60px;
-        overflow: hidden;
-        border-radius: 100px;
         display: block;
-        border: 2px solid #ccc;
         -webkit-transition: all .5s ease;
         transition: all .5s ease;
-        -webkit-transform: scale(1) translate3d(0,0,0);
-        transform: scale(1) translate3d(0,0,0);
-        vertical-align: top;
         cursor: pointer;
         background-color: #abb0b7;
+        position: relative;
+        .is-overlay-number{
+          position: absolute;
+          font-size: 120px;
+          font-family: "josefin_sanssemibold";
+          color: #f5f5f5;
+          top: -100px;
+          left: -40px;
+          z-index: 1;
+        }
         .is-profile{
-              max-width: 100%;
+            width: 100%;
+            position: relative;
+            z-index: 3;
           }
-      &:hover {
-          -webkit-transform: scale(1.1) translate3d(0,0,0);
-          transform: scale(1.1) translate3d(0,0,0);
-          border-color: #ff4020;
-     
-      }
 
     }
 
@@ -292,31 +389,62 @@
     animation-delay: 300ms;
 }
     .is-more-btn{
-      color: #FFF;
-      width: 150px;
-      float: right;
+      padding-top: 50px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
       .is-see-more{
-        font-size: 14px;
+        font-size: 24px;
         background: #f64747;
         border: 0px;
         color: #fff;
-        line-height: 18px;
-        padding: 25px 15px;
-        text-align: right;
-        width: 100%;
+        padding: 15px 35px;
         cursor: pointer;
+        font-family: "josefin_sanssemibold";
+        border-radius: 55px;
+        line-height: 26px;
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        outline: none;
       }
     }
-  }
+
 
 }
 /*new*/
+.is-cat-box-card-main{
+  padding-bottom: 40px;
+  background: #fff;
+}
 .cat-box {
+  .container{
+    width: 1780px;
+    margin: auto;
+    padding: 0px 15px;
+  }
+  .is-card-arrow{
+    width: 60px;
+    height: 60px;
+    background: #f64747;
+    border-radius: 100%;
+    display: -webkit-box;
+    display: flex;
+    position: absolute;
+    right: -20px;
+    transform: translate(-50%, -50%);
+    top: 35%;
+    a{
+      margin: auto;
+      color:#fff
+    }
+  }
   .item-card {
     overflow: hidden;
     min-height: 455px;
     background: #fff;
-    box-shadow: 0px 16px 9px 1px rgba(0,0,0,0.03);
+    box-shadow: 0px 4px 7px 1px rgba(0, 0, 0, 0.1);
     position: relative;
     a {
       display: block;
@@ -338,25 +466,33 @@
 
         .item-card-title{
           h4 {
-            font-family: "Ubuntu", sans-serif;
-            font-size: 20px;
-            font-weight: bold;
-            color:#000;
+            font-family: "josefin_sanssemibold";
+            font-size: 18px;
+            color: #535353;
+            line-height: 26px;
+            margin-top: 20px;
           }
         }
         .item-card-texte {
           p {
-            font-family: "Open Sans", sans-serif;
-            font-size: 14px;
+            font-family: "open_sansregular";
+            font-size: 16px;
             font-weight: normal;
-            color:#000;
+            color: #535353;
+            line-height: normal;
+          }
+          .is-read-more{
+            color: #ff4020;
+            font-size: 18px;
+            &:before{
+              background: #ff4020;
+            }
           }
         }
         
         .avatar {
-          width: 32px;
-          height: 32px;
-          margin-left: 5px;
+          width: 55px;
+          height: 55px;
           color: transparent;
           border-radius: 100%;
           -webkit-transition: all 0.5s ease;
@@ -373,12 +509,24 @@
           display: block;
           width: 100%;
           height: 3px;
-          background-color: #fbca20;
+          background-color: #ff4020;
           position: absolute;
           top: 0;
           left: -100%;
           -webkit-transition: all 0.5s ease;
           transition: all 0.5s ease;
+        }
+        .is-category-title{
+          position: absolute;
+          bottom: 0px;
+          left: 0px;
+          background: #ff4020;
+          padding: 5px 10px;
+          color: #fff;
+          font-family: "josefin_sansregular";
+          font-size: 16px;
+          margin: 0px;
+          line-height: 18px;
         }
 
 
@@ -395,21 +543,20 @@
       left: 0;
   }
   .item-card-category{
-  .item-card-author {
-    font-family: "Ubuntu", sans-serif;
-    font-size: 12px;
-    display: inline-block;
-    color: #000;
-  }
+    .is-avatar-dv{
+      .item-card-author {
+        font-family: "josefin_sansregular";
+        font-size: 16px;
+        display: inline-block;
+        color: #000;
+        margin-left: 10px;
+        font-weight: 600;
+      }
+    }
+  
 }
     }
-   
-
-  background-color: #eee;
-  padding-top: 40px;
-  padding-bottom: 47px;
-
-
+  background: #fff;
   .container-fluid {
     padding-right: 15px;
     padding-left: 15px;
@@ -440,6 +587,7 @@
 
   .article-row {
     padding-top: 29px;
+    position: relative;
   }
 
   .col-sm-15 {

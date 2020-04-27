@@ -1,26 +1,38 @@
 .mainmenu {
-    background: #000000;
     border-bottom: 0;
-    position: fixed;
-    top: 70px;
     width: 100%;
     z-index: 1000;
     display: -webkit-box;
     display: flex;
     text-transform: uppercase;
-    .layout {
-        background-color: #000;
+    .layout{
+        background: transparent;
+        .ant-layout-sider{
+            background: transparent;
+            flex:0 0 100% !important;
+            max-width: 100% !important;
+            min-width: 100% !important;
+            width:100% !important;
+            .ant-menu-item{
+                padding: 0px 10px;
+                text-transform: capitalize;
+                color: #4c4040;
+                &:hover{
+                    color:#f64747;
+                }
+            }
+        }
+    }
+    
+    .ant-menu-dark{
+        background-color: transparent;
     }
 }
 
-.ant-menu-dark .ant-menu-item,
-.ant-menu-dark .ant-menu-item-group-title {
-}
 
 .ant-menu-dark.ant-menu-horizontal > .ant-menu-item,
 .ant-menu-dark.ant-menu-horizontal > .ant-menu-submenu {
-    background: #000000 !important;
-    color: #ffffff !important;
+    color: #000000;
     &:focus, &::selection {outline:0;}
 
     &:hover{
