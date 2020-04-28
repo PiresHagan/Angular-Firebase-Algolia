@@ -70,4 +70,36 @@ export class ArticleService {
         );
   }
 
+  getCategoryFirst(slug:string){
+    return this.db.collection<Article[]>('posts', ref => ref
+          .where('categoryObj.slug', '==', slug)
+          .orderBy('created_at', 'desc')
+          .limit(1)
+        ).snapshotChanges().pipe(
+          map(actions => {
+            return actions.map(a => {
+              const data = a.payload.doc.data();
+              const id = a.payload.doc.id;
+              return { id, ...data };
+            });
+          })
+        );
+  }
+
+  getCategory(slug:string){
+    return this.db.collection<Article[]>('posts', ref => ref
+          .where('categoryObj.slug', '==', slug)
+          .orderBy('created_at', 'desc')
+          .limit(30)
+        ).snapshotChanges().pipe(
+          map(actions => {
+            return actions.map(a => {
+              const data = a.payload.doc.data();
+              const id = a.payload.doc.id;
+              return { id, ...data };
+            });
+          })
+        );
+  }
+
 }

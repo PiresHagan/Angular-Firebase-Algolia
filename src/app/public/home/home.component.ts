@@ -24,12 +24,10 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.articleService.getHeroLargeArticle().subscribe( article => {
       this.heroLarge = article[0];
-      console.log('Hero Large', this.heroLarge);
     });
     
     this.articleService.getHeroSmallArticle().subscribe( articles => {
       this.heroSmall = articles;
-      console.log('Hero Small', articles);
     });
 
     this.articleService.getCategoryRow('business').subscribe( articles => {
@@ -41,7 +39,6 @@ export class HomeComponent implements OnInit {
         'item-card': 'item-card-business',
       };
       this.categories.push(category);
-      console.log('Business', articles);
     });
 
     this.articleService.getCategoryRow('creative').subscribe( articles => {
@@ -53,7 +50,6 @@ export class HomeComponent implements OnInit {
         'item-card': 'item-card-creative',
       };
       this.categories.push(category);
-      console.log('Creative', articles);
     });
 
     this.articleService.getCategoryRow('entertainment').subscribe( articles => {
@@ -65,7 +61,6 @@ export class HomeComponent implements OnInit {
         'item-card': 'item-card-entertainment',
       };
       this.categories.push(category);
-      console.log('Entertainment', articles);
     });
 
     this.articleService.getCategoryRow('life-and-styles').subscribe( articles => {
@@ -77,7 +72,6 @@ export class HomeComponent implements OnInit {
         'item-card': 'item-card-life-and-styles',
       };
       this.categories.push(category);
-      console.log('life-and-styles', articles);
     });
 
     this.articleService.getCategoryRow('news').subscribe( articles => {
@@ -89,7 +83,6 @@ export class HomeComponent implements OnInit {
         'item-card': 'item-card-news',
       };
       this.categories.push(category);
-      console.log('news', articles);
     });
 
     this.articleService.getCategoryRow('religion').subscribe( articles => {
@@ -101,7 +94,6 @@ export class HomeComponent implements OnInit {
         'item-card': 'item-card-religion',
       };
       this.categories.push(category);
-      console.log('religion', articles);
     });
 
     this.articleService.getCategoryRow('tech-and-science').subscribe( articles => {
@@ -113,7 +105,6 @@ export class HomeComponent implements OnInit {
         'item-card': 'item-card-tech-and-science',
       };
       this.categories.push(category);
-      console.log('tech-and-science', articles, this.categories);
     });
   }
 
