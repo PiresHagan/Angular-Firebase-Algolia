@@ -305,7 +305,7 @@
   border-bottom: 2px solid #e8eaec;
 }
 .main-content{
-  padding-top: 60px !important;
+  padding-top: 90px !important;
 }
 /*********************************************************
               Custom Fonts Css
@@ -367,13 +367,30 @@
               Custom Fonts Css End
 ********************************************************/
 
-@media screen and (max-width:991px){
+@media screen and (max-width:992px){
    
   .ant-layout-sider-zero-width-trigger{
-      top:81px !important;
-      background: #000;
+    top: -21px !important;
+    background: #ff4020 !important;
+    border-radius: 4px;
   }
 
+  .main-content {
+    padding-top: 100px !important;
+}
 
+}
 
+@media screen and (minn-width:767px) and (max-width:992px){
+  
+  .main-content {
+    padding-top: 140px !important;
+}
+
+}
+
+@media screen and (min-width:993px) and (max-width:1425px){
+.main-content {
+  padding-top: 140px !important;
+}
 }

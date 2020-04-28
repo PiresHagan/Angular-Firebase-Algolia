@@ -1,35 +1,84 @@
 .header{
     box-shadow: 0px 0px 10px 8px rgba(0,0,0,.02);
-    .container{
-        width:1780px;
-        margin: auto;
-        padding: 0px 15px;
     .vertical-center{
         display: flex;
         align-items: center;
         justify-content: center;
     }
-    .nav-right{
-        li{
-            a{
-                &:hover{
-                    background-color: transparent;
+
+.nav-right{
+    li{
+        a{
+            &:hover{
+                background-color: transparent;
+            }
+        }
+        
+        .is-login-link{
+            color: #000;
+            font-weight: 500;
+        }
+        .is-sign-up-btn{
+            border-radius: 30px;
+            font-size: 18px;
+            outline: none;
+        }
+    }
+}
+}
+
+.vertical-center{
+    .nav-wrap {
+        -webkit-box-pack: end;
+        justify-content: flex-end;
+    }
+}
+@media screen and (max-width:992px){
+    .header{
+        .nav-wrap{
+            .nav-right{
+                li{
+                    .is-sign-up-btn{
+                        padding: 5px 10px;
+                        font-size: 14px;
+                    }
                 }
             }
-            
-            .is-login-link{
-                color: #000;
-                font-weight: 500;
-            }
-            .is-sign-up-btn{
-                border-radius: 30px;
-                font-size: 18px;
-                outline: none;
+        }
+        
+}
+}
+
+@media screen and (max-width:993px){
+    .header{
+        height: 130px;
+        top:-1px;
+        .border-xs{
+            border-bottom: 1px solid #eee;
+        .logo{ 
+            &.logo-dark{
+                display: flex !important;
+                text-align: center;
+                justify-content: center;
+                margin: auto;
+                max-width: 200px;
             }
         }
     }
-    
 }
 }
+
+
+
+@media screen and (min-width:993px) and (max-width:1199px){
+    .header{
+        height: 130px;
+        top:-1px;
+        .border-xs{
+            border-bottom: 1px solid #eee;
+    }
+  }
+  }
+
 
 
