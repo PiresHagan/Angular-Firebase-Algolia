@@ -1,41 +1,43 @@
 <div class="header">
     <div class="container">
         <div class="row">
-    <div class="col-2">
-        <div class="logo logo-dark">
-            <a href="">
-                <img src="assets/images/logo/logo-white.png" alt="Logo">
-                <img class="logo-fold" src="assets/images/logo/logo-white.png" alt="Logo">
-            </a>
-        </div>
-        <div class="logo logo-white">
-            <a href="">
-                <img src="assets/images/logo/logo-white.png" alt="Logo">
-                <img class="logo-fold" src="assets/images/logo/logo-fold-white.png" alt="Logo">
-            </a>
-        </div>
-    </div>
-    <div class="col-8 vertical-center"><app-mainmenu></app-mainmenu></div>
-    <div class="col-2 vertical-center">
-        <div class="nav-wrap">
-            <ul class="nav-right">
-    
-                <li>
-                    <a routerLink="/auth/login" class="is-login-link">
-                        <!-- <i nz-icon nzType="user" theme="outline"></i> -->
-                        Login
+            <div class="col-2">
+                <div class="logo logo-dark">
+                    <a href="">
+                        <img src="assets/images/logo/logo-white.png" alt="Logo">
+                        <img class="logo-fold" src="assets/images/logo/logo-white.png" alt="Logo">
                     </a>
-                </li>
-    
-                <li>
-                    <button routerLink="/auth/signup" nz-button nzType="primary" class="is-sign-up-btn">
-                        Sign up
-                        <img  src="assets/images/sign-up.png" alt="sign up icon">
-                    </button>
-                </li>
-    
-                <!-- TODO add the language dropdown -->
-                <!-- <li>
+                </div>
+                <div class="logo logo-white">
+                    <a href="">
+                        <img src="assets/images/logo/logo-white.png" alt="Logo">
+                        <img class="logo-fold" src="assets/images/logo/logo-fold-white.png" alt="Logo">
+                    </a>
+                </div>
+            </div>
+            <div class="col-8 vertical-center">
+                <app-mainmenu></app-mainmenu>
+            </div>
+            <div class="col-2 vertical-center">
+                <div class="nav-wrap">
+                    <ul class="nav-right">
+
+                        <li>
+                            <a routerLink="/auth/login" class="is-login-link">
+                                <!-- <i nz-icon nzType="user" theme="outline"></i> -->
+                                Login
+                            </a>
+                        </li>
+
+                        <li>
+                            <button routerLink="/auth/signup" nz-button nzType="primary" class="is-sign-up-btn">
+                                Sign up
+                                <img src="assets/images/sign-up.png" alt="sign up icon">
+                            </button>
+                        </li>
+
+                        <!-- TODO add the language dropdown -->
+                        <!-- <li>
                     <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="popNotification" [nzPlacement]="'bottomRight'">
                         <nz-badge nzDot>
                             <i nz-icon nzType="bell" theme="outline"></i>
@@ -72,7 +74,7 @@
                         </div>
                     </nz-dropdown-menu>
                 </li> -->
-                <!-- <li>
+                        <!-- <li>
                     <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="popLanguage" [nzPlacement]="'bottomRight'">
                         EN
                     </a>
@@ -105,7 +107,7 @@
                         </ul>
                     </nz-dropdown-menu>
                 </li> -->
-                <!-- <li>
+                        <!-- <li>
                     <span class="p-h-10 pointer" nz-dropdown [nzDropdownMenu]="profile" [nzTrigger]="'click'" [nzPlacement]="'bottomRight'">
                         <nz-avatar [nzIcon]="'user'" nzSrc="assets/images/avatars/thumb-3.jpg"></nz-avatar>
                     </span>
@@ -159,7 +161,7 @@
                         </ul>
                     </nz-dropdown-menu >
                 </li> -->
-                <!-- <li class="hide">
+                        <!-- <li class="hide">
                     <a (click)="quickViewToggle()">
                         <i nz-icon nzType="appstore" theme="outline"></i>
                     </a>
@@ -167,8 +169,9 @@
                         <app-quick-view></app-quick-view>
                     </nz-drawer>
                 </li> -->
-            </ul>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div></div>
-</div>
+    </div>
 </div>
