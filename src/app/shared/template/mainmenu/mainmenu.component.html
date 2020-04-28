@@ -13,6 +13,15 @@
         <li nz-menu-item [routerLink]="['/category']">Tech and science</li>
         <li nz-menu-item [routerLink]="['/category']">Viral</li>
         <li nz-menu-item [routerLink]="['/category']">Entertainment</li> -->
+
+        <li nz-menu-item>
+            <a (click)="searchToggle()">
+                <i nz-icon nzType="search" theme="outline"></i>
+            </a>
+            <nz-drawer [nzWidth]="380" nzTitle="Search" [nzVisible]="searchVisible" nzPlacement="right" (nzOnClose)="searchToggle()">
+                <app-search></app-search>
+            </nz-drawer>
+        </li>
     </ul>
     </nz-sider>
     </nz-layout>

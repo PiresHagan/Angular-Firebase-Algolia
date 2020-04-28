@@ -21,15 +21,6 @@
             <ul class="nav-right">
     
                 <li>
-                    <a (click)="searchToggle()">
-                        <i nz-icon nzType="search" theme="outline"></i>
-                    </a>
-                    <nz-drawer [nzWidth]="380" nzTitle="Search" [nzVisible]="searchVisible" nzPlacement="right" (nzOnClose)="searchToggle()">
-                        <app-search></app-search>
-                    </nz-drawer>
-                </li>
-    
-                <li>
                     <a routerLink="/auth/login" class="is-login-link">
                         <!-- <i nz-icon nzType="user" theme="outline"></i> -->
                         Login

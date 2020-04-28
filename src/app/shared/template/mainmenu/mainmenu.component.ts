@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 export class MainmenuComponent implements OnInit {
 
   categories: Observable<Category[]>;
+  searchVisible: boolean = false;
 
   constructor(private categoryService: CategoryService) { }
 
@@ -18,6 +19,10 @@ export class MainmenuComponent implements OnInit {
     this.categories = this.categoryService.getAll();
 
     console.log('Categories', this.categories);
+  }
+
+  searchToggle(): void {
+    this.searchVisible = !this.searchVisible;
   }
 
 }
