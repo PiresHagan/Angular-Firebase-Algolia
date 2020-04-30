@@ -367,6 +367,17 @@
               Custom Fonts Css End
 ********************************************************/
 
+.is-article-block{  
+  .is-article-sec{
+    .at-label{
+      display: none;
+    }
+    }
+ 
+    
+}
+
+
 @media screen and (max-width:992px){
    
   .ant-layout-sider-zero-width-trigger{
