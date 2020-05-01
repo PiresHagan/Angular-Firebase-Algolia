@@ -7,7 +7,8 @@ import { UserService } from '../../shared/services/user.service';
 import { User } from 'src/app/shared/interfaces/user.type';
 
 @Component({
-    templateUrl: './sign-up.component.html'
+    templateUrl: './sign-up.component.html',
+    styleUrls: ['./sign-up.component.scss']
 })
 
 export class SignUpComponent {

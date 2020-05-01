@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-copywriter1',
   templateUrl: './copywriter1.component.html',
-  styleUrls: ['./copywriter1.component.css']
+  styleUrls: ['./copywriter1.component.scss']
 })
 export class Copywriter1Component implements OnInit {
 
