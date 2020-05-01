@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Copywritter1Component } from './copywritter1.component';
+import { Copywriter2Component } from './copywriter2.component';
 
-describe('Copywritter1Component', () => {
-  let component: Copywritter1Component;
-  let fixture: ComponentFixture<Copywritter1Component>;
+describe('Copywriter2Component', () => {
+  let component: Copywriter2Component;
+  let fixture: ComponentFixture<Copywriter2Component>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ Copywritter1Component ]
+      declarations: [ Copywriter2Component ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Copywritter1Component);
+    fixture = TestBed.createComponent(Copywriter2Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

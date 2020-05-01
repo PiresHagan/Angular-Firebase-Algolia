@@ -4,8 +4,8 @@ import { HomeComponent } from './home/home.component';
 import { CategoryComponent } from './category/category.component';
 import { ArticleComponent } from './article/article.component';
 import { ProfileComponent } from './profile/profile.component';
-import { Copywritter1Component } from './copywritter1/copywritter1.component';
-import { Copywritter2Component } from './copywritter2/copywritter2.component';
+import { Copywriter1Component } from './copywriter1/copywriter1.component';
+import { Copywriter2Component } from './copywriter2/copywriter2.component';
 
 
 const routes: Routes = [
@@ -42,18 +42,18 @@ const routes: Routes = [
     }
   },
   {
-    path: 'copywritter1',
-    component: Copywritter1Component,
+    path: 'copywriter1',
+    component: Copywriter1Component,
     data: {
-      title: 'Copywritter version 1',
+      title: 'Copywriter version 1',
       headerDisplay: "none"
     }
   },
   {
-    path: 'copywritter2',
-    component: Copywritter2Component,
+    path: 'copywriter2',
+    component: Copywriter2Component,
     data: {
-      title: 'Copywritter version 2',
+      title: 'Copywriter version 2',
       headerDisplay: "none"
     }
   },

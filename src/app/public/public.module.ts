@@ -6,12 +6,12 @@ import { HomeComponent } from './home/home.component';
 import { CategoryComponent } from './category/category.component';
 import { ArticleComponent } from './article/article.component';
 import { ProfileComponent } from './profile/profile.component';
-import { Copywritter1Component } from './copywritter1/copywritter1.component';
-import { Copywritter2Component } from './copywritter2/copywritter2.component';
+import { Copywriter1Component } from './copywriter1/copywriter1.component';
+import { Copywriter2Component } from './copywriter2/copywriter2.component';
 
 
 @NgModule({
-  declarations: [HomeComponent, CategoryComponent, ArticleComponent, ProfileComponent, Copywritter1Component, Copywritter2Component],
+  declarations: [HomeComponent, CategoryComponent, ArticleComponent, ProfileComponent, Copywriter1Component, Copywriter2Component],
   imports: [
     CommonModule,
     PublicRoutingModule
