@@ -1,7 +1,8 @@
 {
   "hosting": [
     {
-      "site": "website-mts-dev",
+      "target": "dev",
+      "site": "mytrendongstories-dev",
       "public": "dist",
       "ignore": [
         "firebase.json",
@@ -16,22 +17,8 @@
       ]
     },
     {
-      "target": "enlink",
-      "public": "dist",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
-      "target": "enlink",
+      "target": "test",
+      "site": "mytrendongstories-test",
       "public": "dist",
       "ignore": [
         "firebase.json",

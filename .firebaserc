@@ -5,8 +5,11 @@
   "targets": {
     "my-trending-stories-dev": {
       "hosting": {
-        "enlink": [
-          "my-trending-stories-dev"
+        "dev": [
+          "mytrendingstories-dev"
+        ],
+        "test": [
+          "mytrendingstories-test"
         ]
       }
     }
