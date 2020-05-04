@@ -1,5 +1,5 @@
 .footer {
-    background-color: #ff4020;
+    background-color: #ccc;
     padding: 50px 0px 0px 0px;
     .footer-content{
         height: auto;
@@ -13,12 +13,46 @@
            a{
                width:50px;
                height: 50px;
-               background: #fff;
                border-radius: 100%;
                display: flex;
                margin: 0px 5px;
-               img{
+              
+               .fab{
                    margin: auto;
+                   font-size: 28px;
+
+               }
+               &.fb{
+                color:#3b5998;
+                &:hover{
+                    background:#3b5998;
+                    color:#fff;
+                }
+               }
+
+               &.twitter{
+                color:#03a9f4;
+                &:hover{
+                    background:#03a9f4;
+                    color:#fff;
+                }
+               }
+
+
+               &.fb-messenger{
+                color:#1e88e5;
+                &:hover{
+                    background:#1e88e5;
+                    color:#fff;
+                }
+               }
+
+               &.whatsapp{
+                color:#4caf50;
+                &:hover{
+                    background:#4caf50;
+                    color:#fff;
+                }
                }
            }
        }
@@ -26,15 +60,17 @@
            text-align: center;
            padding-top: 20px;
            a{
-               color:#fff;
+               color:#000;
                font-size: 18px;
+               font-family: "open_sansregular";
            }
        }
 }
 p{
-    color: #fff;
+    color: #000;
     padding: 10px 0px;
-    background: #1c1c1c;
+    background: #c6c6c6;
+    font-family: "open_sansregular";
 }
 }
 

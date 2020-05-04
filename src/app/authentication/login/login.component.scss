@@ -178,7 +178,12 @@
         }
     }
 }
-
+::ng-deep .ant-card-bordered{
+    border:0px;
+}
+a{
+    cursor: pointer;
+}
 @media screen and (max-width:580px){
     .is-signup-main{
         height: 100%;

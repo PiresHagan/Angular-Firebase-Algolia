@@ -107,7 +107,7 @@
      max-width: 90%;
      z-index: 1;
      .is-small-title{
-       font-size: 45px;
+       font-size: 33px;
        color: #fff;
        padding-top: 20px;
        line-height: normal;
@@ -116,7 +116,7 @@
        padding-bottom: 25px;
        margin-bottom: 25px;
        div{
-         line-height: 60px;
+         line-height: 42px;
          color: #000;
        }
        span{
@@ -168,7 +168,7 @@
        max-width: 100%;
      }
      .is-card-description{
-       font-size: 19px;
+       font-size: 16px;
      }
    }
  }
@@ -351,7 +351,7 @@
     margin: 0px;
   }
   .container{
-    width: 1780px;
+    max-width: 1280px;
     margin: auto;
     padding: 0px 15px;
   }
@@ -377,6 +377,7 @@
     background: #fff;
     box-shadow: 0px 4px 7px 1px rgba(0, 0, 0, 0.1);
     position: relative;
+    margin-bottom: 18px;
     a {
       display: block;
       position: absolute;
@@ -605,6 +606,7 @@
   }
 }
 @media screen and (max-width:580px){
+ 
   .is-pagination-link{
     li{
       a{ 
@@ -668,7 +670,7 @@
             }
           }
           .is-card-description{
-            font-size: 18px;
+            font-size: 16px;
           }
           .is-read-more{
             font-size: 18px;;
@@ -727,11 +729,25 @@
   .first{
     display: none !important;
   }
-
+  .title-row{
+    .right-btn-bar{
+      margin-top: 30px;
+      .category-newsletter-container{
+        .form-group{
+          .newsletter-input{
+            width: 170px !important;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
 }
+
 @media screen and (max-width:360px){
   .title-row{
     .right-btn-bar{
+      margin-top: 30px;
       .category-newsletter-container{
         .form-group{
           .newsletter-input{
@@ -746,7 +762,11 @@
 }
 
 @media screen and (min-width:581px) and (max-width:767px){
-
+  .title-row{
+    .right-btn-bar{
+      margin-top: 30px;
+    }
+  }
 .is-comman-title{
   font-size: 28px;
   margin-bottom: 0px;
@@ -779,7 +799,11 @@
 }
 
 @media screen and (min-width:768px) and (max-width:991px){
-
+  .title-row{
+    .right-btn-bar{
+      margin-top: 30px;
+    }
+  }
 .is-cat-box-card-main{
   .cat-box{
     .container{
@@ -806,7 +830,11 @@
 }
 }
 @media screen and (min-width:992px) and (max-width:1200px){
-
+  .title-row{
+    .right-btn-bar{
+      margin-top: 30px;
+    }
+  }
   .is-category-hero{ 
     padding-top: 50px;
     .is-hero-card{
@@ -845,7 +873,7 @@
             }
           }
           .is-card-description{
-            font-size: 14px;
+            font-size: 16px;
             line-height: normal;
           }
           .is-read-more{
