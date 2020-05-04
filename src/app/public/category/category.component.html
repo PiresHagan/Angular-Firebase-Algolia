@@ -1,38 +1,4 @@
-<section class="is-hero is-category-hero">
-    <div class="row">
-        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-            <div class="is-category-hero">
-                <img src="assets/images/category-hero.jpg" />
-            </div>
-        </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-            <a class="is-hero-card" href="#">
-                <div class="is-profile-main">
-                    <div class="is-card-author-group">
-                        <img class="avatar" src="assets/images/avatars/thumb-1.jpg" />&nbsp;
-                        <span class="is-card-author">Misti  Pyles </span>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="is-card-btn">
-                        <button nz-button nzType="primary">Entertainment</button>
-                    </div>
-                    
-                </div>
-                <div class="is-card-content">
-                   <h2  class="is-small-title">
-                       <span href="https://mytrendingstories.com/category/">Today's stories</span>
-                       <div>Liberation by Imogen Kealey (Review)</div>
-                   </h2> 
-                <p class="is-card-description">The must-read thriller inspired by the true story of Nancy Wake</p>
-                <button type="button" class="is-read-more">Read More <img src="assets/images/read-more-icon-red.png" /></button>
-                </div>
-            </a>
-        </div>
 
-       
-       
-    </div>
-</section>
 <section class="bg-white">
     <div class="container-fluid">
         <div class="title-row">
@@ -69,12 +35,47 @@
         <div class="is-comman-title">
             {{category.title}}
         </div>
+        <section class="is-hero is-category-hero">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                    <div class="is-category-hero">
+                        <img src="assets/images/category-hero.jpg" />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                    <a class="is-hero-card" href="#">
+                        <div class="is-profile-main">
+                            <div class="is-card-author-group">
+                                <img class="avatar" src="assets/images/avatars/thumb-1.jpg" />&nbsp;
+                                <span class="is-card-author">Misti  Pyles </span>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="is-card-btn">
+                                <button nz-button nzType="primary">Entertainment</button>
+                            </div>
+                            
+                        </div>
+                        <div class="is-card-content">
+                           <h2  class="is-small-title">
+                               <span href="https://mytrendingstories.com/category/">Today's stories</span>
+                               <div>Liberation by Imogen Kealey (Review)</div>
+                           </h2> 
+                        <p class="is-card-description">The must-read thriller inspired by the true story of Nancy Wake</p>
+                        <button type="button" class="is-read-more">Read More <img src="assets/images/read-more-icon-red.png" /></button>
+                        </div>
+                    </a>
+                </div>
+        
+               
+               
+            </div>
+        </section>
         <section class="is-cat-box-card-main">
         <div class="cat-box">
             <div class="container">
                 <div class="cat-box-gallery">
                     <div class="row article-row">
-                        <div class="col-sm-15" *ngFor="let article of articles">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let article of articles">
                             <div class="item-card item-card-life-and-styles">
                                 <a [routerLink]="article.slug">
                                     <div class="item-card-image">
