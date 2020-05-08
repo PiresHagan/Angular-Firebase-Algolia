@@ -6,6 +6,9 @@ import { ArticleComponent } from './article/article.component';
 import { ProfileComponent } from './profile/profile.component';
 import { Copywriter1Component } from './copywriter1/copywriter1.component';
 import { Copywriter2Component } from './copywriter2/copywriter2.component';
+import { ContactComponent } from './contact/contact.component';
+import { TermsComponent } from './terms/terms.component';
+import { FaqComponent } from './faq/faq.component';
 
 
 const routes: Routes = [
@@ -54,6 +57,30 @@ const routes: Routes = [
     component: Copywriter2Component,
     data: {
       title: 'Copywriter version 2',
+      headerDisplay: "none"
+    }
+  },
+  {
+    path: 'contact',
+    component: ContactComponent,
+    data: {
+      title: 'contact version 2',
+      headerDisplay: "none"
+    }
+  },
+  {
+    path: 'terms',
+    component: TermsComponent,
+    data: {
+      title: 'terms version 2',
+      headerDisplay: "none"
+    }
+  },
+  {
+    path: 'faq',
+    component: FaqComponent,
+    data: {
+      title: 'faq version 2',
       headerDisplay: "none"
     }
   },
