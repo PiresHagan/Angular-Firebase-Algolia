@@ -1,9 +1,8 @@
 .common-layout {
-    
     .page-container {
         min-height: 100vh;
         padding-left: $side-nav-width;
-        @include transition(all 0.2s ease); 
+        @include transition(all 0.2s ease);
 
         @include screen-laptop-only {
             padding-left: $side-nav-width-laptop;
@@ -11,24 +10,28 @@
 
         @include screen-tablet {
             padding-left: 0px;
-        }    
-        
+        }
+
         .main-content {
-            padding: calc(#{$header-height} + #{$main-nav-height} + #{$layout-content-gutter}) $layout-content-gutter $layout-content-gutter $layout-content-gutter;
-            padding: calc(#{$header-height} + #{$main-nav-height} ) 0 0 0;
+            // padding: calc(#{$header-height} + #{$main-nav-height} + #{$layout-content-gutter}) $layout-content-gutter
+            //     $layout-content-gutter $layout-content-gutter;
+            // padding: calc(#{$header-height} + #{$main-nav-height}) 0 0 0;
+            padding: 95px 25px 25px;
             min-height: calc(100vh - #{$footer-height});
 
             @include screen-mobile {
-                padding: calc(#{$header-height} + #{$layout-content-gutter-sm}) $layout-content-gutter-sm $layout-content-gutter-sm $layout-content-gutter-sm;
-            }   
-            
+                padding: calc(#{$header-height} + #{$layout-content-gutter-sm}) $layout-content-gutter-sm
+                    $layout-content-gutter-sm $layout-content-gutter-sm;
+            }
+
             .main-content-header {
                 @include screen-mobile-above {
                     display: flex;
                     align-items: center;
                 }
-                
-                padding-left: 5px; 
+
+                padding-left: 5px;
+                padding-bottom: 25px;
                 margin-bottom: $layout-content-gutter;
 
                 .page-title {
@@ -51,7 +54,7 @@
         margin-left: -$layout-content-gutter;
         margin-right: -$layout-content-gutter;
         margin-top: -$layout-content-gutter;
-        margin-bottom: $layout-content-gutter; 
+        margin-bottom: $layout-content-gutter;
         background-color: $white;
         border-bottom: 1px solid $border-color;
         padding: 25px 30px;
@@ -66,8 +69,8 @@
             margin-left: -$layout-content-gutter-sm;
             margin-right: -$layout-content-gutter-sm;
             margin-top: -$layout-content-gutter-sm;
-            margin-bottom: $layout-content-gutter-sm; 
-        }    
+            margin-bottom: $layout-content-gutter-sm;
+        }
     }
 
     .page-header-tab {
@@ -77,23 +80,22 @@
         @include screen-mobile {
             margin-left: -$layout-content-gutter-sm;
             margin-right: -$layout-content-gutter-sm;
-        }     
+        }
 
         .ant-tabs-bar {
-            background-color: $white; 
+            background-color: $white;
             padding-left: $layout-content-gutter;
             padding-right: $layout-content-gutter;
-            margin-bottom: $layout-content-gutter; 
+            margin-bottom: $layout-content-gutter;
 
             @include screen-mobile {
                 padding-left: $layout-content-gutter-sm;
                 padding-right: $layout-content-gutter-sm;
-                margin-bottom: $layout-content-gutter-sm; 
+                margin-bottom: $layout-content-gutter-sm;
             }
-        } 
+        }
 
         .ant-tabs-content {
-
             .ant-tabs-tabpane {
                 padding-left: $layout-content-gutter;
                 padding-right: $layout-content-gutter;
@@ -101,18 +103,22 @@
                 @include screen-mobile {
                     padding-left: $layout-content-gutter-sm;
                     padding-right: $layout-content-gutter-sm;
-                }    
+                }
             }
         }
     }
 
     &.is-folded {
-
         @include screen-tablet-above {
             .page-container {
-                padding-left: 0;
+                padding-left: 80px;
+
                 //padding-left: $side-nav-folded;
-            }    
+            }
+            // .page-container {
+            //     padding-left: 0;
+            //     //padding-left: $side-nav-folded;
+            // }
         }
     }
 }

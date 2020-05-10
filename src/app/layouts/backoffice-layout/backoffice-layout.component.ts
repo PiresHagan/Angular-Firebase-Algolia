@@ -15,9 +15,9 @@ export class BackofficeLayoutComponent implements OnInit {
 
   breadcrumbs$: Observable<IBreadcrumb[]>;
   contentHeaderDisplay: string;
-  isFolded: boolean;
+  isFolded: boolean = false;
   isSideNavDark: boolean;
-  isExpand: boolean;
+  isExpand: boolean = true;
   selectedHeaderColor: string;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private themeService: ThemeConstantService) {

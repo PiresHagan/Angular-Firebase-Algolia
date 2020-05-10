@@ -22,9 +22,11 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { QuillModule } from 'ngx-quill';
+import { AuthService } from './shared/services/authentication.service';
 
 
-export const options: Partial<IConfig> | (() => Partial<IConfig>) ={};
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 registerLocaleData(en);
 
 @NgModule({
@@ -49,11 +51,13 @@ registerLocaleData(en);
         QuillModule.forRoot(),
     ],
     providers: [
-        { 
+        {
             provide: NZ_I18N,
-            useValue: en_US, 
+            useValue: en_US,
         },
-        ThemeConstantService
+        ThemeConstantService,
+        AuthService
+
     ],
     bootstrap: [AppComponent]
 })

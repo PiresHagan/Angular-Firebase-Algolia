@@ -6,15 +6,14 @@
 } */
 
 export interface User {
-    id: number,
     displayName: string,
     email: string,
-    isAnonymous: boolean,
-    photoURL: string,
+    isAnonymous?: boolean,
+    photoURL?: string,
     uid: string,
-    phone: string,
-    birth: string,
-    biography:string,
-    networks:any,
-    interests:any
-  }
+    phone?: string,
+    birth?: string,
+    biography?: string,
+    networks?: any,
+    interests?: any
+}

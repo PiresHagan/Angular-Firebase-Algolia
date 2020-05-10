@@ -1,37 +1,37 @@
 import { SideNavInterface } from '../../interfaces/side-nav.type';
 export const ROUTES: SideNavInterface[] = [
     {
-        path: '',
-        title: 'Dashboard',
+        path: 'app/settings/profile-settings',
+        title: 'My Account Settings',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'lock',
         submenu: []
     },
-    {
-        path: '',
-        title: 'Multi Level Menu',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'appstore',
-        submenu: [
-            { 
-                path: '',
-                title: 'Level 1', 
-                iconType: '', 
-                icon: '',
-                iconTheme: '',
-                submenu: [
-                    {
-                        path: '',
-                        title: 'Level 2',
-                        iconType: 'nzIcon',
-                        iconTheme: 'outline',
-                        icon: 'layout',
-                        submenu: []
-                    }    
-                ] 
-            }
-        ]
-    }
+    // {
+    //     path: '',
+    //     title: 'Multi Level Menu',
+    //     iconType: 'nzIcon',
+    //     iconTheme: 'outline',
+    //     icon: 'appstore',
+    //     submenu: [
+    //         { 
+    //             path: '',
+    //             title: 'Level 1', 
+    //             iconType: '', 
+    //             icon: '',
+    //             iconTheme: '',
+    //             submenu: [
+    //                 {
+    //                     path: '',
+    //                     title: 'Level 2',
+    //                     iconType: 'nzIcon',
+    //                     iconTheme: 'outline',
+    //                     icon: 'layout',
+    //                     submenu: []
+    //                 }    
+    //             ] 
+    //         }
+    //     ]
+    // }
 ]    
