@@ -20,7 +20,19 @@
         <div class="col-6 col-sm-6 col-lg-6 col-xl-2 vertical-center">
             <div class="nav-wrap">
                 <ul class="nav-right">
-        
+                    <li class="lang-dropdown">
+                        <select 
+                            class="form-control" 
+                            #selectedLang 
+                            (change)="switchLang(selectedLang.value)">
+                            <option *ngFor="let language of translate.getLangs()" 
+                            [value]="language"
+                            [selected]="language === translate.currentLang">
+                            {{ language }}
+                            </option>
+                        </select>
+                    
+                    </li>
                     <li>
                         <a routerLink="/auth/login" class="is-login-link">
                             <!-- <i nz-icon nzType="user" theme="outline"></i> -->

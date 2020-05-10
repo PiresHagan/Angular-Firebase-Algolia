@@ -1,15 +1,19 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ArticleService } from 'src/app/shared/services/article.service';
+import { ThemeConstantService } from 'src/app/shared/services/theme-constant.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
-
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent implements OnInit {
 
+ @Output() change = new EventEmitter();
+ @Input() lang:string;
+ secTitle:any;
+  // secTitle:any='You might also like';
   heroLarge: any;
   heroSmall: any;
   business: any;
@@ -19,16 +23,30 @@ export class HomeComponent implements OnInit {
   categories: any[] = new Array();
   showTooltip: string = '';
 
-  constructor(private articleService: ArticleService) { }
+ 
+  constructor(
+    private articleService: ArticleService,
+    public translate: TranslateService,
+    private themeService: ThemeConstantService
+  ) {
+    translate.addLangs(['en', 'nl']);
+    translate.setDefaultLang('en');
+  }
+  switchLang(lang: string) {
+        this.translate.use(lang);
+  }
 
   ngOnInit(): void {
     this.articleService.getHeroLargeArticle().subscribe( article => {
       this.heroLarge = article[0];
     });
     
+    
     this.articleService.getHeroSmallArticle().subscribe( articles => {
       this.heroSmall = articles;
     });
+
+    this.themeService.selectedLang.subscribe(lang =>this.switchLang(lang)); 
 
     this.articleService.getCategoryRow('business').subscribe( articles => {
       const category = {
@@ -110,3 +128,4 @@ export class HomeComponent implements OnInit {
 
 
 }
+

@@ -18,6 +18,7 @@ export class CommonLayoutComponent  {
     isSideNavDark : boolean;
     isExpand: boolean;
     selectedHeaderColor: string;
+    langChange:string;
 
     constructor(private router: Router,  private activatedRoute: ActivatedRoute, private themeService: ThemeConstantService) {
         this.router.events.pipe(
@@ -76,4 +77,7 @@ export class CommonLayoutComponent  {
         }
         return newBreadcrumbs;
     }
+    langChangedHandler(lang: string) {
+        this.themeService.changeLang(lang);
+      }
 }

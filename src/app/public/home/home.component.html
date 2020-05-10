@@ -18,11 +18,11 @@
                 </div>
                 <div class="is-card-content">
                    <h2  class="is-small-title">
-                       <span href="https://mytrendingstories.com/category/">Today's stories</span>
+                       <span href="https://mytrendingstories.com/category/">{{'heroStory' | translate}}</span>
                        <div>{{article.title}}</div>
                    </h2> 
                 <p class="is-card-description">{{article.summary | slice:0:100 }}</p>
-                <button type="button" class="is-read-more">Read More <img src="assets/images/read-more-icon.png" /></button>
+                <button type="button" class="is-read-more">{{'readMore' | translate}} <img src="assets/images/read-more-icon.png" /></button>
                 </div>
             </a>
         </div>
@@ -45,11 +45,11 @@
                 </div>
                 <div class="is-card-content">
                    <h2  class="is-small-title">
-                       <span href="https://mytrendingstories.com/category/">Today's stories</span>
+                       <span href="https://mytrendingstories.com/category/">{{'heroStory' | translate}}</span>
                        <div>{{article.title}}</div>
                    </h2> 
                 <p class="is-card-description">{{article.summary | slice:0:100 }}</p>
-                <button type="button" class="is-read-more">Read More <img src="assets/images/read-more-icon.png" /></button>
+                <button type="button" class="is-read-more">{{'readMore' | translate}} <img src="assets/images/read-more-icon.png" /></button>
                 </div>
             </a>
         </div>
@@ -77,11 +77,11 @@
                         </div>
                         <div class="is-card-content">
                             <h2  class="is-small-title">
-                                <span href="https://mytrendingstories.com/category/">Today's stories</span>
+                                <span href="https://mytrendingstories.com/category/">{{'heroStory' | translate}}</span>
                                 <div>{{article.title}}</div>
                             </h2> 
                             <p class="is-card-description">{{article.summary}}</p>
-                            <button type="button" class="is-read-more">Read More <img src="assets/images/read-more-icon.png" /></button>
+                            <button type="button" class="is-read-more">{{'readMore' | translate}} <img src="assets/images/read-more-icon.png" /></button>
                         </div>
                     </a>
                 </div>
@@ -196,9 +196,22 @@
 </section> -->
 
 <section class="is-follower-member">
+    <!-- <div class="text-center">
+        <select 
+        class="form-control" 
+        #selectedLang 
+        (change)="switchLang(selectedLang.value)">
+        <option *ngFor="let language of translate.getLangs()" 
+        [value]="language"
+        [selected]="language === translate.currentLang">
+        {{ language }}
+        </option>
+    </select>
+    </div> -->
     <div class="container">
             <div class="is-comman-title">
-                You might also like :
+                <!-- You might also like : -->
+                {{'secTitle' | translate }}
             </div>
             <div class="is-member">
                 
@@ -404,7 +417,7 @@
                 </div>
             </div>
         <div class="is-more-btn">
-            <button nz-button nzType="primary" class="is-see-more">View all today's stories</button>
+            <button nz-button nzType="primary" class="is-see-more"> {{'veiwAllStory' | translate }}</button>
         </div>
     </div>
 
@@ -446,7 +459,7 @@
                                 </div>
                                 <div class="item-card-texte">
                                     <p>{{article.summary}}</p>
-                                    <button type="button" class="is-read-more">Read More <img src="assets/images/read-more-icon-red.png" /></button>
+                                    <button type="button" class="is-read-more">{{'readMore' | translate }} <img src="assets/images/read-more-icon-red.png" /></button>
                                 </div>
                             </div>
                         </a>
@@ -458,7 +471,7 @@
                 <div class="is-more-btn">
                     <a [routerLink]="['/category/', category.slug]" class="is-see-more">
                         <!-- Show more {{category.title}}  -->
-                        Read More
+                        {{'readMore' | translate }}
                     </a>
                 </div>
             </div>

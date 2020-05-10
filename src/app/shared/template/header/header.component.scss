@@ -5,6 +5,14 @@
         align-items: center;
         justify-content: center;
     }
+    .lang-dropdown{
+        width:55px;
+        select{
+            width: 100%;
+            border:1px solid #eee;
+            padding: 5px;
+        }
+    }
 
 .nav-right{
     margin-right: 0px;

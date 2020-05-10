@@ -5,7 +5,7 @@
         'is-expand' : isExpand
     }"
 >
-    <app-header></app-header>
+<app-header (langChanged)="langChangedHandler($event)"></app-header>
     <!-- <app-mainmenu></app-mainmenu> -->
     <div class="page-container">
         <div class="main-content">

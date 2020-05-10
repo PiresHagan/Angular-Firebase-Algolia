@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ThemeConstantService } from '../../services/theme-constant.service';
-
+import { TranslateService } from '@ngx-translate/core';
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
@@ -8,13 +8,27 @@ import { ThemeConstantService } from '../../services/theme-constant.service';
 })
 
 export class HeaderComponent{
-
+ 
+    @Output() langChanged: EventEmitter<string> =   new EventEmitter();
     searchVisible : boolean = false;
     quickViewVisible : boolean = false;
     isFolded : boolean;
     isExpand : boolean;
+    
 
-    constructor( private themeService: ThemeConstantService) {}
+    
+
+    constructor(
+        private themeService: ThemeConstantService,
+        public translate: TranslateService
+      ) {
+        translate.addLangs(['en', 'nl']);
+        translate.setDefaultLang('en');
+      }
+      switchLang(lang: string) {
+        this.langChanged.emit(lang);
+        this.translate.use(lang);
+      }
 
     ngOnInit(): void {
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
@@ -40,7 +54,7 @@ export class HeaderComponent{
     quickViewToggle(): void {
         this.quickViewVisible = !this.quickViewVisible;
     }
-
+    
     notificationList = [
         {
             title: 'You received a new message',

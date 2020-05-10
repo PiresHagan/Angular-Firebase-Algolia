@@ -23,6 +23,10 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { QuillModule } from 'ngx-quill';
 
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) ={};
 registerLocaleData(en);
@@ -47,14 +51,25 @@ registerLocaleData(en);
         AngularFirestoreModule,
         NgxMaskModule.forRoot(options),
         QuillModule.forRoot(),
+        HttpClientModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: httpTranslateLoader,
+            deps: [HttpClient]
+          }
+        })
     ],
     providers: [
         { 
             provide: NZ_I18N,
-            useValue: en_US, 
+            useValue: en_US,
         },
         ThemeConstantService
     ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
+export function httpTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+  }

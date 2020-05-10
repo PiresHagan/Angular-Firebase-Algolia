@@ -8,6 +8,7 @@ export class ThemeConstantService {
     isMenuFolded: boolean = true;
     isSideNavDark: boolean = false;
     headerColor: string = 'default';
+    lang:string ='en';
     private colorConfig: any = {
         colors: {
             magenta: '#eb2f96',
@@ -55,6 +56,9 @@ export class ThemeConstantService {
     private currentHeaderColor = new BehaviorSubject(this.headerColor);
     selectedHeaderColor = this.currentHeaderColor.asObservable();
 
+    public isSelectedLang = new BehaviorSubject<string>(this.lang);
+    selectedLang: Observable<string> = this.isSelectedLang.asObservable();
+
     get() {
         return this.colorConfig;
     }
@@ -72,6 +76,9 @@ export class ThemeConstantService {
     }
 
     changeHeaderColor(color: string) {
-        this.currentHeaderColor.next(color)
+        this.currentHeaderColor.next(color);
+    }
+    changeLang(lng: string){
+        this.isSelectedLang.next(lng);
     }
 }
