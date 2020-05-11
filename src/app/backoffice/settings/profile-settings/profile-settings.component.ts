@@ -212,6 +212,7 @@ export class ProfileSettingsComponent {
     });
   }
   showSuccess(): void {
+
     let $message = this.translate.instant("profileSaveMessage");
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       $message = this.translate.instant("confirmPassMessage");
