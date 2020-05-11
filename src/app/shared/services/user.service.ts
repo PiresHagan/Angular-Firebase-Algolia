@@ -102,11 +102,11 @@ export class UserService {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
-      photoURL: user.photoURL,
-      biography: user.biography,
-      phone: user.phone,
-      birth: user.birth,
-      interests: user.interests
+      photoURL: user.photoURL ? user.photoURL : '',
+      biography: user.biography ? user.biography : '',
+      phone: user.phone ? user.phone : '',
+      birth: user.birth ? user.birth : '',
+      interests: user.interests ? user.interests : []
     };
     localStorage.setItem("user", JSON.stringify(userData));
     this.subject.next(user);

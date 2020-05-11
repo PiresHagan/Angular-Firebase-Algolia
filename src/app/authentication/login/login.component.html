@@ -1,25 +1,28 @@
-
 <section class="is-signup-main">
     <div class="is-signup-center">
         <div class="row no-gutters h-100">
-            <div class="col-sm-6 col-lg-5 is-form-img" style="background-image:url('assets/images/others/sign-up-mts.png')">
+            <div class="col-sm-6 col-lg-5 is-form-img"
+                style="background-image:url('assets/images/others/sign-up-mts.png')">
                 <div class="is-banner-content">
                     <div class="is-logo">
                         <img src="assets/images/logo/logo-white.png" alt="">
                     </div>
                     <div class="is-img-title">
                         <h3>The People's Voice</h3>
-                        <p>My Trending Stories is a creative platform made easy and allows writers, videographers, photographers, artists, musicians and many more, to rack in benefits from their passion.</p>
-                       
+                        <p>My Trending Stories is a creative platform made easy and allows writers, videographers,
+                            photographers, artists, musicians and many more, to rack in benefits from their passion.</p>
+
                     </div>
                     <div class="is-signup-footer">
                         <span class="text-white">© 2019 My Trending Stories</span>
                         <ul class="list-inline">
                             <li class="list-inline-item">
-                                <a class="text-white text-link" target="_blank" href="https://mytrendingstories.com/terms/">Terms</a>
+                                <a class="text-white text-link" target="_blank"
+                                    href="https://mytrendingstories.com/terms/">Terms</a>
                             </li>
                             <li class="list-inline-item">
-                                <a class="text-white text-link" target="_blank" href="https://mytrendingstories.com/contact/">Contact</a>
+                                <a class="text-white text-link" target="_blank"
+                                    href="https://mytrendingstories.com/contact/">Contact</a>
                             </li>
                         </ul>
                     </div>
@@ -32,31 +35,38 @@
                             <h2 class="m-t-20">Sign In</h2>
                             <p class="m-b-30">Enter your credential to get access</p>
                             <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
-                                <nz-alert nzType="error" nzDescription="You have entered an invalid username or password" nzShowIcon *ngIf="errorLogin"></nz-alert>
+                                <nz-alert nzType="error"
+                                    nzDescription="You have entered an invalid username or password" nzShowIcon
+                                    *ngIf="errorLogin"></nz-alert>
                                 <nz-form-item>
-                                    <nz-form-control nzErrorTip="The input is not valid E-mail!"  class="is-icon">
+                                    <nz-form-control nzErrorTip="The input is not valid E-mail!" class="is-icon">
                                         <nz-input-group [nzPrefix]="prefixUser">
                                             <input type="text" nz-input formControlName="email" placeholder="email">
                                         </nz-input-group>
                                     </nz-form-control>
                                 </nz-form-item>
                                 <nz-form-item>
-                                    
-                                    <nz-form-control nzErrorTip="Please input your Password!"  class="is-icon">
+
+                                    <nz-form-control nzErrorTip="Please input your Password!" class="is-icon">
                                         <nz-input-group [nzPrefix]="prefixLock">
-                                            <input type="password" nz-input formControlName="password" placeholder="Password">
+                                            <input type="password" nz-input formControlName="password"
+                                                placeholder="Password">
                                         </nz-input-group>
                                     </nz-form-control>
-                                    <a class="float-right font-size-13 p-t-10 text-muted" [routerLink]="['/authentication/reset-password']">Forget Password?</a>
+                                    <a class="float-right font-size-13 p-t-10 text-muted"
+                                        [routerLink]="['/auth/reset-password']">Forget Password?</a>
                                     <div class="clearfix"></div>
                                 </nz-form-item>
                                 <nz-form-item>
                                     <nz-form-control>
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <span class="font-size-13 text-muted">Don't have an account? <a class="small" [routerLink]="['/signup']"> Signup</a></span>
-                                           
+                                            <span class="font-size-13 text-muted">Don't have an account? <a
+                                                    class="small" [routerLink]="['/auth/signup']"> Signup</a></span>
+
                                         </div>
-                                        <div class="text-center mt-4"> <button nz-button class="login-form-button is-login-btn" [nzType]="'primary'">Sign In</button></div>
+                                        <div class="text-center mt-4"> <button nz-button
+                                                class="login-form-button is-login-btn" [nzType]="'primary'">Sign
+                                                In</button></div>
                                     </nz-form-control>
                                 </nz-form-item>
                             </form>
