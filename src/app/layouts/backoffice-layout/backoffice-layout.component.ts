@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { distinctUntilChanged, filter, map, startWith, skip } from "rxjs/operators";
 import { IBreadcrumb } from "../../shared/interfaces/breadcrumb.type";
 import { ThemeConstantService } from '../../shared/services/theme-constant.service';
+import { TranslateService, LangChangeEvent, DefaultLangChangeEvent } from '@ngx-translate/core';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class BackofficeLayoutComponent implements OnInit {
   isExpand: boolean = true;
   selectedHeaderColor: string;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private themeService: ThemeConstantService) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private themeService: ThemeConstantService, public translate: TranslateService) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       map(() => {
@@ -42,27 +43,40 @@ export class BackofficeLayoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.breadcrumbs$ = this.router.events.pipe(
-      startWith(new NavigationEnd(0, '/', '/')),
-      filter(event => event instanceof NavigationEnd), distinctUntilChanged(),
-      map(data => this.buildBreadCrumb(this.activatedRoute.root))
-    );
+    this.setBreadCrump();
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.setBreadCrump();
+    });
+    this.translate.onDefaultLangChange.subscribe((event: DefaultLangChangeEvent) => {
+      this.setBreadCrump();
+    });
     this.themeService.isMenuFoldedChanges.pipe(skip(1)).subscribe(isFolded => this.isFolded = isFolded);
     this.themeService.isSideNavDarkChanges.subscribe(isDark => this.isSideNavDark = isDark);
     this.themeService.selectedHeaderColor.subscribe(color => this.selectedHeaderColor = color);
     this.themeService.isExpandChanges.pipe(skip(1)).subscribe(isExpand => this.isExpand = isExpand);
   }
 
-  private buildBreadCrumb(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadcrumb[] = []): IBreadcrumb[] {
-    let label = '', path = '/', display = null;
+  setBreadCrump() {
+    this.breadcrumbs$ = this.router.events.pipe(
+      startWith(new NavigationEnd(0, '/', '/')),
+      filter(event => event instanceof NavigationEnd), distinctUntilChanged(),
+      map(data => this.buildBreadCrumb(this.activatedRoute.root))
+    );
+  }
 
+
+
+  private buildBreadCrumb(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadcrumb[] = []): IBreadcrumb[] {
+
+    let label = '', path = '/', display = null;
+    debugger;
     if (route.routeConfig) {
       if (route.routeConfig.data) {
-        label = route.routeConfig.data['title'];
+        label = this.translate.instant(route.routeConfig.data['title']);
         path += route.routeConfig.path;
       }
     } else {
-      label = 'Dashboard';
+      label = this.translate.instant('dashboard');
       path += 'dashboard';
     }
 

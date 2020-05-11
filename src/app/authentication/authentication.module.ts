@@ -17,10 +17,18 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 
-import {NgxMaskModule, IConfig} from 'ngx-mask';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 
-export const options: Partial<IConfig> | (() => Partial<IConfig>) ={};
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+export function createTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
 @NgModule({
     imports: [
@@ -32,6 +40,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) ={};
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
         AngularFirestoreModule,
+        TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })
 
     ],
     declarations: [
@@ -46,4 +55,4 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) ={};
     ]
 })
 
-export class AuthenticationModule {}
+export class AuthenticationModule { }

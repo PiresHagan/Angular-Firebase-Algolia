@@ -2,7 +2,7 @@ import { SideNavInterface } from '../../interfaces/side-nav.type';
 export const ROUTES: SideNavInterface[] = [
     {
         path: 'app/settings/profile-settings',
-        title: 'My Account Settings',
+        title: 'myAccountSettings',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'lock',

@@ -30,7 +30,7 @@ const routes: Routes = [
     path: "profile-settings",
     component: ProfileSettingsComponent,
     data: {
-      title: "Profile Settings",
+      title: "profileSettings",
     },
   },
 ];
