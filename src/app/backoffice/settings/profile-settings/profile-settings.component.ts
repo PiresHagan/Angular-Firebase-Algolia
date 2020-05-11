@@ -8,7 +8,7 @@ import * as firebase from "firebase/app";
 import "firebase/storage";
 import { User } from "src/app/shared/interfaces/user.type";
 import { formatDate } from "@angular/common";
-import { TranslateService } from "@ngx-translate/core";
+import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 import { LanguageService } from "src/app/shared/services/language.service";
 
 @Component({
@@ -196,8 +196,14 @@ export class ProfileSettingsComponent {
   }
 
   showConfirm(password: string): void {
+    let $message = this.translate.instant("confirmPassMessage");
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      $message = this.translate.instant("confirmPassMessage");
+    })
+
+
     this.modalService.confirm({
-      nzTitle: "<i>Do you want to change your password?</i>",
+      nzTitle: "<i>" + $message + "</i>",
       nzOnOk: () => {
         this.userService.updatePassword(password).then(() => {
           this.showSuccess();
@@ -206,8 +212,12 @@ export class ProfileSettingsComponent {
     });
   }
   showSuccess(): void {
+    let $message = this.translate.instant("profileSaveMessage");
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      $message = this.translate.instant("confirmPassMessage");
+    })
     this.modalService.success({
-      nzTitle: "<i>Your changes have been saved.</i>"
+      nzTitle: "<i>" + $message + "</i>",
     });
   }
 

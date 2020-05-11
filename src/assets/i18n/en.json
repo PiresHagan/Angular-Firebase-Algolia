@@ -28,5 +28,7 @@
     "passFieldMessage": "Please input your New Password!",
     "confirmFieldMassage": "Please confirm your New Password!",
     "dashboard": "Dashboard",
-    "profileSettings": "Profile Settings"
+    "profileSettings": "Profile Settings",
+    "profileSaveMessage": "Your changes have been saved.",
+    "confirmPassMessage": "Do you want to change your password?"
 }

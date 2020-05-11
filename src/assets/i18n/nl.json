@@ -28,5 +28,7 @@
     "passFieldMessage": "Voer uw nieuwe wachtwoord in!",
     "confirmFieldMassage": "Bevestig uw nieuwe wachtwoord!",
     "dashboard": "Dashboard",
-    "profileSettings": "Profielinstellingen"
+    "profileSettings": "Profielinstellingen",
+    "profileSaveMessage": "Je veranderingen zijn bewaard.",
+    "confirmPassMessage": "Wil je je wachtwoord wijzigen?"
 }
