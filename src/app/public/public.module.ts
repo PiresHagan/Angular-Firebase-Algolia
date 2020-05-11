@@ -15,8 +15,7 @@ import { FaqComponent } from './faq/faq.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-
-
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 
 @NgModule({
   declarations: [HomeComponent, CategoryComponent, ArticleComponent, ProfileComponent, Copywriter1Component, Copywriter2Component, ContactComponent, TermsComponent, FaqComponent],
@@ -30,7 +29,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
         useFactory: httpTranslateLoader,
         deps: [HttpClient]
       }
-    })
+    }),
+    NzCollapseModule
   ]
 })
 export class PublicModule { }
