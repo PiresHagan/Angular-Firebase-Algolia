@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class ThemeConstantService {
-    
+
     // Theme Config
     isMenuFolded: boolean = true;
     isSideNavDark: boolean = false;
@@ -67,11 +67,11 @@ export class ThemeConstantService {
         this.isMenuFoldedActived.next(isFolded);
     }
 
-    toogleSideNavDark(isDark:boolean) {
+    toogleSideNavDark(isDark: boolean) {
         this.isSideNavDarkActived.next(isDark);
     }
 
-    toggleExpand(isExpand:boolean) {
+    toggleExpand(isExpand: boolean) {
         this.isExpandActived.next(isExpand);
     }
 

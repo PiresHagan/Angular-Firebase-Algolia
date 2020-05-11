@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { distinctUntilChanged, filter, map, startWith } from "rxjs/operators";
+import { distinctUntilChanged, filter, map, startWith, skip } from "rxjs/operators";
 import { IBreadcrumb } from "../../shared/interfaces/breadcrumb.type";
 import { ThemeConstantService } from '../../shared/services/theme-constant.service';
 
@@ -15,9 +15,9 @@ export class BackofficeLayoutComponent implements OnInit {
 
   breadcrumbs$: Observable<IBreadcrumb[]>;
   contentHeaderDisplay: string;
-  isFolded: boolean;
+  isFolded: boolean = false;
   isSideNavDark: boolean;
-  isExpand: boolean;
+  isExpand: boolean = true;
   selectedHeaderColor: string;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private themeService: ThemeConstantService) {
@@ -47,10 +47,10 @@ export class BackofficeLayoutComponent implements OnInit {
       filter(event => event instanceof NavigationEnd), distinctUntilChanged(),
       map(data => this.buildBreadCrumb(this.activatedRoute.root))
     );
-    this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
+    this.themeService.isMenuFoldedChanges.pipe(skip(1)).subscribe(isFolded => this.isFolded = isFolded);
     this.themeService.isSideNavDarkChanges.subscribe(isDark => this.isSideNavDark = isDark);
     this.themeService.selectedHeaderColor.subscribe(color => this.selectedHeaderColor = color);
-    this.themeService.isExpandChanges.subscribe(isExpand => this.isExpand = isExpand);
+    this.themeService.isExpandChanges.pipe(skip(1)).subscribe(isExpand => this.isExpand = isExpand);
   }
 
   private buildBreadCrumb(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadcrumb[] = []): IBreadcrumb[] {

@@ -8,6 +8,7 @@ import { BackofficeLayoutComponent } from './layouts/backoffice-layout/backoffic
 import { FullLayout_ROUTES } from "./shared/routes/full-layout.routes";
 import { CommonLayout_ROUTES } from "./shared/routes/common-layout.routes";
 import { BackofficeLayout_ROUTES } from './shared/routes/backoffice-layout.routes';
+import { AuthService } from './shared/services/authentication.service';
 
 const appRoutes: Routes = [
     /* {
@@ -15,34 +16,35 @@ const appRoutes: Routes = [
         redirectTo: '/dashboard/default',
         pathMatch: 'full',
     }, */
-    { 
-        path: '', 
+    {
+        path: '',
         component: CommonLayoutComponent,
-        children: CommonLayout_ROUTES 
+        children: CommonLayout_ROUTES
     },
-    { 
-        path: '', 
-        component: FullLayoutComponent, 
+    {
+        path: '',
+        component: FullLayoutComponent,
         children: FullLayout_ROUTES
     },
-    { 
-        path: '', 
-        component: BackofficeLayoutComponent, 
+    {
+        path: '',
+        component: BackofficeLayoutComponent,
         children: BackofficeLayout_ROUTES
     }
 ];
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(appRoutes, { 
+        RouterModule.forRoot(appRoutes, {
             preloadingStrategy: PreloadAllModules,
             useHash: false,
-            scrollPositionRestoration: 'enabled' 
+            scrollPositionRestoration: 'enabled'
         })
     ],
     exports: [
         RouterModule
-    ]
+    ],
+    providers: [AuthService]
 })
 
 export class AppRoutingModule {

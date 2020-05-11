@@ -22,13 +22,15 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { QuillModule } from 'ngx-quill';
+import { AuthService } from './shared/services/authentication.service';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
-export const options: Partial<IConfig> | (() => Partial<IConfig>) ={};
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 registerLocaleData(en);
 
 @NgModule({
@@ -61,11 +63,13 @@ registerLocaleData(en);
         })
     ],
     providers: [
-        { 
+        {
             provide: NZ_I18N,
             useValue: en_US,
         },
-        ThemeConstantService
+        ThemeConstantService,
+        AuthService
+
     ],
     bootstrap: [AppComponent]
 })

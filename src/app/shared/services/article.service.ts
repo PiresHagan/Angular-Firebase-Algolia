@@ -24,6 +24,10 @@ export class ArticleService {
     );
   }
 
+  get(id: any){
+    console.log('Get article');
+  }
+
   getHeroLargeArticle(){
     return this.db.collection<Article[]>('posts', ref => ref
           .orderBy('created_at', 'desc')

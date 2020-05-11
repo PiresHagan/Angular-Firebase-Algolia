@@ -1,365 +1,376 @@
-@import 'variables';
-@import 'mixins';
-@import 'reset';
-
+@import "variables";
+@import "mixins";
+@import "reset";
 
 /*******************/
 /*** Components ***/
 /*****************/
 
 /*General*/
-@import 'components/general/typorgraphy';
-@import 'components/general/buttons';
-@import 'components/general/icons';
+@import "components/general/typorgraphy";
+@import "components/general/buttons";
+@import "components/general/icons";
 
 /*Layout*/
-@import 'components/layout/breakpoint';
-@import 'components/layout/grid';
+@import "components/layout/breakpoint";
+@import "components/layout/grid";
 
 /*Navigation*/
-@import 'components/navigation/_affix';
-@import 'components/navigation/_breadcrumb';
-@import 'components/navigation/dropdown';
-@import 'components/navigation/menu';
-@import 'components/navigation/pagination';
-@import 'components/navigation/page-header';
-@import 'components/navigation/steps';
+@import "components/navigation/_affix";
+@import "components/navigation/_breadcrumb";
+@import "components/navigation/dropdown";
+@import "components/navigation/menu";
+@import "components/navigation/pagination";
+@import "components/navigation/page-header";
+@import "components/navigation/steps";
 
 /*Data Entry*/
-@import 'components/data-entry/autocomplete';
-@import 'components/data-entry/cascader';
-@import 'components/data-entry/checkbox';
-@import 'components/data-entry/date-picker';
-@import 'components/data-entry/form';
-@import 'components/data-entry/input';
-@import 'components/data-entry/mention';
-@import 'components/data-entry/radio';
-@import 'components/data-entry/rate';
-@import 'components/data-entry/select';
-@import 'components/data-entry/slider';
-@import 'components/data-entry/switch';
-@import 'components/data-entry/time-picker';
-@import 'components/data-entry/transfer';
-@import 'components/data-entry/tree-select';
-@import 'components/data-entry/upload';
+@import "components/data-entry/autocomplete";
+@import "components/data-entry/cascader";
+@import "components/data-entry/checkbox";
+@import "components/data-entry/date-picker";
+@import "components/data-entry/form";
+@import "components/data-entry/input";
+@import "components/data-entry/mention";
+@import "components/data-entry/radio";
+@import "components/data-entry/rate";
+@import "components/data-entry/select";
+@import "components/data-entry/slider";
+@import "components/data-entry/switch";
+@import "components/data-entry/time-picker";
+@import "components/data-entry/transfer";
+@import "components/data-entry/tree-select";
+@import "components/data-entry/upload";
 
 /*Data Display*/
-@import 'components/data-display/avatar';
-@import 'components/data-display/badge';
-@import 'components/data-display/calendar';
-@import 'components/data-display/card';
-@import 'components/data-display/carousel';
-@import 'components/data-display/collapse';
-@import 'components/data-display/comment';
-@import 'components/data-display/descriptions';
-@import 'components/data-display/list';
-@import 'components/data-display/popover';
-@import 'components/data-display/statistic';
-@import 'components/data-display/table';
-@import 'components/data-display/tabs';
-@import 'components/data-display/tag';
-@import 'components/data-display/timeline';
-@import 'components/data-display/tooltip';
-@import 'components/data-display/tree';
+@import "components/data-display/avatar";
+@import "components/data-display/badge";
+@import "components/data-display/calendar";
+@import "components/data-display/card";
+@import "components/data-display/carousel";
+@import "components/data-display/collapse";
+@import "components/data-display/comment";
+@import "components/data-display/descriptions";
+@import "components/data-display/list";
+@import "components/data-display/popover";
+@import "components/data-display/statistic";
+@import "components/data-display/table";
+@import "components/data-display/tabs";
+@import "components/data-display/tag";
+@import "components/data-display/timeline";
+@import "components/data-display/tooltip";
+@import "components/data-display/tree";
 
 /*Feedback*/
-@import 'components/feedback/alert';
-@import 'components/feedback/drawer';
-@import 'components/feedback/message';
-@import 'components/feedback/modal';
-@import 'components/feedback/notifications';
-@import 'components/feedback/progress';
-@import 'components/feedback/spin';
+@import "components/feedback/alert";
+@import "components/feedback/drawer";
+@import "components/feedback/message";
+@import "components/feedback/modal";
+@import "components/feedback/notifications";
+@import "components/feedback/progress";
+@import "components/feedback/spin";
 
 /*Other*/
-@import 'components/others/anchor';
-@import 'components/others/back-to-top';
-@import 'components/others/divider';
+@import "components/others/anchor";
+@import "components/others/back-to-top";
+@import "components/others/divider";
 
 /******************/
 /*** Template ****/
 /****************/
-@import 'template/header.scss';
-@import 'template/layout.scss';
-@import 'template/side-nav.scss';
-@import 'template/footer.scss';
+@import "template/header.scss";
+@import "template/layout.scss";
+@import "template/side-nav.scss";
+@import "template/footer.scss";
 
 /*****************/
 /***** Apps *****/
 /***************/
-@import 'apps/chat.scss';
-@import 'apps/file-manager.scss';
-@import 'apps/mail.scss';
-@import 'apps/e-commerce.scss';
+@import "apps/chat.scss";
+@import "apps/file-manager.scss";
+@import "apps/mail.scss";
+@import "apps/e-commerce.scss";
 
 /*****************/
 /*** Plugins ****/
 /***************/
-@import 'plugins/chartist.scss';
-@import 'plugins/quill.scss';
+@import "plugins/chartist.scss";
+@import "plugins/quill.scss";
 
 /*******************/
 /*** Utilities ****/
 /*****************/
-@import 'utilities/utilities-bs.scss';
-@import 'utilities/utilities-enlink.scss';
-
+@import "utilities/utilities-bs.scss";
+@import "utilities/utilities-enlink.scss";
 
 /*******************/
 /****** Demo ******/
 /*****************/
 
-@import 'demo/demo.scss';
-
+@import "demo/demo.scss";
 
 .cat-orange {
-    color: #faaf44 !important;
-  }
-  
-  .cat-light-blue {
-    color: #22acf6 !important;
-  }
-  
-  .cat-cyan {
-    color: #23d7d5 !important;
-  }
-  
-  .cat-red {
-    color: #f64747 !important;
-  }
-  
-  .cat-yellow {
-    color: #fbca20 !important;
-  }
-  
-  .cat-green {
-    color: #3fbb22 !important;
-  }
-  
-  .cat-purple {
-    color: #7122bb !important;
-  }
-  
-  .cat-blue {
-    color: #2f71c6 !important;
-  }
-  
-  .cat-lightgreen {
-    color: #23d7d5 !important;
-  }
-  
-  .cat-color-blue {
-    color: #2baad3 !important;
-  }
-  
-  .all-cat {
-    color: #ff4020 !important;
-  }
-  
-  .cat-orange-bg {
-    background-color: #faaf44 !important;
-  }
-  
-  .cat-light-blue-bg {
-    background-color: #2baad3 !important;
-  }
-  
-  .cat-cyan-bg {
-    background-color: #23d7d5 !important;
-  }
-  
-  .cat-red-bg {
-    background-color: #f64747 !important;
-  }
-  
-  .cat-yellow-bg {
-    background-color: #fbca20 !important;
-  }
-  
-  .cat-green-bg {
-    background-color: #3fbb22 !important;
-  }
-  
-  .cat-purple-bg {
-    background-color: #7122bb !important;
-  }
-  
-  .cat-blue-bg {
-    background-color: #2f71c6 !important;
-  }
-  
-  .cat-lightgreen-bg {
-    background-color: #23d7d5 !important;
-  }
-  
-  .cat-blue-bg {
-    background-color: #2baad3 !important;
-  }
-  
-  .cat-orange-hover:hover, .cat-orange-hover:focus, .cat-orange-hover.active {
-    background-color: #faaf44 !important;
-  }
-  
-  .cat-light-blue-hover:hover, .cat-light-blue-hover:focus, .cat-light-blue-hover.active {
-    background-color: #2baad3 !important;
-  }
-  
-  .cat-cyan-hover:hover, .cat-cyan-hover:focus, .cat-cyan-hover.active {
-    background-color: #23d7d5 !important;
-  }
-  
-  .cat-red-hover:hover, .cat-red-hover:focus, .cat-red-hover.active {
-    background-color: #f64747 !important;
-  }
-  
-  .cat-yellow-hover:hover, .cat-yellow-hover:focus, .cat-yellow-hover.active {
-    background-color: #fbca20 !important;
-  }
-  
-  .cat-green-hover:hover, .cat-green-hover:focus, .cat-green-hover.active {
-    background-color: #3fbb22 !important;
-  }
-  
-  .cat-purple-hover:hover, .cat-purple-hover:focus, .cat-purple-hover.active {
-    background-color: #7122bb !important;
-  }
-  
-  .cat-blue-hover:hover, .cat-blue-hover:focus, .cat-blue-hover.active {
-    background-color: #2f71c6 !important;
-  }
-  
-  .cat-lightgreen-hover:hover, .cat-lightgreen-hover:focus, .cat-lightgreen-hover.active {
-    background-color: #23d7d5 !important;
-  }
-  
-  .cat-blue-hover:hover, .cat-blue-hover:focus, .cat-blue-hover.active {
-    background-color: #2baad3 !important;
-  }
-  
-  .maincolor {
-    color: #ff4020 !important;
-  }
-  
-  .whitecolor {
-    color: #FFF !important;
-  }
-  
-  .greycolor {
-    color: #abb0b7 !important;
-  }
-  
-  .lightgreycolor {
-    color: #dddfe1 !important;
-  }
-  
-  .darkgreycolor {
-    color: #202020 !important;
-  }
-  
-  .orangecolor {
-    color: #f8800b !important;
-  }
-  
-  .greencolor {
-    color: #3fbb22 !important;
-  }
-  
-  .mainbg {
-    background-color: #ff4020 !important;
-  }
-  
-  .whitebg {
-    background-color: #FFF !important;
-  }
-  
-  .darkgreybg {
-    background-color: #202020 !important;
-  }
-  
-  .greybg {
-    background-color: #abb0b7 !important;
-  }
-  
-  .lightgreybg {
-    background-color: #dddfe1 !important;
-  }
-  
-  .lightergreybg {
-    background-color: #E5E7EA !important;
-  }
+  color: #faaf44 !important;
+}
 
-  .pull-left{
-    float: left;
-  }
+.cat-light-blue {
+  color: #22acf6 !important;
+}
 
-  .pull-right{
-    float: right;
-  }
+.cat-cyan {
+  color: #23d7d5 !important;
+}
 
-  .clearfix {
-    display: table;
-    clear: both;
+.cat-red {
+  color: #f64747 !important;
+}
+
+.cat-yellow {
+  color: #fbca20 !important;
+}
+
+.cat-green {
+  color: #3fbb22 !important;
+}
+
+.cat-purple {
+  color: #7122bb !important;
+}
+
+.cat-blue {
+  color: #2f71c6 !important;
+}
+
+.cat-lightgreen {
+  color: #23d7d5 !important;
+}
+
+.cat-color-blue {
+  color: #2baad3 !important;
+}
+
+.all-cat {
+  color: #ff4020 !important;
+}
+
+.cat-orange-bg {
+  background-color: #faaf44 !important;
+}
+
+.cat-light-blue-bg {
+  background-color: #2baad3 !important;
+}
+
+.cat-cyan-bg {
+  background-color: #23d7d5 !important;
+}
+
+.cat-red-bg {
+  background-color: #f64747 !important;
+}
+
+.cat-yellow-bg {
+  background-color: #fbca20 !important;
+}
+
+.cat-green-bg {
+  background-color: #3fbb22 !important;
+}
+
+.cat-purple-bg {
+  background-color: #7122bb !important;
+}
+
+.cat-blue-bg {
+  background-color: #2f71c6 !important;
+}
+
+.cat-lightgreen-bg {
+  background-color: #23d7d5 !important;
+}
+
+.cat-blue-bg {
+  background-color: #2baad3 !important;
+}
+
+.cat-orange-hover:hover,
+.cat-orange-hover:focus,
+.cat-orange-hover.active {
+  background-color: #faaf44 !important;
+}
+
+.cat-light-blue-hover:hover,
+.cat-light-blue-hover:focus,
+.cat-light-blue-hover.active {
+  background-color: #2baad3 !important;
+}
+
+.cat-cyan-hover:hover,
+.cat-cyan-hover:focus,
+.cat-cyan-hover.active {
+  background-color: #23d7d5 !important;
+}
+
+.cat-red-hover:hover,
+.cat-red-hover:focus,
+.cat-red-hover.active {
+  background-color: #f64747 !important;
+}
+
+.cat-yellow-hover:hover,
+.cat-yellow-hover:focus,
+.cat-yellow-hover.active {
+  background-color: #fbca20 !important;
+}
+
+.cat-green-hover:hover,
+.cat-green-hover:focus,
+.cat-green-hover.active {
+  background-color: #3fbb22 !important;
+}
+
+.cat-purple-hover:hover,
+.cat-purple-hover:focus,
+.cat-purple-hover.active {
+  background-color: #7122bb !important;
+}
+
+.cat-blue-hover:hover,
+.cat-blue-hover:focus,
+.cat-blue-hover.active {
+  background-color: #2f71c6 !important;
+}
+
+.cat-lightgreen-hover:hover,
+.cat-lightgreen-hover:focus,
+.cat-lightgreen-hover.active {
+  background-color: #23d7d5 !important;
+}
+
+.cat-blue-hover:hover,
+.cat-blue-hover:focus,
+.cat-blue-hover.active {
+  background-color: #2baad3 !important;
+}
+
+.maincolor {
+  color: #ff4020 !important;
+}
+
+.whitecolor {
+  color: #fff !important;
+}
+
+.greycolor {
+  color: #abb0b7 !important;
+}
+
+.lightgreycolor {
+  color: #dddfe1 !important;
+}
+
+.darkgreycolor {
+  color: #202020 !important;
+}
+
+.orangecolor {
+  color: #f8800b !important;
+}
+
+.greencolor {
+  color: #3fbb22 !important;
+}
+
+.mainbg {
+  background-color: #ff4020 !important;
+}
+
+.whitebg {
+  background-color: #fff !important;
+}
+
+.darkgreybg {
+  background-color: #202020 !important;
+}
+
+.greybg {
+  background-color: #abb0b7 !important;
+}
+
+.lightgreybg {
+  background-color: #dddfe1 !important;
+}
+
+.lightergreybg {
+  background-color: #e5e7ea !important;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.clearfix {
+  display: table;
+  clear: both;
 }
 
 .line-bottom {
   border-bottom: 2px solid #e8eaec;
 }
-.main-content{
+.main-content {
   padding-top: 90px !important;
 }
 /*********************************************************
               Custom Fonts Css
 ********************************************************/
 @font-face {
-  font-family: 'open_sansregular';
-  src: url('assets/scss/fonts/opensans-regular-webfont.woff2') format('woff2'), url('assets/scss/fonts/opensans-regular-webfont.woff') format('woff');
+  font-family: "open_sansregular";
+  src: url("assets/scss/fonts/opensans-regular-webfont.woff2") format("woff2"),
+    url("assets/scss/fonts/opensans-regular-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
-
-
 @font-face {
-  font-family: 'josefin_sansbold';
-  src: url('assets/scss/fonts/josefinsans-bold-webfont.woff2') format('woff2'), url('assets/scss/fonts/josefinsans-bold-webfont.woff') format('woff');
+  font-family: "josefin_sansbold";
+  src: url("assets/scss/fonts/josefinsans-bold-webfont.woff2") format("woff2"),
+    url("assets/scss/fonts/josefinsans-bold-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
-
-
-
 @font-face {
-  font-family: 'josefin_sansitalic';
-  src: url('assets/scss/fonts/josefinsans-italic-webfont.woff2') format('woff2'), url('assets/scss/fonts/josefinsans-italic-webfont.woff') format('woff');
+  font-family: "josefin_sansitalic";
+  src: url("assets/scss/fonts/josefinsans-italic-webfont.woff2") format("woff2"),
+    url("assets/scss/fonts/josefinsans-italic-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
-
-
-
 @font-face {
-  font-family: 'josefin_sanslight';
-  src: url('assets/scss/fonts/josefinsans-light-webfont.woff2') format('woff2'), url('assets/scss/fonts/josefinsans-light-webfont.woff') format('woff');
+  font-family: "josefin_sanslight";
+  src: url("assets/scss/fonts/josefinsans-light-webfont.woff2") format("woff2"),
+    url("assets/scss/fonts/josefinsans-light-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
-
 @font-face {
-  font-family: 'josefin_sansregular';
-  src: url('assets/scss/fonts/josefinsans-regular-webfont.woff2') format('woff2'), url('assets/scss/fonts/josefinsans-regular-webfont.woff') format('woff');
+  font-family: "josefin_sansregular";
+  src: url("assets/scss/fonts/josefinsans-regular-webfont.woff2") format("woff2"),
+    url("assets/scss/fonts/josefinsans-regular-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
-
-
-
 @font-face {
-  font-family: 'josefin_sanssemibold';
-  src: url('assets/scss/fonts/josefinsans-semibold-webfont.woff2') format('woff2'), url('assets/scss/fonts/josefinsans-semibold-webfont.woff') format('woff');
+  font-family: "josefin_sanssemibold";
+  src: url("assets/scss/fonts/josefinsans-semibold-webfont.woff2") format("woff2"),
+    url("assets/scss/fonts/josefinsans-semibold-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -367,20 +378,16 @@
               Custom Fonts Css End
 ********************************************************/
 
-.is-article-block{  
-  .is-article-sec{
-    .at-label{
+.is-article-block {
+  .is-article-sec {
+    .at-label {
       display: none;
     }
-    }
- 
-    
+  }
 }
 
-
-@media screen and (max-width:992px){
-   
-  .ant-layout-sider-zero-width-trigger{
+@media screen and (max-width: 992px) {
+  .ant-layout-sider-zero-width-trigger {
     top: -21px !important;
     background: #ff4020 !important;
     border-radius: 4px;
@@ -388,20 +395,17 @@
 
   .main-content {
     padding-top: 100px !important;
+  }
 }
 
-}
-
-@media screen and (minn-width:767px) and (max-width:992px){
-  
+@media screen and (minn-width: 767px) and (max-width: 992px) {
   .main-content {
     padding-top: 140px !important;
+  }
 }
 
-}
-
-@media screen and (min-width:993px) and (max-width:1425px){
-.main-content {
-  padding-top: 140px !important;
-}
+@media screen and (min-width: 993px) and (max-width: 1425px) {
+  .main-content {
+    //padding-top: 140px !important;
+  }
 }

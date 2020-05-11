@@ -1,0 +1,183 @@
+<div class="page-header has-tab">
+    <h2 class="font-weight-normal">Setting</h2>
+</div>
+<nz-tabset class="page-header-tab">
+    <nz-tab nzTitle="Account">
+        <div class="container">
+            <nz-card nzTitle="Basic Infomation">
+
+                <div class="media align-items-center">
+                    <nz-avatar [nzSize]="80" nzIcon="user" [nzSrc]="photoURL"></nz-avatar>
+                    <div class="m-l-20 m-r-20">
+                        <h5 class="m-b-5 font-size-18">Change Avatar</h5>
+                        <p class="opacity-07 font-size-13 m-b-0">
+                            Recommended Dimensions: <br />
+                            120x120 Max fil size: 5MB
+                        </p>
+                    </div>
+                    <nz-upload nzName="avatar" [nzShowUploadList]="false" (nzChange)="handleChange($event)">
+                        <button nz-button nzType="primary" [nzLoading]="isPhotoChangeLoading">
+                            <span>Upload</span>
+                        </button>
+                    </nz-upload>
+                </div>
+                <hr class="m-v-25" />
+                <form nz-form [formGroup]="profileForm" class="login-form" (ngSubmit)="saveBasicDetails()">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label>Name</nz-form-label>
+                                <nz-form-control>
+                                    <input nz-input placeholder="Name" formControlName="displayName" type="text"
+                                        value="" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label>Email</nz-form-label>
+                                <nz-form-control>
+                                    <input disabled nz-input placeholder="Email" type="email"
+                                        value="{{ currentUserEmail }}" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label>Phone Number</nz-form-label>
+                                <nz-form-control>
+                                    <input nz-input placeholder="Phone Number" formControlName="phone"
+                                        mask="(000) 000-0000" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label>Date of Birth</nz-form-label>
+                                <nz-form-control>
+                                    <nz-date-picker class="w-100" nzFormat="yyyy/MM/dd" formControlName="birth"
+                                        nzPlaceHolder="Date of Birth"></nz-date-picker>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <nz-form-item>
+                            <nz-form-label>Short biography</nz-form-label>
+                            <nz-form-control>
+                                <textarea rows="4" nz-input name="content" formControlName="biography"></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <nz-form-item>
+                            <nz-form-control>
+                                <div>
+                                    <button nz-button [nzLoading]="isLoading" class="login-form-button"
+                                        [nzType]="'primary'">
+                                        Save Details
+                                    </button>
+                                </div>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </form>
+            </nz-card>
+
+            <nz-card nzTitle="Change Password">
+                <form nz-form [formGroup]="changePWForm" (ngSubmit)="submitForm()">
+                    <nz-alert nzType="error"
+                        nzDescription="Passwords don't match. New Password and Confirm Password should match."
+                        nzShowIcon
+                        *ngIf="changePWForm.errors?.invalid && (changePWForm.controls['confirmPassword'].dirty || changePWForm.controls['confirmPassword'].touched)">
+                    </nz-alert>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label nzFor="newPassword">New Password</nz-form-label>
+                                <nz-form-control nzErrorTip="Please input your New Password!">
+                                    <input formControlName="newPassword" nz-input type="password"
+                                        placeholder="New Password" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-label nzFor="confirmPassword">Confirm</nz-form-label>
+                                <nz-form-control nzErrorTip="Please confirm your New Password!">
+                                    <input formControlName="confirmPassword" nz-input type="password"
+                                        placeholder="Confirm Password" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <nz-form-item>
+                                <nz-form-control>
+                                    <button nz-button nzType="primary" [nzLoading]="isChangePassLoading"
+                                        [disabled]="!changePWForm.valid">
+                                        Change
+                                    </button>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                </form>
+            </nz-card>
+        </div>
+    </nz-tab>
+    <nz-tab nzTitle="Notification">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <nz-card nzTitle="Notification Config">
+                        <form nz-form [formGroup]="interestForm" class="login-form" (ngSubmit)="saveIntrestList()">
+                            <nz-list [nzDataSource]="notificationConfigList" [nzRenderItem]="notification"
+                                [nzItemLayout]="'horizontal'">
+                                <ng-template #notification let-item>
+                                    <nz-list-item [nzActions]="[configStatus]">
+                                        <ng-template #configStatus>
+                                            <nz-switch [formControlName]="item.id" [ngModel]="item.status"
+                                                [nzCheckedChildren]="checkedTemplate2nd"
+                                                [nzUnCheckedChildren]="unCheckedTemplate2nd"></nz-switch>
+                                            <ng-template #checkedTemplate2nd><i class="font-size-12" nz-icon
+                                                    nzType="check"></i></ng-template>
+                                            <ng-template #unCheckedTemplate2nd><i class="font-size-12" nz-icon
+                                                    nzType="close"></i></ng-template>
+                                        </ng-template>
+                                        <nz-list-item-meta [nzTitle]="notificationTitle" [nzAvatar]="notificationIcon">
+                                            <ng-template #notificationIcon>
+                                                <nz-avatar [nzIcon]="item.icon" [ngClass]="item.color" class="m-t-5">
+                                                </nz-avatar>
+                                            </ng-template>
+                                            <ng-template #notificationTitle>
+                                                <h5 class="font-weight-semibold m-b-0">
+                                                    {{ item.title }}
+                                                </h5>
+                                                <p class="m-b-0 font-weight-normal">{{ item.desc }}</p>
+                                            </ng-template>
+                                        </nz-list-item-meta>
+                                    </nz-list-item>
+                                </ng-template>
+                            </nz-list>
+
+                            <div class="d-flex align-items-center justify-content-between m-t-5">
+                                <nz-form-item>
+                                    <nz-form-control>
+                                        <div>
+                                            <button nz-button [nzLoading]="isNotificationLoading"
+                                                class="login-form-button" [nzType]="'primary'">
+                                                Save Details
+                                            </button>
+                                        </div>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </form>
+                    </nz-card>
+                </div>
+            </div>
+        </div>
+    </nz-tab>
+</nz-tabset>
