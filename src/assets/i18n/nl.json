@@ -30,5 +30,7 @@
     "dashboard": "Dashboard",
     "profileSettings": "Profielinstellingen",
     "profileSaveMessage": "Je veranderingen zijn bewaard.",
-    "confirmPassMessage": "Wil je je wachtwoord wijzigen?"
+    "confirmPassMessage": "Wil je je wachtwoord wijzigen?",
+    "login":"Log in",
+    "signUp":"Aanmelden"
 }

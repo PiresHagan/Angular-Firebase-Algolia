@@ -1,8 +1,8 @@
 {
-    "secTitle": "You might also like",
-    "heroStory": "Today's stories",
-    "readMore": "Read More",
-    "veiwAllStory": "View all today's stories",
+    "secTitle": "Misschien vind je dit ook leuk",
+    "heroStory": "Verhalen van vandaag",
+    "readMore": "Lees verder",
+    "veiwAllStory": "Bekijk alle verhalen van vandaag",
     "manageProfile": "Manage Profile",
     "settings": "Settings",
     "account": "Account",
@@ -30,5 +30,7 @@
     "dashboard": "Dashboard",
     "profileSettings": "Profile Settings",
     "profileSaveMessage": "Your changes have been saved.",
-    "confirmPassMessage": "Do you want to change your password?"
+    "confirmPassMessage": "Do you want to change your password?",
+    "login":"Login",
+    "signUp":"Sign up"
 }
