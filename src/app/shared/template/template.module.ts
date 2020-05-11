@@ -13,6 +13,14 @@ import { SideNavDirective } from "../directives/side-nav.directive";
 import { ThemeConstantService } from '../services/theme-constant.service';
 import { HeaderBackofficeComponent } from './header/header-backoffice.component';
 import { MainmenuComponent } from './mainmenu/mainmenu.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+export function createTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+
 
 @NgModule({
     exports: [
@@ -23,11 +31,14 @@ import { MainmenuComponent } from './mainmenu/mainmenu.component';
         SideNavDirective,
         FooterComponent,
         HeaderBackofficeComponent,
-        MainmenuComponent,
+        MainmenuComponent
+
     ],
     imports: [
         RouterModule,
-        SharedModule
+        SharedModule,
+        TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })
+
     ],
     declarations: [
         HeaderComponent,
@@ -39,9 +50,10 @@ import { MainmenuComponent } from './mainmenu/mainmenu.component';
         HeaderBackofficeComponent,
         MainmenuComponent
     ],
-    providers: [ 
+    providers: [
         ThemeConstantService
-    ]
+    ],
+
 })
 
 export class TemplateModule { }

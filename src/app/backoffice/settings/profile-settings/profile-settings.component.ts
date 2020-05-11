@@ -8,6 +8,8 @@ import * as firebase from "firebase/app";
 import "firebase/storage";
 import { User } from "src/app/shared/interfaces/user.type";
 import { formatDate } from "@angular/common";
+import { TranslateService } from "@ngx-translate/core";
+import { LanguageService } from "src/app/shared/services/language.service";
 
 @Component({
   templateUrl: "./profile-settings.component.html",
@@ -105,7 +107,8 @@ export class ProfileSettingsComponent {
     private fb: FormBuilder,
     private modalService: NzModalService,
     private message: NzMessageService,
-    private userService: UserService
+    private userService: UserService,
+    public translate: TranslateService,
   ) { }
 
   ngOnInit(): void {

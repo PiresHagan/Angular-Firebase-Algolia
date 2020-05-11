@@ -24,10 +24,13 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { QuillModule } from 'ngx-quill';
 import { AuthService } from './shared/services/authentication.service';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateStore } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-
+import { LanguageService } from './shared/services/language.service';
+export function createTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
@@ -54,20 +57,18 @@ registerLocaleData(en);
         NgxMaskModule.forRoot(options),
         QuillModule.forRoot(),
         HttpClientModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: httpTranslateLoader,
-            deps: [HttpClient]
-          }
-        })
+        TranslateModule.forRoot({ loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] } })
+    ],
+    exports: [
     ],
     providers: [
         {
             provide: NZ_I18N,
             useValue: en_US,
         },
-        ThemeConstantService,
+
+        TranslateStore,
+        LanguageService,
         AuthService
 
     ],
@@ -76,4 +77,4 @@ registerLocaleData(en);
 export class AppModule { }
 export function httpTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http);
-  }
+}

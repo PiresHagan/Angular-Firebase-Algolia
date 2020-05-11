@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ROUTES } from './side-nav-routes.config';
 import { ThemeConstantService } from '../../services/theme-constant.service';
 import { skip } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-sidenav',
@@ -14,7 +15,7 @@ export class SideNavComponent {
     isFolded: boolean = false;
     isSideNavDark: boolean;
 
-    constructor(private themeService: ThemeConstantService) { }
+    constructor(private themeService: ThemeConstantService, public translate: TranslateService) { }
 
     ngOnInit(): void {
         this.menuItems = ROUTES.filter(menuItem => menuItem);

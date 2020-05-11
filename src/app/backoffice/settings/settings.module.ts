@@ -32,6 +32,13 @@ import { SettingsRoutingModule } from "./settings-routing.module";
 import { ProfileSettingsComponent } from "./profile-settings/profile-settings.component";
 import { UserService } from "src/app/shared/services/user.service";
 
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 const antdModule = [
   NzCardModule,
   NzSkeletonModule,
@@ -65,7 +72,9 @@ const antdModule = [
     SharedModule,
     ReactiveFormsModule,
     ...antdModule,
+    TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })
   ],
   providers: [UserService],
+  exports: []
 })
 export class SettingsModule { }

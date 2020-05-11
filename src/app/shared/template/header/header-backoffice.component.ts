@@ -3,6 +3,10 @@ import { ThemeConstantService } from "../../services/theme-constant.service";
 import { AuthService } from "../../services/authentication.service";
 import { UserService } from "../../services/user.service";
 import { Router } from "@angular/router";
+import { LanguageService } from "../../services/language.service";
+import { TranslateService } from "@ngx-translate/core";
+import { Language } from "../../interfaces/language.type";
+import { TranslatePipe } from "@ngx-translate/core";
 
 @Component({
   selector: "app-header-backoffice",
@@ -16,14 +20,21 @@ export class HeaderBackofficeComponent implements OnInit {
   isExpand: boolean;
   photoURL: string;
   displayName: string;
+  languageList: Language[];
+  selectedLanguage: string;
 
   constructor(
     private themeService: ThemeConstantService,
     public authService: AuthService,
     public userService: UserService,
+    public translate: TranslateService,
+    public languageService: LanguageService,
     private router: Router,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
-  ) { }
+  ) {
+
+
+  }
 
   ngOnInit(): void {
     this.themeService.isMenuFoldedChanges.subscribe(
@@ -32,9 +43,15 @@ export class HeaderBackofficeComponent implements OnInit {
     this.themeService.isExpandChanges.subscribe(
       (isExpand) => (this.isExpand = isExpand)
     );
-    debugger
+
+    this.languageList = this.languageService.geLanguageList();
+    this.selectedLanguage = this.languageService.defaultLanguage;
+    this.translate.addLangs(this.languageService.getLanguageListArr());
+    this.translate.setDefaultLang(this.selectedLanguage);
+
+
     this.userService.getSavedUser().subscribe((data) => {
-      debugger;
+
       if (data) {
         this.photoURL = data.photoURL;
         this.displayName = data.displayName;
@@ -53,6 +70,11 @@ export class HeaderBackofficeComponent implements OnInit {
     this.isExpand = !this.isExpand;
     this.themeService.toggleExpand(this.isExpand);
     this.themeService.toggleFold(this.isFolded);
+  }
+
+  langChangedHandler(lang: string) {
+    this.themeService.changeLang(lang);
+    this.translate.use(lang);
   }
 
   searchToggle(): void {

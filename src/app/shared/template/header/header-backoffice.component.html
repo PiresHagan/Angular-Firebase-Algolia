@@ -34,6 +34,14 @@
             </li> -->
         </ul>
         <ul class="nav-right">
+            <li>
+
+                <nz-select (ngModelChange)="langChangedHandler($event)" [(ngModel)]="selectedLanguage">
+
+                    <nz-option *ngFor="let option of languageList" [nzLabel]="option.labal" [nzValue]="option.code">
+                        {{ option.label }}</nz-option>
+                </nz-select>
+            </li>
             <!-- <li>
                 <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="popNotification" [nzPlacement]="'bottomRight'">
                     <nz-badge nzDot>
@@ -117,7 +125,7 @@
                                 [routerLink]="['/app/settings/profile-settings']">
                                 <div>
                                     <i class="opacity-04 font-size-16" nz-icon nzType="lock" theme="outline"></i>
-                                    <span class="m-l-10">Manage Profile</span>
+                                    <span class="m-l-10"> {{'manageProfile' | translate }}</span>
                                 </div>
                                 <i class="font-size-10" nz-icon nzType="right" theme="outline"></i>
                             </a>
