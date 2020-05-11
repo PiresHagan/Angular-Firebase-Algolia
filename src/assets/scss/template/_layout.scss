@@ -111,14 +111,9 @@
     &.is-folded {
         @include screen-tablet-above {
             .page-container {
-                padding-left: 80px;
-
+                padding-left: 0;
                 //padding-left: $side-nav-folded;
             }
-            // .page-container {
-            //     padding-left: 0;
-            //     //padding-left: $side-nav-folded;
-            // }
         }
     }
 }

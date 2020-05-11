@@ -5,7 +5,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 export class ThemeConstantService {
 
     // Theme Config
-    isMenuFolded: boolean = false;
+    isMenuFolded: boolean = true;
     isSideNavDark: boolean = false;
     headerColor: string = 'default';
     private colorConfig: any = {

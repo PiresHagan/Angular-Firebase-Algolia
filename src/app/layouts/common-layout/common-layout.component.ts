@@ -10,16 +10,16 @@ import { ThemeConstantService } from '../../shared/services/theme-constant.servi
     templateUrl: './common-layout.component.html',
 })
 
-export class CommonLayoutComponent  {
+export class CommonLayoutComponent {
 
     breadcrumbs$: Observable<IBreadcrumb[]>;
     contentHeaderDisplay: string;
-    isFolded : boolean ;
-    isSideNavDark : boolean;
+    isFolded: boolean;
+    isSideNavDark: boolean;
     isExpand: boolean;
     selectedHeaderColor: string;
 
-    constructor(private router: Router,  private activatedRoute: ActivatedRoute, private themeService: ThemeConstantService) {
+    constructor(private router: Router, private activatedRoute: ActivatedRoute, private themeService: ThemeConstantService) {
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd),
             map(() => {
@@ -35,7 +35,7 @@ export class CommonLayoutComponent  {
                 }
                 return null;
             })
-        ).subscribe( (data: any) => {
+        ).subscribe((data: any) => {
             this.contentHeaderDisplay = data;
         });
     }
@@ -43,13 +43,13 @@ export class CommonLayoutComponent  {
     ngOnInit() {
         this.breadcrumbs$ = this.router.events.pipe(
             startWith(new NavigationEnd(0, '/', '/')),
-            filter(event => event instanceof NavigationEnd),distinctUntilChanged(),
+            filter(event => event instanceof NavigationEnd), distinctUntilChanged(),
             map(data => this.buildBreadCrumb(this.activatedRoute.root))
         );
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
         this.themeService.isSideNavDarkChanges.subscribe(isDark => this.isSideNavDark = isDark);
-        this.themeService.selectedHeaderColor.subscribe(color => this.selectedHeaderColor = color);   
-        this.themeService.isExpandChanges.subscribe(isExpand => this.isExpand = isExpand);     
+        this.themeService.selectedHeaderColor.subscribe(color => this.selectedHeaderColor = color);
+        this.themeService.isExpandChanges.subscribe(isExpand => this.isExpand = isExpand);
     }
 
     private buildBreadCrumb(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadcrumb[] = []): IBreadcrumb[] {
