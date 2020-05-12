@@ -11,22 +11,4 @@ export class FaqComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  panels = [
-    {
-      active: true,
-      name: 'This is panel header 1',
-      image:'./assets/images/faq/faq-1.png',
-
-    },
-    {
-      active: false,
-      name: 'This is panel header 2',
-      image:'./assets/images/faq/faq-1.png',
-    },
-    {
-      active: false,
-      name: 'This is panel header 3',
-      image:''
-    }
-  ];
 }
