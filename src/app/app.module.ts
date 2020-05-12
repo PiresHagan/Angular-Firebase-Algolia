@@ -28,6 +28,7 @@ import { TranslateLoader, TranslateModule, TranslateStore } from '@ngx-translate
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { LanguageService } from './shared/services/language.service';
+import { PreviousRouteService } from './shared/services/previous-route.service';
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -69,7 +70,8 @@ registerLocaleData(en);
 
         TranslateStore,
         LanguageService,
-        AuthService
+        AuthService,
+        PreviousRouteService
 
     ],
     bootstrap: [AppComponent]

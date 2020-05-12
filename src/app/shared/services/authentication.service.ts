@@ -8,12 +8,16 @@ import {
 import { Router } from "@angular/router";
 import { User } from "../interfaces/user.type";
 import { UserService } from "./user.service";
+import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
     providedIn: "root",
 })
 export class AuthService {
     userData: any; // Save logged in user data
+
+    private isLoggedInUser = new BehaviorSubject<boolean>(false);
+    isLoggedInUserChanges: Observable<boolean> = this.isLoggedInUser.asObservable();
 
     constructor(
         public afs: AngularFirestore, // Inject Firestore service
@@ -30,9 +34,11 @@ export class AuthService {
             if (user) {
                 this.userData = user;
                 this.saveUserInfo(user.uid);
+                this.changeUserStatus(true);
                 localStorage.setItem("user", JSON.stringify(this.userData));
                 JSON.parse(localStorage.getItem("user"));
             } else {
+                this.changeUserStatus(false);
                 localStorage.setItem("user", null);
                 JSON.parse(localStorage.getItem("user"));
             }
@@ -44,7 +50,6 @@ export class AuthService {
         return this.afAuth
             .signInWithEmailAndPassword(email, password)
             .then((result) => {
-                debugger;
                 this.SetUserData(result.user);
             })
             .catch((error) => {
@@ -97,6 +102,7 @@ export class AuthService {
     sign up with username/password and sign in with social auth
     provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
     SetUserData(user) {
+        //  this.changeUserStatus(true);
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(
             `users/${user.uid}`
         );
@@ -120,12 +126,17 @@ export class AuthService {
     }
 
     public signout(): Promise<any> {
+        this.changeUserStatus(false);
         return this.afAuth.signOut();
+
     }
     private saveUserInfo(uid: string) {
         this.userService.getUser(uid).subscribe(snapshot => {
             this.userService.saveUser(snapshot);
 
         });
+    }
+    changeUserStatus(loginStatus: boolean) {
+        this.isLoggedInUser.next(loginStatus);
     }
 }

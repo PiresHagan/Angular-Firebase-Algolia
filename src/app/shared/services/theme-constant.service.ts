@@ -8,7 +8,7 @@ export class ThemeConstantService {
     isMenuFolded: boolean = true;
     isSideNavDark: boolean = false;
     headerColor: string = 'default';
-    lang:string ='en';
+    lang: string = 'en';
     private colorConfig: any = {
         colors: {
             magenta: '#eb2f96',
@@ -78,7 +78,7 @@ export class ThemeConstantService {
     changeHeaderColor(color: string) {
         this.currentHeaderColor.next(color);
     }
-    changeLang(lng: string){
+    changeLang(lng: string) {
         this.isSelectedLang.next(lng);
     }
 }

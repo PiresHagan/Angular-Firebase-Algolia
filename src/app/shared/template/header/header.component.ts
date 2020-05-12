@@ -1,38 +1,65 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ThemeConstantService } from '../../services/theme-constant.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/authentication.service';
+import { LanguageService } from '../../services/language.service';
+import { Language } from '../../interfaces/language.type';
+import { UserService } from '../../services/user.service';
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
 
-export class HeaderComponent{
- 
-    @Output() langChanged: EventEmitter<string> =   new EventEmitter();
-    searchVisible : boolean = false;
-    quickViewVisible : boolean = false;
-    isFolded : boolean;
-    isExpand : boolean;
-    
+export class HeaderComponent {
 
-    
+    @Output() langChanged: EventEmitter<string> = new EventEmitter();
+    searchVisible: boolean = false;
+    quickViewVisible: boolean = false;
+    isFolded: boolean;
+    isExpand: boolean;
+    isLoggedInUser: boolean = false;
+    languageList: Language[];
+    selectedLanguage: string;
+    photoURL: string;
+    displayName: string;
+
 
     constructor(
         private themeService: ThemeConstantService,
-        public translate: TranslateService
-      ) {
-        translate.addLangs(['en', 'nl']);
-        translate.setDefaultLang('en');
-      }
-      switchLang(lang: string) {
+        public translate: TranslateService,
+        private router: Router,
+        private authService: AuthService,
+        public languageService: LanguageService,
+        public userService: UserService,
+
+    ) {
+
+    }
+    switchLang(lang: string) {
+        this.languageService.changeLang(lang);
         this.langChanged.emit(lang);
         this.translate.use(lang);
-      }
+    }
+
 
     ngOnInit(): void {
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
         this.themeService.isExpandChanges.subscribe(isExpand => this.isExpand = isExpand);
+        this.authService.isLoggedInUserChanges.subscribe(isLoggedInUser => this.isLoggedInUser = isLoggedInUser);
+        this.languageList = this.languageService.geLanguageList();
+        this.selectedLanguage = this.languageService.defaultLanguage;
+
+
+        this.userService.getSavedUser().subscribe((data) => {
+            if (data) {
+                this.isLoggedInUser = true;
+                this.photoURL = data.photoURL;
+                this.displayName = data.displayName;
+            }
+
+        });
     }
 
     toggleFold() {
@@ -54,7 +81,20 @@ export class HeaderComponent{
     quickViewToggle(): void {
         this.quickViewVisible = !this.quickViewVisible;
     }
-    
+
+    routeLogin(): void {
+        this.router.navigate(["/auth/login"]);
+
+    }
+    routeSignup(): void {
+        this.router.navigate(["/auth/signup"]);
+
+    }
+    signOut(): void {
+        this.authService.signout();
+    }
+
+
     notificationList = [
         {
             title: 'You received a new message',

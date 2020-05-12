@@ -9,7 +9,6 @@ import "firebase/storage";
 import { User } from "src/app/shared/interfaces/user.type";
 import { formatDate } from "@angular/common";
 import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
-import { LanguageService } from "src/app/shared/services/language.service";
 
 @Component({
   templateUrl: "./profile-settings.component.html",
@@ -18,7 +17,6 @@ export class ProfileSettingsComponent {
   changePWForm: FormGroup;
   photoURL: string;
   selectedCountry: any;
-  selectedLanguage: any;
   profileForm: FormGroup;
   interestForm: FormGroup;
   currentUserEmail: string;

@@ -1,8 +1,11 @@
 import { Component, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { UserService } from 'src/app/shared/services/user.service';
+import { filter } from 'rxjs/operators';
+import { PreviousRouteService } from 'src/app/shared/services/previous-route.service';
+import { AuthService } from 'src/app/shared/services/authentication.service';
 
 @Component({
     templateUrl: './login.component.html',
@@ -20,14 +23,19 @@ export class LoginComponent {
 
     user: any;
 
+    previousUrl: string;
+
     constructor(
         private userService: UserService,
         private router: Router,
         private fb: FormBuilder,
         public ngZone: NgZone, // NgZone service to remove outside scope warning
-        public afAuth: AngularFireAuth) {
+        public afAuth: AngularFireAuth,
+        public authService: AuthService,
+        public previousRoute: PreviousRouteService
+    ) {
 
-
+        console.log(this.previousRoute.getPreviousUrl());
     }
 
     async ngOnInit(): Promise<void> {
@@ -50,8 +58,6 @@ export class LoginComponent {
     async onLogin() {
         try {
             await this.afAuth.signInWithEmailAndPassword(this.loginForm.get('email').value, this.loginForm.get('password').value);
-            debugger
-            console.log(this.afAuth.currentUser);
             this.navigateToUserProfile();
         } catch (error) {
             this.errorMessage = error.message;
@@ -83,6 +89,7 @@ export class LoginComponent {
         this.userService.getUser(uid).subscribe(snapshot => {
             this.user = snapshot;
             this.userService.saveUser(this.user);
+            this.authService.SetUserData(this.user);
 
         });
     }

@@ -10,9 +10,9 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HomeComponent implements OnInit {
 
- @Output() change = new EventEmitter();
- @Input() lang:string;
- secTitle:any;
+  @Output() change = new EventEmitter();
+  @Input() lang: string;
+  secTitle: any;
   // secTitle:any='You might also like';
   heroLarge: any;
   heroSmall: any;
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   categories: any[] = new Array();
   showTooltip: string = '';
 
- 
+
   constructor(
     private articleService: ArticleService,
     public translate: TranslateService,
@@ -33,22 +33,22 @@ export class HomeComponent implements OnInit {
     translate.setDefaultLang('en');
   }
   switchLang(lang: string) {
-        this.translate.use(lang);
+    this.translate.use(lang);
   }
 
   ngOnInit(): void {
-    this.articleService.getHeroLargeArticle().subscribe( article => {
+    this.articleService.getHeroLargeArticle().subscribe(article => {
       this.heroLarge = article[0];
     });
-    
-    
-    this.articleService.getHeroSmallArticle().subscribe( articles => {
+
+
+    this.articleService.getHeroSmallArticle().subscribe(articles => {
       this.heroSmall = articles;
     });
 
-    this.themeService.selectedLang.subscribe(lang =>this.switchLang(lang)); 
+    this.themeService.selectedLang.subscribe(lang => this.switchLang(lang));
 
-    this.articleService.getCategoryRow('business').subscribe( articles => {
+    this.articleService.getCategoryRow('business').subscribe(articles => {
       const category = {
         'articles': articles,
         'title': 'Business',
@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
       this.categories.push(category);
     });
 
-    this.articleService.getCategoryRow('creative').subscribe( articles => {
+    this.articleService.getCategoryRow('creative').subscribe(articles => {
       const category = {
         'articles': articles,
         'title': 'Creative',
@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
       this.categories.push(category);
     });
 
-    this.articleService.getCategoryRow('entertainment').subscribe( articles => {
+    this.articleService.getCategoryRow('entertainment').subscribe(articles => {
       const category = {
         'articles': articles,
         'title': 'Entertainment',
@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit {
       this.categories.push(category);
     });
 
-    this.articleService.getCategoryRow('life-and-styles').subscribe( articles => {
+    this.articleService.getCategoryRow('life-and-styles').subscribe(articles => {
       const category = {
         'articles': articles,
         'title': 'Life and styles',
@@ -92,7 +92,7 @@ export class HomeComponent implements OnInit {
       this.categories.push(category);
     });
 
-    this.articleService.getCategoryRow('news').subscribe( articles => {
+    this.articleService.getCategoryRow('news').subscribe(articles => {
       const category = {
         'articles': articles,
         'title': 'News',
@@ -103,7 +103,7 @@ export class HomeComponent implements OnInit {
       this.categories.push(category);
     });
 
-    this.articleService.getCategoryRow('religion').subscribe( articles => {
+    this.articleService.getCategoryRow('religion').subscribe(articles => {
       const category = {
         'articles': articles,
         'title': 'Religion',
@@ -114,7 +114,7 @@ export class HomeComponent implements OnInit {
       this.categories.push(category);
     });
 
-    this.articleService.getCategoryRow('tech-and-science').subscribe( articles => {
+    this.articleService.getCategoryRow('tech-and-science').subscribe(articles => {
       const category = {
         'articles': articles,
         'title': 'Tech and science',

@@ -45,9 +45,8 @@ export class HeaderBackofficeComponent implements OnInit {
     );
 
     this.languageList = this.languageService.geLanguageList();
-    this.selectedLanguage = this.languageService.defaultLanguage;
-    this.translate.addLangs(this.languageService.getLanguageListArr());
-    this.translate.setDefaultLang(this.selectedLanguage);
+    this.selectedLanguage = this.languageService.getSelectedLanguage();
+
 
 
     this.userService.getSavedUser().subscribe((data) => {
@@ -73,8 +72,8 @@ export class HeaderBackofficeComponent implements OnInit {
   }
 
   langChangedHandler(lang: string) {
-    this.themeService.changeLang(lang);
-    this.translate.use(lang);
+    this.languageService.changeLang(lang);
+
   }
 
   searchToggle(): void {
