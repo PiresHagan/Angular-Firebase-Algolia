@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { UserService } from 'src/app/shared/services/user.service';
-import { filter } from 'rxjs/operators';
 import { PreviousRouteService } from 'src/app/shared/services/previous-route.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 
@@ -35,12 +34,12 @@ export class LoginComponent {
         public previousRoute: PreviousRouteService
     ) {
 
-        console.log(this.previousRoute.getPreviousUrl());
+
     }
 
     async ngOnInit(): Promise<void> {
         this.afAuth.onAuthStateChanged(user => {
-            if (user) {
+            if (user && !user.isAnonymous) {
                 this.getUserInfo(user.uid);
                 this.navigateToUserProfile();
             }
@@ -82,7 +81,8 @@ export class LoginComponent {
 
     private navigateToUserProfile() {
         this.ngZone.run(() => {
-            this.router.navigate(["app/settings/profile-settings"]);
+            this.previousUrl = this.previousRoute.getPreviousUrl();
+            this.router.navigate([this.previousUrl ? this.previousUrl : "app/settings/profile-settings"]);
         });
     }
     private getUserInfo(uid: string) {

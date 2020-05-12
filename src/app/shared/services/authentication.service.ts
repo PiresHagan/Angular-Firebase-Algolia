@@ -9,6 +9,8 @@ import { Router } from "@angular/router";
 import { User } from "../interfaces/user.type";
 import { UserService } from "./user.service";
 import { BehaviorSubject, Observable } from "rxjs";
+import { environment } from "src/environments/environment";
+
 
 @Injectable({
     providedIn: "root",
@@ -31,16 +33,24 @@ export class AuthService {
         /* Saving user data in localstorage when
         logged in and setting up null when logged out */
         this.afAuth.authState.subscribe((user) => {
-            if (user) {
+            if (user && !user.isAnonymous) {
                 this.userData = user;
                 this.saveUserInfo(user.uid);
                 this.changeUserStatus(true);
                 localStorage.setItem("user", JSON.stringify(this.userData));
                 JSON.parse(localStorage.getItem("user"));
+                //localStorage.setItem("isAnonymusUserLoggedIn", 'false');
             } else {
                 this.changeUserStatus(false);
                 localStorage.setItem("user", null);
-                JSON.parse(localStorage.getItem("user"));
+                // localStorage.setItem("isAnonymusUserLoggedIn", 'true');
+                if (environment && environment.isAnonymousUserEnabled) {
+                    this.afAuth.signInAnonymously().catch(function (error) {
+                        console.log('anonymusly login');
+                    });
+                }
+
+
             }
         });
     }

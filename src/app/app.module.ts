@@ -76,7 +76,9 @@ registerLocaleData(en);
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+    constructor(private routerExtService: PreviousRouteService) { }
+}
 export function httpTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http);
 }
