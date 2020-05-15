@@ -25,7 +25,8 @@
                     </div>
                     <div class="is-like-sec is-divider">
                         <a class="is-like" href="" data-toggle="modal" data-target="#modal-login"><img
-                                src="assets/images/article/icon/like.png" />Like <span class="likes-count">0</span></a>
+                                src="assets/images/article/icon/like.png" />Like <span
+                                class="likes-count">{{articleLikes}}</span></a>
                         <a class="is-bookmark" href=""><img src="assets/images/article/icon/bookmark.png" /></a>
                         <a class="is-dot" href=""><img src="assets/images/article/icon/more.png" /></a>
                     </div>
@@ -87,8 +88,8 @@
                     <div class="is-reply-sec">
                         <a name="comments" href="#comments"></a>
                         <h2>Comments</h2>
-                        <div id="comment_id_2763">
-                            <div class="is-comment is-line">
+                        <div>
+                            <div class="is-comment is-line" *ngFor="let articleComment of articleComments">
                                 <div class="is-comment-img">
                                     <img class="avatar"
                                         src="https://mytrendingstories.com/media/photologue/photos/cache/None_04102017091351_author_small.jpg"
@@ -97,8 +98,9 @@
                                 <div class="is-comment-detail">
                                     <div class="pull-left">
                                         <h4 class="is-comment-user-name">
-                                            Eric Desuza
-                                            <small class="comment-date"><i>March 17, 2020, 1:09 a.m.</i></small>
+                                            {{articleComment.username}}
+                                            <small class="comment-date"><i>
+                                                    {{articleComment?.published_on | date:'medium' }}</i></small>
                                         </h4>
                                     </div>
                                     <div class="pull-right">
@@ -106,16 +108,7 @@
                                         <a href="" class="comment-view-replies" data-id="2763">view replies (0)</a>
                                     </div>
                                     <div class="clearfix"></div>
-                                    <p>Hi david,
-
-                                        excellent pieces. keep posting such kind of info on your site.
-                                        i am really impressed by it. i also want to share these types of info in my
-                                        articles but i don't
-                                        have enough followers. so if you give me a follow back then it would be a big
-                                        favor to me.
-
-                                        kind regards,
-                                        eric</p>
+                                    <p innerHTML="{{articleComment.message}}"> </p>
                                 </div>
                             </div>
                             <div class="comment-reply-form">

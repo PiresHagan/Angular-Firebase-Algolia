@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from 'src/app/shared/services/user.service';
+import { AuthorService } from 'src/app/shared/services/author.service';
+import { ArticleService } from 'src/app/shared/services/article.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,10 +10,14 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class ProfileComponent implements OnInit {
 
-  user;
+  authorDetails: any = {};
+  followers: any = [];
+  subscribers: any = [];
+  articles: any = [];
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService
+    private authorService: AuthorService,
+    private articleService: ArticleService
   ) { }
 
   ngOnInit(): void {
@@ -22,10 +27,30 @@ export class ProfileComponent implements OnInit {
 
       const slug = params.get('slug');
 
-      this.userService.getUserBySlug(slug).subscribe(userArray => {
-        this.user = userArray[0];
+      this.authorService.getUserBySlug(slug).subscribe(author => {
+        this.authorDetails = author;
+        this.getFollowersDetails(author["followers"]);
+        this.getSubscribersDetails(author["subscribers"])
+        this.getArticleList(author['id']);
       });
     });
+  }
+
+  getFollowersDetails(followerList) {
+    this.authorService.getAuthorsById(followerList).subscribe((followers) => {
+      this.followers = followers;
+    })
+  }
+  getSubscribersDetails(subscriberList) {
+    this.authorService.getAuthorsById(subscriberList).subscribe((subscribers) => {
+      this.subscribers = subscribers;
+    })
+  }
+  getArticleList(authorId) {
+    this.articleService.getArticlesByAuthor(authorId).subscribe((articleList) => {
+      console.log(articleList);
+      this.articles = articleList;
+    })
   }
 
 }

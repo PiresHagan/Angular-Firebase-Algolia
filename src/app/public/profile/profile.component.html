@@ -1,19 +1,17 @@
-
-
 <section class="is-author-profile-sec">
     <div class="container">
         <div class="is-profile-main">
             <div class="is-author-profile-img">
-                <img class="avatar" itemprop="image" src="assets\images\profile.jpg" alt="gaaden.mohamed@gmail.com" />
+                <img class="avatar" itemprop="image" [src]="authorDetails?.avatarObj?.image"
+                    alt="{{authorDetails?.email}}" />
             </div>
             <div class="is-author-profile-info">
                 <h2 class="is-author-profile-name is-divider">
-                    Mohaned Gadnne
-                    <span>Author on <a href="/" title="My Trending Stories">My Trending Stories</a></span> 
+                    {{authorDetails?.first_name + ' ' + authorDetails?.last_name}}
+                    <span>Author on <a href="/" title="My Trending Stories">My Trending Stories</a></span>
                 </h2>
-                <p class="is-author-description">
-                    <span>Hi World,</span>
-                            This is Mohaned, a passionate writer. Welcome to my page! Hope you enjoy it.
+                <p class="is-author-description" innerHTML="{{authorDetails?.biography_en}}">
+
                 </p>
                 <div class="is-author-media-sec">
                     <h3 class="is-line">Share & Follow us</h3>
@@ -38,13 +36,13 @@
                         </li>
                         <li>
                             <a href="#" class="is-follow-link">
-                                <b>200</b>
+                                <b>{{authorDetails.followers?.length}}</b>
                                 <span>Followers</span>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="is-follow-link">
-                                <b>200</b>
+                                <b>{{authorDetails.subscribers?.length}}</b>
                                 <span>Following</span>
                             </a>
                         </li>
@@ -55,198 +53,94 @@
         </div>
     </div>
 </section>
-<section class="is-followers-sec">
+<section class="is-followers-sec" *ngIf="followers.length">
     <div class="container">
         <div class="is-comman-title">
             Followers
         </div>
         <p class="follow">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+            scrambled
         </p>
         <div class="is-followers-user">
-            <div class="is-followers-item">
-                <img src="assets/images/profile/1.jpg" />
-            </div>
-            <div class="is-followers-item">
-                <img src="assets/images/profile/2.jpg" />
-            </div>
-            <div class="is-followers-item">
-                <img src="assets/images/profile/1.jpg" />
-            </div>
-            <div class="is-followers-item">
-                <img src="assets/images/profile/2.jpg" />
-            </div>
-            <div class="is-followers-item">
-                <img src="assets/images/profile/1.jpg" />
-            </div>
-            <div class="is-followers-item">
-                <img src="assets/images/profile/2.jpg" />
-            </div>
-            <div class="is-followers-item">
-                <img src="assets/images/profile/1.jpg" />
+            <div class="is-followers-item" *ngFor="let follower of followers">
+                <img src="{{follower?.avatarObj?.image}}" />
             </div>
         </div>
     </div>
 </section>
-<section class="is-followers-sec">
+<section class="is-followers-sec" *ngIf="subscribers.length">
     <div class="container">
         <div class="is-comman-title">
             Following
         </div>
         <p class="follow">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+            scrambled
         </p>
         <div class="is-followers-user">
-            <div class="is-followers-item">
-                <img src="assets/images/profile/1.jpg" />
+            <div class="is-followers-item" *ngFor="let subscriber of subscribers">
+                <img src="{{subscriber?.avatarObj?.image}}" />
             </div>
-            <div class="is-followers-item">
-                <img src="assets/images/profile/2.jpg" />
-            </div>
-            <div class="is-followers-item">
-                <img src="assets/images/profile/1.jpg" />
-            </div>
-            <div class="is-followers-item">
-                <img src="assets/images/profile/2.jpg" />
-            </div>
-            <div class="is-followers-item">
-                <img src="assets/images/profile/1.jpg" />
-            </div>
-            <div class="is-followers-item">
-                <img src="assets/images/profile/2.jpg" />
-            </div>
-            <div class="is-followers-item">
-                <img src="assets/images/profile/1.jpg" />
-            </div>
+
         </div>
     </div>
 </section>
 <section class="bg-white">
-        <div class="is-comman-title">
-            Article
-        </div>
-        <p class="follow">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
-        </p>
-        <div class="is-cat-box-card-main">
-            <div class="cat-box">
-                <div class="cat-box-gallery">
-                    <div class="container">
-                        <div class="row article-row">
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                                <div class="item-card item-card-life-and-styles">
-                                    <a href="/en/article/the-eu-remains-the-main-sponsor-of-the-palestinian-pay-to-kill-program/">
-                                        <div class="item-card-image">
-                                            <img src="assets/images/profile/article/The-Pirate-Bay-4_article_small.jpg" alt="">
-                                            <h3 class="is-category-title">News</h3>
-                                        </div>
-                                        <div class="item-card-content">
-                                            <div class="item-card-category  cat-yellow">
-                                                <div class="is-avatar-dv">
-                                                    
-                                                    <img class="avatar" src="assets\images\profile.jpg"  alt="">
-                                                    <span class="item-card-author">Mohaned Gadnne</span>
-                                                </div>
-                                            </div>
-                                            <div class="item-card-title">
-                                                <h4 class="item-long-title">How to Use The Pirate Bay Proxies To Quick Access [100% Working]</h4>
-                                            </div>
-                                            <div class="item-card-texte">
-                                                <p>Established in 2003 by a group of hackers and activists, a small Swedish... </p>
-                                                <button type="button" class="is-read-more">Read More <img src="assets/images/read-more-icon-red.png" /></button>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                                <div class="item-card item-card-life-and-styles">
-                                    <a href="/en/article/the-eu-remains-the-main-sponsor-of-the-palestinian-pay-to-kill-program/">
-                                        <div class="item-card-image">
-                                            <img src="assets/images/profile/article/The-Pirate-Bay-4_article_small.jpg" alt="">
-                                            <h3 class="is-category-title">News</h3>
-                                        </div>
-                                        <div class="item-card-content">
-                                            <div class="item-card-category  cat-yellow">
-                                                <div class="is-avatar-dv">
-                                                    
-                                                    <img class="avatar" src="assets\images\profile.jpg"  alt="">
-                                                    <span class="item-card-author">Mohaned Gadnne</span>
-                                                </div>
-                                            </div>
-                                            <div class="item-card-title">
-                                                <h4 class="item-long-title">How to Use The Pirate Bay Proxies To Quick Access [100% Working]</h4>
-                                            </div>
-                                            <div class="item-card-texte">
-                                                <p>Established in 2003 by a group of hackers and activists, a small Swedish... </p>
-                                                <button type="button" class="is-read-more">Read More <img src="assets/images/read-more-icon-red.png" /></button>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
+    <div class="is-comman-title">
+        Article
+    </div>
+    <p class="follow">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
+    </p>
+    <div class="is-cat-box-card-main">
+        <div class="cat-box">
+            <div class="cat-box-gallery">
+                <div class="container">
+                    <div class="row article-row">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let article of articles">
+                            <div class="item-card item-card-life-and-styles">
+                                <a [routerLink]="['/article/',article.slug]">
+                                    <div class="item-card-image">
 
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                                <div class="item-card item-card-life-and-styles">
-                                    <a href="/en/article/the-eu-remains-the-main-sponsor-of-the-palestinian-pay-to-kill-program/">
-                                        <div class="item-card-image">
-                                            <img src="assets/images/profile/article/The-Pirate-Bay-4_article_small.jpg" alt="">
-                                            <h3 class="is-category-title">News</h3>
-                                        </div>
-                                        <div class="item-card-content">
-                                            <div class="item-card-category  cat-yellow">
-                                                <div class="is-avatar-dv">
-                                                    
-                                                    <img class="avatar" src="assets\images\profile.jpg"  alt="">
-                                                    <span class="item-card-author">Mohaned Gadnne</span>
-                                                </div>
-                                            </div>
-                                            <div class="item-card-title">
-                                                <h4 class="item-long-title">How to Use The Pirate Bay Proxies To Quick Access [100% Working]</h4>
-                                            </div>
-                                            <div class="item-card-texte">
-                                                <p>Established in 2003 by a group of hackers and activists, a small Swedish... </p>
-                                                <button type="button" class="is-read-more">Read More <img src="assets/images/read-more-icon-red.png" /></button>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
+                                        <img [src]="article.featured_imageObj.image"
+                                            [alt]="article.featured_imageObj.title">
+                                        <h3 class="is-category-title">{{article?.categoryObj.title}}</h3>
+                                    </div>
+                                    <div class="item-card-content">
+                                        <div class="item-card-category  cat-yellow">
+                                            <div class="is-avatar-dv">
 
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                                <div class="item-card item-card-life-and-styles">
-                                    <a href="/en/article/the-eu-remains-the-main-sponsor-of-the-palestinian-pay-to-kill-program/">
-                                        <div class="item-card-image">
-                                            <img src="assets/images/profile/article/The-Pirate-Bay-4_article_small.jpg" alt="">
-                                            <h3 class="is-category-title">News</h3>
-                                        </div>
-                                        <div class="item-card-content">
-                                            <div class="item-card-category  cat-yellow">
-                                                <div class="is-avatar-dv">
-                                                    
-                                                    <img class="avatar" src="assets\images\profile.jpg"  alt="">
-                                                    <span class="item-card-author">Mohaned Gadnne</span>
-                                                </div>
-                                            </div>
-                                            <div class="item-card-title">
-                                                <h4 class="item-long-title">How to Use The Pirate Bay Proxies To Quick Access [100% Working]</h4>
-                                            </div>
-                                            <div class="item-card-texte">
-                                                <p>Established in 2003 by a group of hackers and activists, a small Swedish... </p>
-                                                <button type="button" class="is-read-more">Read More <img src="assets/images/read-more-icon-red.png" /></button>
+                                                <img class="avatar" [src]="article?.authorObj?.avatarObj.image"
+                                                    [alt]="article._author">
+                                                <span class="item-card-author">{{article._author}}</span>
                                             </div>
                                         </div>
-                                    </a>
-                                </div>
+                                        <div class="item-card-title">
+                                            <h4 class="item-long-title">{{article.title}}</h4>
+                                        </div>
+                                        <div class="item-card-texte">
+                                            <p>{{article.summary}}</p>
+                                            <button type="button" class="is-read-more">Read More <a></a><img
+                                                    src="assets/images/read-more-icon-red.png" /></button>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
 
 
-                            
                         </div>
+
+
+
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </section>
 <!-- <section class="title-content-page title-content-page-author">
     <div class="container" itemprop="author" itemscope itemtype="//schema.org/Person">

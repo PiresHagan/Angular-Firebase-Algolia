@@ -32,7 +32,6 @@ export class CategoryComponent implements OnInit {
       });
 
       this.articleService.getCategory(slug).subscribe(articles => {
-        debugger;
         this.articles = articles;
         console.log('Articles', articles);
       });
