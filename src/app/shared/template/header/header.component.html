@@ -14,13 +14,12 @@
                 </a>
             </div>
         </div>
-        <div class="col-6 col-sm-6 col-lg-6 col-xl-8 vertical-center">
+        <div class="col-3 col-sm-6 col-lg-6 col-xl-8 vertical-center">
             <app-mainmenu class="w-100"></app-mainmenu>
         </div>
-        <div class="col-6 col-sm-6 col-lg-6 col-xl-2 vertical-center">
+        <div class="col-9 col-sm-6 col-lg-6 col-xl-2 vertical-center">
             <div class="nav-wrap">
                 <ul class="nav-right">
-
                     <li>
                         <nz-select (ngModelChange)="switchLang($event)" [(ngModel)]="selectedLanguage">
                             <nz-option *ngFor="let option of languageList" [nzLabel]="option.labal"
