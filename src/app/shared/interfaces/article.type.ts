@@ -3,8 +3,11 @@ export interface Article {
     title?: string;
     slug?: string;
     category?: string;
+    authorObj?: any;
+    categoryObj?: any;
+    featured_imageObj?: any;
     author?: string;
-    content?:string;
+    content?: string;
     excerpt?: string;
     topics?: string;
     language?: string;

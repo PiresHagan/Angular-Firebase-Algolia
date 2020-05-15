@@ -30,7 +30,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'article',
+    path: 'article/:slug',
     component: ArticleComponent,
     data: {
       title: 'Article',
@@ -38,7 +38,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'profile',
+    path: 'profile/:slug',
     component: ProfileComponent,
     data: {
       title: 'Profile',
