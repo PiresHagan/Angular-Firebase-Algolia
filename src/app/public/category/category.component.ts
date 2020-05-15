@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CategoryComponent implements OnInit {
 
-  category:any;
+  category: any;
   articles: any[];
 
   constructor(
@@ -21,7 +21,7 @@ export class CategoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+
     this.route.paramMap.subscribe(params => {
       console.log('Category Slug', params.get('slug'));
 
@@ -31,7 +31,8 @@ export class CategoryComponent implements OnInit {
         this.category = category;
       });
 
-      this.articleService.getCategory(slug).subscribe( articles => {
+      this.articleService.getCategory(slug).subscribe(articles => {
+        debugger;
         this.articles = articles;
         console.log('Articles', articles);
       });

@@ -1,8 +1,7 @@
-
 <section class="bg-white">
     <div class="container-fluid">
         <div class="title-row">
-            
+
             <div class="right-btn-bar">
                 <div class="category-newsletter-container">
                     <span class="cat-yellow"> </span>
@@ -12,8 +11,7 @@
 
                         <div class="form-group">
                             <input class="form-control newsletter-input" id="id_category-email" maxlength="100"
-                                name="category-email" placeholder="Subscribe newsletter" type="email"
-                                required="">
+                                name="category-email" placeholder="Subscribe newsletter" type="email" required="">
                             <button class="btn">Subscribe</button>
                             <div class="clearfix"></div>
                         </div>
@@ -22,7 +20,7 @@
                 </div>
                 <div class="btn-rss">
                     <a href="https://mytrendingstories.com/category/life-and-styles/feed/">
-                        Subscribe RSS 
+                        Subscribe RSS
                         <span class="rss-icon"><i class="fa fa-rss" aria-hidden="true"></i></span>
                     </a>
                 </div>
@@ -47,70 +45,75 @@
                         <div class="is-profile-main">
                             <div class="is-card-author-group">
                                 <img class="avatar" src="assets/images/avatars/thumb-1.jpg" />&nbsp;
-                                <span class="is-card-author">Misti  Pyles </span>
+                                <span class="is-card-author">Misti Pyles </span>
                             </div>
                             <div class="divider"></div>
                             <div class="is-card-btn">
                                 <button nz-button nzType="primary">Entertainment</button>
                             </div>
-                            
+
                         </div>
                         <div class="is-card-content">
-                           <h2  class="is-small-title">
-                               <span href="https://mytrendingstories.com/category/">Today's stories</span>
-                               <div>Liberation by Imogen Kealey (Review)</div>
-                           </h2> 
-                        <p class="is-card-description">The must-read thriller inspired by the true story of Nancy Wake</p>
-                        <button type="button" class="is-read-more">Read More <img src="assets/images/read-more-icon-red.png" /></button>
+                            <h2 class="is-small-title">
+                                <span href="https://mytrendingstories.com/category/">Today's stories</span>
+                                <div>Liberation by Imogen Kealey (Review)</div>
+                            </h2>
+                            <p class="is-card-description">The must-read thriller inspired by the true story of Nancy
+                                Wake</p>
+                            <button type="button" class="is-read-more">Read More <img
+                                    src="assets/images/read-more-icon-red.png" /></button>
                         </div>
                     </a>
                 </div>
-        
-               
-               
+
+
+
             </div>
         </section>
         <section class="is-cat-box-card-main">
-        <div class="cat-box">
-            <div class="container">
-                <div class="cat-box-gallery">
-                    <div class="row article-row">
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let article of articles">
-                            <div class="item-card item-card-life-and-styles">
-                                <a [routerLink]="article.slug">
-                                    <div class="item-card-image">
-            
-                                        <img [src]="article.featured_imageObj.image" [alt]="article.featured_imageObj.title">
-                                        <h3 class="is-category-title">{{category.title}}</h3>
-                                    </div>
-                                    <div class="item-card-content">
-                                        <div class="item-card-category  cat-yellow">
-                                            <div class="is-avatar-dv">
-                                                
-                                                <img class="avatar" [src]="article.authorObj.avatarObj.image" [alt]="article._author">
-                                                <span class="item-card-author">{{article._author}}</span>
+            <div class="cat-box">
+                <div class="container">
+                    <div class="cat-box-gallery">
+                        <div class="row article-row">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let article of articles">
+                                <div class="item-card item-card-life-and-styles">
+                                    <a [routerLink]="['/article/',article.slug]">
+                                        <div class="item-card-image">
+
+                                            <img [src]="article.featured_imageObj.image"
+                                                [alt]="article.featured_imageObj.title">
+                                            <h3 class="is-category-title">{{category.title}}</h3>
+                                        </div>
+                                        <div class="item-card-content">
+                                            <div class="item-card-category  cat-yellow">
+                                                <div class="is-avatar-dv">
+
+                                                    <img class="avatar" [src]="article.authorObj.avatarObj.image"
+                                                        [alt]="article._author">
+                                                    <span class="item-card-author">{{article._author}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="item-card-title">
+                                                <h4 class="item-long-title">{{article.title}}</h4>
+                                            </div>
+                                            <div class="item-card-texte">
+                                                <p>{{article.summary}}</p>
+                                                <button type="button" class="is-read-more">Read More <a></a><img
+                                                        src="assets/images/read-more-icon-red.png" /></button>
                                             </div>
                                         </div>
-                                        <div class="item-card-title">
-                                            <h4 class="item-long-title">{{article.title}}</h4>
-                                        </div>
-                                        <div class="item-card-texte">
-                                            <p>{{article.summary}}</p>
-                                            <button type="button" class="is-read-more">Read More <img src="assets/images/read-more-icon-red.png" /></button>
-                                        </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
+
+
                             </div>
-            
-            
                         </div>
                     </div>
                 </div>
-            </div>
-            
 
-        </div>
-    </section>
+
+            </div>
+        </section>
 
         <div class="row">
             <div class="pagination">
@@ -123,10 +126,11 @@
                         <li><a href="#">3</a></li>
                         <li>...</li>
                         <li><a href="#">1378</a></li>
-                        <li><a  class="btn page-btn" href="https://mytrendingstories.com?page=2"><i class="fa fa-angle-right"></i></a></li>
+                        <li><a class="btn page-btn" href="https://mytrendingstories.com?page=2"><i
+                                    class="fa fa-angle-right"></i></a></li>
                         <li><a href="#" class="last">Last</a></li>
                     </ul>
-                    
+
                     <!-- <span class="current">
                         Page 1 of 1378
                     </span>

@@ -1,95 +1,101 @@
 <section class="is-hero">
     <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-7 pl-18">
-            <a class="is-hero-card" *ngFor="let article of heroSmall | slice:0:1" href="#">
-                <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + article.featured_imageObj.image + ')'}"></div>
+            <a class="is-hero-card" *ngFor="let article of heroSmall | slice:0:1"
+                [routerLink]="['/article/',article.slug]">
+                <div class="is-card-bg"
+                    [ngStyle]="{'background-image': 'url(' + article.featured_imageObj.image + ')'}"></div>
                 <div class="is-profile-main">
                     <div class="is-card-author-group">
-                        <img class="avatar"
-                            [src]="article.authorObj.avatarObj.image"
-                            [alt]="article._author">&nbsp;
-                        <span class="is-card-author">{{article.authorObj.first_name}} {{article.authorObj.last_name}}</span>
+                        <img class="avatar" [src]="article.authorObj.avatarObj.image" [alt]="article._author">&nbsp;
+                        <span class="is-card-author">{{article.authorObj.first_name}}
+                            {{article.authorObj.last_name}}</span>
                     </div>
                     <div class="divider"></div>
                     <div class="is-card-btn">
                         <button nz-button nzType="primary">{{article.categoryObj.title}}</button>
                     </div>
-                    
+
                 </div>
                 <div class="is-card-content">
-                   <h2  class="is-small-title">
-                       <span href="https://mytrendingstories.com/category/">{{'heroStory' | translate}}</span>
-                       <div>{{article.title}}</div>
-                   </h2> 
-                <p class="is-card-description">{{article.summary | slice:0:100 }}</p>
-                <button type="button" class="is-read-more">{{'readMore' | translate}} <img src="assets/images/read-more-icon.png" /></button>
+                    <h2 class="is-small-title">
+                        <span href="https://mytrendingstories.com/category/">{{'heroStory' | translate}}</span>
+                        <div>{{article.title}}</div>
+                    </h2>
+                    <p class="is-card-description">{{article.summary | slice:0:100 }}</p>
+                    <button type="button" class="is-read-more">{{'readMore' | translate}} <img
+                            src="assets/images/read-more-icon.png" /></button>
                 </div>
             </a>
         </div>
 
         <div class="col-12 col-sm-12 col-md-6 col-lg-5 pr-18">
-            <a class="is-hero-card" *ngFor="let article of heroSmall | slice:1:2" href="#">
-                <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + article.featured_imageObj.image + ')'}"></div>
+            <a class="is-hero-card" *ngFor="let article of heroSmall | slice:1:2"
+                [routerLink]="['/article/',article.slug]">
+                <div class="is-card-bg"
+                    [ngStyle]="{'background-image': 'url(' + article.featured_imageObj.image + ')'}"></div>
                 <div class="is-profile-main">
                     <div class="is-card-author-group">
-                        <img class="avatar"
-                            [src]="article.authorObj.avatarObj.image"
-                            [alt]="article._author">&nbsp;
-                        <span class="is-card-author">{{article.authorObj.first_name}} {{article.authorObj.last_name}}</span>
+                        <img class="avatar" [src]="article.authorObj.avatarObj.image" [alt]="article._author">&nbsp;
+                        <span class="is-card-author">{{article.authorObj.first_name}}
+                            {{article.authorObj.last_name}}</span>
                     </div>
                     <div class="divider"></div>
                     <div class="is-card-btn">
                         <button nz-button nzType="primary">{{article.categoryObj.title}}</button>
                     </div>
-                    
+
                 </div>
                 <div class="is-card-content">
-                   <h2  class="is-small-title">
-                       <span href="https://mytrendingstories.com/category/">{{'heroStory' | translate}}</span>
-                       <div>{{article.title}}</div>
-                   </h2> 
-                <p class="is-card-description">{{article.summary | slice:0:100 }}</p>
-                <button type="button" class="is-read-more">{{'readMore' | translate}} <img src="assets/images/read-more-icon.png" /></button>
+                    <h2 class="is-small-title">
+                        <span href="https://mytrendingstories.com/category/">{{'heroStory' | translate}}</span>
+                        <div>{{article.title}}</div>
+                    </h2>
+                    <p class="is-card-description">{{article.summary | slice:0:100 }}</p>
+                    <button type="button" class="is-read-more">{{'readMore' | translate}} <img
+                            src="assets/images/read-more-icon.png" /></button>
                 </div>
             </a>
         </div>
-       
+
     </div>
     <div class="row">
         <div class="is-bottom-hero">
             <div class="row is-row-height pt-18">
-                <div  *ngFor="let article of heroSmall | slice:1:4" [routerLink]="article.slug" class="col-12 col-sm-12 col-md-12 col-lg-4">
+                <div *ngFor="let article of heroSmall | slice:1:4" [routerLink]="['/article/',article.slug]"
+                    class="col-12 col-sm-12 col-md-12 col-lg-4">
                     <a class="is-hero-card is-small-card">
-                        
-                        <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + article.featured_imageObj.image + ')'}"></div>
+
+                        <div class="is-card-bg"
+                            [ngStyle]="{'background-image': 'url(' + article.featured_imageObj.image + ')'}"></div>
                         <div class="is-profile-main">
                             <div class="is-card-author-group">
-                                <img class="avatar"
-                                    [src]="article.authorObj.avatarObj.image"
-                                    [alt]="article._author">
-                                    <span class="is-card-author">{{article._author}}</span>
+                                <img class="avatar" [src]="article.authorObj.avatarObj.image" [alt]="article._author">
+                                <span class="is-card-author">{{article._author}}</span>
                             </div>
                             <div class="divider"></div>
                             <div class="is-card-btn">
                                 <button nz-button nzType="primary">{{article.categoryObj.title}}</button>
-                        </div>
+                            </div>
 
                         </div>
                         <div class="is-card-content">
-                            <h2  class="is-small-title">
+                            <h2 class="is-small-title">
                                 <span href="https://mytrendingstories.com/category/">{{'heroStory' | translate}}</span>
                                 <div>{{article.title}}</div>
-                            </h2> 
+                            </h2>
                             <p class="is-card-description">{{article.summary}}</p>
-                            <button type="button" class="is-read-more">{{'readMore' | translate}} <img src="assets/images/read-more-icon.png" /></button>
+                            <button type="button" class="is-read-more">{{'readMore' | translate}} <img
+                                    src="assets/images/read-more-icon.png" /></button>
+
                         </div>
                     </a>
                 </div>
-                
+
             </div>
 
             <!-- <div class="row is-row-height">
-                <a *ngFor="let article of heroSmall | slice:3:5" [routerLink]="article.slug" class="is-hero-card col-sm is-small-card">
+                <a *ngFor="let article of heroSmall | slice:3:5" [routerLink]="['/article/',article.slug]" class="is-hero-card col-sm is-small-card">
                     <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + article.featured_imageObj.image + ')'}"></div>
                     <div class="is-card-content">
                        <div class="">
@@ -112,7 +118,7 @@
                     </div>
                 </a>
             </div> -->
-    </div>
+        </div>
     </div>
 
 </section>
@@ -149,7 +155,7 @@
 
         <div class="col-sm">
             <div class="row">
-                <a *ngFor="let article of heroSmall | slice:1:3" [routerLink]="article.slug" class="item-card hero-card col-sm">
+                <a *ngFor="let article of heroSmall | slice:1:3" [routerLink]="['/article/',article.slug]" class="item-card hero-card col-sm">
 
                     <div class="hero-card-image" [ngStyle]="{'background-image': 'url(' + article.featured_imageObj.image + ')'}"></div>
 
@@ -172,7 +178,7 @@
                 </a>
             </div>
             <div class="row">
-                <a *ngFor="let article of heroSmall | slice:3:5" [routerLink]="article.slug" class="item-card hero-card col-sm">
+                <a *ngFor="let article of heroSmall | slice:3:5" [routerLink]="['/article/',article.slug]" class="item-card hero-card col-sm">
 
                     <div class="hero-card-image" [ngStyle]="{'background-image': 'url(' + article.featured_imageObj.image + ')'}"></div>
 
@@ -209,213 +215,223 @@
     </select>
     </div> -->
     <div class="container">
-            <div class="is-comman-title">
-                <!-- You might also like : -->
-                {{'secTitle' | translate }}
-            </div>
-            <div class="is-member">
-                
-                <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
-                    <a href="#" class="is-profile-img-link">
-                        <img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/>
-                       
-                    </a>
-                    <div class="is-member-hover">
-                        <div class="is-member-profile-header">
-                            <h3>Jonathan  Cring </h3>
-                            <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
-                        </div>
-                        <div class="is-member-profile-body">
-                            <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
-                            <div class="is-profile-tag">
-                                <span class="is-tag is-red">Entertainment</span>
-                                <span class="is-tag is-purple">Opinion</span>
-                                <span class="is-tag is-yellow">Life and Styles</span>
-                            </div>
-                        </div>
+        <div class="is-comman-title">
+            <!-- You might also like : -->
+            {{'secTitle' | translate }}
+        </div>
+        <div class="is-member">
+
+            <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'"
+                (mouseout)="showTooltip=''">
+                <a href="#" class="is-profile-img-link">
+                    <img src="assets/images/avatars/thumb-1.jpg" class="is-profile" />
+
+                </a>
+                <div class="is-member-hover">
+                    <div class="is-member-profile-header">
+                        <h3>Jonathan Cring </h3>
+                        <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
                     </div>
-                </div>
-                <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
-                    <a href="#" class="is-profile-img-link">
-                        <img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/>
-                        
-                    </a>
-                    <div class="is-member-hover">
-                        <div class="is-member-profile-header">
-                            <h3>Jonathan  Cring </h3>
-                            <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
-                        </div>
-                        <div class="is-member-profile-body">
-                            <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
-                            <div class="is-profile-tag">
-                                <span class="is-tag is-red">Entertainment</span>
-                                <span class="is-tag is-purple">Opinion</span>
-                                <span class="is-tag is-yellow">Life and Styles</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
-                    <a href="#" class="is-profile-img-link">
-                        <img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/>
-                       
-                    </a>
-                    <div class="is-member-hover">
-                        <div class="is-member-profile-header">
-                            <h3>Jonathan  Cring </h3>
-                            <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
-                        </div>
-                        <div class="is-member-profile-body">
-                            <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
-                            <div class="is-profile-tag">
-                                <span class="is-tag is-red">Entertainment</span>
-                                <span class="is-tag is-purple">Opinion</span>
-                                <span class="is-tag is-yellow">Life and Styles</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
-                    <a href="#" class="is-profile-img-link">
-                        <img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/>
-                        
-                    </a>
-                    <div class="is-member-hover">
-                        <div class="is-member-profile-header">
-                            <h3>Jonathan  Cring </h3>
-                            <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
-                        </div>
-                        <div class="is-member-profile-body">
-                            <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
-                            <div class="is-profile-tag">
-                                <span class="is-tag is-red">Entertainment</span>
-                                <span class="is-tag is-purple">Opinion</span>
-                                <span class="is-tag is-yellow">Life and Styles</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
-                    <a href="#" class="is-profile-img-link">
-                        <img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/>
-                       
-                    </a>
-                    <div class="is-member-hover">
-                        <div class="is-member-profile-header">
-                            <h3>Jonathan  Cring </h3>
-                            <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
-                        </div>
-                        <div class="is-member-profile-body">
-                            <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
-                            <div class="is-profile-tag">
-                                <span class="is-tag is-red">Entertainment</span>
-                                <span class="is-tag is-purple">Opinion</span>
-                                <span class="is-tag is-yellow">Life and Styles</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
-                    <a href="#" class="is-profile-img-link">
-                        <img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/>
-                       
-                    </a>
-                    <div class="is-member-hover">
-                        <div class="is-member-profile-header">
-                            <h3>Jonathan  Cring </h3>
-                            <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
-                        </div>
-                        <div class="is-member-profile-body">
-                            <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
-                            <div class="is-profile-tag">
-                                <span class="is-tag is-red">Entertainment</span>
-                                <span class="is-tag is-purple">Opinion</span>
-                                <span class="is-tag is-yellow">Life and Styles</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
-                    <a href="#" class="is-profile-img-link">
-                        <img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/>
-                       
-                    </a>
-                    <div class="is-member-hover">
-                        <div class="is-member-profile-header">
-                            <h3>Jonathan  Cring </h3>
-                            <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
-                        </div>
-                        <div class="is-member-profile-body">
-                            <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
-                            <div class="is-profile-tag">
-                                <span class="is-tag is-red">Entertainment</span>
-                                <span class="is-tag is-purple">Opinion</span>
-                                <span class="is-tag is-yellow">Life and Styles</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
-                    <a href="#" class="is-profile-img-link">
-                        <img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/>
-                       
-                    </a>
-                    <div class="is-member-hover">
-                        <div class="is-member-profile-header">
-                            <h3>Jonathan  Cring </h3>
-                            <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
-                        </div>
-                        <div class="is-member-profile-body">
-                            <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
-                            <div class="is-profile-tag">
-                                <span class="is-tag is-red">Entertainment</span>
-                                <span class="is-tag is-purple">Opinion</span>
-                                <span class="is-tag is-yellow">Life and Styles</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
-                    <a href="#" class="is-profile-img-link">
-                        <img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/>
-                       
-                    </a>
-                    <div class="is-member-hover">
-                        <div class="is-member-profile-header">
-                            <h3>Jonathan  Cring </h3>
-                            <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
-                        </div>
-                        <div class="is-member-profile-body">
-                            <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
-                            <div class="is-profile-tag">
-                                <span class="is-tag is-red">Entertainment</span>
-                                <span class="is-tag is-purple">Opinion</span>
-                                <span class="is-tag is-yellow">Life and Styles</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
-                    <a href="#" class="is-profile-img-link">
-                        <img src="assets/images/avatars/thumb-1.jpg" class="is-profile"/>
-                       
-                    </a>
-                    <div class="is-member-hover">
-                        <div class="is-member-profile-header">
-                            <h3>Jonathan  Cring </h3>
-                            <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
-                        </div>
-                        <div class="is-member-profile-body">
-                            <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
-                            <div class="is-profile-tag">
-                                <span class="is-tag is-red">Entertainment</span>
-                                <span class="is-tag is-purple">Opinion</span>
-                                <span class="is-tag is-yellow">Life and Styles</span>
-                            </div>
+                    <div class="is-member-profile-body">
+                        <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
+                        <div class="is-profile-tag">
+                            <span class="is-tag is-red">Entertainment</span>
+                            <span class="is-tag is-purple">Opinion</span>
+                            <span class="is-tag is-yellow">Life and Styles</span>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'"
+                (mouseout)="showTooltip=''">
+                <a href="#" class="is-profile-img-link">
+                    <img src="assets/images/avatars/thumb-1.jpg" class="is-profile" />
+
+                </a>
+                <div class="is-member-hover">
+                    <div class="is-member-profile-header">
+                        <h3>Jonathan Cring </h3>
+                        <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
+                    </div>
+                    <div class="is-member-profile-body">
+                        <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
+                        <div class="is-profile-tag">
+                            <span class="is-tag is-red">Entertainment</span>
+                            <span class="is-tag is-purple">Opinion</span>
+                            <span class="is-tag is-yellow">Life and Styles</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'"
+                (mouseout)="showTooltip=''">
+                <a href="#" class="is-profile-img-link">
+                    <img src="assets/images/avatars/thumb-1.jpg" class="is-profile" />
+
+                </a>
+                <div class="is-member-hover">
+                    <div class="is-member-profile-header">
+                        <h3>Jonathan Cring </h3>
+                        <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
+                    </div>
+                    <div class="is-member-profile-body">
+                        <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
+                        <div class="is-profile-tag">
+                            <span class="is-tag is-red">Entertainment</span>
+                            <span class="is-tag is-purple">Opinion</span>
+                            <span class="is-tag is-yellow">Life and Styles</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'"
+                (mouseout)="showTooltip=''">
+                <a href="#" class="is-profile-img-link">
+                    <img src="assets/images/avatars/thumb-1.jpg" class="is-profile" />
+
+                </a>
+                <div class="is-member-hover">
+                    <div class="is-member-profile-header">
+                        <h3>Jonathan Cring </h3>
+                        <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
+                    </div>
+                    <div class="is-member-profile-body">
+                        <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
+                        <div class="is-profile-tag">
+                            <span class="is-tag is-red">Entertainment</span>
+                            <span class="is-tag is-purple">Opinion</span>
+                            <span class="is-tag is-yellow">Life and Styles</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'"
+                (mouseout)="showTooltip=''">
+                <a href="#" class="is-profile-img-link">
+                    <img src="assets/images/avatars/thumb-1.jpg" class="is-profile" />
+
+                </a>
+                <div class="is-member-hover">
+                    <div class="is-member-profile-header">
+                        <h3>Jonathan Cring </h3>
+                        <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
+                    </div>
+                    <div class="is-member-profile-body">
+                        <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
+                        <div class="is-profile-tag">
+                            <span class="is-tag is-red">Entertainment</span>
+                            <span class="is-tag is-purple">Opinion</span>
+                            <span class="is-tag is-yellow">Life and Styles</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'"
+                (mouseout)="showTooltip=''">
+                <a href="#" class="is-profile-img-link">
+                    <img src="assets/images/avatars/thumb-1.jpg" class="is-profile" />
+
+                </a>
+                <div class="is-member-hover">
+                    <div class="is-member-profile-header">
+                        <h3>Jonathan Cring </h3>
+                        <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
+                    </div>
+                    <div class="is-member-profile-body">
+                        <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
+                        <div class="is-profile-tag">
+                            <span class="is-tag is-red">Entertainment</span>
+                            <span class="is-tag is-purple">Opinion</span>
+                            <span class="is-tag is-yellow">Life and Styles</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'"
+                (mouseout)="showTooltip=''">
+                <a href="#" class="is-profile-img-link">
+                    <img src="assets/images/avatars/thumb-1.jpg" class="is-profile" />
+
+                </a>
+                <div class="is-member-hover">
+                    <div class="is-member-profile-header">
+                        <h3>Jonathan Cring </h3>
+                        <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
+                    </div>
+                    <div class="is-member-profile-body">
+                        <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
+                        <div class="is-profile-tag">
+                            <span class="is-tag is-red">Entertainment</span>
+                            <span class="is-tag is-purple">Opinion</span>
+                            <span class="is-tag is-yellow">Life and Styles</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'"
+                (mouseout)="showTooltip=''">
+                <a href="#" class="is-profile-img-link">
+                    <img src="assets/images/avatars/thumb-1.jpg" class="is-profile" />
+
+                </a>
+                <div class="is-member-hover">
+                    <div class="is-member-profile-header">
+                        <h3>Jonathan Cring </h3>
+                        <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
+                    </div>
+                    <div class="is-member-profile-body">
+                        <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
+                        <div class="is-profile-tag">
+                            <span class="is-tag is-red">Entertainment</span>
+                            <span class="is-tag is-purple">Opinion</span>
+                            <span class="is-tag is-yellow">Life and Styles</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'"
+                (mouseout)="showTooltip=''">
+                <a href="#" class="is-profile-img-link">
+                    <img src="assets/images/avatars/thumb-1.jpg" class="is-profile" />
+
+                </a>
+                <div class="is-member-hover">
+                    <div class="is-member-profile-header">
+                        <h3>Jonathan Cring </h3>
+                        <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
+                    </div>
+                    <div class="is-member-profile-body">
+                        <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
+                        <div class="is-profile-tag">
+                            <span class="is-tag is-red">Entertainment</span>
+                            <span class="is-tag is-purple">Opinion</span>
+                            <span class="is-tag is-yellow">Life and Styles</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="is-member-item" [ngClass]="showTooltip" (mouseover)="showTooltip='is-show-hover'"
+                (mouseout)="showTooltip=''">
+                <a href="#" class="is-profile-img-link">
+                    <img src="assets/images/avatars/thumb-1.jpg" class="is-profile" />
+
+                </a>
+                <div class="is-member-hover">
+                    <div class="is-member-profile-header">
+                        <h3>Jonathan Cring </h3>
+                        <img class="is-profile-hover-img" src="assets/images/avatars/thumb-1.jpg" />
+                    </div>
+                    <div class="is-member-profile-body">
+                        <p> Jonathan Richard Cring posts three blogs every single morning. He has re..</p>
+                        <div class="is-profile-tag">
+                            <span class="is-tag is-red">Entertainment</span>
+                            <span class="is-tag is-purple">Opinion</span>
+                            <span class="is-tag is-yellow">Life and Styles</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="is-more-btn">
             <button nz-button nzType="primary" class="is-see-more"> {{'veiwAllStory' | translate }}</button>
         </div>
@@ -425,57 +441,60 @@
 
 <section class="is-cat-box-card-main">
     <div class="cat-box" *ngFor="let category of categories">
-    <div class="container">
-        <div class="cat-box-title">
-            <div class="is-comman-title">
-                {{category.title}}
-            </div>
-            <!-- <h2 [ngClass]="category.class" class="no-padding no-margin">
+        <div class="container">
+            <div class="cat-box-title">
+                <div class="is-comman-title">
+                    {{category.title}}
+                </div>
+                <!-- <h2 [ngClass]="category.class" class="no-padding no-margin">
                 <a [ngClass]="category.class" [routerLink]="['/category/', category.slug]">
                     {{category.title}}
                 </a>
             </h2> -->
-            
-        </div>
-        <div class="cat-box-gallery">
-            <div class="row article-row">
-                <div class="col-sm-15" *ngFor="let article of category.articles">    
 
-                    <div class="item-card item-card-life-and-styles">
-                        <a [routerLink]="article.slug">
-                            <div class="item-card-image">
-                                <img [src]="article.featured_imageObj.image" [alt]="article.featured_imageObj.title">
-                                <h3 class="is-category-title">{{article.categoryObj.title}}</h3>
-                            </div>
-                            <div class="item-card-content">
-                                <div class="item-card-category cat-yellow">
-                                    <div class="is-avatar-dv">
-                                        <img class="avatar" [src]="article.authorObj.avatarObj.image" [alt]="article._author">
-                                        <span class="item-card-author">{{article._author}}</span>
+            </div>
+            <div class="cat-box-gallery">
+                <div class="row article-row">
+                    <div class="col-sm-15" *ngFor="let article of category.articles">
+
+                        <div class="item-card item-card-life-and-styles">
+                            <a [routerLink]="['/article/',article.slug]">
+                                <div class="item-card-image">
+                                    <img [src]="article.featured_imageObj.image"
+                                        [alt]="article.featured_imageObj.title">
+                                    <h3 class="is-category-title">{{article.categoryObj.title}}</h3>
+                                </div>
+                                <div class="item-card-content">
+                                    <div class="item-card-category cat-yellow">
+                                        <div class="is-avatar-dv">
+                                            <img class="avatar" [src]="article.authorObj.avatarObj.image"
+                                                [alt]="article._author">
+                                            <span class="item-card-author">{{article._author}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="item-card-title">
+                                        <h4 class="item-long-title">{{article.title}}</h4>
+                                    </div>
+                                    <div class="item-card-texte">
+                                        <p>{{article.summary}}</p>
+                                        <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                                                src="assets/images/read-more-icon-red.png" /></button>
                                     </div>
                                 </div>
-                                <div class="item-card-title">
-                                    <h4 class="item-long-title">{{article.title}}</h4>
-                                </div>
-                                <div class="item-card-texte">
-                                    <p>{{article.summary}}</p>
-                                    <button type="button" class="is-read-more">{{'readMore' | translate }} <img src="assets/images/read-more-icon-red.png" /></button>
-                                </div>
-                            </div>
+                            </a>
+                        </div>
+
+
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="is-more-btn">
+                        <a [routerLink]="['/category/', category.slug]" class="is-see-more">
+                            <!-- Show more {{category.title}}  -->
+                            {{'readMore' | translate }}
                         </a>
                     </div>
-
-
-                </div>
-                <div class="clearfix"></div>
-                <div class="is-more-btn">
-                    <a [routerLink]="['/category/', category.slug]" class="is-see-more">
-                        <!-- Show more {{category.title}}  -->
-                        {{'readMore' | translate }}
-                    </a>
                 </div>
             </div>
         </div>
-    </div></div>
+    </div>
 </section>
-

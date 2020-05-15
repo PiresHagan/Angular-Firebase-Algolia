@@ -66,6 +66,23 @@ export class UserService {
       );
   }
 
+  getUserBySlug(slug: string): Observable<User[]> {
+    return this.afs.collection<User>('users', ref =>
+      ref.where("slug", "==", slug)
+    )
+      .snapshotChanges()
+      .pipe(
+        take(1),
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+      );
+  }
+
 
   add(user: User): Promise<DocumentReference> {
     this.result = this.userCollection.doc(user.uid).set(user);
