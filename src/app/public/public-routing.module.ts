@@ -9,6 +9,7 @@ import { Copywriter2Component } from './copywriter2/copywriter2.component';
 import { ContactComponent } from './contact/contact.component';
 import { TermsComponent } from './terms/terms.component';
 import { FaqComponent } from './faq/faq.component';
+import { SearchEngineComponent } from './search-engine/search-engine.component';
 
 
 const routes: Routes = [
@@ -83,7 +84,18 @@ const routes: Routes = [
       title: 'faq version 2',
       headerDisplay: "none"
     }
+    
   },
+  {
+    path: 'search-engine',
+    component: SearchEngineComponent,
+    data: {
+      title: 'faq version 2',
+      headerDisplay: "none"
+    }
+    
+  },
+
 ];
 
 @NgModule({
