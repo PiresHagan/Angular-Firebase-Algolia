@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, NgZone } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { AuthService } from 'src/app/shared/services/authentication.service';
+import { PreviousRouteService } from 'src/app/shared/services/previous-route.service';
 
 @Component({
     templateUrl: './sign-up.component.html',
@@ -25,11 +26,20 @@ export class SignUpComponent {
         public afAuth: AngularFireAuth,
         private router: Router,
         private userService: UserService,
-        private authService: AuthService
+        private authService: AuthService,
+        public ngZone: NgZone, // NgZone service to remove outside scope warning
+        public previousRoute: PreviousRouteService
+
     ) {
     }
 
     ngOnInit(): void {
+        this.afAuth.onAuthStateChanged(user => {
+            if (user && !user.isAnonymous) {
+
+                this.navigateToUserProfile();
+            }
+        });
         this.signUpForm = this.fb.group({
             fullname: [null, [Validators.required]],
             email: [null, [Validators.email, Validators.required]],
@@ -37,6 +47,7 @@ export class SignUpComponent {
             checkPassword: [null, [Validators.required, this.confirmationValidator]],
             agree: [null, [Validators.required]]
         });
+
     }
 
     async submitForm() {
@@ -114,5 +125,11 @@ export class SignUpComponent {
             }
         }
         return invalid;
+    }
+    private navigateToUserProfile() {
+        this.ngZone.run(() => {
+            const previousUrl = this.previousRoute.getPreviousUrl();
+            this.router.navigate([previousUrl ? previousUrl : "app/settings/profile-settings"]);
+        });
     }
 }    

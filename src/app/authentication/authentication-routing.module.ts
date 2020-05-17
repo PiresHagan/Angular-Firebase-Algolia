@@ -45,21 +45,24 @@ const routes: Routes = [
         component: NetworkComponent,
         data: {
             title: 'Invite your network'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'interest',
         component: InterestComponent,
         data: {
             title: 'Define your interests'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'profile',
         component: ProfileComponent,
         data: {
             title: 'Complete your profile'
-        }
+        },
+        canActivate: [AuthGuard]
     },
 ];
 
