@@ -33,6 +33,8 @@
               }
             ],
             "styles": [
+              "node_modules/instantsearch.css/themes/algolia.css",
+              "node_modules/instantsearch.css/themes/reset.css",
               "src/styles.scss"
             ],
             "scripts": [

@@ -17,7 +17,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { SearchEngineComponent } from './search-engine/search-engine.component';
-
+import { NgAisModule } from 'angular-instantsearch';
 @NgModule({
   declarations: [HomeComponent, CategoryComponent, ArticleComponent, ProfileComponent, Copywriter1Component, Copywriter2Component, ContactComponent, TermsComponent, FaqComponent, SearchEngineComponent],
   imports: [
@@ -31,7 +31,8 @@ import { SearchEngineComponent } from './search-engine/search-engine.component';
         deps: [HttpClient]
       }
     }),
-    NzCollapseModule
+    NzCollapseModule,
+    NgAisModule.forRoot(),
   ]
 })
 export class PublicModule { }
