@@ -11,19 +11,23 @@
                         </div>
                         <form nz-form [formGroup]="interestForm" class="login-form" (ngSubmit)="submitForm()">
                             <!-- <p class="m-b-30">Select your favorite topics so we craft a curated content list.</p> -->
-                            <nz-list [nzDataSource]="notificationConfigList" [nzRenderItem]="notification" [nzItemLayout]="'horizontal'">
+                            <nz-list [nzDataSource]="notificationConfigList" [nzRenderItem]="notification"
+                                [nzItemLayout]="'horizontal'">
                                 <ng-template #notification let-item>
                                     <nz-list-item [nzActions]="[configStatus]">
                                         <ng-template #configStatus>
-                                            <nz-switch [formControlName]="item.id" [ngModel]="item.status" [nzCheckedChildren]="checkedTemplate2nd" [nzUnCheckedChildren]="unCheckedTemplate2nd"></nz-switch>
-                                            <ng-template #checkedTemplate2nd><i class="font-size-12" nz-icon nzType="check"></i></ng-template>
-                                            <ng-template #unCheckedTemplate2nd><i class="font-size-12" nz-icon nzType="close"></i></ng-template>
+                                            <nz-switch [formControlName]="item.id" [ngModel]="item.status"
+                                                [nzCheckedChildren]="checkedTemplate2nd"
+                                                [nzUnCheckedChildren]="unCheckedTemplate2nd"></nz-switch>
+                                            <ng-template #checkedTemplate2nd><i class="font-size-12" nz-icon
+                                                    nzType="check"></i></ng-template>
+                                            <ng-template #unCheckedTemplate2nd><i class="font-size-12" nz-icon
+                                                    nzType="close"></i></ng-template>
                                         </ng-template>
-                                        <nz-list-item-meta
-                                            [nzTitle]="notificationTitle"
-                                            [nzAvatar]="notificationIcon">
+                                        <nz-list-item-meta [nzTitle]="notificationTitle" [nzAvatar]="notificationIcon">
                                             <ng-template #notificationIcon>
-                                                <nz-avatar [nzIcon]="item.icon" [ngClass]="item.color" class="m-t-5"></nz-avatar>
+                                                <nz-avatar [nzIcon]="item.icon" [ngClass]="item.color" class="m-t-5">
+                                                </nz-avatar>
                                             </ng-template>
                                             <ng-template #notificationTitle>
                                                 <h5 class="font-weight-semibold m-b-0">{{item.title}}</h5>
@@ -33,7 +37,7 @@
                                     </nz-list-item>
                                 </ng-template>
                             </nz-list>
-                            <br/>
+                            <br />
                             <div class="d-flex align-items-center justify-content-between">
                                 <nz-form-item>
                                     <nz-form-control>
@@ -44,11 +48,12 @@
                                 </nz-form-item>
                                 <nz-form-item>
                                     <nz-form-control>
-                                        <div >
-                                            <button nz-button class="login-form-button" [nzType]="'primary'">Next</button>
+                                        <div>
+                                            <button nz-button class="login-form-button" [nzType]="'primary'"
+                                                [nzLoading]="isFormSaving">Next</button>
                                         </div>
                                     </nz-form-control>
-                                </nz-form-item>   
+                                </nz-form-item>
                             </div>
                         </form>
                     </nz-card>
@@ -62,7 +67,8 @@
                     <a class="text-dark text-link" target="_blank" href="https://mytrendingstories.com/terms/">Terms</a>
                 </li>
                 <li class="list-inline-item">
-                    <a class="text-dark text-link" target="_blank" href="https://mytrendingstories.com/contact/">Contact</a>
+                    <a class="text-dark text-link" target="_blank"
+                        href="https://mytrendingstories.com/contact/">Contact</a>
                 </li>
             </ul>
         </div>

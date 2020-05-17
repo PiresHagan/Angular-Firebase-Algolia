@@ -1,160 +1,117 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentReference } from '@angular/fire/firestore';
-import { map, take } from 'rxjs/operators';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { User } from '../interfaces/user.type';
-import 'firebase/storage';
-import * as firebase from "firebase/app";
+
+import { Injectable } from "@angular/core";
+import { AngularFirestore, DocumentReference, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
+import * as firebase from 'firebase/app';
+import { User } from "../interfaces/user.type";
+import { rejects } from "assert";
+import { Observable, Subject, BehaviorSubject } from "rxjs";
+import { take, map } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private users: Observable<User[]>;
-  private userCollection: AngularFirestoreCollection<User>;
-  private result: any;
-  private subject: BehaviorSubject<User> = new BehaviorSubject(null);
-
   private basePath = '/avatar';
+  isLoggedInUser = new BehaviorSubject<boolean>(false);
+  isLoggedInUserChanges: Observable<boolean> = this.isLoggedInUser.asObservable();
 
-
+  currentUser: User;
   constructor(
-    private afs: AngularFirestore
+    public db: AngularFirestore,
+    public afAuth: AngularFireAuth,
+
+
   ) {
-    this.userCollection = this.afs.collection<User>('users');
-    this.users = this.userCollection.snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        });
+    this.afAuth.authState.subscribe((user) => {
+      if (user)
+        this.currentUser = user;
+    })
+
+  }
+
+  get activeUser() {
+    return this.currentUser;
+  }
+  getCurrentUser() {
+    return new Promise<any>((resolve, reject) => {
+      var user = this.afAuth.onAuthStateChanged(function (user) {
+        if (user) {
+          resolve(user);
+        } else {
+          reject('No user logged in');
+        }
       })
-    );
-
+    })
+  }
+  get(uid: string): Observable<any> {
+    return this.db.doc(`users/${uid}`).valueChanges();
   }
 
-  getAll(): Observable<User[]> {
-    return this.users;
+  updateCurrentUserProfile(value) {
+    return new Promise<any>((resolve, reject) => {
+      var user = firebase.auth().currentUser;
+      user.updateProfile(value).then(res => {
+        resolve(res)
+      }, err => reject(err))
+    })
   }
-
-  get(id: string): Observable<User> {
-    return this.userCollection.doc<User>(id).valueChanges().pipe(
-      take(1),
-      map(user => {
-        console.log(user);
-        user.uid = id;
-        return user
-      })
-    );
-  }
-
-  getByEmail(email: string): Observable<User[]> {
-    return this.afs.collection<User>('users', ref =>
-      ref.where("email", "==", email)
-    )
-      .snapshotChanges()
-      .pipe(
-        take(1),
-        map(actions => {
-          return actions.map(a => {
-            const data = a.payload.doc.data();
-            const id = a.payload.doc.id;
-            return { id, ...data };
-          });
-        })
-      );
-  }
-
-
-
-
-  add(user: User): Promise<DocumentReference> {
-    this.result = this.userCollection.doc(user.uid).set(user);
-
-    return this.result;
+  updatePassword(password: string) {
+    let user = firebase.auth().currentUser;
+    return user.updatePassword(password)
   }
 
   update(uid: string, fields: any): Promise<void> {
-    return this.userCollection.doc(uid).update(fields);
-  }
+    return new Promise<any>((resolve, reject) => {
+      this.db.doc(`users/${uid}`).update(fields).then(() => {
+        resolve();
+      }).catch(() => {
+        reject();
+      })
 
-  updateNetworks(uid: string, value: string): Promise<void> {
-    return this.userCollection.doc(uid).update({
-      'networks.google': value
-    });
-  }
-
-  addNNetworkContact(uid: string, provider: string, value: string): Promise<void> {
-    return this.userCollection.doc(uid).collection("networks").doc(provider).set({
-      'contacts': value
-    });
-  }
-
-  delete(id: string): Promise<void> {
-    return this.userCollection.doc(id).delete();
-  }
-
-  public saveUser(user: User) {
-
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
-    );
-    const userData: User = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL ? user.photoURL : '',
-      biography: user.biography ? user.biography : '',
-      phone: user.phone ? user.phone : '',
-      birth: user.birth ? user.birth : '',
-      interests: user.interests ? user.interests : []
-    };
-    localStorage.setItem("user", JSON.stringify(userData));
-    this.subject.next(user);
-    return userRef.set(
-      { ...userData },
-      {
-        merge: true,
-      }
-    );
+    })
 
 
   }
 
-  public getSavedUser(): BehaviorSubject<User> {
-    return this.subject;
-  }
+  public createUser(user: User) {
+    return new Promise<any>((resolve, reject) => {
 
-  public getUser(uid: string): Observable<User> {
-    return this.userCollection.doc<User>(uid).valueChanges();
-  }
-  getCurrentUserDetails() {
-    return localStorage.user && this.get(JSON.parse(localStorage.user).uid);
-  }
+      const userRef: AngularFirestoreDocument<any> = this.db.doc(
+        `users/${user.uid}`
+      );
+      const userData: User = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL ? user.photoURL : '',
+        biography: user.biography ? user.biography : '',
+        phone: user.phone ? user.phone : '',
+        birth: user.birth ? user.birth : '',
+        interests: user.interests ? user.interests : []
+      };
+      userRef.set(
+        { ...userData },
+        {
+          merge: true,
+        }
+      );
+      resolve();
 
-  public getUserInfo(uid: string) {
-    this.getUser(uid).subscribe(snapshot => {
-      this.saveUser(snapshot);
 
-    });
+    })
   }
-  getUserFromLocalStorage() {
-    return JSON.parse(localStorage.user);
-  }
-
-  public addProfileImage(user: User, file: string) {
+  addProfileImage(uid: string, file: string) {
     return new Promise((resolve, reject) => {
-
-      firebase.storage().ref(`${this.basePath}/${user.email}`).putString(file, "data_url").then(
+      firebase.storage().ref(`${this.basePath}/${this.currentUser.email}`).putString(file, "data_url").then(
         snapshot => {
           snapshot.ref.getDownloadURL().then((downloadURL) => {
             const imageUrl: string = downloadURL;
-            this.userCollection.doc(user.uid).update({ photoURL: imageUrl });
-            user.photoURL = imageUrl;
-            this.saveUser(user);
-            resolve();
-          })
+            this.db.collection('users').doc(uid).update({ photoURL: imageUrl }).then(() => {
+              this.updateCurrentUserProfile({ photoURL: imageUrl }).then(res => resolve()).catch(err => reject(err))
+            }).catch(err => reject(err))
+
+          }).catch(err => reject(err))
         }).catch((error) => {
           console.log(error);
           reject();
@@ -162,18 +119,8 @@ export class UserService {
 
     })
   }
-  public updatePassword(password: string) {
-    let user = firebase.auth().currentUser;
-    return user.updatePassword(password)
+
+  setUserData() {
+    alert('5555')
   }
-
-  /**
-   * Need to remove this dependencey
-   */
-  public saveUserInLocalstorage(uid) {
-    const user = { uid }
-    localStorage.setItem("user", JSON.stringify(user));
-  }
-
-
 }

@@ -3,10 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { NzModalService, NzMessageService, UploadFile } from 'ng-zorro-antd';
 import { UserService } from '../../shared/services/user.service';
-import * as firebase from 'firebase/app';
-import 'firebase/storage';
-import { compareAsc, format } from 'date-fns';
-import { User } from 'src/app/shared/interfaces/user.type';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -23,6 +19,8 @@ export class ProfileComponent implements OnInit {
   selectedCountry: any;
   selectedLanguage: any;
   currentUser: any;
+  isPhotoChangeLoading: boolean = false;
+  isFormSaving: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -32,77 +30,49 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
   ) { }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.profileForm = this.fb.group({
       phone: [null, [Validators.required]],
       birth: [null, [Validators.required]],
       biography: [null],
       later: [null]
     });
+    this.setFormData();
+  }
+  setFormData() {
+    this.userService.getCurrentUser().then((user) => {
+      this.currentUser = user;
+      this.userService.get(user.uid).subscribe((userDetails) => {
+        this.avatarUrl = userDetails.photoURL
+        const birth = userDetails.birth ? formatDate(
+          userDetails.birth,
+          "yyyy/MM/dd",
+          "en"
+        ) : '';
+        this.profileForm.controls['birth'].setValue(birth ? birth : '');
+        this.profileForm.controls['biography'].setValue(userDetails.biography);
+        this.profileForm.controls['phone'].setValue(userDetails.phone);
+      })
 
-
-    await firebase.auth().onAuthStateChanged((user) => {
-      console.log("currentUser", JSON.stringify(user));
-
-      return new Promise(async resolve => {
-        if (user != null) {
-          this.currentUser = user;
-          //console.log(user.photoURL);
-          this.avatarUrl = user.photoURL;
-
-          await this.userService.get(this.currentUser.uid).subscribe((data) => {
-            //console.log("data", data);
-            this.profileForm.controls['phone'].setValue(data.phone);
-            if (!data.birth) {
-              this.profileForm.controls['birth'].setValue("");
-            }
-            else {
-              const birth = formatDate(
-                this.profileForm.get("birth").value,
-                "yyyy/MM/dd",
-                "en"
-              );
-              this.profileForm.controls['birth'].setValue(birth);
-            }
-            this.profileForm.controls['biography'].setValue(data.biography);
-          });
-
-          resolve();
-        } else {
-          this.router.navigate(['/auth/login']);
-        }
-      });
-
-    });
-
+    })
   }
 
   submitForm(): void {
-    console.log("this.currentUser", this.currentUser);
-
+    if (!this.currentUser)
+      return;
+    this.isFormSaving = true;
     for (const i in this.profileForm.controls) {
       this.profileForm.controls[i].markAsDirty();
       this.profileForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.findInvalidControls());
 
     if (this.findInvalidControls().length == 0) {
-      //save 
-
       const phone = this.profileForm.get('phone').value;
       const birth = formatDate(this.profileForm.get('birth').value, 'yyyy/MM/dd', "en");
       const biography = this.profileForm.get('biography').value;
 
-      let newuser = {} as User;
-      newuser.phone = phone;
-      newuser.birth = birth;
-      newuser.biography = biography;
-
-      let fields: any = { phone: phone, birth: birth, biography: biography };
-
-      //console.log(this.currentUser.uid);
-
-      this.userService.update(this.currentUser.uid, fields).then(() => {
+      this.userService.update(this.currentUser.uid, { phone, birth, biography }).then(() => {
+        this.isFormSaving = false;
         this.router.navigate(['/auth/interest']);
       });
     }
@@ -127,26 +97,18 @@ export class ProfileComponent implements OnInit {
   }
 
   handleChange(info: { file: UploadFile }): void {
+    if (!this.currentUser)
+      return;
+    this.isPhotoChangeLoading = true;
     this.getBase64(info.file.originFileObj, (img: string) => {
       this.avatarUrl = img;
-      //console.log("this.avatarUrl",this.avatarUrl);
-
-      const uploadTask = firebase.storage().ref('avatar/' + this.currentUser.email).putString(this.avatarUrl, 'data_url').then(image => {
-        //console.log('Image uploaded...');
-        //console.log(image);
-
-        // get url photo
-        image.ref.getDownloadURL().then(downloadURL => {
-          console.log("File available at", downloadURL);
-          //this.imageLoading = false;
-
-          // update user's profile picture
-          firebase.auth().currentUser.updateProfile({
-            photoURL: downloadURL
-          }).then(() => { });
-        });
+      this.userService.addProfileImage(this.currentUser.uid, img).then(() => {
+        this.isPhotoChangeLoading = false;
+      }).catch(() => {
+        this.isPhotoChangeLoading = false;
+        console.log('Image not uploaded properly')
       });
-    });
+    })
   }
 
   public findInvalidControls() {

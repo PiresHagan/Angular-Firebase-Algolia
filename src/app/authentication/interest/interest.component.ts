@@ -14,6 +14,7 @@ export class InterestComponent implements OnInit {
 
     interestForm: FormGroup;
     currentUser: any;
+    isFormSaving: boolean = false;
 
     notificationConfigList = [
         {
@@ -110,78 +111,42 @@ export class InterestComponent implements OnInit {
             }
         );
 
-        await firebase.auth().onAuthStateChanged((user) => {
-            console.log("currentUser", JSON.stringify(user));
+        this.userService.getCurrentUser().then((user) => {
+            this.currentUser = user;
+            this.userService.get(user.uid).subscribe((userDetails) => {
+                this.setIntrestValueInForm(userDetails.interests)
+            })
+        })
 
-            return new Promise(async resolve => {
-                if (user != null) {
-                    this.currentUser = user;
-                    //console.log(this.currentUser);
 
-                    await this.userService.get(this.currentUser.uid).subscribe((data) => {
-                        //console.log("data", data.interests);
-                        if (data.interests) {
-                            for (var _i = 0; _i < data.interests.length; _i++) {
-                                this.interestForm.controls[data.interests[_i]].setValue(data.interests[_i]);
-                            }
-                        }
+    }
 
-                    });
+    setIntrestValueInForm(interests) {
+        let intrestList = this.notificationConfigList;
+        for (let index = 0; index < intrestList.length; index++) {
+            const intrest = intrestList[index];
+            if (interests && interests.includes(intrest.id)) {
+                intrestList[index].status = true;
+            }
+        }
 
-                    resolve();
-                } else {
-                    this.router.navigate(['/login']);
-                }
-            });
-
-        });
+        this.notificationConfigList = intrestList;
     }
 
     submitForm(): void {
+        this.isFormSaving = true;
+        let interests = []
         for (const i in this.interestForm.controls) {
             this.interestForm.controls[i].markAsDirty();
             this.interestForm.controls[i].updateValueAndValidity();
+            if (this.interestForm.controls[i].value) interests.push(i);
         }
 
-        const interests = [];
-
-        if (this.interestForm.get('life').value) {
-            interests.push("life");
-        }
-        if (this.interestForm.get('business').value) {
-            interests.push("business");
-        }
-        if (this.interestForm.get('news').value) {
-            interests.push("news");
-        }
-        if (this.interestForm.get('sport').value) {
-            interests.push("sport");
-        }
-        if (this.interestForm.get('religion').value) {
-            interests.push("religion");
-        }
-        if (this.interestForm.get('creative').value) {
-            interests.push("creative");
-        }
-        if (this.interestForm.get('tech').value) {
-            interests.push("tech");
-        }
-        if (this.interestForm.get('opinion').value) {
-            interests.push("opinion");
-        }
-        if (this.interestForm.get('tech').value) {
-            interests.push("ent");
-        }
-
-        const later = this.interestForm.get('ent').value;
-
-        let fields: any = {
-            interests: interests,
-        };
-        this.userService.update(this.currentUser.uid, fields).then(() => {
+        this.userService.update(this.currentUser.uid, { interests }).then(() => {
+            this.isFormSaving = false;
             this.success();
         });
-        //this.router.navigate(['/dashboard/default']);
+
 
     }
 

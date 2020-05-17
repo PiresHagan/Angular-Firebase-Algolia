@@ -23,6 +23,7 @@ export class LoginComponent {
     user: any;
 
     previousUrl: string;
+    isFormSaving: boolean = false;
 
     constructor(
         private userService: UserService,
@@ -40,7 +41,7 @@ export class LoginComponent {
     async ngOnInit(): Promise<void> {
         this.afAuth.onAuthStateChanged(user => {
             if (user && !user.isAnonymous) {
-                this.getUserInfo(user.uid);
+
                 this.navigateToUserProfile();
             }
         });
@@ -54,20 +55,25 @@ export class LoginComponent {
         });
     }
 
-    async onLogin() {
-        try {
-            await this.afAuth.signInWithEmailAndPassword(this.loginForm.get('email').value, this.loginForm.get('password').value);
+    onLogin() {
+        this.isFormSaving = true;
+        this.authService.doLogin(this.loginForm.get('email').value, this.loginForm.get('password').value).then(() => {
+            this.isFormSaving = false;
             this.navigateToUserProfile();
-        } catch (error) {
-            this.errorMessage = error.message;
+
+        }).catch((err) => {
+            this.isFormSaving = false;
+            this.errorMessage = err.message;
             this.showError = true;
-            if (error.code == "auth/wrong-password") {
+            if (err.code == "auth/wrong-password") {
                 this.errorLogin = true;
             }
-            else if (error.code == "auth/user-not-found") {
+            else if (err.code == "auth/user-not-found") {
                 this.errorLogin = true;
             }
-        }
+        })
+
+
 
     }
 
@@ -85,14 +91,7 @@ export class LoginComponent {
             this.router.navigate([this.previousUrl ? this.previousUrl : "app/settings/profile-settings"]);
         });
     }
-    private getUserInfo(uid: string) {
-        this.userService.getUser(uid).subscribe(snapshot => {
-            this.user = snapshot;
-            this.userService.saveUser(this.user);
-            this.authService.SetUserData(this.user);
 
-        });
-    }
 
 
 }

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core'
-import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
 import { UserService } from '../../shared/services/user.service';
 import { User } from 'src/app/shared/interfaces/user.type';
+import { AuthService } from 'src/app/shared/services/authentication.service';
 
 @Component({
     templateUrl: './sign-up.component.html',
@@ -16,86 +17,80 @@ export class SignUpComponent {
     signUpForm: FormGroup;
     errorSignup: boolean = false;
     errorPasswordWeak: boolean = false;
-    errorAgree:boolean = false;
+    errorAgree: boolean = false;
 
 
     constructor(
-        private fb: FormBuilder, 
+        private fb: FormBuilder,
         public afAuth: AngularFireAuth,
         private router: Router,
         private userService: UserService,
-        ) {
+        private authService: AuthService
+    ) {
     }
 
     ngOnInit(): void {
         this.signUpForm = this.fb.group({
-            fullname         : [ null, [ Validators.required ] ],
-            email            : [ null, [Validators.email, Validators.required] ],
-            password         : [ null, [ Validators.required ] ],
-            checkPassword    : [ null, [ Validators.required, this.confirmationValidator ] ],
-            agree            : [ null, [ Validators.required ]]
+            fullname: [null, [Validators.required]],
+            email: [null, [Validators.email, Validators.required]],
+            password: [null, [Validators.required]],
+            checkPassword: [null, [Validators.required, this.confirmationValidator]],
+            agree: [null, [Validators.required]]
         });
     }
 
     async submitForm() {
         for (const i in this.signUpForm.controls) {
-            this.signUpForm.controls[ i ].markAsDirty();
-            this.signUpForm.controls[ i ].updateValueAndValidity();
+            this.signUpForm.controls[i].markAsDirty();
+            this.signUpForm.controls[i].updateValueAndValidity();
         }
 
         this.errorSignup = false;
         this.errorPasswordWeak = false;
         this.errorAgree = false;
 
-        if(this.findInvalidControls().length == 0){
+        if (this.findInvalidControls().length == 0) {
             try {
                 const email = this.signUpForm.get('email').value;
                 const password = this.signUpForm.get('password').value;
                 const fullname = this.signUpForm.get('fullname').value;
-    
-                this.afAuth.createUserWithEmailAndPassword(email, password).then(user =>{
-                    console.log("user...", JSON.stringify(user));
-                    user.user.updateProfile({ 
-                        displayName: fullname
-                      }).then( data =>{
-                        let newuser = {} as User;
-                        newuser.displayName = fullname;
-                        newuser.email = email;
-                        newuser.uid = user.user.uid;
-                        newuser.isAnonymous = false;
-    
-                        this.userService.add(newuser).then(()=>{
-                            this.router.navigate(['/auth/profile']);
-                        });
-    
-                    }).catch( error => {
-                    console.log(error);
-                    });
-                }).catch( error => {
-                    console.log("test...",error);
-                    if(error.code == "auth/email-already-in-use"){
+                this.authService.doRegister(email, password, fullname).then(user => {
+                    this.addUser({
+                        displayName: fullname,
+                        email: email,
+                        uid: user.user.uid,
+                        isAnonymous: false
+                    })
+
+                }).catch((error) => {
+                    console.log("test...", error);
+                    if (error.code == "auth/email-already-in-use") {
                         this.errorSignup = true;
                         console.log(this.errorSignup);
                     }
-                    else if(error.code == "auth/weak-password"){
+                    else if (error.code == "auth/weak-password") {
                         this.errorPasswordWeak = true;
                     }
-                   
-                });
-    
-    
+                })
+
+
             } catch (err) {
                 console.log("err...", err);
-               
+
             }
         }
-        else{
-            if(this.findInvalidControls().indexOf('agree') > -1){
+        else {
+            if (this.findInvalidControls().indexOf('agree') > -1) {
                 this.errorAgree = true;
             }
 
         }
-        
+
+    }
+    addUser(userDetails) {
+        this.userService.createUser(userDetails).then(() => {
+            this.router.navigate(['/auth/profile']);
+        })
     }
 
     updateConfirmValidator(): void {
@@ -119,5 +114,5 @@ export class SignUpComponent {
             }
         }
         return invalid;
-      }
+    }
 }    

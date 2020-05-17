@@ -47,19 +47,25 @@ export class HeaderComponent {
     ngOnInit(): void {
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
         this.themeService.isExpandChanges.subscribe(isExpand => this.isExpand = isExpand);
-        this.authService.isLoggedInUserChanges.subscribe(isLoggedInUser => this.isLoggedInUser = isLoggedInUser);
+
+        this.authService.getAuthState().subscribe(isLoggedInUser => {
+            if (isLoggedInUser) {
+                this.isLoggedInUser = true;
+            } else {
+                this.isLoggedInUser = false;
+            }
+        });
         this.languageList = this.languageService.geLanguageList();
         this.selectedLanguage = this.languageService.defaultLanguage;
 
-
-        this.userService.getSavedUser().subscribe((data) => {
-            if (data) {
+        this.userService.getCurrentUser().then((user) => {
+            this.userService.get(user.uid).subscribe((userDetails) => {
                 this.isLoggedInUser = true;
-                this.photoURL = data.photoURL;
-                this.displayName = data.displayName;
-            }
+                this.photoURL = userDetails.photoURL;
+                this.displayName = userDetails.displayName;
+            })
+        })
 
-        });
     }
 
     toggleFold() {
@@ -91,7 +97,9 @@ export class HeaderComponent {
 
     }
     signOut(): void {
-        this.authService.signout();
+        this.authService.signout().then(() => {
+            this.isLoggedInUser = false;
+        })
     }
 
 

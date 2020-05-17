@@ -69,7 +69,6 @@ export class BackofficeLayoutComponent implements OnInit {
   private buildBreadCrumb(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadcrumb[] = []): IBreadcrumb[] {
 
     let label = '', path = '/', display = null;
-    debugger;
     if (route.routeConfig) {
       if (route.routeConfig.data) {
         label = this.translate.instant(route.routeConfig.data['title']);

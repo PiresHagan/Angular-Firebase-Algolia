@@ -110,8 +110,6 @@ export class ProfileSettingsComponent {
   ) { }
 
   ngOnInit(): void {
-
-    this.currentUser = this.userService.getUserFromLocalStorage();
     /**
      * Password Form
      */
@@ -147,50 +145,45 @@ export class ProfileSettingsComponent {
       later: [null],
     });
 
-    this.setDataFormDatas();
+    this.setFormsData()
+  }
+  setFormsData() {
+    this.userService.getCurrentUser().then((user) => {
+      this.currentUser = user;
+      this.userService.get(user.uid).subscribe((userDetails) => {
+
+        this.photoURL = userDetails.photoURL;
+        this.currentUserEmail = userDetails.email;
+        this.setProfileForm(userDetails);
+        this.setIntrestForm(userDetails);
+      })
+
+    })
   }
 
-  setDataFormDatas() {
-
-    this.userService.getSavedUser().subscribe((data) => {
-      if (data) {
-        this.profileForm.setValue({
-          phone: data.phone,
-          biography: data.biography,
-          displayName: data.displayName,
-          birth: new Date(Date.parse(data.birth)),
-        });
-        this.setIntrestValueInForm(data.interests);
-        this.currentUserEmail = data.email;
-        this.photoURL = data.photoURL;
-      }
-
-
-
+  setProfileForm(userDetails) {
+    this.profileForm.setValue({
+      phone: userDetails.phone,
+      biography: userDetails.biography,
+      displayName: userDetails.displayName,
+      birth: userDetails.birth ? formatDate(
+        userDetails.birth,
+        "yyyy/MM/dd",
+        "en"
+      ) : ''
     });
-    this.userService
-      .getCurrentUserDetails()
-      .subscribe(
-        ({
-          phone,
-          birth,
-          biography,
-          photoURL,
-          email,
-          displayName,
-          interests,
-        }) => {
-          this.profileForm.setValue({
-            phone,
-            biography,
-            displayName,
-            birth: new Date(Date.parse(birth)),
-          });
-          this.setIntrestValueInForm(interests);
-          this.currentUserEmail = email;
-          this.photoURL = photoURL;
-        }
-      );
+  }
+
+  setIntrestForm(userDetails) {
+    let intrestList = this.notificationConfigList;
+    for (let index = 0; index < intrestList.length; index++) {
+      const intrest = intrestList[index];
+      if (userDetails.interests && userDetails.interests.includes(intrest.id)) {
+        intrestList[index].status = true;
+      }
+    }
+
+    this.notificationConfigList = intrestList;
   }
 
   showConfirm(password: string): void {
@@ -236,10 +229,12 @@ export class ProfileSettingsComponent {
   }
 
   handleChange(info: { file: UploadFile }): void {
+    if (!this.currentUser)
+      return;
     this.isPhotoChangeLoading = true;
     this.getBase64(info.file.originFileObj, (img: string) => {
       this.photoURL = img;
-      this.userService.addProfileImage(this.userService.getUserFromLocalStorage(), img).then(() => {
+      this.userService.addProfileImage(this.currentUser.uid, img).then(() => {
         this.isPhotoChangeLoading = false;
       }).catch(() => {
         this.isPhotoChangeLoading = false;
@@ -249,23 +244,21 @@ export class ProfileSettingsComponent {
   }
 
   saveBasicDetails() {
+    if (!this.currentUser)
+      return;
     for (const i in this.profileForm.controls) {
       this.profileForm.controls[i].markAsDirty();
       this.profileForm.controls[i].updateValueAndValidity();
     }
     if (this.findInvalidControls().length == 0) {
-      const phone = this.profileForm.get("phone").value;
-      const birth = formatDate(
+      let newuser = {} as User;
+      newuser.phone = this.profileForm.get("phone").value;;
+      newuser.birth = formatDate(
         this.profileForm.get("birth").value,
         "yyyy/MM/dd",
         "en"
-      );
-      const biography = this.profileForm.get("biography").value;
-
-      let newuser = {} as User;
-      newuser.phone = phone;
-      newuser.birth = birth;
-      newuser.biography = biography;
+      );;
+      newuser.biography = this.profileForm.get("biography").value;
       newuser.displayName = this.profileForm.get("displayName").value;
 
       let fields: any = { ...newuser };
@@ -291,6 +284,8 @@ export class ProfileSettingsComponent {
   }
 
   saveIntrestList() {
+    if (!this.currentUser)
+      return;
     this.isNotificationLoading = true;
     const interests = [];
     for (const i in this.interestForm.controls) {
@@ -298,28 +293,15 @@ export class ProfileSettingsComponent {
       this.interestForm.controls[i].updateValueAndValidity();
       if (this.interestForm.controls[i].value) interests.push(i);
     }
-    let fields: any = {
-      interests: interests,
-    };
+
     this.userService
-      .update(this.currentUser.uid, fields)
+      .update(this.currentUser.uid, { interests })
       .then(() => {
         this.isNotificationLoading = false;
         this.showSuccess();
       });
   }
 
-  setIntrestValueInForm(interests) {
-    let intrestList = this.notificationConfigList;
-    for (let index = 0; index < intrestList.length; index++) {
-      const intrest = intrestList[index];
-      if (interests && interests.includes(intrest.id)) {
-        intrestList[index].status = true;
-      }
-    }
-
-    this.notificationConfigList = intrestList;
-  }
   passwordConfirming(c: AbstractControl): { invalid: boolean } {
     if (c.get('newPassword').value !== c.get('confirmPassword').value) {
       return { invalid: true };

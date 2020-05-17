@@ -47,16 +47,19 @@ export class HeaderBackofficeComponent implements OnInit {
     this.languageList = this.languageService.geLanguageList();
     this.selectedLanguage = this.languageService.getSelectedLanguage();
 
-
-
-    this.userService.getSavedUser().subscribe((data) => {
-
-      if (data) {
-        this.photoURL = data.photoURL;
-        this.displayName = data.displayName;
+    this.userService.getCurrentUser().then((user) => {
+      this.userService.get(user.uid).subscribe((userDetails) => {
+        this.photoURL = userDetails.photoURL;
+        this.displayName = userDetails.displayName;
+      })
+    })
+    this.authService.getAuthState().subscribe(isLoggedInUser => {
+      if (!isLoggedInUser) {
+        this.navigateToUserLogin();
       }
-
     });
+
+
   }
 
   toggleFold() {
