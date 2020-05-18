@@ -19,19 +19,20 @@
                                     {{article?.authorObj.first_name+' ' + article?.authorObj.last_name}}</span>
                             </a>
                             <a class="follow-btn">
-                                <img src="assets/images/article/icon/follow.png" />Follow
+                                <img src="assets/images/article/icon/follow.png" />
+                                {{'follow' | translate}}
                             </a>
                         </span>
                     </div>
                     <div class="is-like-sec is-divider">
                         <a class="is-like" href="" data-toggle="modal" data-target="#modal-login"><img
-                                src="assets/images/article/icon/like.png" />Like <span
+                                src="assets/images/article/icon/like.png" />{{'like' | translate}} <span
                                 class="likes-count">{{articleLikes}}</span></a>
                         <a class="is-bookmark" href=""><img src="assets/images/article/icon/bookmark.png" /></a>
                         <a class="is-dot" href=""><img src="assets/images/article/icon/more.png" /></a>
                     </div>
                     <div class="left-media is-divider">
-                        <h3>Share our article</h3>
+                        <h3>{{'shareArticle' | translate}}</h3>
                         <div class="addthis_inline_share_toolbox"></div>
                     </div>
                     <div class="is-influencer-btn">
@@ -72,7 +73,7 @@
                         <div class="is-paragraph">
                             <p class="big " innerHTML="{{article?.content}}"></p>
 
-                            <p>Published by <a [routerLink]="['/profile/',article?.authorObj.slug]" target="_blank"
+                            <p>{{'publishedBy' | translate}} <a [routerLink]="['/profile/',article?.authorObj.slug]" target="_blank"
                                     title="  {{article?.authorObj.first_name+' ' + article?.authorObj.last_name}}">
                                     <span class="name" itemprop="name">
                                         {{article?.authorObj.first_name+' ' + article?.authorObj.last_name}}</span></a>
@@ -82,12 +83,12 @@
                 </div>
                 <div class="is-comment-sec">
                     <div class="is-share is-line">
-                        <h2>Share - </h2>
+                        <h2>{{'share' | translate}} - </h2>
                         <div class="addthis_inline_share_toolbox"></div>
                     </div>
                     <div class="is-reply-sec">
                         <a name="comments" href="#comments"></a>
-                        <h2>Comments</h2>
+                        <h2>{{'comments' | translate}}</h2>
                         <div>
                             <div class="is-comment is-line" *ngFor="let articleComment of articleComments">
                                 <div class="is-comment-img">
@@ -104,8 +105,8 @@
                                         </h4>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="" class="comment-reply-btn" data-id="2763">reply</a> /
-                                        <a href="" class="comment-view-replies" data-id="2763">view replies (0)</a>
+                                        <a href="" class="comment-reply-btn" data-id="2763">{{'reply' | translate}}</a> /
+                                        <a href="" class="comment-view-replies" data-id="2763">{{'viewReplies' | translate}}</a>
                                     </div>
                                     <div class="clearfix"></div>
                                     <p innerHTML="{{articleComment.message}}"> </p>
@@ -114,12 +115,12 @@
                             <div class="comment-reply-form">
                                 <form id="comment_reply_2763" class="comment_reply">
                                     <div class="form-group">
-                                        <h2>Reply here...</h2>
+                                        <h2>{{'replyHere' | translate}}...</h2>
                                     </div>
                                     <div id="div_id_username" class="form-group">
                                         <div class="controls">
                                             <input class="textinput textInput form-control" id="id_username"
-                                                maxlength="50" name="username" type="text" placeholder="Full Name*">
+                                                maxlength="50" name="username" type="text" placeholder="{{'fullName' | translate}}*">
                                         </div>
                                         <span class="ajax_error" id="error_username_2763"></span>
                                     </div>
@@ -128,7 +129,7 @@
                                         <div class="controls ">
                                             <textarea class="textarea form-control" cols="40" id="id_message"
                                                 maxlength="500" name="message" rows="10"
-                                                placeholder="Message*"></textarea>
+                                                placeholder="{{'message' | translate}}*"></textarea>
                                         </div>
                                         <span class="ajax_error" id="error_message_2763"></span>
                                     </div>
@@ -148,11 +149,11 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <input class="is-btn" data-id="2763" type="submit" value="Send">
+                                        <input class="is-btn" data-id="2763" type="submit" value="{{'send' | translate}}">
                                     </div>
                                     <div class="hidden comment_form_success">
                                         <p class="text-success">
-                                            <b>Your comment was successful.</b>
+                                            <b>{{'successMsg' | translate}}</b>
                                         </p>
                                     </div>
                                 </form>
@@ -169,7 +170,7 @@
     </div>
     <div class="article-related">
         <div class="container">
-            <h2>Related Article</h2>
+            <h2>{{'relatedArticle' | translate}}</h2>
 
             <div class="row">
 
@@ -185,7 +186,7 @@
                                     <span>Opinion</span>
                                     Life Choices
                                 </h3>
-                                <button type="button" class="is-read-more">Read More <img
+                                <button type="button" class="is-read-more">{{'readMore' | translate}} <img
                                         src="assets/images/read-more-icon-red.png" /></button>
                             </div>
                         </a>
@@ -202,7 +203,7 @@
                             </div>
                             <div class="caption">
                                 <h3><span>Opinion</span>LET THE MUSIC PLAY</h3>
-                                <button type="button" class="is-read-more">Read More <img
+                                <button type="button" class="is-read-more">{{'readMore' | translate}} <img
                                         src="assets/images/read-more-icon-red.png" /></button>
 
                             </div>
@@ -220,7 +221,7 @@
                             </div>
                             <div class="caption">
                                 <h3><span>Opinion</span>Mindfulness Impacting Racial Justice</h3>
-                                <button type="button" class="is-read-more">Read More <img
+                                <button type="button" class="is-read-more">{{'readMore' | translate}} <img
                                         src="assets/images/read-more-icon-red.png" /></button>
 
                             </div>
@@ -238,7 +239,7 @@
                             </div>
                             <div class="caption">
                                 <h3><span>Opinion</span>LET THE MUSIC PLAY</h3>
-                                <button type="button" class="is-read-more">Read More <img
+                                <button type="button" class="is-read-more">{{'readMore' | translate}} <img
                                         src="assets/images/read-more-icon-red.png" /></button>
 
                             </div>

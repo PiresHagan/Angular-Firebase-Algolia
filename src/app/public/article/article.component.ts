@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
+import { TranslateService } from '@ngx-translate/core';
+import { ThemeConstantService } from '../../shared/services/theme-constant.service';
 
 @Component({
   selector: 'app-article',
@@ -9,6 +11,8 @@ import { Article } from 'src/app/shared/interfaces/article.type';
   styleUrls: ['./article.component.scss']
 })
 export class ArticleComponent implements OnInit {
+  @Output() change = new EventEmitter();
+  @Input() lang: string;
 
   article: Article;
   articleLikes: number;
@@ -16,10 +20,22 @@ export class ArticleComponent implements OnInit {
   articleComments: any;
   constructor(
     private articleService: ArticleService,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    public translate: TranslateService,
+    private themeService: ThemeConstantService
+  ) {
+    translate.addLangs(['en', 'nl']);
+    translate.setDefaultLang('en');
+   }
+
+   switchLang(lang: string) {
+    this.translate.use(lang);
+  }
+
 
   ngOnInit(): void {
+    this.themeService.selectedLang.subscribe(lang => this.switchLang(lang));
+
     this.route.paramMap.subscribe(params => {
       console.log('Category Slug', params.get('slug'));
 

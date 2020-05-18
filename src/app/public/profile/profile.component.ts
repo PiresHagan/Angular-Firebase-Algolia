@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
+import { ThemeConstantService } from 'src/app/shared/services/theme-constant.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
@@ -9,6 +11,8 @@ import { ArticleService } from 'src/app/shared/services/article.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  @Output() change = new EventEmitter();
+  @Input() lang: string;
 
   authorDetails: any = {};
   followers: any = [];
@@ -17,11 +21,19 @@ export class ProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private authorService: AuthorService,
-    private articleService: ArticleService
-  ) { }
-
+    private articleService: ArticleService,
+    public translate: TranslateService,
+    private themeService: ThemeConstantService
+  ) { 
+    translate.addLangs(['en', 'nl']);
+    translate.setDefaultLang('en');
+  }
+  switchLang(lang: string) {
+    this.translate.use(lang);
+  }
   ngOnInit(): void {
 
+    this.themeService.selectedLang.subscribe(lang => this.switchLang(lang));
     this.route.paramMap.subscribe(params => {
       console.log('Category Slug', params.get('slug'));
 
