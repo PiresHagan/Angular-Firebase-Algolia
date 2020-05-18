@@ -88,7 +88,7 @@ const routes: Routes = [
     
   },
   {
-    path: 'search-engine',
+    path: 'search',
     component: SearchEngineComponent,
     data: {
       title: 'faq version 2',
