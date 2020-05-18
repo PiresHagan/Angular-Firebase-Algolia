@@ -53,8 +53,8 @@ export class HeaderBackofficeComponent implements OnInit {
         this.displayName = userDetails.displayName;
       })
     })
-    this.authService.getAuthState().subscribe(isLoggedInUser => {
-      if (!isLoggedInUser) {
+    this.authService.getAuthState().subscribe(user => {
+      if (!user || user.isAnonymous) {
         this.navigateToUserLogin();
       }
     });
