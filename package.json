@@ -40,7 +40,7 @@
     "minimist": "^1.2.5",
     "ng-chartist": "^1.1.1",
     "ng-chartjs": "0.0.7",
-    "ng-zorro-antd": "^8.0.3",
+    "ng-zorro-antd": "^9.1.2",
     "ngx-highlightjs": "^2.1.1",
     "ngx-infinite-scroll": "^8.0.2",
     "ngx-mask": "^9.0.0",
