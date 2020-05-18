@@ -47,7 +47,11 @@
     }
 }
 
-
+.is-search-icon{
+    &.ant-menu-item-selected{
+        background: transparent !important;
+    }
+}
 .ant-menu-dark.ant-menu-horizontal > .ant-menu-item,
 .ant-menu-dark.ant-menu-horizontal > .ant-menu-submenu {
     color: #000000;
