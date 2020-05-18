@@ -4,9 +4,9 @@ import { AngularFirestore, DocumentReference, AngularFirestoreCollection, Angula
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 import { User } from "../interfaces/user.type";
-import { rejects } from "assert";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { take, map } from "rxjs/operators";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class UserService {
 
   ) {
     this.afAuth.authState.subscribe((user) => {
-      if (user)
+      if (user && !user.isAnonymous)
         this.currentUser = user;
     })
 
@@ -36,10 +36,10 @@ export class UserService {
   getCurrentUser() {
     return new Promise<any>((resolve, reject) => {
       var user = this.afAuth.onAuthStateChanged(function (user) {
-        if (user) {
+        if (user && !user.isAnonymous) {
           resolve(user);
         } else {
-          reject('No user logged in');
+          console.log('No user logged in');
         }
       })
     })

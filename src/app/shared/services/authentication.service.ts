@@ -1,17 +1,23 @@
 import { Injectable } from "@angular/core";
 import { AngularFireAuth } from '@angular/fire/auth';
 import { first } from "rxjs/operators";
-import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { environment } from "src/environments/environment";
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    constructor(public afAuth: AngularFireAuth) { }
-    user$;
-
-    ngInit() {
-        this.user$ = this.afAuth.authState
+    constructor(public afAuth: AngularFireAuth) {
+        this.afAuth.authState.subscribe((user) => {
+            if (!user) {
+                if (environment && environment.isAnonymousUserEnabled) {
+                    this.afAuth.signInAnonymously().catch(function (error) {
+                        console.log('anonymusly login');
+                    });
+                }
+            }
+        })
     }
 
     doRegister(email: string, password: string, displayName) {
