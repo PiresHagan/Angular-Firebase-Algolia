@@ -107,15 +107,19 @@
 	}
 	.sr-article-sec {
 		padding-top: 40px;
+		display: flex;
+		flex-wrap: wrap;
+		margin-left: -15px;
+		margin-right: -15px;
 		.sr-article-sec-item {
 			width: 25%;
 			padding: 0px 15px;
 			box-sizing: border-box;
 			margin-bottom: 35px;
-			float: left;
 			.sr-article-img {
 				position: relative;
 				display: flex;
+				min-height: 220px;
 				&:before {
 					content: '';
 					width: 100%;
@@ -135,7 +139,7 @@
 				align-items: center;
 				width: calc(100% - 30px);
 				margin: -30px auto 0px auto;
-				padding: 10px 15px;
+				padding: 10px;
 				box-sizing: border-box;
 				background: #fff;
 				border: 1px solid #f1f1f1;
@@ -146,6 +150,7 @@
 					font-family: 'josefin_sansregular';
 					font-size: 13px;
 					padding-right: 20px;
+					width: calc(100% - 45px);
 					h2 {
 						font-family: 'josefin_sansregular';
 						font-size: 13px;
@@ -174,10 +179,36 @@
 			align-content: center;
 			font-family: 'josefin_sansregular';
 			font-size: 18px;
-			height: 480px;
 			float: left;
 			.ads {
 				margin: auto;
+			}
+		}
+		
+	}
+	::ng-deep .ais-Pagination-list{
+		.ais-Pagination-item{
+			&.ais-Pagination-item--selected{
+				.ais-Pagination-link{
+					background-color: #ff4121;
+					border-color: #ff4121;
+					color:#fff;
+				}
+			}
+			.ais-Pagination-link{
+				border-radius: 0px;
+				border-color: #dadada;
+				color: #000;
+				width: 40px;
+				height: 40px;
+				line-height: 29px;
+				text-align: center;
+				color: #000;
+				&:hover{
+					background-color: #ff4121;
+					border-color: #ff4121;
+					color:#fff;
+				}
 			}
 		}
 	}
@@ -192,6 +223,54 @@
 			font-family: 'josefin_sansregular';
 			font-size: 20px;
 			border-radius: 30px;
+		}
+	}
+}
+
+::ng-deep .ais-SearchBox-form{
+	::ng-deep  .ais-SearchBox-input{
+		border: 1px solid #cacaca;
+		width: 100%;
+		border-radius: 40px;
+		padding: 15px 10px 13px 20px;
+		outline: none;
+		font-family: 'josefin_sanslight';
+		font-size: 18px;
+		box-sizing: border-box;
+		&::-webkit-input-placeholder {
+			color: #acaaaa;
+		}
+		&:-ms-input-placeholder {
+			color: #acaaaa;
+		}
+		&::placeholder {
+			color: #acaaaa;
+		}
+	}
+	.ais-SearchBox-submit{
+		max-width: 100%;
+		position: absolute;
+		top: 29px;
+		right: 20px;
+		left: auto;
+		outline:none;
+		.ais-SearchBox-submitIcon {
+			width: 20px;
+			height: 20px;
+			path{
+				fill: #cacaca;
+			}
+		}
+	}
+	.ais-SearchBox-reset{
+		right:50px;
+		outline: none;
+		.ais-SearchBox-resetIcon {
+			width: 14px;
+			height: 14px;
+			path{
+				fill: #cacaca;
+			}
 		}
 	}
 }
