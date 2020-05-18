@@ -80,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="is-comment-sec">
+                <div class="is-comment-sec" #commentSection>
                     <div class="is-share is-line">
                         <h2>Share - </h2>
                         <div class="addthis_inline_share_toolbox"></div>
@@ -89,7 +89,8 @@
                         <a name="comments" href="#comments"></a>
                         <h2>Comments</h2>
                         <div>
-                            <div class="is-comment is-line" *ngFor="let articleComment of articleComments">
+                            <div class="is-comment is-line"
+                                *ngFor="let articleComment of articleComments; let i = index">
                                 <div class="is-comment-img">
                                     <img class="avatar"
                                         src="https://mytrendingstories.com/media/photologue/photos/cache/None_04102017091351_author_small.jpg"
@@ -112,44 +113,43 @@
                                 </div>
                             </div>
                             <div class="comment-reply-form">
-                                <form id="comment_reply_2763" class="comment_reply">
+
+                                <form id="comment_reply_2763" class="comment_reply" nz-form [formGroup]="commentForm"
+                                    (ngSubmit)="saveComments()">
                                     <div class="form-group">
                                         <h2>Reply here...</h2>
                                     </div>
-                                    <div id="div_id_username" class="form-group">
-                                        <div class="controls">
-                                            <input class="textinput textInput form-control" id="id_username"
-                                                maxlength="50" name="username" type="text" placeholder="Full Name*">
-                                        </div>
-                                        <span class="ajax_error" id="error_username_2763"></span>
-                                    </div>
 
-                                    <div id="div_id_message" class="form-group">
-                                        <div class="controls ">
-                                            <textarea class="textarea form-control" cols="40" id="id_message"
-                                                maxlength="500" name="message" rows="10"
-                                                placeholder="Message*"></textarea>
-                                        </div>
-                                        <span class="ajax_error" id="error_message_2763"></span>
-                                    </div>
 
-                                    <div class="captcha-container">
-                                        <img src="/en/captcha/image/c43807356495ade5d1553b50284c8f475746efa0/"
-                                            alt="captcha" class="captcha"><input id="id_captcha_0" name="captcha_0"
-                                            type="hidden" value="c43807356495ade5d1553b50284c8f475746efa0">
-                                        <input autocomplete="off" id="id_captcha_1" name="captcha_1" type="text"
-                                            class="captcha-input">
 
-                                        <button class="btn js-captcha-refresh" tabindex="-1"><i
-                                                class="fas fa-sync-alt"></i></button>
-                                        <input type="hidden" value="42300" name="article" class="article_id">
-                                        <input type="hidden" value="2763" name="parent" class="parent_id">
-                                        <span class="ajax_error" id="error_captcha_2763"></span>
-                                    </div>
+                                    <nz-form-item>
+                                        <!-- <nz-form-label nzRequired nzFor="fullname">Fullname</nz-form-label> -->
+                                        <nz-form-control
+                                            nzErrorTip="Length of your name should be minimum 3 character and maximum 50 character! "
+                                            class="is-icon">
+                                            <input type="text" nz-input formControlName="userName"
+                                                placeholder="Full Name" id="fullname">
+                                        </nz-form-control>
+                                    </nz-form-item>
 
-                                    <div class="form-group">
-                                        <input class="is-btn" data-id="2763" type="submit" value="Send">
-                                    </div>
+                                    <nz-form-item class="controls ">
+                                        <!-- <nz-form-label nzRequired nzFor="fullname">Fullname</nz-form-label> -->
+                                        <nz-form-control
+                                            nzErrorTip="Length of your comment should be minimum 3 character and maximum 500 character!"
+                                            class="is-icon controls">
+                                            <textarea class="textarea form-control" type="text" nz-input
+                                                formControlName="message" placeholder="Message"
+                                                id="message"> </textarea>
+                                        </nz-form-control>
+                                    </nz-form-item>
+
+                                    <nz-form-item>
+                                        <nz-form-control>
+                                            <button nz-button nzType="primary"
+                                                [nzLoading]="isFormSaving">Submit</button>
+                                        </nz-form-control>
+                                    </nz-form-item>
+
                                     <div class="hidden comment_form_success">
                                         <p class="text-success">
                                             <b>Your comment was successful.</b>

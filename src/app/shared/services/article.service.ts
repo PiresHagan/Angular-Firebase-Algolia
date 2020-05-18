@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import * as firebase from 'firebase/app';
 import { map, take } from 'rxjs/operators';
 import { Article } from '../interfaces/article.type';
 import { Observable } from 'rxjs';
@@ -63,6 +62,9 @@ export class ArticleService {
       });
     })
     );
+  }
+  createComment(commentDtails) {
+    return this.db.collection(this.articleCommentsCollection).add(commentDtails);
   }
 
 

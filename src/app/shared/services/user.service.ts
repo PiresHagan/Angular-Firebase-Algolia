@@ -119,8 +119,25 @@ export class UserService {
 
     })
   }
-
-  setUserData() {
-    alert('5555')
+  delete(uid: string): Promise<void> {
+    return this.db.doc(`users/${uid}`).delete();
   }
+  getByEmail(email: string): Observable<User[]> {
+    return this.db.collection<User>('users', ref =>
+      ref.where("email", "==", email)
+    )
+      .snapshotChanges()
+      .pipe(
+        take(1),
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+      );
+  }
+
+
 }
