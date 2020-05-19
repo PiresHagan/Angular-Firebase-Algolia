@@ -10,6 +10,7 @@ import { ContactComponent } from './contact/contact.component';
 import { TermsComponent } from './terms/terms.component';
 import { FaqComponent } from './faq/faq.component';
 import { SearchEngineComponent } from './search-engine/search-engine.component';
+import { BuyComponent } from './buy/buy.component';
 
 
 const routes: Routes = [
@@ -87,8 +88,17 @@ const routes: Routes = [
     
   },
   {
-    path: 'search-engine',
+    path: 'search',
     component: SearchEngineComponent,
+    data: {
+      title: 'faq version 2',
+      headerDisplay: "none"
+    }
+    
+  },
+  {
+    path: 'buy',
+    component: BuyComponent,
     data: {
       title: 'faq version 2',
       headerDisplay: "none"

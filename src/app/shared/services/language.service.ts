@@ -19,10 +19,6 @@ export class LanguageService {
   }, {
     "code": "sp",
     "labal": "Spanish",
-  },
-  {
-    "code": "nl",
-    "labal": "Dutch",
   }
   ]
   defaultLanguage: string = 'en';

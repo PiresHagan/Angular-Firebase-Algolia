@@ -48,8 +48,8 @@ export class HeaderComponent {
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
         this.themeService.isExpandChanges.subscribe(isExpand => this.isExpand = isExpand);
 
-        this.authService.getAuthState().subscribe(isLoggedInUser => {
-            if (isLoggedInUser) {
+        this.authService.getAuthState().subscribe(user => {
+            if (user && !user.isAnonymous) {
                 this.isLoggedInUser = true;
             } else {
                 this.isLoggedInUser = false;

@@ -8,42 +8,42 @@
             <div class="is-author-profile-info">
                 <h2 class="is-author-profile-name is-divider">
                     {{authorDetails?.first_name + ' ' + authorDetails?.last_name}}
-                    <span>Author on <a href="/" title="My Trending Stories">My Trending Stories</a></span>
+                    <span>{{'authorOn' | transplant}} <a href="/" title="My Trending Stories">My Trending Stories</a></span>
                 </h2>
                 <p class="is-author-description" innerHTML="{{authorDetails?.biography_en}}">
 
                 </p>
                 <div class="is-author-media-sec">
-                    <h3 class="is-line">Share & Follow us</h3>
+                    <h3 class="is-line">{{'shareFollow' | transplant}}</h3>
                     <ul>
                         <li>
                             <a href="#" id="share-fb">
                                 <img src="assets/images/profile/icon/fb.png" />
-                                <span>Share</span>
+                                <span>{{'profileShare' | transplant}}</span>
                             </a>
                         </li>
                         <li>
                             <a href="#">
                                 <img src="assets/images/profile/icon/mail.png" />
-                                <span>Share</span>
+                                <span>{{'profileShare' | transplant}}</span>
                             </a>
                         </li>
                         <li>
                             <a href="/accounts/signup/">
                                 <img src="assets/images/profile/icon/follow.png" />
-                                <span>Follow</span>
+                                <span>{{'profileFollow' | transplant}}</span>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="is-follow-link">
                                 <b>{{authorDetails.followers?.length}}</b>
-                                <span>Followers</span>
+                                <span>{{'profileFollowers' | transplant}}</span>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="is-follow-link">
                                 <b>{{authorDetails.subscribers?.length}}</b>
-                                <span>Following</span>
+                                <span>{{'profileFollowing' | transplant}}</span>
                             </a>
                         </li>
                     </ul>
@@ -59,9 +59,7 @@
             Followers
         </div>
         <p class="follow">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-            scrambled
+            {{'profileFollowersDes' | transplant}}
         </p>
         <div class="is-followers-user">
             <div class="is-followers-item" *ngFor="let follower of followers">
@@ -76,9 +74,7 @@
             Following
         </div>
         <p class="follow">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-            scrambled
+            {{'profileFolloweringDes' | transplant}}
         </p>
         <div class="is-followers-user">
             <div class="is-followers-item" *ngFor="let subscriber of subscribers">
@@ -90,12 +86,11 @@
 </section>
 <section class="bg-white">
     <div class="is-comman-title">
-        Article
+        {{'article' | transplant}}
     </div>
     <p class="follow">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
-    </p>
+        {{'profileArticleDesc' | transplant}}
+        </p>
     <div class="is-cat-box-card-main">
         <div class="cat-box">
             <div class="cat-box-gallery">
@@ -124,7 +119,7 @@
                                         </div>
                                         <div class="item-card-texte">
                                             <p>{{article.summary}}</p>
-                                            <button type="button" class="is-read-more">Read More <a></a><img
+                                            <button type="button" class="is-read-more">{{'readMore' | transplant}} <a></a><img
                                                     src="assets/images/read-more-icon-red.png" /></button>
                                         </div>
                                     </div>

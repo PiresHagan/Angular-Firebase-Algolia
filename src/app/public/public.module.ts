@@ -17,13 +17,20 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { SearchEngineComponent } from './search-engine/search-engine.component';
+import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { NgAisModule } from 'angular-instantsearch';
+import { BuyComponent } from './buy/buy.component';
 @NgModule({
-  declarations: [HomeComponent, CategoryComponent, ArticleComponent, ProfileComponent, Copywriter1Component, Copywriter2Component, ContactComponent, TermsComponent, FaqComponent, SearchEngineComponent],
+  declarations: [HomeComponent, CategoryComponent, ArticleComponent, ProfileComponent, Copywriter1Component, Copywriter2Component, ContactComponent, TermsComponent, FaqComponent, SearchEngineComponent, BuyComponent],
   imports: [
     CommonModule,
     PublicRoutingModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgZorroAntdModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

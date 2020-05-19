@@ -1,0 +1,137 @@
+.page-title {
+	font-size: 30px;
+	font-size: 30px;
+	font-family: "josefin_sansregular";
+	color: #ff4020;
+	font-weight: 600;
+	position: relative;
+	padding-bottom: 11px;
+	margin-bottom: 40px;
+	margin-top: 0px;
+	text-align: center;
+	&:after {
+		content: "";
+		position: absolute;
+		bottom: 0px;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 50px;
+		background: #ff4020;
+		height: 2px;
+	}
+}
+
+
+
+.buy-sec{
+    .buy-main{
+        box-shadow: 0px 0px 5px 7px rgba(0,0,0,0.02);
+        border:1px solid #fcfcfc;
+        max-width: 600px;
+        margin: auto;
+        .buy-header-img{
+            position: relative;
+            img{
+                max-width: 100%;
+            }
+            .monthly-price{
+                position: absolute;
+                top:0px;
+                right: 0px;
+                padding: 6px 15px;
+                background: #ff4020;
+                font-family: "josefin_sansregular";
+                font-size: 18px;
+                color: #fff;
+            }
+        }
+        .buy-content{
+            text-align: center;
+            padding: 50px;
+            .buy-input{
+                label{
+                    display: block;
+                    font-family: "josefin_sansregular";
+                    font-size: 22px;
+                    color: #000;
+                }
+                input{
+                    background: #f6f7fa;
+                    border:0px;
+                    padding: 8px 10px;
+                    font-family: "josefin_sanslight";
+                    color: #000;
+                    font-size: 17px;
+                    width: 300px;
+                    max-width: 100%;
+                    outline: none;
+                    &::-webkit-input-placeholder {
+                        color: #7b7d84;
+                      }
+                      
+                      &:-ms-input-placeholder {
+                        color: #7b7d84;
+                      }
+                      
+                      &::placeholder {
+                        color: #7b7d84;
+                      }
+                }
+            }
+            .price{
+                font-family: "josefin_sansregular";
+                font-size: 50px;
+                color: #000;
+                margin: 20px 0px;
+                position: relative;
+                &:after {
+                    content: "";
+                    position: absolute;
+                    bottom: 0px;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 50px;
+                    background: #ff4020;
+                    height: 2px;
+                }
+            }
+            .buy-btn-main{
+                .buy-btn{
+                    padding: 13px 35px;
+                    background: #ff4020;
+                    color: #fff;
+                    display: inline-block;
+                    font-family: "josefin_sansregular";
+                    font-size: 22px;
+                    border-radius: 30px;
+                    line-height: 22px;
+                }
+            }
+        }
+    }   
+}
+
+@media screen and (max-width:580px){
+    .page-title{
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+
+    
+.buy-sec{
+    .buy-main{
+        .buy-content{
+            padding: 20px;
+            .buy-input{
+                label{
+                    font-size: 18px;
+                }
+            }
+            .price{
+                font-size: 40px;
+                
+            }
+        }
+    }   
+}
+}
