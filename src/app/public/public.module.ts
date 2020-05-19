@@ -30,7 +30,7 @@ import { BuyComponent } from './buy/buy.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgZorroAntdModule.forRoot(),
+    NgZorroAntdModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

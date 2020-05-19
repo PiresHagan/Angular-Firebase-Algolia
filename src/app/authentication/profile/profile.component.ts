@@ -60,13 +60,16 @@ export class ProfileComponent implements OnInit {
   submitForm(): void {
     if (!this.currentUser)
       return;
-    this.isFormSaving = true;
+
+
+
     for (const i in this.profileForm.controls) {
       this.profileForm.controls[i].markAsDirty();
       this.profileForm.controls[i].updateValueAndValidity();
     }
 
-    if (this.findInvalidControls().length == 0) {
+    if (this.findInvalidControls().length == 0 || this.profileForm.get('later').value) {
+      this.isFormSaving = true;
       const phone = this.profileForm.get('phone').value;
       const birth = formatDate(this.profileForm.get('birth').value, 'yyyy/MM/dd', "en");
       const biography = this.profileForm.get('biography').value;
@@ -74,7 +77,9 @@ export class ProfileComponent implements OnInit {
       this.userService.update(this.currentUser.uid, { phone, birth, biography }).then(() => {
         this.isFormSaving = false;
         this.router.navigate(['/auth/interest']);
-      });
+      }).catch(() => {
+        this.isFormSaving = true;
+      })
     }
   }
 

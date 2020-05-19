@@ -1,4 +1,26 @@
-@import url('./assets/lib/hljs/styles/atom-one-light.css');
-@import url('../node_modules/ng-zorro-antd/src/ng-zorro-antd.min.css');
-@import url('../node_modules/@fortawesome/fontawesome-free/css/all.min.css');
-@import './assets/scss/app.scss'
+@import url("./assets/lib/hljs/styles/atom-one-light.css");
+@import url("../node_modules/ng-zorro-antd/src/ng-zorro-antd.min.css");
+@import url("../node_modules/@fortawesome/fontawesome-free/css/all.min.css");
+@import "./assets/scss/app.scss";
+
+.login-form,
+.ant-form-item {
+    .ant-form-horizontal .ant-form-item-control {
+        -webkit-box-flex: initial;
+        flex: auto;
+    }
+    .ant-form-item-label {
+        width: 100%;
+        text-align: left;
+    }
+    .ant-picker {
+        padding: 0.52rem 1rem;
+        border: 1px solid #edf2f9;
+    }
+    .ant-picker:hover:not([disabled]),
+    .ant-picker:focus:not([disabled]),
+    .ant-picker-input > input-focused,
+    .ant-picker-input > input:focus {
+        border-color: #ff4020;
+    }
+}
