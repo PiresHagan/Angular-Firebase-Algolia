@@ -11,8 +11,8 @@
 
                         <div class="form-group">
                             <input class="form-control newsletter-input" id="id_category-email" maxlength="100"
-                                name="category-email" placeholder="Subscribe newsletter" type="email" required="">
-                            <button class="btn">Subscribe</button>
+                                name="category-email" placeholder="{{'subscribeNewsletter' | translate}}" type="email" required="">
+                            <button class="btn">{{'subscribe' | translate}}</button>
                             <div class="clearfix"></div>
                         </div>
                     </form>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="btn-rss">
                     <a href="https://mytrendingstories.com/category/life-and-styles/feed/">
-                        Subscribe RSS
+                         {{'subscribeRSS' | translate}}
                         <span class="rss-icon"><i class="fa fa-rss" aria-hidden="true"></i></span>
                     </a>
                 </div>
@@ -55,12 +55,12 @@
                         </div>
                         <div class="is-card-content">
                             <h2 class="is-small-title">
-                                <span href="https://mytrendingstories.com/category/">Today's stories</span>
+                                <span href="https://mytrendingstories.com/category/">{{'heroStory' | translate}}</span>
                                 <div>Liberation by Imogen Kealey (Review)</div>
                             </h2>
                             <p class="is-card-description">The must-read thriller inspired by the true story of Nancy
                                 Wake</p>
-                            <button type="button" class="is-read-more">Read More <img
+                            <button type="button" class="is-read-more">{{'readMore' | translate}} <img
                                     src="assets/images/read-more-icon-red.png" /></button>
                         </div>
                     </a>
@@ -98,7 +98,7 @@
                                             </div>
                                             <div class="item-card-texte">
                                                 <p>{{article.summary}}</p>
-                                                <button type="button" class="is-read-more">Read More <a></a><img
+                                                <button type="button" class="is-read-more">{{'readMore' | translate}} <img
                                                         src="assets/images/read-more-icon-red.png" /></button>
                                             </div>
                                         </div>
@@ -119,7 +119,7 @@
             <div class="pagination">
                 <span class="step-links">
                     <ul class="is-pagination-link">
-                        <li><a href="#" class="first">First</a></li>
+                        <li><a href="#" class="first">{{'first' | translate}}</a></li>
                         <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
                         <li><a href="#" class="current">1</a></li>
                         <li><a href="#">2</a></li>
@@ -128,7 +128,7 @@
                         <li><a href="#">1378</a></li>
                         <li><a class="btn page-btn" href="https://mytrendingstories.com?page=2"><i
                                     class="fa fa-angle-right"></i></a></li>
-                        <li><a href="#" class="last">Last</a></li>
+                        <li><a href="#" class="last">{{'last' | translate}}</a></li>
                     </ul>
 
                     <!-- <span class="current">

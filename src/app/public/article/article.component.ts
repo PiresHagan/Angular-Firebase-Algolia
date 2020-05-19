@@ -1,8 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Output, EventEmitter, Input  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ThemeConstantService } from 'src/app/shared/services/theme-constant.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-article',
@@ -10,6 +12,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./article.component.scss']
 })
 export class ArticleComponent implements OnInit {
+  @Output() change = new EventEmitter();
+  @Input() lang: string;
 
   article: Article;
   articleLikes: number;
@@ -22,10 +26,21 @@ export class ArticleComponent implements OnInit {
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
-    private fb: FormBuilder
-  ) { }
+    private fb: FormBuilder,
+    public translate: TranslateService,
+    private themeService: ThemeConstantService
+  ) {
+    translate.addLangs(['en', 'nl']);
+    translate.setDefaultLang('en');
+   }
+   switchLang(lang: string) {
+    this.translate.use(lang);
+  }
+
 
   ngOnInit(): void {
+    this.themeService.selectedLang.subscribe(lang => this.switchLang(lang));
+
     this.route.paramMap.subscribe(params => {
       console.log('Category Slug', params.get('slug'));
 
