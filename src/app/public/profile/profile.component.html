@@ -8,42 +8,42 @@
             <div class="is-author-profile-info">
                 <h2 class="is-author-profile-name is-divider">
                     {{authorDetails?.first_name + ' ' + authorDetails?.last_name}}
-                    <span>{{'authorOn' | transplant}} <a href="/" title="My Trending Stories">My Trending Stories</a></span>
+                    <span>{{'authorOn' | translate}} <a href="/" title="My Trending Stories">My Trending Stories</a></span>
                 </h2>
                 <p class="is-author-description" innerHTML="{{authorDetails?.biography_en}}">
 
                 </p>
                 <div class="is-author-media-sec">
-                    <h3 class="is-line">{{'shareFollow' | transplant}}</h3>
+                    <h3 class="is-line">{{'shareFollow' | translate}}</h3>
                     <ul>
                         <li>
                             <a href="#" id="share-fb">
                                 <img src="assets/images/profile/icon/fb.png" />
-                                <span>{{'profileShare' | transplant}}</span>
+                                <span>{{'profileShare' | translate}}</span>
                             </a>
                         </li>
                         <li>
                             <a href="#">
                                 <img src="assets/images/profile/icon/mail.png" />
-                                <span>{{'profileShare' | transplant}}</span>
+                                <span>{{'profileShare' | translate}}</span>
                             </a>
                         </li>
                         <li>
                             <a href="/accounts/signup/">
                                 <img src="assets/images/profile/icon/follow.png" />
-                                <span>{{'profileFollow' | transplant}}</span>
+                                <span>{{'profileFollow' | translate}}</span>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="is-follow-link">
                                 <b>{{authorDetails.followers?.length}}</b>
-                                <span>{{'profileFollowers' | transplant}}</span>
+                                <span>{{'profileFollowers' | translate}}</span>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="is-follow-link">
                                 <b>{{authorDetails.subscribers?.length}}</b>
-                                <span>{{'profileFollowing' | transplant}}</span>
+                                <span>{{'profileFollowing' | translate}}</span>
                             </a>
                         </li>
                     </ul>
@@ -59,7 +59,7 @@
             Followers
         </div>
         <p class="follow">
-            {{'profileFollowersDes' | transplant}}
+            {{'profileFollowersDes' | translate}}
         </p>
         <div class="is-followers-user">
             <div class="is-followers-item" *ngFor="let follower of followers">
@@ -74,7 +74,7 @@
             Following
         </div>
         <p class="follow">
-            {{'profileFolloweringDes' | transplant}}
+            {{'profileFolloweringDes' | translate}}
         </p>
         <div class="is-followers-user">
             <div class="is-followers-item" *ngFor="let subscriber of subscribers">
@@ -86,10 +86,10 @@
 </section>
 <section class="bg-white">
     <div class="is-comman-title">
-        {{'article' | transplant}}
+        {{'article' | translate}}
     </div>
     <p class="follow">
-        {{'profileArticleDesc' | transplant}}
+        {{'profileArticleDesc' | translate}}
         </p>
     <div class="is-cat-box-card-main">
         <div class="cat-box">
@@ -119,7 +119,7 @@
                                         </div>
                                         <div class="item-card-texte">
                                             <p>{{article.summary}}</p>
-                                            <button type="button" class="is-read-more">{{'readMore' | transplant}} <a></a><img
+                                            <button type="button" class="is-read-more">{{'readMore' | translate}} <a></a><img
                                                     src="assets/images/read-more-icon-red.png" /></button>
                                         </div>
                                     </div>
