@@ -25,10 +25,16 @@
                         </span>
                     </div>
                     <div class="is-like-sec is-divider">
-                        <a class="is-like" href="" data-toggle="modal" data-target="#modal-login"><img
+                        <!-- <a class="is-like" href="" data-toggle="modal" data-target="#modal-login"><img
                                 src="assets/images/article/icon/like.png" />{{'like' | translate}} <span
-                                class="likes-count">{{articleLikes}}</span></a>
-                        <a class="is-bookmark" href=""><img src="assets/images/article/icon/bookmark.png" /></a>
+                                class="likes-count">{{articleLikes}}</span></a> -->
+                        
+                                <a class="is-like" (click)="likeArticle()" >
+                                    <i class="far" [ngClass]="status ? 'fa-heart' : 'fa-thumbs-up'"></i>
+                                    {{'like' | translate}}
+                                    <span class="likes-count">{{articleLikes}}</span>
+                                </a>  
+                                <a class="is-bookmark" href=""><img src="assets/images/article/icon/bookmark.png" /></a>
                         <a class="is-dot" href=""><img src="assets/images/article/icon/more.png" /></a>
                     </div>
                     <div class="left-media is-divider">

@@ -19,7 +19,7 @@ export class ArticleComponent implements OnInit {
   @Input() lang: string;
 
   article: Article;
-  articleLikes: number;
+  articleLikes: number= 0;
   slug: string;
   articleComments: any;
   commentForm: FormGroup;
@@ -31,6 +31,7 @@ export class ArticleComponent implements OnInit {
   lastCommentDoc: any;
   userDetails: User;
   messageDetails: string;
+  status: boolean;
   @ViewChild('commentSection') private myScrollContainer: ElementRef;
   @ViewChild('commentReplySection') private commentReplyContainer: ElementRef;
 
@@ -49,7 +50,13 @@ export class ArticleComponent implements OnInit {
   switchLang(lang: string) {
     this.translate.use(lang);
   }
-
+  likeArticle(){
+    if(this.articleLikes == 0)
+    this.articleLikes++;
+    else
+    this.articleLikes--;
+    this.status = !this.status;
+  }
 
   ngOnInit(): void {
     this.themeService.selectedLang.subscribe(lang => this.switchLang(lang));
