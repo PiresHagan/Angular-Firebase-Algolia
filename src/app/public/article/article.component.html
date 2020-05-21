@@ -111,9 +111,9 @@
                                         <a href="" class="comment-reply-btn">{{'reply' | translate}}</a>
                                         /
                                         <a href="" class="comment-view-replies">{{'viewReplies' | translate}}</a> <span
-                                            *ngIf="userDetails?.uid===articleComment?.user_details?.uid"> / </span><a
-                                            class="comment-view-replies"
-                                            *ngIf="userDetails?.uid===articleComment?.user_details?.uid"
+                                            *ngIf="isLoggedInUser && userDetails?.uid===articleComment?.user_details?.uid">
+                                            / </span><a class="comment-view-replies"
+                                            *ngIf="isLoggedInUser && userDetails?.uid===articleComment?.user_details?.uid"
                                             (click)="editComment(articleComment.uid,articleComment)">
                                             {{'edit' | translate}}</a>
                                     </div>

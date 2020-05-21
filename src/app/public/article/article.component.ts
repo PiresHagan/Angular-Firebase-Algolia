@@ -91,6 +91,7 @@ export class ArticleComponent implements OnInit {
       if (user && !user.isAnonymous) {
         this.isLoggedInUser = true;
       } else {
+        this.userDetails = null;
         this.isLoggedInUser = false;
       }
     });
