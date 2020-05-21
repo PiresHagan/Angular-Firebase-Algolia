@@ -74,7 +74,8 @@
                         <div class="is-paragraph">
                             <p class="big " innerHTML="{{article?.content}}"></p>
 
-                            <p>{{'publishedBy' | translate}}<a [routerLink]="['/profile/',article?.authorObj?.slug]" target="_blank"
+                            <p>{{'publishedBy' | translate}}<a [routerLink]="['/profile/',article?.authorObj?.slug]"
+                                    target="_blank"
                                     title="  {{article?.authorObj.first_name+' ' + article?.authorObj.last_name}}"
                                     *ngIf="article">
                                     <span class="name" itemprop="name">
@@ -95,69 +96,90 @@
                             <div class="is-comment is-line"
                                 *ngFor="let articleComment of articleComments; let i = index">
                                 <div class="is-comment-img">
-                                    <img class="avatar"
-                                        src="https://mytrendingstories.com/media/photologue/photos/cache/None_04102017091351_author_small.jpg"
-                                        alt="travellwithdome@gmail.com" />
+                                    <img class="avatar" src="{{articleComment?.user_details?.photoURL}}"
+                                        alt="{{articleComment?.user_details?.slug}}" />
                                 </div>
                                 <div class="is-comment-detail">
                                     <div class="pull-left">
                                         <h4 class="is-comment-user-name">
-                                            {{articleComment.username}}
+                                            {{articleComment?.user_details?.displayName}}
                                             <small class="comment-date"><i>
-                                                    {{articleComment?.published_on | date:'medium' }}</i></small>
+                                                    {{articleComment?.published_on.seconds * 1000 | date:'medium' }}</i></small>
                                         </h4>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="" class="comment-reply-btn" data-id="2763">{{'reply' | translate}}</a> /
-                                        <a href="" class="comment-view-replies" data-id="2763">{{'viewReplies' | translate}}</a>
+                                        <a href="" class="comment-reply-btn">{{'reply' | translate}}</a>
+                                        /
+                                        <a href="" class="comment-view-replies">{{'viewReplies' | translate}}</a> <span
+                                            *ngIf="userDetails?.uid===articleComment?.user_details?.uid"> / </span><a
+                                            class="comment-view-replies"
+                                            *ngIf="userDetails?.uid===articleComment?.user_details?.uid"
+                                            (click)="editComment(articleComment.uid,articleComment)">
+                                            {{'edit' | translate}}</a>
                                     </div>
                                     <div class="clearfix"></div>
                                     <p innerHTML="{{articleComment.message}}"> </p>
                                 </div>
                             </div>
-                            <div class="comment-reply-form">
+                            <div *ngIf="lastCommentDoc"> <a (click)="loadMoreComments()"
+                                    *ngIf="!isCommentsLoading"><span>{{'moreComments' | translate}}</span></a>
+                                <nz-spin nzSimple *ngIf="isCommentsLoading"></nz-spin>
+                            </div>
 
-                                <form id="comment_reply_2763" class="comment_reply" nz-form [formGroup]="commentForm"
-                                    (ngSubmit)="saveComments()">
+                            <div class="comment-reply-form" #commentReplySection>
+
+
+
+                                <form #commentForm="ngForm" class="comment_reply" *ngIf="isLoggedInUser"
+                                    (ngSubmit)="saveComments(commentForm)">
                                     <div class="form-group">
                                         <h2>{{'replyHere' | translate}}...</h2>
                                     </div>
+                                    <div class="form-group">
+                                        <quill-editor [style]="{height: '500px'}" [minLength]="10" [maxLength]="400"
+                                            name="message" [(ngModel)]="messageDetails" #messageInput="ngModel">
+                                            <div quill-editor-toolbar>
+                                                <span class="ql-formats">
+                                                    <button class="ql-bold"></button>
+                                                    <button class="ql-italic"></button>
+                                                    <button class="ql-underline"></button>
+                                                    <button class=" ql-link"></button>
+                                                </span>
+
+                                            </div>
+                                        </quill-editor>
+                                        <div style="color: red;" *ngIf="!messageInput.valid">
+                                            {{'comLengthMessage' | translate}}
+
+                                        </div>
+                                    </div>
 
 
-                                    <nz-form-item>
-                                        <!-- <nz-form-label nzRequired nzFor="fullname">Fullname</nz-form-label> -->
-                                        <nz-form-control
-                                            nzErrorTip="Length of your name should be minimum 3 character and maximum 50 character! "
-                                            class="is-icon">
-                                            <input type="text" nz-input formControlName="userName"
-                                            placeholder="{{'fullName' | translate}}*" id="fullname">
-                                        </nz-form-control>
-                                    </nz-form-item>
 
-                                    <nz-form-item class="controls ">
-                                        <!-- <nz-form-label nzRequired nzFor="fullname">Fullname</nz-form-label> -->
-                                        <nz-form-control
-                                            nzErrorTip="Length of your comment should be minimum 3 character and maximum 500 character!"
-                                            class="is-icon controls">
-                                            <textarea class="textarea form-control" type="text" nz-input
-                                                formControlName="message" placeholder="{{'message' | translate}}*"
-                                                id="message"> </textarea>
-                                        </nz-form-control>
-                                    </nz-form-item>
 
-                                    <nz-form-item>
-                                        <nz-form-control>
-                                            <button nz-button nzType="primary"
-                                                [nzLoading]="isFormSaving">{{'send' | translate}}</button>
-                                        </nz-form-control>
-                                    </nz-form-item>
+                                    <div class="m-t-10">
+                                        <button class="m-5" nz-button nzType="primary" [nzLoading]="isFormSaving"
+                                            [disabled]="!commentForm.valid">{{'send' | translate}}</button>
+                                        <button class="m-5" nz-button nzType="primary" *ngIf="editedCommentId"
+                                            (click)="newComment()"
+                                            [nzLoading]="isFormSaving">{{'newCom' | translate}}</button>
 
-                                    <div class="hidden comment_form_success">
+                                    </div>
+
+
+
+                                    <div class="hidden comment_form_success" *ngIf="isCommentSavedSuccessfully">
                                         <p class="text-success">
                                             <b>{{'successMsg' | translate}}</b>
                                         </p>
                                     </div>
                                 </form>
+
+                                <div *ngIf="!isLoggedInUser"><a
+                                        [routerLink]="['/auth/login/']"><span>{{'login' | translate}}</span></a> / <a
+                                        [routerLink]="['/auth/signup/']"><span>{{'signUp' | translate}}</span></a>
+                                    {{'forAddCom' | translate}}.
+                                </div>
                             </div>
 
                         </div>

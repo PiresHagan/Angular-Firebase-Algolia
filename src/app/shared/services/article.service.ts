@@ -3,7 +3,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map, take } from 'rxjs/operators';
 import { Article } from '../interfaces/article.type';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -35,8 +34,8 @@ export class ArticleService {
         return actions.map(a => {
           debugger;
           const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
+          const uid = a.payload.doc.id;
+          return { uid, ...data };
         });
       })
     );
@@ -50,21 +49,73 @@ export class ArticleService {
     })
     );
   }
+  /**
+   * Get comments according article id 
+   * @param articleId 
+   * @param limit 
+   */
   getArticaleComments(articleId: string, limit: number = 5) {
-    return this.db.collection(this.articleCommentsCollection, ref => ref
-      .where('fields.article', '==', articleId).orderBy('fields.published_on', 'desc')
+    return this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`, ref => ref
+      .orderBy('published_on', 'desc')
       .limit(limit)
     ).snapshotChanges().pipe(map(actions => {
-      return actions.map(a => {
-        const data = a.payload.doc.data();
-        const id = a.payload.doc.id;
-        return { id, ...data['fields'] };
-      });
+      return {
+        commentList: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const uid = a.payload.doc.id;
+          return { uid, ...data };
+        }),
+        lastCommentDoc: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      };
     })
     );
   }
-  createComment(commentDtails) {
-    return this.db.collection(this.articleCommentsCollection).add(commentDtails);
+
+  /**
+   * Function is ise for getting the comments according to last received comment index.
+   * @param articleId 
+   * @param limit 
+   * @param lastCommentDoc 
+   */
+  getArticleCommentNextPage(articleId: string, limit: number = 5, lastCommentDoc) {
+    return this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`, ref => ref
+      .orderBy('published_on', 'desc')
+      .startAfter(lastCommentDoc)
+      .limit(limit)
+    ).snapshotChanges().pipe(map(actions => {
+      return {
+        commentList: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const uid = a.payload.doc.id;
+          return { uid, ...data };
+        }),
+        lastCommentDoc: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
+    })
+    );
+  }
+  /**
+   * Create comment
+   * 
+   * @param articleId 
+   * @param commentDtails 
+   */
+
+  createComment(articleId: string, commentDtails: Comment) {
+    return this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`).add(commentDtails);
+  }
+
+  /**
+   * Update existing comment.
+   * 
+   * @param articleId 
+   * @param commentUid 
+   * @param commentDtails 
+   */
+  updateComment(articleId: string, commentUid: string, commentDtails: Comment) {
+    return this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`).doc(commentUid).set(commentDtails)
   }
 
 

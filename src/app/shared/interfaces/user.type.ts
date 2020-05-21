@@ -15,5 +15,6 @@ export interface User {
     birth?: string,
     biography?: string,
     networks?: any,
-    interests?: any
+    interests?: any,
+    slug?: any
 }
