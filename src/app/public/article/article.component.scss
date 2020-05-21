@@ -74,6 +74,12 @@
                 color: #042c99;
                 font-family: 'josefin_sanssemibold';
                 margin: 0px 4px;
+                &.is-like{
+                  min-width: 85px;
+                  .far{
+                    font-size: 17px;
+                  }
+                }
                 img{
                   max-width: 16px;
                   margin-right: 7px;
