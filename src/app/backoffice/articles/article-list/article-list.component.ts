@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { Observable } from 'rxjs';
 import { Article } from 'src/app/shared/interfaces/article.type';
-
-let blogData = require('../../../../assets/data/pages/blog-data.json');
 declare var require: any
 
 @Component({
@@ -20,14 +18,13 @@ export class ArticleListComponent implements OnInit {
   constructor(private articleService: ArticleService) { }
 
   ngOnInit() {
-    this.blogs = blogData;
 
     this.articles = this.articleService.getAll();
 
     console.log('Articles', this.articles);
 
     setTimeout(() => {
-        this.loading = false;
+      this.loading = false;
     }, 1000);
   }
 

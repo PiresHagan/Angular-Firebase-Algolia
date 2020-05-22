@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
@@ -8,18 +8,20 @@ import { TranslateService } from '@ngx-translate/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { User } from 'src/app/shared/interfaces/user.type';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
-  styleUrls: ['./article.component.scss']
+  styleUrls: ['./article.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ArticleComponent implements OnInit {
   @Output() change = new EventEmitter();
   @Input() lang: string;
 
   article: Article;
-  articleLikes: number= 0;
+  articleLikes: number = 0;
   slug: string;
   articleComments: any;
   commentForm: FormGroup;
@@ -32,6 +34,8 @@ export class ArticleComponent implements OnInit {
   userDetails: User;
   messageDetails: string;
   status: boolean;
+  replyMessage: string;
+  activeComment: Comment;
   @ViewChild('commentSection') private myScrollContainer: ElementRef;
   @ViewChild('commentReplySection') private commentReplyContainer: ElementRef;
 
@@ -43,6 +47,7 @@ export class ArticleComponent implements OnInit {
     private themeService: ThemeConstantService,
     public authService: AuthService,
     public userService: UserService,
+    private sanitizer: DomSanitizer
   ) {
     translate.addLangs(['en', 'nl']);
     translate.setDefaultLang('en');
@@ -50,11 +55,11 @@ export class ArticleComponent implements OnInit {
   switchLang(lang: string) {
     this.translate.use(lang);
   }
-  likeArticle(){
-    if(this.articleLikes == 0)
-    this.articleLikes++;
+  likeArticle() {
+    if (this.articleLikes == 0)
+      this.articleLikes++;
     else
-    this.articleLikes--;
+      this.articleLikes--;
     this.status = !this.status;
   }
 
@@ -119,8 +124,9 @@ export class ArticleComponent implements OnInit {
     if (form.valid) {
       this.isFormSaving = true;
       const commentData = {
-        published_on: new Date(),
+        published_on: this.activeComment ? this.activeComment['published_on'] : new Date(),
         updated_on: new Date(),
+        repliedOn: this.activeComment ? this.activeComment['repliedOn'] : (this.replyMessage ? this.replyMessage : ''),
         message: this.messageDetails,
         user_details: {
           displayName: this.userDetails.displayName,
@@ -162,7 +168,7 @@ export class ArticleComponent implements OnInit {
       this.isFormSaving = false;
       this.messageDetails = '';
       this.showCommentSavedMessage();
-
+      this.newComment();
     }).catch((e) => {
       console.log(e)
       this.isFormSaving = false;
@@ -170,13 +176,16 @@ export class ArticleComponent implements OnInit {
   }
 
   editComment(commentUid: string, commentData) {
+    this.activeComment = commentData;
     this.editedCommentId = commentUid;
     this.messageDetails = commentData.message;
+    this.replyMessage = '';
     this.scrollToEditCommentSection();
   }
 
   updateCommentOnServer(editedCommentId, commentData) {
     this.editedCommentId = '';
+
     this.articleService.updateComment(this.article.uid, editedCommentId, commentData).then(() => {
       this.isFormSaving = false;
       this.messageDetails = '';
@@ -192,6 +201,8 @@ export class ArticleComponent implements OnInit {
   newComment() {
     this.editedCommentId = '';
     this.messageDetails = '';
+    this.replyMessage = '';
+    this.activeComment = null;
   }
 
   loadMoreComments() {
@@ -210,6 +221,14 @@ export class ArticleComponent implements OnInit {
       this.scrollToCommentSection();
       this.isCommentSavedSuccessfully = false;
     }, 500)
+  }
+
+  replyComment(commentUid: string, commentData) {
+    this.replyMessage = commentData.message;
+    this.scrollToEditCommentSection();
+  }
+  transformHtml(htmlTextWithStyle) {
+    return this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle);
   }
 
 }

@@ -32,7 +32,6 @@ export class ArticleService {
     ).snapshotChanges().pipe(take(1),
       map(actions => {
         return actions.map(a => {
-          debugger;
           const data = a.payload.doc.data();
           const uid = a.payload.doc.id;
           return { uid, ...data };
@@ -212,5 +211,41 @@ export class ArticleService {
     );
 
   }
+  getArticles(authorId: string = '', limit: number = 50, navigation: string = "first", firstVisible = null, lastVisible = null) {
+    let dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+      // .orderBy('published_on', 'desc')
+      .limit(limit)
+    )
+    switch (navigation) {
+      case 'next':
+        dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+          //  .orderBy('published_on', 'desc')
+          .limit(limit)
+          .startAfter(lastVisible))
+        break;
+      case 'prev':
+        this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+          //  .orderBy('published_on', 'desc')
+          .limit(limit)
+          .startAt(firstVisible))
+        break;
+
+    }
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        firstVisible: actions && actions.length ? null : actions[0].payload.doc,
+        commentList: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const uid = a.payload.doc.id;
+          return { uid, ...data };
+        }),
+        lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
+    })
+    );
+  }
+
 
 }
+
