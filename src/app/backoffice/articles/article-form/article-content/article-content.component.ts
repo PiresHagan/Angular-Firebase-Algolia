@@ -52,7 +52,7 @@ export class ArticleContentComponent implements OnInit {
     this.articleForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
       excerpt: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
-      content: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10000)]],
+      content: ['', [Validators.required, Validators.minLength(10)]],
       category: ['', [Validators.required]],
       tags: [[]]
     });

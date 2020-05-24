@@ -214,7 +214,7 @@ export class ArticleService {
     );
 
   }
-  getArticles(authorId: string = '', limit: number = 3, navigation: string = "first", firstVisible = null, lastVisible = null, searchQuery: string = "") {
+  getArticles(authorId: string = '', limit: number = 50, navigation: string = "first", firstVisible = null, lastVisible = null, searchQuery: string = "") {
     let dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
       // .orderBy('published_on', 'desc')
       .limit(limit)
