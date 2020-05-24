@@ -4,7 +4,8 @@
             <div class="row">
                 <div class="col-md-5">
                     <nz-input-group [nzPrefix]="searchPrefix">
-                        <input type="text" nz-input placeholder="Search Article">
+                        <input type="text" [(ngModel)]="searchQuery" (change)="searchArticle()" nz-input
+                            placeholder="Search Article">
                     </nz-input-group>
                     <ng-template #searchPrefix>
                         <i class="opacity-04" nz-icon nzType="search"></i>
@@ -17,31 +18,32 @@
                 <button nz-button nzType="primary" [routerLink]="['compose']">
                     <i nz-icon nzType="plus"></i>
                     <span>New Article</span>
-                </button>  
+                </button>
             </div>
         </div>
     </div>
 </div>
 <div class="container">
-    <nz-card *ngFor="let item of (articles | async)">
+    <nz-card *ngFor="let item of (articles)">
         <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
             <div class="row">
                 <div class="col-md-4">
-                    <img class="img-fluid" [src]="item.photo.image" [alt]="item.title">
+                    <img class="img-fluid" [src]="item?.featured_imageObj?.image" [alt]="item.title">
                 </div>
                 <div class="col-md-8">
                     <h4 class="m-b-10">{{item.title}}</h4>
                     <div class="m-b-15">
                         <div class="d-flex align-items-center">
                             <div class="d-flex align-items-center">
-                                <nz-avatar nzSize="small" [nzSrc]="item.authorImg"></nz-avatar>
+                                <nz-avatar nzSize="small" [nzSrc]="item.authorObj?.avatarObj?.image"></nz-avatar>
                                 <div class="m-l-10">
-                                    <span class="text-gray font-weight-semibold">{{item.authorName}}</span>
+                                    <span
+                                        class="text-gray font-weight-semibold">{{item.authorObj?.first_name+' '+item.authorObj?.last_name}}</span>
                                 </div>
                             </div>
                             <div class="text-gray">
                                 <nz-divider nzType="vertical"></nz-divider>
-                                <span>{{item.created_at}}</span>
+                                <span>{{item.created_at | date:'medium'}}</span>
                             </div>
                         </div>
                     </div>
@@ -49,13 +51,14 @@
                         <span>{{item.excerpt}}</span>
                     </p>
                     <div class="text-right">
-                        <a [routerLink]="['/app/article/single']" class="font-weight-semibold" nz-button nzType="default" nzGhost>Read More</a>
+                        <a [routerLink]="['/app/article/single']" class="font-weight-semibold" nz-button
+                            nzType="default" nzGhost>Read More</a>
                     </div>
                 </div>
             </div>
         </nz-skeleton>
     </nz-card>
     <div class="m-t-30 text-center">
-        <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
+        <nz-pagination [nzPageIndex]="1" [nzTotal]="10"></nz-pagination>
     </div>
 </div>

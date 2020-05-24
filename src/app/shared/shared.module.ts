@@ -10,6 +10,7 @@ import { SearchPipe } from './pipes/search.pipe';
 import { StripTagsPipe } from './pipes/striptags.pipe';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ScrollableDirective } from './directives/scrollable.directive';
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -34,6 +35,7 @@ export function createTranslateLoader(http: HttpClient) {
     declarations: [
         SearchPipe,
         StripTagsPipe,
+        ScrollableDirective,
     ],
     providers: [
         ThemeConstantService

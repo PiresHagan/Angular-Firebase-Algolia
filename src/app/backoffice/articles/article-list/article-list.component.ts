@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { Observable } from 'rxjs';
 import { Article } from 'src/app/shared/interfaces/article.type';
-
-let blogData = require('../../../../assets/data/pages/blog-data.json');
 declare var require: any
 
 @Component({
@@ -15,20 +13,32 @@ export class ArticleListComponent implements OnInit {
 
   blogs = [];
   loading = true;
-  articles: Observable<Article[]>;
+  articles: Article[];
+  searchQuery: string = "";
 
   constructor(private articleService: ArticleService) { }
 
-  ngOnInit() {
-    this.blogs = blogData;
 
-    this.articles = this.articleService.getAll();
+  ngOnInit() {
+
+    this.articleService.getArticles().subscribe((data) => {
+      this.articles = data.articleList
+    });
 
     console.log('Articles', this.articles);
 
     setTimeout(() => {
-        this.loading = false;
+      this.loading = false;
     }, 1000);
+  }
+  searchArticle() {
+    let value = this.searchQuery.toLowerCase();
+
+    this.articleService.getArticles(value)
+      .subscribe(result => {
+        this.articles = result.articleList
+      })
+
   }
 
 }

@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from 'src/app/shared/interfaces/article.type';
+import { CategoryService } from 'src/app/shared/services/category.service';
+import { Category } from 'src/app/shared/interfaces/category.type';
+import { FormBuilder, Validators } from '@angular/forms';
+import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
+import { AuthService } from 'src/app/shared/services/authentication.service';
+import { UserService } from 'src/app/shared/services/user.service';
+import { ArticleService } from 'src/app/shared/services/article.service';
+import { NzModalService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-article-content',
@@ -8,30 +16,140 @@ import { Article } from 'src/app/shared/interfaces/article.type';
 })
 export class ArticleContentComponent implements OnInit {
 
-  listOfOption: Array<{ label: string; value: string }> = [];
-  tagValue = ['a10', 'c12', 'tag'];
+  tagList: [] = [];
+  tagValue = [];
   article: Article = {};
+  categoryList: Category[];
+  articleForm: any;
+  contentValidation: boolean = false;
+  isLoggedInUser: boolean = false;
+  userDetails;
+
 
   editorConfig = {
-      toolbar: [
-          ['bold', 'italic', 'underline', 'strike'],        
-          ['blockquote', 'code-block'],
-          [{ 'header': 2 }, { 'header': 3 }],               
-          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-          [{ 'size': ['small', false, 'large', 'huge'] }],  
-          [{ 'align': [] }],
-          ['link', 'image', 'video']                        
-      ]
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+      ['blockquote', 'code-block'],
+      [{ 'header': 2 }, { 'header': 3 }],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ 'size': ['small', false, 'large', 'huge'] }],
+      [{ 'align': [] }],
+      ['link', 'image', 'video']
+    ]
   };
 
-  constructor() { }
+  constructor(
+    private categoryService: CategoryService,
+    private fb: FormBuilder,
+    public translate: TranslateService,
+    public authService: AuthService,
+    public userService: UserService,
+    public articleService: ArticleService,
+    private modalService: NzModalService,
+  ) {
+    this.setUserDetails()
+
+    this.articleForm = this.fb.group({
+      title: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
+      excerpt: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
+      content: ['', [Validators.required, Validators.minLength(10)]],
+      category: ['', [Validators.required]],
+      tags: [[]]
+    });
+  }
 
   ngOnInit() {
-    const children: Array<{ label: string; value: string }> = [];
-    for (let i = 10; i < 36; i++) {
-      children.push({ label: i.toString(36) + i, value: i.toString(36) + i });
-    }
-    this.listOfOption = children;
+
+
+    this.categoryService.getAll().subscribe((categoryList) => {
+      this.categoryList = categoryList;
+    })
   }
+  submitArticle() {
+    for (const i in this.articleForm.controls) {
+      this.articleForm.controls[i].markAsDirty();
+      this.articleForm.controls[i].updateValueAndValidity();
+    }
+    if (this.findInvalidControls().length == 0) {
+      const articleData = {
+        category: this.getFilteredCategory(this.articleForm.get('category').value),
+        content: this.articleForm.get('content').value,
+        title: this.articleForm.get('title').value,
+        slug: this.getSlug(this.articleForm.get('title').value),
+        excerpt: this.articleForm.get('excerpt').value,
+        tags: this.articleForm.get('tags').value,
+        published_on: new Date(),
+        author: this.getUserDetails(),
+        summary: this.articleForm.get('title').value
+
+      }
+      this.articleService.createArticle(articleData).then(() => {
+        this.showSuccess();
+        this.articleForm.reset();
+      })
+    }
+
+    console.log(this.articleForm)
+  }
+
+  findInvalidControls() {
+    const invalid = [];
+    const controls = this.articleForm.controls;
+    for (const name in controls) {
+      if (name == "content" && controls[name].invalid) {
+        this.contentValidation = true;
+      }
+      if (controls[name].invalid) {
+        invalid.push(name);
+      }
+    }
+    return invalid;
+  }
+  getSlug(title: string) {
+    return title.replace(/ /g, '-')
+  }
+
+  getFilteredCategory(category) {
+    return {
+      slug: category.slug,
+      title: category.title,
+      uid: category.uid,
+    }
+  }
+  setUserDetails() {
+    this.authService.getAuthState().subscribe(user => {
+      if (user && !user.isAnonymous) {
+        this.isLoggedInUser = true;
+      } else {
+        this.userDetails = null;
+        this.isLoggedInUser = false;
+      }
+    });
+    this.userService.getCurrentUser().then((user) => {
+      this.userService.get(user.uid).subscribe((userDetails) => {
+        this.userDetails = userDetails;
+      })
+    })
+  }
+  getUserDetails() {
+    return {
+      slug: this.userDetails.slug ? this.userDetails.slug : '',
+      fullName: this.userDetails.displayName,
+      photoURL: this.userDetails.photoURL,
+      uid: this.userDetails.uid
+    }
+  }
+  showSuccess(): void {
+
+    let $message = this.translate.instant("artSave");
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      $message = this.translate.instant("artSave");
+    })
+    this.modalService.success({
+      nzTitle: "<i>" + $message + "</i>",
+    });
+  }
+
+
 
 }

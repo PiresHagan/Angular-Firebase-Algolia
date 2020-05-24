@@ -18,8 +18,8 @@ export class CategoryService {
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
+          const uid = a.payload.doc.id;
+          return { uid, ...data };
         });
       })
     );

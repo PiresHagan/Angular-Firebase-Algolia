@@ -22,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgAisModule } from 'angular-instantsearch';
 import { BuyComponent } from './buy/buy.component';
+import { QuillModule } from 'ngx-quill';
 @NgModule({
   declarations: [HomeComponent, CategoryComponent, ArticleComponent, ProfileComponent, Copywriter1Component, Copywriter2Component, ContactComponent, TermsComponent, FaqComponent, SearchEngineComponent, BuyComponent],
   imports: [
@@ -30,7 +31,8 @@ import { BuyComponent } from './buy/buy.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgZorroAntdModule.forRoot(),
+    NgZorroAntdModule,
+    QuillModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

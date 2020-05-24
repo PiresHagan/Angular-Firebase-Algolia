@@ -1,4 +1,5 @@
 export interface Article {
+    uid?: string;
     id?: string;
     title?: string;
     slug?: string;
@@ -20,4 +21,5 @@ export interface Article {
     updated_at?: string;
     published_at?: string;
     view_count?: number;
+    tags?: any;
 }

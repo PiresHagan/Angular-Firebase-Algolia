@@ -38,32 +38,39 @@
                                 <nz-alert nzType="error"
                                     nzDescription="You have entered an invalid username or password" nzShowIcon
                                     *ngIf="errorLogin"></nz-alert>
-                                <nz-form-item>
+                                <nz-form-item class="m-b-15">
                                     <nz-form-control nzErrorTip="The input is not valid E-mail!" class="is-icon">
                                         <nz-input-group [nzPrefix]="prefixUser">
-                                            <input type="text" nz-input formControlName="email" placeholder="email">
+                                            <input type="text" nz-input formControlName="email" placeholder="Email">
                                         </nz-input-group>
                                     </nz-form-control>
                                 </nz-form-item>
-                                <nz-form-item>
-
+                                <nz-form-item class="m-b-5">
                                     <nz-form-control nzErrorTip="Please input your Password!" class="is-icon">
                                         <nz-input-group [nzPrefix]="prefixLock">
                                             <input type="password" nz-input formControlName="password"
                                                 placeholder="Password">
                                         </nz-input-group>
                                     </nz-form-control>
-                                    <a class="float-right font-size-13 p-t-10 text-muted"
-                                        [routerLink]="['/auth/reset-password']">Forget Password?</a>
-                                    <div class="clearfix"></div>
+
+
                                 </nz-form-item>
+                                <a class="float-right font-size-13 text-muted"
+                                    [routerLink]="['/auth/reset-password']">Forget Password?</a>
+                                <div class="clearfix"></div>
+
+                                <div nz-row class="login-form-margin">
+                                    <div nz-col [nzSpan]="12">
+                                        <span class="font-size-13 text-muted">Don't have an account? <a class="small"
+                                                [routerLink]="['/auth/signup']"> Signup</a></span>
+
+                                    </div>
+
+                                </div>
+
+
                                 <nz-form-item>
                                     <nz-form-control>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <span class="font-size-13 text-muted">Don't have an account? <a
-                                                    class="small" [routerLink]="['/auth/signup']"> Signup</a></span>
-
-                                        </div>
                                         <div class="text-center mt-4"> <button nz-button
                                                 class="login-form-button is-login-btn" [nzType]="'primary'"
                                                 [nzLoading]="isFormSaving">Sign
