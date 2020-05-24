@@ -13,19 +13,32 @@ export class ArticleListComponent implements OnInit {
 
   blogs = [];
   loading = true;
-  articles: Observable<Article[]>;
+  articles: Article[];
+  searchQuery: string = "";
 
   constructor(private articleService: ArticleService) { }
 
+
   ngOnInit() {
 
-    this.articles = this.articleService.getAll();
+    this.articleService.getArticles().subscribe((data) => {
+      this.articles = data.articleList
+    });
 
     console.log('Articles', this.articles);
 
     setTimeout(() => {
       this.loading = false;
     }, 1000);
+  }
+  searchArticle() {
+    let value = this.searchQuery.toLowerCase();
+
+    this.articleService.getArticles(value)
+      .subscribe(result => {
+        this.articles = result.articleList
+      })
+
   }
 
 }

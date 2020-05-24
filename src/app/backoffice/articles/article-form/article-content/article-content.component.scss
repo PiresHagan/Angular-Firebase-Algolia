@@ -1,3 +1,19 @@
 nz-select {
-    width: 100%;
+  width: 100%;
+}
+#article-form {
+  .content-message {
+    margin-top: 45px;
+    color: #ff4d4f;
+    font-size: 14px;
+    line-height: 1.5715;
   }
+}
+:host::ng-deep .ng-dirty.ng-invalid .ql-container {
+  border: 1px solid #ff4d4f;
+  border-top: 0px;
+}
+:host::ng-deep .ng-dirty.ng-invalid .ql-toolbar {
+  border: 1px solid #ff4d4f;
+  border-bottom: 1px solid #ccc;
+}

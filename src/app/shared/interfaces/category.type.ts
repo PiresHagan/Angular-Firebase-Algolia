@@ -1,4 +1,5 @@
 export interface Category {
+    uid?: string;
     id?: string;
     color_class?: string;
     constant_contact?: string;

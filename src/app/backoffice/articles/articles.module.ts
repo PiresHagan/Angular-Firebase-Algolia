@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule, createTranslateLoader } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 
@@ -12,6 +12,8 @@ import { ArticleNetworkComponent } from './article-form/article-network/article-
 import { ArticleSeoComponent } from './article-form/article-seo/article-seo.component';
 import { ArticlePublishComponent } from './article-form/article-publish/article-publish.component';
 import { ArticleContentComponent } from './article-form/article-content/article-content.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -23,6 +25,7 @@ import { ArticleContentComponent } from './article-form/article-content/article-
     ReactiveFormsModule,
     ArticlesRoutingModule,
     QuillModule,
+    TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })
   ]
 })
 export class ArticlesModule { }

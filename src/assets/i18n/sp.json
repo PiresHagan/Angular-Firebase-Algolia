@@ -76,5 +76,19 @@
     "edit": "editar",
     "moreComments": "Más comentarios",
     "newCom": "Nuevo comentario",
-    "comLengthMessage": "El mensaje no debe tener menos de 10 caracteres y no más de 400 caracteres."
+    "comLengthMessage": "El mensaje no debe tener menos de 10 caracteres y no más de 400 caracteres.",
+    "artTitleErr": "El título del artículo no debe tener menos de 10 caracteres y no más de 100 caracteres.",
+    "artExcerptErr": "Extracto del artículo no debe tener menos de 10 caracteres y no más de 100 caracteres.",
+    "artContentErr": "El contenido del artículo no debe tener menos de 10 caracteres.",
+    "artCategoryErr": "Seleccione la categoría del artículo.",
+    "newArt": "Nuevo artículo",
+    "artCompose": "Componer",
+    "artTitle": "Título",
+    "artContent": "Contenido",
+    "artCategory": "Categoría",
+    "artExcerpt": "Extracto",
+    "artNext": "Siguiente",
+    "artTags": "Máximo 5 etiquetas",
+    "artPromote": "Promocionar",
+    "artPublish": "Publicar"
 }

@@ -4,7 +4,8 @@
             <div class="row">
                 <div class="col-md-5">
                     <nz-input-group [nzPrefix]="searchPrefix">
-                        <input type="text" nz-input placeholder="Search Article">
+                        <input type="text" [(ngModel)]="searchQuery" (change)="searchArticle()" nz-input
+                            placeholder="Search Article">
                     </nz-input-group>
                     <ng-template #searchPrefix>
                         <i class="opacity-04" nz-icon nzType="search"></i>
@@ -23,7 +24,7 @@
     </div>
 </div>
 <div class="container">
-    <nz-card *ngFor="let item of (articles | async)">
+    <nz-card *ngFor="let item of (articles)">
         <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
             <div class="row">
                 <div class="col-md-4">

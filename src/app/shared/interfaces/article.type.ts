@@ -21,4 +21,5 @@ export interface Article {
     updated_at?: string;
     published_at?: string;
     view_count?: number;
+    tags?: any;
 }

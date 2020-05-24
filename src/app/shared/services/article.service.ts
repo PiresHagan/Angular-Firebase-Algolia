@@ -25,6 +25,9 @@ export class ArticleService {
     );
   }
 
+  createArticle(article) {
+    return this.db.collection(`${this.articleCollection}`).add(article);
+  }
   getArtical(slug: string) {
     return this.db.collection<Article>(this.articleCollection, ref => ref
       .where('slug', '==', slug)
@@ -211,11 +214,19 @@ export class ArticleService {
     );
 
   }
-  getArticles(authorId: string = '', limit: number = 50, navigation: string = "first", firstVisible = null, lastVisible = null) {
+  getArticles(authorId: string = '', limit: number = 3, navigation: string = "first", firstVisible = null, lastVisible = null, searchQuery: string = "") {
     let dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
       // .orderBy('published_on', 'desc')
       .limit(limit)
     )
+    if (searchQuery) {
+      dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+        // .orderBy('published_on', 'desc')
+        .where('summary', '>=', searchQuery)
+        .where('summary', '<=', searchQuery)
+        .limit(limit)
+      )
+    }
     switch (navigation) {
       case 'next':
         dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
@@ -233,8 +244,8 @@ export class ArticleService {
     }
     return dataQuery.snapshotChanges().pipe(map(actions => {
       return {
-        firstVisible: actions && actions.length ? null : actions[0].payload.doc,
-        commentList: actions.map(a => {
+        firstVisible: actions && actions.length == 0 ? null : actions[0].payload.doc,
+        articleList: actions.map(a => {
 
           const data: any = a.payload.doc.data();
           const uid = a.payload.doc.id;
@@ -245,6 +256,7 @@ export class ArticleService {
     })
     );
   }
+
 
 
 }
