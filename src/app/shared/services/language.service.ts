@@ -29,7 +29,8 @@ export class LanguageService {
   constructor(public translate: TranslateService) {
 
     this.translate.addLangs(this.getLanguageListArr());
-    this.translate.setDefaultLang(this.defaultLanguage);
+    this.selectedLanguage = this.getlanguageFromLS() ? this.getlanguageFromLS() : this.defaultLanguage
+    this.translate.setDefaultLang(this.getlanguageFromLS() ? this.getlanguageFromLS() : this.defaultLanguage);
 
   }
 
@@ -46,10 +47,17 @@ export class LanguageService {
   }
   changeLang(lng: string) {
     this.selectedLanguage = lng;
+    this.setlanguageInLS(lng);
     this.translate.use(lng);
     this.isSelectedLang.next(lng);
   }
   getSelectedLanguage() {
     return this.selectedLanguage ? this.selectedLanguage : this.defaultLanguage;
+  }
+  setlanguageInLS(lang) {
+    localStorage.setItem('user_lang', lang);
+  }
+  getlanguageFromLS() {
+    return localStorage.getItem('user_lang');
   }
 }

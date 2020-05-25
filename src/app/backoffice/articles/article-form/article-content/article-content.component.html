@@ -3,6 +3,8 @@
     <br />
     <nz-steps [nzCurrent]="0">
       <nz-step nzTitle="{{'artCompose' | translate}}"></nz-step>
+      <nz-step nzTitle="{{'artFeaturedImage' | translate}}"></nz-step>
+      <nz-step nzTitle="{{'artOptimize' | translate}}"></nz-step>
       <nz-step nzTitle="{{'artPromote' | translate}}"></nz-step>
       <nz-step nzTitle="{{'artPublish' | translate}}"></nz-step>
       <!-- <nz-step nzTitle="Publish"></nz-step> -->
@@ -72,7 +74,8 @@
 
 
           <nz-form-item>
-            <button nz-button class="login-form-button" [nzType]="'primary'" nzBlock>{{'artNext' | translate}}</button>
+            <button nz-button [nzLoading]="isFormSaving" class="login-form-button" [nzType]="'primary'"
+              nzBlock>{{'artNext' | translate}}</button>
           </nz-form-item>
         </div>
 
