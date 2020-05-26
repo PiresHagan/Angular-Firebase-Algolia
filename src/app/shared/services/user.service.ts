@@ -123,14 +123,6 @@ export class UserService {
   delete(uid: string): Promise<void> {
     return this.db.doc(`${this.userCollection}/${uid}`).delete();
   }
-  updateArticleAbuse(userId: string) {
-
-    return new Promise<any>((resolve, reject) => {
-      this.db.collection(`${this.userCollection}`).doc(`${userId}`).update({ is_abused: true }).then(() => {
-        resolve();
-      })
-    })
-  }
   getByEmail(email: string): Observable<User[]> {
     return this.db.collection<User>(`${this.userCollection}`, ref =>
       ref.where("email", "==", email)

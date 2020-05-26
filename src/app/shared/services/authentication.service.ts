@@ -2,13 +2,17 @@ import { Injectable } from "@angular/core";
 import { AngularFireAuth } from '@angular/fire/auth';
 import { first } from "rxjs/operators";
 import { environment } from "src/environments/environment";
+import { AngularFirestore } from "@angular/fire/firestore";
+import { Observable } from "rxjs";
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    constructor(public afAuth: AngularFireAuth) {
+    loggedInUser;
+    loggedInUserDetails;
+    constructor(public afAuth: AngularFireAuth, public db: AngularFirestore) {
         this.afAuth.authState.subscribe((user) => {
             if (!user) {
                 if (environment && environment.isAnonymousUserEnabled) {
@@ -16,8 +20,26 @@ export class AuthService {
                         console.log('anonymusly login');
                     });
                 }
+            } else {
+                this.loggedInUser = user;
             }
+        });
+    }
+    getLoggedInUserDetails(uid: string = '') {
+        return new Promise<any>((resolve, reject) => {
+            if (!uid && this.loggedInUser) {
+                uid = this.loggedInUser.uid
+            } else {
+                reject('User Is Not Initialized');
+            }
+            this.get(uid).subscribe((userData) => {
+                resolve(userData)
+            })
+
         })
+    }
+    get(uid: string): Observable<any> {
+        return this.db.doc(`users/${uid}`).valueChanges();
     }
 
     doRegister(email: string, password: string, displayName) {
