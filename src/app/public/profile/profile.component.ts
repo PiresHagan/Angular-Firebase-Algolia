@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
-import { ThemeConstantService } from 'src/app/shared/services/theme-constant.service';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from 'src/app/shared/services/authentication.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,23 +16,30 @@ export class ProfileComponent implements OnInit {
   followers: any = [];
   subscribers: any = [];
   articles: any = [];
+  isReportAbuseLoading: boolean = false;
+  isLoggedInUser: boolean = false;
   constructor(
     private route: ActivatedRoute,
     private authorService: AuthorService,
     private articleService: ArticleService,
     public translate: TranslateService,
-    private themeService: ThemeConstantService
+    private authService: AuthService,
   ) {
 
   }
-  switchLang(lang: string) {
-    this.translate.use(lang);
-  }
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      console.log('Category Slug', params.get('slug'));
 
       const slug = params.get('slug');
+
+      this.authService.getAuthState().subscribe(user => {
+        if (user && !user.isAnonymous) {
+          this.isLoggedInUser = true;
+        } else {
+          this.isLoggedInUser = false;
+        }
+      });
 
       this.authorService.getUserBySlug(slug).subscribe(author => {
         this.authorDetails = author;
@@ -57,6 +64,14 @@ export class ProfileComponent implements OnInit {
     this.articleService.getArticlesByAuthor(authorId).subscribe((articleList) => {
       console.log(articleList);
       this.articles = articleList;
+    })
+  }
+  reportAbuseAuthor() {
+    this.isReportAbuseLoading = true;
+    this.authorService.reportAbusedUser(this.authorDetails.id).then(() => {
+      this.isReportAbuseLoading = false;
+    }).catch(() => {
+      this.isReportAbuseLoading = false;
     })
   }
 

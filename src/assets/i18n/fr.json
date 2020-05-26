@@ -110,5 +110,6 @@
     "artImageTextErr": "Veuillez saisir une valeur valide. La longueur de la valeur ne doit pas être supérieure à 2 et inférieure à 100.",
     "myArticles": "Mes articles",
     "myFirstArt": "Mon premier article",
-    "reportAbuse": "Signaler un abus"
+    "reportAbuse": "signaler un abus",
+    "reportAbuseAuth": "Signaler un abus"
 }

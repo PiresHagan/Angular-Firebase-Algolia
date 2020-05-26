@@ -34,6 +34,7 @@
                             {{'like' | translate}}
                             <span class="likes-count">{{articleLikes}}</span>
                         </a>
+
                         <a class="is-bookmark" href=""><img src="assets/images/article/icon/bookmark.png" /></a>
                         <a class="is-dot" href=""><img src="assets/images/article/icon/more.png" /></a>
                     </div>
@@ -86,6 +87,13 @@
                                     *ngIf="article">
                                     <span class="name" itemprop="name">
                                         {{article?.authorObj.first_name+' ' + article?.authorObj.last_name}}</span></a>
+                            </p>
+                            <p class="report-abuse-spin" *ngIf="isLoggedInUser">
+                                <a class="comment-view-replies" (click)="reportAbuseArticle()">
+                                    <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseArticleLoading"></nz-spin>
+                                    {{'reportAbuseAuth' | translate}}
+                                </a>
+
                             </p>
                         </div>
                     </div>

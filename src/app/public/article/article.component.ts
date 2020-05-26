@@ -27,6 +27,7 @@ export class ArticleComponent implements OnInit {
   isCommentSavedSuccessfully: boolean = false;
   isLoggedInUser: boolean = false;
   isCommentsLoading: boolean = false;
+  isReportAbuseArticleLoading: boolean = false;
   editedCommentId: string;
   lastCommentDoc: any;
   userDetails: User;
@@ -222,8 +223,10 @@ export class ArticleComponent implements OnInit {
   transformHtml(htmlTextWithStyle) {
     return this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle);
   }
-  updateArticleAbuse() {
+  reportAbuseArticle() {
+    this.isReportAbuseArticleLoading = true;
     this.articleService.updateArticleAbuse(this.article.uid).then(() => {
+      this.isReportAbuseArticleLoading = false;
       console.log('Your suggestion saved successfully.')
     })
   }
