@@ -13,6 +13,7 @@ import { environment } from "src/environments/environment";
 })
 export class UserService {
   private basePath = '/avatar';
+  private userCollection: string = 'users'
   isLoggedInUser = new BehaviorSubject<boolean>(false);
   isLoggedInUserChanges: Observable<boolean> = this.isLoggedInUser.asObservable();
 
@@ -45,7 +46,7 @@ export class UserService {
     })
   }
   get(uid: string): Observable<any> {
-    return this.db.doc(`users/${uid}`).valueChanges();
+    return this.db.doc(`${this.userCollection}/${uid}`).valueChanges();
   }
 
   updateCurrentUserProfile(value) {
@@ -63,7 +64,7 @@ export class UserService {
 
   update(uid: string, fields: any): Promise<void> {
     return new Promise<any>((resolve, reject) => {
-      this.db.doc(`users/${uid}`).update(fields).then(() => {
+      this.db.doc(`${this.userCollection}/${uid}`).update(fields).then(() => {
         resolve();
       }).catch(() => {
         reject();
@@ -78,7 +79,7 @@ export class UserService {
     return new Promise<any>((resolve, reject) => {
 
       const userRef: AngularFirestoreDocument<any> = this.db.doc(
-        `users/${user.uid}`
+        `${this.userCollection}/${user.uid}`
       );
       const userData: User = {
         uid: user.uid,
@@ -107,7 +108,7 @@ export class UserService {
         snapshot => {
           snapshot.ref.getDownloadURL().then((downloadURL) => {
             const imageUrl: string = downloadURL;
-            this.db.collection('users').doc(uid).update({ photoURL: imageUrl }).then(() => {
+            this.db.collection(`${this.userCollection}`).doc(uid).update({ photoURL: imageUrl }).then(() => {
               this.updateCurrentUserProfile({ photoURL: imageUrl }).then(res => resolve()).catch(err => reject(err))
             }).catch(err => reject(err))
 
@@ -120,10 +121,10 @@ export class UserService {
     })
   }
   delete(uid: string): Promise<void> {
-    return this.db.doc(`users/${uid}`).delete();
+    return this.db.doc(`${this.userCollection}/${uid}`).delete();
   }
   getByEmail(email: string): Observable<User[]> {
-    return this.db.collection<User>('users', ref =>
+    return this.db.collection<User>(`${this.userCollection}`, ref =>
       ref.where("email", "==", email)
     )
       .snapshotChanges()

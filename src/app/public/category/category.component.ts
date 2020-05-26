@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule, EventEmitter, Output, Input  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { ActivatedRoute } from '@angular/router';
@@ -12,9 +12,6 @@ import { ThemeConstantService } from '../../shared/services/theme-constant.servi
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
-  @Output() change = new EventEmitter();
-  @Input() lang: string;
-
   category: any;
   articles: any[];
 
@@ -25,16 +22,10 @@ export class CategoryComponent implements OnInit {
     public translate: TranslateService,
     private themeService: ThemeConstantService
   ) {
-    translate.addLangs(['en', 'nl']);
-    translate.setDefaultLang('en');
-   }
-   switchLang(lang: string) {
-    this.translate.use(lang);
+
   }
 
   ngOnInit(): void {
-
-    this.themeService.selectedLang.subscribe(lang => this.switchLang(lang));
 
     this.route.paramMap.subscribe(params => {
       console.log('Category Slug', params.get('slug'));
@@ -52,7 +43,5 @@ export class CategoryComponent implements OnInit {
 
     });
   }
-
-  
 
 }

@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { NzModalService } from 'ng-zorro-antd';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-content',
@@ -24,6 +25,8 @@ export class ArticleContentComponent implements OnInit {
   contentValidation: boolean = false;
   isLoggedInUser: boolean = false;
   userDetails;
+  articleId: string;
+  isFormSaving: boolean = false;
 
 
   editorConfig = {
@@ -46,6 +49,7 @@ export class ArticleContentComponent implements OnInit {
     public userService: UserService,
     public articleService: ArticleService,
     private modalService: NzModalService,
+    private router: Router
   ) {
     this.setUserDetails()
 
@@ -71,21 +75,28 @@ export class ArticleContentComponent implements OnInit {
       this.articleForm.controls[i].updateValueAndValidity();
     }
     if (this.findInvalidControls().length == 0) {
+      this.isFormSaving = true;
       const articleData = {
         category: this.getFilteredCategory(this.articleForm.get('category').value),
         content: this.articleForm.get('content').value,
         title: this.articleForm.get('title').value,
-        slug: this.getSlug(this.articleForm.get('title').value),
+        slug: this.getSlug(this.articleForm.get('title').value.trim()),
         excerpt: this.articleForm.get('excerpt').value,
         tags: this.articleForm.get('tags').value,
-        published_on: new Date(),
         author: this.getUserDetails(),
-        summary: this.articleForm.get('title').value
+        summary: this.articleForm.get('title').value,
+        is_published: false
 
       }
-      this.articleService.createArticle(articleData).then(() => {
-        this.showSuccess();
+      this.articleService.createArticle(articleData).then((article) => {
+        this.articleId = article.id
+        //this.showSuccess();
+        this.isFormSaving = false;
+        this.router.navigate(['app/article/compose/image', this.articleId]);
+
         this.articleForm.reset();
+      }).catch(() => {
+        this.showError();
       })
     }
 
@@ -106,7 +117,7 @@ export class ArticleContentComponent implements OnInit {
     return invalid;
   }
   getSlug(title: string) {
-    return title.replace(/ /g, '-')
+    return title.replace(/ /g, '-')?.toLowerCase();
   }
 
   getFilteredCategory(category) {
@@ -144,6 +155,16 @@ export class ArticleContentComponent implements OnInit {
     let $message = this.translate.instant("artSave");
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       $message = this.translate.instant("artSave");
+    })
+    this.modalService.success({
+      nzTitle: "<i>" + $message + "</i>",
+    });
+  }
+  showError(): void {
+
+    let $message = this.translate.instant("artError");
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      $message = this.translate.instant("artError");
     })
     this.modalService.success({
       nzTitle: "<i>" + $message + "</i>",

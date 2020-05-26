@@ -18,14 +18,14 @@ const routes: Routes = [
         path: '',
         component: ArticleListComponent,
         data: {
-          title: "My articles"
-        } 
+          title: "myArticles"
+        }
       },
       {
-        path: 'single',
+        path: 'single/:slug',
         component: ArticleSingleComponent,
         data: {
-            title: 'My First Article'
+          title: 'myFirstArt'
         }
       },
       {
@@ -35,28 +35,28 @@ const routes: Routes = [
             path: '',
             component: ArticleContentComponent,
             data: {
-                title: 'Compose'
+              title: 'artCompose'
             }
           },
           {
-            path: 'image',
+            path: 'image/:articleId',
             component: ArticleImageComponent,
             data: {
-                title: 'Featured Image'
+              title: 'artFeaturedImage'
             }
           },
           {
             path: 'promote',
             component: ArticleSeoComponent,
             data: {
-                title: 'Promote'
+              title: 'artPromote'
             }
           },
           {
             path: 'publish',
             component: ArticlePublishComponent,
             data: {
-                title: 'Publish'
+              title: 'artPublish'
             }
           }
         ]

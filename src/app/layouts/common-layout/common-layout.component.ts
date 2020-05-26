@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { distinctUntilChanged, filter, map, startWith } from "rxjs/operators";
 import { IBreadcrumb } from "../../shared/interfaces/breadcrumb.type";
 import { ThemeConstantService } from '../../shared/services/theme-constant.service';
+import { LanguageService } from 'src/app/shared/services/language.service';
 
 @Component({
     selector: 'app-common-layout',
@@ -18,9 +19,9 @@ export class CommonLayoutComponent {
     isSideNavDark: boolean;
     isExpand: boolean;
     selectedHeaderColor: string;
-    langChange:string;
+    langChange: string;
 
-    constructor(private router: Router, private activatedRoute: ActivatedRoute, private themeService: ThemeConstantService) {
+    constructor(private router: Router, private activatedRoute: ActivatedRoute, private themeService: ThemeConstantService, private langService: LanguageService) {
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd),
             map(() => {
@@ -78,6 +79,6 @@ export class CommonLayoutComponent {
         return newBreadcrumbs;
     }
     langChangedHandler(lang: string) {
-        this.themeService.changeLang(lang);
-      }
+        this.langService.changeLang(lang);
+    }
 }

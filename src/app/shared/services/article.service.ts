@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map, take } from 'rxjs/operators';
 import { Article } from '../interfaces/article.type';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class ArticleService {
   articleCollection: string = 'bak_posts';
   articleLikesCollection: string = '_likes';
   articleCommentsCollection: string = '_comments';
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore) { }
+  articleImagePath: string = '/article';
+  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private storage: AngularFireStorage, ) { }
 
   getAll() {
     return this.db.collection<Article[]>(this.articleCollection).snapshotChanges().pipe(
@@ -25,9 +27,6 @@ export class ArticleService {
     );
   }
 
-  createArticle(article) {
-    return this.db.collection(`${this.articleCollection}`).add(article);
-  }
   getArtical(slug: string) {
     return this.db.collection<Article>(this.articleCollection, ref => ref
       .where('slug', '==', slug)
@@ -81,6 +80,9 @@ export class ArticleService {
    * @param lastCommentDoc 
    */
   getArticleCommentNextPage(articleId: string, limit: number = 5, lastCommentDoc) {
+    if (!limit) {
+      limit = 5;
+    }
     return this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`, ref => ref
       .orderBy('published_on', 'desc')
       .startAfter(lastCommentDoc)
@@ -214,19 +216,14 @@ export class ArticleService {
     );
 
   }
-  getArticles(authorId: string = '', limit: number = 50, navigation: string = "first", firstVisible = null, lastVisible = null, searchQuery: string = "") {
+  getArticles(authorId: string = '', limit: number = 10, navigation: string = "first", lastVisible = null) {
+    if (!limit) {
+      limit = 10;
+    }
     let dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
       // .orderBy('published_on', 'desc')
       .limit(limit)
     )
-    if (searchQuery) {
-      dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-        // .orderBy('published_on', 'desc')
-        .where('summary', '>=', searchQuery)
-        .where('summary', '<=', searchQuery)
-        .limit(limit)
-      )
-    }
     switch (navigation) {
       case 'next':
         dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
@@ -234,17 +231,9 @@ export class ArticleService {
           .limit(limit)
           .startAfter(lastVisible))
         break;
-      case 'prev':
-        this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-          //  .orderBy('published_on', 'desc')
-          .limit(limit)
-          .startAt(firstVisible))
-        break;
-
     }
     return dataQuery.snapshotChanges().pipe(map(actions => {
       return {
-        firstVisible: actions && actions.length == 0 ? null : actions[0].payload.doc,
         articleList: actions.map(a => {
 
           const data: any = a.payload.doc.data();
@@ -256,6 +245,52 @@ export class ArticleService {
     })
     );
   }
+  updateArticleAbuse(articleId: string) {
+
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection(`${this.articleCollection}`).doc(`${articleId}`).update({ is_abused: true }).then(() => {
+        resolve();
+      })
+    })
+  }
+  updateArticleCommentAbuse(articleId: string, commentUid: string) {
+
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`).doc(commentUid).update({ is_abused: true }).then(() => {
+        resolve();
+      })
+    })
+  }
+
+  createArticle(article) {
+    return this.db.collection(`${this.articleCollection}`).add(article);
+  }
+  updateArticleImage(articleId, imageDetails) {
+
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection(`${this.articleCollection}`).doc(`${articleId}`).update(imageDetails).then(() => {
+        resolve();
+      })
+    })
+  }
+
+  addArticleImage(articleId: string, imageDetails: any) {
+    const path = `${this.articleImagePath}/${Date.now()}_${imageDetails.file.name}`;
+    return new Promise((resolve, reject) => {
+      this.storage.upload(path, imageDetails.file).then(
+        snapshot => {
+          snapshot.ref.getDownloadURL().then((downloadURL) => {
+            const imageUrl: string = downloadURL;
+            this.updateArticleImage(articleId, { image: { url: imageUrl, alt: imageDetails.alt, caption: imageDetails.caption } }).then(res => resolve()).catch(err => reject(err))
+          }).catch(err => reject(err))
+        }).catch((error) => {
+          console.log(error);
+          reject();
+        });
+
+    })
+  }
+
 
 
 

@@ -8,7 +8,8 @@
             <div class="is-author-profile-info">
                 <h2 class="is-author-profile-name is-divider">
                     {{authorDetails?.first_name + ' ' + authorDetails?.last_name}}
-                    <span>{{'authorOn' | translate}} <a href="/" title="My Trending Stories">My Trending Stories</a></span>
+                    <span>{{'authorOn' | translate}} <a href="/" title="My Trending Stories">My Trending
+                            Stories</a></span>
                 </h2>
                 <p class="is-author-description" innerHTML="{{authorDetails?.biography_en}}">
 
@@ -45,6 +46,13 @@
                                 <b>{{authorDetails.subscribers?.length}}</b>
                                 <span>{{'profileFollowing' | translate}}</span>
                             </a>
+                        </li>
+                        <li class="report-abuse-spin" *ngIf="isLoggedInUser">
+                            <a class="comment-view-replies" (click)="reportAbuseAuthor()">
+                                <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseLoading"></nz-spin>
+                                {{'reportAbuseAuth' | translate}}
+                            </a>
+
                         </li>
                     </ul>
                 </div>
@@ -90,7 +98,7 @@
     </div>
     <p class="follow">
         {{'profileArticleDesc' | translate}}
-        </p>
+    </p>
     <div class="is-cat-box-card-main">
         <div class="cat-box">
             <div class="cat-box-gallery">
@@ -119,8 +127,8 @@
                                         </div>
                                         <div class="item-card-texte">
                                             <p>{{article.summary}}</p>
-                                            <button type="button" class="is-read-more">{{'readMore' | translate}} <a></a><img
-                                                    src="assets/images/read-more-icon-red.png" /></button>
+                                            <button type="button" class="is-read-more">{{'readMore' | translate}}
+                                                <a></a><img src="assets/images/read-more-icon-red.png" /></button>
                                         </div>
                                     </div>
                                 </a>

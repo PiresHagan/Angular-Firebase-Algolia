@@ -34,6 +34,7 @@
                             {{'like' | translate}}
                             <span class="likes-count">{{articleLikes}}</span>
                         </a>
+
                         <a class="is-bookmark" href=""><img src="assets/images/article/icon/bookmark.png" /></a>
                         <a class="is-dot" href=""><img src="assets/images/article/icon/more.png" /></a>
                     </div>
@@ -87,6 +88,13 @@
                                     <span class="name" itemprop="name">
                                         {{article?.authorObj.first_name+' ' + article?.authorObj.last_name}}</span></a>
                             </p>
+                            <p class="report-abuse-spin" *ngIf="isLoggedInUser">
+                                <a class="comment-view-replies" (click)="reportAbuseArticle()">
+                                    <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseArticleLoading"></nz-spin>
+                                    {{'reportAbuseAuth' | translate}}
+                                </a>
+
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -122,7 +130,14 @@
                                             / </span><a class="comment-view-replies"
                                             *ngIf="isLoggedInUser && userDetails?.uid===articleComment?.user_details?.uid"
                                             (click)="editComment(articleComment.uid,articleComment)">
-                                            {{'edit' | translate}}</a>
+                                            {{'edit' | translate}}</a> <span
+                                            *ngIf="isLoggedInUser  && userDetails?.uid!==articleComment?.user_details?.uid">
+                                            / </span><a [nzLoading]="true" class="comment-view-replies"
+                                            *ngIf="isLoggedInUser && userDetails?.uid!==articleComment?.user_details?.uid"
+                                            (click)="reportAbuseComment(articleComment.uid,articleComment)">
+                                            <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseLoading"></nz-spin>
+                                            {{'reportAbuse' | translate}}
+                                        </a>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="replied-comment">

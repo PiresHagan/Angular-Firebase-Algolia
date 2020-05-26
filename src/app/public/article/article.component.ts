@@ -17,8 +17,6 @@ import { DomSanitizer } from '@angular/platform-browser';
   encapsulation: ViewEncapsulation.None,
 })
 export class ArticleComponent implements OnInit {
-  @Output() change = new EventEmitter();
-  @Input() lang: string;
 
   article: Article;
   articleLikes: number = 0;
@@ -29,6 +27,7 @@ export class ArticleComponent implements OnInit {
   isCommentSavedSuccessfully: boolean = false;
   isLoggedInUser: boolean = false;
   isCommentsLoading: boolean = false;
+  isReportAbuseArticleLoading: boolean = false;
   editedCommentId: string;
   lastCommentDoc: any;
   userDetails: User;
@@ -36,25 +35,21 @@ export class ArticleComponent implements OnInit {
   status: boolean;
   replyMessage: string;
   activeComment: Comment;
+  isReportAbuseLoading: boolean = false;
   @ViewChild('commentSection') private myScrollContainer: ElementRef;
   @ViewChild('commentReplySection') private commentReplyContainer: ElementRef;
 
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
-    private fb: FormBuilder,
     public translate: TranslateService,
-    private themeService: ThemeConstantService,
     public authService: AuthService,
     public userService: UserService,
     private sanitizer: DomSanitizer
   ) {
-    translate.addLangs(['en', 'nl']);
-    translate.setDefaultLang('en');
+
   }
-  switchLang(lang: string) {
-    this.translate.use(lang);
-  }
+
   likeArticle() {
     if (this.articleLikes == 0)
       this.articleLikes++;
@@ -64,8 +59,6 @@ export class ArticleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.themeService.selectedLang.subscribe(lang => this.switchLang(lang));
-
     this.route.paramMap.subscribe(params => {
 
       const slug = params.get('slug');
@@ -229,6 +222,20 @@ export class ArticleComponent implements OnInit {
   }
   transformHtml(htmlTextWithStyle) {
     return this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle);
+  }
+  reportAbuseArticle() {
+    this.isReportAbuseArticleLoading = true;
+    this.articleService.updateArticleAbuse(this.article.uid).then(() => {
+      this.isReportAbuseArticleLoading = false;
+      console.log('Your suggestion saved successfully.')
+    })
+  }
+  reportAbuseComment(commentUid) {
+    this.isReportAbuseLoading = true;
+    this.articleService.updateArticleCommentAbuse(this.article.uid, commentUid).then(() => {
+      this.isReportAbuseLoading = false;
+      console.log('Your suggestion saved successfully.')
+    })
   }
 
 }

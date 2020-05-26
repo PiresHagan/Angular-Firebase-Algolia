@@ -1,13 +1,22 @@
 import { SideNavInterface } from '../../interfaces/side-nav.type';
 export const ROUTES: SideNavInterface[] = [
     {
-        path: 'app/settings/profile-settings',
+        path: '/app/article',
+        title: 'myArticles',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'crown',
+        submenu: []
+    },
+    {
+        path: '/app/settings/profile-settings',
         title: 'myAccountSettings',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'lock',
         submenu: []
     },
+
     // {
     //     path: '',
     //     title: 'Multi Level Menu',
