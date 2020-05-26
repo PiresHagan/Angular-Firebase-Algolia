@@ -122,7 +122,14 @@
                                             / </span><a class="comment-view-replies"
                                             *ngIf="isLoggedInUser && userDetails?.uid===articleComment?.user_details?.uid"
                                             (click)="editComment(articleComment.uid,articleComment)">
-                                            {{'edit' | translate}}</a>
+                                            {{'edit' | translate}}</a> <span
+                                            *ngIf="isLoggedInUser  && userDetails?.uid!==articleComment?.user_details?.uid">
+                                            / </span><a [nzLoading]="true" class="comment-view-replies"
+                                            *ngIf="isLoggedInUser && userDetails?.uid!==articleComment?.user_details?.uid"
+                                            (click)="reportAbuseComment(articleComment.uid,articleComment)">
+                                            <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseLoading"></nz-spin>
+                                            {{'reportAbuse' | translate}}
+                                        </a>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="replied-comment">

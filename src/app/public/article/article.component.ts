@@ -36,6 +36,7 @@ export class ArticleComponent implements OnInit {
   status: boolean;
   replyMessage: string;
   activeComment: Comment;
+  isReportAbuseLoading: boolean = false;
   @ViewChild('commentSection') private myScrollContainer: ElementRef;
   @ViewChild('commentReplySection') private commentReplyContainer: ElementRef;
 
@@ -229,6 +230,18 @@ export class ArticleComponent implements OnInit {
   }
   transformHtml(htmlTextWithStyle) {
     return this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle);
+  }
+  updateArticleAbuse() {
+    this.articleService.updateArticleAbuse(this.article.uid).then(() => {
+      console.log('Your suggestion saved successfully.')
+    })
+  }
+  reportAbuseComment(commentUid) {
+    this.isReportAbuseLoading = true;
+    this.articleService.updateArticleCommentAbuse(this.article.uid, commentUid).then(() => {
+      this.isReportAbuseLoading = false;
+      console.log('Your suggestion saved successfully.')
+    })
   }
 
 }

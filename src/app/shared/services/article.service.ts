@@ -12,7 +12,7 @@ export class ArticleService {
   articleCollection: string = 'bak_posts';
   articleLikesCollection: string = '_likes';
   articleCommentsCollection: string = '_comments';
-  articleImagePath: string = '/test';
+  articleImagePath: string = '/article';
   constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private storage: AngularFireStorage, ) { }
 
   getAll() {
@@ -245,6 +245,22 @@ export class ArticleService {
     })
     );
   }
+  updateArticleAbuse(articleId: string) {
+
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection(`${this.articleCollection}`).doc(`${articleId}`).update({ is_abused: true }).then(() => {
+        resolve();
+      })
+    })
+  }
+  updateArticleCommentAbuse(articleId: string, commentUid: string) {
+
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`).doc(commentUid).update({ is_abused: true }).then(() => {
+        resolve();
+      })
+    })
+  }
 
   createArticle(article) {
     return this.db.collection(`${this.articleCollection}`).add(article);
@@ -259,7 +275,7 @@ export class ArticleService {
   }
 
   addArticleImage(articleId: string, imageDetails: any) {
-    const path = `test/${Date.now()}_${imageDetails.file.name}`;
+    const path = `${this.articleImagePath}/${Date.now()}_${imageDetails.file.name}`;
     return new Promise((resolve, reject) => {
       this.storage.upload(path, imageDetails.file).then(
         snapshot => {

@@ -913,3 +913,9 @@
     padding: 0 5px 5px;
   }
 }
+.is-comment-detail nz-spin {
+  display: inline;
+  .ng-star-inserted {
+    display: inline-block;
+  }
+}
