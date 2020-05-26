@@ -56,9 +56,6 @@ export class ThemeConstantService {
     private currentHeaderColor = new BehaviorSubject(this.headerColor);
     selectedHeaderColor = this.currentHeaderColor.asObservable();
 
-    public isSelectedLang = new BehaviorSubject<string>(this.lang);
-    selectedLang: Observable<string> = this.isSelectedLang.asObservable();
-
     get() {
         return this.colorConfig;
     }
@@ -78,7 +75,5 @@ export class ThemeConstantService {
     changeHeaderColor(color: string) {
         this.currentHeaderColor.next(color);
     }
-    changeLang(lng: string) {
-        this.isSelectedLang.next(lng);
-    }
+
 }

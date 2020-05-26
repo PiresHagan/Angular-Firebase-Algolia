@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { ThemeConstantService } from 'src/app/shared/services/theme-constant.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
@@ -10,8 +10,6 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HomeComponent implements OnInit {
 
-  @Output() change = new EventEmitter();
-  @Input() lang: string;
   secTitle: any;
   // secTitle:any='You might also like';
   heroLarge: any;
@@ -29,8 +27,7 @@ export class HomeComponent implements OnInit {
     public translate: TranslateService,
     private themeService: ThemeConstantService
   ) {
-    translate.addLangs(['en', 'nl']);
-    translate.setDefaultLang('en');
+
   }
   switchLang(lang: string) {
     this.translate.use(lang);
@@ -46,7 +43,6 @@ export class HomeComponent implements OnInit {
       this.heroSmall = articles;
     });
 
-    this.themeService.selectedLang.subscribe(lang => this.switchLang(lang));
 
     this.articleService.getCategoryRow('business').subscribe(articles => {
       const category = {

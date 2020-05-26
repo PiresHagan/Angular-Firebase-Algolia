@@ -17,8 +17,6 @@ import { DomSanitizer } from '@angular/platform-browser';
   encapsulation: ViewEncapsulation.None,
 })
 export class ArticleComponent implements OnInit {
-  @Output() change = new EventEmitter();
-  @Input() lang: string;
 
   article: Article;
   articleLikes: number = 0;
@@ -43,19 +41,14 @@ export class ArticleComponent implements OnInit {
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
-    private fb: FormBuilder,
     public translate: TranslateService,
-    private themeService: ThemeConstantService,
     public authService: AuthService,
     public userService: UserService,
     private sanitizer: DomSanitizer
   ) {
-    translate.addLangs(['en', 'nl']);
-    translate.setDefaultLang('en');
+
   }
-  switchLang(lang: string) {
-    this.translate.use(lang);
-  }
+
   likeArticle() {
     if (this.articleLikes == 0)
       this.articleLikes++;
@@ -65,8 +58,6 @@ export class ArticleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.themeService.selectedLang.subscribe(lang => this.switchLang(lang));
-
     this.route.paramMap.subscribe(params => {
 
       const slug = params.get('slug');

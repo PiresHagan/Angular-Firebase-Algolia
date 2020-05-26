@@ -13,7 +13,6 @@ import { TermsComponent } from './terms/terms.component';
 import { FaqComponent } from './faq/faq.component';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { SearchEngineComponent } from './search-engine/search-engine.component';
@@ -23,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgAisModule } from 'angular-instantsearch';
 import { BuyComponent } from './buy/buy.component';
 import { QuillModule } from 'ngx-quill';
+import { createTranslateLoader } from '../shared/shared.module';
 @NgModule({
   declarations: [HomeComponent, CategoryComponent, ArticleComponent, ProfileComponent, Copywriter1Component, Copywriter2Component, ContactComponent, TermsComponent, FaqComponent, SearchEngineComponent, BuyComponent],
   imports: [
@@ -33,18 +33,9 @@ import { QuillModule } from 'ngx-quill';
     ReactiveFormsModule,
     NgZorroAntdModule,
     QuillModule.forRoot(),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: httpTranslateLoader,
-        deps: [HttpClient]
-      }
-    }),
+    TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } }),
     NzCollapseModule,
     NgAisModule.forRoot(),
   ]
 })
 export class PublicModule { }
-export function httpTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}

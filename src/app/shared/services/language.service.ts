@@ -23,15 +23,17 @@ export class LanguageService {
   ]
   defaultLanguage: string = 'en';
 
-  public isSelectedLang = new BehaviorSubject<string>(this.defaultLanguage);
-  selectedLang: Observable<string> = this.isSelectedLang.asObservable();
+  public isSelectedLang;
+  selectedLang: Observable<string>
 
   constructor(public translate: TranslateService) {
 
     this.translate.addLangs(this.getLanguageListArr());
-    this.selectedLanguage = this.getlanguageFromLS() ? this.getlanguageFromLS() : this.defaultLanguage
+    this.selectedLanguage = this.getlanguageFromLS() ? this.getlanguageFromLS() : this.defaultLanguage;
+    this.defaultLanguage = this.getlanguageFromLS() ? this.getlanguageFromLS() : this.defaultLanguage;
     this.translate.setDefaultLang(this.getlanguageFromLS() ? this.getlanguageFromLS() : this.defaultLanguage);
-
+    this.isSelectedLang = new BehaviorSubject<string>(this.defaultLanguage);
+    this.selectedLang = this.isSelectedLang.asObservable();
   }
 
   geLanguageList() {
