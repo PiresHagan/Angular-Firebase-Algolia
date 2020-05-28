@@ -9,6 +9,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AuthorService } from 'src/app/shared/services/author.service';
 
 @Component({
   selector: 'app-article',
@@ -35,6 +36,8 @@ export class ArticleComponent implements OnInit {
   status: boolean;
   replyMessage: string;
   activeComment: Comment;
+  isFollowing: boolean = false;
+  isLike: boolean = false;
   isReportAbuseLoading: boolean = false;
   @ViewChild('commentSection') private myScrollContainer: ElementRef;
   @ViewChild('commentReplySection') private commentReplyContainer: ElementRef;
@@ -44,6 +47,7 @@ export class ArticleComponent implements OnInit {
     private route: ActivatedRoute,
     public translate: TranslateService,
     public authService: AuthService,
+    public authorService: AuthorService,
     public userService: UserService,
     private sanitizer: DomSanitizer
   ) {
@@ -65,15 +69,20 @@ export class ArticleComponent implements OnInit {
       this.articleService.getArtical(slug).subscribe(artical => {
         this.article = artical[0];
         const articleId = this.article.id;
+
+
+
+        this.setUserDetails();
         this.articleService.getArticalLikes(articleId).subscribe(likes => {
           this.articleLikes = likes;
         })
+
         this.getArticleComments(this.article.uid);
       });
 
     });
 
-    this.setUserDetails();
+
 
   }
 
@@ -103,6 +112,8 @@ export class ArticleComponent implements OnInit {
     this.userService.getCurrentUser().then((user) => {
       this.userService.get(user.uid).subscribe((userDetails) => {
         this.userDetails = userDetails;
+        this.setFollowOrNot();
+        this.setLike();
       })
     })
   }
@@ -121,12 +132,7 @@ export class ArticleComponent implements OnInit {
         updated_on: new Date(),
         repliedOn: this.activeComment ? this.activeComment['repliedOn'] : (this.replyMessage ? this.replyMessage : ''),
         message: this.messageDetails,
-        user_details: {
-          displayName: this.userDetails.displayName,
-          slug: this.userDetails.slug ? this.userDetails.slug : '',
-          photoURL: this.userDetails.photoURL,
-          uid: this.userDetails.uid,
-        }
+        user_details: this.getUserDetails()
 
       };
       if (this.editedCommentId) {
@@ -237,5 +243,57 @@ export class ArticleComponent implements OnInit {
       console.log('Your suggestion saved successfully.')
     })
   }
+  getUserDetails() {
+    return {
+      displayName: this.userDetails.displayName,
+      slug: this.userDetails.slug ? this.userDetails.slug : '',
+      photoURL: this.userDetails.photoURL,
+      uid: this.userDetails.uid,
+    }
+  }
+  follow(authorId) {
+    let userDetails = this.getUserDetails();
+    let followerDetails = {
+      displayName: userDetails.displayName,
+      slug: userDetails.slug ? userDetails.slug : '',
+      photoURL: userDetails.photoURL,
+      id: userDetails.uid,
+    }
+    this.authorService.follow(authorId, this.getUserDetails());
+
+  }
+
+  unfollow(authorId) {
+    this.authorService.unfollow(authorId, this.getUserDetails().uid);
+
+  }
+  setFollowOrNot() {
+    const authorId = this.article.authorObj.id;
+    this.authorService.isUserFollowing("4UoQgM8KGkYcWG6cELEvm26Gis63", this.getUserDetails().uid).subscribe((data) => {
+      if (data) {
+        this.isFollowing = true;
+      } else {
+        this.isFollowing = false;
+      }
+    });
+  }
+  like() {
+    this.articleService.like(this.article.uid, this.getUserDetails());
+  }
+  disLike() {
+    this.articleService.disLike(this.article.uid, this.getUserDetails().uid);
+
+  }
+  setLike() {
+
+    this.articleService.isLikedByUser(this.article.uid, this.getUserDetails().uid).subscribe((data) => {
+      if (data) {
+        this.isLike = true;
+      } else {
+        this.isLike = false;
+      }
+    });
+  }
+
 
 }

@@ -11,6 +11,7 @@ import 'firebase/storage';
 export class AuthorService {
 
   authorsCollection: string = 'bak_authors';
+  followersCollection: string = 'followings';
 
   constructor(private afs: AngularFirestore) { }
 
@@ -43,6 +44,24 @@ export class AuthorService {
         reject()
       })
     })
+  }
+  /**
+   * Create author follower collection
+   * 
+   * @param articleId 
+   * @param commentDtails 
+   */
+
+  follow(authorId: string, followerData) {
+    return this.afs.collection(`users`).doc(authorId).collection(this.followersCollection).doc(followerData.uid).set(followerData);
+  }
+
+  unfollow(authorId: string, followerId) {
+    return this.afs.collection(`users`).doc(authorId).collection(this.followersCollection).doc(followerId).delete();
+  }
+
+  isUserFollowing(authorId: string, followerId) {
+    return this.afs.collection(`users`).doc(authorId).collection(this.followersCollection).doc(followerId).valueChanges();
   }
 
 

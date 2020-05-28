@@ -18,9 +18,14 @@
                                 <span class="name" itemprop="name">
                                     {{article?.authorObj.first_name+' ' + article?.authorObj.last_name}}</span>
                             </a>
-                            <a class="follow-btn">
+                            <a class="follow-btn" *ngIf="!isFollowing" (click)="follow('4UoQgM8KGkYcWG6cELEvm26Gis63')">
                                 <img src="assets/images/article/icon/follow.png" />
                                 {{'follow' | translate}}
+                            </a>
+                            <a class="follow-btn" *ngIf="isFollowing"
+                                (click)="unfollow('4UoQgM8KGkYcWG6cELEvm26Gis63')">
+                                <img src="assets/images/article/icon/follow.png" />
+                                {{'unFollow' | translate}}
                             </a>
                         </span>
                     </div>
@@ -29,9 +34,14 @@
                                 src="assets/images/article/icon/like.png" />{{'like' | translate}} <span
                                 class="likes-count">{{articleLikes}}</span></a> -->
 
-                        <a class="is-like" (click)="likeArticle()">
-                            <i class="far" [ngClass]="status ? 'fa-heart' : 'fa-thumbs-up'"></i>
+                        <a class="is-like fa-thumbs-up" *ngIf="!isLike" (click)="like()">
+                            <i class="far"></i>
                             {{'like' | translate}}
+                            <span class="likes-count">{{articleLikes}}</span>
+                        </a>
+                        <a class="is-like fa-heart" *ngIf="isLike" (click)="disLike()">
+                            <i class="far"></i>
+                            {{'Dislike ' | translate}}
                             <span class="likes-count">{{articleLikes}}</span>
                         </a>
 

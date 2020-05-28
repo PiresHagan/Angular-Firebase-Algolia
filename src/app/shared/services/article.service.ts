@@ -290,6 +290,17 @@ export class ArticleService {
 
     })
   }
+  like(articleId: string, likerData) {
+    return this.db.collection(this.articleCollection).doc(articleId).collection(this.articleLikesCollection).doc(likerData.uid).set(likerData);
+  }
+
+  disLike(articleId: string, likerId) {
+    return this.db.collection(this.articleCollection).doc(articleId).collection(this.articleLikesCollection).doc(likerId).delete();
+  }
+
+  isLikedByUser(articleId: string, likerId) {
+    return this.db.collection(this.articleCollection).doc(articleId).collection(this.articleLikesCollection).doc(likerId).valueChanges();
+  }
 
 
 
