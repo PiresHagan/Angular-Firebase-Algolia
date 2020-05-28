@@ -30,11 +30,19 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/accounts/signup/">
+
+                            <a *ngIf="!isFollowing && isLoggedInUser" (click)="follow('4UoQgM8KGkYcWG6cELEvm26Gis63')">
                                 <img src="assets/images/profile/icon/follow.png" />
                                 <span>{{'profileFollow' | translate}}</span>
                             </a>
+                            <a *ngIf="isFollowing && isLoggedInUser" (click)="unfollow('4UoQgM8KGkYcWG6cELEvm26Gis63')">
+                                <img src="assets/images/profile/icon/follow.png" />
+                                <span>{{'unfollow' | translate}}</span>
+                            </a>
                         </li>
+
+
+
                         <li>
                             <a href="#" class="is-follow-link">
                                 <b>{{authorDetails.followers?.length}}</b>
