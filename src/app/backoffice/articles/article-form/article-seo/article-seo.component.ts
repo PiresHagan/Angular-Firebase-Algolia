@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import 'rxjs/add/operator/filter';
+import { UserService } from 'src/app/shared/services/user.service';
+import { ArticleService } from 'src/app/shared/services/article.service';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from 'src/app/shared/services/authentication.service';
 
 @Component({
   selector: 'app-article-seo',
@@ -7,9 +13,74 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArticleSeoComponent implements OnInit {
 
-  constructor() { }
+  articleId: string;
+  article;
+  userDetails;
+  isFormSaving: boolean = false;
+  title;
+  keywords;
+  description;
+
+  loading: boolean = true;
+  constructor(private route: ActivatedRoute,
+    public userService: UserService,
+    public translate: TranslateService,
+    public authService: AuthService,
+    private router: Router,
+    public articleService: ArticleService) { }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+
+      this.articleId = params.get('articleId');
+      this.setArticleData();
+
+    })
+  }
+  setArticleData() {
+    this.authService.getAuthState().subscribe(async (user) => {
+      if (!user)
+        return;
+      this.userDetails = await this.authService.getLoggedInUserDetails();
+      if (this.articleId) {
+        try {
+
+          this.article = await this.articleService.getArticleById(this.articleId, this.userDetails.uid);
+          this.title = this.article && this.article.meta && this.article.meta.title ? this.article.meta.title : '';
+          this.keywords = this.article && this.article.meta && this.article.meta.keywords ? this.article.meta.keywords : '';
+          this.description = this.article && this.article.meta && this.article.meta.description ? this.article.meta.description : '';
+
+        } catch (error) {
+          this.article = null;
+          this.router.navigate(['/app/error'])
+        }
+      } else {
+        console.log('Unknown entity');
+        this.router.navigate(['/app/error'])
+      }
+      this.loading = false;
+
+
+    })
+
+  }
+  saveMetaData() {
+    this.isFormSaving = true;
+    this.articleService.updateArticleImage(this.articleId, this.getMetaDetails()).then(() => {
+      this.isFormSaving = false;
+      this.router.navigate(['/app/article/compose/publish', this.articleId]);
+
+    })
+
+  }
+  getMetaDetails() {
+    return {
+      meta: {
+        title: this.title,
+        keywords: this.keywords,
+        description: this.description
+      }
+    }
   }
 
 }

@@ -1,1 +1,26 @@
-<p>article-publish works!</p>
+<nz-card>
+    <div class="container">
+        <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
+            <h2 class="font-weight-normal m-b-10">{{article?.title}}</h2>
+            <div class="media align-items-center m-b-25">
+                <nz-avatar nzSrc="{{article?.author?.avatar }}"></nz-avatar>
+                <div class="m-l-10">
+                    <h6 class="m-b-0">{{article?.author?.fullname}}</h6>
+                </div>
+            </div>
+            <img class="img-fluid w-100" [src]="article?.image?.url" alt="{{article?.image.alt}}">
+            <div class="m-t-30 lh-1-8" innerHTML="{{article?.content}}">
+
+            </div>
+            <hr>
+            <nz-form-item>
+                <nz-form-control>
+                    <div>
+                        <button nz-button class="login-form-button" [nzLoading]="isFormSaving" [nzType]="'primary'"
+                            (click)="savePublishStatus()">{{'artPublish' |translate}}</button>
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+        </nz-skeleton>
+    </div>
+</nz-card>

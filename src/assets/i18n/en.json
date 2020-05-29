@@ -112,5 +112,16 @@
     "myFirstArt": "My First Article",
     "reportAbuse": "report abuse",
     "reportAbuseAuth": "Report Abuse",
-    "unFollow": "Unfollow"
+    "unFollow": "Unfollow",
+    "articleSEO": "Article SEO",
+    "artMetaTitle": "Meta Title",
+    "artMetaKeyword": "Meta Keyword",
+    "artMetaDesc": "Meta Description",
+    "artPublishMsg": "Congratulations, your article is published!",
+    "artDraft": "Draft",
+    "artEdit": "Edit Article",
+    "artNoArt": "No article found ..",
+    "invalidAccess": "You are trying to access invalid URL.",
+    "notFound": "Not Found",
+    "goBack": "Back to My Article"
 }

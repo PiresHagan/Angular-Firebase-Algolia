@@ -216,17 +216,18 @@ export class ArticleService {
     );
 
   }
-  getArticles(authorId: string = '', limit: number = 10, navigation: string = "first", lastVisible = null) {
+  getArticles(authorId, limit: number = 10, navigation: string = "first", lastVisible = null) {
     if (!limit) {
       limit = 10;
     }
     let dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-      // .orderBy('published_on', 'desc')
+      .where("author.id", "==", authorId)
       .limit(limit)
     )
     switch (navigation) {
       case 'next':
         dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+          .where("author.id", "==", authorId)
           //  .orderBy('published_on', 'desc')
           .limit(limit)
           .startAfter(lastVisible))
@@ -237,24 +238,24 @@ export class ArticleService {
         articleList: actions.map(a => {
 
           const data: any = a.payload.doc.data();
-          const uid = a.payload.doc.id;
-          return { uid, ...data };
+          const id = a.payload.doc.id;
+          return { id, ...data };
         }),
         lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
       }
     })
     );
   }
-  updateArticleAbuse(articleId: string) {
 
+  updateArticleAbuse(articleId: string) {
     return new Promise<any>((resolve, reject) => {
       this.db.collection(`${this.articleCollection}`).doc(`${articleId}`).update({ is_abused: true }).then(() => {
         resolve();
       })
     })
   }
-  updateArticleCommentAbuse(articleId: string, commentUid: string) {
 
+  updateArticleCommentAbuse(articleId: string, commentUid: string) {
     return new Promise<any>((resolve, reject) => {
       this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`).doc(commentUid).update({ is_abused: true }).then(() => {
         resolve();
@@ -265,8 +266,8 @@ export class ArticleService {
   createArticle(article) {
     return this.db.collection(`${this.articleCollection}`).add(article);
   }
-  updateArticleImage(articleId, imageDetails) {
 
+  updateArticleImage(articleId, imageDetails) {
     return new Promise<any>((resolve, reject) => {
       this.db.collection(`${this.articleCollection}`).doc(`${articleId}`).update(imageDetails).then(() => {
         resolve();
@@ -281,7 +282,7 @@ export class ArticleService {
         snapshot => {
           snapshot.ref.getDownloadURL().then((downloadURL) => {
             const imageUrl: string = downloadURL;
-            this.updateArticleImage(articleId, { image: { url: imageUrl, alt: imageDetails.alt, caption: imageDetails.caption } }).then(res => resolve()).catch(err => reject(err))
+            this.updateArticleImage(articleId, { image: { url: imageUrl, alt: imageDetails.alt } }).then(res => resolve()).catch(err => reject(err))
           }).catch(err => reject(err))
         }).catch((error) => {
           console.log(error);
@@ -301,6 +302,30 @@ export class ArticleService {
   isLikedByUser(articleId: string, likerId) {
     return this.db.collection(this.articleCollection).doc(articleId).collection(this.articleLikesCollection).doc(likerId).valueChanges();
   }
+
+  getArticleById(articleId: string, authorId) {
+    return new Promise<any>((resolve, reject) => {
+      this.db.doc(`${this.articleCollection}/${articleId}`).valueChanges().subscribe((data) => {
+        if (data && data['author'].id === authorId) {
+          data['id'] = articleId;
+          resolve(data)
+        } else {
+          reject('Unknown entity');
+        }
+      })
+
+
+
+
+
+    })
+
+  }
+  updateArticle(articleId: string, articleDetails) {
+    return this.db.collection(`${this.articleCollection}`).doc(`${articleId}`).set(articleDetails)
+  }
+
+
 
 
 

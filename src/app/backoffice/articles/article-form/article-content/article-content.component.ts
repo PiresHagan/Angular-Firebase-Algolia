@@ -8,7 +8,8 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { NzModalService } from 'ng-zorro-antd';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DRAFT } from 'src/app/shared/constants/status-constants';
 
 @Component({
   selector: 'app-article-content',
@@ -27,7 +28,7 @@ export class ArticleContentComponent implements OnInit {
   userDetails;
   articleId: string;
   isFormSaving: boolean = false;
-
+  loading: boolean = true;
 
   editorConfig = {
     toolbar: [
@@ -49,25 +50,44 @@ export class ArticleContentComponent implements OnInit {
     public userService: UserService,
     public articleService: ArticleService,
     private modalService: NzModalService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
-    this.setUserDetails()
 
     this.articleForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
-      excerpt: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
+      excerpt: ['', [Validators.minLength(10), Validators.maxLength(100)]],
       content: ['', [Validators.required, Validators.minLength(10)]],
-      category: ['', [Validators.required]],
-      tags: [[]]
+      category: ['', [Validators.required]]
+      // tags: [[]]
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.authService.getAuthState().subscribe(async (user) => {
+      if (!user)
+        return;
+      this.userDetails = await this.authService.getLoggedInUserDetails();
+      let articleId = this.route.snapshot.queryParams["article"];
+      if (articleId) {
+        try {
+          this.article = await this.articleService.getArticleById(articleId, this.userDetails.uid);
 
+        } catch (error) {
+          this.article = null;
+        }
+      }
+      this.categoryService.getAll().subscribe((categoryList) => {
+        this.categoryList = categoryList;
+        if (this.article && (this.article['id'] || this.article['ud'])) {
+          this.setFormDetails();
+        }
+        this.loading = false;
+      });
 
-    this.categoryService.getAll().subscribe((categoryList) => {
-      this.categoryList = categoryList;
     })
+
+
   }
   submitArticle() {
     for (const i in this.articleForm.controls) {
@@ -82,25 +102,34 @@ export class ArticleContentComponent implements OnInit {
         title: this.articleForm.get('title').value,
         slug: this.getSlug(this.articleForm.get('title').value.trim()),
         excerpt: this.articleForm.get('excerpt').value,
-        tags: this.articleForm.get('tags').value,
+        // tags: this.articleForm.get('tags').value,
         author: this.getUserDetails(),
         summary: this.articleForm.get('title').value,
-        is_published: false
+        status: this.article && this.article.status ? this.article.status : DRAFT,
+        lang: this.userDetails.lang ? this.userDetails.lang : '',
+        author_id: this.userDetails.uid
 
       }
-      this.articleService.createArticle(articleData).then((article) => {
-        this.articleId = article.id
-        //this.showSuccess();
-        this.isFormSaving = false;
-        this.router.navigate(['app/article/compose/image', this.articleId]);
+      if (this.article && this.article.id) {
+        this.articleService.updateArticleImage(this.article.id, articleData).then(() => {
+          this.resetAndNavigate();
+        })
+      } else {
+        this.articleService.createArticle(articleData).then((article) => {
+          this.resetAndNavigate(article);
+        }).catch(() => {
+          this.showError();
+        })
+      }
 
-        this.articleForm.reset();
-      }).catch(() => {
-        this.showError();
-      })
     }
-
     console.log(this.articleForm)
+  }
+  resetAndNavigate(article = null) {
+    this.articleId = article ? article.id : this.article.id;
+    this.isFormSaving = false;
+    this.router.navigate(['app/article/compose/image', this.articleId]);
+    this.articleForm.reset();
   }
 
   findInvalidControls() {
@@ -114,6 +143,7 @@ export class ArticleContentComponent implements OnInit {
         invalid.push(name);
       }
     }
+
     return invalid;
   }
   getSlug(title: string) {
@@ -124,10 +154,12 @@ export class ArticleContentComponent implements OnInit {
     return {
       slug: category.slug,
       title: category.title,
-      uid: category.uid,
+      id: category.uid,
+      lang: category.lang ? category.lang : ''
     }
   }
-  setUserDetails() {
+  async setUserDetails() {
+
     this.authService.getAuthState().subscribe(user => {
       if (user && !user.isAnonymous) {
         this.isLoggedInUser = true;
@@ -145,9 +177,9 @@ export class ArticleContentComponent implements OnInit {
   getUserDetails() {
     return {
       slug: this.userDetails.slug ? this.userDetails.slug : '',
-      fullName: this.userDetails.displayName,
-      photoURL: this.userDetails.photoURL,
-      uid: this.userDetails.uid
+      fullname: this.userDetails.displayName,
+      avatar: this.userDetails.photoURL,
+      id: this.userDetails.uid
     }
   }
   showSuccess(): void {
@@ -170,6 +202,24 @@ export class ArticleContentComponent implements OnInit {
       nzTitle: "<i>" + $message + "</i>",
     });
   }
+
+  setArticleForm() {
+    debugger;
+
+  }
+  setFormDetails() {
+    this.articleForm.setValue({
+      title: this.article.title,
+      excerpt: this.article.excerpt,
+      content: this.article.content,
+      category: this.getSelectedCategory(this.article.category['id'])
+    });
+  }
+  getSelectedCategory(categoryId) {
+    return this.categoryList.find(element => element.uid == categoryId || element.id == categoryId);
+
+  }
+
 
 
 
