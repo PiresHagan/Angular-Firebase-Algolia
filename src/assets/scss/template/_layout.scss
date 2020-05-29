@@ -1,11 +1,11 @@
 .common-layout {
     .page-container {
         min-height: 100vh;
-        padding-left: $side-nav-width;
+        // padding-left: $side-nav-width;
         @include transition(all 0.2s ease);
 
         @include screen-laptop-only {
-            padding-left: $side-nav-width-laptop;
+            // padding-left: $side-nav-width-laptop;
         }
 
         @include screen-tablet {
@@ -13,10 +13,7 @@
         }
 
         .main-content {
-            // padding: calc(#{$header-height} + #{$main-nav-height} + #{$layout-content-gutter}) $layout-content-gutter
-            //     $layout-content-gutter $layout-content-gutter;
-            // padding: calc(#{$header-height} + #{$main-nav-height}) 0 0 0;
-            padding: 95px 25px 25px;
+            padding: 95px 0px 0px;
             min-height: calc(100vh - #{$footer-height});
 
             @include screen-mobile {
@@ -25,17 +22,23 @@
             }
 
             .main-content-header {
+                font-family: "josefin_sansregular";
                 @include screen-mobile-above {
                     display: flex;
                     align-items: center;
+                
                 }
-
-                padding-left: 5px;
-                padding-bottom: 25px;
-                margin-bottom: $layout-content-gutter;
+                .breadcrumb-link{
+                    color: #000;
+                    margin-top: 20px;
+                    a{
+                        color:#000;
+                    }
+                }
+                
 
                 .page-title {
-                    margin-bottom: 0px;
+                    margin-bottom: 10px;
                     margin-right: 20px;
                     color: $gray;
                     font-size: 17px;
@@ -51,18 +54,14 @@
     }
 
     .page-header {
-        margin-left: -$layout-content-gutter;
-        margin-right: -$layout-content-gutter;
-        margin-top: -$layout-content-gutter;
-        margin-bottom: $layout-content-gutter;
         background-color: $white;
-        border-bottom: 1px solid $border-color;
-        padding: 25px 30px;
+        padding: 10px 0px 0px 0px;
 
         &.has-tab {
             border-bottom: 0px;
             margin-bottom: 0px;
             padding-bottom: 1px;
+            margin: 0px;
         }
 
         @include screen-mobile {
@@ -74,9 +73,7 @@
     }
 
     .page-header-tab {
-        margin-left: -$layout-content-gutter;
-        margin-right: -$layout-content-gutter;
-
+        
         @include screen-mobile {
             margin-left: -$layout-content-gutter-sm;
             margin-right: -$layout-content-gutter-sm;
@@ -114,6 +111,22 @@
                 padding-left: 0;
                 //padding-left: $side-nav-folded;
             }
+        }
+    }
+}
+@media screen and (max-width:580px){
+    .profile-article-header{
+        .logo-dark{
+            width: 150px;
+        }
+        .nav-wrap{
+            width: calc(100% - 150px);
+            padding-left: 10px;
+        }
+    }
+    .main-content-header {
+        .breadcrumb-link{
+            height: 40px;
         }
     }
 }

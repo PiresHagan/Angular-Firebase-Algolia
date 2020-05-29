@@ -1,12 +1,25 @@
 .side-nav {
-    position: fixed;
-    top: $header-height;
-    width: $side-nav-width;
-    background-color: $white;
-    border-right: 1px solid $border-color;
-    height: 100%;
-    z-index: $zindex-navbar;
-    overflow-y: auto;
+    .side-nav-list{
+        border-bottom: 1px solid #ff563a;
+        height: 49px;
+        li{
+            display: inline-block;
+            width: auto;
+            margin-bottom: 0px !important;
+            font-family: "josefin_sanssemibold";
+            font-size: 18px;
+            &.ant-menu-item-selected{
+                background-color: #ff563a;
+                &:after{
+                    border:0px;
+                }
+                a{
+                    color:#fff;
+                }
+            }
+        }
+    }
+
     @include transition(all 0.2s ease); 
 
     @include screen-tablet {
@@ -18,7 +31,7 @@
     }
 
     .side-nav-menu {
-        margin-bottom: $header-height;
+        margin-bottom: 20px;
         
         &:not(.ant-menu-inline-collapsed) {
             .dropdown-menu {
@@ -184,5 +197,17 @@
                 }
             }
         }    
+    }
+}
+
+
+@media screen and (max-width:580px){
+    .side-nav{
+        .side-nav-menu {
+            height: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
     }
 }

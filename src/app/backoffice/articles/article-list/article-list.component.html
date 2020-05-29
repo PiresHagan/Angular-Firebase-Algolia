@@ -1,47 +1,45 @@
-<div class="page-header">
-    <div class="row align-items-md-center">
-        <div class="col-md-6">
-
-        </div>
-        <div class="col-md-6">
-            <div class="text-md-right m-v-10">
-                <button nz-button nzType="primary" [routerLink]="['compose']">
-                    <i nz-icon nzType="plus"></i>
-                    <span>{{'newArt' | translate}}</span>
-                </button>
+<div class="container">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="m-v-10">
+                    <button nz-button nzType="primary" [routerLink]="['compose']">
+                        <i nz-icon nzType="plus"></i>
+                        <span>{{'newArt' | translate}}</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <div class="container">
-    <nz-card *ngFor="let item of (articles)">
+    <nz-card *ngFor="let item of (articles)" class="profile-article-list">
         <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
-            <div class="row">
-                <div class="col-md-4">
+            <div class="profile-artical-list-item">
+                <div class="profile-artical-img">
                     <img class="img-fluid" [src]="item?.featured_imageObj?.image" [alt]="item.title">
                 </div>
-                <div class="col-md-8">
-                    <h4 class="m-b-10">{{item.title}}</h4>
-                    <div class="m-b-15">
-                        <div class="d-flex align-items-center">
+                <div class="profile-artical-detail">
+                    <h4>{{item.title}}</h4>
+                    <div class="profile-artical-info">
+                        <div class="profile-article-avtar">
                             <div class="d-flex align-items-center">
-                                <nz-avatar nzSize="small" [nzSrc]="item.authorObj?.avatarObj?.image"></nz-avatar>
+                                <nz-avatar nzSize="medium" [nzSrc]="item.authorObj?.avatarObj?.image"></nz-avatar>
                                 <div class="m-l-10">
-                                    <span
-                                        class="text-gray font-weight-semibold">{{item.authorObj?.first_name+' '+item.authorObj?.last_name}}</span>
+                                    <span>{{item.authorObj?.first_name+' '+item.authorObj?.last_name}}</span>
                                 </div>
                             </div>
-                            <div class="text-gray">
+                            <div class="profile-article-date">
                                 <nz-divider nzType="vertical"></nz-divider>
                                 <span>{{item.created_at | date:'medium'}}</span>
                             </div>
                         </div>
                     </div>
-                    <p class="lh-1-8 m-b-20">
+                    <p>
                         <span>{{item.excerpt}}</span>
                     </p>
-                    <div class="text-right">
-                        <a [routerLink]="['/app/article/single',item.slug]" class="font-weight-semibold" nz-button
+                    <div class="profile-artical-read-more">
+                        <a [routerLink]="['/app/article/single',item.slug]" class="article-read-more" nz-button
                             nzType="default" nzGhost>{{'artReadMore' | translate}}</a>
                     </div>
                 </div>
