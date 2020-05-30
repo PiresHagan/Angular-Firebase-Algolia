@@ -1,0 +1,72 @@
+<div id="choose-account-ui">
+    <div class="field-group">
+        <a class="provider-link cloudsponge-launch" data-cloudsponge-source="gmail"
+            (click)="setProviderLoadingStatus('gmail',true)">
+            <img class="u-block"
+                src="https://s3-media4.fl.yelpcdn.com/assets/2/www/img/42d58cb441bb/find_friends/gmail.png">
+            Gmail
+        </a>
+        <a class="provider-link cloudsponge-launch" data-cloudsponge-source="yahoo"
+            (click)="setProviderLoadingStatus('yahoo',true)">
+            <img class="u-block"
+                src="https://s3-media2.fl.yelpcdn.com/assets/2/www/img/354a13792a10/find_friends/yahoo.png">
+            Yahoo
+        </a>
+        <a class="provider-link cloudsponge-launch" data-cloudsponge-source="windowslive">
+            <img class="u-block"
+                src="https://s3-media3.fl.yelpcdn.com/assets/2/www/img/8c7778e794ba/find_friends/outlook.png"
+                (click)="setProviderLoadingStatus('outlook',true)">
+            Outlook
+        </a>
+
+    </div>
+</div>
+
+
+<nz-tabset [nzType]="'card'" [nzTabBarExtraContent]="extraTemplate" class="m-t-10">
+    <nz-tab [nzTitle]="titleTemplate" *ngFor="let provider of providerList">
+        <ng-template #titleTemplate>
+            <div (click)="loadCotactsFromServer(provider.name)">
+                {{ provider.title }}
+
+            </div>
+        </ng-template>
+
+        <nz-table #nzTable [nzData]="importedContact[provider.name]" nzTableLayout="fixed" class="m-t-10"
+            [nzLoading]="provider.loading">
+
+            <thead>
+                <tr>
+                    <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
+                        (nzCheckedChange)="onAllChecked($event,provider.name)"></th>
+                    <th nzCustomFilter>
+                        {{'importName' | translate}}
+                        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0"
+                            [nzDropdownMenu]="menu">
+                            <i nz-icon nzType="search"></i>
+                        </nz-filter-trigger>
+                    </th>
+                    <th>{{'importEmail' | translate}}</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let data of nzTable.data">
+                    <td [nzChecked]="isChecked(selectedContacts[provider.name][data.fullname + data?.email])"
+                        (nzCheckedChange)="onItemChecked(data.fullname+ data?.email, $event,provider.name,data)">
+                    </td>
+                    <td>{{ data.fullname}}</td>
+                    <td>{{ data.email}}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+
+        <button class="m-t-10" nz-button nzType="primary" [disabled]="!hasSelectedData(provider.name)"
+            [nzLoading]="loading" (click)="importContact(provider.name)">
+            {{'import' | translate}} {{provider.title}} {{'importContact' | translate}}
+        </button>
+
+    </nz-tab>
+
+</nz-tabset>

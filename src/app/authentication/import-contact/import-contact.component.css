@@ -1,0 +1,45 @@
+/* Widgt UI Elements that we want to keep hidden */
+#cloudsponge-overlay, /* Hide the widget overlay because we're going to display the UI inline */
+#cloudsponge-loading-tab,
+.cloudsponge-close-button,
+.cloudsponge-back-close,
+.cloudsponge-back-button {
+    visibility: hidden;
+}
+#cloudsponge-root-holder #cloudsponge-address-book .cloudsponge-copyright {
+    position: inherit;
+    margin-top: 30px;
+}
+/* By default, this element uses fixed positioning on the page. Since we're inline we override it */
+#cloudsponge-root-holder #cloudsponge-address-book {
+    position: initial;
+    margin: initial;
+}
+/* This can be a px or em value, or we can just make it as big as the container element */
+#cloudsponge-root-holder {
+    height: 100%;
+}
+/* The list of contacts will render in this div, we need to make sure it has dimensions for the widget to fill */
+#choose-contacts-ui {
+    height: 600px;
+    width: 700px;
+}
+/* I've separtated out these style, since they are styling the deep links on the page. */
+/* These styles are based on Yelp's */
+.provider-link {
+    display: inline-block;
+    margin: 0 10px 0 0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    cursor: default;
+}
+.provider-link:hover {
+    border-color: #aaa;
+    background: #e6e6e6;
+    text-decoration: none;
+}
+.provider-link img {
+    display: block;
+}

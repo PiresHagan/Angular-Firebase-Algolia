@@ -9,6 +9,7 @@ import { AgreementComponent } from './agreement/agreement.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AuthGuard } from '../shared/guard/auth.guard';
 import { MaintenanceComponent } from './maintenance/maintenance.component';
+import { ImportContactComponent } from './import-contact/import-contact.component';
 
 const routes: Routes = [
     {
@@ -61,6 +62,14 @@ const routes: Routes = [
         component: ProfileComponent,
         data: {
             title: 'Complete your profile'
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'import-contact',
+        component: ImportContactComponent,
+        data: {
+            title: 'Import Your Contact'
         },
         canActivate: [AuthGuard]
     },

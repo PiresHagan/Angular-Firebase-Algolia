@@ -123,5 +123,11 @@
     "artNoArt": "No se encontró ningún artículo ..",
     "invalidAccess": "Está intentando acceder a una URL no válida",
     "notFound": "No encontrado",
-    "goBack": "Volver a mi artículo"
+    "goBack": "Volver a mi artículo",
+    "importContacts": "Importar contactos",
+    "importContactInfo": "Importa tus contactos para compartir cosas",
+    "importName": "Nombre",
+    "importEmail": "Correo electrónico",
+    "import": "Importar",
+    "importContact": "Contacto"
 }

@@ -122,6 +122,12 @@
     "artEdit": "Modifier l'article",
     "artNoArt": "Aucun article trouvé ..",
     "invalidAccess": "Vous essayez d'accéder à une URL non valide.",
-    "notFound": "Introuvable",
-    "goBack": "Retour à mon article"
+    "notFound": "Not Found",
+    "goBack": "Retour à mon article",
+    "importContacts": "Importer des contacts",
+    "importContactInfo": "Importez vos contacts pour partager des choses.",
+    "importName": "Name",
+    "importEmail": "Email",
+    "import": "Import",
+    "importContact": "Contact"
 }
