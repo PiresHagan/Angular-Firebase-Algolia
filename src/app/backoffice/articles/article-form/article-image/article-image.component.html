@@ -1,5 +1,6 @@
-<nz-card>
-  <div class="container">
+<div class="container">
+<nz-card class="article-image-sec">
+
     <br />
     <nz-steps [nzCurrent]="1">
       <nz-step nzTitle="{{'artCompose' | translate}}"></nz-step>
@@ -12,6 +13,7 @@
     <nz-divider></nz-divider>
 
     <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
+      <div class="content-wrapper">
       <nz-upload nzType="drag" [nzMultiple]="true" [nzLimit]="1" [nzBeforeUpload]="beforeUpload"
         [nzShowUploadList]="false">
 
@@ -33,7 +35,7 @@
 
 
         </ng-container>
-        <img *ngIf="articleImage" [src]="articleImage" style="width: 50%" />
+        <img *ngIf="articleImage" [src]="articleImage" style="width: 100%" />
       </nz-upload>
       <form nz-form class="m-t-20">
         <!-- <nz-form-item>
@@ -43,8 +45,8 @@
           </nz-form-control>
         </nz-form-item> -->
         <nz-form-item>
-          <nz-form-label [nzSpan]="6" nzFor="title">{{'artImageAltText' | translate}}</nz-form-label>
-          <nz-form-control [nzSpan]="14" nzErrorTip="{{'artImageTextErr' | translate}}">
+          <nz-form-label [nzSpan]="24" nzFor="title">{{'artImageAltText' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="24" nzErrorTip="{{'artImageTextErr' | translate}}">
             <input nz-input name="alternative" minlength="2" maxlength="100" [(ngModel)]="alternative" type="text"
               id="alternative">
           </nz-form-control>
@@ -58,7 +60,9 @@
           </nz-form-control>
         </nz-form-item>
       </form>
+    </div>
     </nz-skeleton>
 
-  </div>
+  
 </nz-card>
+</div>

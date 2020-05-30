@@ -1,5 +1,6 @@
-<nz-card>
-    <div class="container">
+<div class="container">
+<nz-card class="article-seo-sec">
+
         <br />
         <nz-steps [nzCurrent]="2">
             <nz-step nzTitle="{{'artCompose' | translate}}"></nz-step>
@@ -12,22 +13,23 @@
         <br />
         <nz-divider></nz-divider>
         <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
+            <div class="content-wrapper">
             <form nz-form>
                 <nz-form-item>
-                    <nz-form-label [nzSpan]="6" nzFor="title">{{'artMetaTitle' | translate}}</nz-form-label>
-                    <nz-form-control [nzSpan]="14">
+                    <nz-form-label [nzSpan]="24" nzFor="title">{{'artMetaTitle' | translate}}</nz-form-label>
+                    <nz-form-control [nzSpan]="24">
                         <input nz-input name="title" [(ngModel)]="title" type="text" id="title">
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label [nzSpan]="6" nzFor="description">{{'artMetaDesc' | translate}}</nz-form-label>
-                    <nz-form-control [nzSpan]="14">
+                    <nz-form-label [nzSpan]="24" nzFor="description">{{'artMetaDesc' | translate}}</nz-form-label>
+                    <nz-form-control [nzSpan]="24">
                         <textarea rows="4" nz-input name="description" [(ngModel)]="description"></textarea>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label [nzSpan]="6" nzFor="keywords">{{'artMetaKeyword' | translate}}</nz-form-label>
-                    <nz-form-control [nzSpan]="14">
+                    <nz-form-label [nzSpan]="24" nzFor="keywords">{{'artMetaKeyword' | translate}}</nz-form-label>
+                    <nz-form-control [nzSpan]="24">
                         <textarea rows="4" nz-input name="keywords" [(ngModel)]="keywords"></textarea>
                     </nz-form-control>
                 </nz-form-item>
@@ -65,7 +67,9 @@
                     </nz-form-control>
                 </nz-form-item>
             </form>
+        </div>
         </nz-skeleton>
 
-    </div>
+   
 </nz-card>
+</div>

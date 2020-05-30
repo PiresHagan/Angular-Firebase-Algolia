@@ -1,0 +1,68 @@
+.article-image-sec{
+    border:0px;
+    ::ng-deep .ant-skeleton{
+        .content-wrapper{
+            max-width: 800px;
+            margin:auto;
+        }
+        .ant-upload-drag-container{
+            p{
+                font-family: "josefin_sansregular";
+            }
+        }
+        .ant-input{
+            border:1px solid #ccc;
+            font-family: "josefin_sansregular";
+        }
+        .ant-select-selector{
+        border-color: #ccc;
+        }
+        .ant-form-item-label{
+            label{
+                font-family: "josefin_sansregular";
+                color: #000;
+            }
+        }
+    }
+    ::ng-deep .ant-steps-item{
+        &.ant-steps-item-finish{
+            .ant-steps-item-title{
+            &:after{
+                background: #ff4020 !important;
+            }
+            }
+        }
+
+        .ant-steps-item-title{
+        font-family: "josefin_sansregular";
+        &:after{
+            height: 2px;
+        }
+        }
+
+        &.ant-steps-item-active{
+        .ant-steps-item-title{
+            &:after{
+            background: #ff4020 !important;
+            }
+        }
+        }
+
+        
+
+    }
+}
+
+@media screen and (max-width:580px){
+    .article-image-sec{
+        border:0px;
+        ::ng-deep .ant-card-body{
+            padding: 0px;
+            .ant-skeleton{
+                .ant-upload{
+                    padding: 15px;
+                }
+            }
+        }
+    }
+}

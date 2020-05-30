@@ -7,6 +7,14 @@
     width: 100%;
     z-index: $zindex-navbar;
     display: flex;
+    &.profile-article-header{
+        .logo-dark{
+            width:140px;
+        }
+        .nav-wrap{
+            justify-content: flex-end;
+        }
+    }
 
     .logo {
         width: $side-nav-width;
@@ -40,6 +48,7 @@
         flex: 1;
         display: flex;
         justify-content: space-between;
+        
 
 
 

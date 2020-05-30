@@ -12,6 +12,7 @@ import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 
 @Component({
   templateUrl: "./profile-settings.component.html",
+  styleUrls: ['./profile-settings.component.scss']
 })
 export class ProfileSettingsComponent {
   changePWForm: FormGroup;
