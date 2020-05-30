@@ -17,7 +17,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ArticleImageComponent implements OnInit {
   file: any;;
   articleImage;
-  loading: boolean = false;
   articleId: string;
   alternative: string = "";
   title: string = "";

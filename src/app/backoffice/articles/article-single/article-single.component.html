@@ -3,7 +3,7 @@
         <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
             <h2 class="font-weight-normal m-b-10">{{article.title}}</h2>
             <div class="media align-items-center m-b-25">
-                <nz-avatar nzSrc="{{article.author.avatar}}"></nz-avatar>
+                <nz-avatar nzSrc="{{article.avatar.url}}"></nz-avatar>
                 <div class="m-l-10">
                     <h6 class="m-b-0">{{article.author.fullname}}</h6>
                     <span class="text-muted font-size-13">{{article.published_on | date:'medium'}}</span>

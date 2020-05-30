@@ -7,7 +7,7 @@ export interface Article {
     authorObj?: any;
     categoryObj?: any;
     featured_imageObj?: any;
-    author?: string;
+    author?: any;
     content?: string;
     excerpt?: string;
     topics?: string;
@@ -20,7 +20,10 @@ export interface Article {
     created_at?: string;
     updated_at?: string;
     published_at?: string;
+    published_on?: string;
+    avatar?: any;
     view_count?: number;
     tags?: any;
     status?: any;
+    image?: any;
 }

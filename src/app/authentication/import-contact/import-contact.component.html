@@ -35,7 +35,7 @@
                             </div>
 
 
-                            <nz-tabset [nzType]="'card'" [nzTabBarExtraContent]="extraTemplate" class="m-t-10">
+                            <nz-tabset [nzType]="'card'" class="m-t-10">
                                 <nz-tab [nzTitle]="titleTemplate" *ngFor="let provider of providerList">
                                     <ng-template #titleTemplate>
                                         <div (click)="loadCotactsFromServer(provider.name)">
@@ -85,8 +85,7 @@
                             </nz-tabset>
                         </div>
                         <hr>
-                        <button nz-button class="login-form-button" [nzType]="'primary'" [nzLoading]="isFormSaving"
-                            (click)="done()">Next</button>
+                        <button nz-button class="login-form-button" [nzType]="'primary'" (click)="done()">Next</button>
                     </nz-card>
                 </div>
             </div>

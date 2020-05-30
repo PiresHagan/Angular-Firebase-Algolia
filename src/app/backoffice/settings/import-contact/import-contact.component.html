@@ -23,7 +23,7 @@
 </div>
 
 
-<nz-tabset [nzType]="'card'" [nzTabBarExtraContent]="extraTemplate" class="m-t-10">
+<nz-tabset [nzType]="'card'" class="m-t-10">
     <nz-tab [nzTitle]="titleTemplate" *ngFor="let provider of providerList">
         <ng-template #titleTemplate>
             <div (click)="loadCotactsFromServer(provider.name)">
