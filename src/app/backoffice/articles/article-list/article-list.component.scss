@@ -3,6 +3,9 @@ a.ant-btn {
 }
 .profile-article-list{
     border:0px;
+    ::ng-deep .ant-card{
+        border: 0px;
+    }
     ::ng-deep .ant-card-body{
         padding: 0px;
         .profile-artical-list-item{

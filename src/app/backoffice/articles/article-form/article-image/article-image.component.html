@@ -1,62 +1,68 @@
-<nz-card>
-  <div class="container">
+<div class="container">
+<nz-card class="article-image-sec">
+
     <br />
     <nz-steps [nzCurrent]="1">
       <nz-step nzTitle="{{'artCompose' | translate}}"></nz-step>
       <nz-step nzTitle="{{'artFeaturedImage' | translate}}"></nz-step>
       <nz-step nzTitle="{{'artOptimize' | translate}}"></nz-step>
-      <nz-step nzTitle="{{'artPromote' | translate}}"></nz-step>
+      <!-- <nz-step nzTitle="{{'artPromote' | translate}}"></nz-step> -->
       <nz-step nzTitle="{{'artPublish' | translate}}"></nz-step>
     </nz-steps>
     <br />
     <nz-divider></nz-divider>
 
+    <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
+      <div class="content-wrapper">
+      <nz-upload nzType="drag" [nzMultiple]="true" [nzLimit]="1" [nzBeforeUpload]="beforeUpload"
+        [nzShowUploadList]="false">
 
-    <nz-upload nzType="drag" [nzMultiple]="true" [nzLimit]="1" [nzBeforeUpload]="beforeUpload"
-      [nzShowUploadList]="false">
-
-      <ng-container *ngIf="!articleImage">
-        <div *ngIf="!loading">
-          <p class="ant-upload-drag-icon">
-            <i nz-icon nzType="inbox"></i>
-          </p>
-          <p class="ant-upload-text">{{'artImageMessage1' | translate}}</p>
-          <p class="ant-upload-hint">
-            {{'artImageMessage2' | translate}}
-          </p>
-          <p class="ant-upload-hint" style="color: red;">
-            {{'artImageMessage3' | translate}}
-          </p>
-          <div class="ant-upload-text">{{'artImageUpload' | translate}}</div>
-        </div>
-        <i class="upload-icon" *ngIf="loading" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
-
-
-      </ng-container>
-      <img *ngIf="articleImage" [src]="articleImage" style="width: 50%" />
-    </nz-upload>
-    <form nz-form class="m-t-20">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="title">{{'artImageTitle' | translate}}</nz-form-label>
-        <nz-form-control [nzSpan]="14" nzErrorTip="{{'artImageTextErr' | translate}}">
-          <input nz-input name="title" type="text" minlength="2" maxlength="100" [(ngModel)]="title" id="title">
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="title">{{'artImageAltText' | translate}}</nz-form-label>
-        <nz-form-control [nzSpan]="14" nzErrorTip="{{'artImageTextErr' | translate}}">
-          <input nz-input name="alternative text" minlength="2" maxlength="100" [(ngModel)]="alternative" type="text"
-            id="alternative">
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control>
-          <div>
-            <button nz-button class="login-form-button" [nzLoading]="isFormSaving" [nzType]="'primary'"
-              (click)="saveArticleImage()">{{'artNext' |translate}}</button>
+        <ng-container *ngIf="!articleImage">
+          <div *ngIf="!loading">
+            <p class="ant-upload-drag-icon">
+              <i nz-icon nzType="inbox"></i>
+            </p>
+            <p class="ant-upload-text">{{'artImageMessage1' | translate}}</p>
+            <p class="ant-upload-hint">
+              {{'artImageMessage2' | translate}}
+            </p>
+            <p class="ant-upload-hint" style="color: red;">
+              {{'artImageMessage3' | translate}}
+            </p>
+            <div class="ant-upload-text">{{'artImageUpload' | translate}}</div>
           </div>
-        </nz-form-control>
-      </nz-form-item>
-    </form>
-  </div>
+          <i class="upload-icon" *ngIf="loading" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+
+
+        </ng-container>
+        <img *ngIf="articleImage" [src]="articleImage" style="width: 100%" />
+      </nz-upload>
+      <form nz-form class="m-t-20">
+        <!-- <nz-form-item>
+          <nz-form-label [nzSpan]="6" nzFor="title">{{'artImageTitle' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="14" nzErrorTip="{{'artImageTextErr' | translate}}">
+            <input nz-input name="title" type="text" minlength="2" maxlength="100" [(ngModel)]="title" id="title">
+          </nz-form-control>
+        </nz-form-item> -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzFor="title">{{'artImageAltText' | translate}}</nz-form-label>
+          <nz-form-control [nzSpan]="24" nzErrorTip="{{'artImageTextErr' | translate}}">
+            <input nz-input name="alternative" minlength="2" maxlength="100" [(ngModel)]="alternative" type="text"
+              id="alternative">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <div>
+              <button nz-button class="login-form-button" [nzLoading]="isFormSaving" [nzType]="'primary'"
+                (click)="saveArticleImage()">{{'artNext' |translate}}</button>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+    </nz-skeleton>
+
+  
 </nz-card>
+</div>

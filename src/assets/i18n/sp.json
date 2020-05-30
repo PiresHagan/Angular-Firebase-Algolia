@@ -112,5 +112,16 @@
     "myFirstArt": "Mi primer artículo",
     "reportAbuse": "reportar abuso",
     "reportAbuseAuth": "Reportar abuso",
-    "unFollow": "Dejar de seguir"
+    "unFollow": "Dejar de seguir",
+    "articleSEO": "Artículo SEO",
+    "artMetaTitle": "Meta título",
+    "artMetaKeyword": "Meta Keyword",
+    "artMetaDesc": "Meta Descripción",
+    "artPublishMsg": "¡Felicitaciones, su artículo está publicado!",
+    "artDraft": "Borrador",
+    "artEdit": "Editar artículo",
+    "artNoArt": "No se encontró ningún artículo ..",
+    "invalidAccess": "Está intentando acceder a una URL no válida",
+    "notFound": "No encontrado",
+    "goBack": "Volver a mi artículo"
 }

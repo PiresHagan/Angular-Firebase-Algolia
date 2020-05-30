@@ -8,7 +8,7 @@ import { ArticleService } from 'src/app/shared/services/article.service';
 import { NzModalService } from 'ng-zorro-antd';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-article-image',
   templateUrl: './article-image.component.html',
@@ -25,18 +25,23 @@ export class ArticleImageComponent implements OnInit {
   imageSizeErrorMsg: string = "";
   imageGeneralErrorMsg: string = "";
   isFormSaving: boolean = false;
+  userDetails: any;
+  loading: boolean = true;
+  article: any;
   constructor(private msg: NzMessageService,
     public translate: TranslateService,
     public authService: AuthService,
     public userService: UserService,
     public articleService: ArticleService,
     private route: ActivatedRoute,
+    private router: Router,
     private modalService: NzModalService, private db: AngularFirestore) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
 
       this.articleId = params.get('articleId');
+      this.setArticleData();
 
     })
 
@@ -82,17 +87,27 @@ export class ArticleImageComponent implements OnInit {
   };
 
   saveArticleImage() {
-    if (!this.file) {
+    if (!this.file && !this.articleImage) {
       this.imageGeneralErrorMsg = this.translate.instant("artImageGeneralErr");;
       this.modalService.warning({
         nzTitle: "<i>" + this.imageGeneralErrorMsg + "</i>",
       });
       return;
     }
+
     this.isFormSaving = true;
-    this.articleService.addArticleImage(this.articleId, this.getImageObject()).then(() => {
-      this.isFormSaving = false;
-    })
+    if (this.file) {
+      this.articleService.addArticleImage(this.articleId, this.getImageObject()).then(() => {
+        this.router.navigate(['/app/article/compose/seo', this.articleId]);
+        this.isFormSaving = false;
+      })
+    } else {
+      this.articleService.updateArticleImage(this.articleId, this.getUpdatedObject()).then(() => {
+        this.router.navigate(['/app/article/compose/seo', this.articleId]);
+        this.isFormSaving = false;
+      })
+    }
+
   }
 
   private getBase64(img, callback: (img: string) => void): void {
@@ -104,9 +119,36 @@ export class ArticleImageComponent implements OnInit {
     return {
       file: this.file,
       alt: this.alternative,
-      caption: this.title
-
     }
+  }
+  getUpdatedObject() {
+    return {
+      image: { url: this.articleImage, alt: this.alternative }
+    }
+  }
+  setArticleData() {
+    this.authService.getAuthState().subscribe(async (user) => {
+      if (!user)
+        return;
+      this.userDetails = await this.authService.getLoggedInUserDetails();
+      if (this.articleId) {
+        try {
+
+          this.article = await this.articleService.getArticleById(this.articleId, this.userDetails.uid);
+          this.articleImage = this.article && this.article.image && this.article.image.url ? this.article.image.url : '';
+          this.alternative = this.article && this.article.image && this.article.image.alt ? this.article.image.alt : '';
+
+        } catch (error) {
+          this.router.navigate(['/app/error'])
+        }
+      } else {
+        this.router.navigate(['/app/error'])
+      }
+      this.loading = false;
+
+
+    })
+
   }
 
 

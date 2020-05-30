@@ -1,85 +1,93 @@
-<nz-card>
-  <div class="container-fluid">
+
+<div class="container">
+<nz-card class="new-article-card">
+  
     <br />
     <nz-steps [nzCurrent]="0">
       <nz-step nzTitle="{{'artCompose' | translate}}"></nz-step>
       <nz-step nzTitle="{{'artFeaturedImage' | translate}}"></nz-step>
       <nz-step nzTitle="{{'artOptimize' | translate}}"></nz-step>
-      <nz-step nzTitle="{{'artPromote' | translate}}"></nz-step>
+      <!-- <nz-step nzTitle="{{'artPromote' | translate}}"></nz-step> -->
       <nz-step nzTitle="{{'artPublish' | translate}}"></nz-step>
       <!-- <nz-step nzTitle="Publish"></nz-step> -->
     </nz-steps>
     <br />
     <nz-divider></nz-divider>
+    <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
+      <form nz-form id="article-form" [formGroup]="articleForm" (ngSubmit)="submitArticle()">
 
-    <form nz-form id="article-form" [formGroup]="articleForm" (ngSubmit)="submitArticle()">
-
-      <h5 class="m-b-20">{{'newArt' | translate}}</h5>
-      <div class="row">
-        <div class="col-md-9">
-
-          <div id="codex-editor"></div>
-          <nz-form-item>
-            <nz-form-control nzErrorTip="{{'artTitleErr' | translate}}">
-              <input nz-input formControlName="title" type="text" placeholder="{{'artTitle' | translate}}">
-            </nz-form-control>
-          </nz-form-item>
-
-
-          <nz-form-item>
-            <nz-form-control nzErrorTip="{{'artExcerptErr' | translate}}">
-              <textarea rows="3" nz-input formControlName="excerpt"
-                placeholder="{{'artExcerpt' | translate}}"></textarea>
-            </nz-form-control>
-          </nz-form-item>
-          <div>
+        <div class="filter-dropdown-sec">
+          <div class="filter-title">
+            <h5 class="m-b-20">{{'newArt' | translate}}</h5>
+          </div>
+          <div class="filter-dropodown">
             <nz-form-item>
+              <nz-form-control nzErrorTip="{{'artCategoryErr' | translate}}">
+                <nz-select class="m-r-10" formControlName="category" nzAllowClear
+                  nzPlaceHolder="{{'artCategory' | translate}}">
+                  <nz-option *ngFor="let category of categoryList" [nzValue]="category" nzLabel="{{category.title}}">
+                  </nz-option>
 
-
-
-              <quill-editor [style]="{height: '300px',width: '100%'}" formControlName="content" [modules]="editorConfig"
-                placeholder="{{'artContent' | translate}}"></quill-editor>
-
-
-
+                </nz-select>
+              </nz-form-control>
             </nz-form-item>
-          </div>
-          <div *ngIf="contentValidation" class="content-message">
-            {{'artContentErr' | translate}}
-          </div>
 
-
+            
+          </div>
         </div>
+        <div class="row">
+          <div class="col-md-12">
 
-        <div class="col-md-3">
-          <nz-form-item>
-            <nz-form-control nzErrorTip="{{'artCategoryErr' | translate}}">
-              <nz-select class="m-r-10" formControlName="category" nzAllowClear
-                nzPlaceHolder="{{'artCategory' | translate}}">
-                <nz-option *ngFor="let category of categoryList" [nzValue]="category" nzLabel="{{category.title}}">
-                </nz-option>
+            <div id="codex-editor"></div>
+            <nz-form-item>
+              <nz-form-control nzErrorTip="{{'artTitleErr' | translate}}">
+                <input nz-input formControlName="title" type="text" placeholder="{{'artTitle' | translate}}">
+              </nz-form-control>
+            </nz-form-item>
 
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
 
-          <nz-form-item>
+            <nz-form-item>
+              <nz-form-control nzErrorTip="{{'artExcerptErr' | translate}}">
+                <textarea rows="3" nz-input formControlName="excerpt"
+                  placeholder="{{'artExcerpt' | translate}}"></textarea>
+              </nz-form-control>
+            </nz-form-item>
+            <div>
+              <nz-form-item>
+                <quill-editor [style]="{height: '300px',width: '100%'}" formControlName="content"
+                  [modules]="editorConfig" placeholder="{{'artContent' | translate}}"></quill-editor>
+              </nz-form-item>
+            </div>
+            <div *ngIf="contentValidation" class="content-message">
+              {{'artContentErr' | translate}}
+            </div>
+
+
+          </div>
+
+          <div class="col-md-12 mt-5">
+            
+
+            <!-- <nz-form-item>
             <nz-select formControlName="tags" nzMode="tags" [nzMaxTagCount]="5"
               nzPlaceHolder="{{'artTags' | translate}}">
               <nz-option *ngFor="let tag of tagList" [nzLabel]="tag" [nzValue]="tag">
               </nz-option>
             </nz-select>
-          </nz-form-item>
+          </nz-form-item> -->
+          <div class="d-inline-block">
+            <nz-form-item>
+              <button nz-button [nzLoading]="isFormSaving" class="login-form-button" [nzType]="'primary'"
+                nzBlock>{{'artNext' | translate}}</button>
+            </nz-form-item>
+          </div>
+            
+          </div>
 
-
-
-          <nz-form-item>
-            <button nz-button [nzLoading]="isFormSaving" class="login-form-button" [nzType]="'primary'"
-              nzBlock>{{'artNext' | translate}}</button>
-          </nz-form-item>
         </div>
+      </form>
+    </nz-skeleton>
 
-      </div>
-    </form>
-  </div>
+  
 </nz-card>
+</div>

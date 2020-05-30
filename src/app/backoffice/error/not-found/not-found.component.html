@@ -1,0 +1,8 @@
+<nz-empty [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+    <ng-template #contentTpl>
+        <span> {{'invalidAccess'| translate}} </span>
+    </ng-template>
+    <ng-template #footerTpl>
+        <button nz-button nzType="primary" (click)="onClick()">{{'goBack'| translate}}</button>
+    </ng-template>
+</nz-empty>

@@ -46,6 +46,13 @@ const routes: Routes = [
             }
           },
           {
+            path: 'seo/:articleId',
+            component: ArticleSeoComponent,
+            data: {
+              title: 'articleSEO'
+            }
+          },
+          {
             path: 'promote',
             component: ArticleSeoComponent,
             data: {
@@ -53,7 +60,7 @@ const routes: Routes = [
             }
           },
           {
-            path: 'publish',
+            path: 'publish/:articleId',
             component: ArticlePublishComponent,
             data: {
               title: 'artPublish'
