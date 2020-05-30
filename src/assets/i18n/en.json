@@ -123,5 +123,11 @@
     "artNoArt": "No article found ..",
     "invalidAccess": "You are trying to access invalid URL.",
     "notFound": "Not Found",
-    "goBack": "Back to My Article"
+    "goBack": "Back to My Article",
+    "importContacts": "Import Contacts",
+    "importContactInfo": "Import your contacts for sharing things.",
+    "importName": "Name",
+    "importEmail": "Email",
+    "import": "Import",
+    "importContact": "Contact"
 }

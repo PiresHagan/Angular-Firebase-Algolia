@@ -74,6 +74,24 @@ export class UserService {
 
 
   }
+  uploadContact(uid: string, provider: string, contacts: any): Promise<void> {
+
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection(this.userCollection).doc(uid).collection('invitation').doc(provider).set({ contacts: contacts }).then(() => {
+        resolve();
+      }).catch(() => {
+        reject();
+      })
+    })
+  }
+  getContacts(uid: string, provider): Promise<void> {
+
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection(this.userCollection).doc(uid).collection('invitation').doc(provider).valueChanges().subscribe((data) => {
+        resolve(data);
+      })
+    })
+  }
 
   public createUser(user: User) {
     return new Promise<any>((resolve, reject) => {

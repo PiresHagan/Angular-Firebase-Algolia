@@ -1,0 +1,107 @@
+<div class="container-fluid p-h-0 p-v-20 h-100 bg" style="background-image: url('assets/images/others/login-3.png')">
+    <div class="d-flex flex-column justify-content-between h-100">
+        <div class="d-none d-md-block"></div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-7 col-lg-7 m-h-auto">
+                    <nz-card class="m-b-60 shadow-lg">
+                        <div class="d-flex align-items-center justify-content-between m-b-30">
+                            <img class="img-fluid" alt="" src="assets/images/logo/logo.png">
+                            <h2 class="m-b-0">{{'importContacts' | translate}}</h2>
+                        </div>
+                        <div>
+                            <div id="choose-account-ui">
+                                <div class="field-group">
+                                    <a class="provider-link cloudsponge-launch" data-cloudsponge-source="gmail"
+                                        (click)="setProviderLoadingStatus('gmail',true)">
+                                        <img class="u-block"
+                                            src="https://s3-media4.fl.yelpcdn.com/assets/2/www/img/42d58cb441bb/find_friends/gmail.png">
+
+                                    </a>
+                                    <a class="provider-link cloudsponge-launch" data-cloudsponge-source="yahoo"
+                                        (click)="setProviderLoadingStatus('yahoo',true)">
+                                        <img class="u-block"
+                                            src="https://s3-media2.fl.yelpcdn.com/assets/2/www/img/354a13792a10/find_friends/yahoo.png">
+
+                                    </a>
+                                    <a class="provider-link cloudsponge-launch" data-cloudsponge-source="windowslive">
+                                        <img class="u-block"
+                                            src="https://s3-media3.fl.yelpcdn.com/assets/2/www/img/8c7778e794ba/find_friends/outlook.png"
+                                            (click)="setProviderLoadingStatus('outlook',true)">
+
+                                    </a>
+
+                                </div>
+                            </div>
+
+
+                            <nz-tabset [nzType]="'card'" [nzTabBarExtraContent]="extraTemplate" class="m-t-10">
+                                <nz-tab [nzTitle]="titleTemplate" *ngFor="let provider of providerList">
+                                    <ng-template #titleTemplate>
+                                        <div (click)="loadCotactsFromServer(provider.name)">
+                                            {{ provider.title }}
+
+                                        </div>
+                                    </ng-template>
+
+                                    <nz-table #nzTable [nzData]="importedContact[provider.name]" nzTableLayout="fixed"
+                                        class="m-t-10" [nzLoading]="provider.loading">
+
+                                        <thead>
+                                            <tr>
+                                                <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
+                                                    (nzCheckedChange)="onAllChecked($event,provider.name)"></th>
+                                                <th nzCustomFilter>
+                                                    {{'importName' | translate}}
+                                                    <nz-filter-trigger [(nzVisible)]="visible"
+                                                        [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                                                        <i nz-icon nzType="search"></i>
+                                                    </nz-filter-trigger>
+                                                </th>
+                                                <th>{{'importEmail' | translate}}</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr *ngFor="let data of nzTable.data">
+                                                <td [nzChecked]="isChecked(selectedContacts[provider.name][data.fullname + data?.email])"
+                                                    (nzCheckedChange)="onItemChecked(data.fullname+ data?.email, $event,provider.name,data)">
+                                                </td>
+                                                <td>{{ data.fullname}}</td>
+                                                <td>{{ data.email}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </nz-table>
+
+                                    <button class="m-t-10" nz-button nzType="primary"
+                                        [disabled]="!hasSelectedData(provider.name)" [nzLoading]="loading"
+                                        (click)="importContact(provider.name)">
+                                        {{'import' | translate}} {{provider.title}} {{'importContact' | translate}}
+                                    </button>
+
+                                </nz-tab>
+
+                            </nz-tabset>
+                        </div>
+                        <hr>
+                        <button nz-button class="login-form-button" [nzType]="'primary'" [nzLoading]="isFormSaving"
+                            (click)="done()">Next</button>
+                    </nz-card>
+                </div>
+            </div>
+        </div>
+        <div class="d-none d-md-flex p-h-40 justify-content-between">
+            <span class="">© 2019 ThemeNate</span>
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a class="text-dark text-link" target="_blank" href="https://mytrendingstories.com/terms/">Terms</a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="text-dark text-link" target="_blank"
+                        href="https://mytrendingstories.com/contact/">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

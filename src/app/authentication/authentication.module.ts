@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule, createTranslateLoader } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginComponent } from './login/login.component';
@@ -21,11 +21,10 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-export function createTranslateLoader(http: HttpClient) {
-    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
+import { HttpClient } from '@angular/common/http';
+import { ImportContactComponent } from './import-contact/import-contact.component';
+import { LanguageService } from '../shared/services/language.service';
+
 
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
@@ -51,8 +50,10 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         ProfileComponent,
         AgreementComponent,
         ResetPasswordComponent,
-        MaintenanceComponent
-    ]
+        MaintenanceComponent,
+        ImportContactComponent
+    ],
+    providers: [LanguageService],
 })
 
 export class AuthenticationModule { }

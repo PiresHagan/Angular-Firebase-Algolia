@@ -146,7 +146,8 @@ export class ProfileSettingsComponent {
       later: [null],
     });
 
-    this.setFormsData()
+    this.setFormsData();
+
   }
   setFormsData() {
     this.userService.getCurrentUser().then((user) => {

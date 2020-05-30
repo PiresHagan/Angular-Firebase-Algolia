@@ -144,7 +144,8 @@ export class InterestComponent implements OnInit {
 
         this.userService.update(this.currentUser.uid, { interests }).then(() => {
             this.isFormSaving = false;
-            this.success();
+            this.router.navigate(['/auth/import-contact']);
+            //this.success();
         });
 
 
@@ -163,11 +164,5 @@ export class InterestComponent implements OnInit {
     }
 
 
-    success(): void {
-        this.modalService.success({
-            nzTitle: 'Congratulations',
-            nzContent: 'Well done! You are all set.',
-            nzOnOk: () => this.router.navigate(['/app/settings/profile-settings'])
-        });
-    }
+
 }

@@ -35,6 +35,7 @@ import { UserService } from "src/app/shared/services/user.service";
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ImportContactComponent } from './import-contact/import-contact.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -65,7 +66,7 @@ const antdModule = [
 ];
 
 @NgModule({
-  declarations: [ProfileSettingsComponent],
+  declarations: [ProfileSettingsComponent, ImportContactComponent],
   imports: [
     CommonModule,
     SettingsRoutingModule,
