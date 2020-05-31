@@ -20,46 +20,48 @@
         </ng-template>
     </nz-empty>
 
-
-    <nz-card *ngFor="let item of (articles)">
-        <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
-            <div class="profile-artical-list-item">
-                <div class="profile-artical-img">
-                    <img class="img-fluid" [src]="item?.image?.url" [alt]="item.title" *ngIf="item?.image">
-                    <nz-empty [nzNotFoundContent]="null" nzNotFoundImage="simple" *ngIf="!item?.image"></nz-empty>
-                </div>
-                <div class="profile-artical-detail">
-                    <h4><span *ngIf="item.status == 1" style="color: red;">{{'artDraft' | translate}}:
-                        </span>{{item.title}}</h4>
-                    <div class="profile-artical-info">
-                        <div class="profile-article-avtar">
-                            <div class="d-flex align-items-center">
-                                <nz-avatar nzSize="medium" [nzSrc]="item.author?.avatar"></nz-avatar>
-                                <div class="m-l-10">
-                                    <span>{{item.author?.fullname}}</span>
+    <div class="profile-article-item-main">
+        <nz-card *ngFor="let item of (articles)" class="profile-article-item">
+            <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
+                <div class="profile-artical-list-item">
+                    <div class="profile-artical-img">
+                        <img class="img-fluid" [src]="item?.image?.url" [alt]="item.title" *ngIf="item?.image">
+                        <nz-empty [nzNotFoundContent]="null" nzNotFoundImage="simple" *ngIf="!item?.image"></nz-empty>
+                    </div>
+                    <div class="profile-artical-detail">
+                        
+                        <div class="profile-artical-info">
+                            <div class="profile-article-avtar">
+                                <div class="d-flex align-items-center">
+                                    <nz-avatar nzSize="medium" [nzSrc]="item.author?.avatar"></nz-avatar>
+                                    <div class="m-l-10">
+                                        <span class="">{{item.author?.fullname}}</span>
+                                    </div>
+                                </div>
+                                <div class="profile-article-date">
+                                    <nz-divider nzType="vertical"></nz-divider>
+                                    <span>{{item.published_on | date:'medium'}}</span>
                                 </div>
                             </div>
-                            <div class="profile-article-date">
-                                <nz-divider nzType="vertical"></nz-divider>
-                                <span>{{item.published_on | date:'medium'}}</span>
-                            </div>
                         </div>
-                    </div>
-                    <p>
-                        <span>{{item.excerpt}}</span>
-                    </p>
-                    <div class="profile-artical-read-more">
-                        <a [routerLink]="['/app/article/single',item.slug]" class="article-read-more" nz-button
-                            nzType="default" nzGhost>{{'artReadMore' | translate}}</a>
-                        <a [routerLink]="['/app/article/compose']" [queryParams]="{article: item.id}"
-                            class="font-weight-semibold m-l-5" nz-button nzType="default"
-                            nzGhost>{{'artEdit' | translate}}</a>
-                    </div>
+                        <h4><span *ngIf="item.status == 1" style="color: red;">{{'artDraft' | translate}}:
+                        </span>{{item.title}}</h4>
+                        <p>
+                            <span>{{item.excerpt}}</span>
+                        </p>
+                        <div class="profile-artical-read-more">
+                            <a [routerLink]="['/app/article/single',item.slug]" class="article-read-more" nz-button
+                                nzType="default" nzGhost>{{'artReadMore' | translate}}</a>
+                            <a [routerLink]="['/app/article/compose']" [queryParams]="{article: item.id}"
+                                class="article-edit-link" nz-button nzType="default"
+                                nzGhost>{{'artEdit' | translate}}</a>
+                        </div>
 
+                    </div>
                 </div>
-            </div>
-        </nz-skeleton>
-    </nz-card>
+            </nz-skeleton>
+        </nz-card>
+    </div>
     <div class="m-t-30 text-center">
         <nz-spin nzSimple [nzSize]="'large'" *ngIf="loadingMore" nzTip="{{'artLoadingMore' | translate}}"></nz-spin>
     </div>

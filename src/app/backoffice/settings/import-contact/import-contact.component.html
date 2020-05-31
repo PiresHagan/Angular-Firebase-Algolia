@@ -1,5 +1,5 @@
 <div id="choose-account-ui">
-    <div class="field-group">
+    <div class="field-group provider-link-sec">
         <a class="provider-link cloudsponge-launch" data-cloudsponge-source="gmail"
             (click)="setProviderLoadingStatus('gmail',true)">
             <img class="u-block"
@@ -32,7 +32,7 @@
             </div>
         </ng-template>
 
-        <nz-table #nzTable [nzData]="importedContact[provider.name]" nzTableLayout="fixed" class="m-t-10"
+        <nz-table #nzTable [nzData]="importedContact[provider.name]" nzTableLayout="fixed" class="import-contact-tbl"
             [nzLoading]="provider.loading">
 
             <thead>
