@@ -150,3 +150,11 @@
     }
 }
 }
+
+@media screen and (min-width:581px) and (max-width:767px){
+    .profile-setting-main{
+    ::ng-deep  .page-header-tab{
+        margin: 0px;
+    }
+}
+}

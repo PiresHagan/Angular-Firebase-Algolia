@@ -1,0 +1,71 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<url>
+    <loc>https://mytrendingstories-dev.web.app/auth/login</loc>
+    <changefreq>weekly</changefreq>
+</url>
+
+<url>
+    <loc>https://mytrendingstories-dev.web.app/auth/reset-password</loc>
+    <changefreq>weekly</changefreq>
+</url>
+
+<url>
+    <loc>https://mytrendingstories-dev.web.app/search</loc>
+    <changefreq>weekly</changefreq>
+</url>
+
+<url>
+    <loc>https://mytrendingstories-dev.web.app/article/</loc>
+    <changefreq>weekly</changefreq>
+</url>
+
+<url>
+    <loc>https://mytrendingstories-dev.web.app/category/Opinion/</loc>
+    <changefreq>weekly</changefreq>
+</url>
+
+<url>
+    <loc>https://mytrendingstories-dev.web.app/category/business/</loc>
+    <changefreq>weekly</changefreq>
+</url>
+
+<url>
+    <loc>https://mytrendingstories-dev.web.app/category/creative/</loc>
+    <changefreq>weekly</changefreq>
+</url>
+
+<url>
+    <loc>https://mytrendingstories-dev.web.app/category/entertainment/</loc>
+    <changefreq>weekly</changefreq>
+</url>
+
+<url>
+    <loc>https://mytrendingstories-dev.web.app/category/life-and-styles/</loc>
+    <changefreq>weekly</changefreq>
+</url>
+
+<url>
+    <loc>https://mytrendingstories-dev.web.app/category/mumbai-india/</loc>
+    <changefreq>weekly</changefreq>
+</url>
+
+<url>
+    <loc>https://mytrendingstories-dev.web.app/category/news/</loc>
+    <changefreq>weekly</changefreq>
+</url>
+
+<url>
+    <loc>https://mytrendingstories-dev.web.app/category/religion/</loc>
+    <changefreq>weekly</changefreq>
+</url>
+
+<url>
+    <loc>https://mytrendingstories-dev.web.app/category/religion-fr/</loc>
+    <changefreq>weekly</changefreq>
+</url>
+
+<url>
+    <loc>https://mytrendingstories-dev.web.app/category/tech-and-science/</loc>
+    <changefreq>weekly</changefreq>
+</url>
+</urlset>
