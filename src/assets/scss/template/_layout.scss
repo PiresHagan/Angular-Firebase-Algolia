@@ -131,3 +131,23 @@
         }
     }
 }
+
+@media screen and (min-width:581px) and (max-width:767px){
+    .common-layout {
+        &.article-layout{
+            .page-header{
+                margin: 0px;
+            }
+            .page-header-tab{
+                margin: 0px;
+            }
+            .page-container {
+                .main-content {
+                    .main-content-header{
+                        min-height: 90px;
+                    }
+                }
+            }
+        }
+    }
+}
