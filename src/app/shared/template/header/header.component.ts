@@ -57,10 +57,10 @@ export class HeaderComponent {
         this.selectedLanguage = this.languageService.defaultLanguage;
 
         this.userService.getCurrentUser().then((user) => {
-            this.userService.get(user.uid).subscribe((userDetails) => {
+            this.userService.getMember(user.uid).subscribe((userDetails) => {
                 this.isLoggedInUser = true;
-                this.photoURL = userDetails.photoURL;
-                this.displayName = userDetails.displayName;
+                this.photoURL = userDetails?.avatar.url;
+                this.displayName = userDetails?.fullname;
             })
         })
 

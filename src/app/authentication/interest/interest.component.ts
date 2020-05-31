@@ -141,11 +141,9 @@ export class InterestComponent implements OnInit {
             this.interestForm.controls[i].updateValueAndValidity();
             if (this.interestForm.controls[i].value) interests.push(i);
         }
-
         this.userService.update(this.currentUser.uid, { interests }).then(() => {
             this.isFormSaving = false;
             this.router.navigate(['/auth/import-contact']);
-            //this.success();
         });
 
 

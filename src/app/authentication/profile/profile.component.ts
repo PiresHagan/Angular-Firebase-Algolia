@@ -51,35 +51,34 @@ export class ProfileComponent implements OnInit {
         ) : '';
         this.profileForm.controls['birth'].setValue(birth ? birth : '');
         this.profileForm.controls['biography'].setValue(userDetails.biography);
-        this.profileForm.controls['phone'].setValue(userDetails.phone);
+        this.profileForm.controls['phone'].setValue(userDetails.mobile);
       })
 
     })
   }
 
-  submitForm(): void {
+  async submitForm() {
     if (!this.currentUser)
       return;
-
-
-
     for (const i in this.profileForm.controls) {
       this.profileForm.controls[i].markAsDirty();
       this.profileForm.controls[i].updateValueAndValidity();
     }
 
     if (this.findInvalidControls().length == 0 || this.profileForm.get('later').value) {
-      this.isFormSaving = true;
-      const phone = this.profileForm.get('phone').value;
-      const birth = formatDate(this.profileForm.get('birth').value, 'yyyy/MM/dd', "en");
-      const biography = this.profileForm.get('biography').value;
-
-      this.userService.update(this.currentUser.uid, { phone, birth, biography }).then(() => {
+      try {
+        this.isFormSaving = true;
+        const mobile = this.profileForm.get('phone').value;
+        const birthdate = formatDate(this.profileForm.get('birth').value, 'yyyy/MM/dd', "en");
+        const bio = this.profileForm.get('biography').value;
+        await this.userService.update(this.currentUser.uid, { mobile, birthdate })
+        await this.userService.updateMember(this.currentUser.uid, { bio })
         this.isFormSaving = false;
         this.router.navigate(['/auth/interest']);
-      }).catch(() => {
-        this.isFormSaving = true;
-      })
+      } catch (error) {
+        console.log(error);
+      }
+
     }
   }
 

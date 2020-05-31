@@ -7,13 +7,16 @@ import { User } from "../interfaces/user.type";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { take, map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
+import { Member } from "../interfaces/member.type";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private basePath = '/avatar';
-  private userCollection: string = 'users'
+  private basePath = '/avatars';
+  private userCollection: string = 'users';
+  private memberCollection: string = 'members';
+  private invitationCollection: string = "invitation";
   isLoggedInUser = new BehaviorSubject<boolean>(false);
   isLoggedInUserChanges: Observable<boolean> = this.isLoggedInUser.asObservable();
 
@@ -26,7 +29,7 @@ export class UserService {
   ) {
     this.afAuth.authState.subscribe((user) => {
       if (user && !user.isAnonymous)
-        this.currentUser = user;
+        this.currentUser = { id: user.uid, email: user.email, avatar: user.photoURL, fullname: user.displayName };
     })
 
   }
@@ -47,6 +50,9 @@ export class UserService {
   }
   get(uid: string): Observable<any> {
     return this.db.doc(`${this.userCollection}/${uid}`).valueChanges();
+  }
+  getMember(uid: string): Observable<any> {
+    return this.db.doc(`${this.memberCollection}/${uid}`).valueChanges();
   }
 
   updateCurrentUserProfile(value) {
@@ -71,13 +77,22 @@ export class UserService {
       })
 
     })
+  }
+  updateMember(uid: string, fields: any): Promise<void> {
 
+    return new Promise<any>((resolve, reject) => {
+      this.db.doc(`${this.memberCollection}/${uid}`).update(fields).then(() => {
+        resolve();
+      }).catch(() => {
+        reject();
+      })
+
+    })
 
   }
   uploadContact(uid: string, provider: string, contacts: any): Promise<void> {
-
     return new Promise<any>((resolve, reject) => {
-      this.db.collection(this.userCollection).doc(uid).collection('invitation').doc(provider).set({ contacts: contacts }).then(() => {
+      this.db.collection(this.userCollection).doc(uid).collection(this.invitationCollection).doc(provider).set({ contacts: contacts }).then(() => {
         resolve();
       }).catch(() => {
         reject();
@@ -85,48 +100,35 @@ export class UserService {
     })
   }
   getContacts(uid: string, provider): Promise<void> {
-
     return new Promise<any>((resolve, reject) => {
-      this.db.collection(this.userCollection).doc(uid).collection('invitation').doc(provider).valueChanges().subscribe((data) => {
+      this.db.collection(this.userCollection).doc(uid).collection(this.invitationCollection).doc(provider).valueChanges().subscribe((data) => {
         resolve(data);
       })
     })
   }
 
-  public createUser(user: User) {
-    return new Promise<any>((resolve, reject) => {
+  public createUser(user: User, memberData: Member) {
 
-      const userRef: AngularFirestoreDocument<any> = this.db.doc(
-        `${this.userCollection}/${user.uid}`
-      );
-      const userData: User = {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL ? user.photoURL : '',
-        biography: user.biography ? user.biography : '',
-        phone: user.phone ? user.phone : '',
-        birth: user.birth ? user.birth : '',
-        interests: user.interests ? user.interests : []
-      };
-      userRef.set(
-        { ...userData },
-        {
-          merge: true,
-        }
-      );
+    return new Promise<any>(async (resolve, reject) => {
+      await this.db.doc(
+        `${this.userCollection}/${user.id}`
+      ).set({ ...user }, { merge: true })
+      await this.db.doc(
+        `${this.memberCollection}/${user.id}`
+      ).set({ ...memberData })
       resolve();
-
-
+    }).catch((error) => {
+      console.log(error);
     })
   }
+
   addProfileImage(uid: string, file: string) {
     return new Promise((resolve, reject) => {
       firebase.storage().ref(`${this.basePath}/${this.currentUser.email}`).putString(file, "data_url").then(
         snapshot => {
           snapshot.ref.getDownloadURL().then((downloadURL) => {
             const imageUrl: string = downloadURL;
-            this.db.collection(`${this.userCollection}`).doc(uid).update({ photoURL: imageUrl }).then(() => {
+            this.db.collection(`${this.memberCollection}`).doc(uid).update({ avatar: { url: imageUrl } }).then(() => {
               this.updateCurrentUserProfile({ photoURL: imageUrl }).then(res => resolve()).catch(err => reject(err))
             }).catch(err => reject(err))
 

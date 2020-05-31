@@ -45,7 +45,7 @@ export class ArticleSingleComponent implements OnInit {
       const slug = params.get('slug');
       this.articleService.getArtical(slug).subscribe(artical => {
         this.article = artical[0];
-        this.getArticleComments(this.article.uid);
+        this.getArticleComments(this.article.id);
       });
 
     });
@@ -68,19 +68,28 @@ export class ArticleSingleComponent implements OnInit {
    * Set user params 
    */
   setUserDetails() {
-    this.authService.getAuthState().subscribe(user => {
-      if (user && !user.isAnonymous) {
-        this.isLoggedInUser = true;
-      } else {
-        this.userDetails = null;
-        this.isLoggedInUser = false;
-      }
-    });
-    this.userService.getCurrentUser().then((user) => {
-      this.userService.get(user.uid).subscribe((userDetails) => {
-        this.userDetails = userDetails;
-      })
+    this.authService.getAuthState().subscribe(async (user) => {
+      if (!user)
+        return;
+      this.userDetails = await this.authService.getLoggedInUserDetails();
+
     })
+
+
+
+    // this.authService.getAuthState().subscribe(user => {
+    //   if (user && !user.isAnonymous) {
+    //     this.isLoggedInUser = true;
+    //   } else {
+    //     this.userDetails = null;
+    //     this.isLoggedInUser = false;
+    //   }
+    // });
+    // this.userService.getCurrentUser().then((user) => {
+    //   this.userService.get(user.uid).subscribe((userDetails) => {
+    //     this.userDetails = userDetails;
+    //   })
+    // })
   }
 
   scrollEvent = (event: any): void => {

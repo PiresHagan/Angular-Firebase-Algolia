@@ -32,7 +32,7 @@ export class AuthService {
             } else {
                 reject('User Is Not Initialized');
             }
-            this.get(uid).subscribe((userData) => {
+            this.getMember(uid).subscribe((userData) => {
                 resolve(userData)
             })
 
@@ -40,6 +40,9 @@ export class AuthService {
     }
     get(uid: string): Observable<any> {
         return this.db.doc(`users/${uid}`).valueChanges();
+    }
+    getMember(uid: string): Observable<any> {
+        return this.db.doc(`members/${uid}`).valueChanges();
     }
 
     doRegister(email: string, password: string, displayName) {

@@ -40,7 +40,7 @@ export class ArticlePublishComponent implements OnInit {
       this.userDetails = await this.authService.getLoggedInUserDetails();
       if (this.articleId) {
         try {
-          this.article = await this.articleService.getArticleById(this.articleId, this.userDetails.uid);
+          this.article = await this.articleService.getArticleById(this.articleId, this.userDetails.id);
         } catch (error) {
           this.article = null;
           this.router.navigate(['/app/error'])

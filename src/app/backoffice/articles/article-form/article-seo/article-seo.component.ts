@@ -45,7 +45,7 @@ export class ArticleSeoComponent implements OnInit {
       if (this.articleId) {
         try {
 
-          this.article = await this.articleService.getArticleById(this.articleId, this.userDetails.uid);
+          this.article = await this.articleService.getArticleById(this.articleId, this.userDetails.id);
           this.title = this.article && this.article.meta && this.article.meta.title ? this.article.meta.title : '';
           this.keywords = this.article && this.article.meta && this.article.meta.keywords ? this.article.meta.keywords : '';
           this.description = this.article && this.article.meta && this.article.meta.description ? this.article.meta.description : '';

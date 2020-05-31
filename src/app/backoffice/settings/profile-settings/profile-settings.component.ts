@@ -9,6 +9,8 @@ import "firebase/storage";
 import { User } from "src/app/shared/interfaces/user.type";
 import { formatDate } from "@angular/common";
 import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
+import { Member } from "src/app/shared/interfaces/member.type";
+import { Observable, observable } from "rxjs";
 
 @Component({
   templateUrl: "./profile-settings.component.html",
@@ -26,6 +28,7 @@ export class ProfileSettingsComponent {
   isNotificationLoading: boolean = false;
   currentUser: User;
   isPhotoChangeLoading: boolean = false;
+  memberDetails: Member;
 
   notificationConfigList = [
     {
@@ -152,28 +155,32 @@ export class ProfileSettingsComponent {
   setFormsData() {
     this.userService.getCurrentUser().then((user) => {
       this.currentUser = user;
-      this.userService.get(user.uid).subscribe((userDetails) => {
 
-        this.photoURL = userDetails.photoURL;
+      this.userService.get(user.uid).subscribe((userDetails) => {
         this.currentUserEmail = userDetails.email;
-        this.setProfileForm(userDetails);
+        this.setUserDetails(userDetails);
         this.setIntrestForm(userDetails);
+      })
+      this.userService.getMember(user.uid).subscribe((memberDetails) => {
+        this.photoURL = memberDetails?.avatar?.url;
+        this.memberDetails = memberDetails
+        this.setMemberDetails(memberDetails);
       })
 
     })
   }
+  setUserDetails(userDetails: User) {
+    this.profileForm.controls['phone'].setValue(userDetails.mobile);
+    this.profileForm.controls['birth'].setValue(userDetails.birthdate ? formatDate(
+      userDetails.birthdate,
+      "yyyy/MM/dd",
+      "en"
+    ) : '');
+  }
 
-  setProfileForm(userDetails) {
-    this.profileForm.setValue({
-      phone: userDetails.phone,
-      biography: userDetails.biography,
-      displayName: userDetails.displayName,
-      birth: userDetails.birth ? formatDate(
-        userDetails.birth,
-        "yyyy/MM/dd",
-        "en"
-      ) : ''
-    });
+  setMemberDetails(memberDetails: Member) {
+    this.profileForm.controls['biography'].setValue(memberDetails.bio);
+    this.profileForm.controls['displayName'].setValue(memberDetails.fullname);
   }
 
   setIntrestForm(userDetails) {
@@ -245,7 +252,7 @@ export class ProfileSettingsComponent {
     })
   }
 
-  saveBasicDetails() {
+  async saveBasicDetails() {
     if (!this.currentUser)
       return;
     for (const i in this.profileForm.controls) {
@@ -253,24 +260,26 @@ export class ProfileSettingsComponent {
       this.profileForm.controls[i].updateValueAndValidity();
     }
     if (this.findInvalidControls().length == 0) {
-      let newuser = {} as User;
-      newuser.phone = this.profileForm.get("phone").value;;
-      newuser.birth = formatDate(
+
+      let mobile = this.profileForm.get("phone").value;;
+      let birthdate = formatDate(
         this.profileForm.get("birth").value,
         "yyyy/MM/dd",
         "en"
       );;
-      newuser.biography = this.profileForm.get("biography").value;
-      newuser.displayName = this.profileForm.get("displayName").value;
+      let bio = this.profileForm.get("biography").value;
+      let fullname = this.profileForm.get("displayName").value;
 
-      let fields: any = { ...newuser };
-      this.isLoading = true;
-      this.userService
-        .update(this.currentUser.uid, fields)
-        .then(() => {
-          this.isLoading = false;
-          this.showSuccess();
-        });
+      try {
+        this.isLoading = true;
+        await this.userService.update(this.currentUser.uid, { mobile, birthdate });
+        await this.userService.updateMember(this.currentUser.uid, { bio, fullname });
+        this.isLoading = false;
+        this.showSuccess();
+      } catch (e) {
+        this.isLoading = false;
+      }
+
     }
   }
 

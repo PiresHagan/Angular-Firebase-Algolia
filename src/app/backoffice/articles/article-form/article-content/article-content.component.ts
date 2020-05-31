@@ -64,6 +64,7 @@ export class ArticleContentComponent implements OnInit {
   }
 
   async ngOnInit() {
+
     this.authService.getAuthState().subscribe(async (user) => {
       if (!user)
         return;
@@ -71,7 +72,7 @@ export class ArticleContentComponent implements OnInit {
       let articleId = this.route.snapshot.queryParams["article"];
       if (articleId) {
         try {
-          this.article = await this.articleService.getArticleById(articleId, this.userDetails.uid);
+          this.article = await this.articleService.getArticleById(articleId, this.userDetails.id);
 
         } catch (error) {
           this.article = null;
@@ -102,12 +103,10 @@ export class ArticleContentComponent implements OnInit {
         title: this.articleForm.get('title').value,
         slug: this.getSlug(this.articleForm.get('title').value.trim()),
         excerpt: this.articleForm.get('excerpt').value,
-        // tags: this.articleForm.get('tags').value,
         author: this.getUserDetails(),
         summary: this.articleForm.get('title').value,
         status: this.article && this.article.status ? this.article.status : DRAFT,
         lang: this.userDetails.lang ? this.userDetails.lang : '',
-        author_id: this.userDetails.uid
 
       }
       if (this.article && this.article.id) {
@@ -158,28 +157,13 @@ export class ArticleContentComponent implements OnInit {
       lang: category.lang ? category.lang : ''
     }
   }
-  async setUserDetails() {
 
-    this.authService.getAuthState().subscribe(user => {
-      if (user && !user.isAnonymous) {
-        this.isLoggedInUser = true;
-      } else {
-        this.userDetails = null;
-        this.isLoggedInUser = false;
-      }
-    });
-    this.userService.getCurrentUser().then((user) => {
-      this.userService.get(user.uid).subscribe((userDetails) => {
-        this.userDetails = userDetails;
-      })
-    })
-  }
   getUserDetails() {
     return {
       slug: this.userDetails.slug ? this.userDetails.slug : '',
-      fullname: this.userDetails.displayName,
-      avatar: this.userDetails.photoURL,
-      id: this.userDetails.uid
+      fullname: this.userDetails.fullname,
+      avatar: this.userDetails.avatar?.url ? this.userDetails.avatar?.url : '',
+      id: this.userDetails.id
     }
   }
   showSuccess(): void {

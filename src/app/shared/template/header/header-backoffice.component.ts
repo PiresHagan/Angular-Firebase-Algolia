@@ -6,7 +6,6 @@ import { Router } from "@angular/router";
 import { LanguageService } from "../../services/language.service";
 import { TranslateService } from "@ngx-translate/core";
 import { Language } from "../../interfaces/language.type";
-import { TranslatePipe } from "@ngx-translate/core";
 
 @Component({
   selector: "app-header-backoffice",
@@ -48,9 +47,9 @@ export class HeaderBackofficeComponent implements OnInit {
     this.selectedLanguage = this.languageService.getSelectedLanguage();
 
     this.userService.getCurrentUser().then((user) => {
-      this.userService.get(user.uid).subscribe((userDetails) => {
-        this.photoURL = userDetails.photoURL;
-        this.displayName = userDetails.displayName;
+      this.userService.getMember(user.uid).subscribe((userDetails) => {
+        this.photoURL = userDetails.avatar?.url;
+        this.displayName = userDetails.fullname;
       })
     })
     this.authService.getAuthState().subscribe(user => {

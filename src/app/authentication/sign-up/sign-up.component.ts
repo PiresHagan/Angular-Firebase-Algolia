@@ -19,6 +19,7 @@ export class SignUpComponent {
     errorSignup: boolean = false;
     errorPasswordWeak: boolean = false;
     errorAgree: boolean = false;
+    generalError: boolean = false;
 
 
     constructor(
@@ -66,15 +67,23 @@ export class SignUpComponent {
                 const password = this.signUpForm.get('password').value;
                 const fullname = this.signUpForm.get('fullname').value;
                 this.authService.doRegister(email, password, fullname).then(user => {
+                    const userData = user.user;
                     this.addUser({
-                        displayName: fullname,
                         email: email,
-                        uid: user.user.uid,
-                        isAnonymous: false
-                    })
+                        id: userData.uid,
+                        created_at: new Date().toString(),
+                        updated_at: new Date().toString(),
+                        lang: ""
+                    }, {
+                        fullname: userData.displayName,
+                        id: userData.uid,
+                        created_at: new Date().toString(),
+                        slug: this.getSlug(userData.displayName),
+                        updated_at: new Date().toString(),
+                        lang: ""
+                    });
 
                 }).catch((error) => {
-                    console.log("test...", error);
                     if (error.code == "auth/email-already-in-use") {
                         this.errorSignup = true;
                         console.log(this.errorSignup);
@@ -98,9 +107,13 @@ export class SignUpComponent {
         }
 
     }
-    addUser(userDetails) {
-        this.userService.createUser(userDetails).then(() => {
+    addUser(userDetails, memberData) {
+        this.generalError = false;
+        this.userService.createUser(userDetails, memberData).then(() => {
             this.router.navigate(['/auth/profile']);
+        }).catch(() => {
+            this.generalError = true;
+            console.log('Something went wrong....');
         })
     }
 
@@ -131,5 +144,8 @@ export class SignUpComponent {
             const previousUrl = this.previousRoute.getPreviousUrl();
             this.router.navigate([previousUrl ? previousUrl : "app/settings/profile-settings"]);
         });
+    }
+    private getSlug(displayName: string) {
+        return displayName.replace(/ /g, '-')?.toLowerCase();
     }
 }    
