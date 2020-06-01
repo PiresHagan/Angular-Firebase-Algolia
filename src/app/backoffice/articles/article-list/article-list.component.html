@@ -1,5 +1,6 @@
-<div class="profile-article-list">
+
 <div class="container">
+<div class="profile-article-list">
     <div class="page-header">
         <div class="row">
             <div class="col-md-12">
@@ -12,8 +13,7 @@
             </div>
         </div>
     </div>
-</div>
-<div class="container">
+
     <nz-empty nzNotFoundImage="simple" *ngIf="!articles?.length" [nzNotFoundContent]="contentTpl">
         <ng-template #contentTpl>
             <span>{{'artNoArt' | translate}} </span>
@@ -65,5 +65,7 @@
     <div class="m-t-30 text-center">
         <nz-spin nzSimple [nzSize]="'large'" *ngIf="loadingMore" nzTip="{{'artLoadingMore' | translate}}"></nz-spin>
     </div>
+
 </div>
+
 </div>

@@ -1,11 +1,16 @@
 .common-layout {
     .page-container {
         min-height: 100vh;
-        // padding-left: $side-nav-width;
+        padding-left: $side-nav-width;
+        &.dasboard-container{
+            .container{
+                width:calc(100% - 50px);
+            }
+        }
         @include transition(all 0.2s ease);
 
         @include screen-laptop-only {
-            // padding-left: $side-nav-width-laptop;
+            padding-left: $side-nav-width-laptop;
         }
 
         @include screen-tablet {
@@ -15,7 +20,7 @@
         .main-content {
             padding: 95px 0px 0px;
             min-height: calc(100vh - #{$footer-height});
-
+            background: #f9fbfd;
             @include screen-mobile {
                 padding: calc(#{$header-height} + #{$layout-content-gutter-sm}) $layout-content-gutter-sm
                     $layout-content-gutter-sm $layout-content-gutter-sm;
@@ -110,12 +115,20 @@
         @include screen-tablet-above {
             .page-container {
                 padding-left: 0;
-                //padding-left: $side-nav-folded;
             }
         }
     }
 }
 @media screen and (max-width:580px){
+    .common-layout {
+        .page-container {
+            &.dasboard-container{
+                .container{
+                    width:100%;
+                }
+            }
+        }
+    }
     .profile-article-header{
         .logo-dark{
             width: 150px;
@@ -151,3 +164,5 @@
         }
     }
 }
+
+

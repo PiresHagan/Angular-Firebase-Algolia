@@ -1,0 +1,22 @@
+.profile-article-header{
+    background: #ff4020;
+    .log{
+        border-right: 1px solid #ff5a5a;
+    }
+    .nav-wrap{
+        .nav-left{
+            .desktop-toggle{ 
+                a{
+                    color: #fff;
+                    font-size: 24px;
+                }
+            }
+            .mobile-toggle{ 
+                a{
+                    color: #fff;
+                    font-size: 24px;
+                }
+            }
+        }
+    }
+}
