@@ -129,5 +129,7 @@
     "importName": "Name",
     "importEmail": "Email",
     "import": "Import",
-    "importContact": "Contact"
+    "importContact": "Contact",
+    "shareProfile": "Share us",
+    "followProfile": "Follow us"
 }

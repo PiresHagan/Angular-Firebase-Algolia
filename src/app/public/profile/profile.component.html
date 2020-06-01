@@ -16,9 +16,12 @@
                 </p>
                 <div class="is-author-media-sec">
                     <h3 class="is-line">{{'shareFollow' | translate}}</h3>
-                    <div class="addthis_inline_share_toolbox"></div>
+                    <div class="addthis_inline_share_toolbox" style="margin-top: 10px;margin-bottom: 10px;"></div>
+
+                    <h3 class="is-line">{{'followProfile' | translate}}</h3>
                     <ul>
-                        <li>
+
+                        <!-- <li>
                             <a href="#" id="share-fb">
                                 <img src="assets/images/profile/icon/fb.png" />
                                 <span>{{'profileShare' | translate}}</span>
@@ -29,7 +32,7 @@
                                 <img src="assets/images/profile/icon/mail.png" />
                                 <span>{{'profileShare' | translate}}</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li>
 
                             <a *ngIf="!isFollowing && isLoggedInUser" (click)="follow('4UoQgM8KGkYcWG6cELEvm26Gis63')">

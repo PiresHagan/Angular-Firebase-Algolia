@@ -84,6 +84,10 @@ export class ArticleComponent implements OnInit {
     });
 
   }
+  ngAfterViewChecked(): void {
+    delete window['addthis']
+    this.loadScript();
+  }
 
   /**
    * Get Article comments using Article Id
@@ -114,7 +118,6 @@ export class ArticleComponent implements OnInit {
       }
       this.setFollowOrNot();
       this.setLike();
-      this.loadScript();
 
 
     })

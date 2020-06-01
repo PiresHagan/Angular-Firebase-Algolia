@@ -44,9 +44,13 @@ export class ProfileComponent implements OnInit {
         this.getSubscribersDetails(author["subscribers"])
         this.getArticleList(author['id']);
         this.setUserDetails();
-        this.loadScript();
+
       });
     });
+  }
+  ngAfterViewChecked(): void {
+    delete window['addthis']
+    this.loadScript();
   }
 
   /**

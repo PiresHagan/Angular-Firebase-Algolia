@@ -10,7 +10,7 @@ import { User } from "src/app/shared/interfaces/user.type";
 import { formatDate } from "@angular/common";
 import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 import { Member } from "src/app/shared/interfaces/member.type";
-import { Observable, observable } from "rxjs";
+
 
 @Component({
   templateUrl: "./profile-settings.component.html",
