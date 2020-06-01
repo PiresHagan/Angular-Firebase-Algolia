@@ -31,17 +31,20 @@ export class ArticleListComponent implements OnInit {
       if (!user)
         return;
       this.userDetails = await this.authService.getLoggedInUserDetails();
-      this.articleService.getArticles(this.userDetails.uid || this.userDetails.id).subscribe((data) => {
-        this.articles = data.articleList;
-        this.lastVisible = data.lastVisible;
-      });
-      this.loading = false;
-    })
-    console.log('Articles', this.articles);
+      if (this.userDetails) {
+        this.articleService.getArticles(this.userDetails.id).subscribe((data) => {
+          this.articles = data.articleList;
+          this.lastVisible = data.lastVisible;
+          this.loading = false;
+          // setTimeout(() => {
+          //   this.loading = false;
+          // }, 1000);
+        });
 
-    setTimeout(() => {
-      this.loading = false;
-    }, 1000);
+      }
+
+    })
+
   }
 
   scrollEvent = (event: any): void => {
