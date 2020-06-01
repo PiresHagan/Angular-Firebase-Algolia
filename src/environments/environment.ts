@@ -4,6 +4,7 @@
 
 export const environment = {
   isAnonymousUserEnabled: true,
+  addThisScript: "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ed48a5fc8315a5b",
   production: false,
   firebase: {
     apiKey: "AIzaSyC83ZSVEBAP_9tuNucpudqPzya8zNsYxL8",

@@ -53,7 +53,7 @@ export class AuthorService {
    */
 
   follow(authorId: string, followerData) {
-    return this.afs.collection(`users`).doc(authorId).collection(this.followersCollection).doc(followerData.uid).set(followerData);
+    return this.afs.collection(`users`).doc(authorId).collection(this.followersCollection).doc(followerData.id).set(followerData);
   }
 
   unfollow(authorId: string, followerId) {

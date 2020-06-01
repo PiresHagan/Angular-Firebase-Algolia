@@ -292,7 +292,7 @@ export class ArticleService {
     })
   }
   like(articleId: string, likerData) {
-    return this.db.collection(this.articleCollection).doc(articleId).collection(this.articleLikesCollection).doc(likerData.uid).set(likerData);
+    return this.db.collection(this.articleCollection).doc(articleId).collection(this.articleLikesCollection).doc(likerData.id).set(likerData);
   }
 
   disLike(articleId: string, likerId) {

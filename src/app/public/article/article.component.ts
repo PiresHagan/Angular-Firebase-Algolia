@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AuthorService } from 'src/app/shared/services/author.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-article',
@@ -82,8 +83,6 @@ export class ArticleComponent implements OnInit {
 
     });
 
-
-
   }
 
   /**
@@ -100,21 +99,24 @@ export class ArticleComponent implements OnInit {
   /**
    * Set user params 
    */
-  setUserDetails() {
-    this.authService.getAuthState().subscribe(user => {
-      if (user && !user.isAnonymous) {
-        this.isLoggedInUser = true;
-      } else {
+  async setUserDetails() {
+
+    this.authService.getAuthState().subscribe(async (user) => {
+      if (!user) {
         this.userDetails = null;
         this.isLoggedInUser = false;
       }
-    });
-    this.userService.getCurrentUser().then((user) => {
-      this.userService.get(user.uid).subscribe((userDetails) => {
-        this.userDetails = userDetails;
-        this.setFollowOrNot();
-        this.setLike();
-      })
+
+      this.userDetails = await this.authService.getLoggedInUserDetails();
+      if (!this.userDetails) {
+        this.userDetails = null;
+        this.isLoggedInUser = false;
+      }
+      this.setFollowOrNot();
+      this.setLike();
+      this.loadScript();
+
+
     })
   }
 
@@ -245,31 +247,25 @@ export class ArticleComponent implements OnInit {
   }
   getUserDetails() {
     return {
-      displayName: this.userDetails.displayName,
+      fullname: this.userDetails.fullname,
       slug: this.userDetails.slug ? this.userDetails.slug : '',
-      photoURL: this.userDetails.photoURL,
-      uid: this.userDetails.uid,
+      avatar: this.userDetails.avatar ? this.userDetails.avatar : '',
+      id: this.userDetails.id,
     }
   }
   follow(authorId) {
     let userDetails = this.getUserDetails();
-    let followerDetails = {
-      displayName: userDetails.displayName,
-      slug: userDetails.slug ? userDetails.slug : '',
-      photoURL: userDetails.photoURL,
-      id: userDetails.uid,
-    }
-    this.authorService.follow(authorId, this.getUserDetails());
+    this.authorService.follow(authorId, userDetails);
 
   }
 
   unfollow(authorId) {
-    this.authorService.unfollow(authorId, this.getUserDetails().uid);
+    this.authorService.unfollow(authorId, this.getUserDetails().id);
 
   }
   setFollowOrNot() {
     const authorId = this.article.authorObj.id;
-    this.authorService.isUserFollowing("4UoQgM8KGkYcWG6cELEvm26Gis63", this.getUserDetails().uid).subscribe((data) => {
+    this.authorService.isUserFollowing("4UoQgM8KGkYcWG6cELEvm26Gis63", this.getUserDetails().id).subscribe((data) => {
       if (data) {
         this.isFollowing = true;
       } else {
@@ -278,21 +274,29 @@ export class ArticleComponent implements OnInit {
     });
   }
   like() {
-    this.articleService.like(this.article.uid, this.getUserDetails());
+    this.articleService.like(this.article.id, this.getUserDetails());
   }
   disLike() {
-    this.articleService.disLike(this.article.uid, this.getUserDetails().uid);
+    this.articleService.disLike(this.article.uid, this.getUserDetails().id);
 
   }
   setLike() {
 
-    this.articleService.isLikedByUser(this.article.uid, this.getUserDetails().uid).subscribe((data) => {
+    this.articleService.isLikedByUser(this.article.uid, this.getUserDetails().id).subscribe((data) => {
       if (data) {
         this.isLike = true;
       } else {
         this.isLike = false;
       }
     });
+  }
+  public loadScript() {
+    let node = document.createElement('script');
+    node.src = environment.addThisScript;
+    node.type = 'text/javascript';
+    node.async = true;
+    node.charset = 'utf-8';
+    document.getElementsByTagName('head')[0].appendChild(node);
   }
 
 

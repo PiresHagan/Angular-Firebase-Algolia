@@ -5,6 +5,7 @@ import { ArticleService } from 'src/app/shared/services/article.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -37,39 +38,36 @@ export class ProfileComponent implements OnInit {
 
       const slug = params.get('slug');
 
-      this.authService.getAuthState().subscribe(user => {
-        if (user && !user.isAnonymous) {
-          this.isLoggedInUser = true;
-          this.setUserDetails();
-        } else {
-          this.isLoggedInUser = false;
-        }
-      });
-
       this.authorService.getUserBySlug(slug).subscribe(author => {
         this.authorDetails = author;
-        this.setFollowOrNot();
         this.getFollowersDetails(author["followers"]);
         this.getSubscribersDetails(author["subscribers"])
         this.getArticleList(author['id']);
+        this.setUserDetails();
+        this.loadScript();
       });
     });
   }
-  setUserDetails() {
-    this.authService.getAuthState().subscribe(user => {
-      if (user && !user.isAnonymous) {
-        this.isLoggedInUser = true;
-      } else {
+
+  /**
+ * Set user params 
+ */
+  async setUserDetails() {
+
+    this.authService.getAuthState().subscribe(async (user) => {
+      if (!user) {
         this.userDetails = null;
         this.isLoggedInUser = false;
+        return;
+      } else {
+        this.userDetails = null;
+        this.isLoggedInUser = true;
       }
-    });
-    this.userService.getCurrentUser().then((user) => {
-      this.userService.get(user.uid).subscribe((userDetails) => {
-        this.userDetails = userDetails;
-        this.setFollowOrNot();
-        this.setFollowOrNot();
-      })
+
+      this.userDetails = await this.authService.getLoggedInUserDetails();
+      this.setFollowOrNot();
+
+
     })
   }
 
@@ -100,31 +98,25 @@ export class ProfileComponent implements OnInit {
   }
   getUserDetails() {
     return {
-      displayName: this.userDetails.displayName,
-      slug: this.userDetails.slug ? this.authorDetails.slug : '',
-      photoURL: this.userDetails.photoURL,
-      uid: this.userDetails.uid,
+      fullname: this.userDetails.fullname,
+      slug: this.userDetails.slug ? this.userDetails.slug : '',
+      avatar: this.userDetails.avatar ? this.userDetails.avatar : '',
+      id: this.userDetails.id,
     }
   }
   follow(authorId) {
     let userDetails = this.getUserDetails();
-    let followerDetails = {
-      displayName: userDetails.displayName,
-      slug: userDetails.slug ? userDetails.slug : '',
-      photoURL: userDetails.photoURL,
-      id: userDetails.uid,
-    }
-    this.authorService.follow(authorId, this.getUserDetails());
+    this.authorService.follow(authorId, userDetails);
 
   }
 
   unfollow(authorId) {
-    this.authorService.unfollow(authorId, this.getUserDetails().uid);
+    this.authorService.unfollow(authorId, this.getUserDetails().id);
 
   }
   setFollowOrNot() {
 
-    this.authorService.isUserFollowing("4UoQgM8KGkYcWG6cELEvm26Gis63", this.getUserDetails().uid).subscribe((data) => {
+    this.authorService.isUserFollowing("4UoQgM8KGkYcWG6cELEvm26Gis63", this.getUserDetails().id).subscribe((data) => {
       if (data) {
         this.isFollowing = true;
       } else {
@@ -132,5 +124,15 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
+  public loadScript() {
+
+    let node = document.createElement('script');
+    node.src = environment.addThisScript;
+    node.type = 'text/javascript';
+    node.async = true;
+    node.charset = 'utf-8';
+    document.getElementsByTagName('head')[0].appendChild(node);
+  }
+
 
 }
