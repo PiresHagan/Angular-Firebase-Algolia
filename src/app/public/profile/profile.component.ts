@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { environment } from 'src/environments/environment';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-profile',
@@ -23,6 +24,8 @@ export class ProfileComponent implements OnInit {
   isFollowing: boolean = false;
   userDetails;
   constructor(
+    private titleService: Title,
+    private metaTagService: Meta,
     private route: ActivatedRoute,
     private authorService: AuthorService,
     private articleService: ArticleService,
@@ -45,6 +48,11 @@ export class ProfileComponent implements OnInit {
         this.getArticleList(author['id']);
         this.setUserDetails();
 
+        this.titleService.setTitle(`${this.authorDetails.first_name} ${this.authorDetails?.last_name}`);
+        this.metaTagService.addTag({
+          name: 'Biography', 
+          content: `${this.authorDetails?.biography_en}`
+        });
       });
     });
   }

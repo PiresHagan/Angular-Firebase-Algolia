@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { User } from 'src/app/shared/interfaces/user.type';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title, Meta } from '@angular/platform-browser';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { environment } from 'src/environments/environment';
 
@@ -50,7 +50,9 @@ export class ArticleComponent implements OnInit {
     public authService: AuthService,
     public authorService: AuthorService,
     public userService: UserService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private titleService: Title,
+    private metaTagService: Meta
   ) {
 
   }
@@ -71,14 +73,19 @@ export class ArticleComponent implements OnInit {
         this.article = artical[0];
         const articleId = this.article.id;
 
-
-
         this.setUserDetails();
         this.articleService.getArticalLikes(articleId).subscribe(likes => {
           this.articleLikes = likes;
         })
 
         this.getArticleComments(this.article.uid);
+        
+        this.titleService.setTitle(`${this.article?.title}`);
+
+        this.metaTagService.updateTag({
+          name: 'Content', 
+          content: `${this.article?.content}`
+        });
       });
 
     });
