@@ -3,6 +3,7 @@ import { ArticleService } from 'src/app/shared/services/article.service';
 import { ThemeConstantService } from 'src/app/shared/services/theme-constant.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { TranslateService } from '@ngx-translate/core';
+import { Title, Meta } from '@angular/platform-browser';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -25,7 +26,9 @@ export class HomeComponent implements OnInit {
   constructor(
     private articleService: ArticleService,
     public translate: TranslateService,
-    private themeService: ThemeConstantService
+    private themeService: ThemeConstantService,
+    private titleService: Title,
+    private metaTagService: Meta
   ) {
 
   }
@@ -33,7 +36,13 @@ export class HomeComponent implements OnInit {
     this.translate.use(lang);
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
+    this.titleService.setTitle("Home");
+
+    this.metaTagService.updateTag({
+      name: 'home'
+    });
+
     this.articleService.getHeroLargeArticle().subscribe(article => {
       this.heroLarge = article[0];
     });

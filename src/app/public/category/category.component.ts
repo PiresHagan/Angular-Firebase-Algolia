@@ -4,6 +4,7 @@ import { CategoryService } from 'src/app/shared/services/category.service';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ThemeConstantService } from '../../shared/services/theme-constant.service';
+import { Title, Meta } from '@angular/platform-browser';
 
 
 @Component({
@@ -20,7 +21,9 @@ export class CategoryComponent implements OnInit {
     private articleService: ArticleService,
     private route: ActivatedRoute,
     public translate: TranslateService,
-    private themeService: ThemeConstantService
+    private themeService: ThemeConstantService,
+    private titleService: Title,
+    private metaTagService: Meta
   ) {
 
   }
@@ -34,10 +37,17 @@ export class CategoryComponent implements OnInit {
 
       this.categoryService.getCategoryBySlug(slug).subscribe(category => {
         this.category = category;
+        
+        this.titleService.setTitle(`${this.category?.title}`);
+
+        this.metaTagService.updateTag({
+          name: `${this.category?.long_title}`
+        });
       });
 
       this.articleService.getCategory(slug).subscribe(articles => {
         this.articles = articles;
+
         console.log('Articles', articles);
       });
 

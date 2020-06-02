@@ -1,25 +1,21 @@
 .header {
-    background: $white;
+    background: #fff;
     height: $header-height;
-    border-bottom: 1px solid $border-color;
     position: fixed;
     top: 0px;
     width: 100%;
     z-index: $zindex-navbar;
     display: flex;
     &.profile-article-header{
-        .logo-dark{
-            width:140px;
-        }
-        .nav-wrap{
-            justify-content: flex-end;
+        .logo{
+            width: $side-nav-width;
+            border-right:1px solid #ff684f;
         }
     }
-
     .logo {
-        width: $side-nav-width;
+        width:140px;
+        height: $header-height;
         background-color: $brand-primary;
-        /*border-right: 1px solid $border-color;*/
         @include transition(all 0.2s ease); 
 
         @include screen-laptop-only {
@@ -33,6 +29,7 @@
         > a {
             display: block;
             text-align: center;
+            width:100%;
         }
 
         .logo-fold {
@@ -95,7 +92,7 @@
         }
 
         .nav-right {
-            margin-right: 10px;
+            margin-right: 10px;   
         }
 
         .desktop-toggle {
@@ -123,7 +120,7 @@
 
         .logo {
             width: 140px;
-            // width: $side-nav-folded;
+            width: $side-nav-folded;
         }
     }
 }
@@ -135,16 +132,16 @@
 .is-folded {
     @include screen-tablet-above {
         .header {
-
+            &.profile-article-header{
+                .logo{
+                    width: $side-nav-folded;
+                    height:70px;
+                }
+            }
             .logo {
-                //width: $side-nav-folded;
-                width: 140px;
-                height:70px;
-
                 img {
                     display: none;
                 }
-
                 .logo-fold {
                     display: block;
                 }
@@ -212,6 +209,24 @@
     }
 }
 
+
+
+@media screen and (max-width:580px){
+    .header{
+        &.profile-article-header {
+            .logo{
+                width:110px;
+                img{
+                    width:100%;
+                    margin-top: 8px;
+                }
+            }
+            .nav-left{
+                margin-left: 0px;
+            }
+        }
+    }
+}
 
 @media screen and (max-width:991px){
     .logo.logo-dark{

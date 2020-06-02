@@ -93,6 +93,21 @@
     justify-content: center;
     padding: 20px 0px;
 }
+::ng-deep .import-tab-main .ant-tabs-bar .ant-tabs-nav-wrap .ant-tabs-nav .ant-tabs-tab{
+    border:0px;
+    background: transparent;
+    height: 45px;
+    font-family: "josefin_sansregular";
+    color:#000;
+    line-height: 47px
+}
+::ng-deep .import-tab-main .ant-tabs-bar .ant-tabs-nav-wrap .ant-tabs-nav .ant-tabs-tab.ant-tabs-tab-active,
+::ng-deep .import-tab-main .ant-tabs-bar .ant-tabs-nav-wrap .ant-tabs-nav .ant-tabs-tab:hover
+{
+    border:0px;
+    background: #ff563a;
+    color:#fff;
+}
 @media screen and (max-width:580px){
     .provider-link-sec{
         justify-content: center;

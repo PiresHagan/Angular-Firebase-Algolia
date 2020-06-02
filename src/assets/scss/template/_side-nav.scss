@@ -1,20 +1,42 @@
 .side-nav {
+    position: fixed;
+    top: 70px;
+    width: 280px;
+    background-color: #223143;
+    border-right: 1px solid #edf2f9;
+    height: 100%;
+    z-index: 1000;
+    overflow-y: auto;
+    transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
     .side-nav-list{
-        border-bottom: 1px solid #ff563a;
-        height: 49px;
+        background-color: #001528;
         li{
-            display: inline-block;
+            display: block;
             width: auto;
             margin-bottom: 0px !important;
-            font-family: "josefin_sanssemibold";
+            font-family: "josefin_sansregular";
             font-size: 18px;
+            border-bottom: 1px solid #282929;
+            border-right:2px solid transparent;
+            margin-top: 0px;
+            a{
+                color:#fff;   
+            }
             &.ant-menu-item-selected{
-                background-color: #ff563a;
+                background-color:transparent;
+                border-right:2px solid #ff4020;
                 &:after{
                     border:0px;
                 }
                 a{
-                    color:#fff;
+                    color:#ff4020;
+                    .anticon{
+                        font-size: 14px;
+                    }
                 }
             }
         }
@@ -110,6 +132,24 @@
         .ant-menu-inline-collapsed {
             width: $side-nav-folded - 1px;
         }
+         .side-nav-list {
+            li{
+                padding: 0px;
+                a{
+                    display: flex;
+                    .anticon{
+                        font-size: 16px;
+                        margin: auto;
+                    }
+                    span{
+                        opacity: 0;
+                        display: inline-block;
+                        width:0px;
+                    }
+                }
+            }
+        }
+        
     }   
 
     perfect-scrollbar {
@@ -199,19 +239,6 @@
         }    
     }
 }
-
-
-@media screen and (max-width:580px){
-    .side-nav{
-        .side-nav-menu {
-            height: auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-    }
-}
-
 
 @media screen and (min-width: 992px) and (max-width: 1440px) {
     .side-nav{
