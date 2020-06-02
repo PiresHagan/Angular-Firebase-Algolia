@@ -57,15 +57,6 @@ export class ArticleComponent implements OnInit {
   ) {
 
   }
-
-  likeArticle() {
-    if (this.articleLikes == 0)
-      this.articleLikes++;
-    else
-      this.articleLikes--;
-    this.status = !this.status;
-  }
-
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
 
