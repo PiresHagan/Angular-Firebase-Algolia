@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import { AngularFireAuth } from '@angular/fire/auth';
-import { first } from "rxjs/operators";
+import { first, tap, catchError } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ import { Observable } from "rxjs";
 export class AuthService {
     loggedInUser;
     loggedInUserDetails;
-    constructor(public afAuth: AngularFireAuth, public db: AngularFirestore) {
+    constructor(public afAuth: AngularFireAuth, public db: AngularFirestore, private http: HttpClient) {
         this.afAuth.authState.subscribe((user) => {
             if (!user) {
                 if (environment && environment.isAnonymousUserEnabled) {
@@ -85,5 +86,17 @@ export class AuthService {
     }
     getAuthState() {
         return this.afAuth.authState;
+    }
+    checkDejangoCred(userData) {
+        return new Promise((resolve, reject) => {
+            this.http.post(" https://us-central1-my-trending-stories-dev.cloudfunctions.net/api/token/migration", userData).subscribe((userData) => {
+                if (userData) {
+                    resolve(userData)
+                } else {
+                    reject();
+                }
+            })
+        })
+
     }
 }

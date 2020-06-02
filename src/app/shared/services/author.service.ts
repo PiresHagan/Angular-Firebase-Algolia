@@ -10,8 +10,9 @@ import 'firebase/storage';
 })
 export class AuthorService {
 
-  authorsCollection: string = 'bak_authors';
-  followersCollection: string = 'followings';
+  authorsCollection: string = 'members';
+  private followersCollection: string = 'followers';
+  private followingsCollection: string = "followings";
 
   constructor(private afs: AngularFirestore) { }
 
@@ -53,16 +54,31 @@ export class AuthorService {
    */
 
   follow(authorId: string, followerData) {
-    return this.afs.collection(`users`).doc(authorId).collection(this.followersCollection).doc(followerData.id).set(followerData);
+    return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followersCollection).doc(followerData.id).set(followerData);
   }
 
   unfollow(authorId: string, followerId) {
-    return this.afs.collection(`users`).doc(authorId).collection(this.followersCollection).doc(followerId).delete();
+    return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followersCollection).doc(followerId).delete();
   }
+
 
   isUserFollowing(authorId: string, followerId) {
-    return this.afs.collection(`users`).doc(authorId).collection(this.followersCollection).doc(followerId).valueChanges();
+    return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followersCollection).doc(followerId).valueChanges();
+  }
+  getFollowers(authorId) {
+    return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followersCollection).valueChanges()
   }
 
+  following(userId, authorData) {
+    return this.afs.collection(this.authorsCollection).doc(userId).collection(this.followingsCollection).doc(authorData.id).set(authorData);
+
+  }
+  unfollowing(userId, authorId) {
+    return this.afs.collection(this.authorsCollection).doc(userId).collection(this.followingsCollection).doc(authorId).delete();
+
+  }
+  getFollowings(authorId) {
+    return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followingsCollection).valueChanges()
+  }
 
 }

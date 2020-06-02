@@ -86,7 +86,7 @@ export class ArticleSingleComponent implements OnInit {
     //   }
     // });
     // this.userService.getCurrentUser().then((user) => {
-    //   this.userService.get(user.uid).subscribe((userDetails) => {
+    //   this.userService.get(user.id).subscribe((userDetails) => {
     //     this.userDetails = userDetails;
     //   })
     // })
@@ -98,7 +98,7 @@ export class ArticleSingleComponent implements OnInit {
     const offset = event.target.documentElement.offsetHeight
     if (top > height - offset - 1 && this.lastVisible) {
       this.loadingMore = true;
-      this.articleService.getArticleCommentNextPage(this.article.uid, null, this.lastVisible).subscribe((data) => {
+      this.articleService.getArticleCommentNextPage(this.article.id, null, this.lastVisible).subscribe((data) => {
         this.loadingMore = false;
         this.articleComments = [...this.articleComments, ...data.commentList];
         console.log(this.articleComments.length)

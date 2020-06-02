@@ -9,9 +9,9 @@ import { AngularFireStorage } from '@angular/fire/storage';
   providedIn: 'root'
 })
 export class ArticleService {
-  articleCollection: string = 'bak_posts';
-  articleLikesCollection: string = '_likes';
-  articleCommentsCollection: string = '_comments';
+  articleCollection: string = 'articles';
+  articleLikesCollection: string = 'likes';
+  articleCommentsCollection: string = 'comments';
   articleImagePath: string = '/article';
   constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private storage: AngularFireStorage, ) { }
 
@@ -35,8 +35,8 @@ export class ArticleService {
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
-          const uid = a.payload.doc.id;
-          return { uid, ...data };
+          const id = a.payload.doc.id;
+          return { id, ...data };
         });
       })
     );
@@ -64,8 +64,8 @@ export class ArticleService {
         commentList: actions.map(a => {
 
           const data: any = a.payload.doc.data();
-          const uid = a.payload.doc.id;
-          return { uid, ...data };
+          const id = a.payload.doc.id;
+          return { id, ...data };
         }),
         lastCommentDoc: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
       };
@@ -92,8 +92,8 @@ export class ArticleService {
         commentList: actions.map(a => {
 
           const data: any = a.payload.doc.data();
-          const uid = a.payload.doc.id;
-          return { uid, ...data };
+          const id = a.payload.doc.id;
+          return { id, ...data };
         }),
         lastCommentDoc: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
       }
@@ -115,11 +115,11 @@ export class ArticleService {
    * Update existing comment.
    * 
    * @param articleId 
-   * @param commentUid 
+   * @param commentid 
    * @param commentDtails 
    */
-  updateComment(articleId: string, commentUid: string, commentDtails: Comment) {
-    return this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`).doc(commentUid).set(commentDtails)
+  updateComment(articleId: string, commentid: string, commentDtails: Comment) {
+    return this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`).doc(commentid).set(commentDtails)
   }
 
 
@@ -155,7 +155,7 @@ export class ArticleService {
 
   getCategoryRow(slug: string) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('categoryObj.slug', '==', slug)
+      .where('category.slug', '==', slug)
       .orderBy('created_at', 'desc')
       .limit(5)
     ).snapshotChanges().pipe(
@@ -171,7 +171,7 @@ export class ArticleService {
 
   getCategoryFirst(slug: string) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('categoryObj.slug', '==', slug)
+      .where('category.slug', '==', slug)
       .orderBy('created_at', 'desc')
       .limit(1)
     ).snapshotChanges().pipe(
@@ -187,7 +187,7 @@ export class ArticleService {
 
   getCategory(slug: string) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('categoryObj.slug', '==', slug)
+      .where('category.slug', '==', slug)
       .orderBy('created_at', 'desc')
       .limit(30)
     ).snapshotChanges().pipe(
@@ -202,7 +202,7 @@ export class ArticleService {
   }
   getArticlesByAuthor(authorId: string, limit: number = 10) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('author', '==', authorId)
+      .where('author.id', '==', authorId)
       .orderBy('created_at', 'desc')
       .limit(limit)
     ).snapshotChanges().pipe(
@@ -213,7 +213,7 @@ export class ArticleService {
           return { id, ...data };
         });
       })
-    );
+    )
 
   }
   getArticles(authorId, limit: number = 10, navigation: string = "first", lastVisible = null) {
@@ -255,16 +255,22 @@ export class ArticleService {
     })
   }
 
-  updateArticleCommentAbuse(articleId: string, commentUid: string) {
+  updateArticleCommentAbuse(articleId: string, commentid: string) {
     return new Promise<any>((resolve, reject) => {
-      this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`).doc(commentUid).update({ is_abused: true }).then(() => {
+      this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`).doc(commentid).update({ is_abused: true }).then(() => {
         resolve();
       })
     })
   }
 
   createArticle(article) {
-    return this.db.collection(`${this.articleCollection}`).add(article);
+    return new Promise((resolve, reject) => {
+      this.db.collection(`${this.articleCollection}`).add(article).then(() => {
+        resolve()
+      })
+    }).catch((error) => {
+      console.log(error)
+    })
   }
 
   updateArticleImage(articleId, imageDetails) {
@@ -313,16 +319,13 @@ export class ArticleService {
           reject('Unknown entity');
         }
       })
-
-
-
-
-
     })
-
   }
   updateArticle(articleId: string, articleDetails) {
     return this.db.collection(`${this.articleCollection}`).doc(`${articleId}`).set(articleDetails)
+  }
+  async checkSlug(slug) {
+
   }
 
 

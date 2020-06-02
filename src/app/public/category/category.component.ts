@@ -32,7 +32,7 @@ export class CategoryComponent implements OnInit {
 
       const slug = params.get('slug');
 
-      this.categoryService.get(slug).subscribe(category => {
+      this.categoryService.getCategoryBySlug(slug).subscribe(category => {
         this.category = category;
       });
 

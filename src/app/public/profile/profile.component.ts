@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   isLoggedInUser: boolean = false;
   isFollowing: boolean = false;
   userDetails;
+  isLoaded: boolean = false;
   constructor(
     private route: ActivatedRoute,
     private authorService: AuthorService,
@@ -40,8 +41,8 @@ export class ProfileComponent implements OnInit {
 
       this.authorService.getUserBySlug(slug).subscribe(author => {
         this.authorDetails = author;
-        this.getFollowersDetails(author["followers"]);
-        this.getSubscribersDetails(author["subscribers"])
+        this.getFollowersDetails();
+        this.getFollowingDetails()
         this.getArticleList(author['id']);
         this.setUserDetails();
 
@@ -49,8 +50,12 @@ export class ProfileComponent implements OnInit {
     });
   }
   ngAfterViewChecked(): void {
-    delete window['addthis']
-    this.loadScript();
+    if (!this.isLoaded) {
+      delete window['addthis']
+      setTimeout(() => { this.loadScript(); }, 100);
+      this.isLoaded = true;
+    }
+
   }
 
   /**
@@ -63,27 +68,30 @@ export class ProfileComponent implements OnInit {
         this.userDetails = null;
         this.isLoggedInUser = false;
         return;
-      } else {
+      }
+      this.userDetails = await this.authService.getLoggedInUserDetails();
+      if (!this.userDetails) {
         this.userDetails = null;
+        this.isLoggedInUser = false;
+      } else {
+        this.setFollowOrNot();
         this.isLoggedInUser = true;
       }
 
-      this.userDetails = await this.authService.getLoggedInUserDetails();
-      this.setFollowOrNot();
 
 
     })
   }
 
 
-  getFollowersDetails(followerList) {
-    this.authorService.getAuthorsById(followerList).subscribe((followers) => {
+  getFollowersDetails() {
+    this.authorService.getFollowers(this.authorDetails.id).subscribe((followers) => {
       this.followers = followers;
     })
   }
-  getSubscribersDetails(subscriberList) {
-    this.authorService.getAuthorsById(subscriberList).subscribe((subscribers) => {
-      this.subscribers = subscribers;
+  getFollowingDetails() {
+    this.authorService.getFollowings(this.authorDetails.id).subscribe((following) => {
+      this.subscribers = following;
     })
   }
   getArticleList(authorId) {
@@ -108,19 +116,30 @@ export class ProfileComponent implements OnInit {
       id: this.userDetails.id,
     }
   }
+  getAuthorDetails() {
+    return {
+      fullname: this.authorDetails.fullname,
+      slug: this.authorDetails.slug ? this.authorDetails.slug : '',
+      avatar: this.authorDetails.avatar ? this.authorDetails.avatar : '',
+      id: this.authorDetails.id,
+    }
+  }
   follow(authorId) {
     let userDetails = this.getUserDetails();
+    let authorDetails = this.getAuthorDetails();
     this.authorService.follow(authorId, userDetails);
+    this.authorService.following(userDetails.id, authorDetails);
 
   }
 
   unfollow(authorId) {
     this.authorService.unfollow(authorId, this.getUserDetails().id);
+    this.authorService.unfollowing(this.getUserDetails().id, authorId);
 
   }
   setFollowOrNot() {
 
-    this.authorService.isUserFollowing("4UoQgM8KGkYcWG6cELEvm26Gis63", this.getUserDetails().id).subscribe((data) => {
+    this.authorService.isUserFollowing(this.authorDetails.id, this.getUserDetails().id).subscribe((data) => {
       if (data) {
         this.isFollowing = true;
       } else {

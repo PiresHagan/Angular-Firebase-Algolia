@@ -57,20 +57,29 @@ export class LoginComponent {
 
     onLogin() {
         this.isFormSaving = true;
-        this.authService.doLogin(this.loginForm.get('email').value, this.loginForm.get('password').value).then(() => {
+        const userData = {
+            email: this.loginForm.get('email').value,
+            password: this.loginForm.get('password').value
+        }
+        this.authService.doLogin(userData.email, userData.password).then(() => {
             this.isFormSaving = false;
             this.navigateToUserProfile();
 
         }).catch((err) => {
-            this.isFormSaving = false;
-            this.errorMessage = err.message;
-            this.showError = true;
-            if (err.code == "auth/wrong-password") {
-                this.errorLogin = true;
-            }
-            else if (err.code == "auth/user-not-found") {
-                this.errorLogin = true;
-            }
+            this.checkDejangoCred(userData).then((userData) => {
+                console.log(userData);
+            }).catch(() => {
+                this.isFormSaving = false;
+                this.errorMessage = err.message;
+                this.showError = true;
+                if (err.code == "auth/wrong-password") {
+                    this.errorLogin = true;
+                }
+                else if (err.code == "auth/user-not-found") {
+                    this.errorLogin = true;
+                }
+            })
+
         })
 
 
@@ -90,6 +99,9 @@ export class LoginComponent {
             this.previousUrl = this.previousRoute.getPreviousUrl();
             this.router.navigate([this.previousUrl ? this.previousUrl : "app/settings/profile-settings"]);
         });
+    }
+    checkDejangoCred(userDetails) {
+        return this.authService.checkDejangoCred(userDetails);
     }
 
 

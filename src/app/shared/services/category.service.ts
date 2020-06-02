@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CategoryService {
-  categoriesCollection: string = 'bak_categories';
+  categoriesCollection: string = 'categories';
 
   constructor(private afAuth: AngularFireAuth, private db: AngularFirestore) { }
 
@@ -31,6 +31,21 @@ export class CategoryService {
       map(category => {
         category.id = id;
         return category
+      })
+    );
+  }
+  getCategoryBySlug(slug: string) {
+    return this.db.collection<Category>(this.categoriesCollection, ref => ref
+      .where('slug', '==', slug)
+      .limit(1)
+    ).snapshotChanges().pipe(take(1),
+      map(actions => {
+        const categoryData = actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+        return categoryData ? categoryData[0] : {}
       })
     );
   }

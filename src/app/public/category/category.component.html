@@ -7,11 +7,12 @@
                     <span class="cat-yellow"> </span>
                     <form action="" method="post" id="form_add_sub_cat">
                         <input type="hidden" name="csrfmiddlewaretoken" value="dM4QEapppMGbO2CnodWzQm2slYLJTdJp">
-                        <input name="category-constant_contact" [value]="category.title" type="text" hidden="">
+                        <input name="category-constant_contact" [value]="category?.title" type="text" hidden="">
 
                         <div class="form-group">
                             <input class="form-control newsletter-input" id="id_category-email" maxlength="100"
-                                name="category-email" placeholder="{{'subscribeNewsletter' | translate}}" type="email" required="">
+                                name="category-email" placeholder="{{'subscribeNewsletter' | translate}}" type="email"
+                                required="">
                             <button class="btn">{{'subscribe' | translate}}</button>
                             <div class="clearfix"></div>
                         </div>
@@ -20,7 +21,7 @@
                 </div>
                 <div class="btn-rss">
                     <a href="https://mytrendingstories.com/category/life-and-styles/feed/">
-                         {{'subscribeRSS' | translate}}
+                        {{'subscribeRSS' | translate}}
                         <span class="rss-icon"><i class="fa fa-rss" aria-hidden="true"></i></span>
                     </a>
                 </div>
@@ -31,45 +32,8 @@
         </div>
 
         <div class="is-comman-title">
-            {{category.title}}
+            {{category?.title}}
         </div>
-        <section class="is-hero is-category-hero">
-            <div class="row">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-                    <div class="is-category-hero">
-                        <img src="assets/images/category-hero.jpg" />
-                    </div>
-                </div>
-                <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-                    <a class="is-hero-card" href="#">
-                        <div class="is-profile-main">
-                            <div class="is-card-author-group">
-                                <img class="avatar" src="assets/images/avatars/thumb-1.jpg" />&nbsp;
-                                <span class="is-card-author">Misti Pyles </span>
-                            </div>
-                            <div class="divider"></div>
-                            <div class="is-card-btn">
-                                <button nz-button nzType="primary">Entertainment</button>
-                            </div>
-
-                        </div>
-                        <div class="is-card-content">
-                            <h2 class="is-small-title">
-                                <span href="https://mytrendingstories.com/category/">{{'heroStory' | translate}}</span>
-                                <div>Liberation by Imogen Kealey (Review)</div>
-                            </h2>
-                            <p class="is-card-description">The must-read thriller inspired by the true story of Nancy
-                                Wake</p>
-                            <button type="button" class="is-read-more">{{'readMore' | translate}} <img
-                                    src="assets/images/read-more-icon-red.png" /></button>
-                        </div>
-                    </a>
-                </div>
-
-
-
-            </div>
-        </section>
         <section class="is-cat-box-card-main">
             <div class="cat-box">
                 <div class="container">
@@ -80,17 +44,16 @@
                                     <a [routerLink]="['/article/',article.slug]">
                                         <div class="item-card-image">
 
-                                            <img [src]="article.featured_imageObj.image"
-                                                [alt]="article.featured_imageObj.title">
+                                            <img [src]="article?.image?.url" [alt]="article?.image?.alt">
                                             <h3 class="is-category-title">{{category.title}}</h3>
                                         </div>
                                         <div class="item-card-content">
                                             <div class="item-card-category  cat-yellow">
                                                 <div class="is-avatar-dv">
 
-                                                    <img class="avatar" [src]="article.authorObj.avatarObj.image"
-                                                        [alt]="article._author">
-                                                    <span class="item-card-author">{{article._author}}</span>
+                                                    <img class="avatar" [src]="article.author?.avatar?.url"
+                                                        [alt]="article.author?.avatar?.alt">
+                                                    <span class="item-card-author">{{article.author.fullname}}</span>
                                                 </div>
                                             </div>
                                             <div class="item-card-title">
@@ -98,8 +61,8 @@
                                             </div>
                                             <div class="item-card-texte">
                                                 <p>{{article.summary}}</p>
-                                                <button type="button" class="is-read-more">{{'readMore' | translate}} <img
-                                                        src="assets/images/read-more-icon-red.png" /></button>
+                                                <button type="button" class="is-read-more">{{'readMore' | translate}}
+                                                    <img src="assets/images/read-more-icon-red.png" /></button>
                                             </div>
                                         </div>
                                     </a>
@@ -115,29 +78,5 @@
             </div>
         </section>
 
-        <div class="row">
-            <div class="pagination">
-                <span class="step-links">
-                    <ul class="is-pagination-link">
-                        <li><a href="#" class="first">{{'first' | translate}}</a></li>
-                        <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                        <li><a href="#" class="current">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li>...</li>
-                        <li><a href="#">1378</a></li>
-                        <li><a class="btn page-btn" href="https://mytrendingstories.com?page=2"><i
-                                    class="fa fa-angle-right"></i></a></li>
-                        <li><a href="#" class="last">{{'last' | translate}}</a></li>
-                    </ul>
-
-                    <!-- <span class="current">
-                        Page 1 of 1378
-                    </span>
-                    <a class="btn page-btn" href="https://mytrendingstories.com?page=2"><i
-                            class="fa fa-angle-right"></i></a> -->
-                </span>
-            </div>
-        </div>
     </div>
 </section>

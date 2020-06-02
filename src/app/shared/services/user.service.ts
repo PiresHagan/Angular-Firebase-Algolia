@@ -17,6 +17,7 @@ export class UserService {
   private userCollection: string = 'users';
   private memberCollection: string = 'members';
   private invitationCollection: string = "invitation";
+
   isLoggedInUser = new BehaviorSubject<boolean>(false);
   isLoggedInUserChanges: Observable<boolean> = this.isLoggedInUser.asObservable();
 
@@ -159,6 +160,9 @@ export class UserService {
         })
       );
   }
+
+
+
 
 
 }

@@ -39,6 +39,7 @@ export class ArticleComponent implements OnInit {
   activeComment: Comment;
   isFollowing: boolean = false;
   isLike: boolean = false;
+  isLoaded: boolean = false;
   isReportAbuseLoading: boolean = false;
   @ViewChild('commentSection') private myScrollContainer: ElementRef;
   @ViewChild('commentReplySection') private commentReplyContainer: ElementRef;
@@ -70,23 +71,21 @@ export class ArticleComponent implements OnInit {
       this.articleService.getArtical(slug).subscribe(artical => {
         this.article = artical[0];
         const articleId = this.article.id;
-
-
-
+        this.articleLikes = this.article.likes_count;
         this.setUserDetails();
-        this.articleService.getArticalLikes(articleId).subscribe(likes => {
-          this.articleLikes = likes;
-        })
-
-        this.getArticleComments(this.article.uid);
+        this.getArticleComments(this.article.id);
       });
 
     });
 
   }
   ngAfterViewChecked(): void {
-    delete window['addthis']
-    this.loadScript();
+    if (!this.isLoaded) {
+      delete window['addthis']
+      setTimeout(() => { this.loadScript(); }, 100);
+      this.isLoaded = true;
+    }
+
   }
 
   /**
@@ -109,13 +108,14 @@ export class ArticleComponent implements OnInit {
       if (!user) {
         this.userDetails = null;
         this.isLoggedInUser = false;
+        return;
       }
-
       this.userDetails = await this.authService.getLoggedInUserDetails();
       if (!this.userDetails) {
         this.userDetails = null;
         this.isLoggedInUser = false;
       }
+      this.isLoggedInUser = true;
       this.setFollowOrNot();
       this.setLike();
 
@@ -133,11 +133,10 @@ export class ArticleComponent implements OnInit {
     if (form.valid) {
       this.isFormSaving = true;
       const commentData = {
-        published_on: this.activeComment ? this.activeComment['published_on'] : new Date(),
-        updated_on: new Date(),
-        repliedOn: this.activeComment ? this.activeComment['repliedOn'] : (this.replyMessage ? this.replyMessage : ''),
+        published_on: this.activeComment ? this.activeComment['published_on'] : new Date().toString(),
+        replied_on: this.activeComment ? this.activeComment['replied_on'] : (this.replyMessage ? this.replyMessage : ''),
         message: this.messageDetails,
-        user_details: this.getUserDetails()
+        author: this.getUserDetails()
 
       };
       if (this.editedCommentId) {
@@ -168,7 +167,7 @@ export class ArticleComponent implements OnInit {
 
 
   saveCommentOnServer(commentData) {
-    this.articleService.createComment(this.article.uid, commentData).then(() => {
+    this.articleService.createComment(this.article.id, commentData).then(() => {
       this.isFormSaving = false;
       this.messageDetails = '';
       this.showCommentSavedMessage();
@@ -179,9 +178,9 @@ export class ArticleComponent implements OnInit {
     })
   }
 
-  editComment(commentUid: string, commentData) {
+  editComment(commentid: string, commentData) {
     this.activeComment = commentData;
-    this.editedCommentId = commentUid;
+    this.editedCommentId = commentid;
     this.messageDetails = commentData.message;
     this.replyMessage = '';
     this.scrollToEditCommentSection();
@@ -190,7 +189,7 @@ export class ArticleComponent implements OnInit {
   updateCommentOnServer(editedCommentId, commentData) {
     this.editedCommentId = '';
 
-    this.articleService.updateComment(this.article.uid, editedCommentId, commentData).then(() => {
+    this.articleService.updateComment(this.article.id, editedCommentId, commentData).then(() => {
       this.isFormSaving = false;
       this.messageDetails = '';
       this.showCommentSavedMessage();
@@ -211,7 +210,7 @@ export class ArticleComponent implements OnInit {
 
   loadMoreComments() {
     this.isCommentsLoading = true;
-    this.articleService.getArticleCommentNextPage(this.article.uid, 5, this.lastCommentDoc).subscribe(({ commentList, lastCommentDoc }) => {
+    this.articleService.getArticleCommentNextPage(this.article.id, 5, this.lastCommentDoc).subscribe(({ commentList, lastCommentDoc }) => {
       this.lastCommentDoc = lastCommentDoc
       this.articleComments = [...this.articleComments, ...commentList];
       this.isCommentsLoading = false;
@@ -227,7 +226,7 @@ export class ArticleComponent implements OnInit {
     }, 500)
   }
 
-  replyComment(commentUid: string, commentData) {
+  replyComment(commentid: string, commentData) {
     this.replyMessage = commentData.message;
     this.scrollToEditCommentSection();
   }
@@ -236,14 +235,14 @@ export class ArticleComponent implements OnInit {
   }
   reportAbuseArticle() {
     this.isReportAbuseArticleLoading = true;
-    this.articleService.updateArticleAbuse(this.article.uid).then(() => {
+    this.articleService.updateArticleAbuse(this.article.id).then(() => {
       this.isReportAbuseArticleLoading = false;
       console.log('Your suggestion saved successfully.')
     })
   }
-  reportAbuseComment(commentUid) {
+  reportAbuseComment(commentid) {
     this.isReportAbuseLoading = true;
-    this.articleService.updateArticleCommentAbuse(this.article.uid, commentUid).then(() => {
+    this.articleService.updateArticleCommentAbuse(this.article.id, commentid).then(() => {
       this.isReportAbuseLoading = false;
       console.log('Your suggestion saved successfully.')
     })
@@ -267,8 +266,7 @@ export class ArticleComponent implements OnInit {
 
   }
   setFollowOrNot() {
-    const authorId = this.article.authorObj.id;
-    this.authorService.isUserFollowing("4UoQgM8KGkYcWG6cELEvm26Gis63", this.getUserDetails().id).subscribe((data) => {
+    this.authorService.isUserFollowing(this.article.author.id, this.getUserDetails().id).subscribe((data) => {
       if (data) {
         this.isFollowing = true;
       } else {
@@ -280,12 +278,12 @@ export class ArticleComponent implements OnInit {
     this.articleService.like(this.article.id, this.getUserDetails());
   }
   disLike() {
-    this.articleService.disLike(this.article.uid, this.getUserDetails().id);
+    this.articleService.disLike(this.article.id, this.getUserDetails().id);
 
   }
   setLike() {
 
-    this.articleService.isLikedByUser(this.article.uid, this.getUserDetails().id).subscribe((data) => {
+    this.articleService.isLikedByUser(this.article.id, this.getUserDetails().id).subscribe((data) => {
       if (data) {
         this.isLike = true;
       } else {
