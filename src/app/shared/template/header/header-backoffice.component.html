@@ -1,19 +1,19 @@
 <div class="header profile-article-header">
     <div class="logo logo-dark">
-        <a href="/app">
-            <img src="assets/images/logo/logo-white.png" alt="Logo" />
-            <img class="logo-fold" src="assets/images/logo/logo-fold.png" alt="Logo" />
+        <a [routerLink]="['/']">
+            <img src="assets/images/logo/logo-white.png" alt="My Trending Stories">
+            <img class="logo-fold" src="assets/images/logo/logo-white.png" alt="My Trending Stories">
         </a>
     </div>
     <div class="logo logo-white">
-        <a href="">
-            <img src="assets/images/logo/logo-white.png" alt="Logo" />
-            <img class="logo-fold" src="assets/images/logo/logo-fold-white.png" alt="Logo" />
+        <a [routerLink]="[ '/']">
+            <img src="assets/images/logo/logo-white.png" alt="My Trending Stories">
+            <img class="logo-fold" src="assets/images/logo/logo-fold-white.png" alt="My Trending Stories">
         </a>
     </div>
     <div class="nav-wrap">
-         <ul class="nav-left">
-             <li class="desktop-toggle">
+        <ul class="nav-left">
+            <li class="desktop-toggle">
                 <a (click)="toggleFold()">
                     <i nz-icon [nzType]="isFolded ? 'menu-unfold' : 'menu-fold'" theme="outline"></i>
                 </a>
@@ -22,7 +22,7 @@
                 <a (click)="toggleExpand()">
                     <i nz-icon [nzType]="isExpand ? 'menu-fold' : 'menu-unfold'" theme="outline"></i>
                 </a>
-            </li> 
+            </li>
 
 
             <!-- <li>
@@ -34,7 +34,7 @@
                     <app-search></app-search>
                 </nz-drawer>
             </li> -->
-        </ul> 
+        </ul>
         <ul class="nav-right">
             <li>
                 <nz-select (ngModelChange)="langChangedHandler($event)" [(ngModel)]="selectedLanguage">

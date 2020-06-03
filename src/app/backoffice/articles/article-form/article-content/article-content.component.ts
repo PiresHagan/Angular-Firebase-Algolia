@@ -202,10 +202,6 @@ export class ArticleContentComponent implements OnInit {
     });
   }
 
-  setArticleForm() {
-    debugger;
-
-  }
   setFormDetails() {
     this.articleForm.setValue({
       title: this.article.title,
