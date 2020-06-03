@@ -1,18 +1,18 @@
-
-    <div class="container">
-<nz-card class="article-publish-sec">
+<div class="container">
+    <nz-card class="article-publish-sec">
         <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
-            
-            <div class="publish-image"><img class="img-fluid w-100" [src]="article?.image?.url" alt="{{article?.image.alt}}"></div>
+
+            <div class="publish-image"><img class="img-fluid w-100" [src]="article?.image?.url"
+                    alt="{{article?.image.alt}}"></div>
             <div class="publish-article-title">
                 <h2>{{article?.title}}</h2>
                 <div class="media">
-                    <nz-avatar nzSrc="{{article?.author?.avatar }}"></nz-avatar>
+                    <nz-avatar nzSrc="{{article?.author?.avatar?.url }}"></nz-avatar>
                     <div class="m-l-10">
                         <h6 class="m-b-0">{{article?.author?.fullname}}</h6>
                     </div>
                 </div>
-            </div>  
+            </div>
             <div class="m-t-30 lh-1-8 pl-2 pr-2" innerHTML="{{article?.content}}">
 
             </div>
@@ -26,6 +26,6 @@
                 </nz-form-control>
             </nz-form-item>
         </nz-skeleton>
-    
-</nz-card>
+
+    </nz-card>
 </div>

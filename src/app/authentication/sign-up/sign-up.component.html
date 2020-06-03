@@ -1,24 +1,28 @@
 <section class="is-signup-main">
-<div class="is-signup-center">
+    <div class="is-signup-center">
         <div class="row no-gutters h-100">
-            <div class="col-sm-6 col-lg-5 is-form-img" style="background-image:url('assets/images/others/sign-up-mts.png')">
+            <div class="col-sm-6 col-lg-5 is-form-img"
+                style="background-image:url('assets/images/others/sign-up-mts.png')">
                 <div class="is-banner-content">
                     <div class="is-logo">
                         <img src="assets/images/logo/logo-white.png" alt="">
                     </div>
                     <div class="is-img-title">
                         <h3>The People's Voice</h3>
-                        <p>My Trending Stories is a creative platform made easy and allows writers, videographers, photographers, artists, musicians and many more, to rack in benefits from their passion.</p>
-                        
+                        <p>My Trending Stories is a creative platform made easy and allows writers, videographers,
+                            photographers, artists, musicians and many more, to rack in benefits from their passion.</p>
+
                     </div>
                     <div class="is-signup-footer">
                         <span class="text-white">© 2019 My Trending Stories</span>
                         <ul class="list-inline">
                             <li class="list-inline-item">
-                                <a class="text-white text-link" target="_blank" href="https://mytrendingstories.com/terms/">Terms</a>
+                                <a class="text-white text-link" target="_blank"
+                                    href="https://mytrendingstories.com/terms/">Terms</a>
                             </li>
                             <li class="list-inline-item">
-                                <a class="text-white text-link" target="_blank" href="https://mytrendingstories.com/contact/">Contact</a>
+                                <a class="text-white text-link" target="_blank"
+                                    href="https://mytrendingstories.com/contact/">Contact</a>
                             </li>
                         </ul>
                     </div>
@@ -27,81 +31,88 @@
             <div class="col-sm-6  col-lg-7 bg-white">
                 <div class="is-signup-form-main">
                     <div class="is-form">
-                            <h2>Sign Up</h2>
-                            <p>Create your account to get access</p>
-                            <form nz-form [formGroup]="signUpForm" class="login-form" (ngSubmit)="submitForm()">
-                                <nz-alert nzType="error" [nzDescription]="errorSignup"  *ngIf="errorSignup">
-                                    <ng-template #errorSignup>
-                                        <ng-container>
-                                            There is already an account associated with this email. Please <a href="/login">log in</a>.
+                        <h2>Sign Up</h2>
+                        <p>Create your account to get access</p>
+                        <form nz-form [formGroup]="signUpForm" class="login-form" (ngSubmit)="submitForm()">
+                            <nz-alert nzType="error" [nzDescription]="errorSignup" *ngIf="errorSignup">
+                                <ng-template #errorSignup>
+                                    <ng-container>
+                                        There is already an account associated with this email. Please <a
+                                            href="/login">log in</a>.
+                                    </ng-container>
+                                </ng-template>
+                            </nz-alert>
+                            <nz-alert nzType="error" [nzDescription]="errorPasswordWeak" *ngIf="errorPasswordWeak">
+                                <ng-template #errorPasswordWeak>
+                                    <ng-container>
+                                        Password should be at least 6 characters.
+                                    </ng-container>
+                                </ng-template>
+                            </nz-alert>
+                            <nz-alert nzType="error" [nzDescription]="errorAgree" *ngIf="errorAgree">
+                                <ng-template #errorAgree>
+                                    <ng-container>
+                                        You must read the agreement.
+                                    </ng-container>
+                                </ng-template>
+                            </nz-alert>
+                            <nz-form-item>
+                                <!-- <nz-form-label nzRequired nzFor="fullname">Fullname</nz-form-label> -->
+                                <nz-form-control nzErrorTip="Please input your fullname!" class="is-icon">
+                                    <input type="text" nz-input formControlName="fullname" placeholder="Fullname"
+                                        id="fullname">
+                                    <img src="assets/images/sign-up/user.png" />
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item>
+                                <!-- <nz-form-label nzRequired nzFor="email">Email</nz-form-label> -->
+                                <nz-form-control nzErrorTip="The input is not valid E-mail!" class="is-icon">
+                                    <input type="text" nz-input formControlName="email" placeholder="Username"
+                                        id="email">
+                                    <img src="assets/images/sign-up/email.png" />
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item>
+                                <!-- <nz-form-label nzRequired nzFor="password">Password</nz-form-label> -->
+                                <nz-form-control nzErrorTip="Please input your Password!" class="is-icon">
+                                    <input type="password" nz-input formControlName="password" placeholder="Password"
+                                        id="password">
+                                    <img src="assets/images/sign-up/password.png" />
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item>
+                                <!-- <nz-form-label nzFor="checkPassword" nzRequired>Confirm Password</nz-form-label> -->
+                                <nz-form-control [nzErrorTip]="errorTpl" class="is-icon">
+                                    <input nz-input type="password" formControlName="checkPassword"
+                                        placeholder="Confirm Password" id="checkPassword">
+                                    <img src="assets/images/sign-up/password.png" />
+                                    <ng-template #errorTpl let-control>
+                                        <ng-container *ngIf="control.hasError('required')">
+                                            Please confirm your password!
+                                        </ng-container>
+                                        <ng-container *ngIf="control.hasError('confirm')">
+                                            Two passwords that you enter is inconsistent!
                                         </ng-container>
                                     </ng-template>
-                                </nz-alert>
-                                <nz-alert nzType="error" [nzDescription]="errorPasswordWeak"  *ngIf="errorPasswordWeak">
-                                    <ng-template #errorPasswordWeak>
-                                        <ng-container>
-                                            Password should be at least 6 characters.
-                                        </ng-container>
-                                    </ng-template>
-                                </nz-alert>
-                                <nz-alert nzType="error" [nzDescription]="errorAgree"  *ngIf="errorAgree">
-                                        <ng-template #errorAgree>
-                                            <ng-container>
-                                                You must read the agreement.
-                                            </ng-container>
-                                        </ng-template>
-                                    </nz-alert>
+                                </nz-form-control>
+                            </nz-form-item>
+                            <div>
                                 <nz-form-item>
-                                    <!-- <nz-form-label nzRequired nzFor="fullname">Fullname</nz-form-label> -->
-                                    <nz-form-control nzErrorTip="Please input your fullname!" class="is-icon">
-                                        <input type="text" nz-input formControlName="fullname" placeholder="Fullname" id="fullname">
-                                        <img src="assets/images/sign-up/user.png" />
+                                    <nz-form-control>
+                                        <label nz-checkbox formControlName="agree" nzRequired
+                                            style="margin-right:0px"><span>I have read the</span></label><a
+                                            href="https://mytrendingstories.com/terms/" target="_blank">agreement</a>
                                     </nz-form-control>
                                 </nz-form-item>
                                 <nz-form-item>
-                                    <!-- <nz-form-label nzRequired nzFor="email">Email</nz-form-label> -->
-                                    <nz-form-control nzErrorTip="The input is not valid E-mail!"  class="is-icon">
-                                        <input type="text" nz-input formControlName="email" placeholder="Username" id="email">
-                                        <img src="assets/images/sign-up/email.png" />
+                                    <nz-form-control>
+                                        <div class="text-center">
+                                            <button nz-button class="is-login-btn" [nzType]="'primary'">Sign Up</button>
+                                        </div>
                                     </nz-form-control>
                                 </nz-form-item>
-                                <nz-form-item>
-                                    <!-- <nz-form-label nzRequired nzFor="password">Password</nz-form-label> -->
-                                    <nz-form-control nzErrorTip="Please input your Password!" class="is-icon">
-                                        <input type="password" nz-input formControlName="password" placeholder="Password" id="password">
-                                        <img src="assets/images/sign-up/password.png" />
-                                    </nz-form-control>
-                                </nz-form-item>
-                                <nz-form-item>
-                                    <!-- <nz-form-label nzFor="checkPassword" nzRequired>Confirm Password</nz-form-label> -->
-                                    <nz-form-control [nzErrorTip]="errorTpl"  class="is-icon">
-                                        <input nz-input type="password" formControlName="checkPassword"  placeholder="Confirm Password" id="checkPassword">
-                                        <img src="assets/images/sign-up/password.png" />
-                                        <ng-template #errorTpl let-control>
-                                            <ng-container *ngIf="control.hasError('required')">
-                                                Please confirm your password!
-                                            </ng-container>
-                                            <ng-container *ngIf="control.hasError('confirm')">
-                                                Two passwords that you enter is inconsistent!
-                                            </ng-container>
-                                        </ng-template>
-                                    </nz-form-control>
-                                </nz-form-item>
-                                <div>
-                                    <nz-form-item>
-                                        <nz-form-control>
-                                            <label nz-checkbox formControlName="agree" nzRequired style="margin-right:0px"><span>I have read the</span></label><a href="https://mytrendingstories.com/terms/" target="_blank">agreement</a>
-                                        </nz-form-control>
-                                    </nz-form-item>
-                                    <nz-form-item>
-                                        <nz-form-control>
-                                            <div class="text-center">
-                                                <button nz-button class="is-login-btn" [nzType]="'primary'">Sign Up</button>
-                                            </div>
-                                        </nz-form-control>
-                                    </nz-form-item>   
-                                </div>
-                                <div class="is-login-with-other">
+                            </div>
+                            <!-- <div class="is-login-with-other">
                                     <div class="is-or-txt">
                                         <span>Or sign up using</span>
                                     </div>
@@ -116,9 +127,9 @@
                                             <a href="#"><img src="assets/images/sign-up/google.png" /></a>
                                         </li>
                                     </ul>
-                                </div>
-                            </form>
-                    </div>  
+                                </div> -->
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

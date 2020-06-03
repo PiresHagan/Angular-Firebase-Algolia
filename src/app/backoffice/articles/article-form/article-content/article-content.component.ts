@@ -172,7 +172,10 @@ export class ArticleContentComponent implements OnInit {
     return {
       slug: this.userDetails.slug ? this.userDetails.slug : '',
       fullname: this.userDetails.fullname,
-      avatar: this.userDetails.avatar?.url ? this.userDetails.avatar?.url : '',
+      avatar: {
+        url: this.userDetails.avatar?.url ? this.userDetails.avatar?.url : '',
+        alt: this.userDetails.avatar?.alt ? this.userDetails.avatar?.alt : ''
+      },
       id: this.userDetails.id
     }
   }

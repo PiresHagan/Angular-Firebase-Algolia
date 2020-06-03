@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map, take } from 'rxjs/operators';
 import { Article } from '../interfaces/article.type';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { ACTIVE } from '../constants/status-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -126,7 +127,8 @@ export class ArticleService {
   getHeroLargeArticle(lang) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('lang', "==", lang)
-      .orderBy('created_at', 'desc')
+      .where('status', "==", ACTIVE)
+      .orderBy('published_at', 'desc')
       .limit(1)
     ).snapshotChanges().pipe(
       map(actions => {
@@ -142,7 +144,8 @@ export class ArticleService {
   getHeroSmallArticle(lang) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('lang', "==", lang)
-      .orderBy('created_at', 'desc')
+      .where('status', "==", ACTIVE)
+      .orderBy('published_at', 'desc')
       .limit(5)
     ).snapshotChanges().pipe(
       map(actions => {
@@ -159,7 +162,8 @@ export class ArticleService {
   getCategoryRow(slug: string) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('category.slug', '==', slug)
-      .orderBy('created_at', 'desc')
+      .where('status', "==", ACTIVE)
+      .orderBy('published_at', 'desc')
       .limit(5)
     ).snapshotChanges().pipe(
       map(actions => {
@@ -175,7 +179,8 @@ export class ArticleService {
   getCategoryFirst(slug: string) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('category.slug', '==', slug)
-      .orderBy('created_at', 'desc')
+      .where('status', "==", ACTIVE)
+      .orderBy('published_at', 'desc')
       .limit(1)
     ).snapshotChanges().pipe(
       map(actions => {
@@ -191,7 +196,8 @@ export class ArticleService {
   getCategory(slug: string) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('category.slug', '==', slug)
-      .orderBy('created_at', 'desc')
+      .where('status', "==", ACTIVE)
+      .orderBy('published_at', 'desc')
       .limit(30)
     ).snapshotChanges().pipe(
       map(actions => {
@@ -206,7 +212,8 @@ export class ArticleService {
   getArticlesByAuthor(authorId: string, limit: number = 10) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('author.id', '==', authorId)
-      .orderBy('created_at', 'desc')
+      .where('status', "==", ACTIVE)
+      .orderBy('published_at', 'desc')
       .limit(limit)
     ).snapshotChanges().pipe(
       map(actions => {
@@ -256,12 +263,15 @@ export class ArticleService {
     }
     let dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
       .where("category.slug", "==", categorySlug)
+      .where('status', "==", ACTIVE)
+      .orderBy('published_at', 'desc')
       .limit(limit)
     )
     switch (navigation) {
       case 'next':
         dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-          //  .orderBy('published_on', 'desc')
+          .where('status', "==", ACTIVE)
+          .orderBy('published_at', 'desc')
           .limit(limit)
           .startAfter(lastVisible))
         break;
