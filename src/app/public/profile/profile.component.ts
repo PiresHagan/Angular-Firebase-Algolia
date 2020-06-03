@@ -49,11 +49,18 @@ export class ProfileComponent implements OnInit {
         this.getArticleList(author['id']);
         this.setUserDetails();
 
-        this.titleService.setTitle(`${this.authorDetails.first_name} ${this.authorDetails?.last_name}`);
-        this.metaTagService.addTag({
-          name: 'Biography', 
-          content: `${this.authorDetails?.biography_en}`
-        });
+        this.titleService.setTitle(`${this.authorDetails.fullname}`);
+
+        this.metaTagService.addTags([
+          {name: "description", content: `${this.authorDetails[`biography_${this.authorDetails.lang}`].substring(0, 154)}`},
+          {name: "keywords", content: `${this.authorDetails.fullname}`},
+          {name: "twitter:card", content: `${this.authorDetails[`biography_${this.authorDetails.lang}`]}`},
+          {name: "og:title", content: `${this.authorDetails.fullname}`},
+          {name: "og:type", content: `${this.authorDetails.type}`},
+          {name: "og:url", content: `${window.location.href}`},
+          {name: "og:image", content: `${this.authorDetails.avatar.url}`},
+          {name: "og:description", content: `${this.authorDetails[`biography_${this.authorDetails.lang}`]}`}
+        ]);
       });
     });
   }
