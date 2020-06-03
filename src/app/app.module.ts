@@ -18,6 +18,7 @@ import { NgChartjsModule } from 'ng-chartjs';
 import { ThemeConstantService } from './shared/services/theme-constant.service';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
+import { AngularFireAnalyticsModule, ScreenTrackingService, UserTrackingService, CONFIG } from '@angular/fire/analytics';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
@@ -54,6 +55,7 @@ registerLocaleData(en);
         SharedModule,
         NgChartjsModule,
         AngularFireModule.initializeApp(environment.firebase),
+        AngularFireAnalyticsModule,
         AngularFireAuthModule,
         AngularFirestoreModule,
         NgxMaskModule.forRoot(options),
@@ -69,11 +71,12 @@ registerLocaleData(en);
             provide: NZ_I18N,
             useValue: en_US,
         },
-
         TranslateStore,
         LanguageService,
         AuthService,
-        PreviousRouteService
+        PreviousRouteService,
+        ScreenTrackingService,
+        UserTrackingService
 
     ],
     bootstrap: [AppComponent]
