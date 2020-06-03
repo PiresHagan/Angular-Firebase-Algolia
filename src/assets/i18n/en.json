@@ -131,5 +131,12 @@
     "import": "Import",
     "importContact": "Contact",
     "shareProfile": "Share us",
-    "followProfile": "Follow us"
+    "followProfile": "Follow us",
+    "contactMtsTitle":"Talk to My Trending Stories",
+    "contactFullName":"Full name",
+    "contactEmail":"Email",
+    "contactSubject":"Subject",
+    "contactMessage":"Message",
+    "contactSubmit":"Submit"
+
 }

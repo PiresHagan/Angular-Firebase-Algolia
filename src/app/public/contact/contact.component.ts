@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
+import { ThemeConstantService } from 'src/app/shared/services/theme-constant.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-contact',
@@ -10,7 +12,8 @@ export class ContactComponent implements OnInit {
 
   constructor(
     private titleService: Title,
-    private metaTagService: Meta
+    private metaTagService: Meta,
+    public translate: TranslateService
   ) { }
 
   ngOnInit(): void {

@@ -129,5 +129,11 @@
     "importName": "Name",
     "importEmail": "Email",
     "import": "Import",
-    "importContact": "Contact"
+    "importContact": "Contact",
+    "contactMtsTitle":"Parlez à mes histoires tendances",
+    "contactFullName":"Nom complet",
+    "contactEmail":"Email",
+    "contactSubject":"Matière",
+    "contactMessage":"Message",
+    "contactSubmit":"Soumettre"
 }

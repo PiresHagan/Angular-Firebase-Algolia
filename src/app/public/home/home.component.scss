@@ -95,8 +95,8 @@
         flex: 1;
         white-space: nowrap;
       img{
-        width: 55px;
-        height: 55px;
+        width: 40px;
+        height: 40px;
         border-radius: 100%;
 
       }
@@ -461,18 +461,16 @@
     }
   }
   .item-card {
+    width:100%;
+    height: 100%;
     overflow: hidden;
-    min-height: 455px;
     background: #fff;
     box-shadow: 0px 4px 7px 1px rgba(0, 0, 0, 0.1);
     position: relative;
     a {
       display: block;
-      position: absolute;
       width: 100%;
       height: 100%;
-      top:0px;
-      left:0px;
       .item-card-content{
         padding: 10px;
         .item-card-category {
@@ -511,8 +509,8 @@
         }
         
         .avatar {
-          width: 55px;
-          height: 55px;
+          width: 40px;
+          height: 40px;
           color: transparent;
           border-radius: 100%;
           -webkit-transition: all 0.5s ease;
@@ -720,6 +718,8 @@
     }
       .is-hero{ 
       margin-top: 50px;
+      margin-left: -9px;
+      margin-right: -9px;
       .no-pl{
         padding-left: 9px;
         margin-bottom: 18px;
@@ -768,14 +768,14 @@
         }
           .is-card-content{
             .is-small-title {
-              font-size: 28px;
+              font-size: 24px;
               color: #fff;
               line-height: 32px;
               span{
                 padding-bottom: 0px;
               }
               div{
-                line-height: 36px;
+                line-height: 30px;
               }
             }
             .is-card-description{
@@ -846,8 +846,28 @@
 
   }
 
+  @media screen and (max-width:375px){
+      .is-hero{ 
+      .is-hero-card{
+        .is-profile-main{
+          flex-wrap: wrap;
+          .is-card-btn{
+            text-align: left;
+            padding-left: 32px;
+            button{
+              font-size: 15px;
+              padding-top: 0px;
+            }
+          }
+        }
+        
+      
+    }
+  }
+}
 
-  @media screen and (min-width:581px) and (max-width:767px){
+
+  @media screen and (min-width:581px) and (max-width:768px){
     .pl-18{
       padding-left:9px !important;
       margin-bottom: 18px;
@@ -895,6 +915,7 @@
           .is-card-btn{
             button{
               font-size: 15px;
+              padding-left: 0px;
             }
           }
         }
@@ -970,8 +991,9 @@
   }
   }
 
-  @media screen and (min-width:768px) and (max-width:991px){
+  @media screen and (min-width:769px) and (max-width:991px){
     .is-hero{ 
+      margin-top: 50px;
       .is-bottom-hero{
         width:100%;
         .is-row-height{
@@ -984,7 +1006,16 @@
           }
         }
       }
-
+      .is-card-content{
+        .is-small-title {
+          font-size: 28px;
+          line-height: 36px;
+          div{
+            line-height: 36px;
+          }
+        }
+        
+      }
       .is-hero-card{
         padding: 15px;
         .is-profile-main{
@@ -1001,6 +1032,7 @@
           .is-card-btn{
             button{
               font-size: 15px;
+              padding-left: 0px;
             }
           }
         }
@@ -1072,7 +1104,25 @@
   }
   }
   @media screen and (min-width:992px) and (max-width:1200px){
-
+    .is-hero{ 
+      margin-top: 50px;
+      .is-hero-card{
+        .is-profile-main{
+          flex-wrap: wrap;
+          .divider{
+            display: none;
+          }
+          .is-card-btn{
+            text-align: left;
+            padding-left: 32px;
+            button{
+              font-size: 15px;
+            }
+          }
+        }
+        
+      
+    }
     .is-follower-member{
       .container{
         width:100%;
@@ -1106,9 +1156,33 @@
         }
       }
     }
-    
+    .is-card-content{
+      .is-small-title {
+        font-size: 28px !important;
+        color: #fff;
+        line-height: 32px !important;
+        span{
+          padding-bottom: 0px;
+        }
+        div{
+          line-height: 36px;
+        }
+      }
+      .is-card-description{
+        font-size: 16px;
+      }
+      .is-read-more{
+        font-size: 18px;
+      }
+      
+    }
+  }
   }
 
-
-
+  @media screen and (min-width:992px) and (max-width:1350px){
+    .col-sm-15{
+      width:25%;
+      margin-bottom: 20px;
+    }
+  }
 

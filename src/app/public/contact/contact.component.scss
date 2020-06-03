@@ -24,6 +24,7 @@
     border:1px solid #eee;
     box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.02);
     background: #fff;
+    margin-bottom: 40px;
     .row{
         .col-lg-6{
             min-height: 600px;
@@ -51,7 +52,7 @@
             color:#fff;
         }
         h3{
-            font-size: 36px;
+            font-size: 33px;
             font-family: "josefin_sansregular";
             color:#fff;
         }
@@ -147,7 +148,15 @@
         border: 0px;
     }
 }
-
+@media screen and (max-width:580px){
+    
+    .more-info {
+        .email-info {
+            display: block;
+        }
+    }
+    
+}
 @media screen and (max-width:767px){
     .contact-form{
         margin-top:50px;
