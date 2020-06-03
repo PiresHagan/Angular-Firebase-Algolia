@@ -1,3 +1,3 @@
-export const DRAFT = 1;
-export const ACTIVE = 2;
-export const INACTIVE = 3;
+export const DRAFT = 'draft';
+export const ACTIVE = 'published';
+export const INACTIVE = 'inactive';

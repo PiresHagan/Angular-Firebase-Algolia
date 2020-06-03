@@ -34,7 +34,7 @@
                                 <span>{{'profileShare' | translate}}</span>
                             </a>
                         </li> -->
-                        <li>
+                        <li *ngIf="isLoggedInUser">
 
                             <a class="follow-btn" *ngIf="!isFollowing" (click)="follow(authorDetails.id)">
                                 <img src="assets/images/article/icon/follow.png" />

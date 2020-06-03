@@ -111,13 +111,15 @@ export class ArticleComponent implements OnInit {
         return;
       }
       this.userDetails = await this.authService.getLoggedInUserDetails();
-      if (!this.userDetails) {
+      if (this.userDetails) {
+        this.isLoggedInUser = true;
+        this.setFollowOrNot();
+        this.setLike();
+      } else {
         this.userDetails = null;
         this.isLoggedInUser = false;
       }
-      this.isLoggedInUser = true;
-      this.setFollowOrNot();
-      this.setLike();
+
 
 
     })

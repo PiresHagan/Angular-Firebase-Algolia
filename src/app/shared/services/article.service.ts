@@ -265,8 +265,15 @@ export class ArticleService {
 
   createArticle(article) {
     return new Promise((resolve, reject) => {
+      this.checkSlug(article.slug).then((isSlugAvailable) => {
+        if (isSlugAvailable) {
+          alert(article.slug = article.slug + '-1');
+        }
+      })
+
+
       this.db.collection(`${this.articleCollection}`).add(article).then(() => {
-        resolve()
+        //resolve()
       })
     }).catch((error) => {
       console.log(error)
@@ -325,6 +332,23 @@ export class ArticleService {
     return this.db.collection(`${this.articleCollection}`).doc(`${articleId}`).set(articleDetails)
   }
   async checkSlug(slug) {
+
+    return new Promise((resolve, reject) => {
+      this.db.collection<Article[]>(this.articleCollection, ref => ref
+        .where('slug', '==', slug)
+      ).snapshotChanges().pipe(
+        map(actions => {
+          actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+          alert(actions && actions.length);
+          resolve(actions && actions.length ? true : false);
+        })
+      )
+    })
+
 
   }
 

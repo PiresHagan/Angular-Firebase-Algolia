@@ -17,7 +17,7 @@ export class LanguageService {
     "code": "fr",
     "labal": "French",
   }, {
-    "code": "sp",
+    "code": "es",
     "labal": "Spanish",
   }
   ]

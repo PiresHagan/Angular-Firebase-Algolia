@@ -20,7 +20,7 @@ export class ArticleSingleComponent implements OnInit {
 
   loading = false;
   authConfig: any;
-  article: Article;
+  article: Article = {};
   isLoggedInUser: boolean = false;
   userDetails;
   articleComments;

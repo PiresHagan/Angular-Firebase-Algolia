@@ -12,7 +12,7 @@
                                 alt="{{article?.author?.avatar?.alt}}" />
                         </a>
                     </div>
-                    <div class="is-author-name-sec is-divider">
+                    <div class="is-author-name-sec is-divider" *ngIf="isLoggedInUser">
                         <span class="is-author-name" itemprop="author" itemscope="">
                             <a [routerLink]="['/profile/',article?.author?.slug]" itemprop="url" *ngIf="article">
                                 <span class="name" itemprop="name">
@@ -28,7 +28,7 @@
                             </a>
                         </span>
                     </div>
-                    <div class="is-like-sec is-divider">
+                    <div class="is-like-sec is-divider" *ngIf="isLoggedInUser">
                         <!-- <a class="is-like" href="" data-toggle="modal" data-target="#modal-login"><img
                                 src="assets/images/article/icon/like.png" />{{'like' | translate}} <span
                                 class="likes-count">{{articleLikes}}</span></a> -->
@@ -49,7 +49,8 @@
                     </div>
                     <div class="left-media is-divider">
                         <h3>{{'shareArticle' | translate}}</h3>
-                        <div class="addthis_inline_share_toolbox"></div>
+                        <div class="sharethis-inline-share-buttons"></div>
+
                     </div>
                     <div class="is-influencer-btn">
                         <span>
@@ -239,86 +240,5 @@
         </div>
 
     </div>
-    <!-- <div class="article-related">
-        <div class="container">
-            <h2>{{'relatedArticle' | translate}}</h2>
 
-            <div class="row">
-
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="item-card article ">
-                        <a href="/en/article/life-choices/">
-                            <div class="img-container">
-                                <img src="https://mytrendingstories.com//media/photologue/photos/cache/road-nature-lines-country-medium_article_small.jpg"
-                                    alt="featured image" />
-                            </div>
-                            <div class="caption">
-                                <h3>
-                                    <span>Opinion</span>
-                                    Life Choices
-                                </h3>
-                                <button type="button" class="is-read-more">{{'readMore' | translate}} <img
-                                        src="assets/images/read-more-icon-red.png" /></button>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="item-card article ">
-                        <a href="/en/article/let-the-music-play/">
-
-                            <div class="img-container">
-                                <img src="https://mytrendingstories.com//media/photologue/photos/cache/music%20art_article_small.jpeg"
-                                    alt="featured image" />
-                            </div>
-                            <div class="caption">
-                                <h3><span>Opinion</span>LET THE MUSIC PLAY</h3>
-                                <button type="button" class="is-read-more">{{'readMore' | translate}} <img
-                                        src="assets/images/read-more-icon-red.png" /></button>
-
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="item-card article ">
-                        <a href="/en/article/mindfulness-impacting-racial-justice/">
-
-                            <div class="img-container">
-                                <img src="https://mytrendingstories.com//media/photologue/photos/cache/multi-cultural-face-blog_article_small.jpg"
-                                    alt="featured image" />
-                            </div>
-                            <div class="caption">
-                                <h3><span>Opinion</span>Mindfulness Impacting Racial Justice</h3>
-                                <button type="button" class="is-read-more">{{'readMore' | translate}} <img
-                                        src="assets/images/read-more-icon-red.png" /></button>
-
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="item-card article ">
-                        <a href="/en/article/let-the-music-play/">
-
-                            <div class="img-container">
-                                <img src="https://mytrendingstories.com//media/photologue/photos/cache/music%20art_article_small.jpeg"
-                                    alt="featured image" />
-                            </div>
-                            <div class="caption">
-                                <h3><span>Opinion</span>LET THE MUSIC PLAY</h3>
-                                <button type="button" class="is-read-more">{{'readMore' | translate}} <img
-                                        src="assets/images/read-more-icon-red.png" /></button>
-
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div> -->
 </section>
