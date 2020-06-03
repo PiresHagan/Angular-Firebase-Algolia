@@ -80,7 +80,7 @@
                                 </a>
                             </div>
                             <div class="is-date">
-                                {{article?.created_at | date:'medium' }}
+                                {{article?.published_at | date:'medium' }}
                                 <a class="category cat-purple" [routerLink]="['/category/',article?.category?.slug]"
                                     *ngIf="article">
                                     {{article?.category.title}}

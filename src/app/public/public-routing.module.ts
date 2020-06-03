@@ -105,15 +105,15 @@ const routes: Routes = [
     }
 
   },
-  {
-    path: '**',
-    component: HomeComponent,
-    data: {
-      title: 'Home',
-      headerDisplay: "none"
-    }
+  // {
+  //   path: '**',
+  //   component: HomeComponent,
+  //   data: {
+  //     title: 'Home',
+  //     headerDisplay: "none"
+  //   }
 
-  },
+  // },
 
 ];
 

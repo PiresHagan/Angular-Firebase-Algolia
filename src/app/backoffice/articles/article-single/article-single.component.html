@@ -6,7 +6,7 @@
                 <nz-avatar nzSrc="{{article.author?.avatar}}"></nz-avatar>
                 <div class="m-l-10">
                     <h6 class="m-b-0">{{article.author?.fullname}}</h6>
-                    <span class="text-muted font-size-13">{{article.published_on | date:'medium'}}</span>
+                    <span class="text-muted font-size-13">{{article.published_at | date:'medium'}}</span>
                 </div>
             </div>
             <img class="img-fluid w-100" [src]="article?.image?.url" alt="">

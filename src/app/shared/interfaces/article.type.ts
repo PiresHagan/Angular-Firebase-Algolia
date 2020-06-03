@@ -19,4 +19,5 @@ export interface Article {
     likes_count?: number;
     published_on?: string;
     created_at?: string;
+    published_at?: string;
 }

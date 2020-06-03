@@ -54,7 +54,7 @@ export class ArticleListComponent implements OnInit {
       const offset = event.target.documentElement.offsetHeight
       if (top > height - offset - 1 - 100 && this.lastVisible && !this.loadingMore) {
         this.loadingMore = true;
-        this.articleService.getArticles('', null, 'next', this.lastVisible).subscribe((data) => {
+        this.articleService.getArticles(this.userDetails.id, null, 'next', this.lastVisible).subscribe((data) => {
           this.loadingMore = false;
           this.articles = [...this.articles, ...data.articleList];
           this.lastVisible = data.lastVisible;

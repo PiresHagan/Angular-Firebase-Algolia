@@ -15,7 +15,10 @@ import { Title, Meta } from '@angular/platform-browser';
 export class CategoryComponent implements OnInit {
   category: any;
   articles: any[];
-
+  loading: boolean = true;
+  loadingMore: boolean = false;
+  lastVisible: any = null;
+  slug = '';
   constructor(
     private categoryService: CategoryService,
     private articleService: ArticleService,
@@ -29,15 +32,16 @@ export class CategoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    window.addEventListener('scroll', this.scrollEvent, true);
     this.route.paramMap.subscribe(params => {
       console.log('Category Slug', params.get('slug'));
 
       const slug = params.get('slug');
+      this.slug = slug;
 
       this.categoryService.getCategoryBySlug(slug).subscribe(category => {
         this.category = category;
-        
+
         this.titleService.setTitle(`${this.category?.title}`);
 
         this.metaTagService.updateTag({
@@ -48,23 +52,41 @@ export class CategoryComponent implements OnInit {
 
         this.metaTagService.addTags([
           // {name: "description", content: `${this.category.description.substring(0, 154)}`},
-          {name: "keywords", content: `${this.category.title}`},
+          { name: "keywords", content: `${this.category.title}` },
           // {name: "twitter:card", content: `${this.category.description}`},
-          {name: "og:title", content: `${this.category.title}`},
-          {name: "og:type", content: `category`},
-          {name: "og:url", content: `${window.location.href}`},
+          { name: "og:title", content: `${this.category.title}` },
+          { name: "og:type", content: `category` },
+          { name: "og:url", content: `${window.location.href}` },
           //{name: "og:image", content: `${this.category.image.url}`},
           //{name: "og:description", content: `${this.category.description}`}
         ]);
       });
 
-      this.articleService.getCategory(slug).subscribe(articles => {
-        this.articles = articles;
 
-        console.log('Articles', articles);
+      this.articleService.getArticlesBySlug(20, '', this.lastVisible, this.slug).subscribe((data) => {
+        this.articles = data.articleList;
+        this.lastVisible = data.lastVisible;
+        this.loading = false;
+
       });
-
     });
+  }
+
+  scrollEvent = (event: any): void => {
+    if (event.target && event.target.documentElement) {
+      const top = event.target.documentElement.scrollTop
+      const height = event.target.documentElement.scrollHeight
+      const offset = event.target.documentElement.offsetHeight
+      if (top > height - offset - 1 - 100 && this.lastVisible && !this.loadingMore) {
+        this.loadingMore = true;
+        this.articleService.getArticlesBySlug(20, 'next', this.lastVisible, this.slug).subscribe((data) => {
+          this.loadingMore = false;
+          this.articles = [...this.articles, ...data.articleList];
+          this.lastVisible = data.lastVisible;
+        });
+      }
+    }
+
   }
 
 }

@@ -57,7 +57,7 @@ export class ArticlePublishComponent implements OnInit {
   }
   savePublishStatus() {
     this.isFormSaving = true;
-    this.articleService.updateArticleImage(this.articleId, { status: ACTIVE, published_on: new Date().toString() }).then(() => {
+    this.articleService.updateArticleImage(this.articleId, { status: ACTIVE, published_at: new Date().toString() }).then(() => {
       this.isFormSaving = false;
       this.showSuccess();
 

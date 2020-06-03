@@ -250,6 +250,36 @@ export class ArticleService {
     );
   }
 
+  getArticlesBySlug(limit: number = 10, navigation: string = "first", lastVisible = null, categorySlug: string = null) {
+    if (!limit) {
+      limit = 10;
+    }
+    let dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+      .where("category.slug", "==", categorySlug)
+      .limit(limit)
+    )
+    switch (navigation) {
+      case 'next':
+        dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+          //  .orderBy('published_on', 'desc')
+          .limit(limit)
+          .startAfter(lastVisible))
+        break;
+    }
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        articleList: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+        lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
+    })
+    );
+  }
+
   updateArticleAbuse(articleId: string) {
     return new Promise<any>((resolve, reject) => {
       this.db.collection(`${this.articleCollection}`).doc(`${articleId}`).update({ is_abused: true }).then(() => {
@@ -269,8 +299,8 @@ export class ArticleService {
   createArticle(article) {
     return new Promise((resolve, reject) => {
       article.slug = article.slug + '-' + this.makeid()
-      this.db.collection(`${this.articleCollection}`).add(article).then(() => {
-        //resolve()
+      this.db.collection(`${this.articleCollection}`).add(article).then((articleData) => {
+        resolve(articleData)
       })
     }).catch((error) => {
       console.log(error)
