@@ -166,3 +166,13 @@
 }
 
 
+@media screen and (min-width:992px) and (max-width:1450px){
+    .common-layout {
+            .page-container {
+                &.dasboard-container{
+                    padding-left: 280px;
+                }
+            }
+       
+    }
+}

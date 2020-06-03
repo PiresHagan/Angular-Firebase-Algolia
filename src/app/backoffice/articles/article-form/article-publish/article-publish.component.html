@@ -3,7 +3,7 @@
 <nz-card class="article-publish-sec">
         <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
             
-            <img class="img-fluid w-100" [src]="article?.image?.url" alt="{{article?.image.alt}}">
+            <div class="publish-image"><img class="img-fluid w-100" [src]="article?.image?.url" alt="{{article?.image.alt}}"></div>
             <div class="publish-article-title">
                 <h2>{{article?.title}}</h2>
                 <div class="media">
@@ -13,13 +13,13 @@
                     </div>
                 </div>
             </div>  
-            <div class="m-t-30 lh-1-8" innerHTML="{{article?.content}}">
+            <div class="m-t-30 lh-1-8 pl-2 pr-2" innerHTML="{{article?.content}}">
 
             </div>
             <hr>
             <nz-form-item>
                 <nz-form-control>
-                    <div>
+                    <div class="pl-2">
                         <button nz-button class="login-form-button" [nzLoading]="isFormSaving" [nzType]="'primary'"
                             (click)="savePublishStatus()">{{'artPublish' |translate}}</button>
                     </div>
