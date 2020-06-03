@@ -99,8 +99,8 @@
 </section>
 
 <section class="is-cat-box-card-main">
-    <div class="cat-box" *ngFor="let category of categories">
-        <div class="container">
+    <div class="cat-box" *ngFor="let category of categories | async ">
+        <div class="container" *ngIf="(slugWiseData[category.slug] |async)?.length">
             <div class="cat-box-title">
                 <div class="is-comman-title">
                     {{category.title}}
@@ -110,7 +110,7 @@
             </div>
             <div class="cat-box-gallery">
                 <div class="row article-row">
-                    <div class="col-sm-15 box_shadow" *ngFor="let article of category.articles">
+                    <div class="col-sm-15 box_shadow" *ngFor="let article of slugWiseData[category.slug] | async">
 
                         <div class="item-card item-card-life-and-styles">
                             <a [routerLink]="['/article/',article.slug]">

@@ -123,8 +123,9 @@ export class ArticleService {
   }
 
 
-  getHeroLargeArticle() {
+  getHeroLargeArticle(lang) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
+      .where('lang', "==", lang)
       .orderBy('created_at', 'desc')
       .limit(1)
     ).snapshotChanges().pipe(
@@ -138,8 +139,9 @@ export class ArticleService {
     );
   }
 
-  getHeroSmallArticle() {
+  getHeroSmallArticle(lang) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
+      .where('lang', "==", lang)
       .orderBy('created_at', 'desc')
       .limit(5)
     ).snapshotChanges().pipe(
@@ -152,6 +154,7 @@ export class ArticleService {
       })
     );
   }
+
 
   getCategoryRow(slug: string) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref

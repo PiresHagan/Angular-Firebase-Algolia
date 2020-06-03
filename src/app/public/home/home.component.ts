@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { ThemeConstantService } from 'src/app/shared/services/theme-constant.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Title, Meta } from '@angular/platform-browser';
+import { CategoryService } from 'src/app/shared/services/category.service';
+import { LanguageService } from 'src/app/shared/services/language.service';
+import { Category } from 'src/app/shared/interfaces/category.type';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -19,16 +22,19 @@ export class HomeComponent implements OnInit {
   creative: any;
   entertainment: any;
   life: any;
-  categories: any[] = new Array();
   showTooltip: string = '';
-
+  selectedLanguage: string = "";
+  slugWiseData = {};
+  categories;
 
   constructor(
     private articleService: ArticleService,
     public translate: TranslateService,
     private themeService: ThemeConstantService,
     private titleService: Title,
-    private metaTagService: Meta
+    private metaTagService: Meta,
+    private categoryService: CategoryService,
+    private languageService: LanguageService
   ) {
 
   }
@@ -36,107 +42,66 @@ export class HomeComponent implements OnInit {
     this.translate.use(lang);
   }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.titleService.setTitle("Home");
 
     this.metaTagService.addTags([
-      {name: "description", content: "My trending stories home page"},
-      {name: "keywords", content: "Home"},
-      {name: "twitter:card", content: "My trending stories home page"},
-      {name: "og:title", content: "Home"},
-      {name: "og:type", content: "home"},
-      {name: "og:url", content: `${window.location.href}`},
+      { name: "description", content: "My trending stories home page" },
+      { name: "keywords", content: "Home" },
+      { name: "twitter:card", content: "My trending stories home page" },
+      { name: "og:title", content: "Home" },
+      { name: "og:type", content: "home" },
+      { name: "og:url", content: `${window.location.href}` },
       // {name: "og:image", content: `${this.authorDetails.avatar.url}`},
-      {name: "og:description", content: "My trending stories home page"}
+      { name: "og:description", content: "My trending stories home page" }
     ]);
 
-    this.articleService.getHeroLargeArticle().subscribe(article => {
+
+    this.selectedLanguage = this.languageService.getSelectedLanguage();
+
+    this.articleService.getHeroLargeArticle(this.selectedLanguage).subscribe(article => {
       this.heroLarge = article[0];
     });
 
 
-    this.articleService.getHeroSmallArticle().subscribe(articles => {
+    this.articleService.getHeroSmallArticle(this.selectedLanguage).subscribe(articles => {
       this.heroSmall = articles;
     });
 
 
-    this.articleService.getCategoryRow('business').subscribe(articles => {
-      const category = {
-        'articles': articles,
-        'title': 'Business',
-        'slug': 'business',
-        'class': 'cat-light-blue',
-        'item-card': 'item-card-business',
-      };
-      this.categories.push(category);
-    });
 
-    this.articleService.getCategoryRow('creative').subscribe(articles => {
-      const category = {
-        'articles': articles,
-        'title': 'Creative',
-        'slug': 'creative',
-        'class': 'cat-orange',
-        'item-card': 'item-card-creative',
-      };
-      this.categories.push(category);
-    });
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.selectedLanguage = this.languageService.getSelectedLanguage()
+      this.categories = this.categoryService.getAll();
 
-    this.articleService.getCategoryRow('entertainment').subscribe(articles => {
-      const category = {
-        'articles': articles,
-        'title': 'Entertainment',
-        'slug': 'entertainment',
-        'class': 'cat-red',
-        'item-card': 'item-card-entertainment',
-      };
-      this.categories.push(category);
-    });
+      this.articleService.getHeroLargeArticle(this.selectedLanguage).subscribe(article => {
+        this.heroLarge = article[0];
+      });
 
-    this.articleService.getCategoryRow('life-and-styles').subscribe(articles => {
-      const category = {
-        'articles': articles,
-        'title': 'Life and styles',
-        'slug': 'life-and-styles',
-        'class': 'cat-yellow',
-        'item-card': 'item-card-life-and-styles',
-      };
-      this.categories.push(category);
-    });
 
-    this.articleService.getCategoryRow('news').subscribe(articles => {
-      const category = {
-        'articles': articles,
-        'title': 'News',
-        'slug': 'news',
-        'class': 'cat-orange',
-        'item-card': 'item-card-news',
-      };
-      this.categories.push(category);
-    });
+      this.articleService.getHeroSmallArticle(this.selectedLanguage).subscribe(articles => {
+        this.heroSmall = articles;
+      });
 
-    this.articleService.getCategoryRow('religion').subscribe(articles => {
-      const category = {
-        'articles': articles,
-        'title': 'Religion',
-        'slug': 'religion',
-        'class': 'cat-cyan',
-        'item-card': 'item-card-religion',
-      };
-      this.categories.push(category);
-    });
+      this.setArticleData();
+    })
 
-    this.articleService.getCategoryRow('tech-and-science').subscribe(articles => {
-      const category = {
-        'articles': articles,
-        'title': 'Tech and science',
-        'slug': 'tech-and-science',
-        'class': 'cat-green',
-        'item-card': 'item-card-tech-and-science',
-      };
-      this.categories.push(category);
-    });
+    this.categories = this.categoryService.getAll(this.selectedLanguage);
+    this.setArticleData();
+    return;
   }
+  getArticle(slug) {
+    return this.articleService.getCategoryRow(slug)
+  }
+  setArticleData() {
+    this.categories.subscribe((categoryData) => {
+      categoryData.forEach(element => {
+        this.slugWiseData[element.slug] = this.articleService.getCategoryRow(element.slug)
+      });
+
+    })
+  }
+
 
 
 }
