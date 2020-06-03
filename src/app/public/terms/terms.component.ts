@@ -15,10 +15,17 @@ export class TermsComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle("Terms and Conditions");
-    this.metaTagService.updateTag({
-      name: 'description', 
-      content: "Welcome to MyTrendingStories a Subsidiary of Ads Worldwide. Please read these Terms and Conditions before using, or submitting content in any form or medium for publication on MyTrendingStories."
-    });
+
+    this.metaTagService.addTags([
+      {name: "description", content: "Welcome to MyTrendingStories a Subsidiary of Ads Worldwide. Please read these Terms and Conditions before using, or submitting content in any form or medi"},
+      {name: "keywords", content: "Terms and Conditions"},
+      {name: "twitter:card", content: "Welcome to MyTrendingStories a Subsidiary of Ads Worldwide. Please read these Terms and Conditions before using, or submitting content in any form or medi"},
+      {name: "og:title", content: "Terms and Conditions"},
+      {name: "og:type", content: "terms and conditons"},
+      {name: "og:url", content: `${window.location.href}`},
+      //{name: "og:image", content: `${this.authorDetails.avatar.url}`},
+      {name: "og:description", content: "Welcome to MyTrendingStories a Subsidiary of Ads Worldwide. Please read these Terms and Conditions before using, or submitting content in any form or medi"}
+    ]);
   }
 
 }

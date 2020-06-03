@@ -71,12 +71,18 @@ export class ArticleComponent implements OnInit {
         this.setUserDetails();
         this.getArticleComments(this.article.id);
 
-        this.titleService.setTitle(`${this.article?.title}`);
+        this.titleService.setTitle(`${this.article.title.substring(0, 69)}`);
 
-        this.metaTagService.updateTag({
-          name: 'Content',
-          content: `${this.article?.content}`
-        });
+        this.metaTagService.addTags([
+          { name: "description", content: `${this.article.meta.description.substring(0, 154)}` },
+          { name: "keywords", content: `${this.article.meta.keyword}` },
+          { name: "twitter:card", content: `${this.article.summary}` },
+          { name: "og:title", content: `${this.article.title}` },
+          { name: "og:type", content: `article` },
+          { name: "og:url", content: `${window.location.href}` },
+          { name: "og:image", content: `${this.article.image.url}` },
+          { name: "og:description", content: `${this.article.meta.description}` }
+        ]);
       });
       this.setLanguageNotification();
 

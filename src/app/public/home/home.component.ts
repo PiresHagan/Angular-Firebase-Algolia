@@ -39,9 +39,16 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {    
     this.titleService.setTitle("Home");
 
-    this.metaTagService.updateTag({
-      name: 'home'
-    });
+    this.metaTagService.addTags([
+      {name: "description", content: "My trending stories home page"},
+      {name: "keywords", content: "Home"},
+      {name: "twitter:card", content: "My trending stories home page"},
+      {name: "og:title", content: "Home"},
+      {name: "og:type", content: "home"},
+      {name: "og:url", content: `${window.location.href}`},
+      // {name: "og:image", content: `${this.authorDetails.avatar.url}`},
+      {name: "og:description", content: "My trending stories home page"}
+    ]);
 
     this.articleService.getHeroLargeArticle().subscribe(article => {
       this.heroLarge = article[0];
