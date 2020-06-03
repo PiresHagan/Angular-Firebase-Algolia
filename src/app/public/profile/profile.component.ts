@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { environment } from 'src/environments/environment';
 import { Meta, Title } from '@angular/platform-browser';
+import { LanguageService } from 'src/app/shared/services/language.service';
 
 @Component({
   selector: 'app-profile',
@@ -24,6 +25,7 @@ export class ProfileComponent implements OnInit {
   isFollowing: boolean = false;
   userDetails;
   isLoaded: boolean = false;
+  selectedLang: string;
   constructor(
     private titleService: Title,
     private metaTagService: Meta,
@@ -33,6 +35,7 @@ export class ProfileComponent implements OnInit {
     public translate: TranslateService,
     private authService: AuthService,
     public userService: UserService,
+    public langService: LanguageService
   ) {
 
   }
@@ -51,7 +54,7 @@ export class ProfileComponent implements OnInit {
 
         this.titleService.setTitle(`${this.authorDetails.first_name} ${this.authorDetails?.last_name}`);
         this.metaTagService.addTag({
-          name: 'Biography', 
+          name: 'Biography',
           content: `${this.authorDetails?.biography_en}`
         });
       });
@@ -164,6 +167,11 @@ export class ProfileComponent implements OnInit {
     node.charset = 'utf-8';
     document.getElementsByTagName('head')[0].appendChild(node);
   }
-
+  setLanguageNotification() {
+    this.selectedLang = this.langService.getSelectedLanguage();
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.selectedLang = this.langService.getSelectedLanguage();
+    })
+  }
 
 }

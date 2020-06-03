@@ -85,7 +85,7 @@ const routes: Routes = [
       title: 'faq version 2',
       headerDisplay: "none"
     }
-    
+
   },
   {
     path: 'search',
@@ -94,7 +94,7 @@ const routes: Routes = [
       title: 'faq version 2',
       headerDisplay: "none"
     }
-    
+
   },
   {
     path: 'buy',
@@ -103,7 +103,16 @@ const routes: Routes = [
       title: 'faq version 2',
       headerDisplay: "none"
     }
-    
+
+  },
+  {
+    path: '**',
+    component: HomeComponent,
+    data: {
+      title: 'Home',
+      headerDisplay: "none"
+    }
+
   },
 
 ];

@@ -4,13 +4,14 @@ import { ArticleService } from 'src/app/shared/services/article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { ThemeConstantService } from 'src/app/shared/services/theme-constant.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { DomSanitizer, Title, Meta } from '@angular/platform-browser';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { environment } from 'src/environments/environment';
+import { LanguageService } from 'src/app/shared/services/language.service';
 
 @Component({
   selector: 'app-article',
@@ -41,6 +42,7 @@ export class ArticleComponent implements OnInit {
   isLike: boolean = false;
   isLoaded: boolean = false;
   isReportAbuseLoading: boolean = false;
+  selectedLang: string = '';
   @ViewChild('commentSection') private myScrollContainer: ElementRef;
   @ViewChild('commentReplySection') private commentReplyContainer: ElementRef;
 
@@ -53,7 +55,8 @@ export class ArticleComponent implements OnInit {
     public userService: UserService,
     private sanitizer: DomSanitizer,
     private titleService: Title,
-    private metaTagService: Meta
+    private metaTagService: Meta,
+    private langService: LanguageService
   ) {
 
   }
@@ -75,6 +78,7 @@ export class ArticleComponent implements OnInit {
           content: `${this.article?.content}`
         });
       });
+      this.setLanguageNotification();
 
     });
 
@@ -85,7 +89,6 @@ export class ArticleComponent implements OnInit {
       setTimeout(() => { this.loadScript(); }, 100);
       this.isLoaded = true;
     }
-
   }
 
   /**
@@ -293,13 +296,19 @@ export class ArticleComponent implements OnInit {
       }
     });
   }
-  public loadScript() {
+  loadScript() {
     let node = document.createElement('script');
     node.src = environment.addThisScript;
     node.type = 'text/javascript';
     node.async = true;
     node.charset = 'utf-8';
     document.getElementsByTagName('head')[0].appendChild(node);
+  }
+  setLanguageNotification() {
+    this.selectedLang = this.langService.getSelectedLanguage();
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.selectedLang = this.langService.getSelectedLanguage();
+    })
   }
 
 

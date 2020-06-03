@@ -132,11 +132,11 @@
     "importContact": "Contact",
     "shareProfile": "Share us",
     "followProfile": "Follow us",
-    "contactMtsTitle":"Talk to My Trending Stories",
-    "contactFullName":"Full name",
-    "contactEmail":"Email",
-    "contactSubject":"Subject",
-    "contactMessage":"Message",
-    "contactSubmit":"Submit"
-
+    "contactMtsTitle": "Talk to My Trending Stories",
+    "contactFullName": "Full name",
+    "contactEmail": "Email",
+    "contactSubject": "Subject",
+    "contactMessage": "Message",
+    "contactSubmit": "Submit",
+    "disclaimer": "Disclaimer: We just want to notify you that the Article content is in different languages and your selected language is different."
 }

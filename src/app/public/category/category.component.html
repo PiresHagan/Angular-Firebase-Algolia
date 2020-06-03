@@ -1,6 +1,6 @@
 <section class="bg-white">
     <div class="container-fluid">
-        <div class="title-row">
+        <!-- <div class="title-row">
 
             <div class="right-btn-bar">
                 <div class="category-newsletter-container">
@@ -29,7 +29,7 @@
             </div>
 
             <div class="clearfix"></div>
-        </div>
+        </div> -->
 
         <div class="is-comman-title">
             {{category?.title}}
@@ -39,7 +39,8 @@
                 <div class="container">
                     <div class="cat-box-gallery">
                         <div class="row article-row">
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5" *ngFor="let article of articles">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5"
+                                *ngFor="let article of articles">
                                 <div class="item-card item-card-life-and-styles">
                                     <a [routerLink]="['/article/',article.slug]">
                                         <div class="item-card-image">

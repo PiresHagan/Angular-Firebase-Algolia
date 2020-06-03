@@ -130,10 +130,11 @@
     "importEmail": "Email",
     "import": "Import",
     "importContact": "Contact",
-    "contactMtsTitle":"Parlez à mes histoires tendances",
-    "contactFullName":"Nom complet",
-    "contactEmail":"Email",
-    "contactSubject":"Matière",
-    "contactMessage":"Message",
-    "contactSubmit":"Soumettre"
+    "contactMtsTitle": "Parlez à mes histoires tendances",
+    "contactFullName": "Nom complet",
+    "contactEmail": "Email",
+    "contactSubject": "Matière",
+    "contactMessage": "Message",
+    "contactSubmit": "Soumettre",
+    "disclaimer": "Avertissement: Nous souhaitons simplement vous informer que le contenu de l'article est dans différentes langues et que la langue que vous avez sélectionnée est différente."
 }

@@ -130,10 +130,11 @@
     "importEmail": "Correo electrónico",
     "import": "Importar",
     "importContact": "Contacto",
-    "contactMtsTitle":"Hable con mis historias de tendencias",
-    "contactFullName":"Nombre completo",
-    "contactEmail":"Correo electrónico",
-    "contactSubject":"Tema",
-    "contactMessage":"Mensaje",
-    "contactSubmit":"Enviar"
+    "contactMtsTitle": "Hable con mis historias de tendencias",
+    "contactFullName": "Nombre completo",
+    "contactEmail": "Correo electrónico",
+    "contactSubject": "Tema",
+    "contactMessage": "Mensaje",
+    "contactSubmit": "Enviar",
+    "disclaimer": "Descargo de responsabilidad: Solo queremos notificarle que el contenido del artículo está en diferentes idiomas y que su idioma seleccionado es diferente."
 }
