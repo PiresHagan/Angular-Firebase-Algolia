@@ -193,8 +193,8 @@
             flex: 1;
             a {
               img {
-                width: 50px;
-                height: 50px;
+                width: 40px;
+                height: 40px;
                 border-radius: 100%;
                 object-fit: cover;
               }
@@ -327,8 +327,8 @@
             .is-comment-img {
               margin-right: 20px;
               img {
-                width: 50px;
-                height: 50px;
+                width: 40px;
+                height: 40px;
                 border-radius: 100%;
               }
             }
@@ -569,13 +569,20 @@
 }
 
 @media screen and (max-width: 580px) {
+  .article-full-img img {
+    height: 180px;
+  }
   .is-article-block {
+    margin-top: 50px;
     .is-article-sec {
       .is-left-profile {
         width: 100%;
-        .is-profile {
-          a {
-            margin-top: -90px;
+        .sticky-box{
+          padding:20px 0px;
+          .is-profile {
+            a {
+              margin-top: -90px;
+            }
           }
         }
       }
@@ -650,8 +657,12 @@
   }
 }
 
-@media screen and (min-width: 581px) and (max-width: 767px) {
+@media screen and (min-width: 581px) and (max-width: 768px) {
+  .article-full-img img {
+    height: 350px;
+  }
   .is-article-block {
+    margin-top: 50px;
     .is-article-sec {
       .is-left-profile {
         width: 100%;
@@ -669,7 +680,7 @@
           .is-head {
             h2 {
               span {
-                font-size: 34px;
+                font-size: 28px;
               }
             }
           }
@@ -720,10 +731,14 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
+  .article-full-img img {
+    height: 450px;
+  }
   .is-article-block {
+    margin-top: 50px;
     .is-article-sec {
       .is-left-profile {
-        width: 35%;
+        width: 100%;
         .is-profile {
           a {
             margin-top: -90px;
@@ -734,7 +749,7 @@
         }
       }
       .is-main-article-content {
-        width: 65%;
+        width: 100%;
         margin-top: 0px;
         padding: 20px;
         .is-content {
@@ -792,6 +807,7 @@
 }
 @media screen and (min-width: 992px) and (max-width: 1200px) {
   .is-article-block {
+    margin-top: 50px;
     .is-article-sec {
       .is-left-profile {
         width: 100%;
