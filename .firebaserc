@@ -1,6 +1,8 @@
 {
   "projects": {
-    "default": "my-trending-stories-dev"
+    "default": "my-trending-stories-dev",
+    "prod": "my-trending-stories-66f81",
+    "dev": "my-trending-stories-dev"
   },
   "targets": {
     "my-trending-stories-dev": {
@@ -10,6 +12,13 @@
         ],
         "test": [
           "mytrendingstories-test"
+        ]
+      }
+    },
+    "my-trending-stories-66f81": {
+      "hosting": {
+        "prod": [
+          "mytrendingstories"
         ]
       }
     }
