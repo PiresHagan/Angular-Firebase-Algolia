@@ -66,9 +66,13 @@ export class LoginComponent {
             this.navigateToUserProfile();
 
         }).catch((err) => {
-            this.checkDejangoCred(userData).then((userData) => {
-                console.log(userData);
-            }).catch(() => {
+            this.checkDejangoCred(userData).then((djangoData) => {
+                this.authService.doLogin(userData.email, userData.password).then(() => {
+                    this.isFormSaving = false;
+                    this.navigateToUserProfile();
+
+                })
+            }).catch((djangoError) => {
                 this.isFormSaving = false;
                 this.errorMessage = err.message;
                 this.showError = true;
@@ -101,7 +105,7 @@ export class LoginComponent {
         });
     }
     checkDejangoCred(userDetails) {
-        return this.authService.checkDejangoCred(userDetails);
+        return this.authService.checkDejangoCred(userDetails)
     }
 
 
