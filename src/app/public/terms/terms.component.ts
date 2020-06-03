@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
-
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-terms',
   templateUrl: './terms.component.html',
@@ -10,7 +10,8 @@ export class TermsComponent implements OnInit {
 
   constructor(
     private titleService: Title,
-    private metaTagService: Meta
+    private metaTagService: Meta,
+    public translate: TranslateService
   ) { }
 
   ngOnInit(): void {
