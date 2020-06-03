@@ -123,13 +123,13 @@ export class UserService {
     })
   }
 
-  addProfileImage(uid: string, file: string) {
+  addProfileImage(uid: string, file: string, fileName: string) {
     return new Promise((resolve, reject) => {
       firebase.storage().ref(`${this.basePath}/${this.currentUser.email}`).putString(file, "data_url").then(
         snapshot => {
           snapshot.ref.getDownloadURL().then((downloadURL) => {
             const imageUrl: string = downloadURL;
-            this.db.collection(`${this.memberCollection}`).doc(uid).update({ avatar: { url: imageUrl } }).then(() => {
+            this.db.collection(`${this.memberCollection}`).doc(uid).update({ avatar: { url: imageUrl, alt: this.removeExt(fileName) } }).then(() => {
               this.updateCurrentUserProfile({ photoURL: imageUrl }).then(res => resolve()).catch(err => reject(err))
             }).catch(err => reject(err))
 
@@ -159,6 +159,9 @@ export class UserService {
           });
         })
       );
+  }
+  private removeExt(fileName) {
+    return fileName.split('.').slice(0, -1).join('.');
   }
 
 

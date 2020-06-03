@@ -106,7 +106,7 @@ export class ProfileComponent implements OnInit {
     this.isPhotoChangeLoading = true;
     this.getBase64(info.file.originFileObj, (img: string) => {
       this.avatarUrl = img;
-      this.userService.addProfileImage(this.currentUser.uid, img).then(() => {
+      this.userService.addProfileImage(this.currentUser.uid, img, info.file?.name).then(() => {
         this.isPhotoChangeLoading = false;
       }).catch(() => {
         this.isPhotoChangeLoading = false;
