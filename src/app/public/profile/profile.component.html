@@ -15,6 +15,9 @@
                     innerHTML="{{authorDetails?.biography_en || authorDetails?.biography_es || authorDetails?.biography_fr}}">
 
                 </p>
+                <p style="color:#ff4020; font-style: italic;" *ngIf="selectedLang!=authorDetails?.lang">
+                    {{'disclaimer' | translate}}</p>
+
                 <div class="is-author-media-sec">
                     <h3 class="is-line">{{'shareFollow' | translate}}</h3>
                     <div class="addthis_inline_share_toolbox" style="margin-top: 10px;margin-bottom: 10px;"></div>
@@ -122,15 +125,15 @@
                                 <a [routerLink]="['/article/',article.slug]">
                                     <div class="item-card-image">
 
-                                        <img [src]="article.image.url" [alt]="article.image?.alt">
+                                        <img [src]="article.image.url" [alt]="article?.image?.alt">
                                         <h3 class="is-category-title">{{article?.category?.title}}</h3>
                                     </div>
                                     <div class="item-card-content">
                                         <div class="item-card-category  cat-yellow">
                                             <div class="is-avatar-dv">
 
-                                                <img class="avatar" [src]="article?.author?.avatar.url"
-                                                    [alt]="article?.author?.avatar.alt">
+                                                <img class="avatar" [src]="article?.author?.avatar?.url"
+                                                    [alt]="article?.author?.avatar?.alt">
                                                 <span class="item-card-author">{{article?.author?.fullname}}</span>
                                             </div>
                                         </div>

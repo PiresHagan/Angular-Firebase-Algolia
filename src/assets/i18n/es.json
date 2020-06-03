@@ -130,12 +130,6 @@
     "importEmail": "Correo electrónico",
     "import": "Importar",
     "importContact": "Contacto",
-    "contactMtsTitle":"Hable con mis historias de tendencias",
-    "contactFullName":"Nombre completo",
-    "contactEmail":"Correo electrónico",
-    "contactSubject":"Tema",
-    "contactMessage":"Mensaje",
-    "contactSubmit":"Enviar",
     "termsTitle":"Términos y Condiciones",
     "termsParagraph1":"Bienvenido a MyTrendingStories, una subsidiaria de Ads Worldwide. Lea estos Términos y condiciones antes de usar o enviar contenido en cualquier forma o medio para su publicación en MyTrendingStories.",
     "termsParagraph2":"Al acceder o utilizar los Servicios, confirma que ha leído, entendido y aceptado estar sujeto a este Acuerdo, y a la recopilación y uso de su información como se establece en MyTrendingStories, ya sea que usted sea o no un usuario registrado de los Servicios. . Este Acuerdo se aplica a todos los visitantes, usuarios y otras personas que acceden a los Servicios ('Usuarios').",
@@ -206,5 +200,12 @@
     "termsParagraph48":"También puede ganar dinero a través de MyTrendingStories registrándose como Usuario, participando en cualquier combinación del Programa de Identificación de Afiliados y cualquiera de los Programas de Ganancias de MyTrendingStories y luego derivando personas a los Servicios. Si se registran y crean MyTrendingStories, MyTrendingStories puede colocar su combinación de Programas de Ganancias en las Vistas de la Página de Ganancias de MTS de MyTrendingStories que comparten los usuarios que crea. Las autorreferencias están prohibidas. Usted reconoce y acepta que no se garantiza que sus Programas de Ganancias se coloquen en ninguna Vista de Página de Ganancias, y que la colocación de sus Programas de Ganancias en cualquier Vista de Página de Ganancias se realiza al azar.",
     "termsHeading15":"General",
     "termsParagraph49":"MyTrendingStories se reserva el derecho de modificar el programa de identificación de afiliados y / o el programa de ganancias de MyTrendingStories, incluido, entre otros, el porcentaje de participación o la estructura de pago, en cualquier momento a su exclusivo criterio. Si MyTrendingStories cambia algún término significativo del programa de ID de afiliados y / o del Programa de ganancias de MyTrendingStories, MyTrendingStories le notificará por correo electrónico, si es razonablemente posible, al menos dos (2) semanas antes de que ocurra dicho cambio. En ese momento, tendrá la opción de eliminar sus historias o videos de MTS de los Servicios o, si su MTS no es comercial, establecer su nivel de anuncio en 'cero', si decide dejar de trabajar con el Programa de ID de Afiliados y / o Programa de ganancias MTS bajo la nueva estructura.",
-    "termsParagraph50":"Al utilizar los servicios del Programa de ID de Afiliados, usted reconoce y acepta que MyTrendingStories no será responsable y no estará obligado de ninguna manera a reembolsarle las ganancias perdidas. MyTrendingStories no ofrece ninguna garantía en virtud de este acuerdo con respecto a la cantidad de Saldo acumulado que obtendrá en su cuenta, el reparto de ingresos, el nivel de impresiones, el número y / o la colocación de anuncios, o la finalización o entrega oportuna de impresiones, clics o Información referencial. USTED ENTIENDE Y RECONOCE QUE NO HAY GARANTÍA DE QUE CUALQUIER NIVEL MÍNIMO DE INGRESOS, O CUALQUIER INGRESO, SE GENERARÁ COMO RESULTADO DEL USO DEL PROGRAMA DE IDENTIFICACIÓN DE AFILIADOS Y / O EL PROGRAMA DE GANANCIAS MyTrendingStories."
+    "termsParagraph50":"Al utilizar los servicios del Programa de ID de Afiliados, usted reconoce y acepta que MyTrendingStories no será responsable y no estará obligado de ninguna manera a reembolsarle las ganancias perdidas. MyTrendingStories no ofrece ninguna garantía en virtud de este acuerdo con respecto a la cantidad de Saldo acumulado que obtendrá en su cuenta, el reparto de ingresos, el nivel de impresiones, el número y / o la colocación de anuncios, o la finalización o entrega oportuna de impresiones, clics o Información referencial. USTED ENTIENDE Y RECONOCE QUE NO HAY GARANTÍA DE QUE CUALQUIER NIVEL MÍNIMO DE INGRESOS, O CUALQUIER INGRESO, SE GENERARÁ COMO RESULTADO DEL USO DEL PROGRAMA DE IDENTIFICACIÓN DE AFILIADOS Y / O EL PROGRAMA DE GANANCIAS MyTrendingStories.",
+    "contactMtsTitle": "Hable con mis historias de tendencias",
+    "contactFullName": "Nombre completo",
+    "contactEmail": "Correo electrónico",
+    "contactSubject": "Tema",
+    "contactMessage": "Mensaje",
+    "contactSubmit": "Enviar",
+    "disclaimer": "Descargo de responsabilidad: Solo queremos notificarle que el contenido del artículo está en diferentes idiomas y que su idioma seleccionado es diferente."
 }

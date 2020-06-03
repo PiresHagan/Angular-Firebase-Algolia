@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { environment } from 'src/environments/environment';
 import { Meta, Title } from '@angular/platform-browser';
+import { LanguageService } from 'src/app/shared/services/language.service';
 
 @Component({
   selector: 'app-profile',
@@ -24,6 +25,7 @@ export class ProfileComponent implements OnInit {
   isFollowing: boolean = false;
   userDetails;
   isLoaded: boolean = false;
+  selectedLang: string;
   constructor(
     private titleService: Title,
     private metaTagService: Meta,
@@ -33,6 +35,7 @@ export class ProfileComponent implements OnInit {
     public translate: TranslateService,
     private authService: AuthService,
     public userService: UserService,
+    public langService: LanguageService
   ) {
 
   }
@@ -52,14 +55,14 @@ export class ProfileComponent implements OnInit {
         this.titleService.setTitle(`${this.authorDetails.fullname}`);
 
         this.metaTagService.addTags([
-          {name: "description", content: `${this.authorDetails[`biography_${this.authorDetails.lang}`].substring(0, 154)}`},
-          {name: "keywords", content: `${this.authorDetails.fullname}`},
-          {name: "twitter:card", content: `${this.authorDetails[`biography_${this.authorDetails.lang}`]}`},
-          {name: "og:title", content: `${this.authorDetails.fullname}`},
-          {name: "og:type", content: `${this.authorDetails.type}`},
-          {name: "og:url", content: `${window.location.href}`},
-          {name: "og:image", content: `${this.authorDetails.avatar.url}`},
-          {name: "og:description", content: `${this.authorDetails[`biography_${this.authorDetails.lang}`]}`}
+          { name: "description", content: `${this.authorDetails[`biography_${this.authorDetails.lang}`].substring(0, 154)}` },
+          { name: "keywords", content: `${this.authorDetails.fullname}` },
+          { name: "twitter:card", content: `${this.authorDetails[`biography_${this.authorDetails.lang}`]}` },
+          { name: "og:title", content: `${this.authorDetails.fullname}` },
+          { name: "og:type", content: `${this.authorDetails.type}` },
+          { name: "og:url", content: `${window.location.href}` },
+          { name: "og:image", content: `${this.authorDetails.avatar.url}` },
+          { name: "og:description", content: `${this.authorDetails[`biography_${this.authorDetails.lang}`]}` }
         ]);
       });
     });
@@ -171,6 +174,11 @@ export class ProfileComponent implements OnInit {
     node.charset = 'utf-8';
     document.getElementsByTagName('head')[0].appendChild(node);
   }
-
+  setLanguageNotification() {
+    this.selectedLang = this.langService.getSelectedLanguage();
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.selectedLang = this.langService.getSelectedLanguage();
+    })
+  }
 
 }

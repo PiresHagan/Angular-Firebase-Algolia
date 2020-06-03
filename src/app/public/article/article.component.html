@@ -43,13 +43,14 @@
                             {{'Dislike ' | translate}}
                             <span class="likes-count">{{articleLikes}}</span>
                         </a>
-
+                        <!-- 
                         <a class="is-bookmark" href=""><img src="assets/images/article/icon/bookmark.png" /></a>
-                        <a class="is-dot" href=""><img src="assets/images/article/icon/more.png" /></a>
+                        <a class="is-dot" href=""><img src="assets/images/article/icon/more.png" /></a> -->
                     </div>
                     <div class="left-media is-divider">
                         <h3>{{'shareArticle' | translate}}</h3>
-                        <div class="sharethis-inline-share-buttons"></div>
+                        <!-- <div class="sharethis-inline-share-buttons"></div> -->
+                        <div class="addthis_inline_share_toolbox"></div>
 
                     </div>
                     <div class="is-influencer-btn">
@@ -103,6 +104,8 @@
                                 </a>
 
                             </p>
+                            <p style="color:#ff4020; font-style: italic;" *ngIf="selectedLang!=article?.lang">
+                                {{'disclaimer' | translate}}</p>
                         </div>
                     </div>
                 </div>

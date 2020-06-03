@@ -132,12 +132,6 @@
     "importContact": "Contact",
     "shareProfile": "Share us",
     "followProfile": "Follow us",
-    "contactMtsTitle":"Talk to My Trending Stories",
-    "contactFullName":"Full name",
-    "contactEmail":"Email",
-    "contactSubject":"Subject",
-    "contactMessage":"Message",
-    "contactSubmit":"Submit",
     "termsTitle":"Terms and Conditions",
     "termsParagraph1":"Welcome to MyTrendingStories a Subsidiary of Ads Worldwide. Please read these Terms and Conditions before using, or submitting content in any form or medium for publication on MyTrendingStories.",
     "termsParagraph2":"By accessing or using the Services, you confirm that you have read, understood, and agreed to be bound by this Agreement, and to the collection and use of your information as set forth in MyTrendingStories whether or not you are a registered user of the Services. This Agreement applies to all visitors, users, and others who access the Services (“Users”).",
@@ -208,5 +202,12 @@
     "termsParagraph48":"You may also earn money through MyTrendingStories by registering as a User, participating in any combination of the Affiliate IDs Program and any of the MyTrendingStories Earning Programs and then referring people to the Services. If they register and create MyTrendingStories, MyTrendingStories may place your combination of Earning Programs on the MTS Earning Page Views from the MyTrendingStories share that the users you sign up create. Self referrals are prohibited. You acknowledge and agree that your Earning Programs are not guaranteed to be placed in any Earning Page Views, and that placement of your Earning Programs on any given Earning Page View is done randomly.",
     "termsHeading15":"General",
     "termsParagraph49":"MyTrendingStories reserves the right to modify the Affiliate IDs program and/or MyTrendingStories Earnings program, including without limitation the percentage share or payment structure, at any time in its sole discretion. If MyTrendingStories changes any significant terms of the Affiliate IDs program and/or MyTrendingStories Earnings Program, MyTrendingStories will notify you by email, if reasonably practicable, at least two (2) weeks before any such change occurs. At that point, you will have the option of removing your MTS stories or video from the Services, or, if your MTS is non-commercial, setting your ad level to 'zero', if you choose to stop working with the Affiliate IDs Program and/or MTS Earnings Program under the new structure.",
-    "termsParagraph50":"By using the Affiliate IDs Program services, you acknowledge and agree that MyTrendingStories will not be responsible for, and will not be obligated in any manner to repay you for, any lost earnings. MyTrendingStories makes no guarantee under this agreement regarding the amount of Earned Balance you will achieve in your account, the revenue share, the level of impressions, number and/or placement of advertisements, or the timely completion or delivery of any impressions, clicks, or referral information. YOU UNDERSTAND AND ACKNOWLEDGE THAT THERE IS NO GUARANTEE THAT ANY MINIMUM LEVEL OF REVENUE, OR ANY REVENUE, WILL BE GENERATED AS A RESULT OF USING THE AFFILIATE IDs PROGRAM AND/OR THE MyTrendingStories EARNING PROGRAM."
+    "termsParagraph50":"By using the Affiliate IDs Program services, you acknowledge and agree that MyTrendingStories will not be responsible for, and will not be obligated in any manner to repay you for, any lost earnings. MyTrendingStories makes no guarantee under this agreement regarding the amount of Earned Balance you will achieve in your account, the revenue share, the level of impressions, number and/or placement of advertisements, or the timely completion or delivery of any impressions, clicks, or referral information. YOU UNDERSTAND AND ACKNOWLEDGE THAT THERE IS NO GUARANTEE THAT ANY MINIMUM LEVEL OF REVENUE, OR ANY REVENUE, WILL BE GENERATED AS A RESULT OF USING THE AFFILIATE IDs PROGRAM AND/OR THE MyTrendingStories EARNING PROGRAM.",
+    "contactMtsTitle": "Talk to My Trending Stories",
+    "contactFullName": "Full name",
+    "contactEmail": "Email",
+    "contactSubject": "Subject",
+    "contactMessage": "Message",
+    "contactSubmit": "Submit",
+    "disclaimer": "Disclaimer: We just want to notify you that the Article content is in different languages and your selected language is different."
 }

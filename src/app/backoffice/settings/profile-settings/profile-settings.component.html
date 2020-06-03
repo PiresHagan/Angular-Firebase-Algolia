@@ -1,179 +1,89 @@
 <div class="container">
     <div class="profile-setting-main">
-<div class="page-header has-tab">
-    <h2 class="font-weight-normal"> {{ 'settings' | translate }}</h2>
-</div>
-<nz-tabset class="page-header-tab">
-    <nz-tab nzTitle="{{'account'| translate}}">
-        <div class="container">
-            <nz-card nzTitle="{{'basicInfo'| translate}}">
-
-                <div class="media">
-                    <nz-avatar [nzSize]="150" nzIcon="user" [nzSrc]="photoURL"></nz-avatar>
-                    <div class="profile-upload-txt">
-                        <nz-upload nzName="avatar" [nzShowUploadList]="false" (nzChange)="handleChange($event)">
-                            <button nz-button nzType="primary" [nzLoading]="isPhotoChangeLoading">
-                                <i nz-icon nzType="upload"></i>
-                                <span>{{'upload'| translate}}</span>
-                            </button>
-                        </nz-upload>
-                        <h5>{{'changeAvatar'| translate}}</h5>
-                        <p>
-                            {{'recommendedDim'| translate}}: 
-                            120x120 {{'maxfile'| translate}}: 5MB
-                        </p>
-                        
-                    </div>
-                    
-                </div>
-                <hr class="m-v-25" />
-                <form nz-form [formGroup]="profileForm" class="login-form" (ngSubmit)="saveBasicDetails()">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <nz-form-item>
-                                <nz-form-label>{{'name'| translate}}</nz-form-label>
-                                <nz-form-control>
-                                    <input nz-input placeholder="{{'name'| translate}}" formControlName="displayName"
-                                        type="text" value="" />
-                                </nz-form-control>
-                            </nz-form-item>
-                        </div>
-                        <div class="col-md-3">
-                            <nz-form-item>
-                                <nz-form-label>{{'email'| translate}}</nz-form-label>
-                                <nz-form-control>
-                                    <input disabled nz-input placeholder="{{'email'| translate}}" type="email"
-                                        value="{{ currentUserEmail }}" />
-                                </nz-form-control>
-                            </nz-form-item>
-                        </div>
-                        <div class="col-md-3">
-                            <nz-form-item>
-                                <nz-form-label>{{'phoneNumber'| translate}}</nz-form-label>
-                                <nz-form-control>
-                                    <input nz-input placeholder="{{'phoneNumber'| translate}}" formControlName="phone"
-                                        mask="(000) 000-0000" />
-                                </nz-form-control>
-                            </nz-form-item>
-                        </div>
-                        <div class="col-md-3">
-                            <nz-form-item>
-                                <nz-form-label>{{'dob'| translate}}</nz-form-label>
-                                <nz-form-control>
-                                    <nz-date-picker class="w-100" nzFormat="yyyy/MM/dd" formControlName="birth"
-                                        nzPlaceHolder="{{'dob'| translate}}"></nz-date-picker>
-                                </nz-form-control>
-                            </nz-form-item>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <nz-form-item>
-                                <nz-form-label>{{'sortBio'| translate}}</nz-form-label>
-                                <nz-form-control>
-                                    <textarea rows="4" nz-input name="content" formControlName="biography"></textarea>
-                                </nz-form-control>
-                            </nz-form-item>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <nz-form-item>
-                            <nz-form-control>
-                                <div>
-                                    <button nz-button [nzLoading]="isLoading" class="login-form-button"
-                                        [nzType]="'primary'">
-                                        {{'saveDetails'| translate}}
-                                    </button>
-                                </div>
-                            </nz-form-control>
-                        </nz-form-item>
-                    </div>
-                </form>
-            </nz-card>
-
-            <nz-card nzTitle="{{'changePass'| translate}}">
-                <form nz-form [formGroup]="changePWForm" (ngSubmit)="submitForm()">
-                    <nz-alert nzType="error" nzDescription="{{'passwordMessage' | translate}}" nzShowIcon
-                        *ngIf="changePWForm.errors?.invalid && (changePWForm.controls['confirmPassword'].dirty || changePWForm.controls['confirmPassword'].touched)">
-                    </nz-alert>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <nz-form-item>
-                                <nz-form-label nzFor="newPassword">{{'newPass' | translate}}</nz-form-label>
-                                <nz-form-control nzErrorTip="{{'passfieldMessage' | translate}}">
-                                    <input formControlName="newPassword" nz-input type="password"
-                                        placeholder="{{'newPass' | translate}}" />
-                                </nz-form-control>
-                            </nz-form-item>
-                        </div>
-                        <div class="col-md-3">
-                            <nz-form-item>
-                                <nz-form-label nzFor="confirmPassword">{{'confirmPass' | translate}}</nz-form-label>
-                                <nz-form-control nzErrorTip="{{'confirmFieldMassage' | translate}}">
-                                    <input formControlName="confirmPassword" nz-input type="password"
-                                        placeholder="{{'confirmPass' | translate}}" />
-                                </nz-form-control>
-                            </nz-form-item>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <nz-form-item>
-                                <nz-form-control>
-                                    <button nz-button nzType="primary" [nzLoading]="isChangePassLoading"
-                                        [disabled]="!changePWForm.valid">
-                                        {{'change' | translate}}
-                                    </button>
-                                </nz-form-control>
-                            </nz-form-item>
-                        </div>
-                    </div>
-                </form>
-            </nz-card>
+        <div class="page-header has-tab">
+            <h2 class="font-weight-normal"> {{ 'settings' | translate }}</h2>
         </div>
-    </nz-tab>
-    <nz-tab nzTitle="{{'notification' | translate}}">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <nz-card nzTitle="{{'notificationConfig' | translate}}">
-                        <form nz-form [formGroup]="interestForm" class="login-form" (ngSubmit)="saveIntrestList()">
-                            <nz-list [nzDataSource]="notificationConfigList" [nzRenderItem]="notification"
-                                [nzItemLayout]="'horizontal'">
-                                <ng-template #notification let-item>
-                                    <nz-list-item [nzActions]="[configStatus]">
-                                        <ng-template #configStatus>
-                                            <nz-switch [formControlName]="item.id" [ngModel]="item.status"
-                                                [nzCheckedChildren]="checkedTemplate2nd"
-                                                [nzUnCheckedChildren]="unCheckedTemplate2nd"></nz-switch>
-                                            <ng-template #checkedTemplate2nd><i class="font-size-12" nz-icon
-                                                    nzType="check"></i></ng-template>
-                                            <ng-template #unCheckedTemplate2nd><i class="font-size-12" nz-icon
-                                                    nzType="close"></i></ng-template>
-                                        </ng-template>
-                                        <nz-list-item-meta [nzTitle]="notificationTitle" [nzAvatar]="notificationIcon">
-                                            <ng-template #notificationIcon>
-                                                <nz-avatar [nzIcon]="item.icon" [ngClass]="item.color" class="m-t-5">
-                                                </nz-avatar>
-                                            </ng-template>
-                                            <ng-template #notificationTitle>
-                                                <h5 class="font-weight-semibold m-b-0">
-                                                    {{ item.title }}
-                                                </h5>
-                                                <p class="m-b-0 font-weight-normal">{{ item.desc }}</p>
-                                            </ng-template>
-                                        </nz-list-item-meta>
-                                    </nz-list-item>
-                                </ng-template>
-                            </nz-list>
+        <nz-tabset class="page-header-tab">
+            <nz-tab nzTitle="{{'account'| translate}}">
+                <div class="container">
+                    <nz-card nzTitle="{{'basicInfo'| translate}}">
 
-                            <div class="d-flex align-items-center justify-content-between m-t-5">
+                        <div class="media">
+                            <nz-avatar [nzSize]="150" nzIcon="user" [nzSrc]="photoURL"></nz-avatar>
+                            <div class="profile-upload-txt">
+                                <nz-upload nzName="avatar" [nzShowUploadList]="false" (nzChange)="handleChange($event)">
+                                    <button nz-button nzType="primary" [nzLoading]="isPhotoChangeLoading">
+                                        <i nz-icon nzType="upload"></i>
+                                        <span>{{'upload'| translate}}</span>
+                                    </button>
+                                </nz-upload>
+                                <h5>{{'changeAvatar'| translate}}</h5>
+                                <p>
+                                    {{'recommendedDim'| translate}}:
+                                    120x120 {{'maxfile'| translate}}: 5MB
+                                </p>
+
+                            </div>
+
+                        </div>
+                        <hr class="m-v-25" />
+                        <form nz-form [formGroup]="profileForm" class="login-form" (ngSubmit)="saveBasicDetails()">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <nz-form-item>
+                                        <nz-form-label>{{'name'| translate}}</nz-form-label>
+                                        <nz-form-control>
+                                            <input nz-input placeholder="{{'name'| translate}}"
+                                                formControlName="displayName" type="text" value="" />
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col-md-3">
+                                    <nz-form-item>
+                                        <nz-form-label>{{'email'| translate}}</nz-form-label>
+                                        <nz-form-control>
+                                            <input disabled nz-input placeholder="{{'email'| translate}}" type="email"
+                                                value="{{ currentUserEmail }}" />
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col-md-3">
+                                    <nz-form-item>
+                                        <nz-form-label>{{'phoneNumber'| translate}}</nz-form-label>
+                                        <nz-form-control>
+                                            <input nz-input placeholder="{{'phoneNumber'| translate}}"
+                                                formControlName="phone" mask="(000) 000-0000" />
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col-md-3">
+                                    <nz-form-item>
+                                        <nz-form-label>{{'dob'| translate}}</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-date-picker class="w-100" nzFormat="yyyy/MM/dd" formControlName="birth"
+                                                nzPlaceHolder="{{'dob'| translate}}"></nz-date-picker>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <nz-form-item>
+                                        <nz-form-label>{{'sortBio'| translate}}</nz-form-label>
+                                        <nz-form-control>
+                                            <textarea rows="4" nz-input name="content"
+                                                formControlName="biography"></textarea>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between">
                                 <nz-form-item>
                                     <nz-form-control>
                                         <div>
-                                            <button nz-button [nzLoading]="isNotificationLoading"
-                                                class="login-form-button" [nzType]="'primary'">
-                                                {{'saveDetails' | translate}}
+                                            <button nz-button [nzLoading]="isLoading" class="login-form-button"
+                                                [nzType]="'primary'">
+                                                {{'saveDetails'| translate}}
                                             </button>
                                         </div>
                                     </nz-form-control>
@@ -181,18 +91,115 @@
                             </div>
                         </form>
                     </nz-card>
+
+                    <nz-card nzTitle="{{'changePass'| translate}}">
+                        <form nz-form [formGroup]="changePWForm" (ngSubmit)="submitForm()">
+                            <nz-alert nzType="error" nzDescription="{{'passwordMessage' | translate}}" nzShowIcon
+                                *ngIf="changePWForm.errors?.invalid && (changePWForm.controls['confirmPassword'].dirty || changePWForm.controls['confirmPassword'].touched)">
+                            </nz-alert>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <nz-form-item>
+                                        <nz-form-label nzFor="newPassword">{{'newPass' | translate}}</nz-form-label>
+                                        <nz-form-control nzErrorTip="{{'passfieldMessage' | translate}}">
+                                            <input formControlName="newPassword" nz-input type="password"
+                                                placeholder="{{'newPass' | translate}}" />
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col-md-3">
+                                    <nz-form-item>
+                                        <nz-form-label nzFor="confirmPassword">{{'confirmPass' | translate}}
+                                        </nz-form-label>
+                                        <nz-form-control nzErrorTip="{{'confirmFieldMassage' | translate}}">
+                                            <input formControlName="confirmPassword" nz-input type="password"
+                                                placeholder="{{'confirmPass' | translate}}" />
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <nz-form-item>
+                                        <nz-form-control>
+                                            <button nz-button nzType="primary" [nzLoading]="isChangePassLoading"
+                                                [disabled]="!changePWForm.valid">
+                                                {{'change' | translate}}
+                                            </button>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                            </div>
+                        </form>
+                    </nz-card>
                 </div>
-            </div>
-        </div>
-    </nz-tab>
-    <nz-tab nzTitle="{{'importContacts'| translate}}">
-        <div class="container">
-            <nz-card nzTitle="{{'importContactInfo'| translate}}">
-                <app-import-contact></app-import-contact>
-            </nz-card>
-        </div>
-    </nz-tab>
+            </nz-tab>
+            <nz-tab nzTitle="{{'notification' | translate}}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <nz-card nzTitle="{{'notificationConfig' | translate}}">
+                                <form nz-form [formGroup]="interestForm" class="login-form"
+                                    (ngSubmit)="saveIntrestList()">
+                                    <nz-list [nzDataSource]="notificationConfigList" [nzRenderItem]="notification"
+                                        [nzItemLayout]="'horizontal'">
+                                        <ng-template #notification let-item>
+                                            <nz-list-item [nzActions]="[configStatus]">
+                                                <ng-template #configStatus>
+                                                    <nz-switch [formControlName]="item.id" [ngModel]="item.status"
+                                                        [nzCheckedChildren]="checkedTemplate2nd"
+                                                        [nzUnCheckedChildren]="unCheckedTemplate2nd"></nz-switch>
+                                                    <ng-template #checkedTemplate2nd><i class="font-size-12" nz-icon
+                                                            nzType="check"></i></ng-template>
+                                                    <ng-template #unCheckedTemplate2nd><i class="font-size-12" nz-icon
+                                                            nzType="close"></i></ng-template>
+                                                </ng-template>
+                                                <nz-list-item-meta [nzTitle]="notificationTitle"
+                                                    [nzAvatar]="notificationIcon">
+                                                    <ng-template #notificationIcon>
+                                                        <nz-avatar [nzIcon]="item.icon" [ngClass]="item.color"
+                                                            class="m-t-5">
+                                                        </nz-avatar>
+                                                    </ng-template>
+                                                    <ng-template #notificationTitle>
+                                                        <h5 class="font-weight-semibold m-b-0">
+                                                            {{ item.title }}
+                                                        </h5>
+                                                        <p class="m-b-0 font-weight-normal" *ngIf="false">
+                                                            {{ item.desc }}</p>
+                                                    </ng-template>
+                                                </nz-list-item-meta>
+                                            </nz-list-item>
+                                        </ng-template>
+                                    </nz-list>
+
+                                    <div class="d-flex align-items-center justify-content-between m-t-5">
+                                        <nz-form-item>
+                                            <nz-form-control>
+                                                <div>
+                                                    <button nz-button [nzLoading]="isNotificationLoading"
+                                                        class="login-form-button" [nzType]="'primary'">
+                                                        {{'saveDetails' | translate}}
+                                                    </button>
+                                                </div>
+                                            </nz-form-control>
+                                        </nz-form-item>
+                                    </div>
+                                </form>
+                            </nz-card>
+                        </div>
+                    </div>
+                </div>
+            </nz-tab>
+            <nz-tab nzTitle="{{'importContacts'| translate}}">
+                <div class="container">
+                    <nz-card nzTitle="{{'importContactInfo'| translate}}">
+                        <app-import-contact></app-import-contact>
+                    </nz-card>
+                </div>
+            </nz-tab>
 
 
-</nz-tabset>
-</div></div>
+        </nz-tabset>
+    </div>
+</div>
