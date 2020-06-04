@@ -31,6 +31,33 @@
           "destination": "/index.html"
         }
       ]
+    },
+    {
+      "target": "prod",
+      "site": "mytrendongstories",
+      "public": "dist",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "redirects" : [
+        {
+          "source": "/media/**",
+          "destination": "https://abc2020new.com/media/**",
+          "type": 302
+        }
+      ]
     }
-  ]
+  ],
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  }
 }

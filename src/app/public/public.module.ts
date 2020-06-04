@@ -23,8 +23,9 @@ import { NgAisModule } from 'angular-instantsearch';
 import { BuyComponent } from './buy/buy.component';
 import { QuillModule } from 'ngx-quill';
 import { createTranslateLoader } from '../shared/shared.module';
+import { InfluencerComponent } from './influencer/influencer.component';
 @NgModule({
-  declarations: [HomeComponent, CategoryComponent, ArticleComponent, ProfileComponent, Copywriter1Component, Copywriter2Component, ContactComponent, TermsComponent, FaqComponent, SearchEngineComponent, BuyComponent],
+  declarations: [HomeComponent, CategoryComponent, ArticleComponent, ProfileComponent, Copywriter1Component, Copywriter2Component, ContactComponent, TermsComponent, FaqComponent, SearchEngineComponent, BuyComponent, InfluencerComponent],
   imports: [
     CommonModule,
     PublicRoutingModule,

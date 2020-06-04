@@ -11,6 +11,7 @@ import { TermsComponent } from './terms/terms.component';
 import { FaqComponent } from './faq/faq.component';
 import { SearchEngineComponent } from './search-engine/search-engine.component';
 import { BuyComponent } from './buy/buy.component';
+import { InfluencerComponent } from './influencer/influencer.component';
 
 
 const routes: Routes = [
@@ -101,6 +102,15 @@ const routes: Routes = [
     component: BuyComponent,
     data: {
       title: 'faq version 2',
+      headerDisplay: "none"
+    }
+
+  },
+  {
+    path: 'influencer',
+    component: InfluencerComponent,
+    data: {
+      title: 'influencer version 2',
       headerDisplay: "none"
     }
 
