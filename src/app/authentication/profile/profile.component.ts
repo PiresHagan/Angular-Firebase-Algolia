@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
   setFormData() {
     this.userService.getCurrentUser().then((user) => {
       this.currentUser = user;
-      this.userService.get(user.uid).subscribe((userDetails) => {
+      this.userService.get(user.id).subscribe((userDetails) => {
         this.avatarUrl = userDetails.photoURL
         const birth = userDetails.birth ? formatDate(
           userDetails.birth,
@@ -71,8 +71,8 @@ export class ProfileComponent implements OnInit {
         const mobile = this.profileForm.get('phone').value;
         const birthdate = formatDate(this.profileForm.get('birth').value, 'yyyy/MM/dd', "en");
         const bio = this.profileForm.get('biography').value;
-        await this.userService.update(this.currentUser.uid, { mobile, birthdate })
-        await this.userService.updateMember(this.currentUser.uid, { bio })
+        await this.userService.update(this.currentUser.id, { mobile, birthdate })
+        await this.userService.updateMember(this.currentUser.id, { bio })
         this.isFormSaving = false;
         this.router.navigate(['/auth/interest']);
       } catch (error) {
@@ -106,7 +106,7 @@ export class ProfileComponent implements OnInit {
     this.isPhotoChangeLoading = true;
     this.getBase64(info.file.originFileObj, (img: string) => {
       this.avatarUrl = img;
-      this.userService.addProfileImage(this.currentUser.uid, img, info.file?.name).then(() => {
+      this.userService.addProfileImage(this.currentUser.id, img, info.file?.name).then(() => {
         this.isPhotoChangeLoading = false;
       }).catch(() => {
         this.isPhotoChangeLoading = false;

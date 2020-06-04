@@ -7,6 +7,9 @@ import { Title, Meta } from '@angular/platform-browser';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { Category } from 'src/app/shared/interfaces/category.type';
+import { AuthorService } from 'src/app/shared/services/author.service';
+import { Author } from 'src/app/shared/interfaces/authors.type';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -26,9 +29,11 @@ export class HomeComponent implements OnInit {
   selectedLanguage: string = "";
   slugWiseData = {};
   categories;
+  authorList: any;
 
   constructor(
     private articleService: ArticleService,
+    private authorService: AuthorService,
     public translate: TranslateService,
     private themeService: ThemeConstantService,
     private titleService: Title,
@@ -68,6 +73,8 @@ export class HomeComponent implements OnInit {
       this.heroSmall = articles;
     });
 
+    this.getAuthors();
+
 
 
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -88,6 +95,8 @@ export class HomeComponent implements OnInit {
 
     this.categories = this.categoryService.getAll(this.selectedLanguage);
     this.setArticleData();
+
+
     return;
   }
   getArticle(slug) {
@@ -100,6 +109,11 @@ export class HomeComponent implements OnInit {
       });
 
     })
+  }
+
+  getAuthors() {
+    this.authorList = this.authorService.getAuthors();
+
   }
 
 

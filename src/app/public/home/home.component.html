@@ -98,6 +98,47 @@
 
 </section>
 
+
+<section class="is-follower-member">
+
+    <div class="container">
+        <div class="is-comman-title">
+            <!-- You might also like : -->
+            {{'secTitle' | translate }}
+        </div>
+        <div class="is-member">
+
+            <div class="is-member-item" *ngFor="let author of (authorList | async)" [ngClass]="showTooltip"
+                (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
+                <a href="#" class="is-profile-img-link">
+                    <img [src]="author?.avatar?.url" class="is-profile" [alt]="author?.avatar?.alt" />
+
+                </a>
+                <div class="is-member-hover">
+                    <div class="is-member-profile-header">
+                        <h3>{{author?.fullname}} </h3>
+                        <img class="is-profile-hover-img" [src]="author?.avatar?.url" [alt]="author?.avatar?.alt" />
+                    </div>
+                    <div class="is-member-profile-body">
+                        <p innerHTML="{{author?.biography_en || author?.biography_es || author?.biography_fr}}">
+                        </p>
+                        <!-- <div class="is-profile-tag">
+                            <span class="is-tag is-red">Entertainment</span>
+                            <span class="is-tag is-purple">Opinion</span>
+                            <span class="is-tag is-yellow">Life and Styles</span>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="is-more-btn">
+            <button nz-button nzType="primary" class="is-see-more"> {{'veiwAllStory' | translate }}</button>
+        </div>
+    </div>
+</section>
+
+
 <section class="is-cat-box-card-main">
     <div class="cat-box" *ngFor="let category of categories | async ">
         <div class="container" *ngIf="(slugWiseData[category.slug] |async)?.length">

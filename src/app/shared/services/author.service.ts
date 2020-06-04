@@ -80,5 +80,17 @@ export class AuthorService {
   getFollowings(authorId) {
     return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followingsCollection).valueChanges()
   }
+  getAuthors(limit: number = 10) {
+    return this.afs.collection(this.authorsCollection, ref =>
+      ref.limit(limit)
+    ).snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data();
+        return data;
+      });
+    })
+    );
+
+  }
 
 }
