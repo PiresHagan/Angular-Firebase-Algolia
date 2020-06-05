@@ -3,13 +3,13 @@
         <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
             <h2 class="font-weight-normal m-b-10">{{article.title}}</h2>
             <div class="media align-items-center m-b-25">
-                <nz-avatar nzSrc="{{article.author?.avatar?.url}}"></nz-avatar>
+                <nz-avatar nzSrc="{{replaceImage(article.author?.avatar?.url)}}"></nz-avatar>
                 <div class="m-l-10">
                     <h6 class="m-b-0">{{article.author?.fullname}}</h6>
                     <span class="text-muted font-size-13">{{article.published_at | date:'medium'}}</span>
                 </div>
             </div>
-            <img class="img-fluid w-100" [src]="article?.image?.url" alt="">
+            <img class="img-fluid w-100" [src]="replaceImage(article?.image?.url)" alt="">
             <div class="m-t-30 lh-1-8" innerHTML="{{article.content}}">
 
             </div>
@@ -19,7 +19,8 @@
                     <ng-template #item let-item>
                         <nz-comment nzAuthor="{{item.author?.fullname}}"
                             nzDatetime="{{item?.published_on | date:'medium' }}">
-                            <nz-avatar nz-comment-avatar nzIcon="user" nzSrc="{{item.author?.avatar?.url}}">
+                            <nz-avatar nz-comment-avatar nzIcon="user"
+                                nzSrc="{{replaceImage(item.author?.avatar?.url)}}">
                             </nz-avatar>
                             <nz-comment-content>
                                 <p innerHTML={{item.replied_on}} *ngIf="item.replied_on" class="replied-comment"></p>

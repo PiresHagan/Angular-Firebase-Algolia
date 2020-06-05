@@ -24,7 +24,8 @@
                 <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
                     <div class="profile-artical-list-item">
                         <div class="profile-artical-img">
-                            <img class="img-fluid" [src]="item?.image?.url" [alt]="item.title" *ngIf="item?.image">
+                            <img class="img-fluid" [src]="replaceImage(item?.image?.url)" [alt]="item.title"
+                                *ngIf="item?.image">
                             <nz-empty [nzNotFoundContent]="null" nzNotFoundImage="simple" *ngIf="!item?.image">
                             </nz-empty>
                         </div>
@@ -33,7 +34,8 @@
                             <div class="profile-artical-info">
                                 <div class="profile-article-avtar">
                                     <div class="d-flex align-items-center">
-                                        <nz-avatar nzSize="medium" [nzSrc]="item.author?.avatar.url"></nz-avatar>
+                                        <nz-avatar nzSize="medium" [nzSrc]="replaceImage(item.author?.avatar.url)">
+                                        </nz-avatar>
                                         <div class="m-l-10">
                                             <span class="">{{item.author?.fullname}}</span>
                                         </div>

@@ -106,6 +106,14 @@ export class ArticleSingleComponent implements OnInit {
       });
     }
   }
+  replaceImage(url) {
+    let latestURL = url
+    if (url) {
+      latestURL = latestURL.replace('https://mytrendingstories.com/', "http://assets.mytrendingstories.com/");
+      latestURL = latestURL.replace('https://cdn.mytrendingstories.com/', "http://assets.mytrendingstories.com/");
+    }
+    return latestURL;
+  }
 
 
 }
