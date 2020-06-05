@@ -24,8 +24,9 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
               "src/sitemap.xml",
+              "src/favicon.ico",
+              "src/solo-auth-proxy.html",
               "src/assets",
               {
                 "glob": "**/*",
