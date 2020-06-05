@@ -43,7 +43,7 @@
                     <div class="cat-box-gallery">
                         <div class="row article-row">
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5"
-                                *ngFor="let article of articles">
+                                *ngFor="let article of articles" [ngClass]="category.slug">
                                 <div class="item-card item-card-life-and-styles">
                                     <a [routerLink]="['/article/',article.slug]">
                                         <div class="item-card-image">
@@ -66,7 +66,7 @@
                                             <div class="item-card-texte">
                                                 <p>{{article.summary}}</p>
                                                 <button type="button" class="is-read-more">{{'readMore' | translate}}
-                                                    <img src="assets/images/read-more-icon-red.png" /></button>
+                                                    <img src="assets/images/read-more-icon-black.png" /></button>
                                             </div>
                                         </div>
                                     </a>

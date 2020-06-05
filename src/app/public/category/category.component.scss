@@ -415,10 +415,10 @@
             line-height: normal;
           }
           .is-read-more{
-            color: #ff4020;
+            color: #000;
             font-size: 18px;
             &:before{
-              background: #ff4020;
+              background: #000;
             }
           }
         }
@@ -430,6 +430,7 @@
           border-radius: 100%;
           -webkit-transition: all 0.5s ease;
           transition: all 0.5s ease;
+          object-fit: cover;
         }
         
       }

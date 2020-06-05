@@ -2,7 +2,7 @@
     font-size: 30px;
     font-size: 30px;
     font-family: "josefin_sansregular";
-    color: #fd6147;
+    color: #000;
     font-weight: 600;
     position: relative;
     padding-bottom: 11px;
@@ -16,7 +16,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
         width: 50px;
-        background: #fd6147;
+        background: #000;
         height: 2px;
     }
 }
@@ -40,21 +40,34 @@
         }
     }
     .contact-info-section{
-        background:url(../../../assets/images/sign-up/mail-2.png) center center no-repeat #fd6147;
-        background-size:140px;
+        background:url(../../../assets/images/contact.jpg) center center no-repeat;
+        background-size:cover;
         padding: 30px;
         color: #fff;
         height: 100%;
         position: relative;
+        &:before{
+            content: "";
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: #000000a1;
+        }
         h5{
             font-family: "josefin_sansregular";
             font-size: 18px;
             color:#fff;
+            position: relative;
+            z-index: 1;
         }
         h3{
             font-size: 33px;
             font-family: "josefin_sansregular";
             color:#fff;
+            position: relative;
+            z-index: 1;
         }
         .info-bottom{
             position: absolute;
@@ -142,7 +155,7 @@
         border-radius: 30px;
         font-size: 18px;
         outline: none;
-        background-color: #fd6147;
+        background-color: #23d7d5;
         color: #fff;
         padding: 8px 25px;
         border: 0px;

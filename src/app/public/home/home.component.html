@@ -140,7 +140,7 @@
 
 
 <section class="is-cat-box-card-main">
-    <div class="cat-box" *ngFor="let category of categories | async ">
+    <div class="cat-box" *ngFor="let category of categories | async " [ngClass]="category.slug">
         <div class="container" *ngIf="(slugWiseData[category.slug] |async)?.length">
             <div class="cat-box-title">
                 <div class="is-comman-title">
@@ -173,7 +173,7 @@
                                     <div class="item-card-texte">
                                         <p>{{article.summary}}</p>
                                         <button type="button" class="is-read-more">{{'readMore' | translate }} <img
-                                                src="assets/images/read-more-icon-red.png" /></button>
+                                                src="assets/images/read-more-icon-black.png" /></button>
                                     </div>
                                 </div>
                             </a>
