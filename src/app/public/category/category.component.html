@@ -48,14 +48,15 @@
                                     <a [routerLink]="['/article/',article.slug]">
                                         <div class="item-card-image">
 
-                                            <img [src]="article?.image?.url" [alt]="article?.image?.alt">
+                                            <img [src]="replaceImage(article?.image?.url)" [alt]="article?.image?.alt">
                                             <h3 class="is-category-title">{{category.title}}</h3>
                                         </div>
                                         <div class="item-card-content">
                                             <div class="item-card-category  cat-yellow">
                                                 <div class="is-avatar-dv">
 
-                                                    <img class="avatar" [src]="article.author?.avatar?.url"
+                                                    <img class="avatar"
+                                                        [src]="replaceImage(article.author?.avatar?.url)"
                                                         [alt]="article.author?.avatar?.alt">
                                                     <span class="item-card-author">{{article.author.fullname}}</span>
                                                 </div>

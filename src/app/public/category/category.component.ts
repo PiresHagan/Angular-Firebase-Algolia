@@ -88,5 +88,8 @@ export class CategoryComponent implements OnInit {
     }
 
   }
+  replaceImage(url) {
+    return url ? url.replace('https://mytrendingstories.com/', "http://assets.mytrendingstories.com/") : ''
+  }
 
 }

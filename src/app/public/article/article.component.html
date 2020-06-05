@@ -1,14 +1,14 @@
 <section class="is-article-block">
     <div class="container">
         <div class="article-full-img">
-            <img src="{{article?.image?.url}}" />
+            <img src="{{replaceImage(article?.image?.url)}}" />
         </div>
         <div class="is-article-sec">
             <div class="is-left-profile">
                 <div class="sticky-box">
                     <div class="is-profile">
                         <a [routerLink]="['/profile/',article?.author?.slug]" itemprop="url" *ngIf="article">
-                            <img class="avatar" src="{{article?.author?.avatar?.url}}"
+                            <img class="avatar" src="{{replaceImage(article?.author?.avatar?.url)}}"
                                 alt="{{article?.author?.avatar?.alt}}" />
                         </a>
                     </div>
@@ -53,11 +53,11 @@
                         <div class="addthis_inline_share_toolbox"></div>
 
                     </div>
-                        <div class="is-influencer-btn" routerLink="/influencer">
-                            <span>
-                                Messsenger<br /> Influencer
-                            </span>
-                        </div>
+                    <div class="is-influencer-btn" routerLink="/influencer">
+                        <span>
+                            Messsenger<br /> Influencer
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="is-main-article-content">
@@ -74,7 +74,7 @@
                             <div class="is-image">
                                 <a [routerLink]="['/profile/',article?.author?.slug]" itemprop="url" *ngIf="article">
                                     <img class="avatar" alt="{{article?.author?.avatar?.alt}}"
-                                        src="{{article?.author?.avatar?.url}}" />
+                                        src="{{replaceImage(article?.author?.avatar?.url)}}" />
                                     <span class="name" itemprop="name">
                                         {{article?.author.fullname}}</span>
                                 </a>
@@ -121,7 +121,7 @@
                             <div class="is-comment is-line"
                                 *ngFor="let articleComment of articleComments; let i = index">
                                 <div class="is-comment-img">
-                                    <img class="avatar" src="{{articleComment?.author?.avatar?.url}}"
+                                    <img class="avatar" src="{{replaceImage(articleComment?.author?.avatar?.url)}}"
                                         alt="{{articleComment?.author?.slug}}" />
                                 </div>
                                 <div class="is-comment-detail">

@@ -3,10 +3,13 @@
         <div class="col-12 col-sm-12 col-md-6 col-lg-7 pl-18">
             <a class="is-hero-card" *ngFor="let article of heroSmall | slice:0:1"
                 [routerLink]="['/article/',article.slug]">
-                <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + article.image.url+ ')'}"></div>
+                <div class="is-card-bg"
+                    [ngStyle]="{'background-image': 'url(' + replaceImage(article.image.url) + ')'}">
+                </div>
                 <div class="is-profile-main">
                     <div class="is-card-author-group">
-                        <img class="avatar" [src]="article.author.avatar?.url" [alt]="article.author.avatar?.alt">&nbsp;
+                        <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                            [alt]="article.author.avatar?.alt">&nbsp;
                         <span class="is-card-author">{{article.author.fullname}}
                         </span>
                     </div>
@@ -31,10 +34,12 @@
         <div class="col-12 col-sm-12 col-md-6 col-lg-5 pr-18">
             <a class="is-hero-card" *ngFor="let article of heroSmall | slice:1:2"
                 [routerLink]="['/article/',article.slug]">
-                <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + article.image.url+ ')'}"></div>
+                <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + replaceImage(article.image.url)+ ')'}">
+                </div>
                 <div class="is-profile-main">
                     <div class="is-card-author-group">
-                        <img class="avatar" [src]="article.author.avatar?.url" [alt]="article.author.avatar?.alt">&nbsp;
+                        <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                            [alt]="article.author.avatar?.alt">&nbsp;
                         <span class="is-card-author">{{article.author.fullname}}
                         </span>
                     </div>
@@ -64,10 +69,11 @@
                     class="col-12 col-sm-12 col-md-12 col-lg-4">
                     <a class="is-hero-card is-small-card">
 
-                        <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + article.image.url+ ')'}"></div>
+                        <div class="is-card-bg"
+                            [ngStyle]="{'background-image': 'url(' + replaceImage(article.image.url)+ ')'}"></div>
                         <div class="is-profile-main">
                             <div class="is-card-author-group">
-                                <img class="avatar" [src]="article.author.avatar?.url"
+                                <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
                                     [alt]="article.author.avatar?.alt">
                                 <span class="is-card-author">{{article.author.fullname}}</span>
                             </div>
@@ -111,13 +117,14 @@
             <div class="is-member-item" *ngFor="let author of (authorList | async)" [ngClass]="showTooltip"
                 (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
                 <a href="#" class="is-profile-img-link">
-                    <img [src]="author?.avatar?.url" class="is-profile" [alt]="author?.avatar?.alt" />
+                    <img [src]="replaceImage(author?.avatar?.url)" class="is-profile" [alt]="author?.avatar?.alt" />
 
                 </a>
                 <div class="is-member-hover">
                     <div class="is-member-profile-header">
                         <h3>{{author?.fullname}} </h3>
-                        <img class="is-profile-hover-img" [src]="author?.avatar?.url" [alt]="author?.avatar?.alt" />
+                        <img class="is-profile-hover-img" [src]="replaceImage(author?.avatar?.url)"
+                            [alt]="author?.avatar?.alt" />
                     </div>
                     <div class="is-member-profile-body">
                         <p innerHTML="{{author?.biography_en || author?.biography_es || author?.biography_fr}}">
@@ -156,13 +163,13 @@
                         <div class="item-card item-card-life-and-styles">
                             <a [routerLink]="['/article/',article.slug]">
                                 <div class="item-card-image">
-                                    <img [src]="article.image.url" [alt]="article.image.alt">
+                                    <img [src]="replaceImage(article.image.url)" [alt]="article.image.alt">
                                     <h3 class="is-category-title">{{article.category.title}}</h3>
                                 </div>
                                 <div class="item-card-content">
                                     <div class="item-card-category cat-yellow">
                                         <div class="is-avatar-dv">
-                                            <img class="avatar" [src]="article.author.avatar?.url"
+                                            <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
                                                 [alt]="article.author.avatar?.alt">
                                             <span class="item-card-author">{{article.author.fullname}}</span>
                                         </div>

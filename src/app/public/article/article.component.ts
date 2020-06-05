@@ -316,6 +316,8 @@ export class ArticleComponent implements OnInit {
       this.selectedLang = this.langService.getSelectedLanguage();
     })
   }
-
+  replaceImage(url) {
+    return url ? url.replace('https://mytrendingstories.com/', "http://assets.mytrendingstories.com/") : ''
+  }
 
 }

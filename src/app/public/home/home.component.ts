@@ -115,7 +115,9 @@ export class HomeComponent implements OnInit {
     this.authorList = this.authorService.getAuthors();
 
   }
-
+  replaceImage(url) {
+    return url ? url.replace('https://mytrendingstories.com/', "http://assets.mytrendingstories.com/") : ''
+  }
 
 
 }
