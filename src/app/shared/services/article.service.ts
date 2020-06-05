@@ -37,6 +37,8 @@ export class ArticleService {
         return actions.map(a => {
           const data = a.payload.doc.data();
           const id = a.payload.doc.id;
+          const img = data.image.url;
+          data.image.url = img.replace('https://mytrendingstories.com', 'https://assets.mytrendingstories.com');
           return { id, ...data };
         });
       })

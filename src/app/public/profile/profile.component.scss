@@ -33,17 +33,20 @@
           font-size: 15px;
           font-family: "josefin_sanslight";
           a {
-            color: #ff4020;
+            color: #fd6147;
             font-family: "josefin_sansregular";
           }
         }
       }
 
       .is-author-description {
-        color: #5d5d5d;
+        color: #464444;
         font-size: 16px;
         max-width: 800px;
         font-family: "open_sansregular";
+       p{
+        color: #464444 !important; 
+       }
         span {
           display: block;
         }
@@ -62,11 +65,12 @@
               display: inline-block;
               margin-right: 20px;
               img {
-                width: 30px;
+                width: 18px;
+                margin-right:8px;
               }
               span {
                 display: inline-block;
-                font-size: 23px;
+                font-size: 18px;
                 color: #38539b;
                 font-family: "josefin_sansregular";
                 line-height: 20px;
@@ -77,7 +81,7 @@
               }
               b {
                 display: inline-block;
-                background: #ff4020;
+                background: #fd6147;
                 padding: 6px 10px 4px 10px;
                 border-radius: 30px;
                 font-size: 14px;
@@ -195,7 +199,7 @@
 .is-read-more {
   background: transparent;
   border: 0px;
-  color: #ff4020;
+  color: #fd6147;
   display: flex;
   align-items: center;
   font-family: "josefin_sansregular";
@@ -212,7 +216,7 @@
     left: 0px;
     width: 100%;
     height: 1px;
-    background: #ff4020;
+    background: #fd6147;
   }
   img {
     margin-left: 10px;
@@ -284,11 +288,11 @@
             line-height: normal;
           }
           .is-read-more {
-            color: #ff4020;
+            color: #fd6147;
             font-size: 18px;
             white-space: nowrap;
             &:before {
-              background: #ff4020;
+              background: #fd6147;
             }
           }
         }
@@ -311,7 +315,7 @@
           display: block;
           width: 100%;
           height: 3px;
-          background-color: #ff4020;
+          background-color: #fd6147;
           position: absolute;
           top: 0;
           left: -100%;
@@ -322,7 +326,7 @@
           position: absolute;
           bottom: 0px;
           left: 0px;
-          background: #ff4020;
+          background: #fd6147;
           padding: 5px 10px;
           color: #fff;
           font-family: "josefin_sansregular";

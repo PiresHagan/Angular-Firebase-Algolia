@@ -212,7 +212,7 @@
   justify-content: center;
   .is-see-more{
     font-size: 24px;
-    background: #f64747;
+    background: #23d7d5;
     border: 0px;
     color: #fff;
     padding: 15px 35px 11px 35px;
@@ -496,14 +496,14 @@
             font-family: "open_sansregular";
             font-size: 16px;
             font-weight: normal;
-            color: #535353;
+            color: #464444;
             line-height: normal;
           }
           .is-read-more{
-            color: #ff4020;
+            color: #000;
             font-size: 18px;
             &:before{
-              background: #ff4020;
+              background: #000;
             }
           }
         }
@@ -515,6 +515,7 @@
           border-radius: 100%;
           -webkit-transition: all 0.5s ease;
           transition: all 0.5s ease;
+          object-fit: cover;
         }
         
       }
@@ -538,7 +539,7 @@
           position: absolute;
           bottom: 0px;
           left: 0px;
-          background: #ff4020;
+          background: #23d7d5;
           padding: 5px 10px;
           color: #fff;
           font-family: "josefin_sansregular";

@@ -2,7 +2,7 @@
 .is-banner-sec{
     background: url(../../../assets/images/copywriter/banner.jpg) center center no-repeat;
     background-size:cover;
-    height: 700px;
+    height: 480px;
     width: 100%;
     display: flex;
     position: relative;
@@ -142,12 +142,12 @@
                     display: block;
                     align-items: center;
                     span{
-                        color: #ff4020;
+                        color: #fd6147;
                         font-size: 19px;
                         display: block;
                         .is-buy{
                             margin-top: 15px;
-                            background: #ff4020;
+                            background: #fd6147;
                             color: #fff;
                             padding: 7px 10px;
                             display: block;
@@ -200,7 +200,7 @@
         justify-content: center;
         .is-see-more{
           font-size: 24px;
-          background: #ff4020;
+          background: #fd6147;
           border: 0px;
           color: #fff;
           padding: 15px 35px;
