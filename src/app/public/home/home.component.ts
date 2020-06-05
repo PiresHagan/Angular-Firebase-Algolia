@@ -116,9 +116,13 @@ export class HomeComponent implements OnInit {
 
   }
   replaceImage(url) {
-    return url ? url.replace('https://mytrendingstories.com/', "http://assets.mytrendingstories.com/") : ''
+    let latestURL = url
+    if (url) {
+      latestURL = latestURL.replace('https://mytrendingstories.com/', "http://assets.mytrendingstories.com/");
+      latestURL = latestURL.replace('https://cdn.mytrendingstories.com/', "http://assets.mytrendingstories.com/");
+    }
+    return latestURL;
   }
-
 
 }
 
