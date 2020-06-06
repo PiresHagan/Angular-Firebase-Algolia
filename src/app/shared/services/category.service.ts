@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class CategoryService {
   categoriesCollection: string = 'categories';
+  topicsCollection: string = 'topics';
 
   constructor(private afAuth: AngularFireAuth, private db: AngularFirestore) { }
 
@@ -46,6 +47,17 @@ export class CategoryService {
           return { id, ...data };
         });
         return categoryData ? categoryData[0] : {}
+      })
+    );
+  }
+  getTopicList(categoryId, language = 'en') {
+    return this.db.collection<Category[]>(this.topicsCollection, ref => ref.where('lang', '==', language).where('category', '==', categoryId)).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const uid = a.payload.doc.id;
+          return { uid, ...data };
+        });
       })
     );
   }

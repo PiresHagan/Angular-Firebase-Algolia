@@ -11,8 +11,8 @@ import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
   styleUrls: ['./mainmenu.component.scss']
 })
 export class MainmenuComponent implements OnInit {
-
-  categories: Observable<Category[]>;
+  categoryListData = {};
+  categories: Category[];
   searchVisible: boolean = false;
   selectedLanguage: string;
 
@@ -22,14 +22,30 @@ export class MainmenuComponent implements OnInit {
 
     this.selectedLanguage = this.languageService.getSelectedLanguage();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.categories = this.categoryService.getAll(this.languageService.getSelectedLanguage());
+      this.categoryService.getAll(this.languageService.getSelectedLanguage()).subscribe((categoryListData) => {
+        this.categories = categoryListData;
+        this.setTopicData(categoryListData);
+      })
     })
 
-    this.categories = this.categoryService.getAll(this.selectedLanguage);
+    this.categoryService.getAll(this.selectedLanguage).subscribe((categoryListData) => {
+      this.categories = categoryListData;
+      this.setTopicData(categoryListData);
+    })
   }
 
   searchToggle(): void {
     this.searchVisible = !this.searchVisible;
+  }
+  setTopicData(categoryList) {
+    categoryList.forEach(category => {
+      this.categoryListData[category.uid] = {
+        child: this.categoryService.getTopicList(category.uid),
+        ...category
+      }
+
+    });
+
   }
 
 }
