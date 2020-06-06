@@ -146,8 +146,138 @@
     background-color: #f64747;
     color: #fff !important;
 }
-@media screen and (max-width:992px){
+
+.megamenu-list{
+    .megamenu-link{
+        color: #000; 
+    }
+    &:hover .mega-body-sec{
+        display: block;
+    }
+    .mega-body-sec{
+        position: fixed;
+        top:50px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        padding-top:20px;
+        background: transparent;
+        display: none;
+        
+        .megamenu-body{
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 20px;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            &::-webkit-scrollbar {
+                width: 6px;
+            }
+            
+            &::-webkit-scrollbar-track {
+                background: #f1f1f1; 
+            }
+            &::-webkit-scrollbar-thumb {
+                background: #f64747; 
+                border-radius: 10px;
+            }                               
+            .sub-catagories-sec{
+                display: flex;
+                flex-wrap: wrap;
+                .sub-catagories-list{
+                    flex:0 0 12.5%;
+                    h2{
+                        font-size: 18px;
+                        text-transform: capitalize;
+                        color: #000;
+                        font-family: "josefin_sansregular";
+                        position: relative;
+                        padding-bottom: 8px;
+                        margin-bottom: 25px;
+                        &::after{
+                            content: "";
+                            position: absolute;
+                            bottom: 0px;
+                            left: 0px;
+                            width: 50px;
+                            height: 2px;
+                            background: #ff563a;
+                        }
+                    }
+                    ul{
+                        li{
+                            list-style: none;
+                            color: #4c4040;
+                            font-size: 14px;
+                            padding: 5px 10px;
+                            line-height: normal;
+                            cursor: pointer;
+                            &.ant-menu-item-selected a{
+                                color: #fff !important;
+                            }
+                            &:hover{
+                                background-color: #ff563a;
+                                color: #fff !important;
+                            }
+                            &:hover a{
+                                color: #fff !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     
+    
+    &.megaMenu-hide{
+        .megamenu-body{
+            display: none;
+        } 
+        &.megaMenu-expand{
+            display: block;
+        }
+    }
+}
+
+@media screen and (max-width:992px){
+    .megamenu-list{
+        padding: 0px !important;
+        .megamenu-link{
+            display: none;
+        }
+        .mega-body-sec{
+            position: unset;
+            display: block;
+            padding: 0px;
+            .megamenu-body{
+                padding: 10px;
+                border: 0px;
+                .sub-catagories-sec{
+                    .sub-catagories-list{
+                        flex:0 0 100%;
+                        h2{
+                            margin-bottom: 10px;
+                        }
+                        ul{
+                            margin-bottom: 20px;
+                        }
+                    }
+                }
+            }
+            &.megaMenu-hide{
+                .megamenu-body{
+                    display: block;
+                } 
+                &.megaMenu-expand{
+                    display: block;
+                }
+            }
+        }
+        
+    }
     .ant-menu-horizontal>.ant-menu-item{
         display: block;
      
@@ -172,8 +302,6 @@
 }
 }
    
-    
-
 }
 
 @media screen and (min-width:993px){
