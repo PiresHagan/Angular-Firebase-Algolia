@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd';
 import { UserService } from '../../shared/services/user.service';
 import * as firebase from 'firebase/app';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { LanguageService } from 'src/app/shared/services/language.service';
 
 @Component({
     selector: 'app-interest',
@@ -91,7 +93,7 @@ export class InterestComponent implements OnInit {
         },
     ]
 
-    constructor(private fb: FormBuilder, private router: Router, private modalService: NzModalService, private userService: UserService,
+    constructor(private fb: FormBuilder, private router: Router, private modalService: NzModalService, private userService: UserService,public translate: TranslateService, private language: LanguageService
     ) { }
 
     async ngOnInit() {

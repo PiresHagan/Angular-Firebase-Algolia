@@ -3,7 +3,8 @@ import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms
 import { Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
 import * as firebase from 'firebase/app';
-
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { LanguageService } from 'src/app/shared/services/language.service';
 @Component({
   selector: 'app-network',
   templateUrl: './network.component.html',
@@ -112,7 +113,9 @@ export class NetworkComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    public translate: TranslateService,
+     private language: LanguageService
 
   ) { }
 

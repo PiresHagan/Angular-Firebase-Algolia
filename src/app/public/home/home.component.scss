@@ -811,7 +811,8 @@
           padding-top: 0px;
           margin-top: 0px;
           button{
-            font-size: 18px;
+            font-size: 14px;
+            padding: 15px 15px 11px 15px;
           }
         }
       }
@@ -1187,3 +1188,15 @@
     }
   }
 
+  @media screen and (min-width:1200px) and (max-width:1359px){
+    .is-hero{
+      margin-top: 65px;
+    }
+    .is-follower-member{
+      .is-member{
+        .is-member-item{
+          margin: 0px 1% 20px 1%;
+        }
+      }
+    }
+  }

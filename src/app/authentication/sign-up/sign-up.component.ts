@@ -7,7 +7,8 @@ import { UserService } from '../../shared/services/user.service';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { PreviousRouteService } from 'src/app/shared/services/previous-route.service';
-
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { LanguageService } from 'src/app/shared/services/language.service';
 @Component({
     templateUrl: './sign-up.component.html',
     styleUrls: ['./sign-up.component.scss']
@@ -29,7 +30,9 @@ export class SignUpComponent {
         private userService: UserService,
         private authService: AuthService,
         public ngZone: NgZone, // NgZone service to remove outside scope warning
-        public previousRoute: PreviousRouteService
+        public previousRoute: PreviousRouteService,
+        public translate: TranslateService,
+         private language: LanguageService
 
     ) {
     }
