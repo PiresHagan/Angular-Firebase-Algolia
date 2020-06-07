@@ -130,7 +130,7 @@
   }
 
 
-@media screen and (min-width:1200px) and (max-width:1365px) {
+@media screen and (min-width:1200px) and (max-width:1359px) {
     .header{
         height: 140px;
     .logo-col{
@@ -151,6 +151,7 @@
     .language-col{
         width: 360px;
         flex: unset;
+        max-width: 100%;
     }
 }
 }

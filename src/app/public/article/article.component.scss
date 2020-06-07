@@ -1,3 +1,6 @@
+img{
+  max-width: 100%;
+}
 .article-full-img {
   position: relative;
 }
@@ -940,4 +943,13 @@
 }
 .comment-view-replies nz-spin {
   display: inline-flex;
+}
+
+@media screen and (min-width:1200px) and (max-width:1359px){
+  .is-article-block{
+    margin-top: 65px;
+  }
+  .is-article-block .is-article-sec .is-left-profile .sticky-box {
+    top: 190px;
+}
 }

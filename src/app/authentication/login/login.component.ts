@@ -5,6 +5,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { UserService } from 'src/app/shared/services/user.service';
 import { PreviousRouteService } from 'src/app/shared/services/previous-route.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { LanguageService } from 'src/app/shared/services/language.service';
 
 @Component({
     templateUrl: './login.component.html',
@@ -32,7 +34,9 @@ export class LoginComponent {
         public ngZone: NgZone, // NgZone service to remove outside scope warning
         public afAuth: AngularFireAuth,
         public authService: AuthService,
-        public previousRoute: PreviousRouteService
+        public previousRoute: PreviousRouteService,
+        public translate: TranslateService,
+         private language: LanguageService
     ) {
 
 

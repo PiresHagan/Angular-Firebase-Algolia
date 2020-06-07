@@ -26,20 +26,97 @@
 }
 /* I've separtated out these style, since they are styling the deep links on the page. */
 /* These styles are based on Yelp's */
+.provider-link-sec{
+    padding: 15px 0px;
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+}
 .provider-link {
     display: inline-block;
-    margin: 0 10px 0 0;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #f5f5f5;
     border-radius: 5px;
     text-align: center;
     cursor: default;
+    transition: 0.5s all ease;
+    color: #000;
+    margin-right: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
 }
 .provider-link:hover {
-    border-color: #aaa;
-    background: #e6e6e6;
-    text-decoration: none;
+    box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.02);
+    transform: translateY(-10px);
+    border-color: #e4e4e4;
 }
 .provider-link img {
     display: block;
+    max-width: 100%;
+}
+::ng-deep .import-contact-tbl{
+    margin-top: 10px;
+}
+::ng-deep .import-contact-tbl .ant-table-thead tr{
+    background: #eee;
+    font-family: "josefin_sansregular";
+}
+::ng-deep .import-contact-tbl .ant-table-thead tr th:nth-child(1){
+    width: 60px;
+}
+::ng-deep .import-contact-tbl tbody tr td{
+    font-family: "open_sansregular";
+}
+::ng-deep .import-contact-tbl tbody tr:hover td{
+    background: #eee;
+}
+
+::ng-deep .import-contact-tbl .ant-table-filter-column-title{
+    flex: unset;
+}
+::ng-deep .import-contact-tbl  .ant-table-filter-trigger-container{
+    position: unset;
+}
+::ng-deep .import-contact-tbl  .ant-table-filter-trigger-container:hover{
+    background: transparent;
+}
+::ng-deep .import-contact-tbl .ant-table-filter-trigger .anticon{
+    font-size: 18px;
+    position: relative;
+    top: 26px;
+    color: #000;
+}
+::ng-deep .import-contact-tbl .ant-table-pagination-right{
+    float:none;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0px;
+}
+::ng-deep .import-tab-main .ant-tabs-bar .ant-tabs-nav-wrap .ant-tabs-nav .ant-tabs-tab{
+    border:0px;
+    background: transparent;
+    height: 45px;
+    font-family: "josefin_sansregular";
+    color:#000;
+    line-height: 47px
+}
+::ng-deep .import-tab-main .ant-tabs-bar .ant-tabs-nav-wrap .ant-tabs-nav .ant-tabs-tab.ant-tabs-tab-active,
+::ng-deep .import-tab-main .ant-tabs-bar .ant-tabs-nav-wrap .ant-tabs-nav .ant-tabs-tab:hover
+{
+    border:0px;
+    background: #ff563a;
+    color:#fff;
+}
+
+@media screen and (max-width:580px){
+    .provider-link-sec{
+        justify-content: center;
+    }
+    .provider-link {
+        width: calc(50% - 10px);
+    }
+    ::ng-deep .import-contact-tbl .ant-table table{
+        display: table-caption;
+    }
+
 }

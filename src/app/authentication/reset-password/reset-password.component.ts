@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { LanguageService } from 'src/app/shared/services/language.service';
 
 
 @Component({
@@ -17,7 +19,10 @@ export class ResetPasswordComponent implements OnInit {
   constructor( 
     private fb: FormBuilder, 
     public afAuth: AngularFireAuth,
-    private router: Router) { }
+    private router: Router,
+    public translate: TranslateService,
+     private language: LanguageService
+    ) { }
 
   ngOnInit() {
     this.resetPasswordForm = this.fb.group({

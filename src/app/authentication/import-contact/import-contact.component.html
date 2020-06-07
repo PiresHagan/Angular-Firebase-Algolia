@@ -5,13 +5,13 @@
             <div class="row align-items-center">
                 <div class="col-md-7 col-lg-7 m-h-auto">
                     <nz-card class="m-b-60 shadow-lg">
-                        <div class="d-flex align-items-center justify-content-between m-b-30">
+                        <div class="d-flex align-items-center flex-wrap justify-content-between m-b-30">
                             <img class="img-fluid" alt="" src="assets/images/logo/logo.png">
                             <h2 class="m-b-0">{{'importContacts' | translate}}</h2>
                         </div>
                         <div>
                             <div id="choose-account-ui">
-                                <div class="field-group">
+                                <div class="field-group provider-link-sec">
                                     <a class="provider-link cloudsponge-launch" data-cloudsponge-source="gmail"
                                         (click)="setProviderLoadingStatus('gmail',true)">
                                         <img class="u-block"
@@ -35,7 +35,7 @@
                             </div>
 
 
-                            <nz-tabset [nzType]="'card'" class="m-t-10">
+                            <nz-tabset [nzType]="'card'" class="m-t-10 import-tab-main">
                                 <nz-tab [nzTitle]="titleTemplate" *ngFor="let provider of providerList">
                                     <ng-template #titleTemplate>
                                         <div (click)="loadCotactsFromServer(provider.name)">
@@ -45,7 +45,7 @@
                                     </ng-template>
 
                                     <nz-table #nzTable [nzData]="importedContact[provider.name]" nzTableLayout="fixed"
-                                        class="m-t-10" [nzLoading]="provider.loading">
+                                        class="m-t-10 import-contact-tbl" [nzLoading]="provider.loading">
 
                                         <thead>
                                             <tr>

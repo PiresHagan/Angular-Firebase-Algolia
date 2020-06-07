@@ -6,6 +6,8 @@ import { UserService } from '../../shared/services/user.service';
 import { formatDate } from '@angular/common';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { Member } from 'src/app/shared/interfaces/member.type';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { LanguageService } from 'src/app/shared/services/language.service';
 
 @Component({
   selector: 'app-profile',
@@ -30,6 +32,8 @@ export class ProfileComponent implements OnInit {
     private modalService: NzModalService,
     private message: NzMessageService,
     private userService: UserService,
+    public translate: TranslateService,
+    private language: LanguageService
   ) { }
 
   ngOnInit() {

@@ -189,7 +189,7 @@
                 .sub-catagories-list{
                     flex:0 0 12.5%;
                     h2{
-                        font-size: 18px;
+                        font-size: 16px;
                         text-transform: capitalize;
                         color: #000;
                         font-family: "josefin_sansregular";
@@ -210,16 +210,16 @@
                         li{
                             list-style: none;
                             color: #4c4040;
-                            font-size: 14px;
-                            padding: 5px 10px;
+                            font-size: 12px;
+                            padding: 5px 0px;
                             line-height: normal;
                             cursor: pointer;
                             &.ant-menu-item-selected a{
                                 color: #fff !important;
                             }
                             &:hover{
-                                background-color: #ff563a;
-                                color: #fff !important;
+                                color: #ff563a !important;
+                                background-color: transparent !important;
                             }
                             &:hover a{
                                 color: #fff !important;
@@ -317,8 +317,39 @@
     }
 
 }
+@media screen and (min-width:993px) and (max-width:1359px){
+    .megamenu-list{
+        .mega-body-sec{
+            top:109px;
+            .megamenu-body{
+                .sub-catagories-sec{
+                    .sub-catagories-list{
+                        flex:0 0 25%;
+                        margin-bottom: 50px;
+                        h2{
+                            margin-bottom: 10px;
+                        }
+                        ul{
+                            margin-bottom: 20px;
+                        }
+                    }
+                }
+            }
+            &.megaMenu-hide{
+                .megamenu-body{
+                    display: block;
+                } 
+                &.megaMenu-expand{
+                    display: block;
+                }
+            }
+        }
+        
+    }
+}
 
 @media screen and (min-width:993px) and (max-width:1425px){
+   
     .mainmenu {
         .layout{
             .ant-layout-sider{
