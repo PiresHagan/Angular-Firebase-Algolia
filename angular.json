@@ -25,6 +25,7 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/sitemap.xml",
+              "src/robots.txt",
               "src/favicon.ico",
               "src/solo-auth-proxy.html",
               "src/assets",
