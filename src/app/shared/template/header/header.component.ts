@@ -59,7 +59,7 @@ export class HeaderComponent {
         this.userService.getCurrentUser().then((user) => {
             this.userService.getMember(user.uid).subscribe((userDetails) => {
                 this.isLoggedInUser = true;
-                this.photoURL = userDetails?.avatar.url;
+                this.photoURL = userDetails?.avatar?.url;
                 this.displayName = userDetails?.fullname;
             })
         })

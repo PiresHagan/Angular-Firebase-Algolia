@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { NzModalService, NzMessageService, UploadFile } from 'ng-zorro-antd';
 import { UserService } from '../../shared/services/user.service';
 import { formatDate } from '@angular/common';
+import { User } from 'src/app/shared/interfaces/user.type';
+import { Member } from 'src/app/shared/interfaces/member.type';
 
 @Component({
   selector: 'app-profile',
@@ -39,23 +41,37 @@ export class ProfileComponent implements OnInit {
     });
     this.setFormData();
   }
+  setUserDetails(userDetails: User) {
+    this.profileForm.controls['phone'].setValue(userDetails.mobile);
+    this.profileForm.controls['birth'].setValue(userDetails.birthdate ? formatDate(
+      userDetails.birthdate,
+      "yyyy/MM/dd",
+      "en"
+    ) : '');
+  }
+
+  setMemberDetails(memberDetails: Member) {
+    this.profileForm.controls['biography'].setValue(memberDetails.bio);
+
+  }
   setFormData() {
     this.userService.getCurrentUser().then((user) => {
-      this.currentUser = user;
-      this.userService.get(user.id).subscribe((userDetails) => {
-        this.avatarUrl = userDetails.photoURL
-        const birth = userDetails.birth ? formatDate(
-          userDetails.birth,
-          "yyyy/MM/dd",
-          "en"
-        ) : '';
-        this.profileForm.controls['birth'].setValue(birth ? birth : '');
-        this.profileForm.controls['biography'].setValue(userDetails.biography);
-        this.profileForm.controls['phone'].setValue(userDetails.mobile);
+
+
+      this.userService.get(user.uid).subscribe((userDetails) => {
+        this.currentUser = userDetails;
+        this.setUserDetails(userDetails);
+
+      })
+      this.userService.getMember(user.uid).subscribe((memberDetails) => {
+        this.avatarUrl = memberDetails?.avatar?.url;
+        this.setMemberDetails(memberDetails);
       })
 
     })
   }
+
+
 
   async submitForm() {
     if (!this.currentUser)
