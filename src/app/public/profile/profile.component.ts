@@ -26,6 +26,10 @@ export class ProfileComponent implements OnInit {
   userDetails;
   isLoaded: boolean = false;
   selectedLang: string;
+  lastVisibleFollower;
+  lastVisibleFollowing;
+  loadingMoreFollowers: boolean = false;
+  loadingMoreFollowings: boolean = false;
   constructor(
     private titleService: Title,
     private metaTagService: Meta,
@@ -47,22 +51,24 @@ export class ProfileComponent implements OnInit {
 
       this.authorService.getUserBySlug(slug).subscribe(author => {
         this.authorDetails = author;
+        this.followers = [];
+        this.subscribers = [];
         this.getFollowersDetails();
-        this.getFollowingDetails()
+        this.getFollowingDetails();
         this.getArticleList(author['id']);
         this.setUserDetails();
 
         this.titleService.setTitle(`${this.authorDetails.fullname}`);
 
         this.metaTagService.addTags([
-          { name: "description", content: `${this.authorDetails[`biography_${this.authorDetails.lang}`].substring(0, 154)}` },
-          { name: "keywords", content: `${this.authorDetails.fullname}` },
-          { name: "twitter:card", content: `${this.authorDetails[`biography_${this.authorDetails.lang}`]}` },
+          { name: "description", content: `${this.authorDetails[`biography_${this.authorDetails?.lang}`]?.substring(0, 154)}` },
+          { name: "keywords", content: `${this.authorDetails?.fullname}` },
+          { name: "twitter:card", content: `${this.authorDetails[`biography_${this.authorDetails?.lang}`]}` },
           { name: "og:title", content: `${this.authorDetails.fullname}` },
-          { name: "og:type", content: `${this.authorDetails.type}` },
-          { name: "og:url", content: `${window.location.href}` },
-          { name: "og:image", content: `${this.authorDetails.avatar.url}` },
-          { name: "og:description", content: `${this.authorDetails[`biography_${this.authorDetails.lang}`]}` }
+          { name: "og:type", content: `${this.authorDetails?.type}` },
+          { name: "og:url", content: `${window.location?.href}` },
+          { name: "og:image", content: `${this.authorDetails?.avatar?.url}` },
+          { name: "og:description", content: `${this.authorDetails[`biography_${this.authorDetails?.lang}`]}` }
         ]);
       });
     });
@@ -103,14 +109,27 @@ export class ProfileComponent implements OnInit {
 
 
   getFollowersDetails() {
-    this.authorService.getFollowers(this.authorDetails.id).subscribe((followers) => {
-      this.followers = followers;
-    })
+    // this.authorService.getFollowers(this.authorDetails.id).subscribe((followers) => {
+    //   this.followers = followers;
+    // })
+    this.authorService.getFollowers_new(this.authorDetails.id, 10, null, this.lastVisibleFollower).subscribe((data) => {
+      this.loadingMoreFollowers = false;
+
+      this.followers = data.followers;
+
+      this.lastVisibleFollower = data.lastVisible;
+    });
   }
   getFollowingDetails() {
-    this.authorService.getFollowings(this.authorDetails.id).subscribe((following) => {
-      this.subscribers = following;
-    })
+    // this.authorService.getFollowings(this.authorDetails.id).subscribe((following) => {
+    //   this.subscribers = following;
+    // })
+    this.loadingMoreFollowings = true;
+    this.authorService.getFollowings_new(this.authorDetails.id, 10, null, this.lastVisibleFollower).subscribe((data) => {
+      this.loadingMoreFollowings = false;
+      this.subscribers = data.followings
+      this.lastVisibleFollowing = data.lastVisible;
+    });
   }
   getArticleList(authorId) {
     this.articleService.getArticlesByAuthor(authorId).subscribe((articleList) => {
@@ -180,6 +199,25 @@ export class ProfileComponent implements OnInit {
       this.selectedLang = this.langService.getSelectedLanguage();
     })
   }
+  loadMoreFollowers(action = "next") {
+    this.loadingMoreFollowers = true;
+    this.authorService.getFollowers_new(this.authorDetails.id, 10, action, this.lastVisibleFollower).subscribe((data) => {
+      this.loadingMoreFollowers = false;
+      let mergedData: any = [...this.followers, ...data.followers]
+      this.followers = this.getDistinctArray(mergedData)
+
+      this.lastVisibleFollower = data.lastVisible;
+    });
+  }
+  loadMoreFollowings(action = "next") {
+    this.loadingMoreFollowings = true;
+    this.authorService.getFollowings_new(this.authorDetails.id, 10, action, this.lastVisibleFollower).subscribe((data) => {
+      this.loadingMoreFollowings = false;
+      let mergedData: any = [...this.subscribers, ...data.followings];
+      this.subscribers = this.getDistinctArray(mergedData)
+      this.lastVisibleFollowing = data.lastVisible;
+    });
+  }
   replaceImage(url) {
     let latestURL = url
     if (url) {
@@ -187,5 +225,16 @@ export class ProfileComponent implements OnInit {
       latestURL = latestURL.replace('https://cdn.mytrendingstories.com/', "http://assets.mytrendingstories.com/");
     }
     return latestURL;
+  }
+  getDistinctArray(data) {
+    var resArr = [];
+    data.filter(function (item) {
+      var i = resArr.findIndex(x => x.id == item.id);
+      if (i <= -1) {
+        resArr.push(item);
+      }
+      return null;
+    });
+    return resArr;
   }
 }
