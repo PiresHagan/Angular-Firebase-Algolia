@@ -248,6 +248,7 @@
     "confirmPasswordError":"¡Por favor, confirme su contraseña!",
     "twoPasswodError":"¡Dos contraseñas que ingresas son inconsistentes!",
     "alreadyEmailError":"Ya hay una cuenta asociada con este correo electrónico. Por favor",
-    "logIn":"s'identifier"
+    "logIn":"s'identifier",
+    "More":"Más"
 
 }

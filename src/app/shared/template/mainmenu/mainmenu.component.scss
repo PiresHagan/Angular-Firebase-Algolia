@@ -187,7 +187,7 @@
                 display: flex;
                 flex-wrap: wrap;
                 .sub-catagories-list{
-                    flex:0 0 12.5%;
+                    flex:0 0 10%;
                     h2{
                         font-size: 16px;
                         text-transform: capitalize;
@@ -242,6 +242,22 @@
     }
 }
 
+  li{
+    &.city{
+        display: none !important;
+    }
+}
+.megamenu-list{
+    .mega-body-sec{
+        .megamenu-body{
+            .sub-catagories-sec{
+                .sub-catagories-list:nth-child(3){
+                    display: none;
+                }
+            }
+        }
+    }
+}  
 @media screen and (max-width:992px){
     .megamenu-list{
         padding: 0px !important;
@@ -312,7 +328,7 @@
         min-width: 100% !important;
         width:100% !important;
         display: flex;
-        justify-content: center;
+        justify-content: left;
         
     }
 

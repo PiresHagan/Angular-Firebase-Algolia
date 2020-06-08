@@ -109,25 +109,26 @@
 
 @import "demo/demo.scss";
 
+
 li{
   &.life-and-styles{
     &.ant-menu-item-selected{
-      background: #faaf44 !important;
+      background: #fbca20  !important;
     }
   }
   &.life-and-styles:hover{
-    background: #faaf44 !important;
+    background: #fbca20  !important;
   }
   
 }
 li{
   &.creative{
     &.ant-menu-item-selected{
-      background: #22acf6 !important;
+      background: #faaf44  !important;
     }
   }
   &.creative:hover{
-  background: #22acf6 !important;
+  background: #faaf44  !important;
   }
 
 }
@@ -145,84 +146,85 @@ li{
 li{
   &.news{
     &.ant-menu-item-selected{
-      background: #f64747 !important;
+      background: #faaf44  !important;
     }
   }
   &.news:hover{
-  background: #f64747 !important;
+  background: #faaf44  !important;
 }
 }
 
 li{
   &.entertainment{
     &.ant-menu-item-selected{
-      background: #fbca20 !important;
+      background: #f64747 !important;
     }
   }
   &.entertainment:hover{
-  background: #fbca20 !important;
+  background: #f64747 !important;
 }
 }
 li{
   &.business{
     &.ant-menu-item-selected{
-      background: #3fbb22 !important;
+      background: #2baad3  !important;
     }
   }
   &.business:hover{
-  background: #3fbb22 !important;
+  background: #2baad3  !important;
 }
 }
 li{
   &.tech-and-science{
     &.ant-menu-item-selected{
-      background: #7122bb !important;
+      background: #3fbb22  !important;
     }
   }
   &.tech-and-science:hover{
-  background: #7122bb !important;
+  background: #3fbb22  !important;
 }
 }
 li{
   &.Opinion{
     &.ant-menu-item-selected{
-      background: #2f71c6 !important;
+      background: #7122bb  !important;
     }
   }
   &.Opinion:hover{
-  background: #2f71c6 !important;
+  background: #7122bb  !important;
 }
 }
 li{
   &.sport{
     &.ant-menu-item-selected{
-      background: #23d7d5 !important;
+      background: #2baad3  !important;
     }
   }
   &.sport:hover{
-  background: #23d7d5 !important;
+  background: #2baad3  !important;
 }
 }
 li{
   &.viral{
     &.ant-menu-item-selected{
-      background: #2baad3 !important;
+      background: #f64747  !important;
     }
   }
   &.viral:hover{
-  background: #2baad3 !important;
+  background: #f64747  !important;
 }
 }
 li{
   &.religion{
     &.ant-menu-item-selected{
-      background: #fbca20 !important;
+      background: #23d7d5  !important;
     }
   }
   &.religion:hover{
-  background: #fbca20 !important;
+  background: #23d7d5  !important;
 }
 }
+
 
 
 
@@ -231,19 +233,19 @@ li{
 
 .life-and-styles{
   .is-category-title{
-  background: #faaf44 !important;
+  background: #fbca20 !important;
   }
   .is-see-more{
-    background: #faaf44 !important;
+    background: #fbca20 !important;
     }
 }
 
 .creative{
   .is-category-title{
-    background: #22acf6 !important;
+    background: #faaf44 !important;
   }
   .is-see-more{
-    background: #22acf6 !important;
+    background: #faaf44 !important;
   }
 }
 .city{
@@ -256,66 +258,66 @@ li{
 }
 .news{
   .is-category-title{
-    background: #f64747 !important;
+    background: #faaf44 !important;
   }
   .is-see-more{
-    background: #f64747 !important;
+    background: #faaf44 !important;
   }
 }
 .entertainment{
   .is-category-title{
-    background: #fbca20 !important;
+    background: #f64747 !important;
   }
   .is-see-more{
-    background: #fbca20 !important;
+    background: #f64747 !important;
   }
 }
 .business{
   .is-category-title{
-    background: #3fbb22 !important;
+    background: #2baad3 !important;
   }
   .is-see-more{
-    background: #3fbb22 !important;
+    background: #2baad3 !important;
   }
 }
 .tech-and-science{
   .is-category-title{
-    background: #7122bb !important;
+    background: #3fbb22 !important;
   }
   .is-see-more{
-    background: #7122bb !important;
+    background: #3fbb22 !important;
   }
 }
 .Opinion{
   .is-category-title{
-    background: #2f71c6 !important;
+    background: #7122bb !important;
   }
   .is-see-more{
-    background: #2f71c6 !important;
+    background: #7122bb !important;
   }
 }
 .sport{
   .is-category-title{
-    background: #23d7d5 !important;
+    background: #2baad3 !important;
   }
   .is-see-more{
-    background: #23d7d5 !important;
+    background: #2baad3 !important;
   }
 }
 .viral{
   .is-category-title{
-    background: #2baad3 !important;
+    background: #f64747 !important;
   }
   .is-see-more{
-    background: #2baad3 !important;
+    background: #f64747 !important;
   }
 }
 .religion{
   .is-category-title{
-  background: #fbca20 !important;
+  background: #23d7d5 !important;
   }
   .is-see-more{
-    background: #fbca20 !important;
+    background: #23d7d5 !important;
   }
 }
 

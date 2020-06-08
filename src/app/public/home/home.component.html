@@ -113,13 +113,14 @@
             {{'secTitle' | translate }}
         </div>
         <div class="is-member">
-
             <div class="is-member-item" *ngFor="let author of (authorList | async)" [ngClass]="showTooltip"
                 (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
+                
                 <a href="#" class="is-profile-img-link">
                     <img [src]="replaceImage(author?.avatar?.url)" class="is-profile" [alt]="author?.avatar?.alt" />
 
                 </a>
+               
                 <div class="is-member-hover">
                     <div class="is-member-profile-header">
                         <h3>{{author?.fullname}} </h3>
