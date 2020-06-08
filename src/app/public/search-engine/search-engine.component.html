@@ -36,15 +36,15 @@
                     <div class="sr-article-sec-item ads-main" *ngIf="hits.length > 5" [ngStyle]="{'order': 5}">
                         <div class="ads">Special ads</div>
                     </div>
-                    
                     <div class="sr-article-sec-item" *ngFor="let hit of hits; let i=index"  [ngStyle]="{'order': OrderIndex + i}">
-                        <div class="sr-article-img"><img src="{{hit.image}}" alt="aticle" /></div>
+                       
+                        <div class="sr-article-img"><img src="{{hit.image.url}}" alt="{{hit.image.alt}}" /></div>
                         <div class="sr-article-detail">
                             <div class="sr-article-txt">
                                 <h2>{{hit.meta.title}}</h2>
                             </div>
                             <div class="sr-avtar">
-                                <img src="{{hit.image}}" alt="avtar" />
+                                <img src="{{hit.author.avatar.url}}" alt="{{hit.author.avatar.alt}}" />
                             </div>
                         </div>
                     </div>

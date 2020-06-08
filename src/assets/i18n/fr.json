@@ -249,8 +249,5 @@
     "twoPasswodError": "Deux mots de passe que vous entrez sont incohérents!",
     "alreadyEmailError": "Un compte est déjà associé à cet e-mail. S'il vous plaît",
     "logIn": "s'identifier",
-    "invalidPassErr": "Mot de passe invalide",
-    "invalidCredErr": "Identifiants invalides",
-    "somethingWrongErr": "Quelque chose s'est mal passé, veuillez vous connecter au support.",
-    "loadMore": "Charger plus"
+    "More": "Plus"
 }

@@ -249,8 +249,5 @@
     "twoPasswodError": "¡Dos contraseñas que ingresas son inconsistentes!",
     "alreadyEmailError": "Ya hay una cuenta asociada con este correo electrónico. Por favor",
     "logIn": "s'identifier",
-    "invalidPassErr": "Contraseña no válida",
-    "invalidCredErr": "Credenciales no válidas",
-    "somethingWrongErr": "Algo salió mal, conéctese a soporte",
-    "loadMore": "Cargar más"
+    "More": "Más"
 }

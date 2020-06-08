@@ -36,13 +36,14 @@
                         <a class="is-like" *ngIf="!isLike" (click)="like()">
                             <i class="far fa-thumbs-up"></i>
                             {{'like' | translate}}
-                            <span class="likes-count" *ngIf="articleLikes">{{articleLikes}}</span>
+                            <span class="likes-count"><i class="fas fa-eye"></i>{{articleLikes}} 1</span>
                         </a>
                         <a class="is-like" *ngIf="isLike" (click)="disLike()">
                             <i class="far fa-heart"></i>
                             {{'Dislike ' | translate}}
-                            <span class="likes-count">{{articleLikes}}</span>
+                            <span class="likes-count"><i class="fas fa-eye"></i>{{articleLikes}}1</span>
                         </a>
+                        
                         <!-- 
                         <a class="is-bookmark" href=""><img src="assets/images/article/icon/bookmark.png" /></a>
                         <a class="is-dot" href=""><img src="assets/images/article/icon/more.png" /></a> -->
@@ -53,11 +54,11 @@
                         <div class="addthis_inline_share_toolbox"></div>
 
                     </div>
-                    <div class="is-influencer-btn" routerLink="/influencer">
+                    <!-- <div class="is-influencer-btn" routerLink="/influencer">
                         <span>
                             Messsenger<br /> Influencer
                         </span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="is-main-article-content">
