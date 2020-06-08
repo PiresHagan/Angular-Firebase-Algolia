@@ -250,7 +250,8 @@
     "confirmPasswordError":"Please confirm your password!",
     "twoPasswodError":"Two passwords that you enter is inconsistent!",
     "alreadyEmailError":"There is already an account associated with this email. Please",
-    "logIn":"log in"
+    "logIn":"log in",
+    "More":"More"
 
 
 

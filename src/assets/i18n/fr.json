@@ -248,5 +248,6 @@
     "confirmPasswordError":"Veuillez confirmer votre mot de passe!",
     "twoPasswodError":"Deux mots de passe que vous entrez sont incohérents!",
     "alreadyEmailError":"Un compte est déjà associé à cet e-mail. S'il vous plaît",
-    "logIn":"s'identifier"
+    "logIn":"s'identifier",
+    "More":"Plus"
 }

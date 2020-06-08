@@ -52,6 +52,7 @@ export class ArticleService {
       return actions.length;
     })
     );
+    
   }
   /**
    * Get comments according article id 
