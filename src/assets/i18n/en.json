@@ -251,5 +251,9 @@
     "twoPasswodError": "Two passwords that you enter is inconsistent!",
     "alreadyEmailError": "There is already an account associated with this email. Please",
     "logIn": "log in",
-    "More": "More"
+    "More": "More",
+    "invalidPassErr": "Invalid Password",
+    "invalidCredErr": "Invalid credentials",
+    "somethingWrongErr": "Something went wrong, please connect to support.",
+    "loadMore": "Load More"
 }
