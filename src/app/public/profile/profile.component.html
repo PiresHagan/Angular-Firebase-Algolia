@@ -52,13 +52,13 @@
 
 
                         <li>
-                            <a href="#" class="is-follow-link">
+                            <a class="is-follow-link">
                                 <b>{{authorDetails.followers_count}}</b>
                                 <span>{{'profileFollowers' | translate}}</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="is-follow-link">
+                            <a class="is-follow-link">
                                 <b>{{authorDetails.followings_count}}</b>
                                 <span>{{'profileFollowing' | translate}}</span>
                             </a>
@@ -80,31 +80,44 @@
 <section class="is-followers-sec" *ngIf="followers.length">
     <div class="container">
         <div class="is-comman-title">
-            Followers
+
+            {{'profileFollowers' | translate}}
+
         </div>
         <!-- <p class="follow">
             {{'profileFollowersDes' | translate}}
         </p> -->
         <div class="is-followers-user">
             <div class="is-followers-item" *ngFor="let follower of followers">
-                <img src="{{replaceImage(follower?.avatar?.url)}}" />
+
+                <a [routerLink]="['/profile/',follower.slug]">
+                    <img src="{{replaceImage(follower?.avatar?.url)}}" alt="{{follower?.avatar?.alt}}" />
+                </a>
             </div>
+        </div>
+        <div *ngIf="lastVisibleFollower"> <a (click)="loadMoreFollowers()"><span>{{'loadMore' | translate}}</span></a>
+            <nz-spin nzSimple *ngIf="loadingMoreFollowers"></nz-spin>
         </div>
     </div>
 </section>
 <section class="is-followers-sec" *ngIf="subscribers.length">
     <div class="container">
         <div class="is-comman-title">
-            Following
+            {{'profileFollowing' | translate}}
         </div>
         <!-- <p class="follow">
             {{'profileFolloweringDes' | translate}}
         </p> -->
         <div class="is-followers-user">
             <div class="is-followers-item" *ngFor="let subscriber of subscribers">
-                <img src="{{replaceImage(subscriber?.avatar?.url)}}" />
+                <a [routerLink]="['/profile/',subscriber.slug]">
+                    <img src="{{replaceImage(subscriber?.avatar?.url)}}" alt="{{subscriber?.avatar?.alt}}" />
+                </a>
             </div>
 
+        </div>
+        <div *ngIf="lastVisibleFollowing"> <a (click)="loadMoreFollowings()"><span>{{'loadMore' | translate}}</span></a>
+            <nz-spin nzSimple *ngIf="loadingMoreFollowings"></nz-spin>
         </div>
     </div>
 </section>

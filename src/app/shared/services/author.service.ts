@@ -80,17 +80,64 @@ export class AuthorService {
   getFollowings(authorId) {
     return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followingsCollection).valueChanges()
   }
-  getAuthors(limit: number = 10) {
-    return this.afs.collection(this.authorsCollection, ref =>
-      ref.limit(limit)
-    ).snapshotChanges().pipe(map(actions => {
-      return actions.map(a => {
-        const data = a.payload.doc.data();
-        return data;
-      });
+
+  getFollowings_new(authorId, limit: number = 10, navigation: string = "first", lastVisible = null) {
+    if (!limit) {
+      limit = 10;
+    }
+    let dataQuery = this.afs.collection(this.authorsCollection).doc(authorId).collection(`${this.followingsCollection}`, ref => ref
+      .limit(limit)
+    )
+    switch (navigation) {
+      case 'next':
+        dataQuery = this.afs.collection(this.authorsCollection).doc(authorId).collection(`${this.followingsCollection}`, ref => ref
+          //  .orderBy('published_on', 'desc')
+          .limit(limit)
+          .startAfter(lastVisible))
+        break;
+    }
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        followings: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+        lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
     })
     );
+  }
 
+
+  getFollowers_new(authorId, limit: number = 10, navigation: string = "first", lastVisible = null) {
+    if (!limit) {
+      limit = 10;
+    }
+    let dataQuery = this.afs.collection(this.authorsCollection).doc(authorId).collection(`${this.followersCollection}`, ref => ref
+      .limit(limit)
+    )
+    switch (navigation) {
+      case 'next':
+        dataQuery = this.afs.collection(this.authorsCollection).doc(authorId).collection(`${this.followersCollection}`, ref => ref
+          //  .orderBy('published_on', 'desc')
+          .limit(limit)
+          .startAfter(lastVisible))
+        break;
+    }
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        followers: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+        lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
+    })
+    );
   }
 
 }

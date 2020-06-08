@@ -88,15 +88,9 @@ export class AuthService {
         return this.afAuth.authState;
     }
     checkDejangoCred(userData) {
-        return new Promise((resolve, reject) => {
-            this.http.post(" https://us-central1-my-trending-stories-dev.cloudfunctions.net/api/token/migration", userData).subscribe((userData) => {
-                if (userData) {
-                    resolve(userData)
-                } else {
-                    reject();
-                }
-            })
-        })
+        return this.http.post(environment.authService, userData)
+
+
 
     }
 }

@@ -116,7 +116,7 @@
             <div class="is-member-item" *ngFor="let author of (authorList | async)" [ngClass]="showTooltip"
                 (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
                 
-                <a href="#" class="is-profile-img-link">
+                <a [routerLink]="['/profile/',author.slug]" class="is-profile-img-link">
                     <img [src]="replaceImage(author?.avatar?.url)" class="is-profile" [alt]="author?.avatar?.alt" />
 
                 </a>

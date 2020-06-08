@@ -26,6 +26,9 @@ export class LoginComponent {
 
     previousUrl: string;
     isFormSaving: boolean = false;
+    invalidPassErr: string = "";
+    invalidCredErr: string = "";
+    somethingWentWrongErr: string = ""
 
     constructor(
         private userService: UserService,
@@ -36,7 +39,7 @@ export class LoginComponent {
         public authService: AuthService,
         public previousRoute: PreviousRouteService,
         public translate: TranslateService,
-         private language: LanguageService
+        private language: LanguageService
     ) {
 
 
@@ -49,6 +52,14 @@ export class LoginComponent {
                 this.navigateToUserProfile();
             }
         });
+        this.invalidPassErr = this.translate.instant("invalidPassErr");
+        this.invalidCredErr = this.translate.instant("invalidCredErr");
+        this.somethingWentWrongErr = this.translate.instant("somethingWrongErr");
+        this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+            this.invalidPassErr = this.translate.instant("invalidPassErr");
+            this.invalidCredErr = this.translate.instant("invalidCredErr");
+            this.somethingWentWrongErr = this.translate.instant("somethingWrongErr");
+        })
         this.buildLoginForm();
     }
 
@@ -70,23 +81,37 @@ export class LoginComponent {
             this.navigateToUserProfile();
 
         }).catch((err) => {
-            this.checkDejangoCred(userData).then((djangoData) => {
-                this.authService.doLogin(userData.email, userData.password).then(() => {
-                    this.isFormSaving = false;
-                    this.navigateToUserProfile();
 
-                })
-            }).catch((djangoError) => {
+            if (err.code == "auth/wrong-password") {
+                this.errorMessage = this.invalidPassErr;
+                this.errorLogin = true;
                 this.isFormSaving = false;
-                this.errorMessage = err.message;
-                this.showError = true;
-                if (err.code == "auth/wrong-password") {
+            } else {
+
+                try {
+                    this.checkDejangoCred(userData).subscribe((djangoData) => {
+                        this.authService.doLogin(userData.email, userData.password).then(() => {
+                            this.isFormSaving = false;
+                            this.navigateToUserProfile();
+
+                        })
+                    }, error => {
+                        this.isFormSaving = false;
+                        this.errorMessage = this.invalidCredErr;
+                        this.showError = true;
+                        this.errorLogin = true;
+                    })
+                } catch (error) {
+                    this.isFormSaving = false;
+                    this.errorMessage = this.somethingWentWrongErr;
+                    this.showError = true;
                     this.errorLogin = true;
                 }
-                else if (err.code == "auth/user-not-found") {
-                    this.errorLogin = true;
-                }
-            })
+
+
+            }
+
+
 
         })
 
