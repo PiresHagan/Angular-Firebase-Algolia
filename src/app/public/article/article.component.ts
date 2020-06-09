@@ -23,6 +23,7 @@ export class ArticleComponent implements OnInit {
 
   article: Article;
   articleLikes: number = 0;
+  articleVicewCount: number = 0;
   slug: string;
   articleComments: any;
   commentForm: FormGroup;
@@ -58,7 +59,7 @@ export class ArticleComponent implements OnInit {
     private metaTagService: Meta,
     private langService: LanguageService
   ) {
-
+    
   }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -68,6 +69,7 @@ export class ArticleComponent implements OnInit {
         this.article = artical[0];
         const articleId = this.article.id;
         this.articleLikes = this.article.likes_count;
+        this.articleVicewCount = this.article.view_count;
         this.setUserDetails();
         this.getArticleComments(this.article.id);
 
