@@ -188,6 +188,74 @@
                 flex-wrap: wrap;
                 .sub-catagories-list{
                     flex:0 0 10%;
+                    &.life-and-styles, &.vie-et-styles, &.vida-y-estilos{
+                        li:hover{
+                            color: #fbca20  !important;
+                            background: transparent !important;
+                        }
+                        
+                      }
+                      &.creative{
+                        
+                        li:hover{
+                            color: #faaf44  !important;
+                            background: transparent !important;
+                        }
+                      
+                      }
+                    
+                      &.news,&.nouvelles,&.noticias {
+                        
+                        li:hover{
+                            color: #faaf44  !important;
+                            background: transparent !important;
+                      }
+                      }
+                      
+                      &.entertainment,&.divertissement,&.entretenimiento{
+                        
+                        li:hover{
+                            color: #f64747 !important;
+                            background: transparent !important;
+                      }
+                      }
+                      &.business, &.Entreprise, &.negocio{
+                        li:hover{
+                            color: #2baad3  !important;
+                            background: transparent !important;
+                      }
+                      }
+                      &.tech-and-science, &.technologie-et-science,&.tech-y-la-ciencia{
+                        
+                        li:hover{
+                            color: #3fbb22  !important;
+                            background: transparent !important;
+                      }
+                      }
+                      &.Opinion,&.Opinion,&.OPINIÓN{
+                        li:hover{
+                            color: #7122bb  !important;
+                            background: transparent !important;
+                      }
+                      }
+                      &.sport,&.sport-fr,&.deporte{
+                        li:hover{
+                            color: #2baad3  !important;
+                            background: transparent !important;
+                      }
+                      }
+                      &.viral,&.viral-fr,&.viral-es{
+                        :hover{
+                            color: #f64747  !important;
+                            background: transparent !important;
+                      }
+                      }
+                      &.religion, &.religion-fr, &.religión{
+                        li:hover{
+                        color: #23d7d5  !important;
+                        background: transparent !important;
+                      }
+                      }
                     h2{
                         font-size: 16px;
                         text-transform: capitalize;
@@ -216,11 +284,7 @@
                             cursor: pointer;
                             &.ant-menu-item-selected a{
                                 color: #fff !important;
-                            }
-                            &:hover{
-                                color: #ff563a !important;
-                                background-color: transparent !important;
-                            }
+                            }              
                             &:hover a{
                                 color: #fff !important;
                             }
@@ -242,18 +306,14 @@
     }
 }
 
-  li{
-    &.city{
-        display: none !important;
-    }
-}
+
 .megamenu-list{
     .mega-body-sec{
         .megamenu-body{
             .sub-catagories-sec{
-                .sub-catagories-list:nth-child(3){
-                    display: none;
-                }
+                .city, .ville,.ciudad{
+                    display: none !important;
+                  }
             }
         }
     }
