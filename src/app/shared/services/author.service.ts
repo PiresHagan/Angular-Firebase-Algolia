@@ -110,6 +110,19 @@ export class AuthorService {
     );
   }
 
+  getAuthors(limit: number = 10) {
+    return this.afs.collection(this.authorsCollection, ref =>
+      ref.limit(limit)
+    ).snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data();
+        return data;
+      });
+    })
+    );
+
+  }
+
 
   getFollowers_new(authorId, limit: number = 10, navigation: string = "first", lastVisible = null) {
     if (!limit) {
