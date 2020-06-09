@@ -3,106 +3,58 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /articles/{articleId}{
     	allow write: if true;
-      allow read: if true;
+			allow read: if true;
     }
     match /articles/{articleId}/comments/{commentId} {
-     	allow write: if true;
-      allow read: if true;
+     	allow write: if request.auth.uid == resource.data.author.id;
+			allow read: if true;
   	}
     match /articles/{articleId}/likes/{likerId} {
-     	allow write: if true;
-      allow read: if true;
+			allow write: if request.auth != null;
+			allow read: if true;
   	}
-    
-    match /posts/{postId}{
-    	allow write: if true;
-      allow read: if true;
-    }
     match /users/{userId} {
-      allow write: if true;
-      allow read: if true;
+			allow write: if request.auth != null;
+			allow read: if request.auth != null;
     }
-     match /users/{userId}/networks/{providerId} {
-      allow write: if true;
-      allow read: if true;
-    }
-    match /authors/{authorId} {
-      allow write: if true;
-      allow read: if true;
-    }
-     match /bak_authors/{authorId} {
-      allow write: if true;
-      allow read: if true;
+    match /users/{userId}/networks/{providerId} {
+      allow write: if request.auth.uid == userId;
+      allow read: if request.auth.uid == userId;
     }
     match /categories/{categoryId} {
-      allow write: if true;
+      allow write: if false;
       allow read: if true;
     }
-     match /bak_categories/{categoryId} {
-      allow write: if true;
-      allow read: if true;
-    }
-     match /bak_posts/{postId}{
-    	allow write: if true;
-      allow read: if true;
-    }
-    match /_likes/{likeId}{
-    	allow write: if true;
-      allow read: if true;
-    }
-    match /_comments/{commentId}{
-    	allow write: if true;
-      allow read: if true;
-    }
-     match /_authors/{authorId}{
-    	allow write: if true;
-      allow read: if true;
-    }
-    match /bak_authors/{authorId}/_followers/{followerId} {
-      allow write: if true;
-      allow read: if true;
-    }
-    match /bak_authors/{authorId} {
-      allow write: if true;
-      allow read: if true;
-    }
-    match /bak_posts/{postId}/_comments/{commentId} {
-     	allow write: if true;
-      allow read: if true;
+    match /users/{userId}/followings/{followerId} {
+     	allow write: if request.auth.uid == userId;
+			allow read: if request.auth.uid == userId;
   	}
-    match /bak_posts/{postId}/_likes/{likerId} {
-     	allow write: if true;
-      allow read: if true;
+    match /users/{userId}/invitation/{invitationId} {
+     	allow write: if request.auth.uid == userId;
+			allow read: if request.auth.uid == userId;
   	}
-    match /_users/{userId} {
-     	allow write: if true;
-      allow read: if true;
+    match /members/{memberId}{
+     	allow write: if request.auth.uid == memberId;
+			allow read: if true;
   	}
-     match /users/{userId}/followings/{followerId} {
-     	allow write: if true;
-      allow read: if true;
-  	}
-     match /users/{userId}/invitation/{invitationId} {
-     	allow write: if true;
-      allow read: if true;
-  	}
-     match /members/{memberId}{
-     	allow write: if true;
-      allow read: if true;
-  	}
-     match /members/{memberId}/followers/{followerId}{
-     	allow write: if true;
-      allow read: if true;
-  	}
-     match /members/{memberId}/followings/{followingsId}{
-     	allow write: if true;
-      allow read: if true;
-  	}
-     
     
-    
-    //match /{document=**} {
-    //  allow read, write: if false;
-    //}
+    match /members/{memberId}/followers/{followerId}{
+     	allow write: if request.auth != null;
+			allow read: if true;
+  	}
+    match /members/{memberId}/followings/{followingsId}{
+     	allow write: if request.auth != null;
+			allow read: if true;
+  	}
+	
+    match /topics/{topicId}{
+      allow write: if false;
+      allow read: if true;
+  	}
+    match /migrate/** {
+      allow write: if false;
+      allow read: if false;
+  	}
+
   }
 }
