@@ -211,7 +211,7 @@ export class ProfileComponent implements OnInit {
   }
   loadMoreFollowings(action = "next") {
     this.loadingMoreFollowings = true;
-    this.authorService.getFollowings_new(this.authorDetails.id, 10, action, this.lastVisibleFollower).subscribe((data) => {
+    this.authorService.getFollowings_new(this.authorDetails.id, 10, action, this.lastVisibleFollowing).subscribe((data) => {
       this.loadingMoreFollowings = false;
       let mergedData: any = [...this.subscribers, ...data.followings];
       this.subscribers = this.getDistinctArray(mergedData)
