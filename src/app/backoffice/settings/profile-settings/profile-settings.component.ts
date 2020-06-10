@@ -10,6 +10,8 @@ import { User } from "src/app/shared/interfaces/user.type";
 import { formatDate } from "@angular/common";
 import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 import { Member } from "src/app/shared/interfaces/member.type";
+import { CategoryService } from "src/app/shared/services/category.service";
+import { LanguageService } from "src/app/shared/services/language.service";
 
 
 @Component({
@@ -29,80 +31,10 @@ export class ProfileSettingsComponent {
   currentUser: User;
   isPhotoChangeLoading: boolean = false;
   memberDetails: Member;
+  userDetails: User;
 
   notificationConfigList = [
-    {
-      id: "life",
-      title: "Life and styles",
-      desc: "Allow people found on your public.",
-      icon: "user",
-      color: "ant-avatar-blue",
-      status: false,
-    },
-    {
-      id: "business",
-      title: "Business",
-      desc: "Allow any peole to contact.",
-      icon: "mobile",
-      color: "ant-avatar-cyan",
-      status: false,
-    },
-    {
-      id: "news",
-      title: "News",
-      desc: "Turning on Location lets you explore what's around you.",
-      icon: "environment",
-      color: "ant-avatar-gold",
-      status: false,
-    },
-    {
-      id: "sport",
-      title: "Sport",
-      desc: "Receive daily email notifications.",
-      icon: "mail",
-      color: "ant-avatar-purple",
-      status: false,
-    },
-    {
-      id: "religion",
-      title: "Religion",
-      desc: "Allow all downloads from unknow source.",
-      icon: "question",
-      color: "ant-avatar-red",
-      status: false,
-    },
-    {
-      id: "creative",
-      title: "Creative",
-      desc: "Allow data synchronize with cloud server",
-      icon: "swap",
-      color: "ant-avatar-green",
-      status: false,
-    },
-    {
-      id: "opinion",
-      title: "Opinion",
-      desc: "Allow any groups invitation",
-      icon: "usergroup-add",
-      color: "ant-avatar-orange",
-      status: false,
-    },
-    {
-      id: "tech",
-      title: "Tech and science",
-      desc: "Allow any groups invitation",
-      icon: "usergroup-add",
-      color: "ant-avatar-orange",
-      status: false,
-    },
-    {
-      id: "ent",
-      title: "Entertainement",
-      desc: "Allow any groups invitation",
-      icon: "usergroup-add",
-      color: "ant-avatar-orange",
-      status: false,
-    },
+
   ];
 
   constructor(
@@ -111,6 +43,8 @@ export class ProfileSettingsComponent {
     private message: NzMessageService,
     private userService: UserService,
     public translate: TranslateService,
+    public categoryService: CategoryService,
+    public languageService: LanguageService
   ) { }
 
   ngOnInit(): void {
@@ -136,20 +70,15 @@ export class ProfileSettingsComponent {
     /**
      * Intrest List Form
      */
-    this.interestForm = this.fb.group({
-      life: [null],
-      business: [null],
-      news: [null],
-      sport: [null],
-      religion: [null],
-      creative: [null],
-      opinion: [null],
-      tech: [null],
-      ent: [null],
-      later: [null],
-    });
+    this.interestForm;
 
     this.setFormsData();
+
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.notificationConfigList = [];
+      this.interestForm = null;
+      this.setIntrestForm(this.userDetails);
+    })
 
   }
   setFormsData() {
@@ -159,6 +88,8 @@ export class ProfileSettingsComponent {
       this.userService.get(user.uid).subscribe((userDetails) => {
         this.currentUserEmail = userDetails.email;
         this.setUserDetails(userDetails);
+        this.userDetails = userDetails;
+
         this.setIntrestForm(userDetails);
       })
       this.userService.getMember(user.uid).subscribe((memberDetails) => {
@@ -184,15 +115,45 @@ export class ProfileSettingsComponent {
   }
 
   setIntrestForm(userDetails) {
-    let intrestList = this.notificationConfigList;
-    for (let index = 0; index < intrestList.length; index++) {
-      const intrest = intrestList[index];
-      if (userDetails.interests && userDetails.interests.includes(intrest.id)) {
-        intrestList[index].status = true;
+    let selectedLanguage = this.languageService.getSelectedLanguage()
+    this.categoryService.getAll(selectedLanguage).subscribe((categoryList) => {
+      let updatedCategory = this.getUpdatedCategories(categoryList);
+      let intrestList = updatedCategory.catList;
+      for (let index = 0; index < intrestList.length; index++) {
+        const intrest = intrestList[index];
+        if (userDetails.interests && userDetails.interests.includes(intrest.id)) {
+          intrestList[index].status = true;
+        }
       }
-    }
 
-    this.notificationConfigList = intrestList;
+      this.notificationConfigList = intrestList;
+      this.interestForm = this.interestForm = this.fb.group(updatedCategory.formObj);
+    })
+
+  }
+  getUpdatedCategories(categoryList) {
+    let newCatList = [];
+    let formObj = {};
+    categoryList.forEach(category => {
+      let newCat = {
+        id: category.slug,
+        title: category.title,
+        desc: "",
+        icon: "usergroup-add",
+        color: "ant-avatar-orange",
+        status: false,
+      }
+      newCatList.push(newCat);
+      formObj[category.slug] = [null]
+    });
+
+
+
+
+    return {
+      catList: newCatList,
+      formObj: formObj
+    };
   }
 
   showConfirm(password: string): void {

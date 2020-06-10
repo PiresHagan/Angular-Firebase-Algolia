@@ -138,7 +138,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <nz-card nzTitle="{{'notificationConfig' | translate}}">
+                            <nz-card nzTitle="{{'notificationConfig' | translate}}"
+                                *ngIf="notificationConfigList.length">
                                 <form nz-form [formGroup]="interestForm" class="login-form"
                                     (ngSubmit)="saveIntrestList()">
                                     <nz-list [nzDataSource]="notificationConfigList" [nzRenderItem]="notification"
