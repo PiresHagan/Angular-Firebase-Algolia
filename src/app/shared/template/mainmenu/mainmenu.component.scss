@@ -189,6 +189,11 @@
                 .sub-catagories-list{
                     flex:0 0 10%;
                     &.life-and-styles, &.vie-et-styles, &.vida-y-estilos{
+                        h2{
+                            &::after{
+                                background: #fbca20  !important;
+                            }
+                        }
                         li:hover{
                             color: #fbca20  !important;
                             background: transparent !important;
@@ -196,7 +201,11 @@
                         
                       }
                       &.creative{
-                        
+                        h2{
+                            &::after{
+                                background: #faaf44  !important;
+                            }
+                        }
                         li:hover{
                             color: #faaf44  !important;
                             background: transparent !important;
@@ -205,7 +214,11 @@
                       }
                     
                       &.news,&.nouvelles,&.noticias {
-                        
+                        h2{
+                            &::after{
+                                background: #faaf44  !important;
+                            }
+                        }
                         li:hover{
                             color: #faaf44  !important;
                             background: transparent !important;
@@ -213,44 +226,77 @@
                       }
                       
                       &.entertainment,&.divertissement,&.entretenimiento{
-                        
+                        h2{
+                            &::after{
+                                background: #f64747  !important;
+                            }
+                        }
                         li:hover{
                             color: #f64747 !important;
                             background: transparent !important;
                       }
                       }
                       &.business, &.Entreprise, &.negocio{
+                        h2{
+                            &::after{
+                                background: #2baad3  !important;
+                            }
+                        }
                         li:hover{
                             color: #2baad3  !important;
                             background: transparent !important;
                       }
                       }
                       &.tech-and-science, &.technologie-et-science,&.tech-y-la-ciencia{
-                        
+                        h2{
+                            &::after{
+                                background: #3fbb22  !important;
+                            }
+                        }
                         li:hover{
                             color: #3fbb22  !important;
                             background: transparent !important;
                       }
                       }
                       &.Opinion,&.Opinion,&.OPINIÓN{
+                        h2{
+                            &::after{
+                                background: #7122bb  !important;
+                            }
+                        }
                         li:hover{
                             color: #7122bb  !important;
                             background: transparent !important;
                       }
                       }
                       &.sport,&.sport-fr,&.deporte{
+                        h2{
+                            &::after{
+                                background: #2baad3  !important;
+                            }
+                        }
                         li:hover{
                             color: #2baad3  !important;
                             background: transparent !important;
                       }
                       }
                       &.viral,&.viral-fr,&.viral-es{
+                        h2{
+                            &::after{
+                                background: #f64747  !important;
+                            }
+                        }
                         :hover{
                             color: #f64747  !important;
                             background: transparent !important;
                       }
                       }
                       &.religion, &.religion-fr, &.religión{
+                        h2{
+                            &::after{
+                                background: #23d7d5  !important;
+                            }
+                        }
                         li:hover{
                         color: #23d7d5  !important;
                         background: transparent !important;
