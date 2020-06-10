@@ -59,7 +59,7 @@ export class ArticleComponent implements OnInit {
     private metaTagService: Meta,
     private langService: LanguageService
   ) {
-    
+
   }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -68,6 +68,7 @@ export class ArticleComponent implements OnInit {
       this.articleService.getArtical(slug).subscribe(artical => {
         this.article = artical[0];
         const articleId = this.article.id;
+
         this.articleLikes = this.article.likes_count;
         this.articleVicewCount = this.article.view_count;
         this.setUserDetails();
@@ -85,6 +86,7 @@ export class ArticleComponent implements OnInit {
           { name: "og:image", content: `${this.article.image.url}` },
           { name: "og:description", content: `${this.article.meta.description}` }
         ]);
+        this.articleService.updateViewCount(articleId);
       });
       this.setLanguageNotification();
 
@@ -183,6 +185,7 @@ export class ArticleComponent implements OnInit {
     this.articleService.createComment(this.article.id, commentData).then(() => {
       this.isFormSaving = false;
       this.messageDetails = '';
+      this.articleService.commentCount(this.article.id);
       this.showCommentSavedMessage();
       this.newComment();
     }).catch((e) => {
@@ -268,14 +271,18 @@ export class ArticleComponent implements OnInit {
       id: this.userDetails.id,
     }
   }
-  follow(authorId) {
+  async follow(authorId) {
     let userDetails = this.getUserDetails();
     this.authorService.follow(authorId, userDetails);
-
+    await this.authorService.follow(authorId, userDetails);
+    await this.authorService.following(userDetails.id, this.article.author);
+    this.authorService.followCount(authorId, userDetails.id, 1);
   }
 
-  unfollow(authorId) {
-    this.authorService.unfollow(authorId, this.getUserDetails().id);
+  async unfollow(authorId) {
+    await this.authorService.unfollow(authorId, this.getUserDetails().id);
+    await this.authorService.unfollowing(this.getUserDetails().id, authorId);
+    this.authorService.followCount(authorId, this.getUserDetails().id, -1);
 
   }
   setFollowOrNot() {

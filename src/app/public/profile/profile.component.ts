@@ -161,18 +161,19 @@ export class ProfileComponent implements OnInit {
       id: this.authorDetails.id,
     }
   }
-  follow(authorId) {
+  async follow(authorId) {
     let userDetails = this.getUserDetails();
     let authorDetails = this.getAuthorDetails();
-    this.authorService.follow(authorId, userDetails);
-    this.authorService.following(userDetails.id, authorDetails);
+    await this.authorService.follow(authorId, userDetails);
+    await this.authorService.following(userDetails.id, authorDetails);
+    this.authorService.followCount(authorId, userDetails.id, 1);
 
   }
 
-  unfollow(authorId) {
-    this.authorService.unfollow(authorId, this.getUserDetails().id);
-    this.authorService.unfollowing(this.getUserDetails().id, authorId);
-
+  async unfollow(authorId) {
+    await this.authorService.unfollow(authorId, this.getUserDetails().id);
+    await this.authorService.unfollowing(this.getUserDetails().id, authorId);
+    this.authorService.followCount(authorId, this.getUserDetails().id, -1);
   }
   setFollowOrNot() {
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentReference } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import 'firebase/storage';
+import * as firebase from 'firebase/app'
 
 
 
@@ -54,7 +55,7 @@ export class AuthorService {
    */
 
   follow(authorId: string, followerData) {
-    return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followersCollection).doc(followerData.id).set(followerData);
+    return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followersCollection).doc(followerData.id).set(followerData)
   }
 
   unfollow(authorId: string, followerId) {
@@ -151,6 +152,16 @@ export class AuthorService {
       }
     })
     );
+  }
+  followCount(authorId: string, followerId: string, value: number) {
+    const db = firebase.firestore();
+    const increment = firebase.firestore.FieldValue.increment(value);
+    const authorRef = db.collection(this.authorsCollection).doc(authorId);
+    authorRef.update({ followers_count: increment })
+
+    const followerInc = firebase.firestore.FieldValue.increment(value);
+    const followerRef = db.collection(this.authorsCollection).doc(followerId);
+    followerRef.update({ followings_count: followerInc })
   }
 
 }

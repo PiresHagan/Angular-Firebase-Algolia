@@ -5,6 +5,7 @@ import { map, take } from 'rxjs/operators';
 import { Article } from '../interfaces/article.type';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { ACTIVE } from '../constants/status-constants';
+import * as firebase from 'firebase/app'
 
 @Injectable({
   providedIn: 'root'
@@ -52,7 +53,7 @@ export class ArticleService {
       return actions.length;
     })
     );
-    
+
   }
   /**
    * Get comments according article id 
@@ -345,11 +346,15 @@ export class ArticleService {
     })
   }
   like(articleId: string, likerData) {
-    return this.db.collection(this.articleCollection).doc(articleId).collection(this.articleLikesCollection).doc(likerData.id).set(likerData);
+    return this.db.collection(this.articleCollection).doc(articleId).collection(this.articleLikesCollection).doc(likerData.id).set(likerData).then(() => {
+      this.likeCount(articleId)
+    })
   }
 
   disLike(articleId: string, likerId) {
-    return this.db.collection(this.articleCollection).doc(articleId).collection(this.articleLikesCollection).doc(likerId).delete();
+    return this.db.collection(this.articleCollection).doc(articleId).collection(this.articleLikesCollection).doc(likerId).delete().then(() => {
+      this.disLikeCount(articleId)
+    })
   }
 
   isLikedByUser(articleId: string, likerId) {
@@ -380,6 +385,30 @@ export class ArticleService {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
+  }
+  updateViewCount(articleId: string) {
+    const db = firebase.firestore();
+    const increment = firebase.firestore.FieldValue.increment(1);
+    const articleRef = db.collection(this.articleCollection).doc(articleId);
+    articleRef.update({ view_count: increment })
+  }
+  commentCount(articleId: string) {
+    const db = firebase.firestore();
+    const increment = firebase.firestore.FieldValue.increment(1);
+    const articleRef = db.collection(this.articleCollection).doc(articleId);
+    articleRef.update({ comments_count: increment })
+  }
+  likeCount(articleId: string) {
+    const db = firebase.firestore();
+    const increment = firebase.firestore.FieldValue.increment(1);
+    const articleRef = db.collection(this.articleCollection).doc(articleId);
+    articleRef.update({ likes_count: increment })
+  }
+  disLikeCount(articleId: string) {
+    const db = firebase.firestore();
+    const increment = firebase.firestore.FieldValue.increment(-1);
+    const articleRef = db.collection(this.articleCollection).doc(articleId);
+    articleRef.update({ likes_count: increment })
   }
 
 
