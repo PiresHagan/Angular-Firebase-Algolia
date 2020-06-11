@@ -46,13 +46,6 @@
           "source": "**",
           "function": "ssr"
         }
-      ],
-      "redirects" : [
-        {
-          "source": "/media/**",
-          "destination": "https://abc2020new.com/media/**",
-          "type": 302
-        }
       ]
     }
   ],
