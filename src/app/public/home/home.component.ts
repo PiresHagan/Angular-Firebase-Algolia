@@ -79,7 +79,7 @@ export class HomeComponent implements OnInit {
 
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.selectedLanguage = this.languageService.getSelectedLanguage()
-      this.categories = this.categoryService.getAll();
+      this.categories = this.categoryService.getAll(this.selectedLanguage);
 
       this.articleService.getHeroLargeArticle(this.selectedLanguage).subscribe(article => {
         this.heroLarge = article[0];
@@ -105,7 +105,7 @@ export class HomeComponent implements OnInit {
   setArticleData() {
     this.categories.subscribe((categoryData) => {
       categoryData.forEach(element => {
-        this.slugWiseData[element.slug] = this.articleService.getCategoryRow(element.slug)
+        this.slugWiseData[element.slug] = this.articleService.getCategoryRow(element.slug, this.selectedLanguage)
       });
 
     })

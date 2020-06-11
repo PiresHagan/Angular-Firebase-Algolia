@@ -130,7 +130,7 @@ export class ArticleService {
 
   getHeroLargeArticle(lang) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('lang', "==", lang)
+      .where('category.lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(1)
@@ -147,7 +147,7 @@ export class ArticleService {
 
   getHeroSmallArticle(lang) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('lang', "==", lang)
+      .where('category.lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(5)
@@ -163,9 +163,10 @@ export class ArticleService {
   }
 
 
-  getCategoryRow(slug: string) {
+  getCategoryRow(slug: string, lang: string = 'en') {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('category.slug', '==', slug)
+      .where('category.lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(5)
