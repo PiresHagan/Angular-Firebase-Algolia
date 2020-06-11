@@ -22,7 +22,8 @@ export class MainmenuComponent implements OnInit {
 
     this.selectedLanguage = this.languageService.getSelectedLanguage();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.categoryService.getAll(this.languageService.getSelectedLanguage()).subscribe((categoryListData) => {
+      this.selectedLanguage = this.languageService.getSelectedLanguage();
+      this.categoryService.getAll(this.selectedLanguage).subscribe((categoryListData) => {
         this.categories = categoryListData;
         this.setTopicData(categoryListData);
       })
@@ -40,7 +41,7 @@ export class MainmenuComponent implements OnInit {
   setTopicData(categoryList) {
     categoryList.forEach(category => {
       this.categoryListData[category.uid] = {
-        child: this.categoryService.getTopicList(category.uid),
+        child: this.categoryService.getTopicList(category.uid, this.selectedLanguage),
         ...category
       }
 
