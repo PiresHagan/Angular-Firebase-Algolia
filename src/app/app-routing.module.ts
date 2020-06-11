@@ -37,7 +37,7 @@ const appRoutes: Routes = [
     imports: [
         RouterModule.forRoot(appRoutes, {
             preloadingStrategy: PreloadAllModules,
-            useHash: false,
+            useHash: true,
             scrollPositionRestoration: 'enabled'
         })
     ],

@@ -15,7 +15,7 @@ export class CategoryService {
   constructor(private afAuth: AngularFireAuth, private db: AngularFirestore) { }
 
   getAll(language: string = 'en') {
-    return this.db.collection<Category[]>(this.categoriesCollection, ref => ref.where('lang', '==', language)).snapshotChanges().pipe(
+    return this.db.collection<Category[]>(this.categoriesCollection, ref => ref.where('lang', '==', language).orderBy('order', 'asc')).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();

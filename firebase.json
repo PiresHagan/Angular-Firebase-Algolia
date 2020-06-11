@@ -12,7 +12,7 @@
       "rewrites": [
         {
           "source": "**",
-          "destination": "ssr"
+          "function": "ssr"
         }
       ]
     },
@@ -28,7 +28,7 @@
       "rewrites": [
         {
           "source": "**",
-          "destination": "ssr"
+          "function": "ssr"
         }
       ]
     },
@@ -44,7 +44,7 @@
       "rewrites": [
         {
           "source": "**",
-          "destination": "ssr"
+          "function": "ssr"
         }
       ],
       "redirects" : [

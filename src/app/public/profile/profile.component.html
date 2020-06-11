@@ -51,7 +51,7 @@
 
 
 
-                        <li>
+                        <!-- <li>
                             <a class="is-follow-link">
                                 <b>{{authorDetails.followers_count}}</b>
                                 <span>{{'profileFollowers' | translate}}</span>
@@ -62,7 +62,7 @@
                                 <b>{{authorDetails.followings_count}}</b>
                                 <span>{{'profileFollowing' | translate}}</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="report-abuse-spin" *ngIf="isLoggedInUser">
                             <a class="comment-view-replies" (click)="reportAbuseAuthor()">
                                 <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseLoading"></nz-spin>

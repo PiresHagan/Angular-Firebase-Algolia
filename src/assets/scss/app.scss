@@ -111,12 +111,12 @@
 
 
 li{
-  &.life-and-styles{
+  &.life-and-styles, &.vie-et-styles, &.vida-y-estilos{
     &.ant-menu-item-selected{
       background: #fbca20  !important;
     }
   }
-  &.life-and-styles:hover{
+  &.life-and-styles:hover, &.vie-et-styles:hover, &.vida-y-estilos:hover{
     background: #fbca20  !important;
   }
   
@@ -143,84 +143,85 @@ li{
   background: #23d7d5 !important;
 }
 }
+
 li{
-  &.news{
+  &.news,&.nouvelles,&.noticias {
     &.ant-menu-item-selected{
       background: #faaf44  !important;
     }
   }
-  &.news:hover{
+  &.news:hover,&.nouvelles:hover,&.noticias :hover{
   background: #faaf44  !important;
 }
 }
 
 li{
-  &.entertainment{
+  &.entertainment,&.divertissement,&.entretenimiento{
     &.ant-menu-item-selected{
       background: #f64747 !important;
     }
   }
-  &.entertainment:hover{
+  &.entertainment:hover, &.divertissement:hover, &.entretenimiento:hover{
   background: #f64747 !important;
 }
 }
 li{
-  &.business{
+  &.business, &.Entreprise, &.negocio{
     &.ant-menu-item-selected{
       background: #2baad3  !important;
     }
   }
-  &.business:hover{
+  &.business:hover, &.Entreprise:hover, &.negocio:hover{
   background: #2baad3  !important;
 }
 }
 li{
-  &.tech-and-science{
+  &.tech-and-science, &.technologie-et-science,&.tech-y-la-ciencia{
     &.ant-menu-item-selected{
       background: #3fbb22  !important;
     }
   }
-  &.tech-and-science:hover{
+  &.tech-and-science:hover,&.technologie-et-science:hover,&.tech-y-la-ciencia:hover{
   background: #3fbb22  !important;
 }
 }
 li{
-  &.Opinion{
+  &.Opinion,&.Opinion,&.OPINIÓN{
     &.ant-menu-item-selected{
       background: #7122bb  !important;
     }
   }
-  &.Opinion:hover{
+  &.Opinion:hover,&.Opinion:hover,&.OPINIÓN:hover{
   background: #7122bb  !important;
 }
 }
 li{
-  &.sport{
+  &.sport,&.sport-fr,&.deporte{
     &.ant-menu-item-selected{
       background: #2baad3  !important;
     }
   }
-  &.sport:hover{
+  &.sport:hover,&.sport-fr:hover,&.deporte:hover{
   background: #2baad3  !important;
 }
 }
 li{
-  &.viral{
+  &.viral,&.viral-fr,&.viral-es{
     &.ant-menu-item-selected{
       background: #f64747  !important;
     }
   }
-  &.viral:hover{
+  &.viral:hover,&.viral-fr:hover,&.viral-es:hover{
   background: #f64747  !important;
 }
 }
 li{
-  &.religion{
+  &.religion, &.religion-fr, &.religión{
     &.ant-menu-item-selected{
       background: #23d7d5  !important;
     }
   }
-  &.religion:hover{
+  &.religion:hover,  &.religion-fr:hover, &.religión:hover{
   background: #23d7d5  !important;
 }
 }
@@ -231,7 +232,7 @@ li{
 
 
 
-.life-and-styles{
+.life-and-styles, .vie-et-styles, .vida-y-estilos{
   .is-category-title{
   background: #fbca20 !important;
   }
@@ -248,7 +249,7 @@ li{
     background: #faaf44 !important;
   }
 }
-.city{
+.city, .ville,.ciudad{
   .is-category-title{
     background: #23d7d5 !important;
   }
@@ -256,7 +257,7 @@ li{
     background: #23d7d5 !important;
   }
 }
-.news{
+.news, .nouvelles, .noticias {
   .is-category-title{
     background: #faaf44 !important;
   }
@@ -264,7 +265,7 @@ li{
     background: #faaf44 !important;
   }
 }
-.entertainment{
+.entertainment, .divertissement, .entretenimiento{
   .is-category-title{
     background: #f64747 !important;
   }
@@ -272,7 +273,7 @@ li{
     background: #f64747 !important;
   }
 }
-.business{
+.business, .Entreprise, .negocio{
   .is-category-title{
     background: #2baad3 !important;
   }
@@ -280,7 +281,7 @@ li{
     background: #2baad3 !important;
   }
 }
-.tech-and-science{
+.tech-and-science, .technologie-et-science, .tech-y-la-ciencia{
   .is-category-title{
     background: #3fbb22 !important;
   }
@@ -288,7 +289,7 @@ li{
     background: #3fbb22 !important;
   }
 }
-.Opinion{
+.Opinion, .Opinion, .OPINIÓN{
   .is-category-title{
     background: #7122bb !important;
   }
@@ -296,7 +297,7 @@ li{
     background: #7122bb !important;
   }
 }
-.sport{
+.sport, .sport-fr, .deporte{
   .is-category-title{
     background: #2baad3 !important;
   }
@@ -304,7 +305,7 @@ li{
     background: #2baad3 !important;
   }
 }
-.viral{
+.viral, .viral-fr, .viral-es{
   .is-category-title{
     background: #f64747 !important;
   }
@@ -312,7 +313,7 @@ li{
     background: #f64747 !important;
   }
 }
-.religion{
+.religion, .religion-fr, .religión{
   .is-category-title{
   background: #23d7d5 !important;
   }
@@ -323,7 +324,13 @@ li{
 
 
 
-
+.mainmenu{
+  li{
+    &.city, &.ville,&.ciudad{
+      display: none !important;
+    }
+  }
+}
 
 
 

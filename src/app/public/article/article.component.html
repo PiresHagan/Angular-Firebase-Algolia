@@ -36,12 +36,12 @@
                         <a class="is-like" *ngIf="!isLike" (click)="like()">
                             <i class="far fa-thumbs-up"></i>
                             {{'like' | translate}}
-                            <span class="likes-count"><i class="fas fa-eye"></i>{{articleLikes}} 1</span>
+                            <span class="likes-count"><i class="fas fa-eye"></i>{{articleVicewCount}}</span>
                         </a>
                         <a class="is-like" *ngIf="isLike" (click)="disLike()">
                             <i class="far fa-heart"></i>
                             {{'Dislike ' | translate}}
-                            <span class="likes-count"><i class="fas fa-eye"></i>{{articleLikes}}1</span>
+                            <span class="likes-count"><i class="fas fa-eye"></i>{{articleVicewCount}}</span>
                         </a>
                         
                         <!-- 
