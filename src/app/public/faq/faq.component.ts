@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { Title, Meta } from '@angular/platform-browser';
-
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { LanguageService } from 'src/app/shared/services/language.service';
 @Component({
   selector: 'app-faq',
   templateUrl: './faq.component.html',
@@ -10,7 +11,9 @@ import { Title, Meta } from '@angular/platform-browser';
 export class FaqComponent implements OnInit {
   constructor(
     private titleService: Title,
-    private metaTagService: Meta
+    private metaTagService: Meta,
+    public translate: TranslateService,
+      private language: LanguageService
   ) { }
 
   ngOnInit(): void {
