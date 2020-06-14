@@ -47,7 +47,7 @@ registerLocaleData(en);
         BackofficeLayoutComponent
     ],
     imports: [
-        BrowserModule.withServerTransition({ appId: 'serverApp' }),
+        BrowserModule,
         BrowserAnimationsModule,
         NgZorroAntdModule,
         AppRoutingModule,

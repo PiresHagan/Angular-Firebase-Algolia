@@ -11,13 +11,7 @@
     "e2e": "ng e2e",
     "build-prod": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --prod --base-href ./",
     "build-prod-state": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --prod --stats-json",
-    "bundle-report": "webpack-bundle-analyzer dist/stats.json",
-    "dev:ssr": "ng run enlink:serve-ssr",
-    "serve:ssr": "node dist/enlink/server/main.js",
-    "build:ssr": "ng build --prod && ng run enlink:server:production",
-    "prerender": "ng run enlink:prerender",
-    "build:functions": "npm run --prefix functions build",
-    "build:all": "npm run build:ssr && npm run build:functions"
+    "bundle-report": "webpack-bundle-analyzer dist/stats.json"
   },
   "private": true,
   "dependencies": {
