@@ -4,6 +4,11 @@ img{
 .article-full-img {
   position: relative;
 }
+hr{
+    border-top: 1px solid #eee;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 .article-full-img::after {
   content: "";
   position: absolute;
@@ -176,7 +181,7 @@ img{
     }
     .is-main-article-content {
       width: 750px;
-      padding: 50px;
+      padding: 30px;
       margin-top: -110px;
       z-index: 1;
       background: #fff;
@@ -187,9 +192,9 @@ img{
               font-family: "josefin_sanssemibold";
               text-align: center;
               display: block;
-              font-size: 44px;
+              font-size: 28px;
               color: #000;
-              line-height: normal;
+              line-height: 35px;
             }
           }
         }
@@ -199,7 +204,7 @@ img{
           align-items: center;
           flex-wrap: wrap;
           max-width: 100%;
-          margin: 20px auto 80px auto;
+          margin: 20px auto 50px auto;
           .is-image {
             flex: 1;
             a {
@@ -210,11 +215,11 @@ img{
                 object-fit: cover;
               }
               .name {
-                font-family: "josefin_sanssemibold";
-                color: #fd6147;
+                font-family: "josefin_sansregular";
+                font-size: 15px;
                 display: inline-block;
-                margin-left: 15px;
-                font-size: 18px;
+                color: #000;
+                margin-left: 10px;
               }
             }
           }
@@ -234,17 +239,32 @@ img{
         .is-paragraph {
           p {
             font-family: "open_sansregular";
-            font-size: 16px;
+            font-size: 15px;
+            font-weight: normal;
             color: #464444;
             line-height: 33px;
+            margin-bottom: 0px;
             &.big::first-letter {
               font-size: 100px;
               color: #fd6147;
             }
+            h3{
+              margin: 0px;
+            }
+            h2{
+              margin: 0px;
+              color: #000;
+              font-family: "josefin_sanssemibold";
+              font-size: 22px;
+              margin-top: 30px;
+              display: block;
+            }
             strong {
               color: #000;
               font-family: "josefin_sanssemibold";
-              font-size: 26px;
+              font-size: 22px;
+              margin-top: 30px;
+              display: block;
             }
             &.para-bg {
               background: #f5f5f5;
@@ -286,7 +306,7 @@ img{
               &::before {
                 content: "";
                 position: absolute;
-                top: 8px;
+                top: 14px;
                 left: 0px;
                 width: 8px;
                 height: 8px;

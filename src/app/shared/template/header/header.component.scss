@@ -126,6 +126,33 @@
             margin: auto;
         }
     }
+
+    .language-col{
+        padding-left: 0px;
+        ::ng-deep .ant-select-show-arrow{
+            .ant-select-selector{
+                padding: 0 3px;
+                font-size: 12px;
+                
+            }
+        }
+        ::ng-deep .ant-select-item-option-content{
+            font-size: 10px;
+        }
+        li{
+            .is-login-link{
+                font-size: 14px;
+                padding: 5px;
+            }
+        }
+        li{
+            .is-sign-up-btn{
+                padding: 5px 8px;
+                font-size: 14px !important;
+            }
+        }
+        
+    }
   }
   }
 
