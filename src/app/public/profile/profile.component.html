@@ -166,7 +166,10 @@
                         </div>
 
 
-
+                        <div *ngIf="lastArticleIndex"> <a
+                                (click)="loadMoreArticle()"><span>{{'loadMore' | translate}}</span></a>
+                            <!-- <nz-spin nzSimple *ngIf="loadingMoreFollowers"></nz-spin> -->
+                        </div>
                     </div>
                 </div>
             </div>

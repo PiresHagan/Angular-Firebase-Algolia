@@ -30,6 +30,7 @@ export class ProfileComponent implements OnInit {
   lastVisibleFollowing;
   loadingMoreFollowers: boolean = false;
   loadingMoreFollowings: boolean = false;
+  lastArticleIndex;
   constructor(
     private titleService: Title,
     private metaTagService: Meta,
@@ -60,6 +61,7 @@ export class ProfileComponent implements OnInit {
 
         this.titleService.setTitle(`${this.authorDetails.fullname}`);
 
+        this.setLanguageNotification();
         this.metaTagService.addTags([
           { name: "description", content: `${this.authorDetails[`biography_${this.authorDetails?.lang}`]?.substring(0, 154)}` },
           { name: "keywords", content: `${this.authorDetails?.fullname}` },
@@ -112,7 +114,7 @@ export class ProfileComponent implements OnInit {
     // this.authorService.getFollowers(this.authorDetails.id).subscribe((followers) => {
     //   this.followers = followers;
     // })
-    this.authorService.getFollowers_new(this.authorDetails.id, 10, null, this.lastVisibleFollower).subscribe((data) => {
+    this.authorService.getFollowers_new(this.authorDetails.id, 14, null, this.lastVisibleFollower).subscribe((data) => {
       this.loadingMoreFollowers = false;
 
       this.followers = data.followers;
@@ -125,16 +127,25 @@ export class ProfileComponent implements OnInit {
     //   this.subscribers = following;
     // })
     this.loadingMoreFollowings = true;
-    this.authorService.getFollowings_new(this.authorDetails.id, 10, null, this.lastVisibleFollower).subscribe((data) => {
+    this.authorService.getFollowings_new(this.authorDetails.id, 14, null, this.lastVisibleFollower).subscribe((data) => {
       this.loadingMoreFollowings = false;
       this.subscribers = data.followings
       this.lastVisibleFollowing = data.lastVisible;
     });
   }
   getArticleList(authorId) {
-    this.articleService.getArticlesByAuthor(authorId).subscribe((articleList) => {
-      console.log(articleList);
-      this.articles = articleList;
+    this.articleService.getArticlesByAuthor(authorId, 12).subscribe((articleData) => {
+      this.articles = articleData.articleList;
+      this.lastArticleIndex = articleData.lastVisible;
+    })
+  }
+  loadMoreArticle() {
+    const authorId = this.authorDetails.id;
+    this.articleService.getArticlesByAuthor(authorId, 12, 'next', this.lastArticleIndex).subscribe((articleData) => {
+      //this.articles = articleData.articleList;
+      let mergedData: any = [...this.articles, ...articleData.articleList];
+      this.articles = this.getDistinctArray(mergedData)
+      this.lastArticleIndex = articleData.lastVisible;
     })
   }
   reportAbuseAuthor() {
@@ -202,7 +213,7 @@ export class ProfileComponent implements OnInit {
   }
   loadMoreFollowers(action = "next") {
     this.loadingMoreFollowers = true;
-    this.authorService.getFollowers_new(this.authorDetails.id, 10, action, this.lastVisibleFollower).subscribe((data) => {
+    this.authorService.getFollowers_new(this.authorDetails.id, 14, action, this.lastVisibleFollower).subscribe((data) => {
       this.loadingMoreFollowers = false;
       let mergedData: any = [...this.followers, ...data.followers]
       this.followers = this.getDistinctArray(mergedData)
@@ -212,7 +223,7 @@ export class ProfileComponent implements OnInit {
   }
   loadMoreFollowings(action = "next") {
     this.loadingMoreFollowings = true;
-    this.authorService.getFollowings_new(this.authorDetails.id, 10, action, this.lastVisibleFollowing).subscribe((data) => {
+    this.authorService.getFollowings_new(this.authorDetails.id, 14, action, this.lastVisibleFollowing).subscribe((data) => {
       this.loadingMoreFollowings = false;
       let mergedData: any = [...this.subscribers, ...data.followings];
       this.subscribers = this.getDistinctArray(mergedData)

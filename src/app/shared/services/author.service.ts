@@ -114,6 +114,7 @@ export class AuthorService {
   getAuthors(limit: number = 10) {
     return this.afs.collection(this.authorsCollection, ref =>
       ref.limit(limit)
+        .where('type', "==", 'author')
     ).snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data();

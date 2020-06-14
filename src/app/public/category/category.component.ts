@@ -19,6 +19,7 @@ export class CategoryComponent implements OnInit {
   loadingMore: boolean = false;
   lastVisible: any = null;
   slug = '';
+  topic: string = '';
   constructor(
     private categoryService: CategoryService,
     private articleService: ArticleService,
@@ -35,7 +36,7 @@ export class CategoryComponent implements OnInit {
     window.addEventListener('scroll', this.scrollEvent, true);
     this.route.paramMap.subscribe(params => {
       console.log('Category Slug', params.get('slug'));
-
+      this.topic = this.route.snapshot.queryParamMap.get('topic');
       const slug = params.get('slug');
       this.slug = slug;
 
@@ -63,7 +64,7 @@ export class CategoryComponent implements OnInit {
       });
 
 
-      this.articleService.getArticlesBySlug(20, '', this.lastVisible, this.slug).subscribe((data) => {
+      this.articleService.getArticlesBySlug(20, '', this.lastVisible, this.slug, this.topic).subscribe((data) => {
         this.articles = data.articleList;
         this.lastVisible = data.lastVisible;
         this.loading = false;
@@ -79,7 +80,7 @@ export class CategoryComponent implements OnInit {
       const offset = event.target.documentElement.offsetHeight
       if (top > height - offset - 1 - 100 && this.lastVisible && !this.loadingMore) {
         this.loadingMore = true;
-        this.articleService.getArticlesBySlug(20, 'next', this.lastVisible, this.slug).subscribe((data) => {
+        this.articleService.getArticlesBySlug(20, 'next', this.lastVisible, this.slug, this.topic).subscribe((data) => {
           this.loadingMore = false;
           this.articles = [...this.articles, ...data.articleList];
           this.lastVisible = data.lastVisible;
