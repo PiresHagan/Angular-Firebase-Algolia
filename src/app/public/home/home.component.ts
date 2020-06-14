@@ -91,6 +91,8 @@ export class HomeComponent implements OnInit {
       });
 
       this.setArticleData();
+
+      this.getAuthors();
     })
 
     this.categories = this.categoryService.getAll(this.selectedLanguage);
@@ -112,7 +114,7 @@ export class HomeComponent implements OnInit {
   }
 
   getAuthors() {
-    this.authorList = this.authorService.getAuthors();
+    this.authorList = this.authorService.getAuthors(this.selectedLanguage);
 
   }
   replaceImage(url) {

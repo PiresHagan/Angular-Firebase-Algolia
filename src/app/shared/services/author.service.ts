@@ -111,10 +111,11 @@ export class AuthorService {
     );
   }
 
-  getAuthors(limit: number = 10) {
+  getAuthors(lang: string = 'en', limit: number = 10) {
     return this.afs.collection(this.authorsCollection, ref =>
       ref.limit(limit)
         .where('type', "==", 'author')
+        .where('lang', "==", lang)
         .orderBy('followers_count', 'desc')
     ).snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
