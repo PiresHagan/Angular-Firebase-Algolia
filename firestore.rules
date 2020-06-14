@@ -6,7 +6,7 @@ service cloud.firestore {
 			allow read: if true;
     }
     match /articles/{articleId}/comments/{commentId} {
-     	allow write: if request.auth.uid == resource.data.author.id;
+     	allow write: if request.auth != null;
 			allow read: if true;
   	}
     match /articles/{articleId}/likes/{likerId} {
@@ -34,7 +34,7 @@ service cloud.firestore {
 			allow read: if request.auth.uid == userId;
   	}
     match /members/{memberId}{
-     	allow write: if request.auth.uid == memberId;
+     allow write: if request.auth.uid == memberId;
 			allow read: if true;
   	}
     
@@ -54,6 +54,11 @@ service cloud.firestore {
     match /migrate/** {
       allow write: if false;
       allow read: if false;
+  	}
+    
+    match /funnels/category/{categoryId}/{email} {
+      allow write: if true;
+      allow read: if true;
   	}
 
   }

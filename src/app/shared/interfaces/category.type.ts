@@ -14,4 +14,6 @@ export interface Category {
     slug?: string;
     title?: string;
     tree_id?: number;
+    lf_list_id?: string;
+    lf_allsubs_id?: string;
 }
