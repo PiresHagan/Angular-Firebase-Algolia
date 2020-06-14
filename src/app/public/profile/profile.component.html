@@ -81,7 +81,7 @@
     <div class="container">
         <div class="is-comman-title">
 
-            {{'profileFollowers' | translate}}
+            {{'profileFollowers' | translate}} {{authorDetails.followers_count}}
 
         </div>
         <!-- <p class="follow">
@@ -95,7 +95,7 @@
                 </a>
             </div>
         </div>
-        <div *ngIf="lastVisibleFollower"> <a (click)="loadMoreFollowers()"><span>{{'loadMore' | translate}}</span></a>
+        <div *ngIf="lastVisibleFollower"> <a (click)="loadMoreFollowers()" class="load-more-btn"><span>{{'loadMore' | translate}}</span></a>
             <nz-spin nzSimple *ngIf="loadingMoreFollowers"></nz-spin>
         </div>
     </div>
@@ -103,7 +103,7 @@
 <section class="is-followers-sec" *ngIf="subscribers.length">
     <div class="container">
         <div class="is-comman-title">
-            {{'profileFollowing' | translate}}
+            {{'profileFollowing' | translate}}  {{authorDetails.followings_count}}
         </div>
         <!-- <p class="follow">
             {{'profileFolloweringDes' | translate}}
