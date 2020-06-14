@@ -22,7 +22,7 @@
                     <h3 class="is-line">{{'shareFollow' | translate}}</h3>
                     <div class="addthis_inline_share_toolbox" style="margin-top: 10px;margin-bottom: 10px;"></div>
 
-                    <h3 class="is-line">{{'followProfile' | translate}}</h3>
+                    <!--<h3 class="is-line">{{'followProfile' | translate}}</h3>-->
                     <ul>
 
                         <!-- <li>
@@ -116,7 +116,7 @@
             </div>
 
         </div>
-        <div *ngIf="lastVisibleFollowing"> <a (click)="loadMoreFollowings()"><span>{{'loadMore' | translate}}</span></a>
+        <div *ngIf="lastVisibleFollowing"> <a (click)="loadMoreFollowings()" class="load-more-btn"><span>{{'loadMore' | translate}}</span></a>
             <nz-spin nzSimple *ngIf="loadingMoreFollowings"></nz-spin>
         </div>
     </div>
@@ -133,7 +133,7 @@
             <div class="cat-box-gallery">
                 <div class="container">
                     <div class="row article-row">
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-20" *ngFor="let article of articles">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-20" *ngFor="let article of articles" [ngClass]="article?.category?.slug">
                             <div class="item-card item-card-life-and-styles">
                                 <a [routerLink]="['/article/',article.slug]">
                                     <div class="item-card-image">
@@ -156,7 +156,7 @@
                                         <div class="item-card-texte">
                                             <p>{{article.summary}}</p>
                                             <button type="button" class="is-read-more">{{'readMore' | translate}}
-                                                <a></a><img src="assets/images/read-more-icon-red.png" /></button>
+                                                <a></a><img src="assets/images/read-more-icon-black.png" /></button>
                                         </div>
                                     </div>
                                 </a>

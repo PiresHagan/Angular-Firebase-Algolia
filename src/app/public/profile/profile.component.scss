@@ -8,10 +8,11 @@
   margin-bottom: 20px;
 }
 .is-author-profile-sec {
-  padding: 60px 0px;
+  padding: 60px 0px 0px;
   background: #fff;
   .is-profile-main {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 30px;
     .is-author-profile-img {
       width: 200px;
       float: left;
@@ -24,9 +25,10 @@
       padding-left: 20px;
       float: left;
       .is-author-profile-name {
-        font-size: 29px;
+        font-size: 28px;
         font-family: "josefin_sanssemibold";
         color: #000000;
+        text-transform: capitalize;
 
         span {
           display: block;
@@ -40,10 +42,12 @@
       }
 
       .is-author-description {
-        color: #464444;
-        font-size: 16px;
-        max-width: 800px;
         font-family: "open_sansregular";
+        font-size: 15px;
+        font-weight: normal;
+        color: #464444;
+        line-height: 24px;
+        max-width:800px;
         p {
           color: #464444 !important;
         }
@@ -139,27 +143,27 @@
       left: 0px;
       width: 100%;
       height: 1px;
-      background: #ccc;
+      background: #eee;
     }
   }
 }
 
 .is-comman-title {
   color: #000;
-  padding: 40px 0px 12px 0px;
+  padding: 30px 0px 10px 0px;
   font-weight: bold;
-  font-size: 32px;
+  font-size: 28px;
   width: 100%;
   text-align: center;
   font-family: "josefin_sanssemibold";
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   &::before {
     content: "";
     position: absolute;
     bottom: 0px;
     width: 60px;
-    height: 2px;
+    height: 1px;
     background: #000;
     margin: auto;
     left: 50%;
@@ -168,7 +172,26 @@
 }
 .is-followers-sec {
   background: #fff;
-
+  .load-more-btn{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    span{
+      font-size: 18px;
+    background: #ff4020;
+    border: 0px;
+    color: #fff;
+    padding: 10px 25px 8px 25px;
+    cursor: pointer;
+    font-family: "josefin_sansregular";
+    border-radius: 55px;
+    line-height: 26px;
+    display: flex;
+    align-items: center;
+    outline: none;
+    display:inline-block;
+    }
+  }
   .is-followers-user {
     display: flex;
     justify-content: center;
@@ -180,7 +203,7 @@
         height: 130px;
         border: 3px solid #000;
         border-radius: 100%;
-        object-fit: fill;
+        object-fit: cover;
         background: #ff4020;
       }
     }
@@ -260,8 +283,9 @@
       display: block;
       width: 100%;
       height: 100%;
+      position: relative;
       .item-card-content {
-        padding: 10px;
+        padding: 20px;
         .item-card-category {
           h3 {
             font-family: "Ubuntu", sans-serif;
@@ -273,11 +297,12 @@
 
         .item-card-title {
           h4 {
-            font-family: "josefin_sanssemibold";
+            font-family: "josefin_sansregular";
             font-size: 18px;
-            color: #535353;
+            color: #000000;
             line-height: 26px;
             margin-top: 20px;
+            font-weight: 600;
           }
         }
         .item-card-texte {
@@ -289,11 +314,14 @@
             line-height: normal;
           }
           .is-read-more {
-            color: #fd6147;
+            color: #000;
             font-size: 18px;
+            position: absolute;
+            left: 20px;
+            bottom: 20px;
             white-space: nowrap;
             &:before {
-              background: #fd6147;
+              background: #000;
             }
           }
         }
@@ -352,11 +380,10 @@
       .is-avatar-dv {
         .item-card-author {
           font-family: "josefin_sansregular";
-          font-size: 16px;
+          font-size: 15px;
           display: inline-block;
           color: #000;
           margin-left: 10px;
-          font-weight: 600;
         }
       }
     }
@@ -391,7 +418,7 @@
   }
 
   .article-row {
-    padding-top: 29px;
+    padding-top: 10px;
     position: relative;
   }
 

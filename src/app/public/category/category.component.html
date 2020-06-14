@@ -8,15 +8,15 @@
             <div class="right-btn-bar">
                 <div class="category-newsletter-container">
                     <span class="cat-yellow"> </span>
-                    <form action="" method="post" id="form_add_sub_cat">
+                    <form action="" method="post" id="form_add_sub_cat" [formGroup]="newsLetterForm">
                         <input type="hidden" name="csrfmiddlewaretoken" value="dM4QEapppMGbO2CnodWzQm2slYLJTdJp">
                         <input name="category-constant_contact" [value]="category?.title" type="text" hidden="">
 
                         <div class="form-group">
-                            <input class="form-control newsletter-input" id="id_category-email" maxlength="100"
-                                name="category-email" placeholder="{{'subscribeNewsletter' | translate}}" type="email"
+                            <input class="form-control newsletter-input" formControlName="email" id="id_category-email" maxlength="100"
+                                name="category-email" email="true" placeholder="{{'subscribeNewsletter' | translate}}" type="email"
                                 required="">
-                            <button class="btn">{{'subscribe' | translate}}</button>
+                            <button class="btn" (click)="submit()">{{'subscribe' | translate}}</button>
                             <div class="clearfix"></div>
                         </div>
                     </form>

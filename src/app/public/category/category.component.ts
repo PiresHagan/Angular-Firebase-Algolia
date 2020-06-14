@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ThemeConstantService } from '../../shared/services/theme-constant.service';
 import { Title, Meta } from '@angular/platform-browser';
+import { FormControl, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -20,6 +21,10 @@ export class CategoryComponent implements OnInit {
   lastVisible: any = null;
   slug = '';
   topic: string = '';
+  newsLetterForm = new FormGroup({
+    email: new FormControl('')
+  });
+
   constructor(
     private categoryService: CategoryService,
     private articleService: ArticleService,
@@ -98,4 +103,14 @@ export class CategoryComponent implements OnInit {
     return latestURL;
   }
 
+  submit() {
+    if(this.newsLetterForm.valid) {
+      this.categoryService.addSubscription(this.category, this.newsLetterForm.value.email).then(() => {
+        this.newsLetterForm.reset();
+      }).catch( err => {
+        console.error('Error while subscribing', err);
+      });
+    }
+  }
+ 
 }

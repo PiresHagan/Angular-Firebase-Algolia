@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 })
 export class CategoryService {
   categoriesCollection: string = 'categories';
+  categoryDocument: string = 'category';
+  funnelsCollection: string = 'funnels';
   topicsCollection: string = 'topics';
 
   constructor(private afAuth: AngularFireAuth, private db: AngularFirestore) { }
@@ -62,5 +64,22 @@ export class CategoryService {
     );
   }
 
+  addSubscription(category: Category, email: string) {
+    const emailIdWithoutDot = email.split('.').join(''),
+    contactObj = {
+      email: email,
+      timestamp: new Date(),
+      source: 'category',
+      lf_allsubs_id: category.lf_allsubs_id,
+      lf_list_id: category.lf_list_id
+    };
+    return new Promise((resolve, reject) => {
+      this.db.doc(`${this.funnelsCollection}/${this.categoryDocument}/${category.id}/${emailIdWithoutDot}`).set(contactObj).then((articleData) => {
+        resolve(articleData)
+      })
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
 
 }
