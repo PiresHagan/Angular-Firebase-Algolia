@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ThemeConstantService } from '../../shared/services/theme-constant.service';
 import { Title, Meta } from '@angular/platform-browser';
 import { FormControl, FormGroup } from '@angular/forms';
+import { LanguageService } from 'src/app/shared/services/language.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class CategoryComponent implements OnInit {
   lastVisible: any = null;
   slug = '';
   topic: string = '';
+  selectedLanguage: string = "";
   newsLetterForm = new FormGroup({
     email: new FormControl('')
   });
@@ -32,13 +34,15 @@ export class CategoryComponent implements OnInit {
     public translate: TranslateService,
     private themeService: ThemeConstantService,
     private titleService: Title,
-    private metaTagService: Meta
+    private metaTagService: Meta,
+    private languageService: LanguageService
   ) {
 
   }
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.scrollEvent, true);
+    this.selectedLanguage = this.languageService.getSelectedLanguage();
     this.route.paramMap.subscribe(params => {
       console.log('Category Slug', params.get('slug'));
       this.topic = this.route.snapshot.queryParamMap.get('topic');
@@ -69,7 +73,7 @@ export class CategoryComponent implements OnInit {
       });
 
 
-      this.articleService.getArticlesBySlug(20, '', this.lastVisible, this.slug, this.topic).subscribe((data) => {
+      this.articleService.getArticlesBySlug(20, '', this.lastVisible, this.slug, this.topic, this.selectedLanguage).subscribe((data) => {
         this.articles = data.articleList;
         this.lastVisible = data.lastVisible;
         this.loading = false;
@@ -85,7 +89,7 @@ export class CategoryComponent implements OnInit {
       const offset = event.target.documentElement.offsetHeight
       if (top > height - offset - 1 - 100 && this.lastVisible && !this.loadingMore) {
         this.loadingMore = true;
-        this.articleService.getArticlesBySlug(20, 'next', this.lastVisible, this.slug, this.topic).subscribe((data) => {
+        this.articleService.getArticlesBySlug(20, 'next', this.lastVisible, this.slug, this.topic, this.selectedLanguage).subscribe((data) => {
           this.loadingMore = false;
           this.articles = [...this.articles, ...data.articleList];
           this.lastVisible = data.lastVisible;

@@ -150,7 +150,7 @@ export class ArticleService {
       .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
-      .limit(5)
+      .limit(6)
     ).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -181,9 +181,10 @@ export class ArticleService {
     );
   }
 
-  getCategoryFirst(slug: string) {
+  getCategoryFirst(slug: string, lang: string = 'en') {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('category.slug', '==', slug)
+      .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(1)
@@ -198,9 +199,10 @@ export class ArticleService {
     );
   }
 
-  getCategory(slug: string) {
+  getCategory(slug: string, lang: string = 'en') {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('category.slug', '==', slug)
+      .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(30)
@@ -301,18 +303,20 @@ export class ArticleService {
     );
   }
 
-  getArticlesBySlug(limit: number = 10, navigation: string = "first", lastVisible = null, categorySlug: string = null, topicSlug: string = '') {
+  getArticlesBySlug(limit: number = 10, navigation: string = "first", lastVisible = null, categorySlug: string = null, topicSlug: string = '', lang: string = 'en') {
     if (!limit) {
       limit = 10;
     }
     let dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
       .where("category.slug", "==", categorySlug)
+      .where("lang", "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(limit))
     if (topicSlug) {
       dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
         .where("category.slug", "==", categorySlug)
+        .where("lang", "==", lang)
         .where('status', "==", ACTIVE)
         .where("topic_list", "array-contains-any", [topicSlug])
         .orderBy('published_at', 'desc')
@@ -325,6 +329,7 @@ export class ArticleService {
         if (topicSlug)
           dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
             .where("category.slug", "==", categorySlug)
+            .where("lang", "==", lang)
             .where('status', "==", ACTIVE)
             .where("topics_list", "array-contains-any", [topicSlug])
             .orderBy('published_at', 'desc')
@@ -333,6 +338,7 @@ export class ArticleService {
         else
           dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
             .where("category.slug", "==", categorySlug)
+            .where("lang", "==", lang)
             .where('status', "==", ACTIVE)
             .orderBy('published_at', 'desc')
             .limit(limit)

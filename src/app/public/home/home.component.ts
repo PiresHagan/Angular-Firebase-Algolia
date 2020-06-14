@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit {
     return;
   }
   getArticle(slug) {
-    return this.articleService.getCategoryRow(slug)
+    return this.articleService.getCategoryRow(slug, this.selectedLanguage)
   }
   setArticleData() {
     this.categories.subscribe((categoryData) => {
