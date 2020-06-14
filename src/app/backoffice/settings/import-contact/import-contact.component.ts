@@ -84,42 +84,48 @@ export class ImportContactComponent implements OnInit {
   ngAfterViewChecked(): void {
     /* need _canScrollDown because it triggers even if you enter text in the textarea */
     let _this = this;
-    cloudsponge.init({
-      // this puts the widget UI inside a div on your page, make sure this element has a height and width
-      rootNodeSelector: '#choose-contacts-ui',
-      // // since we're using deep links, we are going to suppress the widget's display of sources
-      skipSourceMenu: true,
+    try {
 
-      // callbacks let your page respond to important widget events
-      afterLaunch: function () {
-        // display a Loading... message
-        // if (_this.listOfDisplayData && _this.listOfDisplayData.length)
-        //   _this.validatingThings = false;
-        // else
-        //   _this.validatingThings = true;
-      },
-      afterClosing: function () {
-        // reset the page's UI state so that another import is possible
+      cloudsponge.init({
+        // this puts the widget UI inside a div on your page, make sure this element has a height and width
+        rootNodeSelector: '#choose-contacts-ui',
+        // // since we're using deep links, we are going to suppress the widget's display of sources
+        skipSourceMenu: true,
 
-      },
-      beforeClosing: function () {
-        _this.resetAllProviderLoader()
-      },
-      // called before the widget renders the UI with the address book
-      beforeDisplayContacts: function (contacts, provider) {
+        // callbacks let your page respond to important widget events
+        afterLaunch: function () {
+          // display a Loading... message
+          // if (_this.listOfDisplayData && _this.listOfDisplayData.length)
+          //   _this.validatingThings = false;
+          // else
+          //   _this.validatingThings = true;
+        },
+        afterClosing: function () {
+          // reset the page's UI state so that another import is possible
 
-        _this.importedContact[provider] = _this.getFilteredContact(contacts);
-        _this.setProviderLoadingStatus(provider, false, true)
-        this.onAllChecked(true, provider);
-        _this.listOfDisplayData = contacts;
-        _this.listOfData = _this.getFilteredContact(contacts);
-      },
-      // called after the user submits their contacts
-      afterSubmitContacts: function (contacts, source, owner) {
-        // The user has successfully shared their contacts
-        // here's where you can send the user to the next step
-      }
-    });
+        },
+        beforeClosing: function () {
+          _this.resetAllProviderLoader()
+        },
+        // called before the widget renders the UI with the address book
+        beforeDisplayContacts: function (contacts, provider) {
+
+          _this.importedContact[provider] = _this.getFilteredContact(contacts);
+          _this.setProviderLoadingStatus(provider, false, true)
+          this.onAllChecked(true, provider);
+          _this.listOfDisplayData = contacts;
+          _this.listOfData = _this.getFilteredContact(contacts);
+        },
+        // called after the user submits their contacts
+        afterSubmitContacts: function (contacts, source, owner) {
+          // The user has successfully shared their contacts
+          // here's where you can send the user to the next step
+        }
+      });
+    } catch (error) {
+      console.log(error);
+
+    }
 
   }
   reset(): void {

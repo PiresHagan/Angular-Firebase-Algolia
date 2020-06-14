@@ -115,6 +115,7 @@ export class AuthorService {
     return this.afs.collection(this.authorsCollection, ref =>
       ref.limit(limit)
         .where('type', "==", 'author')
+        .orderBy('followers_count', 'desc')
     ).snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data();
