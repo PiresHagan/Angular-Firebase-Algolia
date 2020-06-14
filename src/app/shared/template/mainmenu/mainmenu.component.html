@@ -37,7 +37,8 @@
                                         <h2>{{item.title}}</h2>
                                         <ul>
                                             <li *ngFor="let topic of (categoryListData[item.uid].child | async )"
-                                                nz-menu-item [routerLink]="['/category', item.slug]">
+                                                nz-menu-item [routerLink]="['/category', item.slug]"
+                                                [queryParams]="{topic:topic.slug}">
                                                 {{topic.title}}
                                             </li>
                                         </ul>

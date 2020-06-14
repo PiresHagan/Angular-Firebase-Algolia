@@ -214,7 +214,7 @@ export class ArticleService {
       })
     );
   }
-  getArticlesByAuthor(authorId: string, limit: number = 10) {
+  getArticlesByAuthor_old(authorId: string, limit: number = 10) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('author.id', '==', authorId)
       .where('status', "==", ACTIVE)
@@ -231,12 +231,51 @@ export class ArticleService {
     )
 
   }
+
+
+  getArticlesByAuthor(authorId: string, limit: number = 10, navigation: string = "first", lastVisible = null) {
+    if (!limit) {
+      limit = 10;
+    }
+    let dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+      .where("author.id", "==", authorId)
+      .where('status', "==", ACTIVE)
+      .orderBy('published_at', 'desc')
+      .limit(limit)
+    )
+    switch (navigation) {
+      case 'next':
+        dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+          .where("author.id", "==", authorId)
+          .where('status', "==", ACTIVE)
+          .orderBy('published_at', 'desc')
+          .limit(limit)
+          .startAfter(lastVisible))
+        break;
+    }
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        articleList: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+        lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
+    })
+    );
+  }
+
+
   getArticles(authorId, limit: number = 10, navigation: string = "first", lastVisible = null) {
     if (!limit) {
       limit = 10;
     }
     let dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
       .where("author.id", "==", authorId)
+      .where('status', "==", ACTIVE)
+      .orderBy('published_at', 'desc')
       .limit(limit)
     )
     switch (navigation) {
@@ -262,7 +301,7 @@ export class ArticleService {
     );
   }
 
-  getArticlesBySlug(limit: number = 10, navigation: string = "first", lastVisible = null, categorySlug: string = null) {
+  getArticlesBySlug(limit: number = 10, navigation: string = "first", lastVisible = null, categorySlug: string = null, topicSlug: string = '') {
     if (!limit) {
       limit = 10;
     }
@@ -270,15 +309,35 @@ export class ArticleService {
       .where("category.slug", "==", categorySlug)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
-      .limit(limit)
-    )
+      .limit(limit))
+    if (topicSlug) {
+      dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+        .where("category.slug", "==", categorySlug)
+        .where('status', "==", ACTIVE)
+        .where("topic_list", "array-contains-any", [topicSlug])
+        .orderBy('published_at', 'desc')
+        .limit(limit)
+      )
+    }
+
     switch (navigation) {
       case 'next':
-        dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-          .where('status', "==", ACTIVE)
-          .orderBy('published_at', 'desc')
-          .limit(limit)
-          .startAfter(lastVisible))
+        if (topicSlug)
+          dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+            .where("category.slug", "==", categorySlug)
+            .where('status', "==", ACTIVE)
+            .where("topics_list", "array-contains-any", [topicSlug])
+            .orderBy('published_at', 'desc')
+            .limit(limit)
+            .startAfter(lastVisible))
+        else
+          dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+            .where("category.slug", "==", categorySlug)
+            .where('status', "==", ACTIVE)
+            .orderBy('published_at', 'desc')
+            .limit(limit)
+            .startAfter(lastVisible))
+
         break;
     }
     return dataQuery.snapshotChanges().pipe(map(actions => {
