@@ -29,6 +29,7 @@
               "src/favicon.ico",
               "src/solo-auth-proxy.html",
               "src/assets",
+              "src/ads.txt",
               {
                 "glob": "**/*",
                 "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
@@ -101,7 +102,8 @@
             "scripts": [],
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/ads.txt"
             ]
           }
         },
