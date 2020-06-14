@@ -272,6 +272,7 @@
       width: 100%;
       align-items: center;
       padding-top: 30px;
+      padding-bottom: 30px;
       
       .is-member-item{
         margin: 0px 1%;
@@ -305,6 +306,7 @@
             .is-profile-hover-img{
               width: 60px;
               height: 60px;
+              object-fit: cover;
               border-radius: 100px;
               margin: auto;
               display: block;
@@ -336,6 +338,13 @@
             font-size: 12px;
             text-align: center;
             opacity: 1;
+            &.author-bio{
+              display: -webkit-box;
+              -webkit-line-clamp: 5;
+              -webkit-box-orient: vertical;
+              height: 105px;
+              overflow: hidden;
+            }
           }
           .is-profile-tag{
             text-align: center;
