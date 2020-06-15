@@ -45,6 +45,13 @@ export class CategoryComponent implements OnInit {
   ngOnInit(): void {
     window.addEventListener('scroll', this.scrollEvent, true);
     this.selectedLanguage = this.languageService.getSelectedLanguage();
+
+    this.route.queryParams.subscribe(queryParams => {
+      this.topic = this.route.snapshot.queryParamMap.get('topic');
+      this.getPageDetails();
+    });
+
+
     this.route.paramMap.subscribe(params => {
       console.log('Category Slug', params.get('slug'));
       this.topic = this.route.snapshot.queryParamMap.get('topic');
@@ -52,7 +59,7 @@ export class CategoryComponent implements OnInit {
       this.slug = slug;
 
       if (this.topic) {
-        this.getTopiDetails(this.topic);
+        this.getTopicDetails(this.topic);
       }
 
 
@@ -82,13 +89,8 @@ export class CategoryComponent implements OnInit {
         ]);
       });
 
+      this.getPageDetails();
 
-      this.articleService.getArticlesBySlug(20, '', this.lastVisible, this.slug, this.topic, this.selectedLanguage).subscribe((data) => {
-        this.articles = data.articleList;
-        this.lastVisible = data.lastVisible;
-        this.loading = false;
-
-      });
     });
   }
 
@@ -126,12 +128,21 @@ export class CategoryComponent implements OnInit {
       });
     }
   }
-  getTopiDetails(topicSlug: string) {
+  getTopicDetails(topicSlug: string) {
     this.categoryService.getTopicBySlug(topicSlug).subscribe((topicData: Category) => {
-      this.pageHeader = topicData?.title;
+      if (topicData?.title)
+        this.pageHeader = topicData?.title;
       console.log(topicData);
     })
 
+  }
+  getPageDetails() {
+    this.getTopicDetails(this.topic);
+    this.articleService.getArticlesBySlug(20, '', this.lastVisible, this.slug, this.topic, this.selectedLanguage).subscribe((data) => {
+      this.articles = data.articleList;
+      this.lastVisible = data.lastVisible;
+      this.loading = false;
+    });
   }
 
 }
