@@ -68,7 +68,7 @@ export class CategoryService {
     const emailIdWithoutDot = email.split('.').join(''),
     contactObj = {
       email: email,
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
       source: 'category',
       lf_allsubs_id: category.lf_allsubs_id,
       lf_list_id: category.lf_list_id
