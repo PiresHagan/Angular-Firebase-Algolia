@@ -8,7 +8,7 @@
             <div class="is-author-profile-info">
                 <h2 class="is-author-profile-name is-divider">
                     {{authorDetails?.fullname}}
-                    <span>{{'authorOn' | translate}} <a href="/" title="My Trending Stories">My Trending
+                    <span>{{authorDetails?.type}} On <a href="/" title="My Trending Stories">My Trending
                             Stories</a></span>
                 </h2>
                 <p class="is-author-description"
@@ -166,8 +166,8 @@
                         </div>
 
 
-                        <div *ngIf="lastArticleIndex"> <a
-                                (click)="loadMoreArticle()"><span>{{'loadMore' | translate}}</span></a>
+                        <div *ngIf="lastArticleIndex" class="w-100 mt-2"> <a
+                                (click)="loadMoreArticle()" class="load-more-btn"><span>{{'loadMore' | translate}}</span></a>
                             <!-- <nz-spin nzSimple *ngIf="loadingMoreFollowers"></nz-spin> -->
                         </div>
                     </div>
