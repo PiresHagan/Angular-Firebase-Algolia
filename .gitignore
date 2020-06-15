@@ -6,6 +6,7 @@
 /out-tsc
 /.firebase
 .firebase/
+/.firebase
 /documentation
 
 # dependencies
@@ -31,7 +32,7 @@
 
 # misc
 /.sass-cache
-/connect.lock
+/connect.lockgit rm
 /coverage
 /libpeerconnection.log
 npm-debug.log
