@@ -93,34 +93,6 @@
                         <div class="is-paragraph">
                             <p class="big " innerHTML="{{article?.content}}"></p>
 
-                            <h3>From Tune</h3>
-                            <!-- iFrame Ad Tag: 1 -->
-                            <iframe src="https://mytrendingstories202.go2cloud.org/aff_ad?campaign_id=1&aff_id=1&format=iframe" scrolling="no" frameborder="0" marginheight="0" marginwidth="0" width="160" height="600"></iframe>
-                            <!-- // End Ad Tag -->
-
-                            <h3>From Adsense</h3>
-                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                            <!-- Skyscraper-article-left -->
-                            <ins class="adsbygoogle"
-                                style="display:inline-block;width:160px;height:600px"
-                                data-ad-client="ca-pub-7573579924553954"
-                                data-ad-slot="4661066220"></ins>
-                            <script>
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                            </script>
-
-                            <h3>From Media.net</h3>
-                            <div id="651524812">
-                                <script type="text/javascript">
-                                    try {
-                                        window._mNHandle.queue.push(function (){
-                                            window._mNDetails.loadTag("651524812", "160x600", "651524812");
-                                        });
-                                    }
-                                    catch (error) {}
-                                </script>
-                            </div>
-                            
                             <p>{{'publishedBy' | translate}}<a [routerLink]="['/profile/',article?.author?.slug]"
                                     target="_blank" title="  {{article?.author.fullname}}" *ngIf="article">
                                     <span class="name" itemprop="name">
@@ -131,8 +103,14 @@
                                     <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseArticleLoading"></nz-spin>
                                     {{'reportAbuseAuth' | translate}}
                                 </a>
-
                             </p>
+
+                            <div class="is-middle-ad-section">
+                                <!-- iFrame Ad Tag: 2 -->
+                                <iframe src="https://mytrendingstories202.go2cloud.org/aff_ad?campaign_id=2&aff_id=1&format=iframe" scrolling="no" frameborder="0" marginheight="0" marginwidth="0" width="468" height="60" style="margin:0 auto;"></iframe>
+                                <!-- // End Ad Tag -->
+                            </div>
+
                             <!-- <p style="color:#ff4020; font-style: italic;" *ngIf="selectedLang!=article?.lang">
                                 {{'disclaimer' | translate}}</p> -->
                         </div>
@@ -268,7 +246,11 @@
                 </div>
 
             </div>
-            <div class="is-right-ad-section"></div>
+            <div class="is-right-ad-section">
+                <!-- iFrame Ad Tag: 1 (Right) -->
+                <iframe src="https://mytrendingstories202.go2cloud.org/aff_ad?campaign_id=1&aff_id=1&format=iframe" scrolling="no" frameborder="0" marginheight="0" marginwidth="0" width="160" height="600"></iframe>
+                <!-- // End Ad Tag -->
+            </div>
         </div>
 
     </div>
