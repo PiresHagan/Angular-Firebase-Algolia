@@ -30,6 +30,8 @@ export class ArticleContentComponent implements OnInit {
   articleId: string;
   isFormSaving: boolean = false;
   loading: boolean = true;
+  languageList;
+  topicList;
 
   editorConfig = {
     toolbar: [
@@ -60,8 +62,9 @@ export class ArticleContentComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
       excerpt: ['', [Validators.minLength(10), Validators.maxLength(100)]],
       content: ['', [Validators.required, Validators.minLength(10)]],
-      category: ['', [Validators.required]]
-      // tags: [[]]
+      category: ['', [Validators.required]],
+      lang: ['', [Validators.required]],
+      topics: ['']
     });
   }
 
@@ -71,30 +74,30 @@ export class ArticleContentComponent implements OnInit {
       if (!user)
         return;
       this.userDetails = await this.authService.getLoggedInUserDetails();
+      this.languageList = this.languageService.geLanguageList();
+
       let articleId = this.route.snapshot.queryParams["article"];
+
       if (articleId) {
         try {
           this.article = await this.articleService.getArticleById(articleId, this.userDetails.id);
-
+          if (this.article && (this.article['id'])) {
+            this.categoryService.getAll(this.article.lang).subscribe((categoryList) => {
+              this.categoryList = categoryList;
+              this.categoryService.getTopicList(this.article.category.id, this.article.lang).subscribe((topicListData) => {
+                this.topicList = topicListData;
+                this.setFormDetails();
+              })
+              this.loading = false;
+            });
+          }
         } catch (error) {
           this.article = null;
         }
+      } else {
+        this.loading = false;
       }
 
-      let selectedLanguage = this.languageService.getSelectedLanguage();
-      this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-        this.categoryService.getAll(this.languageService.getSelectedLanguage()).subscribe((categoryList) => {
-          this.categoryList = categoryList;
-        });
-      })
-
-      this.categoryService.getAll(selectedLanguage).subscribe((categoryList) => {
-        this.categoryList = categoryList;
-        if (this.article && (this.article['id'])) {
-          this.setFormDetails();
-        }
-        this.loading = false;
-      });
 
     })
 
@@ -116,8 +119,9 @@ export class ArticleContentComponent implements OnInit {
         author: this.getUserDetails(),
         summary: this.articleForm.get('title').value,
         status: this.article && this.article.status ? this.article.status : DRAFT,
-        lang: this.userDetails.lang ? this.userDetails.lang : '',
-
+        lang: this.articleForm.get('lang').value ? this.articleForm.get('lang').value : this.userDetails.lang,
+        topics: this.getFilteredCategory(this.articleForm.get('topics').value) ? [this.getFilteredCategory(this.articleForm.get('topics').value)] : [],
+        topic_list: this.articleForm.get('topics').value ? [this.articleForm.get('topics').value.slug] : [],
       }
       if (this.article && this.article.id) {
         this.articleService.updateArticleImage(this.article.id, articleData).then(() => {
@@ -207,13 +211,39 @@ export class ArticleContentComponent implements OnInit {
       title: this.article.title,
       excerpt: this.article.excerpt,
       content: this.article.content,
-      category: this.getSelectedCategory(this.article.category['id'])
+      lang: this.article.lang,
+      category: this.getSelectedCategory(this.article.category['id']),
+      topics: this.article.topics && this.article.topics[0] ? this.getSelectedTopic(this.article.topics[0]['id']) : null,
     });
   }
   getSelectedCategory(categoryId) {
     return this.categoryList.find(element => element.uid == categoryId || element.id == categoryId);
 
   }
+  getSelectedTopic(topicId) {
+    return this.topicList.find(element => element.uid == topicId || element.id == topicId);
+
+  }
+  languageSelected(language: string) {
+    if (!language)
+      return
+    this.articleForm.controls['category'].setValue(null);
+    this.articleForm.controls['topics'].setValue(null);
+    this.categoryService.getAll(language).subscribe((categoryList) => {
+      this.categoryList = categoryList;
+
+    })
+  }
+  categorySelected(category) {
+    if (!category)
+      return
+    this.articleForm.controls['topics'].setValue(null);
+    this.categoryService.getTopicList(category.id, this.articleForm.get('lang').value).subscribe((topicData) => {
+      this.topicList = topicData;
+
+    })
+  }
+
 
 
 

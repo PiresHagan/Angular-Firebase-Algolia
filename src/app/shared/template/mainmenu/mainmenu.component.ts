@@ -32,9 +32,20 @@ export class MainmenuComponent implements OnInit {
     this.categoryService.getAll(this.selectedLanguage).subscribe((categoryListData) => {
       this.categories = categoryListData;
       this.setTopicData(categoryListData);
+      //this.dropDownManager();
     })
+
+  }
+  ngAfterViewChecked() {
+    // this.dropDownManager();
   }
 
+  hideMegaMenu() {
+    document.getElementById('mega-menu-section').style.display = 'none';
+  }
+  showMegaMenu() {
+    document.getElementById('mega-menu-section').style.display = 'block';
+  }
   searchToggle(): void {
     this.searchVisible = !this.searchVisible;
   }
@@ -47,6 +58,21 @@ export class MainmenuComponent implements OnInit {
 
     });
 
+  }
+  dropDownManager() {
+
+    if (!document.getElementById('mega-menu-list-item'))
+      return;
+    document.getElementById('mega-menu-header').onmouseover = function () {
+      document.getElementById('mega-menu-section').style.display = 'block';
+    }
+
+    document.getElementById('mega-menu-header').onmouseout = function () {
+      document.getElementById('mega-menu-section').style.display = 'none';
+    }
+    document.getElementById('mega-menu-list-item').onclick = function () {
+      document.getElementById('mega-menu-section').style.display = 'none';
+    }
   }
 
 }

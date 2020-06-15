@@ -13,9 +13,9 @@
                         <input name="category-constant_contact" [value]="category?.title" type="text" hidden="">
 
                         <div class="form-group">
-                            <input class="form-control newsletter-input" formControlName="email" id="id_category-email" maxlength="100"
-                                name="category-email" email="true" placeholder="{{'subscribeNewsletter' | translate}}" type="email"
-                                required="">
+                            <input class="form-control newsletter-input" formControlName="email" id="id_category-email"
+                                maxlength="100" name="category-email" email="true"
+                                placeholder="{{'subscribeNewsletter' | translate}}" type="email" required="">
                             <button class="btn" (click)="submit()">{{'subscribe' | translate}}</button>
                             <div class="clearfix"></div>
                         </div>
@@ -35,15 +35,15 @@
         </div>
 
         <div class="is-comman-title">
-            {{category?.title}}
+            {{pageHeader}}
         </div>
         <section class="is-cat-box-card-main">
             <div class="cat-box">
                 <div class="container">
                     <div class="cat-box-gallery">
                         <div class="row article-row">
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5"
-                                *ngFor="let article of articles" [ngClass]="category.slug">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5" *ngFor="let article of articles"
+                                [ngClass]="category.slug">
                                 <div class="item-card item-card-life-and-styles">
                                     <a [routerLink]="['/article/',article.slug]">
                                         <div class="item-card-image">
@@ -67,7 +67,8 @@
                                             <div class="item-card-texte">
                                                 <p>{{article.summary}}</p>
                                                 <button type="button" class="is-read-more">{{'readMore' | translate}}
-                                                    <img src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                                    <img src="assets/images/read-more-icon-black.png"
+                                                        alt="Read More" /></button>
                                             </div>
                                         </div>
                                     </a>

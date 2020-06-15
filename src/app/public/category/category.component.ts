@@ -7,6 +7,7 @@ import { ThemeConstantService } from '../../shared/services/theme-constant.servi
 import { Title, Meta } from '@angular/platform-browser';
 import { FormControl, FormGroup } from '@angular/forms';
 import { LanguageService } from 'src/app/shared/services/language.service';
+import { Category } from 'src/app/shared/interfaces/category.type';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class CategoryComponent implements OnInit {
   slug = '';
   topic: string = '';
   selectedLanguage: string = "";
+  pageHeader: string = '';
   newsLetterForm = new FormGroup({
     email: new FormControl('')
   });
@@ -49,8 +51,16 @@ export class CategoryComponent implements OnInit {
       const slug = params.get('slug');
       this.slug = slug;
 
+      if (this.topic) {
+        this.getTopiDetails(this.topic);
+      }
+
+
       this.categoryService.getCategoryBySlug(slug).subscribe(category => {
         this.category = category;
+        if (!this.topic) {
+          this.pageHeader = this.category?.title;
+        }
 
         this.titleService.setTitle(`${this.category?.title}`);
 
@@ -108,13 +118,20 @@ export class CategoryComponent implements OnInit {
   }
 
   submit() {
-    if(this.newsLetterForm.valid) {
+    if (this.newsLetterForm.valid) {
       this.categoryService.addSubscription(this.category, this.newsLetterForm.value.email).then(() => {
         this.newsLetterForm.reset();
-      }).catch( err => {
+      }).catch(err => {
         console.error('Error while subscribing', err);
       });
     }
   }
- 
+  getTopiDetails(topicSlug: string) {
+    this.categoryService.getTopicBySlug(topicSlug).subscribe((topicData: Category) => {
+      this.pageHeader = topicData?.title;
+      console.log(topicData);
+    })
+
+  }
+
 }
