@@ -22,7 +22,7 @@
                 <ul class="nav-right">
                     <li>
                         <nz-select (ngModelChange)="switchLang($event)" [(ngModel)]="selectedLanguage">
-                            <nz-option *ngFor="let option of languageList" [nzLabel]="option.labal"
+                            <nz-option *ngFor="let option of languageList" [nzLabel]="option.label"
                                 [nzValue]="option.code">
                                 {{ option.label }}</nz-option>
                         </nz-select>

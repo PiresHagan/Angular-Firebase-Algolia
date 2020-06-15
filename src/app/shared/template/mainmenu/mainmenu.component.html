@@ -27,18 +27,20 @@
                 <app-search></app-search>
             </nz-drawer>
         </li> -->
-                <li nz-menu-item class="megamenu-list">
+                <li nz-menu-item class="megamenu-list" id="mega-menu-header" (mouseenter)="showMegaMenu()"
+                    (mouseleave)="hideMegaMenu()">
                     <a class="megamenu-link">{{'More' | translate}} <i nz-icon nzType="down" nzTheme="outline"></i></a>
-                    <div class="mega-body-sec">
+                    <div class="mega-body-sec" id="mega-menu-section">
                         <div class="megamenu-body">
                             <div class="sub-catagories-sec">
                                 <ng-container *ngFor="let item of (categories)">
                                     <div class="sub-catagories-list" [ngClass]="item.slug">
                                         <h2>{{item.title}}</h2>
                                         <ul>
-                                            <li *ngFor="let topic of (categoryListData[item.uid].child | async )"
+                                            <li (click)="hideMegaMenu()"
+                                                *ngFor="let topic of (categoryListData[item.uid].child | async )"
                                                 nz-menu-item [routerLink]="['/category', item.slug]"
-                                                [queryParams]="{topic:topic.slug}">
+                                                [queryParams]="{topic:topic.slug}" class="mega-menu-list-item">
                                                 {{topic.title}}
                                             </li>
                                         </ul>

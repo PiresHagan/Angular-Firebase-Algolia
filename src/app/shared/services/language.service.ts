@@ -12,14 +12,14 @@ export class LanguageService {
 
   languageList: Language[] = [{
     "code": "en",
-    "labal": "English",
+    "label": "English",
   },
   {
     "code": "fr",
-    "labal": "Français",
+    "label": "Français",
   }, {
     "code": "es",
-    "labal": "Español",
+    "label": "Español",
   }
   ]
   defaultLanguage: string = 'en';

@@ -1,7 +1,6 @@
-
 <div class="container">
-<nz-card class="new-article-card">
-  
+  <nz-card class="new-article-card">
+
     <br />
     <nz-steps [nzCurrent]="0">
       <nz-step nzTitle="{{'artCompose' | translate}}"></nz-step>
@@ -22,17 +21,44 @@
           </div>
           <div class="filter-dropodown">
             <nz-form-item>
-              <nz-form-control nzErrorTip="{{'artCategoryErr' | translate}}">
-                <nz-select class="m-r-10" formControlName="category" nzAllowClear
-                  nzPlaceHolder="{{'artCategory' | translate}}">
+
+
+              <nz-form-control nzErrorTip="{{'artCategoryErr' | translate}}" class="m-5">
+                <nz-select class="m-r-10" formControlName="lang" nzAllowClear nzPlaceHolder="{{'lang' | translate}}"
+                  (ngModelChange)="languageSelected($event)">
+                  <nz-option *ngFor="let language of languageList" [nzValue]="language.code"
+                    nzLabel="{{language.label}}">
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+
+              <nz-form-control nzErrorTip="{{'artCategoryErr' | translate}}" class="m-5">
+                <nz-select class="m-r-10" formControlName="category" (ngModelChange)="categorySelected($event)"
+                  nzAllowClear nzPlaceHolder="{{'artCategory' | translate}}">
                   <nz-option *ngFor="let category of categoryList" [nzValue]="category" nzLabel="{{category.title}}">
+                  </nz-option>
+
+                </nz-select>
+              </nz-form-control>
+
+              <nz-form-control nzErrorTip="{{'artCategoryErr' | translate}}" class="m-5">
+                <nz-select class="m-r-10" formControlName="topics" nzAllowClear nzPlaceHolder="{{'topic' | translate}}">
+                  <nz-option *ngFor="let topic of topicList" [nzValue]="topic" nzLabel="{{topic.title}}">
                   </nz-option>
 
                 </nz-select>
               </nz-form-control>
             </nz-form-item>
 
-            
+
+
+
+
+
+
+
+
+
           </div>
         </div>
         <div class="row">
@@ -66,7 +92,7 @@
           </div>
 
           <div class="col-md-12 mt-5">
-            
+
 
             <!-- <nz-form-item>
             <nz-select formControlName="tags" nzMode="tags" [nzMaxTagCount]="5"
@@ -75,19 +101,19 @@
               </nz-option>
             </nz-select>
           </nz-form-item> -->
-          <div class="d-inline-block">
-            <nz-form-item>
-              <button nz-button [nzLoading]="isFormSaving" class="login-form-button" [nzType]="'primary'"
-                nzBlock>{{'artNext' | translate}}</button>
-            </nz-form-item>
-          </div>
-            
+            <div class="d-inline-block">
+              <nz-form-item>
+                <button nz-button [nzLoading]="isFormSaving" class="login-form-button" [nzType]="'primary'"
+                  nzBlock>{{'artNext' | translate}}</button>
+              </nz-form-item>
+            </div>
+
           </div>
 
         </div>
       </form>
     </nz-skeleton>
 
-  
-</nz-card>
+
+  </nz-card>
 </div>

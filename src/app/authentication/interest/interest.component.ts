@@ -89,7 +89,8 @@ export class InterestComponent implements OnInit {
         }
         this.userService.update(this.currentUser.uid, { interests }).then(() => {
             this.isFormSaving = false;
-            this.router.navigate(['/auth/import-contact']);
+            //this.router.navigate(['/auth/import-contact']);
+            this.done();
         });
 
 
@@ -105,6 +106,13 @@ export class InterestComponent implements OnInit {
         } else if (control.value !== this.interestForm.controls.password.value) {
             return { confirm: true, error: true };
         }
+    }
+    done() {
+        this.modalService.success({
+            nzTitle: 'Congratulations',
+            nzContent: 'Well done! You are all set.',
+            nzOnOk: () => this.router.navigate(['/app/settings/profile-settings'])
+        });
     }
 
 

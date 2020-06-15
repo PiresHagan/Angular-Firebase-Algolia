@@ -52,6 +52,21 @@ export class CategoryService {
       })
     );
   }
+  getTopicBySlug(slug: string) {
+    return this.db.collection<Category>(this.topicsCollection, ref => ref
+      .where('slug', '==', slug)
+      .limit(1)
+    ).snapshotChanges().pipe(take(1),
+      map(actions => {
+        const categoryData = actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+        return categoryData ? categoryData[0] : {}
+      })
+    );
+  }
   getTopicList(categoryId, language = 'en') {
     return this.db.collection<Category[]>(this.topicsCollection, ref => ref.where('lang', '==', language).where('category', '==', categoryId)).snapshotChanges().pipe(
       map(actions => {
@@ -66,13 +81,13 @@ export class CategoryService {
 
   addSubscription(category: Category, email: string) {
     const emailIdWithoutDot = email.split('.').join(''),
-    contactObj = {
-      email: email,
-      timestamp: new Date(),
-      source: 'category',
-      lf_allsubs_id: category.lf_allsubs_id,
-      lf_list_id: category.lf_list_id
-    };
+      contactObj = {
+        email: email,
+        timestamp: new Date(),
+        source: 'category',
+        lf_allsubs_id: category.lf_allsubs_id,
+        lf_list_id: category.lf_list_id
+      };
     return new Promise((resolve, reject) => {
       this.db.doc(`${this.funnelsCollection}/${this.categoryDocument}/${category.id}/${emailIdWithoutDot}`).set(contactObj).then((articleData) => {
         resolve(articleData)
