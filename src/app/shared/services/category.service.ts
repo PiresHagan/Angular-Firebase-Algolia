@@ -81,6 +81,7 @@ export class CategoryService {
 
   addSubscription(category: Category, email: string) {
     const emailIdWithoutDot = email.split('.').join(''),
+<<<<<<< HEAD
       contactObj = {
         email: email,
         timestamp: new Date(),
@@ -88,6 +89,15 @@ export class CategoryService {
         lf_allsubs_id: category.lf_allsubs_id,
         lf_list_id: category.lf_list_id
       };
+=======
+    contactObj = {
+      email: email,
+      timestamp: new Date().toISOString(),
+      source: 'category',
+      lf_allsubs_id: category.lf_allsubs_id,
+      lf_list_id: category.lf_list_id
+    };
+>>>>>>> 06e32d66216c3b9e492d3eeea0fc1b65fd0f1f88
     return new Promise((resolve, reject) => {
       this.db.doc(`${this.funnelsCollection}/${this.categoryDocument}/${category.id}/${emailIdWithoutDot}`).set(contactObj).then((articleData) => {
         resolve(articleData)
