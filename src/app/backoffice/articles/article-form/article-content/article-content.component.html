@@ -23,7 +23,7 @@
             <nz-form-item>
 
 
-              <nz-form-control nzErrorTip="{{'artCategoryErr' | translate}}" class="m-5">
+              <nz-form-control nzErrorTip="{{'langErr' | translate}}" class="m-5">
                 <nz-select class="m-r-10" formControlName="lang" nzAllowClear nzPlaceHolder="{{'lang' | translate}}"
                   (ngModelChange)="languageSelected($event)">
                   <nz-option *ngFor="let language of languageList" [nzValue]="language.code"

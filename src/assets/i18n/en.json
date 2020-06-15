@@ -300,5 +300,6 @@
     "clickOnAccountSetting": "Click on My Account Settings:",
     "clickOnUploadInfo": "Upload your Information:",
     "lang": "Language",
-    "topic": "Topic"
+    "topic": "Topic",
+    "langErr": "Please select language"
 }
