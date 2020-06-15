@@ -28,14 +28,14 @@
           </div>
           
             <ais-refinement-list attribute="brand"></ais-refinement-list>
-            <ais-configure [searchParameters]="{ hitsPerPage: 14 }"></ais-configure>
+            <ais-configure [searchParameters]="{ hitsPerPage: 16 }"></ais-configure>
             <ais-hits>
               <ng-template let-hits="hits" let-results="results">
                 <div class="sr-article-sec">
 
-                    <div class="sr-article-sec-item ads-main" *ngIf="hits.length > 5" [ngStyle]="{'order': 5}">
+                    <!-- <div class="sr-article-sec-item ads-main" *ngIf="hits.length > 5" [ngStyle]="{'order': 5}">
                         <div class="ads">Special ads</div>
-                    </div>
+                    </div> -->
                     <div [routerLink]="['/article/',hit.slug]"  class="sr-article-sec-item" *ngFor="let hit of hits; let i=index"  [ngStyle]="{'order': OrderIndex + i}">
                        
                         <div class="sr-article-img"><img src="{{hit.image.url}}" alt="{{hit.image.alt}}" /></div>
