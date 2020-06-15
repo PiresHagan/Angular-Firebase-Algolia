@@ -32,7 +32,7 @@ export class SignUpComponent {
         public ngZone: NgZone, // NgZone service to remove outside scope warning
         public previousRoute: PreviousRouteService,
         public translate: TranslateService,
-         private language: LanguageService
+        private language: LanguageService
 
     ) {
     }
@@ -144,7 +144,10 @@ export class SignUpComponent {
     }
     private navigateToUserProfile() {
         this.ngZone.run(() => {
-            const previousUrl = this.previousRoute.getPreviousUrl();
+            let previousUrl = this.previousRoute.getPreviousUrl();
+            if ((previousUrl && previousUrl.indexOf('auth/login') > -1) || previousUrl == '/') {
+                previousUrl = '';
+            }
             this.router.navigate([previousUrl ? previousUrl : "app/settings/profile-settings"]);
         });
     }

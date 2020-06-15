@@ -38,8 +38,9 @@ export class ArticleService {
         return actions.map(a => {
           const data = a.payload.doc.data();
           const id = a.payload.doc.id;
-          const img = data.image.url;
-          data.image.url = img.replace('https://mytrendingstories.com', 'https://assets.mytrendingstories.com');
+          const img = data.image?.url ? data.image?.url : "";
+          if (img)
+            data.image.url = img.replace('https://mytrendingstories.com', 'https://assets.mytrendingstories.com');
           return { id, ...data };
         });
       })
@@ -284,7 +285,39 @@ export class ArticleService {
       case 'next':
         dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
           .where("author.id", "==", authorId)
-          //  .orderBy('published_on', 'desc')
+          .where('status', "==", ACTIVE)
+          .limit(limit)
+          .startAfter(lastVisible))
+        break;
+    }
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        articleList: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+        lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
+    })
+    );
+  }
+
+  getArticlesByUser(authorId, limit: number = 10, navigation: string = "first", lastVisible = null) {
+    if (!limit) {
+      limit = 10;
+    }
+    let dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+      .where("author.id", "==", authorId)
+      .orderBy('created_at', 'desc')
+      .limit(limit)
+    )
+    switch (navigation) {
+      case 'next':
+        dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+          .where("author.id", "==", authorId)
+          .orderBy('created_at', 'desc')
           .limit(limit)
           .startAfter(lastVisible))
         break;
