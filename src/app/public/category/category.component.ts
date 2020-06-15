@@ -75,13 +75,13 @@ export class CategoryComponent implements OnInit {
           name: `${this.category?.long_title}`
         });
 
-        this.titleService.setTitle(`${this.category.title}`);
+        this.titleService.setTitle(`${this.category?.title}`);
 
         this.metaTagService.addTags([
           // {name: "description", content: `${this.category.description.substring(0, 154)}`},
-          { name: "keywords", content: `${this.category.title}` },
+          { name: "keywords", content: `${this.category?.title}` },
           // {name: "twitter:card", content: `${this.category.description}`},
-          { name: "og:title", content: `${this.category.title}` },
+          { name: "og:title", content: `${this.category?.title}` },
           { name: "og:type", content: `category` },
           { name: "og:url", content: `${window.location.href}` },
           //{name: "og:image", content: `${this.category.image.url}`},
