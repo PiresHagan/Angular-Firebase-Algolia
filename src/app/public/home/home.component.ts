@@ -85,7 +85,6 @@ export class HomeComponent implements OnInit {
         this.heroLarge = article[0];
       });
 
-
       this.articleService.getHeroSmallArticle(this.selectedLanguage).subscribe(articles => {
         this.heroSmall = articles;
       });
@@ -93,7 +92,7 @@ export class HomeComponent implements OnInit {
       this.setArticleData();
 
       this.getAuthors();
-    })
+    });
 
     this.categories = this.categoryService.getAll(this.selectedLanguage);
     this.setArticleData();

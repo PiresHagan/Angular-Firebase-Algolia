@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Language } from '../interfaces/language.type';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,10 @@ export class LanguageService {
   },
   {
     "code": "fr",
-    "labal": "French",
+    "labal": "Français",
   }, {
     "code": "es",
-    "labal": "Spanish",
+    "labal": "Español",
   }
   ]
   defaultLanguage: string = 'en';
@@ -26,7 +27,9 @@ export class LanguageService {
   public isSelectedLang;
   selectedLang: Observable<string>
 
-  constructor(public translate: TranslateService) {
+  constructor(
+    public translate: TranslateService,
+    private router: Router) {
 
     this.translate.addLangs(this.getLanguageListArr());
     this.selectedLanguage = this.getlanguageFromLS() ? this.getlanguageFromLS() : this.defaultLanguage;
@@ -52,6 +55,7 @@ export class LanguageService {
     this.setlanguageInLS(lng);
     this.translate.use(lng);
     this.isSelectedLang.next(lng);
+    this.router.navigate(['/']);
   }
   getSelectedLanguage() {
     return this.selectedLanguage ? this.selectedLanguage : this.defaultLanguage;

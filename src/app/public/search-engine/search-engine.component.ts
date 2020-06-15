@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as algoliasearch from 'algoliasearch/lite';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { LanguageService } from 'src/app/shared/services/language.service';
 const searchClient = algoliasearch(
   'N7WFUORZZU',
   '6f5d2e637debb45f0078b85091532c42'
@@ -10,17 +12,25 @@ const searchClient = algoliasearch(
   styleUrls: ['./search-engine.component.scss']
 })
 export class SearchEngineComponent implements OnInit {
+  selectedLanguage: string = "";
   config = {
     indexName: 'dev_articles',
     searchClient
   };
-  constructor (){
-
-    
   
+  constructor (
+    public translate: TranslateService,
+    private languageService: LanguageService
+  ){
   }
   ngOnInit(): void {
+    this.selectedLanguage = this.languageService.getSelectedLanguage();
+    this.config.indexName = `prod_articles_${this.selectedLanguage}`;
 
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.selectedLanguage = this.languageService.getSelectedLanguage();
+      this.config.indexName = `prod_articles_${this.selectedLanguage}`;
+    });
   }
   public OrderIndex = 0;
   articleBrand = [
