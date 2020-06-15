@@ -6,6 +6,7 @@ import { AuthService } from '../../services/authentication.service';
 import { LanguageService } from '../../services/language.service';
 import { Language } from '../../interfaces/language.type';
 import { UserService } from '../../services/user.service';
+import { CategoryService } from '../../services/category.service';
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
@@ -33,6 +34,7 @@ export class HeaderComponent {
         private authService: AuthService,
         public languageService: LanguageService,
         public userService: UserService,
+        private categoryService: CategoryService,
 
     ) {
 
@@ -101,5 +103,12 @@ export class HeaderComponent {
     }
 
 
-
+    removeActiveClass() {
+        this.categoryService.getAll(this.selectedLanguage).subscribe((categoryListData) => {
+            categoryListData.forEach(category => {
+                    const el = document.querySelector('.' + category['slug']);
+                    el.classList.remove("ant-menu-item-selected");
+            });
+          })
+       }
 }

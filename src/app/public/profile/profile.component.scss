@@ -172,26 +172,7 @@
 }
 .is-followers-sec {
   background: #fff;
-  .load-more-btn{
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    span{
-      font-size: 18px;
-    background: #ff4020;
-    border: 0px;
-    color: #fff;
-    padding: 10px 25px 8px 25px;
-    cursor: pointer;
-    font-family: "josefin_sansregular";
-    border-radius: 55px;
-    line-height: 26px;
-    display: flex;
-    align-items: center;
-    outline: none;
-    display:inline-block;
-    }
-  }
+  
   .is-followers-user {
     display: flex;
     justify-content: center;
@@ -209,7 +190,26 @@
     }
   }
 }
-
+.load-more-btn{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  span{
+    font-size: 18px;
+  background: #ff4020;
+  border: 0px;
+  color: #fff;
+  padding: 10px 25px 8px 25px;
+  cursor: pointer;
+  font-family: "josefin_sansregular";
+  border-radius: 55px;
+  line-height: 26px;
+  display: flex;
+  align-items: center;
+  outline: none;
+  display:inline-block;
+  }
+}
 .follow {
   max-width: 800px;
   margin: auto;
