@@ -299,5 +299,6 @@
     "clickOnUploadInfo": "Sube tu información:",
     "lang": "Idioma",
     "topic": "Tema",
-    "langErr": "Por favor seleccione idioma"
+    "langErr": "Por favor seleccione idioma",
+    "required": "es obligatorio"
 }
