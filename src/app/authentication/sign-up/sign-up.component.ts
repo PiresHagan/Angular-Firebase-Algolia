@@ -74,16 +74,19 @@ export class SignUpComponent {
                     this.addUser({
                         email: email,
                         id: userData.uid,
-                        created_at: new Date().toString(),
+                        date_joined: new Date().toString(),
                         updated_at: new Date().toString(),
-                        lang: ""
+                        lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en'
                     }, {
+                        email: email,
                         fullname: userData.displayName,
                         id: userData.uid,
                         created_at: new Date().toString(),
-                        slug: this.getSlug(userData.displayName),
+                        slug: this.getSlug(userData.displayName) + '-' + this.makeid(),
                         updated_at: new Date().toString(),
-                        lang: ""
+                        lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en',
+                        type: 'member'
+
                     });
 
                 }).catch((error) => {
@@ -153,5 +156,14 @@ export class SignUpComponent {
     }
     private getSlug(displayName: string) {
         return displayName.replace(/ /g, '-')?.toLowerCase();
+    }
+    makeid(length = 6) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result.toLowerCase();
     }
 }    

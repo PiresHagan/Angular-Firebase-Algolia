@@ -302,5 +302,6 @@
     "langErr": "Por favor seleccione idioma",
     "ContactTopTitle":"Contacta con nosotras",
     "contactInformation":"Información del contacto",
-    "getInTouch":"Ponerse en contacto"
+    "getInTouch":"Ponerse en contacto",
+    "required": "es obligatorio"
 }

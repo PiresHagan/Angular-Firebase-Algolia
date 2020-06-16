@@ -304,6 +304,6 @@
     "langErr": "Please select language",
     "ContactTopTitle":"Contact Us",
     "contactInformation":"Contact Information",
-    "getInTouch":"Get in touch"
-
+    "getInTouch":"Get in touch",
+    "required": "is required"
 }
