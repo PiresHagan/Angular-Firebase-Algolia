@@ -28,7 +28,8 @@ export class CategoryComponent implements OnInit {
   newsLetterForm = new FormGroup({
     email: new FormControl('')
   });
-
+  errorSubscribe:boolean = false;
+  successSubscribe:boolean = false;
   constructor(
     private categoryService: CategoryService,
     private articleService: ArticleService,
@@ -126,6 +127,14 @@ export class CategoryComponent implements OnInit {
       }).catch(err => {
         console.error('Error while subscribing', err);
       });
+      this.successSubscribe = true;
+      setTimeout (() => {
+        this.successSubscribe = false;
+     }, 4000);
+      this.errorSubscribe = false;
+    }else{
+      this.errorSubscribe = true;
+      this.successSubscribe = false;
     }
   }
   getTopicDetails(topicSlug: string) {
