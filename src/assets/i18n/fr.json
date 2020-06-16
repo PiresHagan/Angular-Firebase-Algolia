@@ -305,5 +305,8 @@
     "getInTouch":"Entrer en contact",
     "required": "est requis",
     "errorSubscribe":"veuillez saisir un email valide",
-    "successSubscribe":"Vous vous êtes enregistré avec succès"
+    "successSubscribe":"Vous vous êtes enregistré avec succès",
+    "liked":"Aimée",
+    "followAuthor":"Suivre l'auteur",
+    "unfollowAuthor":"Se désabonner Auteur"
 }
