@@ -46,6 +46,8 @@ export class HomeComponent implements OnInit {
   switchLang(lang: string) {
     this.translate.use(lang);
   }
+  
+  DefaultAvatar:string='assets/images/default-avatar.png';
 
   ngOnInit(): void {
     this.titleService.setTitle("Home");

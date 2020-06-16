@@ -8,7 +8,7 @@
                 </div>
                 <div class="is-profile-main">
                     <div class="is-card-author-group">
-                        <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                        <img class="avatar" [src]="replaceImage(article.author.avatar?.url)!= unknown ? article.author.avatar?.url : DefaultAvatar"
                             [alt]="article.author.avatar?.alt">&nbsp;
                         <span class="is-card-author">{{article.author.fullname}}
                         </span>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="is-profile-main">
                     <div class="is-card-author-group">
-                        <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                        <img class="avatar" [src]="replaceImage(article.author.avatar?.url)!= unknown ? article.author.avatar?.url : DefaultAvatar"
                             [alt]="article.author.avatar?.alt">&nbsp;
                         <span class="is-card-author">{{article.author.fullname}}
                         </span>
@@ -73,7 +73,7 @@
                             [ngStyle]="{'background-image': 'url(' + replaceImage(article.image.url)+ ')'}"></div>
                         <div class="is-profile-main">
                             <div class="is-card-author-group">
-                                <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                                <img class="avatar" [src]="replaceImage(article.author.avatar?.url)!= unknown ? article.author.avatar?.url : DefaultAvatar"
                                     [alt]="article.author.avatar?.alt">
                                 <span class="is-card-author">{{article.author.fullname}}</span>
                             </div>
@@ -117,14 +117,14 @@
                 (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
                 
                 <a [routerLink]="['/profile/',author.slug]" class="is-profile-img-link">
-                    <img [src]="replaceImage(author?.avatar?.url)" class="is-profile" [alt]="author?.avatar?.alt" />
+                    <img [src]="replaceImage(author?.avatar?.url)!= unknown ? author?.avatar?.url : DefaultAvatar" class="is-profile" [alt]="author?.avatar?.alt" />
 
                 </a>
                
                 <div class="is-member-hover">
                     <div class="is-member-profile-header">
                         <h3>{{author?.fullname}} </h3>
-                        <img class="is-profile-hover-img" [src]="replaceImage(author?.avatar?.url)"
+                        <img class="is-profile-hover-img" [src]="replaceImage(author?.avatar?.url)!= unknown ? author?.avatar?.url : DefaultAvatar"
                             [alt]="author?.avatar?.alt" />
                     </div>
                     <div class="is-member-profile-body">
