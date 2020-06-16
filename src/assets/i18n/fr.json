@@ -299,5 +299,8 @@
     "clickOnUploadInfo": "Téléchargez vos informations:",
     "lang": "Langue",
     "topic": "Sujet",
-    "langErr": "Veuillez sélectionner la langue"
+    "langErr": "Veuillez sélectionner la langue",
+    "ContactMainTitle":"Nous contacter",
+    "contactGetInTouch":"Entrer en contact",
+    "ContactInformation":"Informations de contact"
 }
