@@ -84,7 +84,9 @@ export class SignUpComponent {
                         created_at: new Date().toString(),
                         slug: this.getSlug(userData.displayName) + '-' + this.makeid(),
                         updated_at: new Date().toString(),
-                        lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en'
+                        lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en',
+                        type: 'member'
+
                     });
 
                 }).catch((error) => {
