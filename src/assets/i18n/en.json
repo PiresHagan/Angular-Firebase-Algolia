@@ -301,5 +301,9 @@
     "clickOnUploadInfo": "Upload your Information:",
     "lang": "Language",
     "topic": "Topic",
-    "langErr": "Please select language"
+    "langErr": "Please select language",
+    "ContactTopTitle":"Contact Us",
+    "contactInformation":"Contact Information",
+    "getInTouch":"Get in touch"
+
 }
