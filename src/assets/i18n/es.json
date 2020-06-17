@@ -300,5 +300,8 @@
     "lang": "Idioma",
     "topic": "Tema",
     "langErr": "Por favor seleccione idioma",
-    "required": "es obligatorio"
+    "ContactMainTitle":"Contáctenos",
+    "contactGetInTouch":"Ponerse en contacto",
+    "ContactInformation":"Información del contacto"
+    
 }

@@ -300,5 +300,7 @@
     "lang": "Langue",
     "topic": "Sujet",
     "langErr": "Veuillez sélectionner la langue",
-    "required": "est requis"
+    "ContactMainTitle":"Nous contacter",
+    "contactGetInTouch":"Entrer en contact",
+    "ContactInformation":"Informations de contact"
 }

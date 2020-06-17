@@ -861,11 +861,17 @@
 
   }
 
-  @media screen and (max-width:375px){
+  @media screen and (max-width:580px){
       .is-hero{ 
       .is-hero-card{
         .is-profile-main{
           flex-wrap: wrap;
+          .is-card-author-group{
+            flex:1;
+          }
+          .divider{
+             display: none;
+            }
           .is-card-btn{
             text-align: left;
             padding-left: 50px;
@@ -1126,11 +1132,11 @@
         .is-profile-main{
           flex-wrap: wrap;
           .divider{
-            display: none;
+            display: block;
           }
           .is-card-btn{
             text-align: right;
-            padding-left: 32px;
+            padding-left: 0px;
             button{
               font-size: 15px;
             }
@@ -1139,59 +1145,60 @@
         
       
     }
-    .is-follower-member{
-      .container{
-        width:100%;
-        max-width: 100%;
-        .is-member-item {
-          margin: 0px 1% 100px 1%;
-      }
-      .is-more-btn{
-        padding-top: 0px;
-        margin-top: -50px;
-        button{
-          font-size: 18px;
-        }
-      }
-      }
+ 
+  }
+  .is-follower-member{
+    .container{
+      width:100%;
+      max-width: 100%;
+      .is-member-item {
+        margin: 0px 1% 100px 1%;
     }
-    .is-cat-box-card-main{
-      .cat-box{
-        .container{
-          width:100%;
-          max-width:100%;
-          .cat-box-gallery{
-          .col-sm-15 {
-            width: 25%;
-            margin: 0px 0px 15px 0px;
-            .item-card {
-              min-height: 525px;
-            }
-          }
-        }
-        }
-      }
-    }
-    .is-card-content{
-      .is-small-title {
-        font-size: 28px !important;
-        color: #fff;
-        line-height: 32px !important;
-        span{
-          padding-bottom: 0px;
-        }
-        div{
-          line-height: 36px;
-        }
-      }
-      .is-card-description{
-        font-size: 16px;
-      }
-      .is-read-more{
+    .is-more-btn{
+      padding-top: 0px;
+      margin-top: -50px;
+      button{
         font-size: 18px;
       }
-      
     }
+    }
+  }
+  .is-cat-box-card-main{
+    .cat-box{
+      .container{
+        width:100%;
+        max-width:100%;
+        .cat-box-gallery{
+        .col-sm-15 {
+          width: 25%;
+          margin: 0px 0px 15px 0px;
+          .item-card {
+            min-height: 525px;
+          }
+        }
+      }
+      }
+    }
+  }
+  .is-card-content{
+    .is-small-title {
+      font-size: 28px !important;
+      color: #fff;
+      line-height: 32px !important;
+      span{
+        padding-bottom: 0px;
+      }
+      div{
+        line-height: 36px;
+      }
+    }
+    .is-card-description{
+      font-size: 16px;
+    }
+    .is-read-more{
+      font-size: 18px;
+    }
+    
   }
   }
 
