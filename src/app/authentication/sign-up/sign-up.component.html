@@ -42,7 +42,9 @@
                             <nz-alert nzType="error" [nzDescription]="errorPasswordWeak" *ngIf="errorPasswordWeak">
                                 <ng-template #errorPasswordWeak>
                                     <ng-container>
-                                        Password should be at least 6 characters.
+                                        {{'passwordError' | translate}}
+
+
                                     </ng-container>
                                 </ng-template>
                             </nz-alert>
@@ -56,24 +58,24 @@
                             <nz-form-item>
                                 <!-- <nz-form-label nzRequired nzFor="fullname">Fullname</nz-form-label> -->
                                 <nz-form-control nzErrorTip="{{'fullNameError' | translate}}" class="is-icon">
-                                    <input type="text" nz-input formControlName="fullname" placeholder="{{'signUpFullName' | translate}}"
-                                        id="fullname">
+                                    <input type="text" nz-input formControlName="fullname"
+                                        placeholder="{{'signUpFullName' | translate}}" id="fullname">
                                     <img src="assets/images/sign-up/user.png" />
                                 </nz-form-control>
                             </nz-form-item>
                             <nz-form-item>
                                 <!-- <nz-form-label nzRequired nzFor="email">Email</nz-form-label> -->
                                 <nz-form-control nzErrorTip="{{'loginEmailError' | translate}}" class="is-icon">
-                                    <input type="text" nz-input formControlName="email" placeholder="{{'loginInputEmail' | translate}}"
-                                        id="email">
+                                    <input type="text" nz-input formControlName="email"
+                                        placeholder="{{'loginInputEmail' | translate}}" id="email">
                                     <img src="assets/images/sign-up/email.png" />
                                 </nz-form-control>
                             </nz-form-item>
                             <nz-form-item>
                                 <!-- <nz-form-label nzRequired nzFor="password">Password</nz-form-label> -->
                                 <nz-form-control nzErrorTip="{{'passwordError' | translate}}" class="is-icon">
-                                    <input type="password" nz-input formControlName="password" placeholder="{{'loginInputPassword' | translate}}"
-                                        id="password">
+                                    <input type="password" nz-input formControlName="password"
+                                        placeholder="{{'loginInputPassword' | translate}}" id="password">
                                     <img src="assets/images/sign-up/password.png" />
                                 </nz-form-control>
                             </nz-form-item>
@@ -104,7 +106,8 @@
                                 <nz-form-item>
                                     <nz-form-control>
                                         <div class="text-center">
-                                            <button nz-button class="is-login-btn" [nzType]="'primary'">{{'signUp' | translate}}</button>
+                                            <button nz-button class="is-login-btn"
+                                                [nzType]="'primary'">{{'signUp' | translate}}</button>
                                         </div>
                                     </nz-form-control>
                                 </nz-form-item>
