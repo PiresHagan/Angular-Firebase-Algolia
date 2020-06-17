@@ -6,7 +6,7 @@
 /out-tsc
 /.firebase
 .firebase/
-/.firebase
+.firebase/*
 /documentation
 
 # dependencies
