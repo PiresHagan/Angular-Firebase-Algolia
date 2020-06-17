@@ -300,7 +300,13 @@
     "lang": "Langue",
     "topic": "Sujet",
     "langErr": "Veuillez sélectionner la langue",
-    "ContactMainTitle":"Nous contacter",
-    "contactGetInTouch":"Entrer en contact",
-    "ContactInformation":"Informations de contact"
+    "ContactTopTitle":"Nous contacter",
+    "contactInformation":"Informations de contact",
+    "getInTouch":"Entrer en contact",
+    "required": "est requis",
+    "errorSubscribe":"veuillez saisir un email valide",
+    "successSubscribe":"Vous vous êtes enregistré avec succès",
+    "liked":"Aimée",
+    "followAuthor":"Suivre l'auteur",
+    "unfollowAuthor":"Se désabonner Auteur"
 }
