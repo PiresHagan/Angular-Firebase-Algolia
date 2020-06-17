@@ -55,7 +55,7 @@ export class LanguageService {
     this.setlanguageInLS(lng);
     this.translate.use(lng);
     this.isSelectedLang.next(lng);
-    this.router.navigate(['/']);
+    //this.router.navigate(['/']);
   }
   getSelectedLanguage() {
     return this.selectedLanguage ? this.selectedLanguage : this.defaultLanguage;
