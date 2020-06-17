@@ -302,5 +302,13 @@
     "lang": "Language",
     "topic": "Topic",
     "langErr": "Please select language",
-    "required": "is required"
+    "ContactTopTitle":"Contact Us",
+    "contactInformation":"Contact Information",
+    "getInTouch":"Get in touch",
+    "required": "is required",
+    "errorSubscribe":"please enter a valid email",
+    "successSubscribe":"You have successfully subscribed",
+    "liked":"Liked",
+    "followAuthor":"Follow Author",
+    "unfollowAuthor":"Unfollow Author"
 }

@@ -85,8 +85,7 @@ export class CategoryService {
         email: email,
         timestamp: new Date().toISOString(),
         source: 'category',
-        lf_allsubs_id: category.lf_allsubs_id,
-        lf_list_id: category.lf_list_id
+        ...category
       };
     return new Promise((resolve, reject) => {
       this.db.doc(`${this.funnelsCollection}/${this.categoryDocument}/${category.id}/${emailIdWithoutDot}`).set(contactObj).then((articleData) => {

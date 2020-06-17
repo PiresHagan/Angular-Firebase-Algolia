@@ -280,7 +280,11 @@
             margin-left: 10px;
             font-family: "josefin_sansregular";
             line-height: 17px;
-
+            cursor: pointer;
+            &:focus{
+              border:0px;
+              outline:none;
+            }
       }
     }
     .errorlist li{

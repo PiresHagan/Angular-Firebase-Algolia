@@ -9,6 +9,11 @@ import { LanguageService } from 'src/app/shared/services/language.service';
   styleUrls: ['./faq.component.scss']
 })
 export class FaqComponent implements OnInit {
+  enFaqImg:boolean;
+  frFaqImg:boolean;
+  esFaqImg:boolean;
+  selectedLanguage: string;
+  languageList: any;
   constructor(
     private titleService: Title,
     private metaTagService: Meta,
@@ -18,7 +23,37 @@ export class FaqComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle("Frequently asked questions");
-
+    this.selectedLanguage = this.language.getSelectedLanguage();
+    console.log(this.selectedLanguage)
+    if(this.selectedLanguage == 'fr'){
+      this.frFaqImg= true;
+      this.esFaqImg = false;
+      this.enFaqImg = false;
+    }else if (this.selectedLanguage == 'es'){
+      this.esFaqImg = true;
+      this.frFaqImg= false;
+      this.enFaqImg = false;
+    }else if (this.selectedLanguage == 'en'){
+      this.enFaqImg = true;
+      this.frFaqImg= false;
+      this.esFaqImg = false;
+    }
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.selectedLanguage = this.language.getSelectedLanguage()
+      if(this.selectedLanguage == 'fr'){
+        this.frFaqImg= true;
+        this.esFaqImg = false;
+        this.enFaqImg = false;
+      }else if (this.selectedLanguage == 'es'){
+        this.esFaqImg = true;
+        this.frFaqImg= false;
+        this.enFaqImg = false;
+      }else if (this.selectedLanguage == 'en'){
+        this.enFaqImg = true;
+        this.frFaqImg= false;
+        this.esFaqImg = false;
+      }
+    }); 
     this.metaTagService.addTags([
       {name: "description", content: "I wrote an article but cannot find it on the My Trending Stories website. Double-check to make sure that your articles is saved as “published” and not as "},
       {name: "keywords", content: "Frequently asked questions"},
