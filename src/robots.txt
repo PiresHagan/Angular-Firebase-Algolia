@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: /app
 
-Sitemap: https://mytrendingstories-dev.web.app/sitemap.xml
+Sitemap: https://mytrendingstories.com/sitemap.xml
