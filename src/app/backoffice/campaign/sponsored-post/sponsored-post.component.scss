@@ -1,0 +1,236 @@
+.is-hero{
+  .container{
+    width:calc(100% - 50px);
+  }
+    .col-sm{
+     padding: 0px;
+     margin: 0px;
+   }
+   .is-bottom-hero{
+     width:100%;
+     .row{
+       .col-12:nth-child(1){
+         padding-left: 18px;
+       }
+       .col-12:last-child{
+         padding-right: 18px;
+       }
+     }
+   }
+   .no-pl{
+     padding-left: 0px;
+   }
+   .no-pr{
+     padding-right: 0px;
+   }
+   .is-row-height{
+     &.pt-18{
+       padding-top: 18px;
+     }
+   }
+   .is-hero-card{
+     width:100%;
+     height: 100%;
+     position: relative;
+     display: inline-block;
+     overflow: hidden;
+     &:after{
+       content: '';
+       position: absolute;
+       width:100%;
+       height: 100%;
+       background: rgba(0, 0, 0, 0.65);
+       top:0px;
+       left:0px;
+     }
+     img{
+       width:100%;
+       height: 100%;
+       object-fit: cover;
+     }    
+     .overlay-txt{
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.5);
+      z-index: 1;
+      width: calc(100% - 20px);
+      padding:10px;
+      box-sizing: border-box;
+      h2{
+        position: relative;
+        font-family: "open_sansregular";
+        font-size: 28px;
+        color: #000;
+        font-weight: 600;
+        padding-bottom: 10px;
+        margin: 0px 0px 5px 0px;
+        line-height: normal;
+        &:after {
+          content: "";
+          position: absolute;
+          left: 0px;
+          bottom: 0px;
+          width: 60px;
+          height: 1px;
+          background: #000;
+        }
+      }
+      p{
+        font-family: "open_sansregular";
+        font-size: 28px;
+        color: #000;
+        margin: 0px;
+        line-height: normal;
+      }
+     }
+     
+   }
+   .is-see-more{
+    font-size: 18px;
+    background: #f64747;
+    border: 0px;
+    color: #fff;
+    padding: 12px 35px 10px 35px;
+    cursor: pointer;
+    font-family: "josefin_sansregular";
+    border-radius: 55px;
+    line-height: 26px;
+   }
+
+
+ }
+ .profile-setting-main{
+  .page-header{
+      background:#fff;
+      padding: 10px 20px 7px 20px;
+      margin-top: 20px;
+      border:1px solid #eee;
+      h2{
+          font-family: "josefin_sanssemibold";
+          margin:0px;
+          padding:0px;
+          color:#000;
+      }
+  }
+
+  ::ng-deep .ant-tabs-bar{
+      padding: 0px;
+      margin-top: 0px;
+      border-color: #ff563a;
+      .ant-tabs-tab{
+          font-family: "josefin_sansregular";
+          color:#000;
+          font-size: 16px;
+          margin: 0px;
+          border:1px solid transparent;
+          &.ant-tabs-tab-active{
+              background: #ff563a;
+              border:1px solid #ff563a;
+              color: #fff;
+          }
+          &:hover{
+              background: #ff563a;
+              border:1px solid #ff563a;
+              color: #fff;
+          }
+      }
+      .ant-tabs-ink-bar-animated{
+          display: none !important;
+      }
+      
+  }
+  ::ng-deep  .page-header-tab{
+      background: #fff;
+      border: 1px solid #eee;
+      margin-top: 20px !important;
+      margin-bottom: 20px !important;
+      .ant-tabs-tabpane{
+          padding: 0px !important;
+          .ant-card{
+              border: 1px solid #ccc;
+              border-width: 0px 0px 1px 0px;
+              border-radius: 0px;
+              &:last-child{
+                  border-bottom: 0px;
+              }
+          }
+          .ant-card-head{
+              padding:0px;
+              border: 0px;
+              position: relative;
+              font-family: "josefin_sanssemibold";
+              &::after{
+                  content: '';
+                  position: absolute;
+                  bottom: 0px;
+                  left: 0px;
+                  width:50px;
+                  height: 2px;
+                  background: #ff563a;
+              }
+          }
+          .ant-card-body{
+              padding: 25px 0px;
+              .ant-input{
+                  border:1px solid #ccc;
+                  font-family: "josefin_sansregular";
+              }
+              .ant-form-item-label{
+                  label{
+                      font-family: "josefin_sansregular";
+                      color: #000;
+                  }
+              }
+              .ant-form-item{
+                  .ant-picker{
+                      border-color: #ccc;
+                  }
+              }
+              .login-form{
+                 ::ng-deep .ant-list-item-meta{
+                      .ant-list-item-meta-content{
+                          .ant-list-item-meta-title{
+                              h5{
+                                  font-family: "josefin_sansregular";
+                              }
+                              p{
+                                  font-family: "open_sansregular";
+                                  color: #868686;
+                                  font-size: 13px;
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      }
+      .media{
+          align-items: center;
+          .profile-upload-txt{
+              padding-left: 30px;
+              .ant-btn{
+                  .anticon{
+                      svg{
+                          font-size:18px;
+                      }
+                  }
+              }
+              h5{
+                  font-size: 14px;
+                  margin-bottom: 0px;
+                  margin-top: 15px;
+              }
+              p{
+                  font-size: 12px;
+                  font-weight: normal;
+                  font-family: "open_sansregular";
+                  color: #000;
+                  line-height: 18px;
+                  margin: 0px;
+              }
+
+          }
+      }
+  }
+}
