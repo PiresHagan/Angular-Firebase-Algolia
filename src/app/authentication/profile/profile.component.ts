@@ -92,7 +92,9 @@ export class ProfileComponent implements OnInit {
         const birthdate = formatDate(this.profileForm.get('birth').value, 'yyyy/MM/dd', "en");
         const bio = this.profileForm.get('biography').value;
         await this.userService.update(this.currentUser.id, { mobile, birthdate })
-        await this.userService.updateMember(this.currentUser.id, { bio })
+        if (bio)
+          await this.userService.updateMember(this.currentUser.id, { bio: bio ? bio : '' });
+
         this.isFormSaving = false;
         this.router.navigate(['/auth/interest']);
       } catch (error) {

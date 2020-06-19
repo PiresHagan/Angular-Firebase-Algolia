@@ -21,11 +21,11 @@
                             </a>
                             <a class="follow-btn" *ngIf="!isFollowing" (click)="follow(article?.author?.id)">
                                 <img src="assets/images/article/icon/follow.png" />
-                                {{'follow' | translate}}
+                                {{'followAuthor' | translate}}
                             </a>
                             <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow(article?.author?.id)">
                                 <img src="assets/images/article/icon/un-follow.png" />
-                                {{'unFollow' | translate}}
+                                {{'unfollowAuthor' | translate}}
                             </a>
                         </span>
                     </div>
@@ -37,11 +37,11 @@
 
                         <a class="is-like" *ngIf="!isLike" (click)="like()">
                             <i class="far fa-thumbs-up"></i>
-                            {{'like' | translate}} {{articleLikes}}
+                            {{'like' | translate}} <span class="like-count">{{articleLikes}}</span>
                         </a>
                         <a class="is-like" *ngIf="isLike" (click)="disLike()">
-                            <i class="far fa-heart"></i>
-                            {{'Dislike ' | translate}} {{articleLikes}}
+                            <i class="fas fa-heart"></i>
+                            {{'liked' | translate}} <span class="like-count">{{articleLikes}}</span>
                         </a>
                         <a class="is-like"><span class="likes-count"><i class="fas fa-eye"></i>{{articleVicewCount}}</span></a>
                         <!-- 

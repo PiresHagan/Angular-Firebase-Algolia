@@ -11,7 +11,8 @@
                     <form action="" method="post" id="form_add_sub_cat" [formGroup]="newsLetterForm">
                         <input type="hidden" name="csrfmiddlewaretoken" value="dM4QEapppMGbO2CnodWzQm2slYLJTdJp">
                         <input name="category-constant_contact" [value]="category?.title" type="text" hidden="">
-
+                        <nz-alert class="mb-2" nzType="error" nzMessage="{{'errorSubscribe' | translate}}" nzShowIcon *ngIf="errorSubscribe"></nz-alert>
+                        <nz-alert class="mb-2" nzType="success" nzMessage="{{'successSubscribe' | translate}}" nzShowIcon *ngIf="successSubscribe"></nz-alert>
                         <div class="form-group">
                             <input class="form-control newsletter-input" formControlName="email" id="id_category-email"
                                 maxlength="100" name="category-email" email="true"

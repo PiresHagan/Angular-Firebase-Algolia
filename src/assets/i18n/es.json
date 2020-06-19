@@ -300,8 +300,13 @@
     "lang": "Idioma",
     "topic": "Tema",
     "langErr": "Por favor seleccione idioma",
-    "ContactMainTitle":"Contáctenos",
-    "contactGetInTouch":"Ponerse en contacto",
-    "ContactInformation":"Información del contacto"
-    
+    "ContactTopTitle":"Contacta con nosotras",
+    "contactInformation":"Información del contacto",
+    "getInTouch":"Ponerse en contacto",
+    "required": "es obligatorio",
+    "errorSubscribe":"Por favor introduzca una dirección de correo electrónico válida",
+    "successSubscribe":"Te has suscripto satisfactoriamente",
+    "liked":"Gustó",
+    "followAuthor":"Dejar de seguir a la autora",
+    "unfollowAuthor":"Unfollow Author"
 }
