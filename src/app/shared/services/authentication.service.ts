@@ -89,8 +89,9 @@ export class AuthService {
     }
     checkDejangoCred(userData) {
         return this.http.post(environment.authService, userData)
+    }
 
-
-
+    getIdToken(){
+        return this.afAuth.idToken;
     }
 }
