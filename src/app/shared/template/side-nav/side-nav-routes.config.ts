@@ -9,7 +9,7 @@ export const ROUTES: SideNavInterface[] = [
         submenu: []
     },
     {
-        path: '/app/campaign/sponsered-post',
+        path: '/app/campaign/campaign-manager',
         title: 'Campaigns',
         iconType: 'nzIcon',
         iconTheme: 'outline',
