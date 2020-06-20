@@ -18,6 +18,7 @@ export class InterestComponent implements OnInit {
     interestForm: FormGroup;
     currentUser: any;
     isFormSaving: boolean = false;
+    categoriesArray = [];
 
     notificationConfigList = [
 
@@ -41,12 +42,17 @@ export class InterestComponent implements OnInit {
     setIntrestForm(userDetails) {
         let selectedLanguage = this.language.getSelectedLanguage()
         this.categoryService.getAll(selectedLanguage).subscribe((categoryList) => {
+            this.categoriesArray = categoryList;
             let updatedCategory = this.getUpdatedCategories(categoryList);
             let intrestList = updatedCategory.catList;
             for (let index = 0; index < intrestList.length; index++) {
                 const intrest = intrestList[index];
-                if (userDetails.interests && userDetails.interests.includes(intrest.id)) {
-                    intrestList[index].status = true;
+                if (userDetails.interests && userDetails.interests.length > 0) {
+                    userDetails.interests.forEach(obj => {
+                      if(obj.id == intrest.id) {
+                        intrestList[index].status = true;
+                      }
+                    });
                 }
             }
 
@@ -61,15 +67,18 @@ export class InterestComponent implements OnInit {
         let formObj = {};
         categoryList.forEach(category => {
             let newCat = {
-                id: category.slug,
+                id: category.id,
+                slug: category.slug,
                 title: category.title,
+                lf_list_id: category.lf_list_id,
+                lf_allsubs_id: category.lf_allsubs_id,
                 desc: "",
                 icon: "usergroup-add",
                 color: "ant-avatar-orange",
                 status: false,
             }
             newCatList.push(newCat);
-            formObj[category.slug] = [null]
+            formObj[category.id] = [null]
         });
         formObj['later'] = [null]
 
@@ -85,7 +94,12 @@ export class InterestComponent implements OnInit {
         for (const i in this.interestForm.controls) {
             this.interestForm.controls[i].markAsDirty();
             this.interestForm.controls[i].updateValueAndValidity();
-            if (this.interestForm.controls[i].value) interests.push(i);
+            if (this.interestForm.controls[i].value) { 
+                let categoryObj = this.categoriesArray.find( cat => cat.id == i );
+                if (categoryObj) {
+                    interests.push(categoryObj);
+                }
+            }
         }
         this.userService.update(this.currentUser.uid, { interests }).then(() => {
             this.isFormSaving = false;
