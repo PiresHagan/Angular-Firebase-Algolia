@@ -46,8 +46,8 @@ export class HomeComponent implements OnInit {
   switchLang(lang: string) {
     this.translate.use(lang);
   }
-  
-  DefaultAvatar:string='assets/images/default-avatar.png';
+
+  DefaultAvatar: string = 'assets/images/default-avatar.png';
 
   ngOnInit(): void {
     this.titleService.setTitle("Home");
@@ -121,8 +121,9 @@ export class HomeComponent implements OnInit {
   replaceImage(url) {
     let latestURL = url
     if (url) {
-      latestURL = latestURL.replace('https://mytrendingstories.com/', "http://assets.mytrendingstories.com/");
-      latestURL = latestURL.replace('https://cdn.mytrendingstories.com/', "http://assets.mytrendingstories.com/");
+      latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
+        .replace('https://cdn.mytrendingstories.com/', "https://assets.mytrendingstories.com/")
+        .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
     }
     return latestURL;
   }

@@ -28,8 +28,8 @@ export class CategoryComponent implements OnInit {
   newsLetterForm = new FormGroup({
     email: new FormControl('')
   });
-  errorSubscribe:boolean = false;
-  successSubscribe:boolean = false;
+  errorSubscribe: boolean = false;
+  successSubscribe: boolean = false;
   constructor(
     private categoryService: CategoryService,
     private articleService: ArticleService,
@@ -114,8 +114,9 @@ export class CategoryComponent implements OnInit {
   replaceImage(url) {
     let latestURL = url
     if (url) {
-      latestURL = latestURL.replace('https://mytrendingstories.com/', "http://assets.mytrendingstories.com/");
-      latestURL = latestURL.replace('https://cdn.mytrendingstories.com/', "http://assets.mytrendingstories.com/");
+      latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
+        .replace('https://cdn.mytrendingstories.com/', "https://assets.mytrendingstories.com/")
+        .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
     }
     return latestURL;
   }
@@ -128,11 +129,11 @@ export class CategoryComponent implements OnInit {
         console.error('Error while subscribing', err);
       });
       this.successSubscribe = true;
-      setTimeout (() => {
+      setTimeout(() => {
         this.successSubscribe = false;
-     }, 4000);
+      }, 4000);
       this.errorSubscribe = false;
-    }else{
+    } else {
       this.errorSubscribe = true;
       this.successSubscribe = false;
     }
