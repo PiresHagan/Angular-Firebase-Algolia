@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from 'src/app/shared/services/article.service';
-import { Observable } from 'rxjs';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 import { AuthService } from 'src/app/shared/services/authentication.service';
+import { NzModalService, NzMessageService } from "ng-zorro-antd";
 
 @Component({
   selector: 'app-article-list',
@@ -22,7 +22,10 @@ export class ArticleListComponent implements OnInit {
   constructor(
     public translate: TranslateService,
     public authService: AuthService,
-    public articleService: ArticleService) { }
+    public articleService: ArticleService,
+    private modalService: NzModalService,
+    private message: NzMessageService,
+  ) { }
 
 
   ngOnInit() {
@@ -71,6 +74,22 @@ export class ArticleListComponent implements OnInit {
         .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
     }
     return latestURL;
+  }
+
+  deleteArticle(articleId: string) {
+    let articleMessageConf = this.translate.instant("articleDeletMsgConf");
+    let articleMessageSucc = this.translate.instant("articleDeletMsgSuc");
+    this.modalService.confirm({
+      nzTitle: "<i>" + articleMessageConf + "</i>",
+      nzOnOk: () => {
+        this.articleService.deleteArticle(articleId).then(() => {
+          this.modalService.success({
+            nzTitle: "<i>" + articleMessageSucc + "</i>",
+          });
+        })
+      },
+    });
+
   }
 
 
