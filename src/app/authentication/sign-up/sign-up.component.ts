@@ -74,16 +74,16 @@ export class SignUpComponent {
                     this.addUser({
                         email: email,
                         id: userData.uid,
-                        date_joined: new Date().toString(),
-                        updated_at: new Date().toString(),
+                        date_joined: new Date().toISOString(),
+                        updated_at: new Date().toISOString(),
                         lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en'
                     }, {
                         email: email,
                         fullname: userData.displayName,
                         id: userData.uid,
-                        created_at: new Date().toString(),
+                        created_at: new Date().toISOString(),
                         slug: this.getSlug(userData.displayName) + '-' + this.makeid(),
-                        updated_at: new Date().toString(),
+                        updated_at: new Date().toISOString(),
                         lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en',
                         type: 'member'
 
