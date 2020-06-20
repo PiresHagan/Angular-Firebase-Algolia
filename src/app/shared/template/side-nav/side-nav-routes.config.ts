@@ -9,6 +9,14 @@ export const ROUTES: SideNavInterface[] = [
         submenu: []
     },
     {
+        path: '/app/campaign/campaign-manager',
+        title: 'Campaigns',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'notification',
+        submenu: []
+    },
+    {
         path: '/app/settings/profile-settings',
         title: 'myAccountSettings',
         iconType: 'nzIcon',
