@@ -1,71 +1,71 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 <url>
-    <loc>https://mytrendingstories-dev.web.app/auth/login</loc>
+    <loc>https://mytrendingstories.com/auth/login</loc>
     <changefreq>weekly</changefreq>
 </url>
 
 <url>
-    <loc>https://mytrendingstories-dev.web.app/auth/reset-password</loc>
+    <loc>https://mytrendingstories.com/auth/reset-password</loc>
     <changefreq>weekly</changefreq>
 </url>
 
 <url>
-    <loc>https://mytrendingstories-dev.web.app/search</loc>
+    <loc>https://mytrendingstories.com/search</loc>
     <changefreq>weekly</changefreq>
 </url>
 
 <url>
-    <loc>https://mytrendingstories-dev.web.app/article/</loc>
+    <loc>https://mytrendingstories.com/article/</loc>
     <changefreq>weekly</changefreq>
 </url>
 
 <url>
-    <loc>https://mytrendingstories-dev.web.app/category/Opinion/</loc>
+    <loc>https://mytrendingstories.com/category/Opinion/</loc>
     <changefreq>weekly</changefreq>
 </url>
 
 <url>
-    <loc>https://mytrendingstories-dev.web.app/category/business/</loc>
+    <loc>https://mytrendingstories.com/category/business/</loc>
     <changefreq>weekly</changefreq>
 </url>
 
 <url>
-    <loc>https://mytrendingstories-dev.web.app/category/creative/</loc>
+    <loc>https://mytrendingstories.com/category/creative/</loc>
     <changefreq>weekly</changefreq>
 </url>
 
 <url>
-    <loc>https://mytrendingstories-dev.web.app/category/entertainment/</loc>
+    <loc>https://mytrendingstories.com/category/entertainment/</loc>
     <changefreq>weekly</changefreq>
 </url>
 
 <url>
-    <loc>https://mytrendingstories-dev.web.app/category/life-and-styles/</loc>
+    <loc>https://mytrendingstories.com/category/life-and-styles/</loc>
     <changefreq>weekly</changefreq>
 </url>
 
 <url>
-    <loc>https://mytrendingstories-dev.web.app/category/mumbai-india/</loc>
+    <loc>https://mytrendingstories.com/category/mumbai-india/</loc>
     <changefreq>weekly</changefreq>
 </url>
 
 <url>
-    <loc>https://mytrendingstories-dev.web.app/category/news/</loc>
+    <loc>https://mytrendingstories.com/category/news/</loc>
     <changefreq>weekly</changefreq>
 </url>
 
 <url>
-    <loc>https://mytrendingstories-dev.web.app/category/religion/</loc>
+    <loc>https://mytrendingstories.com/category/religion/</loc>
     <changefreq>weekly</changefreq>
 </url>
 
 <url>
-    <loc>https://mytrendingstories-dev.web.app/category/religion-fr/</loc>
+    <loc>https://mytrendingstories.com/category/religion-fr/</loc>
     <changefreq>weekly</changefreq>
 </url>
 
 <url>
-    <loc>https://mytrendingstories-dev.web.app/category/tech-and-science/</loc>
+    <loc>https://mytrendingstories.com/category/tech-and-science/</loc>
     <changefreq>weekly</changefreq>
 </url>
 </urlset>

@@ -51,12 +51,16 @@
                             <p>
                                 <span>{{item.excerpt}}</span>
                             </p>
-                            <div class="profile-artical-read-more">
-                                <a [routerLink]="['/app/article/single',item.slug]" class="article-read-more" nz-button
-                                    nzType="default" nzGhost>{{'artReadMore' | translate}}</a>
+                            <div class="profile-artical-read-more text-center">
+                                <a [routerLink]="['/app/article/single',item.slug]" class="article-read-more m-5"
+                                    nz-button nzType="default" nzGhost>{{'artReadMore' | translate}}</a>
                                 <a [routerLink]="['/app/article/compose']" [queryParams]="{article: item.id}"
-                                    class="article-edit-link" nz-button nzType="default"
+                                    class="article-edit-link m-5" nz-button nzType="default"
                                     nzGhost>{{'artEdit' | translate}}</a>
+
+                                <a (click)="deleteArticle(item.id)" class="article-edit-link m-5" nz-button
+                                    nzType="default" nzGhost>{{'deleteArticle' | translate}}</a>
+
                             </div>
 
                         </div>

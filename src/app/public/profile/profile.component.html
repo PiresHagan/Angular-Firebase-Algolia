@@ -95,7 +95,8 @@
                 </a>
             </div>
         </div>
-        <div *ngIf="lastVisibleFollower"> <a (click)="loadMoreFollowers()" class="load-more-btn"><span>{{'loadMore' | translate}}</span></a>
+        <div *ngIf="lastVisibleFollower"> <a (click)="loadMoreFollowers()"
+                class="load-more-btn"><span>{{'loadMore' | translate}}</span></a>
             <nz-spin nzSimple *ngIf="loadingMoreFollowers"></nz-spin>
         </div>
     </div>
@@ -103,7 +104,7 @@
 <section class="is-followers-sec" *ngIf="subscribers.length">
     <div class="container">
         <div class="is-comman-title">
-            {{'profileFollowing' | translate}}  {{authorDetails.followings_count}}
+            {{'profileFollowing' | translate}} {{authorDetails.followings_count}}
         </div>
         <!-- <p class="follow">
             {{'profileFolloweringDes' | translate}}
@@ -116,7 +117,8 @@
             </div>
 
         </div>
-        <div *ngIf="lastVisibleFollowing"> <a (click)="loadMoreFollowings()" class="load-more-btn"><span>{{'loadMore' | translate}}</span></a>
+        <div *ngIf="lastVisibleFollowing"> <a (click)="loadMoreFollowings()"
+                class="load-more-btn"><span>{{'loadMore' | translate}}</span></a>
             <nz-spin nzSimple *ngIf="loadingMoreFollowings"></nz-spin>
         </div>
     </div>
@@ -133,19 +135,20 @@
             <div class="cat-box-gallery">
                 <div class="container">
                     <div class="row article-row">
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-20" *ngFor="let article of articles" [ngClass]="article?.category?.slug">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-20" *ngFor="let article of articles"
+                            [ngClass]="article?.category?.slug">
                             <div class="item-card item-card-life-and-styles">
                                 <a [routerLink]="['/article/',article.slug]">
                                     <div class="item-card-image">
 
-                                        <img [src]="article.image.url" [alt]="article?.image?.alt">
+                                        <img [src]="replaceImage(article.image.url)" [alt]="article?.image?.alt">
                                         <h3 class="is-category-title">{{article?.category?.title}}</h3>
                                     </div>
                                     <div class="item-card-content">
                                         <div class="item-card-category  cat-yellow">
                                             <div class="is-avatar-dv">
 
-                                                <img class="avatar" [src]="article?.author?.avatar?.url"
+                                                <img class="avatar" [src]="replaceImage(article?.author?.avatar?.url)"
                                                     [alt]="article?.author?.avatar?.alt">
                                                 <span class="item-card-author">{{article?.author?.fullname}}</span>
                                             </div>
@@ -166,8 +169,8 @@
                         </div>
 
 
-                        <div *ngIf="lastArticleIndex" class="w-100 mt-2"> <a
-                                (click)="loadMoreArticle()" class="load-more-btn"><span>{{'loadMore' | translate}}</span></a>
+                        <div *ngIf="lastArticleIndex" class="w-100 mt-2"> <a (click)="loadMoreArticle()"
+                                class="load-more-btn"><span>{{'loadMore' | translate}}</span></a>
                             <!-- <nz-spin nzSimple *ngIf="loadingMoreFollowers"></nz-spin> -->
                         </div>
                     </div>

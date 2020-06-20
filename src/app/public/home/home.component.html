@@ -8,7 +8,8 @@
                 </div>
                 <div class="is-profile-main">
                     <div class="is-card-author-group">
-                        <img class="avatar" [src]="replaceImage(article.author.avatar?.url)!= unknown ? article.author.avatar?.url : DefaultAvatar"
+                        <img class="avatar"
+                            [src]="replaceImage(article.author.avatar?.url)!= unknown ? replaceImage(article.author.avatar?.url) : DefaultAvatar"
                             [alt]="article.author.avatar?.alt">&nbsp;
                         <span class="is-card-author">{{article.author.fullname}}
                         </span>
@@ -38,7 +39,8 @@
                 </div>
                 <div class="is-profile-main">
                     <div class="is-card-author-group">
-                        <img class="avatar" [src]="replaceImage(article.author.avatar?.url)!= unknown ? article.author.avatar?.url : DefaultAvatar"
+                        <img class="avatar"
+                            [src]="replaceImage(article.author.avatar?.url)!= unknown ? replaceImage(article.author.avatar?.url) : DefaultAvatar"
                             [alt]="article.author.avatar?.alt">&nbsp;
                         <span class="is-card-author">{{article.author.fullname}}
                         </span>
@@ -73,7 +75,8 @@
                             [ngStyle]="{'background-image': 'url(' + replaceImage(article.image.url)+ ')'}"></div>
                         <div class="is-profile-main">
                             <div class="is-card-author-group">
-                                <img class="avatar" [src]="replaceImage(article.author.avatar?.url)!= unknown ? article.author.avatar?.url : DefaultAvatar"
+                                <img class="avatar"
+                                    [src]="replaceImage(article.author.avatar?.url)!= unknown ? replaceImage(article.author.avatar?.url) : DefaultAvatar"
                                     [alt]="article.author.avatar?.alt">
                                 <span class="is-card-author">{{article.author.fullname}}</span>
                             </div>
@@ -90,7 +93,7 @@
                             </h2>
                             <p class="is-card-description">{{article.summary}}</p>
                             <button type="button" class="is-read-more">{{'readMore' | translate}} <img
-                                    src="assets/images/read-more-icon.png" alt="read more"/></button>
+                                    src="assets/images/read-more-icon.png" alt="read more" /></button>
 
                         </div>
                     </a>
@@ -115,20 +118,23 @@
         <div class="is-member">
             <div class="is-member-item" *ngFor="let author of (authorList | async)" [ngClass]="showTooltip"
                 (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
-                
+
                 <a [routerLink]="['/profile/',author.slug]" class="is-profile-img-link">
-                    <img [src]="replaceImage(author?.avatar?.url)!= unknown ? author?.avatar?.url : DefaultAvatar" class="is-profile" [alt]="author?.avatar?.alt" />
+                    <img [src]="replaceImage(author?.avatar?.url)!= unknown ? replaceImage(author?.avatar?.url) : DefaultAvatar"
+                        class="is-profile" [alt]="author?.avatar?.alt" />
 
                 </a>
-               
+
                 <div class="is-member-hover">
                     <div class="is-member-profile-header">
                         <h3>{{author?.fullname}} </h3>
-                        <img class="is-profile-hover-img" [src]="replaceImage(author?.avatar?.url)!= unknown ? author?.avatar?.url : DefaultAvatar"
+                        <img class="is-profile-hover-img"
+                            [src]="replaceImage(author?.avatar?.url)!= unknown ? replaceImage(author?.avatar?.url) : DefaultAvatar"
                             [alt]="author?.avatar?.alt" />
                     </div>
                     <div class="is-member-profile-body">
-                        <p innerHTML="{{author?.biography_en || author?.biography_es || author?.biography_fr}}" class="author-bio">
+                        <p innerHTML="{{author?.biography_en || author?.biography_es || author?.biography_fr}}"
+                            class="author-bio">
                         </p>
                         <!-- <div class="is-profile-tag">
                             <span class="is-tag is-red">Entertainment</span>
@@ -181,7 +187,7 @@
                                     <div class="item-card-texte">
                                         <p>{{article.summary}}</p>
                                         <button type="button" class="is-read-more">{{'readMore' | translate }} <img
-                                                src="assets/images/read-more-icon-black.png" alt="Read More"/></button>
+                                                src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
                                     </div>
                                 </div>
                             </a>

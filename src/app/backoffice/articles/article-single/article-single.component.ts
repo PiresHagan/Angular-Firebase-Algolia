@@ -109,8 +109,9 @@ export class ArticleSingleComponent implements OnInit {
   replaceImage(url) {
     let latestURL = url
     if (url) {
-      latestURL = latestURL.replace('https://mytrendingstories.com/', "http://assets.mytrendingstories.com/");
-      latestURL = latestURL.replace('https://cdn.mytrendingstories.com/', "http://assets.mytrendingstories.com/");
+      latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
+        .replace('https://cdn.mytrendingstories.com/', "https://assets.mytrendingstories.com/")
+        .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
     }
     return latestURL;
   }

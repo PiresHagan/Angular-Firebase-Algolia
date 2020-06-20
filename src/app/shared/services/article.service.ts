@@ -509,6 +509,9 @@ export class ArticleService {
     const articleRef = db.collection(this.articleCollection).doc(articleId);
     articleRef.update({ likes_count: increment })
   }
+  deleteArticle(articleId) {
+    return this.db.collection(this.articleCollection).doc(articleId).delete();
+  }
 
 
 
