@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/shared/services/authentication.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sponsored-post',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SponsoredPostComponent implements OnInit {
 
-  constructor() { }
+  userDetails;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.getAuthState().subscribe(async (user) => {
+      if (!user)
+        return;
+      this.userDetails = await this.authService.getLoggedInUserDetails();
+    });
+
   }
+
+  goToStore(){
+    this.authService.getIdToken().subscribe(token => {
+      const url = `${environment.storeUrl}?token=${token}`;
+      window.open(url, '_blank');
+    });
+  }
+
 
 }
