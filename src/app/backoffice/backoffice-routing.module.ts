@@ -11,6 +11,11 @@ const routes: Routes = [
     path: 'settings',
     loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
   },
+  {  
+    path: 'campaign',
+        loadChildren: () => import('./campaign/campaign.module').then(m => m.CampaignModule)
+  },
+   
   {
     path: 'error',
     loadChildren: () => import('./error/error.module').then(m => m.ErrorModule)
