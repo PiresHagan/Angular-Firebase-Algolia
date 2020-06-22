@@ -75,6 +75,10 @@ export class HomeComponent implements OnInit {
       this.heroSmall = articles;
     });
 
+    this.articleService.getToday(this.selectedLanguage).subscribe(articles => {
+      console.log('Todays Articles', articles);
+    });
+
     this.getAuthors();
 
 
@@ -89,6 +93,10 @@ export class HomeComponent implements OnInit {
 
       this.articleService.getHeroSmallArticle(this.selectedLanguage).subscribe(articles => {
         this.heroSmall = articles;
+      });
+
+      this.articleService.getToday(this.selectedLanguage).subscribe(articles => {
+        console.log('Todays Articles', articles);
       });
 
       this.setArticleData();
