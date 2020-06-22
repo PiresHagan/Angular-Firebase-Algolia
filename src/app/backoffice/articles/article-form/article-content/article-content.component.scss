@@ -33,6 +33,13 @@ nz-select {
       border: 1px solid #ccc;
       font-family: "josefin_sansregular";
     }
+    .placeholder-label {
+      width: 100%;
+      border: 1px solid #ccc;
+      display: inline-block;
+      padding: 4px;
+      color: #ccc;
+    }
     .ant-select-selector {
       border-color: #ccc;
     }
