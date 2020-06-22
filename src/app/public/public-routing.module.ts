@@ -12,6 +12,7 @@ import { FaqComponent } from './faq/faq.component';
 import { SearchEngineComponent } from './search-engine/search-engine.component';
 import { BuyComponent } from './buy/buy.component';
 import { InfluencerComponent } from './influencer/influencer.component';
+import { TodayComponent } from './today/today.component';
 
 
 const routes: Routes = [
@@ -114,6 +115,14 @@ const routes: Routes = [
       headerDisplay: "none"
     }
 
+  },
+  {
+    path: 'today',
+    component: TodayComponent,
+    data: {
+      title: 'today version 2',
+      headerDisplay: "none"
+    }
   },
   // {
   //   path: '**',

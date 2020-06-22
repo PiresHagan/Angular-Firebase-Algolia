@@ -311,5 +311,8 @@
     "unfollowAuthor": "Unfollow Author",
     "articleDeletMsgSuc": "Artículo eliminado correctamente",
     "articleDeletMsgConf": "¿Seguro que desea eliminar el artículo?",
-    "deleteArticle": "Eliminar artículo"
+    "deleteArticle": "Eliminar artículo",
+    "CreateStory":"Crear historia",
+    "PublishStories":"Publica tus historias de hoy",
+    "todayStories":"Las historias de hoy"
 }

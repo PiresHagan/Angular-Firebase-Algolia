@@ -24,8 +24,9 @@ import { BuyComponent } from './buy/buy.component';
 import { QuillModule } from 'ngx-quill';
 import { createTranslateLoader } from '../shared/shared.module';
 import { InfluencerComponent } from './influencer/influencer.component';
+import { TodayComponent } from './today/today.component';
 @NgModule({
-  declarations: [HomeComponent, CategoryComponent, ArticleComponent, ProfileComponent, Copywriter1Component, Copywriter2Component, ContactComponent, TermsComponent, FaqComponent, SearchEngineComponent, BuyComponent, InfluencerComponent],
+  declarations: [HomeComponent, CategoryComponent, ArticleComponent, ProfileComponent, Copywriter1Component, Copywriter2Component, ContactComponent, TermsComponent, FaqComponent, SearchEngineComponent, BuyComponent, InfluencerComponent, TodayComponent],
   imports: [
     CommonModule,
     PublicRoutingModule,
