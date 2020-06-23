@@ -41,8 +41,10 @@
                 </nz-select>
               </nz-form-control>
 
-              <nz-form-control nzErrorTip="{{'artCategoryErr' | translate}}" class="m-5">
-                <nz-select class="m-r-10" formControlName="topics" nzAllowClear nzPlaceHolder="{{'topic' | translate}}">
+              <nz-form-control nzErrorTip="{{'artCategoryErr' | translate}}" class="m-5" style="min-width: 200px;">
+                <label *ngIf="!topicList || !topicList.length" class="placeholder-label">{{'topic' | translate}}</label>
+                <nz-select class="m-r-10" formControlName="topics" nzAllowClear nzMode="multiple"
+                  nzPlaceHolder="{{'topic' | translate}}" *ngIf="topicList && topicList.length">
                   <nz-option *ngFor="let topic of topicList" [nzValue]="topic" nzLabel="{{topic.title}}">
                   </nz-option>
 
