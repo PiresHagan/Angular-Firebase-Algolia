@@ -12,5 +12,6 @@ export const environment = {
     messagingSenderId: "172964785852",
     appId: "1:172964785852:web:2a5e84ca7c87db14cfeab9",
     measurementId: "G-HWMGQKQ8F1"
-  }
+  },
+  storeUrl: 'https://store.mytrendingstories.com'
 };

@@ -1,0 +1,53 @@
+
+<section class="is-cat-box-card-main">
+    <div class="cat-box">
+        <div class="container">
+            <div class="cat-box-title">
+                <div class="is-comman-title">
+                    {{'todayStories' | translate}}
+                </div>
+            </div>
+            <div class="cat-box-gallery">
+                <div class="row article-row"> 
+                    <div class="col-sm-15 box_shadow" *ngFor="let today of todayArticle" [ngClass]="today.category.slug">
+                        <div class="item-card item-card-life-and-styles">
+                            <a [routerLink]="['/article/',today.slug]">
+                                <div class="item-card-image">
+                                    <img [src]="today.image.url" [alt]="today.image.alt">
+                                    <h3 class="is-category-title">{{today.category.slug}}</h3>
+                                </div>
+                                <div class="item-card-content">
+                                    <div class="item-card-category cat-yellow">
+                                        <div class="is-avatar-dv">
+                                            <img class="avatar" [src]="today.author.avatar.url"
+                                                [alt]="today.author.avatar.alt">
+                                            <span class="item-card-author">{{today.author.fullname}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="item-card-title">
+                                        <h4 class="item-long-title">{{today.title}}</h4>
+                                    </div>
+                                    <div class="item-card-texte">
+                                        <p>{{today.summary}}</p>
+                                        <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                                                src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                       
+                    </div>
+                    <div *ngIf="!todayArticle?.length" class="box-center">
+                        <nz-result [nzIcon]="'crown'" [nzTitle]="'PublishStories' | translate ">
+                            <div nz-result-extra>
+                              <button nz-button nzType="primary" routerLink="/app/article">{{'CreateStory' | translate}}</button>
+                            </div>
+                          </nz-result>
+                    </div>
+                    <div class="clearfix"></div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

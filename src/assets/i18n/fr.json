@@ -77,8 +77,8 @@
     "moreComments": "Plus de commentaires",
     "newCom": "Nouveau commentaire",
     "comLengthMessage": "Le message ne doit pas contenir moins de 10 caractères et pas plus de 400 caractères.",
-    "artTitleErr": "Le titre de l'article ne doit pas comporter moins de 10 caractères et pas plus de 100 caractères.",
-    "artExcerptErr": "Le extrait d'article ne doit pas contenir moins de 10 caractères et pas plus de 100 caractères.",
+    "artTitleErr": "Le titre de l'article ne doit pas comporter moins de 10 caractères et pas plus de 70 caractères.",
+    "artExcerptErr": "Le extrait d'article ne doit pas contenir moins de 10 caractères et pas plus de 160 caractères.",
     "artContentErr": "Le contenu de l'article ne doit pas contenir moins de 10 caractères.",
     "artCategoryErr": "Veuillez sélectionner la catégorie d'article.",
     "newArt": "Nouvel article",
@@ -311,5 +311,8 @@
     "unfollowAuthor": "Se désabonner Auteur",
     "articleDeletMsgSuc": "L'article a bien été supprimé!",
     "articleDeletMsgConf": "Voulez-vous vraiment supprimer l'article?",
-    "deleteArticle": "Supprimer l'article"
+    "deleteArticle": "Supprimer l'article",
+    "CreateStory":"Créer une histoire",
+    "PublishStories":"Publiez vos histoires d'aujourd'hui",
+    "todayStories":"Histoires d'aujourd'hui"
 }

@@ -5,7 +5,8 @@ import { map, take } from 'rxjs/operators';
 import { Article } from '../interfaces/article.type';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { ACTIVE } from '../constants/status-constants';
-import * as firebase from 'firebase/app'
+import * as firebase from 'firebase/app';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -217,6 +218,25 @@ export class ArticleService {
       })
     );
   }
+
+  getToday(lang: string = 'en') {
+    return this.db.collection<Article[]>(this.articleCollection, ref => ref
+      .where('published_at', '>=', moment().subtract(1, 'days').toISOString())
+      .where('lang', "==", lang)
+      .where('status', "==", ACTIVE)
+      .orderBy('published_at', 'desc')
+      .limit(30)
+    ).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+  }
+
   getArticlesByAuthor_old(authorId: string, limit: number = 10) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('author.id', '==', authorId)
@@ -512,11 +532,6 @@ export class ArticleService {
   deleteArticle(articleId) {
     return this.db.collection(this.articleCollection).doc(articleId).delete();
   }
-
-
-
-
-
 
 }
 
