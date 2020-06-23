@@ -177,7 +177,7 @@
                                     <div class="item-card-category cat-yellow">
                                         <div class="is-avatar-dv">
                                             <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
-                                                [alt]="article.author.avatar?.alt">
+                                                [alt]="article.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'" >
                                             <span class="item-card-author">{{article.author.fullname}}</span>
                                         </div>
                                     </div>

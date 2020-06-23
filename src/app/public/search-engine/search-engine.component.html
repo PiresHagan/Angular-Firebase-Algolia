@@ -44,7 +44,9 @@
                                 <h2>{{hit.meta.title}}</h2>
                             </div>
                             <div class="sr-avtar">
-                                <img src="{{hit.author.avatar.url}}" alt="{{hit.author.avatar.alt}}" />
+                                <img src="{{hit.author.avatar.url}}" 
+                                alt="{{hit.author.avatar.alt}}" 
+                                onerror="this.src='assets/images/default-avatar.png'"/>
                             </div>
                         </div>
                     </div>

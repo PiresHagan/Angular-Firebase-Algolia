@@ -499,6 +499,7 @@
             line-height: 26px;
             margin-top: 20px;
             font-weight: 600;
+            word-break: break-all;
           }
         }
         .item-card-texte {
@@ -509,6 +510,7 @@
             color: #464444;
             line-height: 24px;
             padding-bottom: 30px;
+            word-break: break-all;
           }
           .is-read-more{
             color: #000;
@@ -534,7 +536,7 @@
         
       }
       .item-card-image {
-        max-height: 150px;
+        height: 150px;
         position: relative;
         overflow: hidden;
         &:after {
