@@ -122,7 +122,7 @@ export class ArticleContentComponent implements OnInit {
         lang: this.articleForm.get('lang').value ? this.articleForm.get('lang').value : this.userDetails.lang,
         topics: this.getTopicFilter(this.articleForm.get('topics').value),
         topic_list: this.getTopicSlug(this.articleForm.get('topics').value),
-        created_at: this.article && this.article.id && this.article.created_at ? this.article.created_at : new Date().toString()
+        created_at: this.article && this.article.id && this.article.created_at ? this.article.created_at : new Date().toISOString()
       }
       if (this.article && this.article.id) {
         this.articleService.updateArticleImage(this.article.id, articleData).then(() => {
