@@ -146,7 +146,7 @@ export class ProfileSettingsComponent {
         slug: category.slug,
         title: category.title,
         lf_list_id: category.lf_list_id,
-        lf_allsubs_id: category.lf_allsubs_id,
+        lf_allmem_id: category.lf_allmem_id,
         desc: "",
         icon: "usergroup-add",
         color: "ant-avatar-orange",
