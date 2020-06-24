@@ -16,4 +16,5 @@ export interface Category {
     tree_id?: number;
     lf_list_id?: string;
     lf_allsubs_id?: string;
+    lf_allmem_id?: string;
 }
