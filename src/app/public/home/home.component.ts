@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   // secTitle:any='You might also like';
   heroLarge: any;
   heroSmall: any;
+  heroArticles: any;
   business: any;
   creative: any;
   entertainment: any;
@@ -66,46 +67,28 @@ export class HomeComponent implements OnInit {
 
     this.selectedLanguage = this.languageService.getSelectedLanguage();
 
-    this.articleService.getHeroLargeArticle(this.selectedLanguage).subscribe(article => {
-      this.heroLarge = article[0];
-    });
-
-
-    this.articleService.getHeroSmallArticle(this.selectedLanguage).subscribe(articles => {
-      this.heroSmall = articles;
-    });
-
-    this.articleService.getToday(this.selectedLanguage).subscribe(articles => {
-      console.log('Todays Articles', articles);
+    this.articleService.getHeroArticles(this.selectedLanguage).subscribe(articles => {
+      this.heroArticles = articles;
     });
 
     this.getAuthors();
-
+    this.categories = this.categoryService.getAll(this.selectedLanguage);
+    this.setArticleData();
 
 
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.selectedLanguage = this.languageService.getSelectedLanguage()
       this.categories = this.categoryService.getAll(this.selectedLanguage);
-
-      this.articleService.getHeroLargeArticle(this.selectedLanguage).subscribe(article => {
-        this.heroLarge = article[0];
-      });
-
-      this.articleService.getHeroSmallArticle(this.selectedLanguage).subscribe(articles => {
-        this.heroSmall = articles;
-      });
-
-      this.articleService.getToday(this.selectedLanguage).subscribe(articles => {
-        console.log('Todays Articles', articles);
-      });
-
       this.setArticleData();
-
       this.getAuthors();
+
+      this.articleService.getHeroArticles(this.selectedLanguage).subscribe(articles => {
+        this.heroArticles = articles;
+      });
+      
     });
 
-    this.categories = this.categoryService.getAll(this.selectedLanguage);
-    this.setArticleData();
+    
 
 
     return;

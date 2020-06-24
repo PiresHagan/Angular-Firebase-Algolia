@@ -1,7 +1,7 @@
 <section class="is-hero">
     <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-7 pl-18">
-            <a class="is-hero-card" *ngFor="let article of heroSmall | slice:0:1"
+            <a class="is-hero-card" *ngFor="let article of heroArticles | slice:0:1"
                 [routerLink]="['/article/',article.slug]">
                 <div class="is-card-bg"
                     [ngStyle]="{'background-image': 'url(' + replaceImage(article.image.url) + ')'}">
@@ -33,7 +33,7 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-6 col-lg-5 pr-18">
-            <a class="is-hero-card" *ngFor="let article of heroSmall | slice:1:2"
+            <a class="is-hero-card" *ngFor="let article of heroArticles | slice:1:2"
                 [routerLink]="['/article/',article.slug]">
                 <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + replaceImage(article.image.url)+ ')'}">
                 </div>
@@ -67,7 +67,7 @@
     <div class="row">
         <div class="is-bottom-hero">
             <div class="row is-row-height pt-18">
-                <div *ngFor="let article of heroSmall | slice:2:5" [routerLink]="['/article/',article.slug]"
+                <div *ngFor="let article of heroArticles | slice:2:5" [routerLink]="['/article/',article.slug]"
                     class="col-12 col-sm-12 col-md-12 col-lg-4">
                     <a class="is-hero-card is-small-card">
 
