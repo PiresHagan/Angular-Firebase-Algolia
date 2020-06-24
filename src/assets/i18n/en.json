@@ -316,5 +316,6 @@
     "deleteArticle": "Delete Article",
     "CreateStory":"Create Story",
     "PublishStories":"Publish your Today stories",
-    "todayStories":"Today's stories"
+    "todayStories":"Today's stories",
+    "ViewAllStory":"View all of today’s stories"
 }
