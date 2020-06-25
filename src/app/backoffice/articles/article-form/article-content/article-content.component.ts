@@ -116,7 +116,7 @@ export class ArticleContentComponent implements OnInit {
         title: this.articleForm.get('title').value,
         slug: this.getSlug(this.articleForm.get('title').value.trim()),
         excerpt: this.articleForm.get('excerpt').value,
-        author: this.getUserDetails(),
+        author: this.article.author ? this.article.author : this.getUserDetails(),
         summary: this.articleForm.get('title').value,
         status: this.article && this.article.status ? this.article.status : DRAFT,
         lang: this.articleForm.get('lang').value ? this.articleForm.get('lang').value : this.userDetails.lang,
