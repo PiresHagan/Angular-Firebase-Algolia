@@ -17,7 +17,6 @@ deploy-dev:
   only:
     - dev
   script:
-    - npm
     - npm install
     - npm run build
     - firebase use my-trending-stories-dev --token $FIREBASE_TOKEN_DEV
