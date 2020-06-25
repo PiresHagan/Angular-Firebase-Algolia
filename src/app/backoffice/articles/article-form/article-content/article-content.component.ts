@@ -80,7 +80,7 @@ export class ArticleContentComponent implements OnInit {
 
       if (articleId) {
         try {
-          this.article = await this.articleService.getArticleById(articleId, this.userDetails.id);
+          this.article = await this.articleService.getArticleById(articleId, this.userDetails.id, this.userDetails.type);
           if (this.article && (this.article['id'])) {
             this.categoryService.getAll(this.article.lang).subscribe((categoryList) => {
               this.categoryList = categoryList;

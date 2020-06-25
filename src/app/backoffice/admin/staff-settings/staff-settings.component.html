@@ -3,7 +3,15 @@
         <div class="page-header has-tab">
             <h2 class="font-weight-normal"> {{ 'settings' | translate }}</h2>
         </div>
-        <nz-tabset class="page-header-tab">
+        <nz-input-group nzSearch class="m-t-10" nzSize="large" [nzAddOnAfter]="suffixButton">
+            <input type="text" nz-input placeholder="Search Members Using Email" [(ngModel)]="memberEmail" />
+        </nz-input-group>
+        <ng-template #suffixButton>
+            <button nz-button nzType="primary" nzSize="large" nzSearch (click)="getMemberDetails()">Search</button>
+        </ng-template>
+
+        <nz-empty *ngIf="!currentUser" class="m-t-20 m-b-20 "></nz-empty>
+        <nz-tabset class="page-header-tab" *ngIf="currentUser">
             <nz-tab nzTitle="{{'account'| translate}}">
                 <div class="container">
                     <nz-card nzTitle="{{'basicInfo'| translate}}">
@@ -61,7 +69,8 @@
                                         <nz-form-label>{{'dob'| translate}}</nz-form-label>
                                         <nz-form-control>
                                             <nz-date-picker class="w-100" nzFormat="yyyy/MM/dd" formControlName="birth"
-                                                nzPlaceHolder="{{'dob'| translate}}"></nz-date-picker>
+                                                nzPlaceHolder="{{'dob'| translate}}">
+                                            </nz-date-picker>
                                         </nz-form-control>
                                     </nz-form-item>
                                 </div>
@@ -134,73 +143,10 @@
                     </nz-card>
                 </div>
             </nz-tab>
-            <nz-tab nzTitle="{{'notification' | translate}}">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <nz-card nzTitle="{{'notificationConfig' | translate}}"
-                                *ngIf="notificationConfigList.length">
-                                <form nz-form [formGroup]="interestForm" class="login-form"
-                                    (ngSubmit)="saveIntrestList()">
-                                    <nz-list [nzDataSource]="notificationConfigList" [nzRenderItem]="notification"
-                                        [nzItemLayout]="'horizontal'">
-                                        <ng-template #notification let-item>
-                                            <nz-list-item [nzActions]="[configStatus]">
-                                                <ng-template #configStatus>
-                                                    <nz-switch [formControlName]="item.id" [ngModel]="item.status"
-                                                        [nzCheckedChildren]="checkedTemplate2nd"
-                                                        [nzUnCheckedChildren]="unCheckedTemplate2nd"></nz-switch>
-                                                    <ng-template #checkedTemplate2nd><i class="font-size-12" nz-icon
-                                                            nzType="check"></i></ng-template>
-                                                    <ng-template #unCheckedTemplate2nd><i class="font-size-12" nz-icon
-                                                            nzType="close"></i></ng-template>
-                                                </ng-template>
-                                                <nz-list-item-meta [nzTitle]="notificationTitle"
-                                                    [nzAvatar]="notificationIcon">
-                                                    <ng-template #notificationIcon>
-                                                        <nz-avatar [nzIcon]="item.icon" [ngClass]="item.color"
-                                                            class="m-t-5">
-                                                        </nz-avatar>
-                                                    </ng-template>
-                                                    <ng-template #notificationTitle>
-                                                        <h5 class="font-weight-semibold m-b-0">
-                                                            {{ item.title }}
-                                                        </h5>
-                                                        <p class="m-b-0 font-weight-normal" *ngIf="false">
-                                                            {{ item.desc }}</p>
-                                                    </ng-template>
-                                                </nz-list-item-meta>
-                                            </nz-list-item>
-                                        </ng-template>
-                                    </nz-list>
 
-                                    <div class="d-flex align-items-center justify-content-between m-t-5">
-                                        <nz-form-item>
-                                            <nz-form-control>
-                                                <div>
-                                                    <button nz-button [nzLoading]="isNotificationLoading"
-                                                        class="login-form-button" [nzType]="'primary'">
-                                                        {{'saveDetails' | translate}}
-                                                    </button>
-                                                </div>
-                                            </nz-form-control>
-                                        </nz-form-item>
-                                    </div>
-                                </form>
-                            </nz-card>
-                        </div>
-                    </div>
-                </div>
-            </nz-tab>
-            <!-- <nz-tab nzTitle="{{'importContacts'| translate}}">
-                <div class="container">
-                    <nz-card nzTitle="{{'importContactInfo'| translate}}">
-                        <app-import-contact></app-import-contact>
-                    </nz-card>
-                </div>
-            </nz-tab> -->
 
 
         </nz-tabset>
+
     </div>
 </div>

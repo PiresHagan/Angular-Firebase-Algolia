@@ -24,7 +24,7 @@ export const ROUTES: SideNavInterface[] = [
         iconTheme: 'outline',
         icon: 'lock',
         submenu: []
-    },
+    }
 
     // {
     //     path: '',
@@ -52,4 +52,23 @@ export const ROUTES: SideNavInterface[] = [
     //         }
     //     ]
     // }
-]    
+]
+
+export const ADMIN_ROUTES: SideNavInterface[] = [
+    {
+        path: '/app/admin/article',
+        title: 'Article',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'crown',
+        submenu: []
+    },
+    {
+        path: '/app/admin/member',
+        title: 'Member',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'lock',
+        submenu: []
+    }
+]
