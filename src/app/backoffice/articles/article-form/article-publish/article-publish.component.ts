@@ -4,7 +4,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Router, ActivatedRoute, Routes } from '@angular/router';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
-import { ACTIVE } from 'src/app/shared/constants/status-constants';
+import { ACTIVE, DRAFT } from 'src/app/shared/constants/status-constants';
 import { NzModalService } from 'ng-zorro-antd';
 
 @Component({
@@ -68,6 +68,15 @@ export class ArticlePublishComponent implements OnInit {
     })
 
   }
+  saveDraftStatus() {
+    this.isFormSaving = true;
+    this.articleService.updateArticleImage(this.articleId, { status: DRAFT }).then(async () => {
+      this.isFormSaving = false;
+      this.router.navigate(['/app/article']);
+
+    })
+  }
+
   showSuccess() {
 
     let $message = this.translate.instant("artPublishMsg");

@@ -72,6 +72,7 @@ export class SignUpComponent {
                 this.authService.doRegister(email, password, fullname).then(user => {
                     const userData = user.user;
                     this.addUser({
+                        fullname: userData.displayName,
                         email: email,
                         id: userData.uid,
                         date_joined: new Date().toISOString(),
