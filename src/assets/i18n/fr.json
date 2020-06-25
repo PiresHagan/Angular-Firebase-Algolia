@@ -314,5 +314,6 @@
     "deleteArticle": "Supprimer l'article",
     "CreateStory":"Créer une histoire",
     "PublishStories":"Publiez vos histoires d'aujourd'hui",
-    "todayStories":"Histoires d'aujourd'hui"
+    "todayStories":"Histoires d'aujourd'hui",
+    "ViewAllStory":"Voir toutes les histoires d'aujourd'hui"
 }
