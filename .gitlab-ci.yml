@@ -1,0 +1,24 @@
+image: node:12.13.0-alpine
+
+before_script:
+  - npm i -g firebase-tools
+  - npm install -g @angular/cli
+
+stages:
+  - deploy
+
+cache:                  
+  paths:                
+    - node_modules/     
+  key: "$CI_BUILD_REPO" 
+
+deploy-dev:
+  stage: deploy
+  only:
+    - dev
+  script:
+    - npm
+    - npm install
+    - npm run build
+    - firebase use my-trending-stories-dev --token $FIREBASE_TOKEN_DEV
+    - firebase deploy --only hosting:dev -m "Pipe $CI_PIPELINE_ID Build $CI_BUILD_ID" --token $FIREBASE_TOKEN_DEV
