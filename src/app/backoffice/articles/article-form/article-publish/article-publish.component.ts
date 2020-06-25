@@ -75,7 +75,7 @@ export class ArticlePublishComponent implements OnInit {
     this.articleService.updateArticleImage(this.articleId, { status: DRAFT }).then(async () => {
       this.isFormSaving = false;
       if (this.userDetails.type == STAFF)
-        this.router.navigate(['/app/article/staff-articles']);
+        this.router.navigate(['/app/admin/article']);
       else
         this.router.navigate(['/app/article']);
 
@@ -93,7 +93,7 @@ export class ArticlePublishComponent implements OnInit {
       nzTitle: "<i>" + $message + "</i>",
       nzOnOk: () => {
         if (this.userDetails.type == STAFF)
-          this.router.navigate(['/app/article/staff-articles']);
+          this.router.navigate(['/app/admin/article']);
         else
           this.router.navigate(['/app/article']);
       },

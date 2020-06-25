@@ -70,5 +70,13 @@ export const ADMIN_ROUTES: SideNavInterface[] = [
         iconTheme: 'outline',
         icon: 'lock',
         submenu: []
+    },
+    {
+        path: '/app/settings/profile-settings',
+        title: 'myAccountSettings',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'lock',
+        submenu: []
     }
 ]
