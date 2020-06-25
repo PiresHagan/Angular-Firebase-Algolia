@@ -131,6 +131,23 @@ export class ArticleService {
   }
 
 
+  getHeroArticles(lang) {
+    return this.db.collection<Article[]>(this.articleCollection, ref => ref
+      .where('lang', "==", lang)
+      .where('status', "==", ACTIVE)
+      .orderBy('published_at', 'desc')
+      .limit(6)
+    ).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+  }
+
   getHeroLargeArticle(lang) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('lang', "==", lang)

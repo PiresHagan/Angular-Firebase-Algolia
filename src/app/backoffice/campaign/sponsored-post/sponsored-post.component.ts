@@ -24,7 +24,7 @@ export class SponsoredPostComponent implements OnInit {
 
   goToStore(){
     this.authService.getIdToken().subscribe(token => {
-      const url = `${environment.storeUrl}?token=${token}`;
+      const url = `${environment.storeUrl}/newAddSpot?token=${token}`;
       window.open(url, '_blank');
     });
   }
