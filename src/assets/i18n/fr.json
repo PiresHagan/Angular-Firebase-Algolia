@@ -317,5 +317,6 @@
     "todayStories": "Histoires d'aujourd'hui",
     "ViewAllStory": "Voir toutes les histoires d'aujourd'hui",
     "memberSettings": "Mettre à jour les membres",
-    "allArticles": "Tous les articles"
+    "allArticles": "Tous les articles",
+    "invalidCaptchaErr": "Captcha non valide"
 }

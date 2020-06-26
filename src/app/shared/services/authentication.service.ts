@@ -112,5 +112,15 @@ export class AuthService {
             return MEMBER;
         }
     }
+    validateCaptcha(captchaToken) {
+        const httpOptions = {
+
+        }
+
+        return this.http.post(environment.baseAPIDomain + '/api/validateCaptcha', {
+            token: captchaToken,
+        }, httpOptions)
+
+    }
 
 }

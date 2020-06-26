@@ -319,5 +319,6 @@
     "todayStories": "Today's stories",
     "ViewAllStory": "View all of today’s stories",
     "memberSettings": "Update Members",
-    "allArticles": "All Articles"
+    "allArticles": "All Articles",
+    "invalidCaptchaErr": "Invalid Captcha"
 }

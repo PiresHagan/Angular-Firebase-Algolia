@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core'
+import { Component, NgZone, ViewChild } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -9,13 +9,28 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 import { PreviousRouteService } from 'src/app/shared/services/previous-route.service';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
+import { environment } from "src/environments/environment";
+
 @Component({
     templateUrl: './sign-up.component.html',
     styleUrls: ['./sign-up.component.scss']
 })
 
 export class SignUpComponent {
-
+    recaptchaElement;
+    isCaptchaElementReady: boolean = false;
+    isCapchaScriptLoaded: boolean = false;
+    invalidCaptcha: boolean = false;
+    captchaToken: string;
+    capchaObject;
+    @ViewChild('recaptcha') set SetThing(e: SignUpComponent) {
+        this.isCaptchaElementReady = true;
+        this.recaptchaElement = e;
+        if (this.isCaptchaElementReady && this.isCapchaScriptLoaded) {
+            this.renderReCaptcha();
+        }
+    }
+    isFormSaving: boolean = false;
     signUpForm: FormGroup;
     errorSignup: boolean = false;
     errorPasswordWeak: boolean = false;
@@ -44,6 +59,7 @@ export class SignUpComponent {
                 this.navigateToUserProfile();
             }
         });
+        this.addRecaptchaScript();
         this.signUpForm = this.fb.group({
             fullname: [null, [Validators.required]],
             email: [null, [Validators.email, Validators.required]],
@@ -69,43 +85,35 @@ export class SignUpComponent {
                 const email = this.signUpForm.get('email').value;
                 const password = this.signUpForm.get('password').value;
                 const fullname = this.signUpForm.get('fullname').value;
-                this.authService.doRegister(email, password, fullname).then(user => {
-                    const userData = user.user;
-                    this.addUser({
-                        email: email,
-                        id: userData.uid,
-                        date_joined: new Date().toString(),
-                        updated_at: new Date().toString(),
-                        lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en'
-                    }, {
-                        email: email,
-                        fullname: userData.displayName,
-                        id: userData.uid,
-                        created_at: new Date().toString(),
-                        slug: this.getSlug(userData.displayName) + '-' + this.makeid(),
-                        updated_at: new Date().toString(),
-                        lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en',
-                        type: 'member'
+                if (this.captchaToken) {
+                    this.isFormSaving = true;
+                    this.invalidCaptcha = false;
+                    this.authService.validateCaptcha(this.captchaToken).subscribe((success) => {
+                        this.saveDataOnServer(email, password, fullname)
 
-                    });
+                    }, (error) => {
+                        window['grecaptcha'].reset(this.capchaObject);
+                        this.isFormSaving = false;
+                        // this.errorMessage = this.invalidCaptchaErr;
+                        this.invalidCaptcha = true;
 
-                }).catch((error) => {
-                    if (error.code == "auth/email-already-in-use") {
-                        this.errorSignup = true;
-                        console.log(this.errorSignup);
-                    }
-                    else if (error.code == "auth/weak-password") {
-                        this.errorPasswordWeak = true;
-                    }
-                })
+                    })
+                } else {
+                    //this.errorMessage = this.invalidCaptchaErr;
+                    this.invalidCaptcha = true;
+                }
+
+
 
 
             } catch (err) {
+                this.isFormSaving = false;
                 console.log("err...", err);
 
             }
         }
         else {
+            this.isFormSaving = false;
             if (this.findInvalidControls().indexOf('agree') > -1) {
                 this.errorAgree = true;
             }
@@ -165,5 +173,76 @@ export class SignUpComponent {
             result += characters.charAt(Math.floor(Math.random() * charactersLength));
         }
         return result.toLowerCase();
+    }
+    addRecaptchaScript() {
+
+        window['grecaptchaCallback'] = () => {
+            this.isCapchaScriptLoaded = true;
+            if (this.isCapchaScriptLoaded && this.isCaptchaElementReady)
+                this.renderReCaptcha(); return;
+        }
+
+        (function (d, s, id, obj) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                obj.isCapchaScriptLoaded = true;
+                if (obj.isCapchaScriptLoaded && obj.isCaptchaElementReady)
+                    obj.renderReCaptcha(); return;
+            }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://www.google.com/recaptcha/api.js?onload=grecaptchaCallback&render=explicit";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'recaptcha-jssdk', this));
+
+    }
+    renderReCaptcha() {
+        if (!this.recaptchaElement || this.capchaObject)
+            return;
+
+        this.capchaObject = window['grecaptcha'].render(this.recaptchaElement.nativeElement, {
+            'sitekey': environment.captchaKey,
+            'callback': (response) => {
+
+                this.invalidCaptcha = false;
+                this.captchaToken = response;
+            },
+            'expired-callback': () => {
+                this.captchaToken = '';
+            }
+        });
+
+    }
+
+    saveDataOnServer(email, password, fullname) {
+        this.authService.doRegister(email, password, fullname).then(user => {
+            const userData = user.user;
+            this.addUser({
+                email: email,
+                id: userData.uid,
+                date_joined: new Date().toString(),
+                updated_at: new Date().toString(),
+                lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en'
+            }, {
+                email: email,
+                fullname: userData.displayName,
+                id: userData.uid,
+                created_at: new Date().toString(),
+                slug: this.getSlug(userData.displayName) + '-' + this.makeid(),
+                updated_at: new Date().toString(),
+                lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en',
+                type: 'member'
+
+            });
+
+        }).catch((error) => {
+            this.isFormSaving = false;
+            if (error.code == "auth/email-already-in-use") {
+                this.errorSignup = true;
+                console.log(this.errorSignup);
+            }
+            else if (error.code == "auth/weak-password") {
+                this.errorPasswordWeak = true;
+            }
+        })
     }
 }    
