@@ -41,6 +41,7 @@ export class LoginComponent {
     somethingWentWrongErr: string = "";
     enablePasswordChangeScreen: boolean = false;
     isCapchaScriptLoaded: boolean = false;
+    capchaObject;
 
 
     constructor(
@@ -98,6 +99,7 @@ export class LoginComponent {
             this.validatePassAndNext(userData);
 
         }).catch((err) => {
+            this.resetCaptcha();
 
             if (err.code == "auth/wrong-password") {
                 this.errorMessage = this.invalidPassErr;
@@ -113,12 +115,14 @@ export class LoginComponent {
 
                         })
                     }, error => {
+                        this.resetCaptcha();
                         this.isFormSaving = false;
                         this.errorMessage = this.invalidCredErr;
                         this.showError = true;
                         this.errorLogin = true;
                     })
                 } catch (error) {
+                    this.resetCaptcha();
                     this.isFormSaving = false;
                     this.errorMessage = this.somethingWentWrongErr;
                     this.showError = true;
@@ -187,13 +191,14 @@ export class LoginComponent {
     renderReCaptcha() {
         if (!this.recaptchaElement)
             return;
-        window['grecaptcha'].render(this.recaptchaElement.nativeElement, {
+        this.capchaObject = window['grecaptcha'].render(this.recaptchaElement.nativeElement, {
             'sitekey': environment.captchaKey,
             'callback': (response) => {
                 this.invalidCaptcha = false;
                 this.captchaToken = response;
             },
             'expired-callback': () => {
+                this.invalidCaptcha = false;
                 this.captchaToken = '';
             }
         });
@@ -258,6 +263,10 @@ export class LoginComponent {
             }
         }
         return invalid;
+    }
+    resetCaptcha() {
+        window['grecaptcha'].reset(this.capchaObject);
+        this.captchaToken = ""
     }
 }
 

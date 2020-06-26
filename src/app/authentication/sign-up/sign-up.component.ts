@@ -56,7 +56,7 @@ export class SignUpComponent {
         this.afAuth.onAuthStateChanged(user => {
             if (user && !user.isAnonymous) {
 
-                this.navigateToUserProfile();
+                //this.navigateToUserProfile();
             }
         });
         this.addRecaptchaScript();
