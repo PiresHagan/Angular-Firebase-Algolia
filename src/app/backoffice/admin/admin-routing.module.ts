@@ -8,14 +8,14 @@ const routes: Routes = [
     path: "article",
     component: StaffArticlesComponent,
     data: {
-      title: "Article List",
+      title: "allArticles",
     },
   },
   {
     path: "member",
     component: StaffSettingsComponent,
     data: {
-      title: "Staff Profile Access",
+      title: "memberSettings",
     },
   },
 ];
