@@ -314,8 +314,10 @@
     "articleDeletMsgSuc": "Article deleted successfully!",
     "articleDeletMsgConf": "Are you sure want to delete Article?",
     "deleteArticle": "Delete Article",
-    "CreateStory":"Create Story",
-    "PublishStories":"Publish your Today stories",
-    "todayStories":"Today's stories",
-    "ViewAllStory":"View all of today’s stories"
+    "CreateStory": "Create Story",
+    "PublishStories": "Publish your Today stories",
+    "todayStories": "Today's stories",
+    "ViewAllStory": "View all of today’s stories",
+    "memberSettings": "Update Members",
+    "allArticles": "All Articles"
 }

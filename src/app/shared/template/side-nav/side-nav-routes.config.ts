@@ -57,7 +57,7 @@ export const ROUTES: SideNavInterface[] = [
 export const ADMIN_ROUTES: SideNavInterface[] = [
     {
         path: '/app/admin/article',
-        title: 'Article',
+        title: 'allArticles',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'crown',
@@ -65,7 +65,7 @@ export const ADMIN_ROUTES: SideNavInterface[] = [
     },
     {
         path: '/app/admin/member',
-        title: 'Member',
+        title: 'memberSettings',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'lock',
