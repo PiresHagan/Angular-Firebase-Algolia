@@ -246,6 +246,7 @@ export class LoginComponent {
             this.isFormSaving = true;
             this.userService.updatePassword(this.passwordForm.get('password').value).then(() => {
                 this.isFormSaving = false;
+                this.navigateToUserProfile();
             }).catch(() => {
                 this.paswordErr = true;
                 this.errorMessage = this.somethingWentWrongErr
