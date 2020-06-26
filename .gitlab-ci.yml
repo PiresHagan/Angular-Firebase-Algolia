@@ -34,3 +34,17 @@ deploy-test:
     paths:                
       - node_modules/     
     key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG" 
+
+deploy-prod:
+  stage: deploy
+  only:
+    - master
+  script:
+    - npm install
+    - ng build --prod
+    - firebase use my-trending-stories-66f81 --token $FIREBASE_TOKEN_PROD
+    - firebase deploy --only hosting:prod --non-interactive -m "Pipe $CI_PIPELINE_ID Build $CI_BUILD_ID" --token $FIREBASE_TOKEN_PROD
+  cache:                  
+    paths:                
+      - node_modules/     
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG" 
