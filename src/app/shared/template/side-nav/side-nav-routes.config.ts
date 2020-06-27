@@ -1,55 +1,58 @@
 import { SideNavInterface } from '../../interfaces/side-nav.type';
 export const ROUTES: SideNavInterface[] = [
     {
-        path: '/app/article',
-        title: 'myArticles',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'crown',
-        submenu: []
-    },
-    {
-        path: '/app/campaign/campaign-manager',
-        title: 'Campaigns',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'notification',
-        submenu: []
-    },
-
-    {
         path: '/app/settings/profile-settings',
         title: 'myAccountSettings',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'lock',
+        staff: false,
         submenu: []
     },
-
-    // {
-    //     path: '',
-    //     title: 'Multi Level Menu',
-    //     iconType: 'nzIcon',
-    //     iconTheme: 'outline',
-    //     icon: 'appstore',
-    //     submenu: [
-    //         { 
-    //             path: '',
-    //             title: 'Level 1', 
-    //             iconType: '', 
-    //             icon: '',
-    //             iconTheme: '',
-    //             submenu: [
-    //                 {
-    //                     path: '',
-    //                     title: 'Level 2',
-    //                     iconType: 'nzIcon',
-    //                     iconTheme: 'outline',
-    //                     icon: 'layout',
-    //                     submenu: []
-    //                 }    
-    //             ] 
-    //         }
-    //     ]
-    // }
+    {
+        path: '/app/article',
+        title: 'myArticles',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'crown',
+        staff: false,
+        submenu: []
+    },
+    {
+        path: '/app/campaign/campaign-manager',
+        title: 'Campaign Manager',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'notification',
+        staff: false,
+        submenu: []
+    },
+    {
+        path: '/app/admin',
+        title: 'Admin Center',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'appstore',
+        staff: true,
+        submenu: [
+            {
+                path: '/app/admin/articles',
+                title: 'All articles',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                staff: true,
+                submenu: []
+            },
+            {
+                path: '/app/admin/members',
+                title: 'All members',
+                iconType: '',
+                icon: '',
+                iconTheme: '',
+                staff: true,
+                submenu: []
+            }
+        ]
+    }
 ]    
