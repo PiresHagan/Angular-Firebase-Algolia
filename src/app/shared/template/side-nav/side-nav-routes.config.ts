@@ -32,27 +32,57 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Admin Center',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'appstore',
+        icon: 'lock',
         staff: true,
         submenu: [
             {
-                path: '/app/admin/articles',
-                title: 'All articles',
-                iconType: '',
-                icon: '',
-                iconTheme: '',
+                path: '/app/admin/article',
+                title: 'allArticles',
+                iconType: 'nzIcon',
+                iconTheme: 'outline',
+                icon: 'crown',
                 staff: true,
                 submenu: []
             },
             {
-                path: '/app/admin/members',
-                title: 'All members',
-                iconType: '',
-                icon: '',
-                iconTheme: '',
+                path: '/app/admin/member',
+                title: 'memberSettings',
+                iconType: 'nzIcon',
+                iconTheme: 'outline',
+                icon: 'lock',
                 staff: true,
                 submenu: []
             }
         ]
     }
-]    
+]
+
+export const ADMIN_ROUTES: SideNavInterface[] = [
+    {
+        path: '/app/admin/article',
+        title: 'allArticles',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'crown',
+        staff: true,
+        submenu: []
+    },
+    {
+        path: '/app/admin/member',
+        title: 'memberSettings',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'lock',
+        staff: true,
+        submenu: []
+    },
+    {
+        path: '/app/settings/profile-settings',
+        title: 'myAccountSettings',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'lock',
+        staff: true,
+        submenu: []
+    }
+]

@@ -312,8 +312,11 @@
     "articleDeletMsgSuc": "L'article a bien été supprimé!",
     "articleDeletMsgConf": "Voulez-vous vraiment supprimer l'article?",
     "deleteArticle": "Supprimer l'article",
-    "CreateStory":"Créer une histoire",
-    "PublishStories":"Publiez vos histoires d'aujourd'hui",
-    "todayStories":"Histoires d'aujourd'hui",
-    "ViewAllStory":"Voir toutes les histoires d'aujourd'hui"
+    "CreateStory": "Créer une histoire",
+    "PublishStories": "Publiez vos histoires d'aujourd'hui",
+    "todayStories": "Histoires d'aujourd'hui",
+    "ViewAllStory": "Voir toutes les histoires d'aujourd'hui",
+    "memberSettings": "Mettre à jour les membres",
+    "allArticles": "Tous les articles",
+    "invalidCaptchaErr": "Captcha non valide"
 }

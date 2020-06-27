@@ -31,6 +31,10 @@
                         <h2>{{'signUp' | translate}}</h2>
                         <p>{{'signUpTitleDes' | translate}}</p>
                         <form nz-form [formGroup]="signUpForm" class="login-form" (ngSubmit)="submitForm()">
+
+                            <nz-alert class="m-b-10" nzType="error" nzDescription=" {{'invalidCaptchaErr' | translate}}"
+                                nzShowIcon *ngIf="invalidCaptcha"></nz-alert>
+
                             <nz-alert nzType="error" [nzDescription]="errorSignup" *ngIf="errorSignup">
                                 <ng-template #errorSignup>
                                     <ng-container>
@@ -103,10 +107,11 @@
                                             routerLink="/terms">{{'loginTerms' | translate}}</a>
                                     </nz-form-control>
                                 </nz-form-item>
+                                <div #recaptcha class="m-b-10">Loading Captcha...</div>
                                 <nz-form-item>
                                     <nz-form-control>
                                         <div class="text-center">
-                                            <button nz-button class="is-login-btn"
+                                            <button nz-button class="is-login-btn" [nzLoading]="isFormSaving"
                                                 [nzType]="'primary'">{{'signUp' | translate}}</button>
                                         </div>
                                     </nz-form-control>

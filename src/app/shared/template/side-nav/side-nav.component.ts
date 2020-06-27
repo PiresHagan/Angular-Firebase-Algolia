@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { ROUTES } from './side-nav-routes.config';
+import { ROUTES, ADMIN_ROUTES } from './side-nav-routes.config';
 import { ThemeConstantService } from '../../services/theme-constant.service';
-import { skip } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthService } from '../../services/authentication.service';
+import { STAFF } from '../../constants/member-constant';
 
 @Component({
     selector: 'app-sidenav',
@@ -15,10 +17,21 @@ export class SideNavComponent {
     isFolded: boolean = false;
     isSideNavDark: boolean;
 
-    constructor(private themeService: ThemeConstantService, public translate: TranslateService) { }
+    constructor(private themeService: ThemeConstantService,
+        public translate: TranslateService,
+        private afAuth: AngularFireAuth,
+        private authService: AuthService) { }
 
     ngOnInit(): void {
         this.menuItems = ROUTES.filter(menuItem => menuItem);
         this.themeService.isSideNavDarkChanges.subscribe(isDark => this.isSideNavDark = isDark);
+        this.afAuth.authState.subscribe(() => {
+            this.authService.getCustomClaimData().then((role) => {
+                if (role == STAFF) {
+                    this.menuItems = [...ADMIN_ROUTES]
+                }
+            })
+        })
+
     }
 }

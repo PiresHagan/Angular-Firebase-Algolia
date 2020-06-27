@@ -7,6 +7,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { ACTIVE } from '../constants/status-constants';
 import * as firebase from 'firebase/app';
 import * as moment from 'moment';
+import { STAFF } from '../constants/member-constant';
 
 @Injectable({
   providedIn: 'root'
@@ -497,10 +498,10 @@ export class ArticleService {
     return this.db.collection(this.articleCollection).doc(articleId).collection(this.articleLikesCollection).doc(likerId).valueChanges();
   }
 
-  getArticleById(articleId: string, authorId) {
+  getArticleById(articleId: string, authorId, type: string) {
     return new Promise<any>((resolve, reject) => {
       this.db.doc(`${this.articleCollection}/${articleId}`).valueChanges().subscribe((data) => {
-        if (data && data['author'].id === authorId) {
+        if (data && data['author'].id === authorId || type == STAFF) {
           data['id'] = articleId;
           resolve(data)
         } else {

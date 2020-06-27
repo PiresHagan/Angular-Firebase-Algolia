@@ -1,3 +1,9 @@
+:host ::ng-deep .ant-alert-icon {
+    top: 6px;
+}
+:host ::ng-deep .password-form .ant-input {
+    padding-left: 30px !important;
+}
 .is-signup-main {
     position: relative;
     width: 100vw;
@@ -10,6 +16,7 @@
         font-family: "josefin_sanssemibold";
         font-size: 20px;
     }
+
     .is-signup-center {
         position: absolute;
         top: 50%;

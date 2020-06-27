@@ -1,29 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { ProfileSettingsComponent } from "./profile-settings/profile-settings.component";
-import {
-  NzCardModule,
-  NzSkeletonModule,
-  NzAvatarModule,
-  NzPaginationModule,
-  NzDividerModule,
-  NzButtonModule,
-  NzListModule,
-  NzTableModule,
-  NzRadioModule,
-  NzTabsModule,
-  NzRateModule,
-  NzTagModule,
-  NzFormModule,
-  NzDatePickerModule,
-  NzSelectModule,
-  NzSwitchModule,
-  NzUploadModule,
-  NzToolTipModule,
-  NzModalModule,
-  NzMessageModule,
-  NzInputModule,
-} from "ng-zorro-antd";
+import { StaffSettingsComponent } from "../admin/staff-settings/staff-settings.component";
 
 const routes: Routes = [
   {
@@ -33,30 +11,13 @@ const routes: Routes = [
       title: "profileSettings",
     },
   },
-];
-
-const antdModule = [
-  NzCardModule,
-  NzSkeletonModule,
-  NzAvatarModule,
-  NzPaginationModule,
-  NzDividerModule,
-  NzButtonModule,
-  NzListModule,
-  NzTableModule,
-  NzRadioModule,
-  NzRateModule,
-  NzTabsModule,
-  NzTagModule,
-  NzFormModule,
-  NzDatePickerModule,
-  NzSelectModule,
-  NzSwitchModule,
-  NzUploadModule,
-  NzToolTipModule,
-  NzModalModule,
-  NzMessageModule,
-  NzInputModule,
+  {
+    path: "staff-settings",
+    component: StaffSettingsComponent,
+    data: {
+      title: "Staff Profile Access",
+    },
+  },
 ];
 
 @NgModule({

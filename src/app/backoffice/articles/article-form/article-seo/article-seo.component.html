@@ -1,5 +1,5 @@
 <div class="container">
-<nz-card class="article-seo-sec">
+    <nz-card class="article-seo-sec">
 
         <br />
         <nz-steps [nzCurrent]="2">
@@ -14,27 +14,33 @@
         <nz-divider></nz-divider>
         <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
             <div class="content-wrapper">
-            <form nz-form>
-                <nz-form-item>
-                    <nz-form-label [nzSpan]="24" nzFor="title">{{'artMetaTitle' | translate}}</nz-form-label>
-                    <nz-form-control [nzSpan]="24">
-                        <input nz-input name="title" [(ngModel)]="title" type="text" id="title">
-                    </nz-form-control>
-                </nz-form-item>
-                <nz-form-item>
-                    <nz-form-label [nzSpan]="24" nzFor="description">{{'artMetaDesc' | translate}}</nz-form-label>
-                    <nz-form-control [nzSpan]="24">
-                        <textarea rows="4" nz-input name="description" [(ngModel)]="description"></textarea>
-                    </nz-form-control>
-                </nz-form-item>
-                <nz-form-item>
-                    <nz-form-label [nzSpan]="24" nzFor="keywords">{{'artMetaKeyword' | translate}}</nz-form-label>
-                    <nz-form-control [nzSpan]="24">
-                        <textarea rows="4" nz-input name="keywords" [(ngModel)]="keywords"></textarea>
-                    </nz-form-control>
-                </nz-form-item>
+                <form nz-form>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="title">{{'artMetaTitle' | translate}}</nz-form-label>
+                        <nz-form-control [nzSpan]="24"
+                            nzErrorTip="{{'artMetaTitle' | translate}} {{'required' | translate}}">
+                            <input nz-input name="title" required [(ngModel)]="title" type="text" id="title"
+                                #titleE="ngModel">
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="description">{{'artMetaDesc' | translate}}</nz-form-label>
+                        <nz-form-control [nzSpan]="24"
+                            nzErrorTip="{{'artMetaDesc' | translate}} {{'required' | translate}}">
+                            <textarea rows="4" required nz-input name="description" [(ngModel)]="description"
+                                #descriptionE="ngModel"></textarea>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="keywords">{{'artMetaKeyword' | translate}}</nz-form-label>
+                        <nz-form-control [nzSpan]="24"
+                            nzErrorTip="{{'artMetaKeyword' | translate}} {{'required' | translate}}">
+                            <textarea rows="4" required nz-input name="keywords" [(ngModel)]="keywords"
+                                #keywordsE="ngModel"></textarea>
+                        </nz-form-control>
+                    </nz-form-item>
 
-                <!-- <nz-form-item>
+                    <!-- <nz-form-item>
                     <nz-form-label [nzSpan]="6" nzFor="title">Facebook Title</nz-form-label>
                     <nz-form-control [nzSpan]="14">
                         <input nz-input name="title" type="text" id="title">
@@ -58,18 +64,20 @@
                         <textarea rows="4" nz-input name="content"></textarea>
                     </nz-form-control>
                 </nz-form-item> -->
-                <nz-form-item>
-                    <nz-form-control>
-                        <div>
-                            <button nz-button class="login-form-button" [nzLoading]="isFormSaving" [nzType]="'primary'"
-                                (click)="saveMetaData()">{{'artNext' |translate}}</button>
-                        </div>
-                    </nz-form-control>
-                </nz-form-item>
-            </form>
-        </div>
+                    <nz-form-item>
+                        <nz-form-control>
+                            <div>
+                                <button
+                                    [attr.disabled]="keywordsE.invalid|| descriptionE.invalid || titleE.invalid  ? 'disabled' : null"
+                                    nz-button class="login-form-button" [nzLoading]="isFormSaving" [nzType]="'primary'"
+                                    (click)="saveMetaData()">{{'artNext' |translate}}</button>
+                            </div>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </div>
         </nz-skeleton>
 
-   
-</nz-card>
+
+    </nz-card>
 </div>

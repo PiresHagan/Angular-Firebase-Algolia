@@ -5,6 +5,8 @@ import { environment } from "src/environments/environment";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import * as firebase from 'firebase/app';
+import { STAFF, MEMBER } from "../constants/member-constant";
 
 
 @Injectable({
@@ -91,7 +93,34 @@ export class AuthService {
         return this.http.post(environment.authService, userData)
     }
 
-    getIdToken(){
+    getIdToken() {
         return this.afAuth.idToken;
     }
+
+    getUserToken() {
+        return firebase.auth().currentUser.getIdToken(true)
+    }
+    async getCustomClaimData() {
+        try {
+            const idTokenResult = await firebase.auth().currentUser.getIdTokenResult();
+            if (idTokenResult.claims.isAdmin) {
+                return STAFF;
+            } else {
+                return MEMBER;
+            }
+        } catch (error) {
+            return MEMBER;
+        }
+    }
+    validateCaptcha(captchaToken) {
+        const httpOptions = {
+
+        }
+
+        return this.http.post(environment.baseAPIDomain + '/api/validateCaptcha', {
+            token: captchaToken,
+        }, httpOptions)
+
+    }
+
 }
