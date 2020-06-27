@@ -14,6 +14,7 @@ import { AuthService } from './authentication.service';
 })
 export class StaffArticleService {
   articleCollection: string = 'articles';
+  memberCollection: string = 'members';
   constructor(private db: AngularFirestore, private http: HttpClient, private authService: AuthService) { }
 
 
@@ -66,5 +67,34 @@ export class StaffArticleService {
       console.log(err)
     });
 
+  }
+  getMemberList(limit: number = 10, navigation: string = "first", lastVisible = null) {
+    if (!limit) {
+      limit = 10;
+    }
+    let dataQuery = this.db.collection(`${this.memberCollection}`, ref => ref
+      .orderBy('created_at', 'desc')
+      .limit(limit)
+    )
+    switch (navigation) {
+      case 'next':
+        dataQuery = this.db.collection(`${this.memberCollection}`, ref => ref
+          .orderBy('created_at', 'desc')
+          .limit(limit)
+          .startAfter(lastVisible))
+        break;
+    }
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        memberList: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+        lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
+    })
+    );
   }
 }

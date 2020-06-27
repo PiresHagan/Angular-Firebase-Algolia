@@ -4,13 +4,49 @@
             <h2 class="font-weight-normal"> {{ 'settings' | translate }}</h2>
         </div>
         <nz-input-group nzSearch class="m-t-10" nzSize="large" [nzAddOnAfter]="suffixButton">
-            <input type="text" nz-input placeholder="Search Members Using Email" [(ngModel)]="memberEmail" />
+            <input type="text" nz-input placeholder=" {{ 'MemListEditSearch' | translate }}"
+                [(ngModel)]="memberEmail" />
         </nz-input-group>
         <ng-template #suffixButton>
-            <button nz-button nzType="primary" nzSize="large" nzSearch (click)="getMemberDetails()">Search</button>
+            <button nz-button nzType="primary" nzSize="large" nzSearch
+                (click)="getMemberDetails()">{{'MemSearch' | translate}}</button>
         </ng-template>
+        <nz-card *ngIf="!currentUser">
+            <nz-table>
+                <thead>
+                    <tr>
+                        <th> {{ 'MemListName' | translate }}</th>
+                        <th>{{ 'MemListViewProfile' | translate }}</th>
+                        <!-- <th>{{ 'MemListCreatedDate' | translate }}</th> -->
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="memberList">
+                    <tr *ngFor="let item of memberList">
+                        <td>
+                            <div class="media align-items-center">
+                                <nz-avatar nzIcon="star" [nzSrc]="item?.avatar?.url"></nz-avatar>
+                                <div class="media-body m-l-15">
+                                    <h6 class="mb-0">{{item.fullname}}</h6>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <a [routerLink]="['/profile/'+item.slug]">{{ 'MemViewProfile' | translate }}</a>
+                        </td>
+                        <!-- <td>
+                            <span class="text-gray">{{item.created_at | date:'mm/dd/yyyy'}}</span>
+                        </td> -->
+                        <td class="text-right">
+                            <a nz-button nzType="primary" class="" nzGhost (click)="editMember(item.id)">
+                                <i nz-icon nzType="edit" theme="outline"></i>
 
-        <nz-empty *ngIf="!currentUser" class="m-t-20 m-b-20 "></nz-empty>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </nz-card>
         <nz-tabset class="page-header-tab" *ngIf="currentUser">
             <nz-tab nzTitle="{{'account'| translate}}">
                 <div class="container">
@@ -140,6 +176,11 @@
                                 </div>
                             </div>
                         </form>
+                        <div>
+                            <button nz-button class="login-form-button" [nzType]="'primary'" (click)="goBack()">
+                                {{'goBackbtn'| translate}}
+                            </button>
+                        </div>
                     </nz-card>
                 </div>
             </nz-tab>

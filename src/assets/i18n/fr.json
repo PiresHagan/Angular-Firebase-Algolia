@@ -319,5 +319,10 @@
     "memberSettings": "Mettre à jour les membres",
     "allArticles": "Tous les articles",
     "invalidCaptchaErr": "Captcha non valide",
-    "passwordChangeMsg": "Votre mot de passe ne répond pas aux exigences de sécurité minimales. Veuillez en entrer un nouveau."
+    "passwordChangeMsg": "Votre mot de passe ne répond pas aux exigences de sécurité minimales. Veuillez en entrer un nouveau.",
+    "MemListName": "Nom",
+    "MemListViewProfile": "Lien de profil",
+    "MemListEditSearch": "Modifier le profil par e-mail",
+    "MemViewProfile": "Voir le profil",
+    "MemSearch": "Recherche"
 }

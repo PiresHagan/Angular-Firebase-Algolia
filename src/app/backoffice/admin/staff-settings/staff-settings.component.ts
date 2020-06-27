@@ -13,6 +13,7 @@ import { Member } from "src/app/shared/interfaces/member.type";
 import { CategoryService } from "src/app/shared/services/category.service";
 import { LanguageService } from "src/app/shared/services/language.service";
 import { StaffArticleService } from "src/app/shared/services/staff-article.service";
+import { AuthService } from "src/app/shared/services/authentication.service";
 
 
 @Component({
@@ -20,6 +21,7 @@ import { StaffArticleService } from "src/app/shared/services/staff-article.servi
   styleUrls: ['./staff-settings.component.scss']
 })
 export class StaffSettingsComponent {
+
   changePWForm: FormGroup;
   categoriesArray = [];
   photoURL: string;
@@ -34,7 +36,11 @@ export class StaffSettingsComponent {
   isPhotoChangeLoading: boolean = false;
   memberDetails: Member;
   userDetails: User;
+  loggedInUser: Member;
   memberEmail: string;
+  memberList;
+  loadingMore;
+  lastVisible;
 
   constructor(
     private fb: FormBuilder,
@@ -45,10 +51,12 @@ export class StaffSettingsComponent {
     public translate: TranslateService,
     public categoryService: CategoryService,
     public languageService: LanguageService,
-    public articleService: StaffArticleService
+    public articleService: StaffArticleService,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {
+    window.addEventListener('scroll', this.scrollEvent, true);
     /**
      * Password Form
      */
@@ -67,6 +75,13 @@ export class StaffSettingsComponent {
       biography: [null],
       displayName: [null, [Validators.required]],
     });
+    this.getMemberList();
+    this.authService.getAuthState().subscribe(async (user) => {
+      if (!user)
+        return;
+      this.loggedInUser = await this.authService.getLoggedInUserDetails();
+
+    })
   }
   setUserDetails(userDetails: User) {
     this.profileForm.controls['phone'].setValue(userDetails.mobile);
@@ -220,16 +235,60 @@ export class StaffSettingsComponent {
 
     this.userService.getByEmail(this.memberEmail).subscribe((receiVedUserDetails) => {
       const userDetails = receiVedUserDetails ? receiVedUserDetails[0] : null;
-      this.currentUser = userDetails;
-      this.currentUserEmail = userDetails.email;
-      this.setUserDetails(userDetails);
-      this.userDetails = userDetails;
-      this.userService.getMember(this.userDetails.id).subscribe((memberDetails) => {
-        this.photoURL = memberDetails?.avatar?.url;
-        this.memberDetails = memberDetails
-        this.setMemberDetails(memberDetails);
-      })
+      this.setMember(userDetails);
     })
+
+  }
+  getMemberDetailsById(id) {
+    this.userService.getMember(id).subscribe((receiVedUserDetails) => {
+      this.setMember(receiVedUserDetails);
+    })
+  }
+  setMember(userDetails) {
+
+    this.currentUser = userDetails;
+    this.currentUserEmail = userDetails.email;
+    this.setUserDetails(userDetails);
+    this.userDetails = userDetails;
+    this.userService.getMember(this.userDetails.id).subscribe((memberDetails) => {
+      this.photoURL = memberDetails?.avatar?.url;
+      this.memberDetails = memberDetails
+      this.setMemberDetails(memberDetails);
+    })
+  }
+  getMemberList() {
+    this.staffService.getMemberList().subscribe((memberData) => {
+      this.memberList = memberData.memberList;
+      this.lastVisible = memberData.lastVisible;
+    })
+  }
+  editMember(id) {
+    this.getMemberDetailsById(id);
+  }
+  goBack() {
+    this.memberEmail = "";
+    this.currentUser = null;
+  }
+  scrollEvent = (event: any): void => {
+    if (event.target && event.target.documentElement) {
+      const top = event.target.documentElement.scrollTop
+      const height = event.target.documentElement.scrollHeight
+      const offset = event.target.documentElement.offsetHeight
+      console.log(height, offset, top)
+      if (top > height - offset - 1 - 100 && this.lastVisible && !this.loadingMore) {
+        this.loadingMore = true;
+        this.staffService.getMemberList(null, 'next', this.lastVisible).subscribe((memberListData) => {
+          this.loadingMore = false;
+          if (memberListData &&
+            memberListData.memberList &&
+            memberListData.memberList[0]
+            && memberListData.memberList.length > 1
+            && memberListData.memberList[0].id !== this.loggedInUser.id)
+            this.memberList = [...this.memberList, ...memberListData.memberList];
+          this.lastVisible = memberListData.lastVisible;
+        });
+      }
+    }
 
   }
 }

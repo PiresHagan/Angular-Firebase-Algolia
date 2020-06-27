@@ -321,5 +321,11 @@
     "memberSettings": "Update Members",
     "allArticles": "All Articles",
     "invalidCaptchaErr": "Invalid Captcha",
-    "passwordChangeMsg": "Your password does not meet the minimum security requirements. Please enter a new one."
+    "passwordChangeMsg": "Your password does not meet the minimum security requirements. Please enter a new one.",
+    "goBackbtn": "Back",
+    "MemListName": "Name",
+    "MemListViewProfile": "Profile Link",
+    "MemListEditSearch": "Edit Profile By Email",
+    "MemViewProfile": "View Profile",
+    "MemSearch": "Search"
 }
