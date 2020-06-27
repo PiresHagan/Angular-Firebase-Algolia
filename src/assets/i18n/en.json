@@ -327,5 +327,6 @@
     "MemListViewProfile": "Profile Link",
     "MemListEditSearch": "Edit Profile By Email",
     "MemViewProfile": "View Profile",
-    "MemSearch": "Search"
+    "MemSearch": "Search",
+    "MemListViewType": "Type"
 }

@@ -73,13 +73,13 @@ export class StaffArticleService {
       limit = 10;
     }
     let dataQuery = this.db.collection(`${this.memberCollection}`, ref => ref
-      .orderBy('created_at', 'desc')
+      .orderBy('updated_at', 'desc')
       .limit(limit)
     )
     switch (navigation) {
       case 'next':
         dataQuery = this.db.collection(`${this.memberCollection}`, ref => ref
-          .orderBy('created_at', 'desc')
+          .orderBy('updated_at', 'desc')
           .limit(limit)
           .startAfter(lastVisible))
         break;
