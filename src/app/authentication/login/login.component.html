@@ -87,6 +87,9 @@
                         </nz-card>
                         <nz-card *ngIf="enablePasswordChangeScreen">
                             <h2 class="m-t-20">{{'ResetPassword' | translate}}</h2>
+                            <nz-alert class="m-b-10" nzType="warning"
+                                nzDescription="{{'passwordChangeMsg' | translate}}" nzShowIcon></nz-alert>
+
                             <form nz-form [formGroup]="passwordForm" class="login-form password-form"
                                 (ngSubmit)="resetPassword()">
                                 <nz-alert class="m-b-10" nzType="error" nzDescription="{{'errorMessage' | translate}}"

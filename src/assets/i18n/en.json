@@ -320,5 +320,6 @@
     "ViewAllStory": "View all of today’s stories",
     "memberSettings": "Update Members",
     "allArticles": "All Articles",
-    "invalidCaptchaErr": "Invalid Captcha"
+    "invalidCaptchaErr": "Invalid Captcha",
+    "passwordChangeMsg": "Your password does not meet the minimum security requirements. Please enter a new one."
 }

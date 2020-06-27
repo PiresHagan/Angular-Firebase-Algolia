@@ -318,5 +318,6 @@
     "ViewAllStory": "Voir toutes les histoires d'aujourd'hui",
     "memberSettings": "Mettre à jour les membres",
     "allArticles": "Tous les articles",
-    "invalidCaptchaErr": "Captcha non valide"
+    "invalidCaptchaErr": "Captcha non valide",
+    "passwordChangeMsg": "Votre mot de passe ne répond pas aux exigences de sécurité minimales. Veuillez en entrer un nouveau."
 }
