@@ -3,7 +3,11 @@ export const environment = {
   addThisScript: "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ed48a5fc8315a5b",
   authService: "https://us-central1-my-trending-stories-66f81.cloudfunctions.net/api/token/migration",
   isAnonymousUserEnabled: true,
+<<<<<<< HEAD
   captchaKey: "6LfMnKoZAAAAALeLCs7H9LL9MhOy3EmcwtchxUf-",
+=======
+  captchaKey: "6LfMnKoZAAAAALeLCs7H9LL9MhOy3EmcwtchxUf",
+>>>>>>> 1821d84c5ebf4409214b14e07f1b071a8a3863f9
   baseAPIDomain: 'https://us-central1-my-trending-stories-66f81.cloudfunctions.net',
   firebase: {
     apiKey: "AIzaSyBrkchwLnuHo6bqJzCYpENfSrg7Hfg2cDM",
