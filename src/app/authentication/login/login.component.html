@@ -28,17 +28,21 @@
             <div class="col-sm-6  col-lg-7 bg-white">
                 <div class="is-signup-form-main">
                     <div class="is-form">
-                        <nz-card>
+                        <nz-card *ngIf="!enablePasswordChangeScreen">
                             <h2 class="m-t-20">{{'loginSignIn' | translate}}</h2>
                             <p class="m-b-30">{{'loginSignInDes' | translate}}</p>
                             <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
-                                <nz-alert nzType="error"
+                                <nz-alert class="m-b-10" nzType="error"
                                     nzDescription="You have entered an invalid username or password" nzShowIcon
                                     *ngIf="errorLogin"></nz-alert>
+                                <nz-alert class="m-b-10" nzType="error"
+                                    nzDescription="{{'invalidCaptchaErr' | translate}}" nzShowIcon
+                                    *ngIf="invalidCaptcha"></nz-alert>
                                 <nz-form-item class="m-b-15">
                                     <nz-form-control nzErrorTip="{{'loginEmailError' | translate}}" class="is-icon">
                                         <nz-input-group [nzPrefix]="prefixUser">
-                                            <input type="text" nz-input formControlName="email" placeholder="{{'loginInputEmail' | translate}}">
+                                            <input type="text" nz-input formControlName="email"
+                                                placeholder="{{'loginInputEmail' | translate}}">
                                         </nz-input-group>
                                     </nz-form-control>
                                 </nz-form-item>
@@ -52,14 +56,17 @@
 
 
                                 </nz-form-item>
+                                <div #recaptcha>Loading Captcha...</div>
+
                                 <a class="float-right font-size-13 text-muted"
                                     [routerLink]="['/auth/reset-password']">{{'loginInputforgot' | translate}}</a>
                                 <div class="clearfix"></div>
 
                                 <div nz-row class="login-form-margin">
                                     <div nz-col [nzSpan]="12">
-                                        <span class="font-size-13 text-muted">{{'signInTerms' | translate}}<a class="small"
-                                                [routerLink]="['/auth/signup']"> {{'loginSignUp' | translate}}</a></span>
+                                        <span class="font-size-13 text-muted">{{'signInTerms' | translate}}<a
+                                                class="small" [routerLink]="['/auth/signup']">
+                                                {{'loginSignUp' | translate}}</a></span>
 
                                     </div>
 
@@ -70,13 +77,61 @@
                                     <nz-form-control>
                                         <div class="text-center mt-4"> <button nz-button
                                                 class="login-form-button is-login-btn" [nzType]="'primary'"
-                                                [nzLoading]="isFormSaving">{{'loginSignInBtn' | translate}}</button></div>
+                                                [nzLoading]="isFormSaving">{{'loginSignInBtn' | translate}}</button>
+                                        </div>
                                     </nz-form-control>
                                 </nz-form-item>
                             </form>
                             <ng-template #prefixUser><i nz-icon nzType="user"></i></ng-template>
                             <ng-template #prefixLock><i nz-icon nzType="lock"></i></ng-template>
                         </nz-card>
+                        <nz-card *ngIf="enablePasswordChangeScreen">
+                            <h2 class="m-t-20">{{'ResetPassword' | translate}}</h2>
+                            <nz-alert class="m-b-10" nzType="warning"
+                                nzDescription="{{'passwordChangeMsg' | translate}}" nzShowIcon></nz-alert>
+
+                            <form nz-form [formGroup]="passwordForm" class="login-form password-form"
+                                (ngSubmit)="resetPassword()">
+                                <nz-alert class="m-b-10" nzType="error" nzDescription="{{'errorMessage' | translate}}"
+                                    nzShowIcon *ngIf="paswordErr"></nz-alert>
+                                <nz-form-item>
+                                    <!-- <nz-form-label nzRequired nzFor="password">Password</nz-form-label> -->
+                                    <nz-form-control nzErrorTip="{{'passwordError' | translate}}" class="is-icon">
+                                        <input type="password" nz-input formControlName="password"
+                                            placeholder="{{'loginInputPassword' | translate}}" id="password">
+                                        <img src="assets/images/sign-up/password.png" />
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <!-- <nz-form-label nzFor="checkPassword" nzRequired>Confirm Password</nz-form-label> -->
+                                    <nz-form-control [nzErrorTip]="errorTpl" class="is-icon">
+                                        <input nz-input type="password" formControlName="checkPassword"
+                                            placeholder="{{'signUpConfirmPassword' | translate}}" id="checkPassword">
+                                        <img src="assets/images/sign-up/password.png" />
+                                        <ng-template #errorTpl let-control>
+                                            <ng-container *ngIf="control.hasError('required')">
+                                                {{'confirmPasswordError' | translate}}
+                                            </ng-container>
+                                            <ng-container *ngIf="control.hasError('confirm')">
+                                                {{'twoPasswodError' | translate}}
+                                            </ng-container>
+                                        </ng-template>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-control>
+                                        <div class="text-center mt-4"> <button nz-button
+                                                class="login-form-button is-login-btn" [nzType]="'primary'"
+                                                [nzLoading]="isFormSaving">{{'resetSubmit' | translate}}</button>
+                                        </div>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </form>
+                            <ng-template #prefixUser><i nz-icon nzType="user"></i></ng-template>
+                            <ng-template #prefixLock><i nz-icon nzType="lock"></i></ng-template>
+                        </nz-card>
+
+
                     </div>
                 </div>
             </div>

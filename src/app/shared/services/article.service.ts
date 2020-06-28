@@ -7,6 +7,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { ACTIVE } from '../constants/status-constants';
 import * as firebase from 'firebase/app';
 import * as moment from 'moment';
+import { STAFF } from '../constants/member-constant';
 
 @Injectable({
   providedIn: 'root'
@@ -129,6 +130,23 @@ export class ArticleService {
     return this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`).doc(commentid).set(commentDtails)
   }
 
+
+  getHeroArticles(lang) {
+    return this.db.collection<Article[]>(this.articleCollection, ref => ref
+      .where('lang', "==", lang)
+      .where('status', "==", ACTIVE)
+      .orderBy('published_at', 'desc')
+      .limit(6)
+    ).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+  }
 
   getHeroLargeArticle(lang) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
@@ -480,10 +498,10 @@ export class ArticleService {
     return this.db.collection(this.articleCollection).doc(articleId).collection(this.articleLikesCollection).doc(likerId).valueChanges();
   }
 
-  getArticleById(articleId: string, authorId) {
+  getArticleById(articleId: string, authorId, type: string) {
     return new Promise<any>((resolve, reject) => {
       this.db.doc(`${this.articleCollection}/${articleId}`).valueChanges().subscribe((data) => {
-        if (data && data['author'].id === authorId) {
+        if (data && data['author'].id === authorId || type == STAFF) {
           data['id'] = articleId;
           resolve(data)
         } else {

@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit {
   currentUser: any;
   isPhotoChangeLoading: boolean = false;
   isFormSaving: boolean = false;
+  languageList;
 
   constructor(
     private fb: FormBuilder,
@@ -33,13 +34,15 @@ export class ProfileComponent implements OnInit {
     private message: NzMessageService,
     private userService: UserService,
     public translate: TranslateService,
-    private language: LanguageService
+    private languageService: LanguageService
   ) { }
 
   ngOnInit() {
+    this.languageList = this.languageService.geLanguageList();
     this.profileForm = this.fb.group({
       phone: [null, [Validators.required]],
       birth: [null, [Validators.required]],
+      lang: [null, [Validators.required]],
       biography: [null],
       later: [null]
     });
@@ -56,6 +59,7 @@ export class ProfileComponent implements OnInit {
 
   setMemberDetails(memberDetails: Member) {
     this.profileForm.controls['biography'].setValue(memberDetails.bio);
+    this.profileForm.controls['lang'].setValue(memberDetails.lang);
 
   }
   setFormData() {
@@ -91,9 +95,9 @@ export class ProfileComponent implements OnInit {
         const mobile = this.profileForm.get('phone').value;
         const birthdate = formatDate(this.profileForm.get('birth').value, 'yyyy/MM/dd', "en");
         const bio = this.profileForm.get('biography').value;
-        await this.userService.update(this.currentUser.id, { mobile, birthdate })
-        if (bio)
-          await this.userService.updateMember(this.currentUser.id, { bio: bio ? bio : '' });
+        const lang = this.profileForm.get('lang').value;
+        await this.userService.update(this.currentUser.id, { mobile, birthdate, lang })
+        await this.userService.updateMember(this.currentUser.id, { bio: bio ? bio : '', lang });
 
         this.isFormSaving = false;
         this.router.navigate(['/auth/interest']);

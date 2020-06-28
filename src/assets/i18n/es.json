@@ -312,8 +312,18 @@
     "articleDeletMsgSuc": "Artículo eliminado correctamente",
     "articleDeletMsgConf": "¿Seguro que desea eliminar el artículo?",
     "deleteArticle": "Eliminar artículo",
-    "CreateStory":"Crear historia",
-    "PublishStories":"Publica tus historias de hoy",
-    "todayStories":"Las historias de hoy",
-    "ViewAllStory":"Ver todas las historias de hoy"
+    "CreateStory": "Crear historia",
+    "PublishStories": "Publica tus historias de hoy",
+    "todayStories": "Las historias de hoy",
+    "ViewAllStory": "Ver todas las historias de hoy",
+    "memberSettings": "Actualizar miembros",
+    "allArticles": "Todos los artículos",
+    "invalidCaptchaErr": "Captcha no válido",
+    "passwordChangeMsg": "Su contraseña no cumple con los requisitos mínimos de seguridad. Por favor escribe uno nuevo.",
+    "MemListName": "Nombre",
+    "MemListViewProfile": "Enlace de perfil",
+    "MemListEditSearch": "Editar perfil por correo electrónico",
+    "MemViewProfile": "Ver perfil",
+    "MemSearch": "Buscar",
+    "MemListViewType": "Tipo"
 }

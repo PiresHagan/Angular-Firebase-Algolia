@@ -1,10 +1,10 @@
+
 import { Component } from "@angular/core";
 import { UploadFile } from "ng-zorro-antd";
 import { FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms";
 import { NzModalService } from "ng-zorro-antd";
 import { NzMessageService } from "ng-zorro-antd";
 import { UserService } from "src/app/shared/services/user.service";
-import * as firebase from "firebase/app";
 import "firebase/storage";
 import { User } from "src/app/shared/interfaces/user.type";
 import { formatDate } from "@angular/common";
@@ -12,45 +12,51 @@ import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 import { Member } from "src/app/shared/interfaces/member.type";
 import { CategoryService } from "src/app/shared/services/category.service";
 import { LanguageService } from "src/app/shared/services/language.service";
+import { StaffArticleService } from "src/app/shared/services/staff-article.service";
+import { AuthService } from "src/app/shared/services/authentication.service";
 
 
 @Component({
-  templateUrl: "./profile-settings.component.html",
-  styleUrls: ['./profile-settings.component.scss']
+  templateUrl: './staff-settings.component.html',
+  styleUrls: ['./staff-settings.component.scss']
 })
-export class ProfileSettingsComponent {
+export class StaffSettingsComponent {
+
   changePWForm: FormGroup;
   categoriesArray = [];
   photoURL: string;
   selectedCountry: any;
   profileForm: FormGroup;
-  interestForm: FormGroup;
+
   currentUserEmail: string;
   isLoading: boolean = false;
   isChangePassLoading: boolean = false;
-  isNotificationLoading: boolean = false;
+
   currentUser: User;
   isPhotoChangeLoading: boolean = false;
   memberDetails: Member;
   userDetails: User;
-  languageList;
-
-  notificationConfigList = [
-
-  ];
+  loggedInUser: Member;
+  memberEmail: string;
+  memberList;
+  loadingMore;
+  lastVisible;
 
   constructor(
     private fb: FormBuilder,
     private modalService: NzModalService,
     private message: NzMessageService,
     private userService: UserService,
+    private staffService: StaffArticleService,
     public translate: TranslateService,
     public categoryService: CategoryService,
-    public languageService: LanguageService
+    public languageService: LanguageService,
+    public articleService: StaffArticleService,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    this.languageList = this.languageService.geLanguageList();
+    window.addEventListener('scroll', this.scrollEvent, true);
     /**
      * Password Form
      */
@@ -64,43 +70,16 @@ export class ProfileSettingsComponent {
      */
 
     this.profileForm = this.fb.group({
-      phone: [null, [Validators.required]],
-      birth: [null, [Validators.required]],
+      phone: [null],
+      birth: [null],
       biography: [null],
       displayName: [null, [Validators.required]],
-      lang: [null, [Validators.required]]
     });
-
-    /**
-     * Intrest List Form
-     */
-    this.interestForm;
-
-    this.setFormsData();
-
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.notificationConfigList = [];
-      this.interestForm = null;
-      this.setIntrestForm(this.userDetails);
-    })
-
-  }
-  setFormsData() {
-    this.userService.getCurrentUser().then((user) => {
-      this.currentUser = user;
-
-      this.userService.get(user.uid).subscribe((userDetails) => {
-        this.currentUserEmail = userDetails.email;
-        this.setUserDetails(userDetails);
-        this.userDetails = userDetails;
-
-        this.setIntrestForm(userDetails);
-      })
-      this.userService.getMember(user.uid).subscribe((memberDetails) => {
-        this.photoURL = memberDetails?.avatar?.url;
-        this.memberDetails = memberDetails
-        this.setMemberDetails(memberDetails);
-      })
+    this.getMemberList();
+    this.authService.getAuthState().subscribe(async (user) => {
+      if (!user)
+        return;
+      this.loggedInUser = await this.authService.getLoggedInUserDetails();
 
     })
   }
@@ -115,32 +94,9 @@ export class ProfileSettingsComponent {
 
   setMemberDetails(memberDetails: Member) {
     this.profileForm.controls['biography'].setValue(memberDetails.bio);
-    this.profileForm.controls['lang'].setValue(memberDetails.lang);
     this.profileForm.controls['displayName'].setValue(memberDetails.fullname);
   }
 
-  setIntrestForm(userDetails) {
-    let selectedLanguage = this.languageService.getSelectedLanguage()
-    this.categoryService.getAll(userDetails.lang ? userDetails.lang : selectedLanguage).subscribe((categoryList) => {
-      this.categoriesArray = categoryList;
-      let updatedCategory = this.getUpdatedCategories(categoryList);
-      let intrestList = updatedCategory.catList;
-      for (let index = 0; index < intrestList.length; index++) {
-        const intrest = intrestList[index];
-        if (userDetails.interests && userDetails.interests.length > 0) {
-          userDetails.interests.forEach(obj => {
-            if (obj.id == intrest.id) {
-              intrestList[index].status = true;
-            }
-          });
-        }
-      }
-
-      this.notificationConfigList = intrestList;
-      this.interestForm = this.interestForm = this.fb.group(updatedCategory.formObj);
-    })
-
-  }
   getUpdatedCategories(categoryList) {
     let newCatList = [];
     let formObj = {};
@@ -150,7 +106,7 @@ export class ProfileSettingsComponent {
         slug: category.slug,
         title: category.title,
         lf_list_id: category.lf_list_id,
-        lf_allmem_id: category.lf_allmem_id,
+        lf_allsubs_id: category.lf_allsubs_id,
         desc: "",
         icon: "usergroup-add",
         color: "ant-avatar-orange",
@@ -179,7 +135,7 @@ export class ProfileSettingsComponent {
     this.modalService.confirm({
       nzTitle: "<i>" + $message + "</i>",
       nzOnOk: () => {
-        this.userService.updatePassword(password).then(() => {
+        this.staffService.updatePassword(this.currentUser.email, password).then(() => {
           this.showSuccess();
         })
       },
@@ -217,7 +173,7 @@ export class ProfileSettingsComponent {
     this.isPhotoChangeLoading = true;
     this.getBase64(info.file.originFileObj, (img: string) => {
       this.photoURL = img;
-      this.userService.addProfileImage(this.currentUser.uid, img, info.file?.name).then(() => {
+      this.userService.addProfileImage(this.currentUser.id, img, info.file?.name).then(() => {
         this.isPhotoChangeLoading = false;
       }).catch(() => {
         this.isPhotoChangeLoading = false;
@@ -235,20 +191,19 @@ export class ProfileSettingsComponent {
     }
     if (this.findInvalidControls().length == 0) {
 
-      let mobile = this.profileForm.get("phone").value;;
-      let birthdate = formatDate(
+      let mobile = this.profileForm.get("phone").value ? this.profileForm.get("phone").value : '';;
+      let birthdate = this.profileForm.get("birth").value ? formatDate(
         this.profileForm.get("birth").value,
         "yyyy/MM/dd",
         "en"
-      );;
-      let bio = this.profileForm.get("biography").value;
-      let lang = this.profileForm.get("lang").value;
+      ) : '';;
+      let bio = this.profileForm.get("biography").value ? this.profileForm.get("biography").value : '';
       let fullname = this.profileForm.get("displayName").value;
 
       try {
         this.isLoading = true;
-        await this.userService.update(this.currentUser.uid, { mobile, birthdate, lang });
-        await this.userService.updateMember(this.currentUser.uid, { bio, fullname, lang });
+        await this.userService.update(this.currentUser.id, { mobile, birthdate });
+        await this.userService.updateMember(this.currentUser.id, { bio, fullname });
         this.isLoading = false;
         this.showSuccess();
       } catch (e) {
@@ -269,33 +224,71 @@ export class ProfileSettingsComponent {
     return invalid;
   }
 
-  saveIntrestList() {
-    if (!this.currentUser)
-      return;
-    this.isNotificationLoading = true;
-    const interests = [];
-    for (const i in this.interestForm.controls) {
-      this.interestForm.controls[i].markAsDirty();
-      this.interestForm.controls[i].updateValueAndValidity();
-      if (this.interestForm.controls[i].value) {
-        let categoryObj = this.categoriesArray.find(cat => cat.id == i);
-        if (categoryObj) {
-          interests.push(categoryObj);
-        }
-      }
-    }
-
-    this.userService
-      .update(this.currentUser.uid, { interests })
-      .then(() => {
-        this.isNotificationLoading = false;
-        this.showSuccess();
-      });
-  }
 
   passwordConfirming(c: AbstractControl): { invalid: boolean } {
     if (c.get('newPassword').value !== c.get('confirmPassword').value) {
       return { invalid: true };
     }
+  }
+  getMemberDetails() {
+
+
+    this.userService.getByEmail(this.memberEmail).subscribe((receiVedUserDetails) => {
+      const userDetails = receiVedUserDetails ? receiVedUserDetails[0] : null;
+      this.setMember(userDetails);
+    })
+
+  }
+  getMemberDetailsById(id) {
+    this.userService.getMember(id).subscribe((receiVedUserDetails) => {
+      this.setMember(receiVedUserDetails);
+    })
+  }
+  setMember(userDetails) {
+
+    this.currentUser = userDetails;
+    this.currentUserEmail = userDetails.email;
+    this.setUserDetails(userDetails);
+    this.userDetails = userDetails;
+    this.userService.getMember(this.userDetails.id).subscribe((memberDetails) => {
+      this.photoURL = memberDetails?.avatar?.url;
+      this.memberDetails = memberDetails
+      this.setMemberDetails(memberDetails);
+    })
+  }
+  getMemberList() {
+    this.staffService.getMemberList().subscribe((memberData) => {
+      this.memberList = memberData.memberList;
+      this.lastVisible = memberData.lastVisible;
+    })
+  }
+  editMember(id) {
+    this.getMemberDetailsById(id);
+  }
+  goBack() {
+    this.memberEmail = "";
+    this.currentUser = null;
+  }
+  scrollEvent = (event: any): void => {
+    if (event.target && event.target.documentElement) {
+      const top = event.target.documentElement.scrollTop
+      const height = event.target.documentElement.scrollHeight
+      const offset = event.target.documentElement.offsetHeight
+      console.log(height, offset, top)
+      if (top > height - offset - 1 - 100 && this.lastVisible && !this.loadingMore) {
+        this.loadingMore = true;
+        this.staffService.getMemberList(null, 'next', this.lastVisible).subscribe((memberListData) => {
+          this.loadingMore = false;
+          if (memberListData &&
+            memberListData.memberList &&
+            memberListData.memberList[0]
+            && memberListData.memberList.length > 1
+            && memberListData.memberList[0].id !== this.loggedInUser.id)
+            this.memberList = [...this.memberList, ...memberListData.memberList];
+          this.lastVisible = memberListData.lastVisible;
+        });
+      }
+    }
+
   }
 }

@@ -6,6 +6,7 @@ import { ArticleService } from 'src/app/shared/services/article.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { ACTIVE, DRAFT } from 'src/app/shared/constants/status-constants';
 import { NzModalService } from 'ng-zorro-antd';
+import { STAFF, AUTHOR, MEMBER } from 'src/app/shared/constants/member-constant';
 
 @Component({
   selector: 'app-article-publish',
@@ -40,7 +41,7 @@ export class ArticlePublishComponent implements OnInit {
       this.userDetails = await this.authService.getLoggedInUserDetails();
       if (this.articleId) {
         try {
-          this.article = await this.articleService.getArticleById(this.articleId, this.userDetails.id);
+          this.article = await this.articleService.getArticleById(this.articleId, this.userDetails.id, this.userDetails.type);
         } catch (error) {
           this.article = null;
           this.router.navigate(['/app/error'])
@@ -59,13 +60,27 @@ export class ArticlePublishComponent implements OnInit {
     this.isFormSaving = true;
     this.articleService.updateArticleImage(this.articleId, { status: ACTIVE, published_at: new Date().toISOString() }).then(async () => {
 
-      if (!this.userDetails.type || this.userDetails.type == 'member')
-        await this.userService.updateMember(this.userDetails.id, { type: 'author' });
+      if ((!this.userDetails.type || this.userDetails.type == MEMBER) && this.userDetails.type != STAFF)
+        await this.userService.updateMember(this.userDetails.id, { type: AUTHOR });
 
       this.isFormSaving = false;
       this.showSuccess();
 
     })
+
+
+  }
+  saveDraftStatus() {
+    this.isFormSaving = true;
+    this.articleService.updateArticleImage(this.articleId, { status: DRAFT }).then(async () => {
+      this.isFormSaving = false;
+      if (this.userDetails.type == STAFF)
+        this.router.navigate(['/app/admin/article']);
+      else
+        this.router.navigate(['/app/article']);
+
+    })
+
 
   }
   saveDraftStatus() {
@@ -86,7 +101,10 @@ export class ArticlePublishComponent implements OnInit {
     this.modalService.confirm({
       nzTitle: "<i>" + $message + "</i>",
       nzOnOk: () => {
-        this.router.navigate(['/app/article']);
+        if (this.userDetails.type == STAFF)
+          this.router.navigate(['/app/admin/article']);
+        else
+          this.router.navigate(['/app/article']);
       },
     });
   }

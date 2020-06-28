@@ -3,7 +3,7 @@
         <div class="is-profile-main">
             <div class="is-author-profile-img">
                 <img class="avatar" itemprop="image" [src]="replaceImage(authorDetails?.avatar?.url)"
-                    alt="{{authorDetails?.avatar?.alt}}" />
+                    alt="{{authorDetails?.avatar?.alt}}" onerror="this.src='assets/images/default-avatar.png'"  />
             </div>
             <div class="is-author-profile-info">
                 <h2 class="is-author-profile-name is-divider">
@@ -91,7 +91,7 @@
             <div class="is-followers-item" *ngFor="let follower of followers">
 
                 <a [routerLink]="['/profile/',follower.slug]">
-                    <img src="{{replaceImage(follower?.avatar?.url)}}" alt="{{follower?.avatar?.alt}}" />
+                    <img src="{{replaceImage(follower?.avatar?.url)}}" onerror="this.src='assets/images/default-avatar.png'" alt="{{follower?.avatar?.alt}}" />
                 </a>
             </div>
         </div>
@@ -112,7 +112,7 @@
         <div class="is-followers-user">
             <div class="is-followers-item" *ngFor="let subscriber of subscribers">
                 <a [routerLink]="['/profile/',subscriber.slug]">
-                    <img src="{{replaceImage(subscriber?.avatar?.url)}}" alt="{{subscriber?.avatar?.alt}}" />
+                    <img src="{{replaceImage(subscriber?.avatar?.url)}}" onerror="this.src='assets/images/default-avatar.png'" alt="{{subscriber?.avatar?.alt}}" />
                 </a>
             </div>
 
@@ -149,7 +149,8 @@
                                             <div class="is-avatar-dv">
 
                                                 <img class="avatar" [src]="replaceImage(article?.author?.avatar?.url)"
-                                                    [alt]="article?.author?.avatar?.alt">
+                                                    [alt]="article?.author?.avatar?.alt"
+                                                    onerror="this.src='assets/images/default-avatar.png'">
                                                 <span class="item-card-author">{{article?.author?.fullname}}</span>
                                             </div>
                                         </div>

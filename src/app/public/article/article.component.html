@@ -9,7 +9,9 @@
                     <div class="is-profile">
                         <a [routerLink]="['/profile/',article?.author?.slug]" itemprop="url" *ngIf="article">
                             <img class="avatar" src="{{replaceImage(article?.author?.avatar?.url)}}"
-                                alt="{{article?.author?.avatar?.alt}}" />
+                                alt="{{article?.author?.avatar?.alt}}"
+                                onerror="this.src='assets/images/default-avatar.png'"
+                                 />
                         </a>
                     </div>
                     <!-- <div class="is-author-name-sec is-divider" *ngIf="isLoggedInUser">-->
@@ -75,7 +77,8 @@
                             <div class="is-image">
                                 <a [routerLink]="['/profile/',article?.author?.slug]" itemprop="url" *ngIf="article">
                                     <img class="avatar" alt="{{article?.author?.avatar?.alt}}"
-                                        src="{{replaceImage(article?.author?.avatar?.url)}}" />
+                                        src="{{replaceImage(article?.author?.avatar?.url)}}" 
+                                        onerror="this.src='assets/images/default-avatar.png'"/>
                                     <span class="name" itemprop="name">
                                         {{article?.author.fullname}}</span>
                                 </a>
