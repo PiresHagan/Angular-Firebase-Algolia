@@ -47,7 +47,27 @@
                                                 nzPlaceHolder="{{'loginProfileDOB' | translate}}"></nz-date-picker>
                                         </nz-form-control>
                                     </nz-form-item>
+
                                 </div>
+
+                                <div class="col-md-4">
+                                    <nz-form-item>
+                                        <nz-form-label>{{'lang' | translate}}</nz-form-label>
+                                        <nz-form-control nzErrorTip="{{'langErr' | translate}}" class="m-5">
+                                            <nz-select class="m-r-10" formControlName="lang" nzAllowClear
+                                                nzPlaceHolder="{{'lang' | translate}}">
+                                                <!-- (ngModelChange)="languageSelected($event)" -->
+                                                <nz-option *ngFor="let language of languageList"
+                                                    [nzValue]="language.code" nzLabel="{{language.label}}">
+                                                </nz-option>
+                                            </nz-select>
+                                        </nz-form-control>
+                                    </nz-form-item>
+
+
+                                </div>
+
+
 
                                 <div class="col-md-12">
                                     <nz-form-item>

@@ -33,6 +33,7 @@ export class ProfileSettingsComponent {
   isPhotoChangeLoading: boolean = false;
   memberDetails: Member;
   userDetails: User;
+  languageList;
 
   notificationConfigList = [
 
@@ -49,6 +50,7 @@ export class ProfileSettingsComponent {
   ) { }
 
   ngOnInit(): void {
+    this.languageList = this.languageService.geLanguageList();
     /**
      * Password Form
      */
@@ -66,6 +68,7 @@ export class ProfileSettingsComponent {
       birth: [null, [Validators.required]],
       biography: [null],
       displayName: [null, [Validators.required]],
+      lang: [null, [Validators.required]]
     });
 
     /**
@@ -112,12 +115,13 @@ export class ProfileSettingsComponent {
 
   setMemberDetails(memberDetails: Member) {
     this.profileForm.controls['biography'].setValue(memberDetails.bio);
+    this.profileForm.controls['lang'].setValue(memberDetails.lang);
     this.profileForm.controls['displayName'].setValue(memberDetails.fullname);
   }
 
   setIntrestForm(userDetails) {
     let selectedLanguage = this.languageService.getSelectedLanguage()
-    this.categoryService.getAll(selectedLanguage).subscribe((categoryList) => {
+    this.categoryService.getAll(userDetails.lang ? userDetails.lang : selectedLanguage).subscribe((categoryList) => {
       this.categoriesArray = categoryList;
       let updatedCategory = this.getUpdatedCategories(categoryList);
       let intrestList = updatedCategory.catList;
@@ -125,7 +129,7 @@ export class ProfileSettingsComponent {
         const intrest = intrestList[index];
         if (userDetails.interests && userDetails.interests.length > 0) {
           userDetails.interests.forEach(obj => {
-            if(obj.id == intrest.id) {
+            if (obj.id == intrest.id) {
               intrestList[index].status = true;
             }
           });
@@ -238,12 +242,13 @@ export class ProfileSettingsComponent {
         "en"
       );;
       let bio = this.profileForm.get("biography").value;
+      let lang = this.profileForm.get("lang").value;
       let fullname = this.profileForm.get("displayName").value;
 
       try {
         this.isLoading = true;
-        await this.userService.update(this.currentUser.uid, { mobile, birthdate });
-        await this.userService.updateMember(this.currentUser.uid, { bio, fullname });
+        await this.userService.update(this.currentUser.uid, { mobile, birthdate, lang });
+        await this.userService.updateMember(this.currentUser.uid, { bio, fullname, lang });
         this.isLoading = false;
         this.showSuccess();
       } catch (e) {
@@ -272,8 +277,8 @@ export class ProfileSettingsComponent {
     for (const i in this.interestForm.controls) {
       this.interestForm.controls[i].markAsDirty();
       this.interestForm.controls[i].updateValueAndValidity();
-      if (this.interestForm.controls[i].value) { 
-        let categoryObj = this.categoriesArray.find( cat => cat.id == i );
+      if (this.interestForm.controls[i].value) {
+        let categoryObj = this.categoriesArray.find(cat => cat.id == i);
         if (categoryObj) {
           interests.push(categoryObj);
         }

@@ -41,7 +41,7 @@ export class InterestComponent implements OnInit {
     }
     setIntrestForm(userDetails) {
         let selectedLanguage = this.language.getSelectedLanguage()
-        this.categoryService.getAll(selectedLanguage).subscribe((categoryList) => {
+        this.categoryService.getAll(userDetails.lang ? userDetails.lang : selectedLanguage).subscribe((categoryList) => {
             this.categoriesArray = categoryList;
             let updatedCategory = this.getUpdatedCategories(categoryList);
             let intrestList = updatedCategory.catList;
@@ -49,9 +49,9 @@ export class InterestComponent implements OnInit {
                 const intrest = intrestList[index];
                 if (userDetails.interests && userDetails.interests.length > 0) {
                     userDetails.interests.forEach(obj => {
-                      if(obj.id == intrest.id) {
-                        intrestList[index].status = true;
-                      }
+                        if (obj.id == intrest.id) {
+                            intrestList[index].status = true;
+                        }
                     });
                 }
             }
@@ -94,8 +94,8 @@ export class InterestComponent implements OnInit {
         for (const i in this.interestForm.controls) {
             this.interestForm.controls[i].markAsDirty();
             this.interestForm.controls[i].updateValueAndValidity();
-            if (this.interestForm.controls[i].value) { 
-                let categoryObj = this.categoriesArray.find( cat => cat.id == i );
+            if (this.interestForm.controls[i].value) {
+                let categoryObj = this.categoriesArray.find(cat => cat.id == i);
                 if (categoryObj) {
                     interests.push(categoryObj);
                 }
