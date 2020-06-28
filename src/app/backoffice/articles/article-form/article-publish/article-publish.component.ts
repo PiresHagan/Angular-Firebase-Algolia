@@ -80,16 +80,6 @@ export class ArticlePublishComponent implements OnInit {
         this.router.navigate(['/app/article']);
 
     })
-
-
-  }
-  saveDraftStatus() {
-    this.isFormSaving = true;
-    this.articleService.updateArticleImage(this.articleId, { status: DRAFT }).then(async () => {
-      this.isFormSaving = false;
-      this.router.navigate(['/app/article']);
-
-    })
   }
 
   showSuccess() {
