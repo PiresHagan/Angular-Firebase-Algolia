@@ -6,7 +6,7 @@ export const ROUTES: SideNavInterface[] = [
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'lock',
-        staff: false,
+        staff_only: false,
         submenu: []
     },
     {
@@ -15,7 +15,7 @@ export const ROUTES: SideNavInterface[] = [
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'crown',
-        staff: false,
+        staff_only: false,
         submenu: []
     },
     {
@@ -24,7 +24,7 @@ export const ROUTES: SideNavInterface[] = [
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'notification',
-        staff: false,
+        staff_only: false,
         submenu: []
     },
     {
@@ -33,7 +33,7 @@ export const ROUTES: SideNavInterface[] = [
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'lock',
-        staff: true,
+        staff_only: true,
         submenu: [
             {
                 path: '/app/admin/article',
@@ -41,7 +41,7 @@ export const ROUTES: SideNavInterface[] = [
                 iconType: 'nzIcon',
                 iconTheme: 'outline',
                 icon: 'crown',
-                staff: true,
+                staff_only: true,
                 submenu: []
             },
             {
@@ -50,39 +50,19 @@ export const ROUTES: SideNavInterface[] = [
                 iconType: 'nzIcon',
                 iconTheme: 'outline',
                 icon: 'lock',
-                staff: true,
+                staff_only: true,
                 submenu: []
             }
         ]
     }
-]
-
-export const ADMIN_ROUTES: SideNavInterface[] = [
-    {
-        path: '/app/admin/article',
-        title: 'allArticles',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'crown',
-        staff: true,
-        submenu: []
-    },
-    {
-        path: '/app/admin/member',
-        title: 'memberSettings',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'lock',
-        staff: true,
-        submenu: []
-    },
+    ,
     {
         path: '/app/settings/profile-settings',
         title: 'myAccountSettings',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'lock',
-        staff: true,
+        staff_only: true,
         submenu: []
-    }
+    },
 ]

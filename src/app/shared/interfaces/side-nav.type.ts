@@ -4,6 +4,6 @@ export interface SideNavInterface {
     iconType: "" | "nzIcon" | "fontawesome";
     iconTheme: "" | "fab" | "far" | "fas" | "fill" | "outline" | "twotone";
     icon: string,
-    staff: boolean,
-    submenu : SideNavInterface[];
+    staff_only: boolean,
+    submenu: SideNavInterface[];
 }

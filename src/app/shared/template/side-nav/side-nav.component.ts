@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ROUTES, ADMIN_ROUTES } from './side-nav-routes.config';
+import { ROUTES } from './side-nav-routes.config';
 import { ThemeConstantService } from '../../services/theme-constant.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -16,6 +16,7 @@ export class SideNavComponent {
     public menuItems: any[]
     isFolded: boolean = false;
     isSideNavDark: boolean;
+    isStaffAccount: boolean = false
 
     constructor(private themeService: ThemeConstantService,
         public translate: TranslateService,
@@ -28,8 +29,9 @@ export class SideNavComponent {
         this.afAuth.authState.subscribe(() => {
             this.authService.getCustomClaimData().then((role) => {
                 if (role == STAFF) {
-                    this.menuItems = [...ADMIN_ROUTES]
+                    this.isStaffAccount = true;
                 }
+
             })
         })
 
