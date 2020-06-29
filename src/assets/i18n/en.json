@@ -332,6 +332,7 @@
     "ArtSearchBySlug": "Edit Article By Slug.",
     "ArtSearchAndEdit": "Search And Edit",
     "ArtNotFound": "No records are available with this slug.",
-    "artGoBackbtn": "Back To Article List",
-    "MemNotFound": "No records are available with this email."
+    "goBackbtnArticleList": "Back To Article List",
+    "MemNotFound": "No records are available with this email.",
+    "artGoBackbtn": "Back"
 }

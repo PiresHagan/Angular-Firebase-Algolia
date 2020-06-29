@@ -330,6 +330,7 @@
     "ArtSearchBySlug": "Modifier l'article par slug.",
     "ArtSearchAndEdit": "Rechercher et modifier",
     "ArtNotFound": "Aucun enregistrement n'est disponible avec ce slug.",
-    "artGoBackbtn": "Retour à la liste des articles",
-    "MemNotFound": "Aucun enregistrement n'est disponible avec cet e-mail."
+    "goBackbtnArticleList": "Retour à la liste des articles",
+    "MemNotFound": "Aucun enregistrement n'est disponible avec cet e-mail.",
+    "artGoBackbtn": "Retour"
 }

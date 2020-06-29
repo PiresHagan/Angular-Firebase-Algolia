@@ -330,6 +330,7 @@
     "ArtSearchBySlug": "Editar artículo por Slug",
     "ArtSearchAndEdit": "Buscar y editar",
     "ArtNotFound": "No hay registros disponibles con esta babosa",
-    "artGoBackbtn": "Volver a la lista de artículos",
-    "MemNotFound": "No hay registros disponibles con este correo electrónico"
+    "goBackbtnArticleList": "Volver a la lista de artículos",
+    "MemNotFound": "No hay registros disponibles con este correo electrónico",
+    "artGoBackbtn": "Volver"
 }
