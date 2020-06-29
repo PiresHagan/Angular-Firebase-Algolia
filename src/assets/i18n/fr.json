@@ -320,10 +320,16 @@
     "allArticles": "Tous les articles",
     "invalidCaptchaErr": "Captcha non valide",
     "passwordChangeMsg": "Votre mot de passe ne répond pas aux exigences de sécurité minimales. Veuillez en entrer un nouveau.",
+    "goBackbtn": "Retour à la liste des membres",
     "MemListName": "Nom",
     "MemListViewProfile": "Lien de profil",
     "MemListEditSearch": "Modifier le profil par e-mail",
     "MemViewProfile": "Voir le profil",
-    "MemSearch": "Recherche",
-    "MemListViewType": "Type"
+    "MemSearch": "Rechercher et modifier",
+    "MemListViewType": "Type",
+    "ArtSearchBySlug": "Modifier l'article par slug.",
+    "ArtSearchAndEdit": "Rechercher et modifier",
+    "ArtNotFound": "Aucun enregistrement n'est disponible avec ce slug.",
+    "artGoBackbtn": "Retour à la liste des articles",
+    "MemNotFound": "Aucun enregistrement n'est disponible avec cet e-mail."
 }

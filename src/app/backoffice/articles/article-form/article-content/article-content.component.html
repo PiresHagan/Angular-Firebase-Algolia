@@ -103,10 +103,13 @@
               </nz-option>
             </nz-select>
           </nz-form-item> -->
+
             <div class="d-inline-block">
               <nz-form-item>
-                <button nz-button [nzLoading]="isFormSaving" class="login-form-button" [nzType]="'primary'"
-                  nzBlock>{{'artNext' | translate}}</button>
+                <button nz-button type="button" (click)="goBack()" class="login-form-button m-10"
+                  [nzType]="'primary'">{{'artGoBackbtn' | translate}}</button>
+                <button nz-button [nzLoading]="isFormSaving" class="login-form-button  m-10"
+                  [nzType]="'primary'">{{'artNext' | translate}}</button>
               </nz-form-item>
             </div>
 

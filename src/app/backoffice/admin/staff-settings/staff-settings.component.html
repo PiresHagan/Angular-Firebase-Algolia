@@ -8,9 +8,11 @@
                 [(ngModel)]="memberEmail" />
         </nz-input-group>
         <ng-template #suffixButton>
-            <button nz-button nzType="primary" nzSize="large" nzSearch
-                (click)="getMemberDetails()">{{'MemSearch' | translate}}</button>
+            <button nz-button nzType="primary" nzSize="large" nzSearch (click)="getMemberDetails()"
+                [disabled]="!memberEmail?true:false">{{'MemSearch' | translate}}</button>
         </ng-template>
+        <nz-alert class="m-b-10 m-t-10" nzType="warning" nzDescription=" {{ 'MemNotFound' | translate }}" nzShowIcon
+            *ngIf="notFound"></nz-alert>
         <nz-card *ngIf="!currentUser">
             <nz-table>
                 <thead>

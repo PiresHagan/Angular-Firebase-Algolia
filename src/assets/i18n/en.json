@@ -322,11 +322,16 @@
     "allArticles": "All Articles",
     "invalidCaptchaErr": "Invalid Captcha",
     "passwordChangeMsg": "Your password does not meet the minimum security requirements. Please enter a new one.",
-    "goBackbtn": "Back",
+    "goBackbtn": "Back To Member List",
     "MemListName": "Name",
     "MemListViewProfile": "Profile Link",
     "MemListEditSearch": "Edit Profile By Email",
     "MemViewProfile": "View Profile",
-    "MemSearch": "Search",
-    "MemListViewType": "Type"
+    "MemSearch": "Search And Edit",
+    "MemListViewType": "Type",
+    "ArtSearchBySlug": "Edit Article By Slug.",
+    "ArtSearchAndEdit": "Search And Edit",
+    "ArtNotFound": "No records are available with this slug.",
+    "artGoBackbtn": "Back To Article List",
+    "MemNotFound": "No records are available with this email."
 }

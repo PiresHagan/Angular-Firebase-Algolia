@@ -320,10 +320,16 @@
     "allArticles": "Todos los artículos",
     "invalidCaptchaErr": "Captcha no válido",
     "passwordChangeMsg": "Su contraseña no cumple con los requisitos mínimos de seguridad. Por favor escribe uno nuevo.",
+    "goBackbtn": "Volver a la lista de miembros",
     "MemListName": "Nombre",
     "MemListViewProfile": "Enlace de perfil",
     "MemListEditSearch": "Editar perfil por correo electrónico",
     "MemViewProfile": "Ver perfil",
-    "MemSearch": "Buscar",
-    "MemListViewType": "Tipo"
+    "MemSearch": "Buscar y editar",
+    "MemListViewType": "Tipo",
+    "ArtSearchBySlug": "Editar artículo por Slug",
+    "ArtSearchAndEdit": "Buscar y editar",
+    "ArtNotFound": "No hay registros disponibles con esta babosa",
+    "artGoBackbtn": "Volver a la lista de artículos",
+    "MemNotFound": "No hay registros disponibles con este correo electrónico"
 }

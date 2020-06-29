@@ -11,6 +11,7 @@ import { NzModalService } from 'ng-zorro-antd';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DRAFT } from 'src/app/shared/constants/status-constants';
 import { LanguageService } from 'src/app/shared/services/language.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-article-content',
@@ -56,6 +57,7 @@ export class ArticleContentComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private languageService: LanguageService,
+    private location: Location
   ) {
 
     this.articleForm = this.fb.group({
@@ -280,6 +282,9 @@ export class ArticleContentComponent implements OnInit {
       this.topicList = topicData ? topicData : [];
 
     })
+  }
+  goBack() {
+    this.location.back();
   }
 
 

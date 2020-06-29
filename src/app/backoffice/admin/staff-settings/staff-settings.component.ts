@@ -41,6 +41,7 @@ export class StaffSettingsComponent {
   memberList;
   loadingMore;
   lastVisible;
+  notFound = false;
 
   constructor(
     private fb: FormBuilder,
@@ -234,8 +235,14 @@ export class StaffSettingsComponent {
 
 
     this.userService.getByEmail(this.memberEmail).subscribe((receiVedUserDetails) => {
+
       const userDetails = receiVedUserDetails ? receiVedUserDetails[0] : null;
-      this.setMember(userDetails);
+      if (!userDetails) {
+        this.notFound = true;
+      } else {
+        this.setMember(userDetails);
+      }
+
     })
 
   }

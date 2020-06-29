@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Article } from '../interfaces/article.type';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './authentication.service';
@@ -16,8 +16,6 @@ export class StaffArticleService {
   articleCollection: string = 'articles';
   memberCollection: string = 'members';
   constructor(private db: AngularFirestore, private http: HttpClient, private authService: AuthService) { }
-
-
 
   getArticles(limit: number = 10, navigation: string = "first", lastVisible = null) {
     if (!limit) {
@@ -95,6 +93,20 @@ export class StaffArticleService {
         lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
       }
     })
+    );
+  }
+  getArticalBySlug(slug: string) {
+    return this.db.collection<Article>(this.articleCollection, ref => ref
+      .where('slug', '==', slug)
+      .limit(1)
+    ).snapshotChanges().pipe(take(1),
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
     );
   }
 }

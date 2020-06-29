@@ -3,6 +3,7 @@ import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { StaffArticleService } from 'src/app/shared/services/staff-article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-article-list',
@@ -17,11 +18,14 @@ export class StaffArticlesComponent implements OnInit {
   articles: Article[];
   lastVisible: any = null;
   userDetails;
+  searchSlug: string = ""
+  notFound = false;
 
   constructor(
     public translate: TranslateService,
     public authService: AuthService,
     public articleService: StaffArticleService,
+    public router: Router
   ) { }
 
 
@@ -68,5 +72,15 @@ export class StaffArticlesComponent implements OnInit {
         .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
     }
     return latestURL;
+  }
+  getArticleSearchBySlug() {
+    this.articleService.getArticalBySlug(this.searchSlug).subscribe((result) => {
+      if (result && result[0])
+        this.router.navigate(['app/article/compose'], { queryParams: { article: result[0].id } });
+      else
+        this.notFound = true;
+    })
+
+    console.log(this.searchSlug);
   }
 }

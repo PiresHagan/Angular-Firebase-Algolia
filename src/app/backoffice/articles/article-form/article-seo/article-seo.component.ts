@@ -5,6 +5,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/authentication.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-article-seo',
@@ -27,6 +28,7 @@ export class ArticleSeoComponent implements OnInit {
     public translate: TranslateService,
     public authService: AuthService,
     private router: Router,
+    private location: Location,
     public articleService: ArticleService) { }
 
   ngOnInit() {
@@ -82,5 +84,9 @@ export class ArticleSeoComponent implements OnInit {
       }
     }
   }
+  goBack() {
+    this.location.back();
+  }
+
 
 }
