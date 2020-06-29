@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { SeoData } from '../interfaces/seo-data.type';
 import { Observable } from 'rxjs';
 
 @Injectable({
