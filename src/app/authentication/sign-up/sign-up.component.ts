@@ -10,6 +10,7 @@ import { PreviousRouteService } from 'src/app/shared/services/previous-route.ser
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { environment } from "src/environments/environment";
+import * as firebase from 'firebase';
 
 @Component({
     templateUrl: './sign-up.component.html',
@@ -124,6 +125,15 @@ export class SignUpComponent {
     addUser(userDetails, memberData) {
         this.generalError = false;
         this.userService.createUser(userDetails, memberData).then(() => {
+            const analytics = firebase.analytics();
+        
+            analytics.logEvent("sign_up", {
+                user_id: memberData.id,
+                user_name: memberData.fullname,
+                language: memberData.lang,
+                user_email: memberData.email,
+            });
+
             this.router.navigate(['/auth/profile']);
         }).catch(() => {
             this.generalError = true;

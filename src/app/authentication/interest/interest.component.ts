@@ -105,6 +105,16 @@ export class InterestComponent implements OnInit {
             this.isFormSaving = false;
             //this.router.navigate(['/auth/import-contact']);
             this.done();
+            const analytics = firebase.analytics();
+
+            interests.forEach(interest => {
+                analytics.logEvent("interest_opt_in", {
+                    category_title: interest.title,
+                    category_id: interest.id,
+                    user_id: this.currentUser.uid,
+                    user_name: this.currentUser.fullname
+                });
+            });
         });
 
 
