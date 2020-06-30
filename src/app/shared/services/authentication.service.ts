@@ -64,6 +64,15 @@ export class AuthService {
         return new Promise<any>((resolve, reject) => {
             this.afAuth.signInWithEmailAndPassword(email, password)
                 .then(res => {
+                    const analytics = firebase.analytics();
+    
+                    analytics.logEvent("login", {
+                        user_uid: res.user.uid,
+                        user_email: res.user.email,
+                        user_name: res.user.displayName,
+                        provider_id: res.user.providerData.length > 0 ? res.user.providerData[0].providerId : res.additionalUserInfo.providerId
+                    });
+
                     resolve(res);
                 }, err => reject(err))
         })
@@ -72,7 +81,17 @@ export class AuthService {
     signout() {
         return new Promise((resolve, reject) => {
             if (this.afAuth.currentUser) {
+                const user = firebase.auth().currentUser;
+
                 this.afAuth.signOut().then(() => {
+                    const analytics = firebase.analytics();
+    
+                    analytics.logEvent("logout", {
+                        user_uid: user.uid,
+                        user_email: user.email,
+                        user_name: user.displayName,
+                        provider_id: user.providerData.length > 0 ? user.providerData[0].providerId : user.providerId
+                    });
 
                     resolve();
                 })
