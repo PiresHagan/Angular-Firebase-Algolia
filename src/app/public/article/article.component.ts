@@ -12,6 +12,7 @@ import { DomSanitizer, Title, Meta } from '@angular/platform-browser';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { environment } from 'src/environments/environment';
 import { LanguageService } from 'src/app/shared/services/language.service';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-article',
@@ -272,19 +273,43 @@ export class ArticleComponent implements OnInit {
     }
   }
   async follow(authorId) {
-    let userDetails = this.getUserDetails();
-    this.authorService.follow(authorId, userDetails);
+    const userDetails = this.getUserDetails();
+    
     await this.authorService.follow(authorId, userDetails);
+    
     await this.authorService.following(userDetails.id, this.article.author);
+    
     this.authorService.followCount(authorId, userDetails.id, 1);
+    
+    const analytics = firebase.analytics();
+    
+    analytics.logEvent("follow_author", {
+      author_id: this.article.author.id,
+      author_name: this.article.author.fullname,
+      user_id: userDetails.id,
+      user_name: userDetails.fullname,
+    });
   }
 
   async unfollow(authorId) {
-    await this.authorService.unfollow(authorId, this.getUserDetails().id);
-    await this.authorService.unfollowing(this.getUserDetails().id, authorId);
-    this.authorService.followCount(authorId, this.getUserDetails().id, -1);
-
+    const userDetails = this.getUserDetails();
+    
+    await this.authorService.unfollow(authorId, userDetails.id);
+    
+    await this.authorService.unfollowing(userDetails.id, authorId);
+    
+    this.authorService.followCount(authorId, userDetails.id, -1);
+    
+    const analytics = firebase.analytics();
+    
+    analytics.logEvent("unfollow_author", {
+      author_id: this.article.author.id,
+      author_name: this.article.author.fullname,
+      user_id: userDetails.id,
+      user_name: userDetails.fullname,
+    });
   }
+
   setFollowOrNot() {
     this.authorService.isUserFollowing(this.article.author.id, this.getUserDetails().id).subscribe((data) => {
       if (data) {
