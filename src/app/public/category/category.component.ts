@@ -128,9 +128,9 @@ export class CategoryComponent implements OnInit {
         const analytics = firebase.analytics();
       
         analytics.logEvent("newsletter_subscription", {
-          content_id: `${this.category.id}`,
-          content_type: `${this.category.title}`,
-          category_title: `${this.category.title}`,
+          content_id: this.category.id,
+          content_type: this.category.title,
+          category_title: this.category.title,
           category_id: this.category.id,
           user_email: this.newsLetterForm.value.email
         });
