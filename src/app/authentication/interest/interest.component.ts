@@ -109,9 +109,9 @@ export class InterestComponent implements OnInit {
 
             interests.forEach(interest => {
                 analytics.logEvent("interest_opt_in", {
-                    category_title: `${interest.title}`,
+                    category_title: interest.title,
                     category_id: interest.id,
-                    user_uid: this.currentUser.uid,
+                    user_id: this.currentUser.uid,
                     user_name: this.currentUser.fullname
                 });
             });
