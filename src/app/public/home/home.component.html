@@ -25,7 +25,7 @@
                         <span>{{'heroStory' | translate}}</span>
                         <div>{{article.title}}</div>
                     </h2>
-                    <p class="is-card-description">{{article.summary | slice:0:100 }}</p>
+                    <p class="is-card-description">{{article.excerpt | slice:0:100 }}</p>
                     <button type="button" class="is-read-more">{{'readMore' | translate}} <img
                             src="assets/images/read-more-icon.png" alt="read more" /></button>
                 </div>
@@ -56,7 +56,7 @@
                         <span>{{'heroStory' | translate}}</span>
                         <div>{{article.title}}</div>
                     </h2>
-                    <p class="is-card-description">{{article.summary | slice:0:100 }}</p>
+                    <p class="is-card-description">{{article.excerpt | slice:0:100 }}</p>
                     <button type="button" class="is-read-more">{{'readMore' | translate}} <img
                             src="assets/images/read-more-icon.png" alt="read more" /></button>
                 </div>
@@ -91,7 +91,7 @@
                                 <span>{{'heroStory' | translate}}</span>
                                 <div>{{article.title}}</div>
                             </h2>
-                            <p class="is-card-description">{{article.summary}}</p>
+                            <p class="is-card-description">{{article.excerpt}}</p>
                             <button type="button" class="is-read-more">{{'readMore' | translate}} <img
                                     src="assets/images/read-more-icon.png" alt="read more" /></button>
 
@@ -185,7 +185,7 @@
                                         <h4 class="item-long-title">{{article.title}}</h4>
                                     </div>
                                     <div class="item-card-texte">
-                                        <p>{{article.summary}}</p>
+                                        <p>{{article.excerpt}}</p>
                                         <button type="button" class="is-read-more">{{'readMore' | translate }} <img
                                                 src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
                                     </div>
