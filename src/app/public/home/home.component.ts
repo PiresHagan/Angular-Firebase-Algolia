@@ -10,6 +10,8 @@ import { Category } from 'src/app/shared/interfaces/category.type';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { Author } from 'src/app/shared/interfaces/authors.type';
 import { Observable } from 'rxjs';
+import { SeoDataService } from 'src/app/shared/services/seo-data.service';
+import { SeoData } from 'src/app/shared/interfaces/seo-data.type';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -31,6 +33,7 @@ export class HomeComponent implements OnInit {
   slugWiseData = {};
   categories;
   authorList: any;
+  private homeDocument = "home";
 
   constructor(
     private articleService: ArticleService,
@@ -40,7 +43,8 @@ export class HomeComponent implements OnInit {
     private titleService: Title,
     private metaTagService: Meta,
     private categoryService: CategoryService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private seoDataService: SeoDataService
   ) {
 
   }
@@ -51,19 +55,26 @@ export class HomeComponent implements OnInit {
   DefaultAvatar: string = 'assets/images/default-avatar.png';
 
   ngOnInit(): void {
-    this.titleService.setTitle("Home");
+    this.seoDataService.getSeoData(this.homeDocument).subscribe(homeDocRef => {
+      if(homeDocRef.exists) {
+        const data: SeoData = homeDocRef.data();
 
-    this.metaTagService.addTags([
-      { name: "description", content: "My trending stories home page" },
-      { name: "keywords", content: "Home" },
-      { name: "twitter:card", content: "My trending stories home page" },
-      { name: "og:title", content: "Home" },
-      { name: "og:type", content: "home" },
-      { name: "og:url", content: `${window.location.href}` },
-      // {name: "og:image", content: `${this.authorDetails.avatar.url}`},
-      { name: "og:description", content: "My trending stories home page" }
-    ]);
-
+        this.titleService.setTitle(data.title);
+    
+        this.metaTagService.addTags([
+          {name: "description", content: data.description},
+          {name: "keywords", content: data.keywords},
+          {name: "twitter:card", content: data.description},
+          {name: "og:title", content: data.title},
+          {name: "og:type", content: data.type},
+          {name: "og:url", content: `${window.location.href}`},
+          {name: "og:image", content: data.image.url? data.image.url : data.image.alt},
+          {name: "og:description", content: data.description}
+        ]);
+      }
+    }, err => {
+      console.log('Error getting home seo data', err);
+    });
 
     this.selectedLanguage = this.languageService.getSelectedLanguage();
 
