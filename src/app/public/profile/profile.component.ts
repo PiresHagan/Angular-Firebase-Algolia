@@ -189,7 +189,7 @@ export class ProfileComponent implements OnInit {
     analytics.logEvent("follow_author", {
       author_id: authorDetails.id,
       author_name: authorDetails.fullname,
-      user_id: userDetails.id,
+      user_uid: userDetails.id,
       user_name: userDetails.fullname,
     });
   }
@@ -210,7 +210,7 @@ export class ProfileComponent implements OnInit {
     analytics.logEvent("unfollow_author", {
       author_id: authorDetails.id,
       author_name: authorDetails.fullname,
-      user_id: userDetails.id,
+      user_uid: userDetails.id,
       user_name: userDetails.fullname,
     });
   }

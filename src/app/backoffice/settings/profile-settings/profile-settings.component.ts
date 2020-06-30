@@ -296,8 +296,8 @@ export class ProfileSettingsComponent {
           analytics.logEvent("interest_opt_in", {
             category_title: interest.title,
             category_id: interest.id,
-            user_id: this.currentUser.uid,
-            user_name: this.currentUser.fullname
+            user_uid: this.currentUser.uid,
+            user_name: this.currentUser.displayName
           });
         });
       });

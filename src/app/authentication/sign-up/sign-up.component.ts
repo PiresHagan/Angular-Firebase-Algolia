@@ -128,7 +128,7 @@ export class SignUpComponent {
             const analytics = firebase.analytics();
         
             analytics.logEvent("sign_up", {
-                user_id: memberData.id,
+                user_uid: memberData.id,
                 user_name: memberData.fullname,
                 language: memberData.lang,
                 user_email: memberData.email,
