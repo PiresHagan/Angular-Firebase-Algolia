@@ -321,10 +321,35 @@ export class ArticleComponent implements OnInit {
   }
   like() {
     this.articleService.like(this.article.id, this.getUserDetails());
+    const analytics = firebase.analytics();
+    const article = this.article;
+    analytics.logEvent('liked_article', {
+      article_id: article.id,
+      article_title: article.title,
+      article_language: article.lang,
+      author_name: article.author.fullname,
+      author_id: article.author.id,
+      category_title: article.category.title,
+      category_id: article.category.id,
+      liked_by_user_name: this.getUserDetails().fullname,
+      liked_by_user_id: this.getUserDetails().id,
+    });
   }
   disLike() {
     this.articleService.disLike(this.article.id, this.getUserDetails().id);
-
+    const analytics = firebase.analytics();
+    const article = this.article;
+    analytics.logEvent('unliked_article', {
+      article_id: article.id,
+      article_title: article.title,
+      article_language: article.lang,
+      author_name: article.author.fullname,
+      author_id: article.author.id,
+      category_title: article.category.title,
+      category_id: article.category.id,
+      unliked_by_user_name: this.getUserDetails().fullname,
+      unliked_by_user_id: this.getUserDetails().id,
+    });
   }
   setLike() {
 
