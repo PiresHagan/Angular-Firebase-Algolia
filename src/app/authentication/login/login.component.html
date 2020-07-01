@@ -29,7 +29,7 @@
                 <div class="is-signup-form-main">
                     <div class="is-form">
                         <nz-card *ngIf="!enablePasswordChangeScreen">
-                            <h2 class="m-t-20">{{'loginSignIn' | translate}}</h2>
+                            <h2 class=" m-t-20">{{'loginSignIn' | translate}}</h2>
                             <p class="m-b-30">{{'loginSignInDes' | translate}}</p>
                             <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
                                 <nz-alert class="m-b-10" nzType="error"
@@ -38,6 +38,10 @@
                                 <nz-alert class="m-b-10" nzType="error"
                                     nzDescription="{{'invalidCaptchaErr' | translate}}" nzShowIcon
                                     *ngIf="invalidCaptcha"></nz-alert>
+                                <nz-alert class="m-b-10" *ngIf="enableEmailVerificationScreen" nzType="info"
+                                    nzMessage="{{'verifyEmailTitle' | translate}}"
+                                    nzDescription="{{'verifyEmailDesc' | translate}}" nzShowIcon>
+                                </nz-alert>
                                 <nz-form-item class="m-b-15">
                                     <nz-form-control nzErrorTip="{{'loginEmailError' | translate}}" class="is-icon">
                                         <nz-input-group [nzPrefix]="prefixUser">
@@ -130,7 +134,6 @@
                             <ng-template #prefixUser><i nz-icon nzType="user"></i></ng-template>
                             <ng-template #prefixLock><i nz-icon nzType="lock"></i></ng-template>
                         </nz-card>
-
 
                     </div>
                 </div>

@@ -325,5 +325,9 @@
     "MemListEditSearch": "Modifier le profil par e-mail",
     "MemViewProfile": "Voir le profil",
     "MemSearch": "Recherche",
-    "MemListViewType": "Type"
+    "MemListViewType": "Type",
+    ,
+    "verifyEmailTitle": "Un lien de vérification a été envoyé à votre adresse e-mail.",
+    "verifyEmailDesc": "Veuillez cliquer sur le lien qui a été envoyé à votre adresse e-mail.",
+    "verifySignUpEmailDesc": "Veuillez cliquer sur le lien qui a été envoyé à votre compte de messagerie pour vérifier votre adresse e-mail et poursuivre le processus d'inscription."
 }

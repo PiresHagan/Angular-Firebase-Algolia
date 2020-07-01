@@ -36,6 +36,7 @@ export class SignUpComponent {
     errorPasswordWeak: boolean = false;
     errorAgree: boolean = false;
     generalError: boolean = false;
+    enableEmailVerificationScreen: boolean = false;
 
 
     constructor(
@@ -89,6 +90,7 @@ export class SignUpComponent {
                     this.isFormSaving = true;
                     this.invalidCaptcha = false;
                     this.authService.validateCaptcha(this.captchaToken).subscribe((success) => {
+
                         this.saveDataOnServer(email, password, fullname)
 
                     }, (error) => {
@@ -219,20 +221,27 @@ export class SignUpComponent {
             this.addUser({
                 email: email,
                 id: userData.uid,
-                date_joined: new Date().toString(),
-                updated_at: new Date().toString(),
-                lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en'
+                date_joined: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+                lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en',
+
             }, {
                 email: email,
                 fullname: userData.displayName,
                 id: userData.uid,
-                created_at: new Date().toString(),
+                created_at: new Date().toISOString(),
                 slug: this.getSlug(userData.displayName) + '-' + this.makeid(),
-                updated_at: new Date().toString(),
+                updated_at: new Date().toISOString(),
                 lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en',
-                type: 'member'
+                type: 'member',
+                isNewAccount: true,
+
+
 
             });
+            this.enableEmailVerificationScreen = true;
+            this.signUpForm.reset();
+            this.isFormSaving = false;
 
         }).catch((error) => {
             this.isFormSaving = false;

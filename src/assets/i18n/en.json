@@ -328,5 +328,8 @@
     "MemListEditSearch": "Edit Profile By Email",
     "MemViewProfile": "View Profile",
     "MemSearch": "Search",
-    "MemListViewType": "Type"
+    "MemListViewType": "Type",
+    "verifyEmailTitle": "A verification link has been sent to your email.",
+    "verifyEmailDesc": "Please click on the link that has been sent to your email address.",
+    "verifySignUpEmailDesc": "Please click on the link that has been sent to your email account to verify your email and continue the registration process."
 }
