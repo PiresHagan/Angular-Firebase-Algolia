@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as algoliasearch from 'algoliasearch/lite';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
+import * as firebase from 'firebase';
 const searchClient = algoliasearch(
   'N7WFUORZZU',
   '6f5d2e637debb45f0078b85091532c42'
@@ -15,7 +16,15 @@ export class SearchEngineComponent implements OnInit {
   selectedLanguage: string = "";
   config = {
     indexName: 'dev_articles',
-    searchClient
+    searchClient,
+    searchFunction(helper) {
+      helper.search();
+      const analytics = firebase.analytics();
+    
+      analytics.logEvent('search', {
+        query: helper.state.query
+      });
+    }
   };
   
   constructor (
