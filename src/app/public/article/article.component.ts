@@ -12,6 +12,7 @@ import { DomSanitizer, Title, Meta } from '@angular/platform-browser';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { environment } from 'src/environments/environment';
 import { LanguageService } from 'src/app/shared/services/language.service';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-article',
@@ -160,6 +161,19 @@ export class ArticleComponent implements OnInit {
         this.saveCommentOnServer(commentData);
       }
 
+      const analytics = firebase.analytics();
+      const article = this.article;
+      analytics.logEvent('article_comment', {
+        article_id: article.id,
+        article_title: article.title,
+        article_language: article.lang,
+        article_author_name: article.author.fullname,
+        article_author_id: article.author.id,
+        article_category_title: article.category.title,
+        article_category_id: article.category.id,
+        commented_by_user_name: this.getUserDetails().fullname,
+        commented_by_user_id: this.getUserDetails().id,
+      });
 
     }
   }
@@ -272,19 +286,43 @@ export class ArticleComponent implements OnInit {
     }
   }
   async follow(authorId) {
-    let userDetails = this.getUserDetails();
-    this.authorService.follow(authorId, userDetails);
+    const userDetails = this.getUserDetails();
+    
     await this.authorService.follow(authorId, userDetails);
+    
     await this.authorService.following(userDetails.id, this.article.author);
+    
     this.authorService.followCount(authorId, userDetails.id, 1);
+    
+    const analytics = firebase.analytics();
+    
+    analytics.logEvent("follow_author", {
+      author_id: this.article.author.id,
+      author_name: this.article.author.fullname,
+      user_uid: userDetails.id,
+      user_name: userDetails.fullname,
+    });
   }
 
   async unfollow(authorId) {
-    await this.authorService.unfollow(authorId, this.getUserDetails().id);
-    await this.authorService.unfollowing(this.getUserDetails().id, authorId);
-    this.authorService.followCount(authorId, this.getUserDetails().id, -1);
-
+    const userDetails = this.getUserDetails();
+    
+    await this.authorService.unfollow(authorId, userDetails.id);
+    
+    await this.authorService.unfollowing(userDetails.id, authorId);
+    
+    this.authorService.followCount(authorId, userDetails.id, -1);
+    
+    const analytics = firebase.analytics();
+    
+    analytics.logEvent("unfollow_author", {
+      author_id: this.article.author.id,
+      author_name: this.article.author.fullname,
+      user_uid: userDetails.id,
+      user_name: userDetails.fullname,
+    });
   }
+
   setFollowOrNot() {
     this.authorService.isUserFollowing(this.article.author.id, this.getUserDetails().id).subscribe((data) => {
       if (data) {
@@ -296,10 +334,35 @@ export class ArticleComponent implements OnInit {
   }
   like() {
     this.articleService.like(this.article.id, this.getUserDetails());
+    const analytics = firebase.analytics();
+    const article = this.article;
+    analytics.logEvent('liked_article', {
+      article_id: article.id,
+      article_title: article.title,
+      article_language: article.lang,
+      article_author_name: article.author.fullname,
+      article_author_id: article.author.id,
+      article_category_title: article.category.title,
+      article_category_id: article.category.id,
+      liked_by_user_name: this.getUserDetails().fullname,
+      liked_by_user_id: this.getUserDetails().id,
+    });
   }
   disLike() {
     this.articleService.disLike(this.article.id, this.getUserDetails().id);
-
+    const analytics = firebase.analytics();
+    const article = this.article;
+    analytics.logEvent('unliked_article', {
+      article_id: article.id,
+      article_title: article.title,
+      article_language: article.lang,
+      article_author_name: article.author.fullname,
+      article_author_id: article.author.id,
+      article_category_title: article.category.title,
+      article_category_id: article.category.id,
+      unliked_by_user_name: this.getUserDetails().fullname,
+      unliked_by_user_id: this.getUserDetails().id,
+    });
   }
   setLike() {
 

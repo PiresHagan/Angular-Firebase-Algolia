@@ -9,6 +9,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { environment } from "src/environments/environment";
 import { combineLatest } from 'rxjs';
+import * as firebase from 'firebase';
 
 @Component({
     templateUrl: './login.component.html',
