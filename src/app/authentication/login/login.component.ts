@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { environment } from "src/environments/environment";
-import { combineLatest } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import * as firebase from 'firebase';
 
 @Component({
@@ -48,6 +48,7 @@ export class LoginComponent {
     logginUserDetails;
     memberDetails;
     userDetails;
+    userDataSubs: Subscription;
 
 
     constructor(
@@ -106,7 +107,7 @@ export class LoginComponent {
             } else {
                 let memberSubs = this.authService.getMember(loginDetails.user.uid);
                 let userSubs = this.authService.get(loginDetails.user.uid);
-                combineLatest(
+                this.userDataSubs = combineLatest(
                     memberSubs,
                     userSubs
                 ).subscribe((finalResule) => {
@@ -186,10 +187,11 @@ export class LoginComponent {
     validatePassAndNext(userData) {
         if (this.isPassValidationApproved(userData.password)) {
             if (this.isOnboardingProcessDone())
+                this.navigateToUserProfile();
+            else
                 this.router.navigate(["auth/profile"]);
 
-            else
-                this.navigateToUserProfile();
+
         } else {
             this.enablePasswordChangeScreen = true;
         }
@@ -321,6 +323,10 @@ export class LoginComponent {
             return false;
         else
             true;
+    }
+    ngOnDestroy() {
+        if (this.userDataSubs)
+            this.userDataSubs.unsubscribe()
     }
 }
 
