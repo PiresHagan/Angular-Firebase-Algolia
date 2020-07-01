@@ -242,8 +242,8 @@ export class LoginComponent {
         });
     }
     validateCaptcha() {
-        this.onLogin();
-        return
+        //this.onLogin();
+        //return
         if (this.captchaToken) {
             this.isFormSaving = true;
             this.invalidCaptcha = false;
