@@ -161,6 +161,19 @@ export class ArticleComponent implements OnInit {
         this.saveCommentOnServer(commentData);
       }
 
+      const analytics = firebase.analytics();
+      const article = this.article;
+      analytics.logEvent('article_comment', {
+        article_id: article.id,
+        article_title: article.title,
+        article_language: article.lang,
+        article_author_name: article.author.fullname,
+        article_author_id: article.author.id,
+        article_category_title: article.category.title,
+        article_category_id: article.category.id,
+        commented_by_user_name: this.getUserDetails().fullname,
+        commented_by_user_id: this.getUserDetails().id,
+      });
 
     }
   }
@@ -327,10 +340,10 @@ export class ArticleComponent implements OnInit {
       article_id: article.id,
       article_title: article.title,
       article_language: article.lang,
-      author_name: article.author.fullname,
-      author_id: article.author.id,
-      category_title: article.category.title,
-      category_id: article.category.id,
+      article_author_name: article.author.fullname,
+      article_author_id: article.author.id,
+      article_category_title: article.category.title,
+      article_category_id: article.category.id,
       liked_by_user_name: this.getUserDetails().fullname,
       liked_by_user_id: this.getUserDetails().id,
     });
@@ -343,10 +356,10 @@ export class ArticleComponent implements OnInit {
       article_id: article.id,
       article_title: article.title,
       article_language: article.lang,
-      author_name: article.author.fullname,
-      author_id: article.author.id,
-      category_title: article.category.title,
-      category_id: article.category.id,
+      article_author_name: article.author.fullname,
+      article_author_id: article.author.id,
+      article_category_title: article.category.title,
+      article_category_id: article.category.id,
       unliked_by_user_name: this.getUserDetails().fullname,
       unliked_by_user_id: this.getUserDetails().id,
     });
