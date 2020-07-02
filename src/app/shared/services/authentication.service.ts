@@ -17,7 +17,7 @@ export class AuthService {
     loggedInUserDetails;
     constructor(public afAuth: AngularFireAuth, public db: AngularFirestore, private http: HttpClient) {
         this.afAuth.authState.subscribe((user) => {
-            if (!user) {
+            if (!user || !user.emailVerified) {
                 if (environment && environment.isAnonymousUserEnabled) {
                     this.afAuth.signInAnonymously().catch(function (error) {
                         console.log('anonymusly login');
@@ -52,6 +52,11 @@ export class AuthService {
         return new Promise<any>((resolve, reject) => {
             this.afAuth.createUserWithEmailAndPassword(email, password)
                 .then(res => {
+                    /**
+                     * Send Verification Email here 
+                     */
+                    firebase.auth().currentUser.sendEmailVerification();
+
                     res.user.updateProfile({ displayName }).then((user) => {
                         resolve(res);
                     }).catch(err => reject(err))
@@ -65,7 +70,10 @@ export class AuthService {
             this.afAuth.signInWithEmailAndPassword(email, password)
                 .then(res => {
                     const analytics = firebase.analytics();
-    
+
+                    if (res && !res.user.emailVerified)
+                        firebase.auth().currentUser.sendEmailVerification();
+
                     analytics.logEvent("login", {
                         user_uid: res.user.uid,
                         user_email: res.user.email,
@@ -85,7 +93,8 @@ export class AuthService {
 
                 this.afAuth.signOut().then(() => {
                     const analytics = firebase.analytics();
-    
+
+
                     analytics.logEvent("logout", {
                         user_uid: user.uid,
                         user_email: user.email,

@@ -332,5 +332,8 @@
     "ArtNotFound": "Aucun enregistrement n'est disponible avec ce slug.",
     "goBackbtnArticleList": "Retour à la liste des articles",
     "MemNotFound": "Aucun enregistrement n'est disponible avec cet e-mail.",
-    "artGoBackbtn": "Retour"
+    "artGoBackbtn": "Retour",
+    "verifyEmailTitle": "Un lien de vérification a été envoyé à votre adresse e-mail.",
+    "verifyEmailDesc": "Veuillez cliquer sur le lien qui a été envoyé à votre adresse e-mail.",
+    "verifySignUpEmailDesc": "Veuillez cliquer sur le lien qui a été envoyé à votre compte de messagerie pour vérifier votre adresse e-mail et poursuivre le processus d'inscription."
 }

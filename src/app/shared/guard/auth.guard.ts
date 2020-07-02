@@ -13,12 +13,11 @@ export class AuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
         return new Observable<boolean>((observer) => {
-            this.afAuth.authState.subscribe(() => {
+            this.afAuth.authState.subscribe((userData) => {
                 this.authService.getCustomClaimData().then((role) => {
-                    if (!route.data.roles || route.data.roles.indexOf(role) > -1)
+                    if (userData.emailVerified && !route.data.roles || (route.data.roles && route.data.roles.indexOf(role) > -1))
                         observer.next(true);
                     else {
-                        this.router.navigate(['/']);
                         observer.next(false);
                     }
                     observer.complete();
