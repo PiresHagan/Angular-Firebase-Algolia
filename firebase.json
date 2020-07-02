@@ -12,7 +12,7 @@
       "rewrites": [
         {
           "source": "**",
-          "function": "ssr"
+          "function": "ssr_dev"
         }
       ]
     },
