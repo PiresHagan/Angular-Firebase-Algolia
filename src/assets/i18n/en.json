@@ -334,5 +334,8 @@
     "ArtNotFound": "No records are available with this slug.",
     "goBackbtnArticleList": "Back To Article List",
     "MemNotFound": "No records are available with this email.",
-    "artGoBackbtn": "Back"
+    "artGoBackbtn": "Back",
+    "verifyEmailTitle": "A verification link has been sent to your email.",
+    "verifyEmailDesc": "Please click on the link that has been sent to your email address.",
+    "verifySignUpEmailDesc": "Please click on the link that has been sent to your email account to verify your email and continue the registration process."
 }

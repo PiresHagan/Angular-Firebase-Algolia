@@ -8,6 +8,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { environment } from 'src/environments/environment';
 import { Meta, Title } from '@angular/platform-browser';
 import { LanguageService } from 'src/app/shared/services/language.service';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-profile',
@@ -173,18 +174,45 @@ export class ProfileComponent implements OnInit {
     }
   }
   async follow(authorId) {
-    let userDetails = this.getUserDetails();
-    let authorDetails = this.getAuthorDetails();
+    const userDetails = this.getUserDetails();
+    
+    const authorDetails = this.getAuthorDetails();
+    
     await this.authorService.follow(authorId, userDetails);
+    
     await this.authorService.following(userDetails.id, authorDetails);
+    
     this.authorService.followCount(authorId, userDetails.id, 1);
-
+    
+    const analytics = firebase.analytics();
+    
+    analytics.logEvent("follow_author", {
+      author_id: authorDetails.id,
+      author_name: authorDetails.fullname,
+      user_uid: userDetails.id,
+      user_name: userDetails.fullname,
+    });
   }
 
   async unfollow(authorId) {
-    await this.authorService.unfollow(authorId, this.getUserDetails().id);
-    await this.authorService.unfollowing(this.getUserDetails().id, authorId);
-    this.authorService.followCount(authorId, this.getUserDetails().id, -1);
+    const userDetails = this.getUserDetails();
+    
+    const authorDetails = this.getAuthorDetails();
+
+    await this.authorService.unfollow(authorId, userDetails.id);
+    
+    await this.authorService.unfollowing(userDetails.id, authorId);
+    
+    this.authorService.followCount(authorId, userDetails.id, -1);
+    
+    const analytics = firebase.analytics();
+    
+    analytics.logEvent("unfollow_author", {
+      author_id: authorDetails.id,
+      author_name: authorDetails.fullname,
+      user_uid: userDetails.id,
+      user_name: userDetails.fullname,
+    });
   }
   setFollowOrNot() {
 

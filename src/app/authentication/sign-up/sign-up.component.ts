@@ -10,6 +10,7 @@ import { PreviousRouteService } from 'src/app/shared/services/previous-route.ser
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { environment } from "src/environments/environment";
+import * as firebase from 'firebase';
 
 @Component({
     templateUrl: './sign-up.component.html',
@@ -36,6 +37,7 @@ export class SignUpComponent {
     errorPasswordWeak: boolean = false;
     errorAgree: boolean = false;
     generalError: boolean = false;
+    enableEmailVerificationScreen: boolean = false;
 
 
     constructor(
@@ -89,6 +91,7 @@ export class SignUpComponent {
                     this.isFormSaving = true;
                     this.invalidCaptcha = false;
                     this.authService.validateCaptcha(this.captchaToken).subscribe((success) => {
+
                         this.saveDataOnServer(email, password, fullname)
 
                     }, (error) => {
@@ -124,6 +127,15 @@ export class SignUpComponent {
     addUser(userDetails, memberData) {
         this.generalError = false;
         this.userService.createUser(userDetails, memberData).then(() => {
+            const analytics = firebase.analytics();
+        
+            analytics.logEvent("sign_up", {
+                user_uid: memberData.id,
+                user_name: memberData.fullname,
+                language: memberData.lang,
+                user_email: memberData.email,
+            });
+
             this.router.navigate(['/auth/profile']);
         }).catch(() => {
             this.generalError = true;
@@ -219,20 +231,27 @@ export class SignUpComponent {
             this.addUser({
                 email: email,
                 id: userData.uid,
-                date_joined: new Date().toString(),
-                updated_at: new Date().toString(),
-                lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en'
+                date_joined: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+                lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en',
+
             }, {
                 email: email,
                 fullname: userData.displayName,
                 id: userData.uid,
-                created_at: new Date().toString(),
+                created_at: new Date().toISOString(),
                 slug: this.getSlug(userData.displayName) + '-' + this.makeid(),
-                updated_at: new Date().toString(),
+                updated_at: new Date().toISOString(),
                 lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en',
-                type: 'member'
+                type: 'member',
+                isNewAccount: true,
+
+
 
             });
+            this.enableEmailVerificationScreen = true;
+            this.signUpForm.reset();
+            this.isFormSaving = false;
 
         }).catch((error) => {
             this.isFormSaving = false;

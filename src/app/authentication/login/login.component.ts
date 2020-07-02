@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { environment } from "src/environments/environment";
+import { combineLatest, Subscription } from 'rxjs';
+import * as firebase from 'firebase';
 
 @Component({
     templateUrl: './login.component.html',
@@ -42,6 +44,11 @@ export class LoginComponent {
     enablePasswordChangeScreen: boolean = false;
     isCapchaScriptLoaded: boolean = false;
     capchaObject;
+    enableEmailVerificationScreen: boolean = false;
+    logginUserDetails;
+    memberDetails;
+    userDetails;
+    userDataSubs: Subscription;
 
 
     constructor(
@@ -94,9 +101,37 @@ export class LoginComponent {
             email: this.loginForm.get('email').value,
             password: this.loginForm.get('password').value
         }
-        this.authService.doLogin(userData.email, userData.password).then(() => {
+        this.authService.doLogin(userData.email, userData.password).then((loginDetails) => {
+            if (!loginDetails.user.emailVerified) {
+                this.showEmailVerification();
+            } else {
+                let memberSubs = this.authService.getMember(loginDetails.user.uid);
+                let userSubs = this.authService.get(loginDetails.user.uid);
+                this.userDataSubs = combineLatest(
+                    memberSubs,
+                    userSubs
+                ).subscribe((finalResule) => {
+                    if (finalResule[0] && finalResule[1]) {
+                        this.memberDetails = finalResule[0];
+                        this.userDetails = finalResule[1];
+                        this.validatePassAndNext(userData);
+                    }
+                })
+
+                // this.authService.getMember(loginDetails.user.uid).subscribe((memberDetails) => {
+
+                //     if (memberDetails) {
+                //         this.memberDetails = memberDetails;
+                //         this.validatePassAndNext(userData);
+                //     }
+
+                // })
+
+
+
+            }
             this.isFormSaving = false;
-            this.validatePassAndNext(userData);
+
 
         }).catch((err) => {
             this.resetCaptcha();
@@ -151,7 +186,12 @@ export class LoginComponent {
 
     validatePassAndNext(userData) {
         if (this.isPassValidationApproved(userData.password)) {
-            this.navigateToUserProfile()
+            if (this.isOnboardingProcessDone())
+                this.navigateToUserProfile();
+            else
+                this.router.navigate(["auth/profile"]);
+
+
         } else {
             this.enablePasswordChangeScreen = true;
         }
@@ -204,8 +244,8 @@ export class LoginComponent {
         });
     }
     validateCaptcha() {
-        // this.onLogin();
-        // return
+        //this.onLogin();
+        //return
         if (this.captchaToken) {
             this.isFormSaving = true;
             this.invalidCaptcha = false;
@@ -268,6 +308,25 @@ export class LoginComponent {
     resetCaptcha() {
         window['grecaptcha'].reset(this.capchaObject);
         this.captchaToken = ""
+    }
+    showEmailVerification() {
+        this.enableEmailVerificationScreen = true;
+        setTimeout(() => {
+            this.enableEmailVerificationScreen = false;
+        }, 6000);
+    }
+    isOnboardingProcessDone() {
+        const memberDetails = this.memberDetails;
+        const userDetails = this.userDetails;
+        if ((!memberDetails.bio && !memberDetails.biography_en && !memberDetails.biography_es && !memberDetails.biography_fr) ||
+            !memberDetails.avatar || !userDetails.interests || !memberDetails.lang || userDetails.interests.length == 0)
+            return false;
+        else
+            true;
+    }
+    ngOnDestroy() {
+        if (this.userDataSubs)
+            this.userDataSubs.unsubscribe()
     }
 }
 

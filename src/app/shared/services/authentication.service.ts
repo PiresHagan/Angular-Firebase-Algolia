@@ -17,7 +17,7 @@ export class AuthService {
     loggedInUserDetails;
     constructor(public afAuth: AngularFireAuth, public db: AngularFirestore, private http: HttpClient) {
         this.afAuth.authState.subscribe((user) => {
-            if (!user) {
+            if (!user || !user.emailVerified) {
                 if (environment && environment.isAnonymousUserEnabled) {
                     this.afAuth.signInAnonymously().catch(function (error) {
                         console.log('anonymusly login');
@@ -52,6 +52,11 @@ export class AuthService {
         return new Promise<any>((resolve, reject) => {
             this.afAuth.createUserWithEmailAndPassword(email, password)
                 .then(res => {
+                    /**
+                     * Send Verification Email here 
+                     */
+                    firebase.auth().currentUser.sendEmailVerification();
+
                     res.user.updateProfile({ displayName }).then((user) => {
                         resolve(res);
                     }).catch(err => reject(err))
@@ -64,6 +69,18 @@ export class AuthService {
         return new Promise<any>((resolve, reject) => {
             this.afAuth.signInWithEmailAndPassword(email, password)
                 .then(res => {
+                    const analytics = firebase.analytics();
+
+                    if (res && !res.user.emailVerified)
+                        firebase.auth().currentUser.sendEmailVerification();
+
+                    analytics.logEvent("login", {
+                        user_uid: res.user.uid,
+                        user_email: res.user.email,
+                        user_name: res.user.displayName,
+                        provider_id: res.user.providerData.length > 0 ? res.user.providerData[0].providerId : res.additionalUserInfo.providerId
+                    });
+
                     resolve(res);
                 }, err => reject(err))
         })
@@ -72,7 +89,18 @@ export class AuthService {
     signout() {
         return new Promise((resolve, reject) => {
             if (this.afAuth.currentUser) {
+                const user = firebase.auth().currentUser;
+
                 this.afAuth.signOut().then(() => {
+                    const analytics = firebase.analytics();
+
+
+                    analytics.logEvent("logout", {
+                        user_uid: user.uid,
+                        user_email: user.email,
+                        user_name: user.displayName,
+                        provider_id: user.providerData.length > 0 ? user.providerData[0].providerId : user.providerId
+                    });
 
                     resolve();
                 })
