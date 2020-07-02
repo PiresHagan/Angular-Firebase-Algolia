@@ -73,6 +73,9 @@ export class AuthService {
                         firebase.auth().currentUser.sendEmailVerification();
                     const analytics = firebase.analytics();
 
+                    if (res && !res.user.emailVerified)
+                        firebase.auth().currentUser.sendEmailVerification();
+
                     analytics.logEvent("login", {
                         user_uid: res.user.uid,
                         user_email: res.user.email,
@@ -92,6 +95,7 @@ export class AuthService {
 
                 this.afAuth.signOut().then(() => {
                     const analytics = firebase.analytics();
+
 
                     analytics.logEvent("logout", {
                         user_uid: user.uid,

@@ -326,6 +326,12 @@
     "MemViewProfile": "Ver perfil",
     "MemSearch": "Buscar",
     "MemListViewType": "Tipo",
+    "ArtSearchBySlug": "Editar artículo por Slug",
+    "ArtSearchAndEdit": "Buscar y editar",
+    "ArtNotFound": "No hay registros disponibles con esta babosa",
+    "goBackbtnArticleList": "Volver a la lista de artículos",
+    "MemNotFound": "No hay registros disponibles con este correo electrónico",
+    "artGoBackbtn": "Volver",
     "verifyEmailTitle": "Se ha enviado un enlace de verificación a su correo electrónico",
     "verifyEmailDesc": "Haga clic en el enlace que se ha enviado a su dirección de correo electrónico",
     "verifySignUpEmailDesc": "Haga clic en el enlace que se ha enviado a su cuenta de correo electrónico para verificar su correo electrónico y continuar el proceso de registro"

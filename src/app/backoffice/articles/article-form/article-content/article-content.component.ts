@@ -66,6 +66,7 @@ export class ArticleContentComponent implements OnInit {
       lang: ['', [Validators.required]],
       topics: ['']
     });
+
   }
 
   async ngOnInit() {
