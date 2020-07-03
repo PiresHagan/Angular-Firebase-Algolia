@@ -255,11 +255,13 @@ export class LoginComponent {
                 this.isFormSaving = false;
                 this.errorMessage = this.invalidCaptchaErr;
                 this.invalidCaptcha = true;
+                this.resetCaptcha();
 
             })
         } else {
             this.errorMessage = this.invalidCaptchaErr;
             this.invalidCaptcha = true;
+            this.resetCaptcha();
         }
 
 
