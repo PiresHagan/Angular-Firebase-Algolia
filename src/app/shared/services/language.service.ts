@@ -61,9 +61,16 @@ export class LanguageService {
     return this.selectedLanguage ? this.selectedLanguage : this.defaultLanguage;
   }
   setlanguageInLS(lang) {
-    localStorage.setItem('user_lang', lang);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('user_lang', lang);
+    }
+      
   }
   getlanguageFromLS() {
-    return localStorage.getItem('user_lang');
+    if(typeof localStorage !== 'undefined'){
+      return localStorage.getItem('user_lang');
+    }
+    
+    return 'en';
   }
 }

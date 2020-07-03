@@ -27,6 +27,7 @@
               "src/sitemap.xml",
               "src/robots.txt",
               "src/favicon.ico",
+              "src/favicon.png",
               "src/solo-auth-proxy.html",
               "src/assets",
               "src/ads.txt",
@@ -102,6 +103,7 @@
             "scripts": [],
             "assets": [
               "src/favicon.ico",
+              "src/favicon.png",
               "src/assets",
               "src/ads.txt"
             ]
