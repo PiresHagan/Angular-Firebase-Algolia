@@ -12,6 +12,7 @@ import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 import { Member } from "src/app/shared/interfaces/member.type";
 import { CategoryService } from "src/app/shared/services/category.service";
 import { LanguageService } from "src/app/shared/services/language.service";
+import { AuthService } from 'src/app/shared/services/authentication.service';
 
 
 @Component({
@@ -46,7 +47,8 @@ export class ProfileSettingsComponent {
     private userService: UserService,
     public translate: TranslateService,
     public categoryService: CategoryService,
-    public languageService: LanguageService
+    public languageService: LanguageService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -244,11 +246,14 @@ export class ProfileSettingsComponent {
       let bio = this.profileForm.get("biography").value;
       let lang = this.profileForm.get("lang").value;
       let fullname = this.profileForm.get("displayName").value;
+      const loggedInUser = this.authService.getLoginDetails();
 
+      if (!loggedInUser)
+        return;
       try {
         this.isLoading = true;
         await this.userService.update(this.currentUser.uid, { mobile, birthdate, lang });
-        await this.userService.updateMember(this.currentUser.uid, { bio, fullname, lang });
+        await this.userService.updateMember(this.currentUser.uid, { bio, fullname, lang, slug: this.getSlug(loggedInUser.displayName) + '-' + this.makeid() });
         this.isLoading = false;
         this.showSuccess();
       } catch (e) {
@@ -308,4 +313,17 @@ export class ProfileSettingsComponent {
       return { invalid: true };
     }
   }
+  private getSlug(displayName: string) {
+    return displayName.replace(/ /g, '-')?.toLowerCase();
+  }
+  makeid(length = 6) {
+    let result = '';
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result.toLowerCase();
+  }
+
 }

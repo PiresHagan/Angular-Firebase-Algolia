@@ -8,6 +8,7 @@ import { User } from 'src/app/shared/interfaces/user.type';
 import { Member } from 'src/app/shared/interfaces/member.type';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
+import { AuthService } from 'src/app/shared/services/authentication.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,6 +27,7 @@ export class ProfileComponent implements OnInit {
   isPhotoChangeLoading: boolean = false;
   isFormSaving: boolean = false;
   languageList;
+  loggedInUser;
 
   constructor(
     private fb: FormBuilder,
@@ -34,7 +36,8 @@ export class ProfileComponent implements OnInit {
     private message: NzMessageService,
     private userService: UserService,
     public translate: TranslateService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -49,8 +52,8 @@ export class ProfileComponent implements OnInit {
     this.setFormData();
   }
   setUserDetails(userDetails: User) {
-    this.profileForm.controls['phone'].setValue(userDetails.mobile);
-    this.profileForm.controls['birth'].setValue(userDetails.birthdate ? formatDate(
+    this.profileForm.controls['phone'].setValue(userDetails?.mobile);
+    this.profileForm.controls['birth'].setValue(userDetails?.birthdate ? formatDate(
       userDetails.birthdate,
       "yyyy/MM/dd",
       "en"
@@ -58,8 +61,8 @@ export class ProfileComponent implements OnInit {
   }
 
   setMemberDetails(memberDetails: Member) {
-    this.profileForm.controls['biography'].setValue(memberDetails.bio);
-    this.profileForm.controls['lang'].setValue(memberDetails.lang);
+    this.profileForm.controls['biography'].setValue(memberDetails?.bio);
+    this.profileForm.controls['lang'].setValue(memberDetails?.lang);
 
   }
   setFormData() {
@@ -96,9 +99,17 @@ export class ProfileComponent implements OnInit {
         const birthdate = formatDate(this.profileForm.get('birth').value, 'yyyy/MM/dd', "en");
         const bio = this.profileForm.get('biography').value;
         const lang = this.profileForm.get('lang').value;
+        const loggedInUser = this.authService.getLoginDetails();
+        if (!loggedInUser)
+          return;
         await this.userService.update(this.currentUser.id, { mobile, birthdate, lang })
-        await this.userService.updateMember(this.currentUser.id, { bio: bio ? bio : '', lang });
-
+        await this.userService.updateMember(this.currentUser.id,
+          {
+            bio: bio ? bio : '',
+            fullname: loggedInUser.displayName,
+            lang,
+            slug: this.getSlug(loggedInUser.displayName) + '-' + this.makeid()
+          });
         this.isFormSaving = false;
         this.router.navigate(['/auth/interest']);
       } catch (error) {
@@ -151,5 +162,18 @@ export class ProfileComponent implements OnInit {
     }
     return invalid;
   }
+  private getSlug(displayName: string) {
+    return displayName.replace(/ /g, '-')?.toLowerCase();
+  }
+  makeid(length = 6) {
+    let result = '';
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result.toLowerCase();
+  }
+
 
 }
