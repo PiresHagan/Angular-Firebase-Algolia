@@ -26,7 +26,6 @@
             "assets": [
               "src/sitemap.xml",
               "src/robots.txt",
-              "src/favicon.ico",
               "src/solo-auth-proxy.html",
               "src/assets",
               "src/ads.txt",
@@ -101,7 +100,6 @@
             ],
             "scripts": [],
             "assets": [
-              "src/favicon.ico",
               "src/assets",
               "src/ads.txt"
             ]
@@ -128,7 +126,8 @@
           "options": {
             "outputPath": "dist/enlink/server",
             "main": "server.ts",
-            "tsConfig": "src/tsconfig.server.json"
+            "tsConfig": "src/tsconfig.server.json",
+            "externalDependencies": ["@firebase/firestore"]
           },
           "configurations": {
             "production": {
