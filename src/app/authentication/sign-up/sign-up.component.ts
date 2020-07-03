@@ -128,7 +128,6 @@ export class SignUpComponent {
         this.generalError = false;
         this.userService.createUser(userDetails, memberData).then(() => {
             const analytics = firebase.analytics();
-        
             analytics.logEvent("sign_up", {
                 user_uid: memberData.id,
                 user_name: memberData.fullname,
@@ -174,18 +173,7 @@ export class SignUpComponent {
             this.router.navigate([previousUrl ? previousUrl : "app/settings/profile-settings"]);
         });
     }
-    private getSlug(displayName: string) {
-        return displayName.replace(/ /g, '-')?.toLowerCase();
-    }
-    makeid(length = 6) {
-        var result = '';
-        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        var charactersLength = characters.length;
-        for (var i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-        return result.toLowerCase();
-    }
+
     addRecaptchaScript() {
 
         window['grecaptchaCallback'] = () => {
@@ -227,29 +215,10 @@ export class SignUpComponent {
 
     saveDataOnServer(email, password, fullname) {
         this.authService.doRegister(email, password, fullname).then(user => {
-            const userData = user.user;
-            this.addUser({
-                email: email,
-                id: userData.uid,
-                date_joined: new Date().toISOString(),
-                updated_at: new Date().toISOString(),
-                lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en',
-
-            }, {
-                email: email,
-                fullname: userData.displayName,
-                id: userData.uid,
-                created_at: new Date().toISOString(),
-                slug: this.getSlug(userData.displayName) + '-' + this.makeid(),
-                updated_at: new Date().toISOString(),
-                lang: this.language.getSelectedLanguage() ? this.language.getSelectedLanguage() : 'en',
-                type: 'member',
-                isNewAccount: true,
-
-
-
-            });
             this.enableEmailVerificationScreen = true;
+            setTimeout(() => {
+                this.router.navigate(['/']);
+            }, 6000);
             this.signUpForm.reset();
             this.isFormSaving = false;
 

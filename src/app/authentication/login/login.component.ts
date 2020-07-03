@@ -322,7 +322,7 @@ export class LoginComponent {
             !memberDetails.avatar || !userDetails.interests || !memberDetails.lang || userDetails.interests.length == 0)
             return false;
         else
-            true;
+            return true;
     }
     ngOnDestroy() {
         if (this.userDataSubs)
