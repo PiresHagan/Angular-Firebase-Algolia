@@ -150,5 +150,8 @@ export class AuthService {
         }, httpOptions)
 
     }
+    getLoginDetails() {
+        return this.loggedInUser;
+    }
 
 }
