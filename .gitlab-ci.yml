@@ -13,13 +13,9 @@ deploy-dev:
     - dev
   script:
     - npm install
-    - npm run build-dev:ssr
-    - cd functions/
-    - npm install
-    - npm run build
+    - ng build
     - firebase use my-trending-stories-dev --token $FIREBASE_TOKEN_DEV
     - firebase deploy --only hosting:dev --non-interactive -m "Pipe $CI_PIPELINE_ID Build $CI_BUILD_ID" --token $FIREBASE_TOKEN_DEV
-    - firebase deploy --only functions:ssr_dev --token $FIREBASE_TOKEN_DEV
   cache:                  
     paths:                
       - node_modules/     
@@ -31,13 +27,9 @@ deploy-test:
     - test
   script:
     - npm install
-    - npm run build-dev:ssr
-    - cd functions/
-    - npm install
-    - npm run build
+    - ng build
     - firebase use my-trending-stories-dev --token $FIREBASE_TOKEN_DEV
     - firebase deploy --only hosting:test --non-interactive -m "Pipe $CI_PIPELINE_ID Build $CI_BUILD_ID" --token $FIREBASE_TOKEN_DEV
-    - firebase deploy --only functions:ssr --token $FIREBASE_TOKEN_DEV
   cache:                  
     paths:                
       - node_modules/     
