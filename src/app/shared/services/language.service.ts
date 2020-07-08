@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { Language } from '../interfaces/language.type';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import { isPlatformBrowser } from "@angular/common";
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,7 @@ export class LanguageService {
   selectedLang: Observable<string>
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
     public translate: TranslateService,
     private router: Router) {
 
@@ -61,16 +63,11 @@ export class LanguageService {
     return this.selectedLanguage ? this.selectedLanguage : this.defaultLanguage;
   }
   setlanguageInLS(lang) {
-    if (typeof localStorage !== 'undefined') {
+    if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('user_lang', lang);
     }
-      
   }
   getlanguageFromLS() {
-    if(typeof localStorage !== 'undefined'){
-      return localStorage.getItem('user_lang');
-    }
-    
-    return 'en';
+    return isPlatformBrowser(this.platformId) ? localStorage.getItem('user_lang') : this.defaultLanguage;
   }
 }

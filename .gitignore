@@ -2,6 +2,8 @@
 
 # compiled output
 /dist
+/functions/dist
+/functions/lib
 /tmp
 /out-tsc
 /.firebase
@@ -13,6 +15,8 @@
 # dependencies
 /node_modules
 /functions/node_modules
+/android
+/ios
 
 # IDEs and editors
 /.idea
