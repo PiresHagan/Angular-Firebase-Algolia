@@ -1,11 +1,52 @@
 <div class="container">
     <div class="profile-article-list">
 
-        <nz-input-group nzSearch class="m-t-10 m-b-10" nzSize="large" [nzAddOnAfter]="suffixButton">
-            <input type="text" nz-input placeholder=" {{ 'ArtSearchBySlug' | translate }}" [(ngModel)]="searchSlug" />
+        <nz-input-group nzSearch class="m-t-10" nzSize="large">
+            <nz-alert class="m-b-10 m-t-10" nzType="warning" nzDescription=" {{ 'ArtifiSearchInfo' | translate }}"
+                nzShowIcon></nz-alert>
+            <div class="row">
+
+                <div class="col-md-3">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <input type="text" nz-input placeholder=" {{ 'ArticleSearchByTitle' | translate }}"
+                                [(ngModel)]="articleTitle" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div class="col-md-3">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <input type="text" nz-input placeholder=" {{ 'ArtSearchBySlug' | translate }}"
+                                [(ngModel)]="searchSlug" />
+                        </nz-form-control>
+
+                    </nz-form-item>
+                </div>
+
+                <div class="col-md-3">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <button nz-button nzType="primary" nzSize="large" nzSearch (click)="getArticle()"
+                                [disabled]="!articleTitle && !searchSlug ?true:false">{{'MemSearch' | translate}}</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+            </div>
+
+
+            <!-- 
+            <input type="text" nz-input placeholder=" {{ 'MemListEditSearch' | translate }}" [(ngModel)]="memberSlug" />
+
+            <input type="text" nz-input placeholder=" {{ 'MemListEditSearch' | translate }}" [(ngModel)]="memberName" /> -->
+
         </nz-input-group>
+
         <nz-alert class="m-b-10 m-t-10" nzType="warning" nzDescription=" {{ 'ArtNotFound' | translate }}" nzShowIcon
             *ngIf="notFound"></nz-alert>
+
         <ng-template #suffixButton>
             <button nz-button nzType="primary" nzSize="large" nzSearch [disabled]="!searchSlug?true:false"
                 (click)="getArticleSearchBySlug()">{{'ArtSearchAndEdit' | translate}}</button>

@@ -74,6 +74,9 @@ export class AuthService {
                     if (res && !res.user.emailVerified)
                         firebase.auth().currentUser.sendEmailVerification();
 
+                    if (res && !res.user.emailVerified)
+                        firebase.auth().currentUser.sendEmailVerification();
+
                     analytics.logEvent("login", {
                         user_uid: res.user.uid,
                         user_email: res.user.email,
