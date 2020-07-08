@@ -13,6 +13,8 @@
 # dependencies
 /node_modules
 /functions/node_modules
+/android
+/ios
 
 # IDEs and editors
 /.idea
