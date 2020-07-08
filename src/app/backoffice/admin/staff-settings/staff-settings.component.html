@@ -3,14 +3,60 @@
         <div class="page-header has-tab">
             <h2 class="font-weight-normal"> {{ 'settings' | translate }}</h2>
         </div>
-        <nz-input-group nzSearch class="m-t-10" nzSize="large" [nzAddOnAfter]="suffixButton">
-            <input type="text" nz-input placeholder=" {{ 'MemListEditSearch' | translate }}"
-                [(ngModel)]="memberEmail" />
+        <nz-input-group nzSearch class="m-t-10" nzSize="large">
+            <nz-alert class="m-b-10 m-t-10" nzType="warning" nzDescription=" {{ 'MemberSearchInfo' | translate }}"
+                nzShowIcon></nz-alert>
+            <div class="row">
+                <div class="col-md-3">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <input type="text" nz-input placeholder=" {{ 'MemEditByEmail' | translate }}"
+                                [(ngModel)]="memberEmail" />
+                        </nz-form-control>
+
+                    </nz-form-item>
+                </div>
+
+                <div class="col-md-3">
+                    <nz-form-item>
+
+                        <nz-form-control>
+                            <input type="text" nz-input placeholder=" {{ 'MemEditByName' | translate }}"
+                                [(ngModel)]="memberName" />
+
+                        </nz-form-control>
+
+                    </nz-form-item>
+                </div>
+
+                <div class="col-md-3">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <input type="text" nz-input placeholder=" {{ 'MemEditBySlug' | translate }}"
+                                [(ngModel)]="memberSlug" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div class="col-md-3">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <button nz-button nzType="primary" nzSize="large" nzSearch (click)="getMemberDetails()"
+                                [disabled]="!memberEmail && !memberSlug && !memberName?true:false">{{'MemSearch' | translate}}</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+            </div>
+
+
+            <!-- 
+            <input type="text" nz-input placeholder=" {{ 'MemListEditSearch' | translate }}" [(ngModel)]="memberSlug" />
+
+            <input type="text" nz-input placeholder=" {{ 'MemListEditSearch' | translate }}" [(ngModel)]="memberName" /> -->
+
         </nz-input-group>
-        <ng-template #suffixButton>
-            <button nz-button nzType="primary" nzSize="large" nzSearch (click)="getMemberDetails()"
-                [disabled]="!memberEmail?true:false">{{'MemSearch' | translate}}</button>
-        </ng-template>
+
         <nz-alert class="m-b-10 m-t-10" nzType="warning" nzDescription=" {{ 'MemNotFound' | translate }}" nzShowIcon
             *ngIf="notFound"></nz-alert>
         <nz-card *ngIf="!currentUser">

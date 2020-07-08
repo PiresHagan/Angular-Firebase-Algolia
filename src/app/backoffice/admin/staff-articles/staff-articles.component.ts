@@ -18,14 +18,16 @@ export class StaffArticlesComponent implements OnInit {
   articles: Article[];
   lastVisible: any = null;
   userDetails;
-  searchSlug: string = ""
+  searchSlug: string = "";
+  articleTitle: string = "";
   notFound = false;
 
   constructor(
     public translate: TranslateService,
     public authService: AuthService,
     public articleService: StaffArticleService,
-    public router: Router
+    public router: Router,
+    private staffService: StaffArticleService,
   ) { }
 
 
@@ -73,14 +75,29 @@ export class StaffArticlesComponent implements OnInit {
     }
     return latestURL;
   }
-  getArticleSearchBySlug() {
-    this.articleService.getArticalBySlug(this.searchSlug).subscribe((result) => {
+  getArticle() {
+
+    let searchKey;
+    let searchValue;
+    if (this.searchSlug) {
+      this.articleTitle = "";
+      searchKey = "slug";
+      searchValue = this.searchSlug
+    }
+    if (this.articleTitle) {
+      this.searchSlug = "";
+      searchKey = "title";
+      searchValue = this.articleTitle;
+    }
+
+    this.staffService.getArticle(searchKey, searchValue).subscribe((result) => {
       if (result && result[0])
         this.router.navigate(['app/article/compose'], { queryParams: { article: result[0].id } });
       else
         this.notFound = true;
+      setTimeout(() => {
+        this.notFound = false;
+      }, 1000)
     })
-
-    console.log(this.searchSlug);
   }
 }

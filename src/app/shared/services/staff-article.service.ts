@@ -5,6 +5,7 @@ import { map, take } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './authentication.service';
+import { Observable } from 'rxjs';
 
 
 
@@ -95,18 +96,39 @@ export class StaffArticleService {
     })
     );
   }
-  getArticalBySlug(slug: string) {
-    return this.db.collection<Article>(this.articleCollection, ref => ref
-      .where('slug', '==', slug)
-      .limit(1)
-    ).snapshotChanges().pipe(take(1),
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        });
-      })
-    );
+
+
+  getArticle(prop: string, value: string): Observable<Article[]> {
+    return this.db.collection<Article>(`${this.articleCollection}`, ref =>
+      ref.where(prop, "==", value)
+    )
+      .snapshotChanges()
+      .pipe(
+        take(1),
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+      );
+  }
+
+  getMember(prop: string, value: string) {
+    return this.db.collection(`${this.memberCollection}`, ref =>
+      ref.where(prop, "==", value)
+    )
+      .snapshotChanges()
+      .pipe(
+        take(1),
+        map(actions => {
+          return actions.map(a => {
+            const data: any = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+      );
   }
 }

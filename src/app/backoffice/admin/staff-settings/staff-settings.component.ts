@@ -38,6 +38,8 @@ export class StaffSettingsComponent {
   userDetails: User;
   loggedInUser: Member;
   memberEmail: string;
+  memberName: string;
+  memberSlug: string;
   memberList;
   loadingMore;
   lastVisible;
@@ -233,12 +235,35 @@ export class StaffSettingsComponent {
   }
   getMemberDetails() {
 
+    let searchKey;
+    let searchValue;
+    if (this.memberEmail) {
+      this.memberSlug = "";
+      this.memberName = "";
+      searchKey = "email";
+      searchValue = this.memberEmail
+    }
+    if (this.memberName) {
+      this.memberSlug = "";
+      this.memberEmail = "";
+      searchKey = "fullname";
+      searchValue = this.memberName
+    }
+    if (this.memberSlug) {
+      this.memberName = "";
+      this.memberEmail = "";
+      searchKey = "slug";
+      searchValue = this.memberSlug
+    }
 
-    this.userService.getByEmail(this.memberEmail).subscribe((receiVedUserDetails) => {
+    this.staffService.getMember(searchKey, searchValue).subscribe((receiVedUserDetails) => {
 
       const userDetails = receiVedUserDetails ? receiVedUserDetails[0] : null;
       if (!userDetails) {
         this.notFound = true;
+        setTimeout(() => {
+          this.notFound = false;
+        }, 1000);
       } else {
         this.setMember(userDetails);
       }

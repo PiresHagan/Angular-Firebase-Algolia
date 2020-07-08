@@ -335,5 +335,11 @@
     "artGoBackbtn": "Retour",
     "verifyEmailTitle": "Un lien de vérification a été envoyé à votre adresse e-mail.",
     "verifyEmailDesc": "Veuillez cliquer sur le lien qui a été envoyé à votre adresse e-mail.",
-    "verifySignUpEmailDesc": "Veuillez cliquer sur le lien qui a été envoyé à votre compte de messagerie pour vérifier votre adresse e-mail et poursuivre le processus d'inscription."
+    "verifySignUpEmailDesc": "Veuillez cliquer sur le lien qui a été envoyé à votre compte de messagerie pour vérifier votre adresse e-mail et poursuivre le processus d'inscription.",
+    "ArtifiSearchInfo": "Rechercher un article par titre ou slug.",
+    "ArticleSearchByTitle": "Rechercher un article par titre.",
+    "MemberSearchInfo": "Rechercher un membre par nom complet, e-mail ou slug.",
+    "MemEditByEmail": "Modifier l'article par e-mail",
+    "MemEditByName": "Modifier l'article par nom complet",
+    "MemEditBySlug": "Modifier l'article par slug"
 }
