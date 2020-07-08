@@ -337,5 +337,11 @@
     "artGoBackbtn": "Back",
     "verifyEmailTitle": "A verification link has been sent to your email.",
     "verifyEmailDesc": "Please click on the link that has been sent to your email address.",
-    "verifySignUpEmailDesc": "Please click on the link that has been sent to your email account to verify your email and continue the registration process."
+    "verifySignUpEmailDesc": "Please click on the link that has been sent to your email account to verify your email and continue the registration process.",
+    "ArtifiSearchInfo": "Search Article by Title or Slug.",
+    "ArticleSearchByTitle": "Search Article by Title.",
+    "MemberSearchInfo": "Search Member by FullName or Email or Slug.",
+    "MemEditByEmail": "Edit Article By Email",
+    "MemEditByName": "Edit Article By FullName",
+    "MemEditBySlug": "Edit Article By Slug"
 }
