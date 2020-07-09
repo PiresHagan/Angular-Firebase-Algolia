@@ -339,7 +339,7 @@
     "ArtifiSearchInfo": "Rechercher un article par titre ou slug.",
     "ArticleSearchByTitle": "Rechercher un article par titre.",
     "MemberSearchInfo": "Rechercher un membre par nom complet, e-mail ou slug.",
-    "MemEditByEmail": "Modifier l'article par e-mail",
-    "MemEditByName": "Modifier l'article par nom complet",
-    "MemEditBySlug": "Modifier l'article par slug"
+    "MemEditByEmail": "Modifier le membre par e-mail",
+    "MemEditByName": "Modifier le membre par nom complet",
+    "MemEditBySlug": "Modifier le membre par slug"
 }
