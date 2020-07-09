@@ -6,12 +6,12 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { ArticleService } from 'src/app/shared/services/article.service';
 import { NzModalService } from 'ng-zorro-antd';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DRAFT } from 'src/app/shared/constants/status-constants';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { Location } from '@angular/common';
+import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
 
 @Component({
   selector: 'app-article-content',
@@ -52,7 +52,7 @@ export class ArticleContentComponent implements OnInit {
     public translate: TranslateService,
     public authService: AuthService,
     public userService: UserService,
-    public articleService: ArticleService,
+    public articleService: BackofficeArticleService,
     private modalService: NzModalService,
     private router: Router,
     private route: ActivatedRoute,

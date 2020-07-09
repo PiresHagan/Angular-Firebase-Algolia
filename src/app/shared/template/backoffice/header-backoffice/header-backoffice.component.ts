@@ -1,11 +1,11 @@
 import { Component, OnInit, NgZone } from "@angular/core";
-import { ThemeConstantService } from "../../services/theme-constant.service";
-import { AuthService } from "../../services/authentication.service";
-import { UserService } from "../../services/user.service";
+import { ThemeConstantService } from "../../../services/theme-constant.service";
+import { AuthService } from "../../../services/authentication.service";
+import { UserService } from "../../../services/user.service";
 import { Router } from "@angular/router";
-import { LanguageService } from "../../services/language.service";
+import { LanguageService } from "../../../services/language.service";
 import { TranslateService } from "@ngx-translate/core";
-import { Language } from "../../interfaces/language.type";
+import { Language } from "../../../interfaces/language.type";
 
 @Component({
   selector: "app-header-backoffice",

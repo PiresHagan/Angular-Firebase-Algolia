@@ -447,41 +447,9 @@ export class ArticleService {
     })
   }
 
-  createArticle(article) {
-    return new Promise((resolve, reject) => {
-      article.slug = article.slug + '-' + this.makeid()
-      this.db.collection(`${this.articleCollection}`).add(article).then((articleData) => {
-        resolve(articleData)
-      })
-    }).catch((error) => {
-      console.log(error)
-    })
-  }
 
-  updateArticleImage(articleId, imageDetails) {
-    return new Promise<any>((resolve, reject) => {
-      this.db.collection(`${this.articleCollection}`).doc(`${articleId}`).update(imageDetails).then(() => {
-        resolve();
-      })
-    })
-  }
 
-  addArticleImage(articleId: string, imageDetails: any) {
-    const path = `${this.articleImagePath}/${Date.now()}_${imageDetails.file.name}`;
-    return new Promise((resolve, reject) => {
-      this.storage.upload(path, imageDetails.file).then(
-        snapshot => {
-          snapshot.ref.getDownloadURL().then((downloadURL) => {
-            const imageUrl: string = downloadURL;
-            this.updateArticleImage(articleId, { image: { url: imageUrl, alt: imageDetails.alt } }).then(res => resolve()).catch(err => reject(err))
-          }).catch(err => reject(err))
-        }).catch((error) => {
-          console.log(error);
-          reject();
-        });
 
-    })
-  }
   like(articleId: string, likerData) {
     return this.db.collection(this.articleCollection).doc(articleId).collection(this.articleLikesCollection).doc(likerData.id).set(likerData).then(() => {
       this.likeCount(articleId)
@@ -510,19 +478,8 @@ export class ArticleService {
       })
     })
   }
-  updateArticle(articleId: string, articleDetails) {
-    return this.db.collection(`${this.articleCollection}`).doc(`${articleId}`).set(articleDetails)
-  }
 
-  makeid(length = 6) {
-    var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  }
+
   updateViewCount(articleId: string) {
     const db = firebase.firestore();
     const increment = firebase.firestore.FieldValue.increment(1);

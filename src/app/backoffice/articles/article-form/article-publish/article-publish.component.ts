@@ -8,6 +8,7 @@ import { ACTIVE, DRAFT } from 'src/app/shared/constants/status-constants';
 import { NzModalService } from 'ng-zorro-antd';
 import { STAFF, AUTHOR, MEMBER } from 'src/app/shared/constants/member-constant';
 import { Location } from '@angular/common';
+import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
 
 @Component({
   selector: 'app-article-publish',
@@ -27,7 +28,7 @@ export class ArticlePublishComponent implements OnInit {
     private router: Router,
     private modalService: NzModalService,
     private location: Location,
-    public articleService: ArticleService) { }
+    public articleService: BackofficeArticleService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {

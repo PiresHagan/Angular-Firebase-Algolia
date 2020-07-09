@@ -10,6 +10,7 @@ import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
 @Component({
   selector: 'app-article-image',
   templateUrl: './article-image.component.html',
@@ -32,7 +33,7 @@ export class ArticleImageComponent implements OnInit {
     public translate: TranslateService,
     public authService: AuthService,
     public userService: UserService,
-    public articleService: ArticleService,
+    public articleService: BackofficeArticleService,
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,

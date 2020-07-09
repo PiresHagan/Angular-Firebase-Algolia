@@ -6,16 +6,18 @@ import { SharedModule } from '../shared.module';
 import { HeaderComponent } from "./header/header.component";
 import { SearchComponent } from "./search/search.component";
 import { QuickViewComponent } from './quick-view/quick-view.component';
-import { SideNavComponent } from "./side-nav/side-nav.component";
+import { SideNavComponent } from "./backoffice/side-nav/side-nav.component";
 import { FooterComponent } from "./footer/footer.component";
 
 import { SideNavDirective } from "../directives/side-nav.directive";
 import { ThemeConstantService } from '../services/theme-constant.service';
-import { HeaderBackofficeComponent } from './header/header-backoffice.component';
+import { HeaderBackofficeComponent } from './backoffice/header-backoffice/header-backoffice.component';
 import { MainmenuComponent } from './mainmenu/mainmenu.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FooterBackofficeComponent } from './backoffice/footer-backoffice/footer-backoffice.component';
+
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -31,6 +33,7 @@ export function createTranslateLoader(http: HttpClient) {
         SideNavDirective,
         FooterComponent,
         HeaderBackofficeComponent,
+        FooterBackofficeComponent,
         MainmenuComponent
 
     ],
@@ -48,7 +51,8 @@ export function createTranslateLoader(http: HttpClient) {
         SideNavDirective,
         FooterComponent,
         HeaderBackofficeComponent,
-        MainmenuComponent
+        MainmenuComponent,
+        FooterBackofficeComponent
     ],
     providers: [
         ThemeConstantService

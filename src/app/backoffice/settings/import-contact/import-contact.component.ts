@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/shared/services/user.service';
-import { database } from 'firebase';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { NzModalService } from 'ng-zorro-antd';
+import { BackofficeMemberService } from '../../shared/services/backoffice-member.service';
 declare const cloudsponge: any;
+
 @Component({
   selector: 'app-import-contact',
   templateUrl: './import-contact.component.html',
@@ -59,7 +59,7 @@ export class ImportContactComponent implements OnInit {
   }]
 
 
-  constructor(private userService: UserService, public translate: TranslateService, private modalService: NzModalService) { }
+  constructor(private userService: BackofficeMemberService, public translate: TranslateService, private modalService: NzModalService) { }
 
   ngOnInit(): void {
     const firstProvider = this.providerList[0].name;

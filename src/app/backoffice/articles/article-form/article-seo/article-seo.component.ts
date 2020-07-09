@@ -6,6 +6,7 @@ import { ArticleService } from 'src/app/shared/services/article.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { Location } from '@angular/common';
+import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
 
 @Component({
   selector: 'app-article-seo',
@@ -29,7 +30,7 @@ export class ArticleSeoComponent implements OnInit {
     public authService: AuthService,
     private router: Router,
     private location: Location,
-    public articleService: ArticleService) { }
+    public articleService: BackofficeArticleService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
