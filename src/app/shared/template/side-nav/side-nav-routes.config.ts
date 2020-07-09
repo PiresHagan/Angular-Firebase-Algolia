@@ -55,14 +55,4 @@ export const ROUTES: SideNavInterface[] = [
             }
         ]
     }
-    ,
-    {
-        path: '/app/settings/profile-settings',
-        title: 'myAccountSettings',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'lock',
-        staff_only: true,
-        submenu: []
-    },
 ]

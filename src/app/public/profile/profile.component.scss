@@ -314,6 +314,12 @@
             color: #535353;
             line-height: normal;
             word-break: break-all;
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+          height: 90px;
+          overflow: hidden;
+          margin-bottom: 40px;
           }
           .is-read-more {
             color: #000;

@@ -11,6 +11,7 @@ import { NzModalService } from 'ng-zorro-antd';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DRAFT } from 'src/app/shared/constants/status-constants';
 import { LanguageService } from 'src/app/shared/services/language.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-article-content',
@@ -22,7 +23,7 @@ export class ArticleContentComponent implements OnInit {
   tagList: [] = [];
   tagValue = [];
   article: Article = {};
-  categoryList: Category[];
+  categoryList: Category[] = [];
   articleForm: any;
   contentValidation: boolean = false;
   isLoggedInUser: boolean = false;
@@ -31,7 +32,7 @@ export class ArticleContentComponent implements OnInit {
   isFormSaving: boolean = false;
   loading: boolean = true;
   languageList;
-  topicList;
+  topicList = [];
 
   editorConfig = {
     toolbar: [
@@ -56,6 +57,7 @@ export class ArticleContentComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private languageService: LanguageService,
+    private location: Location
   ) {
 
     this.articleForm = this.fb.group({
@@ -66,6 +68,7 @@ export class ArticleContentComponent implements OnInit {
       lang: ['', [Validators.required]],
       topics: ['']
     });
+
   }
 
   async ngOnInit() {
@@ -83,9 +86,9 @@ export class ArticleContentComponent implements OnInit {
           this.article = await this.articleService.getArticleById(articleId, this.userDetails.id, this.userDetails.type);
           if (this.article && (this.article['id'])) {
             this.categoryService.getAll(this.article.lang).subscribe((categoryList) => {
-              this.categoryList = categoryList;
+              this.categoryList = categoryList ? categoryList : [];
               this.categoryService.getTopicList(this.article.category.id, this.article.lang).subscribe((topicListData) => {
-                this.topicList = topicListData;
+                this.topicList = topicListData ? topicListData : [];
                 this.setFormDetails();
               })
               this.loading = false;
@@ -120,9 +123,9 @@ export class ArticleContentComponent implements OnInit {
         summary: this.articleForm.get('title').value,
         status: this.article && this.article.status ? this.article.status : DRAFT,
         lang: this.articleForm.get('lang').value ? this.articleForm.get('lang').value : this.userDetails.lang,
-        topics: this.getFilteredCategory(this.articleForm.get('topics').value) ? [this.getFilteredCategory(this.articleForm.get('topics').value)] : [],
-        topic_list: this.articleForm.get('topics').value ? [this.articleForm.get('topics').value.slug] : [],
-        created_at: this.article && this.article.id && this.article.created_at ? this.article.created_at : new Date().toString()
+        topics: this.getTopicFilter(this.articleForm.get('topics').value),
+        topic_list: this.getTopicSlug(this.articleForm.get('topics').value),
+        created_at: this.article && this.article.id && this.article.created_at ? this.article.created_at : new Date().toISOString()
       }
       if (this.article && this.article.id) {
         this.articleService.updateArticleImage(this.article.id, articleData).then(() => {
@@ -175,6 +178,34 @@ export class ArticleContentComponent implements OnInit {
     }
   }
 
+  getTopicFilter(topicListData) {
+    let finalTopicData = []
+    if (topicListData) {
+      for (let index = 0; index < topicListData.length; index++) {
+        const topic = topicListData[index];
+        finalTopicData.push({
+          slug: topic.slug,
+          title: topic.title,
+          id: topic.uid,
+          lang: topic.lang ? topic.lang : ''
+        })
+      }
+    }
+    return finalTopicData;
+
+  }
+  getTopicSlug(topicListData) {
+    let finalTopicData = []
+    if (topicListData) {
+      for (let index = 0; index < topicListData.length; index++) {
+        const topic = topicListData[index];
+        finalTopicData.push(topic.slug)
+      }
+    }
+    return finalTopicData;
+
+  }
+
   getUserDetails() {
     return {
       slug: this.userDetails.slug ? this.userDetails.slug : '',
@@ -216,15 +247,22 @@ export class ArticleContentComponent implements OnInit {
       content: this.article.content,
       lang: this.article.lang,
       category: this.getSelectedCategory(this.article.category['id']),
-      topics: this.article.topics && this.article.topics[0] ? this.getSelectedTopic(this.article.topics[0]['id']) : null,
+      topics: this.getSelectedTopic(this.article.topics),
     });
   }
   getSelectedCategory(categoryId) {
     return this.categoryList.find(element => element.uid == categoryId || element.id == categoryId);
 
   }
-  getSelectedTopic(topicId) {
-    return this.topicList.find(element => element.uid == topicId || element.id == topicId);
+  getSelectedTopic(savedTopicData) {
+
+    var availableTopcic = [];
+    for (let index = 0; index < savedTopicData.length; index++) {
+      const receivedData = savedTopicData[index];
+      availableTopcic.push(this.topicList.find(element => element.uid == receivedData.topicId || element.id == receivedData.id));
+
+    }
+    return availableTopcic
 
   }
   languageSelected(language: string) {
@@ -233,7 +271,7 @@ export class ArticleContentComponent implements OnInit {
     this.articleForm.controls['category'].setValue(null);
     this.articleForm.controls['topics'].setValue(null);
     this.categoryService.getAll(language).subscribe((categoryList) => {
-      this.categoryList = categoryList;
+      this.categoryList = categoryList ? categoryList : [];
 
     })
   }
@@ -242,9 +280,12 @@ export class ArticleContentComponent implements OnInit {
       return
     this.articleForm.controls['topics'].setValue(null);
     this.categoryService.getTopicList(category.id, this.articleForm.get('lang').value).subscribe((topicData) => {
-      this.topicList = topicData;
+      this.topicList = topicData ? topicData : [];
 
     })
+  }
+  goBack() {
+    this.location.back();
   }
 
 

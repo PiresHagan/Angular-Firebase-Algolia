@@ -67,6 +67,9 @@
                     <nz-form-item>
                         <nz-form-control>
                             <div>
+                                <button nz-button (click)="goBack()" class="login-form-button m-10"
+                                    [nzType]="'primary'">{{'artGoBackbtn' | translate}}</button>
+
                                 <button
                                     [attr.disabled]="keywordsE.invalid|| descriptionE.invalid || titleE.invalid  ? 'disabled' : null"
                                     nz-button class="login-form-button" [nzLoading]="isFormSaving" [nzType]="'primary'"

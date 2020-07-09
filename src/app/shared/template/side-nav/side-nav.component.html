@@ -6,18 +6,18 @@
 
         <ng-container *ngFor="let item of menuItems">
             <li [ngClass]="item.submenu.length > 0?'ant-menu-submenu ant-menu-submenu-inline':'ant-menu-item'"
-                *ngIf="isStaffAccount==item.staff_only"
+                *ngIf="!item.staff_only || isStaffAccount==item.staff_only"
                 [routerLinkActive]="item.submenu.length > 0 ? 'ant-menu-submenu-open' : 'ant-menu-item-selected'"
                 [routerLinkActiveOptions]="{exact: true}">
-                <a href="javascript:void(0);" class="ant-menu-submenu-title"
-                    *ngIf="item.submenu.length > 0 && isStaffAccount==item.staff_only" style="font-size: 18px;">
+                <a href="javascript:void(0);" class="ant-menu-submenu-title" *ngIf="item.submenu.length > 0" style="
+                    font-size: 18px;">
                     <i *ngIf="item.iconType == 'nzIcon'" nz-icon [nzType]="item.icon" [theme]="item.iconTheme"></i>
                     <i *ngIf="item.iconType == 'fontawesome'" class="m-r-10"
                         [ngClass]="[item.iconTheme , item.icon]"></i>
                     <span>{{item.title  | translate}}</span>
                     <i class="ant-menu-submenu-arrow"></i>
                 </a>
-                <a [routerLink]="item.path" *ngIf="!item.submenu.length > 0 && isStaffAccount==item.staff_only">
+                <a [routerLink]="item.path" *ngIf="!item.submenu.length > 0 ">
                     <i *ngIf="item.iconType == 'nzIcon'" nz-icon [nzType]="item.icon" [theme]="item.iconTheme"></i>
                     <i *ngIf="item.iconType == 'fontawesome'" class="m-r-10"
                         [ngClass]="[item.iconTheme , item.icon]"></i>

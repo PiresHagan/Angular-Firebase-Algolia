@@ -41,8 +41,10 @@
                 </nz-select>
               </nz-form-control>
 
-              <nz-form-control nzErrorTip="{{'artCategoryErr' | translate}}" class="m-5">
-                <nz-select class="m-r-10" formControlName="topics" nzAllowClear nzPlaceHolder="{{'topic' | translate}}">
+              <nz-form-control nzErrorTip="{{'artCategoryErr' | translate}}" class="m-5" style="min-width: 200px;">
+                <label *ngIf="!topicList || !topicList.length" class="placeholder-label">{{'topic' | translate}}</label>
+                <nz-select class="m-r-10" formControlName="topics" nzAllowClear nzMode="multiple"
+                  nzPlaceHolder="{{'topic' | translate}}" *ngIf="topicList && topicList.length">
                   <nz-option *ngFor="let topic of topicList" [nzValue]="topic" nzLabel="{{topic.title}}">
                   </nz-option>
 
@@ -101,10 +103,13 @@
               </nz-option>
             </nz-select>
           </nz-form-item> -->
+
             <div class="d-inline-block">
               <nz-form-item>
-                <button nz-button [nzLoading]="isFormSaving" class="login-form-button" [nzType]="'primary'"
-                  nzBlock>{{'artNext' | translate}}</button>
+                <button nz-button type="button" (click)="goBack()" class="login-form-button m-10"
+                  [nzType]="'primary'">{{'goBackbtnArticleList' | translate}}</button>
+                <button nz-button [nzLoading]="isFormSaving" class="login-form-button  m-10"
+                  [nzType]="'primary'">{{'artNext' | translate}}</button>
               </nz-form-item>
             </div>
 

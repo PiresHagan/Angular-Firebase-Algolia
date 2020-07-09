@@ -54,6 +54,9 @@
           <nz-form-item>
             <nz-form-control>
               <div>
+                <button nz-button (click)="goBack()" class="login-form-button m-10"
+                  [nzType]="'primary'">{{'artGoBackbtn' | translate}}</button>
+
                 <button nz-button class="login-form-button" [nzLoading]="isFormSaving" [nzType]="'primary'"
                   (click)="saveArticleImage()">{{'artNext' |translate}}</button>
               </div>

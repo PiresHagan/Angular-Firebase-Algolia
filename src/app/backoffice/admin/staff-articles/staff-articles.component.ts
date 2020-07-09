@@ -3,6 +3,7 @@ import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { StaffArticleService } from 'src/app/shared/services/staff-article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-article-list',
@@ -17,11 +18,16 @@ export class StaffArticlesComponent implements OnInit {
   articles: Article[];
   lastVisible: any = null;
   userDetails;
+  searchSlug: string = "";
+  articleTitle: string = "";
+  notFound = false;
 
   constructor(
     public translate: TranslateService,
     public authService: AuthService,
     public articleService: StaffArticleService,
+    public router: Router,
+    private staffService: StaffArticleService,
   ) { }
 
 
@@ -68,5 +74,30 @@ export class StaffArticlesComponent implements OnInit {
         .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
     }
     return latestURL;
+  }
+  getArticle() {
+
+    let searchKey;
+    let searchValue;
+    if (this.searchSlug) {
+      this.articleTitle = "";
+      searchKey = "slug";
+      searchValue = this.searchSlug
+    }
+    if (this.articleTitle) {
+      this.searchSlug = "";
+      searchKey = "title";
+      searchValue = this.articleTitle;
+    }
+
+    this.staffService.getArticle(searchKey, searchValue).subscribe((result) => {
+      if (result && result[0])
+        this.router.navigate(['app/article/compose'], { queryParams: { article: result[0].id } });
+      else
+        this.notFound = true;
+      setTimeout(() => {
+        this.notFound = false;
+      }, 1000)
+    })
   }
 }

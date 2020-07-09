@@ -20,6 +20,9 @@
             <nz-form-item>
                 <nz-form-control>
                     <div class="pl-2">
+                        <button nz-button (click)="goBack()" class="login-form-button m-10"
+                            [nzType]="'primary'">{{'artGoBackbtn' | translate}}</button>
+
                         <button nz-button class="login-form-button m-5" [nzLoading]="isFormSaving" [nzType]="'primary'"
                             (click)="savePublishStatus()">{{'artPublish' |translate}}</button>
 

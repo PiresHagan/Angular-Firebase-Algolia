@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Article } from '../interfaces/article.type';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './authentication.service';
+import { Observable } from 'rxjs';
 
 
 
@@ -16,8 +17,6 @@ export class StaffArticleService {
   articleCollection: string = 'articles';
   memberCollection: string = 'members';
   constructor(private db: AngularFirestore, private http: HttpClient, private authService: AuthService) { }
-
-
 
   getArticles(limit: number = 10, navigation: string = "first", lastVisible = null) {
     if (!limit) {
@@ -96,5 +95,40 @@ export class StaffArticleService {
       }
     })
     );
+  }
+
+
+  getArticle(prop: string, value: string): Observable<Article[]> {
+    return this.db.collection<Article>(`${this.articleCollection}`, ref =>
+      ref.where(prop, "==", value)
+    )
+      .snapshotChanges()
+      .pipe(
+        take(1),
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+      );
+  }
+
+  getMember(prop: string, value: string) {
+    return this.db.collection(`${this.memberCollection}`, ref =>
+      ref.where(prop, "==", value)
+    )
+      .snapshotChanges()
+      .pipe(
+        take(1),
+        map(actions => {
+          return actions.map(a => {
+            const data: any = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+      );
   }
 }

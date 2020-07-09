@@ -69,9 +69,13 @@ export class AuthService {
         return new Promise<any>((resolve, reject) => {
             this.afAuth.signInWithEmailAndPassword(email, password)
                 .then(res => {
+                    const analytics = firebase.analytics();
+
                     if (res && !res.user.emailVerified)
                         firebase.auth().currentUser.sendEmailVerification();
-                    const analytics = firebase.analytics();
+
+                    if (res && !res.user.emailVerified)
+                        firebase.auth().currentUser.sendEmailVerification();
 
                     analytics.logEvent("login", {
                         user_uid: res.user.uid,
@@ -92,6 +96,7 @@ export class AuthService {
 
                 this.afAuth.signOut().then(() => {
                     const analytics = firebase.analytics();
+
 
                     analytics.logEvent("logout", {
                         user_uid: user.uid,
@@ -147,6 +152,9 @@ export class AuthService {
             token: captchaToken,
         }, httpOptions)
 
+    }
+    getLoginDetails() {
+        return this.loggedInUser;
     }
 
 }

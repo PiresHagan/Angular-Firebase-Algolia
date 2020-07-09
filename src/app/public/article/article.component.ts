@@ -149,7 +149,7 @@ export class ArticleComponent implements OnInit {
     if (form.valid) {
       this.isFormSaving = true;
       const commentData = {
-        published_on: this.activeComment ? this.activeComment['published_on'] : new Date().toString(),
+        published_on: this.activeComment ? this.activeComment['published_on'] : new Date().toISOString(),
         replied_on: this.activeComment ? this.activeComment['replied_on'] : (this.replyMessage ? this.replyMessage : ''),
         message: this.messageDetails,
         author: this.getUserDetails()

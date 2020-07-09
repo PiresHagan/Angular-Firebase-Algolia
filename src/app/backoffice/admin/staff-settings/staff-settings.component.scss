@@ -1,6 +1,9 @@
 ::ng-deep tr.ant-table-placeholder {
     display: none;
 }
+:host ::ng-deep .ant-alert-icon {
+    top: 5px;
+}
 .profile-setting-main {
     .page-header {
         background: #fff;

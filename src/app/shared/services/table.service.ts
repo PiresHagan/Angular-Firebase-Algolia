@@ -48,7 +48,7 @@ export class TableService {
 
                 if (typeof item[key] == 'number' && item[key] != 0) {
                     let date = formatDate(item[key], 'yyyy-MM-dd HH:mm:ss', 'en');
-                    if (date.indexOf(input.toString()) !== -1) {
+                    if (date.indexOf(input.toISOString()) !== -1) {
                         return true;
                     }
                     continue;

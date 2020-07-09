@@ -9,6 +9,7 @@ import { NzModalService } from 'ng-zorro-antd';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-article-image',
   templateUrl: './article-image.component.html',
@@ -34,6 +35,7 @@ export class ArticleImageComponent implements OnInit {
     public articleService: ArticleService,
     private route: ActivatedRoute,
     private router: Router,
+    private location: Location,
     private modalService: NzModalService, private db: AngularFirestore) { }
 
   ngOnInit() {
@@ -149,6 +151,10 @@ export class ArticleImageComponent implements OnInit {
     })
 
   }
+  goBack() {
+    this.location.back();
+  }
+
 
 
 }

@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 import { ACTIVE, DRAFT } from 'src/app/shared/constants/status-constants';
 import { NzModalService } from 'ng-zorro-antd';
 import { STAFF, AUTHOR, MEMBER } from 'src/app/shared/constants/member-constant';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-article-publish',
@@ -25,6 +26,7 @@ export class ArticlePublishComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private modalService: NzModalService,
+    private location: Location,
     public articleService: ArticleService) { }
 
   ngOnInit() {
@@ -58,7 +60,7 @@ export class ArticlePublishComponent implements OnInit {
   }
   savePublishStatus() {
     this.isFormSaving = true;
-    this.articleService.updateArticleImage(this.articleId, { status: ACTIVE, published_at: new Date().toString() }).then(async () => {
+    this.articleService.updateArticleImage(this.articleId, { status: ACTIVE, published_at: new Date().toISOString() }).then(async () => {
 
       if ((!this.userDetails.type || this.userDetails.type == MEMBER) && this.userDetails.type != STAFF)
         await this.userService.updateMember(this.userDetails.id, { type: AUTHOR });
@@ -80,9 +82,8 @@ export class ArticlePublishComponent implements OnInit {
         this.router.navigate(['/app/article']);
 
     })
-
-
   }
+
   showSuccess() {
 
     let $message = this.translate.instant("artPublishMsg");
@@ -99,5 +100,9 @@ export class ArticlePublishComponent implements OnInit {
       },
     });
   }
+  goBack() {
+    this.location.back();
+  }
+
 
 }
