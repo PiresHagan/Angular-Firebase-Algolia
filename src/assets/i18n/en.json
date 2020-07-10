@@ -341,7 +341,7 @@
     "ArtifiSearchInfo": "Search Article by Title or Slug.",
     "ArticleSearchByTitle": "Search Article by Title.",
     "MemberSearchInfo": "Search Member by FullName or Email or Slug.",
-    "MemEditByEmail": "Edit Article By Email",
-    "MemEditByName": "Edit Article By FullName",
-    "MemEditBySlug": "Edit Article By Slug"
+    "MemEditByEmail": "Edit Member By Email",
+    "MemEditByName": "Edit Member By FullName",
+    "MemEditBySlug": "Edit Member By Slug"
 }

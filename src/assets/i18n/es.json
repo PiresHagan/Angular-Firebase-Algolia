@@ -339,7 +339,7 @@
     "ArtifiSearchInfo": "Buscar artículo por título o babosa",
     "ArticleSearchByTitle": "Buscar artículo por título",
     "MemberSearchInfo": "Buscar miembro por nombre completo o correo electrónico o babosa",
-    "MemEditByEmail": "Editar artículo por correo electrónico",
-    "MemEditByName": "Editar artículo por nombre completo",
-    "MemEditBySlug": "Editar artículo por Slug"
+    "MemEditByEmail": "Editar miembro por correo electrónico",
+    "MemEditByName": "Editar miembro por nombre completo",
+    "MemEditBySlug": "Editar miembro por Slug"
 }
