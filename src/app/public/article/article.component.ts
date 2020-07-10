@@ -12,7 +12,7 @@ import { DomSanitizer, Title, Meta } from '@angular/platform-browser';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { environment } from 'src/environments/environment';
 import { LanguageService } from 'src/app/shared/services/language.service';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-article',
