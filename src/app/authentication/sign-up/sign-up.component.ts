@@ -10,7 +10,7 @@ import { PreviousRouteService } from 'src/app/shared/services/previous-route.ser
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { environment } from "src/environments/environment";
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 @Component({
     templateUrl: './sign-up.component.html',

@@ -8,7 +8,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { environment } from 'src/environments/environment';
 import { Meta, Title } from '@angular/platform-browser';
 import { LanguageService } from 'src/app/shared/services/language.service';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-profile',
