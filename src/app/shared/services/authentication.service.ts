@@ -61,6 +61,13 @@ export class AuthService {
                         resolve(res);
                     }).catch(err => reject(err))
 
+                    const analytics = firebase.analytics();
+                    analytics.logEvent("sign_up", {
+                        user_uid: res.user.uid,
+                        user_name: displayName,
+                        user_email: res.user.email
+                    });
+
                 }, err => reject(err))
         })
     }

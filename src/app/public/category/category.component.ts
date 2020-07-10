@@ -8,7 +8,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { FormControl, FormGroup } from '@angular/forms';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { Category } from 'src/app/shared/interfaces/category.type';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 
 @Component({
