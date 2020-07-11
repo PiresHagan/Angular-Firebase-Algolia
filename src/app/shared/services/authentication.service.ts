@@ -151,9 +151,7 @@ export class AuthService {
         }
     }
     validateCaptcha(captchaToken) {
-        const httpOptions = {
-
-        }
+        const httpOptions = { headers: { skip: "true" } };
 
         return this.http.post(environment.baseAPIDomain + '/api/validateCaptcha', {
             token: captchaToken,

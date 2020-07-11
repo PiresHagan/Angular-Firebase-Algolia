@@ -49,19 +49,10 @@ export class CommonBackofficeService {
     );
   }
   async updatePassword(email, password) {
-    const token = await this.authService.getUserToken();
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      })
-    }
-
     this.http.post(environment.baseAPIDomain + '/api/passwordChange', {
       email: email,
       password: password
-    }, httpOptions).subscribe((data) => {
+    }).subscribe((data) => {
       console.log(data)
     }, (err) => {
       console.log(err)

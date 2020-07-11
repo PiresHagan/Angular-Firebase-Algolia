@@ -27,10 +27,12 @@ import { AuthService } from './shared/services/authentication.service';
 
 import { TranslateLoader, TranslateModule, TranslateStore } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LanguageService } from './shared/services/language.service';
 import { PreviousRouteService } from './shared/services/previous-route.service';
 import { NgAisModule } from 'angular-instantsearch';
+import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
+
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -76,8 +78,9 @@ registerLocaleData(en);
         AuthService,
         PreviousRouteService,
         ScreenTrackingService,
-        UserTrackingService
+        UserTrackingService,
 
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
 })
