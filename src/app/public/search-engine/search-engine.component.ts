@@ -16,7 +16,8 @@ export class SearchEngineComponent implements OnInit {
   selectedLanguage: string = "";
   config = {
     indexName: 'dev_articles',
-    searchClient
+    searchClient,
+    routing: true
   };
   
   constructor (
