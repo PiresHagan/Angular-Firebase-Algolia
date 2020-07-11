@@ -16,15 +16,7 @@ export class SearchEngineComponent implements OnInit {
   selectedLanguage: string = "";
   config = {
     indexName: 'dev_articles',
-    searchClient,
-    searchFunction(helper) {
-      helper.search();
-      const analytics = firebase.analytics();
-    
-      analytics.logEvent('search', {
-        query: helper.state.query
-      });
-    }
+    searchClient
   };
   
   constructor (
