@@ -390,5 +390,17 @@
     "CampTransactionId": "Transaction Id : ",
     "CampTransactionAmount": "Transaction Amount : ",
     "CampPaymentMessage": "Your payment has been processed. Here are the details of this transaction for your reference.",
-    "CampSearchEngineBrandSize": "File Size should be less than: 2MB"
+    "CampSearchEngineBrandSize": "File Size should be less than: 2MB",
+    "CampPrice": "Price",
+    "CampDate": "Date",
+    "CampStatus": "Status",
+    "CampBuySearchEngine": "Buy Search Engine Campaign",
+    "CampBuyTopContributor": "Buy Top Contributor Campaign",
+    "CampBuyTopPost": "Buy Top Post Campaign",
+    "SearchEngineCampaign": "Search Engine Campaign",
+    "TopContributorCampaign": "Top Contributor Campaign",
+    "TopPostCampaign": "Top Post Campaign",
+    "SearchEngineBrandURLErrMsg": "The Brand URL must be a valid URL.",
+    "CampaignStop": "Do you Want to stop this campaign?",
+    "CampaignStopMsg": "When clicking the OK button, this campaign will be stopped immediately."
 }

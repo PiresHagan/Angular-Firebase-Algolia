@@ -87,7 +87,7 @@ const routes: Routes = [
         path: 'checkout-top-contributor/:campaignId',
         component: CheckoutTopContributorCampaignComponent,
         data: {
-          title: "CampCheckout",
+          title: "CampCheckOut",
         },
 
       },

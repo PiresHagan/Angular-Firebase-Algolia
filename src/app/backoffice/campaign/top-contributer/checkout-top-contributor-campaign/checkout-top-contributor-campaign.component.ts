@@ -29,7 +29,7 @@ export class CheckoutTopContributorCampaignComponent implements OnInit {
   submitForm(values) {
     this.isFormSaving = true;
     const campaignId = this.route.snapshot.params['campaignId'];
-    this.campaignService.checkoutCampaign(campaignId, {}).subscribe((data: any) => {
+    this.campaignService.checkoutCampaign(campaignId, { campaignInfo: values.campaignInfo }).subscribe((data: any) => {
       this.isFormSaving = false;
       let $paymentMessage = this.translate.instant("CampPaymentMessage");
       let $paymentHeading = this.translate.instant("CampPaymentSuccessful");
@@ -38,7 +38,7 @@ export class CheckoutTopContributorCampaignComponent implements OnInit {
       let $transactionId = this.translate.instant("CampTransactionId");
       this.modal.success({
         nzTitle: $paymentHeading,
-        nzContent: `<p>${$paymentMessage}</p><br><p>${$transactionId} ${data.id}</p><br><p>${$transactionAmount} ${data.amount}</p>`,
+        nzContent: `<p>${$paymentMessage}</p><br><p>${$transactionId} ${data.invoiceId}</p><br><p>${$transactionAmount} ${data.amount}</p>`,
         nzOnOk: () => {
           this.router.navigate(['app/campaign/campaign-manager']);
         }

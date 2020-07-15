@@ -388,5 +388,17 @@
     "CampTransactionId": "ID de transaction:",
     "CampTransactionAmount": "Montant de la transaction:",
     "CampPaymentMessage": "Votre paiement a été traité. Voici les détails de cette transaction pour référence.",
-    "CampSearchEngineBrandSize": "La taille du fichier doit être inférieure à: 2 Mo"
+    "CampSearchEngineBrandSize": "La taille du fichier doit être inférieure à: 2 Mo",
+    "CampPrice": "Precio",
+    "CampDate": "Fecha",
+    "CampStatus": "Estado",
+    "CampBuySearchEngine": "Comprar campaña de motor de búsqueda",
+    "CampBuyTopContributor": "Comprar campaña de colaboradores principales",
+    "CampBuyTopPost": "Comprar campaña de publicación superior",
+    "SearchEngineCampaign": "Campaña del motor de búsqueda",
+    "TopContributorCampaign": "Campaña de Colaborador principal",
+    "TopPostCampaign": "Campaña de publicaciones principales",
+    "SearchEngineBrandURLErrMsg": "La URL de la marca debe ser una URL válida",
+    "CampaignStop": "¿Desea detener esta campaña?",
+    "CampaignStopMsg": "Al hacer clic en el botón Aceptar, esta campaña se detendrá de inmediato"
 }

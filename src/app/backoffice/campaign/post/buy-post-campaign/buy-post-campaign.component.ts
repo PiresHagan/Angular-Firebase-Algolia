@@ -8,6 +8,7 @@ import { BackofficeArticleService } from 'src/app/backoffice/shared/services/bac
 import { CampaignService } from 'src/app/backoffice/shared/services/campaign.service';
 import { formatDate } from '@angular/common';
 import { Router } from '@angular/router';
+import { TOPPOSTCAMPAIGN } from 'src/app/shared/constants/campaign-constants';
 
 @Component({
   selector: 'app-buy-post-campaign',
@@ -19,7 +20,8 @@ export class BuyPostCampaignComponent implements OnInit {
   isFormSaving: boolean = false;
   postCampaignForm: FormGroup
   articleList: Article[];;
-  userDetails
+  userDetails;
+  price;
   constructor(private fb: FormBuilder,
     private translate: TranslateService,
     private modal: NzModalService, private articleService: BackofficeArticleService, public authService: AuthService, private campaignService: CampaignService, private router: Router) {
@@ -31,6 +33,11 @@ export class BuyPostCampaignComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.campaignService.getProductPrice(TOPPOSTCAMPAIGN).subscribe((data: any) => {
+      this.price = data[0].price;
+    })
+
     this.authService.getAuthState().subscribe(async (user) => {
       if (!user)
         return;
@@ -61,7 +68,7 @@ export class BuyPostCampaignComponent implements OnInit {
     this.isFormSaving = true;
     this.campaignService.buySponsoredPost(formDetails).subscribe((response: any) => {
       this.isFormSaving = false;
-      this.router.navigate(['app/campaign/sponsored-post/checkout-sponsored-post', response.id]);
+      this.router.navigate(['app/campaign/sponsored-post/checkout-sponsored-post', response.invoiceId]);
     }, (error) => {
       this.isFormSaving = false;
       let $errorLbl = this.translate.instant("CampERROR");

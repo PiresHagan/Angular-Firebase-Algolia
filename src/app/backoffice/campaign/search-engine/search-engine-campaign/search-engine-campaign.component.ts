@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CampaignService } from 'src/app/backoffice/shared/services/campaign.service';
+import { SEARCHENGINECAMPAIGN } from 'src/app/shared/constants/campaign-constants';
 
 @Component({
   selector: 'app-search-engine-campaign',
@@ -7,8 +9,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./search-engine-campaign.component.scss']
 })
 export class SearchEngineCampaignComponent implements OnInit {
-
-  constructor(private router: Router) { }
+  price;
+  constructor(private router: Router, private campaignService: CampaignService) { }
   articleBrand = [
     {
       image: './assets/images/search-engine/nike.png',
@@ -50,6 +52,9 @@ export class SearchEngineCampaignComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+    this.campaignService.getProductPrice(SEARCHENGINECAMPAIGN).subscribe((data: any) => {
+      this.price = data.price;
+    })
   }
   buySearchEngineSpot() {
     this.router.navigate(['app/campaign/search-engine/buy-search-engine']);

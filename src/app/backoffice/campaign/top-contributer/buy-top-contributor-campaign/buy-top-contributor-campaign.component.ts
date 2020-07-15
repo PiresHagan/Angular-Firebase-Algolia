@@ -6,6 +6,7 @@ import { LanguageService } from 'src/app/shared/services/language.service';
 import { Language } from 'src/app/shared/interfaces/language.type';
 import { CampaignService } from 'src/app/backoffice/shared/services/campaign.service';
 import { Router } from '@angular/router';
+import { TOPCONTRIBUTORCAMPAIGN } from 'src/app/shared/constants/campaign-constants';
 
 @Component({
   selector: 'app-buy-top-contributor-campaign',
@@ -21,7 +22,7 @@ export class BuyTopContributorCampaignComponent implements OnInit {
   isFormSaving: boolean = false;
   languageList: Language[];
   isProfilePicRequiredErr: boolean = false;
-
+  price;
 
   constructor(
     private fb: FormBuilder,
@@ -41,6 +42,9 @@ export class BuyTopContributorCampaignComponent implements OnInit {
 
   ngOnInit(): void {
     this.languageList = this.languageService.geLanguageList();
+    this.campaignService.getProductPrice(TOPCONTRIBUTORCAMPAIGN).subscribe((data: any) => {
+      this.price = data[0].price;
+    })
   }
 
 
@@ -52,45 +56,36 @@ export class BuyTopContributorCampaignComponent implements OnInit {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
       this.loading = false;
-
-      this.modal.error({
-        nzTitle: $errorLbl,
-        nzContent: '<p>' + this.translate.instant("artImageTypeErr") + '</p>',
-        nzOnOk: () => $OkBtn
-      });
-
-
-
+      this.showImageError($errorLbl, this.translate.instant("artImageTypeErr"), $OkBtn);
       return false;
     }
 
     const isLt2M = file.size! / 1024 / 1024 < 2;
     if (!isLt2M) {
       this.loading = false;
-      this.modal.error({
-        nzTitle: $errorLbl,
-        nzContent: '<p>' + this.translate.instant("artImageSizeErr") + '</p>',
-        nzOnOk: () => $OkBtn
-      });
+      this.showImageError($errorLbl, this.translate.instant("artImageSizeErr"), $OkBtn);
 
       return false;
     }
     this.avatarImageObj = file;
     try {
       this.getBase64(file, (img: string) => {
-        this.loading = false;
-        this.isProfilePicRequiredErr = false;
         this.avatarImage = img;
+        this.campaignService.uploadImage(this.getImageObject()).then((imageData) => {
+          this.loading = false;
+          this.isProfilePicRequiredErr = false;
+          this.avatarImageObj = imageData;
+        }).catch(() => {
+          this.loading = false;
+          this.isProfilePicRequiredErr = true;
+          this.showImageError($errorLbl, this.translate.instant("artImageGeneralErr"), $OkBtn);
+        })
       });
     } catch (error) {
       this.loading = false;
       this.avatarImageObj = null;
       this.avatarImage = null;
-      this.modal.error({
-        nzTitle: $errorLbl,
-        nzContent: '<p>' + this.translate.instant("artImageGeneralErr") + '</p>',
-        nzOnOk: () => $OkBtn
-      });
+      this.showImageError($errorLbl, this.translate.instant("artImageGeneralErr"), $OkBtn);
     }
 
     return false;
@@ -113,7 +108,7 @@ export class BuyTopContributorCampaignComponent implements OnInit {
       language: value.lang,
       sortBio: value.sortBio,
       avatarImage: this.avatarImageObj,
-      campaignDate: value.campaignDate
+      campaignDate: value.campaignDate.toISOString()
     }
     console.log(formDetails);
     this.buyTopContributorSpot(formDetails)
@@ -132,7 +127,7 @@ export class BuyTopContributorCampaignComponent implements OnInit {
     this.isFormSaving = true;
     this.campaignService.buyTopContributorSpot(formDetails).subscribe((response: any) => {
       this.isFormSaving = false;
-      this.router.navigate(['app/campaign/top-contributor/checkout-top-contributor', response.id]);
+      this.router.navigate(['app/campaign/top-contributor/checkout-top-contributor', response.invoiceId]);
     }, (error) => {
       this.isFormSaving = false;
       let $errorLbl = this.translate.instant("CampERROR");
@@ -145,6 +140,19 @@ export class BuyTopContributorCampaignComponent implements OnInit {
 
 
     })
+  }
+  getImageObject() {
+    return {
+      file: this.avatarImageObj,
+      alt: '',
+    }
+  }
+  showImageError($errorLbl, message, btn) {
+    this.modal.error({
+      nzTitle: $errorLbl,
+      nzContent: '<p>' + message + '</p>',
+      nzOnOk: () => btn
+    });
   }
 
 

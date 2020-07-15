@@ -6,6 +6,7 @@ import { LanguageService } from 'src/app/shared/services/language.service';
 import { Language } from 'src/app/shared/interfaces/language.type';
 import { CampaignService } from 'src/app/backoffice/shared/services/campaign.service';
 import { Router } from '@angular/router';
+import { SEARCHENGINECAMPAIGN } from 'src/app/shared/constants/campaign-constants';
 
 @Component({
   selector: 'app-buy-search-engine-campaign',
@@ -21,6 +22,7 @@ export class BuySearchEngineCampaignComponent implements OnInit {
   isFormSaving: boolean = false;
   languageList: Language[];
   isBrandPicRequiredErr: boolean = false;
+  price;
   constructor(
     private fb: FormBuilder,
     private translate: TranslateService,
@@ -29,15 +31,19 @@ export class BuySearchEngineCampaignComponent implements OnInit {
     private campaignService: CampaignService,
     private router: Router
   ) {
+    const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
     this.searchEnineCampaignForm = this.fb.group({
       brandName: ['', [Validators.required]],
-      brandURL: ['', [Validators.required]],
+      brandURL: ['', [Validators.required, Validators.pattern(urlRegex)]],
       campaignDate: ['', [Validators.required]],
     });
   }
 
   ngOnInit(): void {
     this.languageList = this.languageService.geLanguageList();
+    this.campaignService.getProductPrice(SEARCHENGINECAMPAIGN).subscribe((data: any) => {
+      this.price = data[0].price;
+    })
   }
 
 
@@ -48,45 +54,36 @@ export class BuySearchEngineCampaignComponent implements OnInit {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
       this.loading = false;
-
-      this.modal.error({
-        nzTitle: $errorLbl,
-        nzContent: '<p>' + this.translate.instant("artImageTypeErr") + '</p>',
-        nzOnOk: () => $OkBtn
-      });
-
-
-
+      this.showImageError($errorLbl, this.translate.instant("artImageTypeErr"), $OkBtn);
       return false;
     }
-
     const isLt2M = file.size! / 1024 / 1024 < 2;
     if (!isLt2M) {
       this.loading = false;
-      this.modal.error({
-        nzTitle: $errorLbl,
-        nzContent: '<p>' + this.translate.instant("artImageSizeErr") + '</p>',
-        nzOnOk: () => $OkBtn
-      });
+      this.showImageError($errorLbl, this.translate.instant("artImageSizeErr"), $OkBtn);
 
       return false;
     }
     this.brandImageObj = file;
     try {
       this.getBase64(file, (img: string) => {
-        this.loading = false;
-        this.isBrandPicRequiredErr = false;
         this.brandImage = img;
+        this.campaignService.uploadImage(this.getImageObject()).then((imageData) => {
+          this.loading = false;
+          this.isBrandPicRequiredErr = false;
+          this.brandImageObj = imageData;
+        }).catch(() => {
+          this.loading = false;
+          this.isBrandPicRequiredErr = true;
+          this.showImageError($errorLbl, this.translate.instant("artImageGeneralErr"), $OkBtn);
+        })
       });
     } catch (error) {
       this.loading = false;
       this.brandImageObj = null;
       this.brandImageObj = null;
-      this.modal.error({
-        nzTitle: $errorLbl,
-        nzContent: '<p>' + this.translate.instant("artImageGeneralErr") + '</p>',
-        nzOnOk: () => $OkBtn
-      });
+      this.showImageError($errorLbl, this.translate.instant("artImageGeneralErr"), $OkBtn);
+
     }
 
     return false;
@@ -128,7 +125,7 @@ export class BuySearchEngineCampaignComponent implements OnInit {
     this.isFormSaving = true;
     this.campaignService.buyBrandSpot(formDetails).subscribe((response: any) => {
       this.isFormSaving = false;
-      this.router.navigate(['app/campaign/search-engine/checkout-search-engine', response.id]);
+      this.router.navigate(['app/campaign/search-engine/checkout-search-engine', response.invoiceId]);
     }, (error) => {
       this.isFormSaving = false;
       let $errorLbl = this.translate.instant("CampERROR");
@@ -141,6 +138,19 @@ export class BuySearchEngineCampaignComponent implements OnInit {
 
 
     })
+  }
+  getImageObject() {
+    return {
+      file: this.brandImageObj,
+      alt: '',
+    }
+  }
+  showImageError($errorLbl, message, btn) {
+    this.modal.error({
+      nzTitle: $errorLbl,
+      nzContent: '<p>' + message + '</p>',
+      nzOnOk: () => btn
+    });
   }
 
 
