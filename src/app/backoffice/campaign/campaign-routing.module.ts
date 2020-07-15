@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CampaignManagerComponent } from './campaign-manager/campaign-manager.component';
-import { CampaignSearchEngineComponent } from './campaign-search-engine/campaign-search-engine.component';
-import { SponsoredPostComponent } from './sponsored-post/sponsored-post.component';
+
 import { UpdateBillingComponent } from './update-billing/update-billing.component';
 import { TopContributorCampaignComponent } from './top-contributer/top-contributor-campaign/top-contributor-campaign.component';
 import { BuyTopContributorCampaignComponent } from './top-contributer/buy-top-contributor-campaign/buy-top-contributor-campaign.component';

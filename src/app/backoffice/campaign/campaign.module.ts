@@ -7,8 +7,6 @@ import { SharedModule, createTranslateLoader } from 'src/app/shared/shared.modul
 
 import { CampaignRoutingModule } from './campaign-routing.module';
 import { CampaignManagerComponent } from './campaign-manager/campaign-manager.component';
-import { CampaignSearchEngineComponent } from './campaign-search-engine/campaign-search-engine.component';
-import { SponsoredPostComponent } from './sponsored-post/sponsored-post.component';
 import { UpdateBillingComponent } from './update-billing/update-billing.component';
 import { SearchEngineCampaignComponent } from './search-engine/search-engine-campaign/search-engine-campaign.component';
 import { BuySearchEngineCampaignComponent } from './search-engine/buy-search-engine-campaign/buy-search-engine-campaign.component';
@@ -27,8 +25,7 @@ import { CheckoutSuccessPostCampaignComponent } from './post/checkout-success-po
 @NgModule({
   declarations: [
     CampaignManagerComponent,
-    CampaignSearchEngineComponent,
-    SponsoredPostComponent,
+
     UpdateBillingComponent,
     SearchEngineCampaignComponent,
     BuySearchEngineCampaignComponent,
