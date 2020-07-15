@@ -19,7 +19,7 @@ export class UpdateBillingComponent implements OnInit {
     this.campaignService.updateBilling().subscribe((response: any) => {
       this.loading = false;
       if (response.url) {
-        window.open(response.url)
+        window && window.open(response.url, '_self')
       } else {
         this.showError();
       }

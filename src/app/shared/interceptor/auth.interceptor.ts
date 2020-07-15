@@ -14,6 +14,7 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         // Exclude interceptor for login request:
+        //TODO: Put this thing in Array 
         if (request.url.indexOf('/api/validateCaptcha') > -1 || request.url.indexOf('assets/i18n') > -1) {
 
             return next.handle(request);

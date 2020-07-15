@@ -1,0 +1,51 @@
+<div class="container m-t-10">
+    <div class="profile-article-list">
+        <nz-card [nzBordered]="false" nzTitle="{{ 'CampCheckOut' | translate}}">
+            <!-- <h4>{{ 'CampHeadMessage' | translate}}</h4> -->
+            <nz-alert class="m-b-10" nzType="info" nzMessage="{{'CampCheckoutInfo' | translate}}">
+            </nz-alert>
+
+            <form nz-form [formGroup]="checkoutCampaign" class="login-form"
+                (ngSubmit)="submitForm(checkoutCampaign.value)">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <nz-form-item>
+                            <nz-form-label>{{'CampCheckoutInfoLable' | translate}}</nz-form-label>
+                            <nz-form-control
+                                nzErrorTip="{{'CampCheckoutInfoLable' | translate}} {{'required' | translate}}">
+                                <textarea rows="4" nz-input name="content" formControlName="campaignInfo"></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <!-- <div class="col-md-12">
+                        <nz-form-item>
+                            <nz-form-label>{{'CampBillingInfoLable' | translate}}</nz-form-label>
+                            <nz-form-control
+                                nzErrorTip="{{'CampBillingInfoLable' | translate}} {{'required' | translate}}">
+                                <textarea rows="4" nz-input name="content"
+                                    formControlName="campaignBillingInfo"></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div> -->
+                </div>
+                <div class="billing-container">
+                    <app-update-billing></app-update-billing>
+                </div>
+                <!-- </nz-card>  -->
+                <br />
+                <div class="d-flex align-items-center justify-content-between">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <div>
+                                <button nz-button class="login-form-button" [disabled]="!checkoutCampaign.valid"
+                                    [nzType]="'primary'"
+                                    [nzLoading]="isFormSaving">{{'CampMakePayment' | translate}}</button>
+                            </div>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </form>
+        </nz-card>
+    </div>
+</div>

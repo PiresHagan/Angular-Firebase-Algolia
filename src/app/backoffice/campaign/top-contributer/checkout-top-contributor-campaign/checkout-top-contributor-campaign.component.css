@@ -1,0 +1,6 @@
+:host ::ng-deep .billing-container .container {
+    padding-left: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding-right: 0;
+}
