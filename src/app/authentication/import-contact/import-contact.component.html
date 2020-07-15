@@ -53,10 +53,6 @@
                                                     (nzCheckedChange)="onAllChecked($event,provider.name)"></th>
                                                 <th nzCustomFilter>
                                                     {{'importName' | translate}}
-                                                    <nz-filter-trigger [(nzVisible)]="visible"
-                                                        [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
-                                                        <i nz-icon nzType="search"></i>
-                                                    </nz-filter-trigger>
                                                 </th>
                                                 <th>{{'importEmail' | translate}}</th>
 
