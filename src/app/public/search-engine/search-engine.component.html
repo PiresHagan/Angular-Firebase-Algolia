@@ -38,15 +38,14 @@
                     </div> -->
                     <div [routerLink]="['/article/',hit.slug]"  class="sr-article-sec-item" *ngFor="let hit of hits; let i=index"  [ngStyle]="{'order': OrderIndex + i}">
                        
-                        <div class="sr-article-img"><img src="{{hit.image.url}}" alt="{{hit.image.alt}}" /></div>
-                        <div class="sr-article-detail">
+                        <div class="sr-article-img" *ngIf="hit"><img *ngIf="hit.image" src="{{hit.image.url}}" alt="{{hit.image.alt}}" /></div>
+                        <div class="sr-article-detail" *ngIf="hit">
                             <div class="sr-article-txt">
                                 <h2>{{hit.title}}</h2>
                             </div>
                             <div class="sr-avtar">
-                                <img src="{{hit.author.avatar.url}}" 
-                                alt="{{hit.author.avatar.alt}}" 
-                                onerror="this.src='assets/images/default-avatar.png'"/>
+                                <img *ngIf="hit.author.avatar" src="{{hit.author.avatar.url}}" alt="{{hit.author.avatar.alt}}"/>
+                                <img *ngIf="!hit.author.avatar" src="assets/images/default-avatar.png" alt="default avatar"/>
                             </div>
                         </div>
                     </div>
