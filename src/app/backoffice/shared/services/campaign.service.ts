@@ -41,7 +41,7 @@ export class CampaignService {
   }
 
   checkoutCampaign(campaignId, postData) {
-    return this.http.post(environment.baseAPIDomain + '/api/v1/payment/invoices/' + campaignId + '/charge', postData)
+    return this.http.post(environment.baseAPIDomain + '/api/v1/payment/invoices/' + campaignId + '/charge', {})
   }
 
   getCampaign() {
@@ -54,6 +54,15 @@ export class CampaignService {
 
   terminate(campaignId) {
     return this.http.post(environment.baseAPIDomain + '/api/campaigns/' + campaignId + '/terminate', {})
+  }
+
+  getCampaignInfo(campaignId) {
+    return this.http.get(environment.baseAPIDomain + '/api/campaigns/' + campaignId)
+
+  }
+  getPaymentMethod() {
+    return this.http.get(environment.baseAPIDomain + '/api/v1/payment/methods')
+
   }
 
 

@@ -19,6 +19,7 @@ import { PostCampaignComponent } from './post/post-campaign/post-campaign.compon
 import { BuyPostCampaignComponent } from './post/buy-post-campaign/buy-post-campaign.component';
 import { CheckoutPostCampaignComponent } from './post/checkout-post-campaign/checkout-post-campaign.component';
 import { CheckoutSuccessPostCampaignComponent } from './post/checkout-success-post-campaign/checkout-success-post-campaign.component';
+import { CcampaignListComponent } from './ccampaign-list/ccampaign-list.component';
 
 
 
@@ -37,7 +38,8 @@ import { CheckoutSuccessPostCampaignComponent } from './post/checkout-success-po
     TopContributorCampaignComponent,
     PostCampaignComponent,
     CheckoutPostCampaignComponent,
-    CheckoutSuccessPostCampaignComponent
+    CheckoutSuccessPostCampaignComponent,
+    CcampaignListComponent
   ],
   imports: [
     CommonModule,

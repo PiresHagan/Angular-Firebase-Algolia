@@ -5,6 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { TranslateService } from '@ngx-translate/core';
 import { TOPPOSTCAMPAIGN } from 'src/app/shared/constants/campaign-constants';
+import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
+import { ACTIVE } from 'src/app/shared/constants/status-constants';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-checkout-post-campaign',
@@ -17,7 +20,18 @@ export class CheckoutPostCampaignComponent implements OnInit {
   checkoutCampaign: FormGroup;
   isFormSaving: boolean = false;
   price;
-  constructor(private fb: FormBuilder, private modal: NzModalService, private router: Router, private campaignService: CampaignService, private route: ActivatedRoute, private translate: TranslateService) {
+  campaignData;
+  Cards;
+  loading;
+  articleData;
+  constructor(private fb: FormBuilder,
+    private modal: NzModalService,
+    private router: Router,
+    private campaignService: CampaignService,
+    private route: ActivatedRoute,
+    private translate: TranslateService,
+    private userService: UserService,
+    private backofficeArticleService: BackofficeArticleService) {
 
     this.checkoutCampaign = this.fb.group({
       campaignInfo: [''],
@@ -30,6 +44,21 @@ export class CheckoutPostCampaignComponent implements OnInit {
     this.campaignService.getProductPrice(TOPPOSTCAMPAIGN).subscribe((data: any) => {
       this.price = data[0].price;
     })
+    const campaignId = this.route.snapshot.params['campaignId'];
+    this.campaignService.getCampaignInfo(campaignId).subscribe((data: any) => {
+      console.log(data);
+      this.campaignData = data;
+      this.loadArticleData(data.articleId);
+    }, error => {
+      let $errorLbl = this.translate.instant("CampERROR");
+      let $OkBtn = this.translate.instant("CampOK");
+      this.modal.error({
+        nzTitle: $errorLbl,
+        nzContent: '<p>' + error ? error.message : error.message + '</p>',
+        nzOnOk: () => $OkBtn
+      });
+    })
+    this.displayPaymentMethod()
   }
   submitForm(values) {
     this.isFormSaving = true;
@@ -61,6 +90,46 @@ export class CheckoutPostCampaignComponent implements OnInit {
         nzOnOk: () => $OkBtn
       });
     })
+  }
+  loadArticleData(articleId: string) {
+    this.userService.getCurrentUser().then((user) => {
+
+
+      this.backofficeArticleService.getArticleById(articleId, user.uid, ACTIVE).then((data) => {
+        this.articleData = data
+        console.log(data);
+      })
+
+    })
+
+  }
+
+  displayPaymentMethod() {
+    this.campaignService.getPaymentMethod().subscribe((data) => {
+      this.Cards = data;
+    })
+  }
+  updateBilling() {
+    this.loading = true;
+    this.campaignService.updateBilling().subscribe((response: any) => {
+      this.loading = false;
+      if (response.url) {
+        window && window.open(response.url, '_self')
+      } else {
+        this.showError();
+      }
+    }, (errror) => {
+      this.loading = false;
+      this.showError();
+    })
+
+
+  }
+  showError() {
+    const msg = this.translate.instant("CampError");
+    this.modal.warning({
+      nzTitle: "<i>" + msg + "</i>",
+    });
   }
 }
 

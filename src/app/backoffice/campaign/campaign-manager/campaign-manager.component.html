@@ -15,18 +15,11 @@
             </div>
         </div>
         <div class="col-lg-8 text-right">
-            <a nz-button nzType="primary" class="p-t-10 m-2" [routerLink]="[ '/app/campaign/search-engine' ]">
+            <a nz-button nzType="primary" class="p-t-10 m-2" [routerLink]="[ '/app/campaign/campaign-list' ]">
                 <i nz-icon nzType="plus-circle" theme="outline"></i>
-                <span>{{ 'CampBuySearchEngine' |translate}}</span>
+                <span>{{ 'AddCampaign' | translate}}</span>
             </a>
-            <a nz-button nzType="primary" class="p-t-10 m-2" [routerLink]="[ '/app/campaign/top-contributor' ]">
-                <i nz-icon nzType="plus-circle" theme="outline"></i>
-                <span>{{ 'CampBuyTopContributor' |translate}}</span>
-            </a>
-            <a nz-button nzType="primary" class="p-t-10 m-2" [routerLink]="[ '/app/campaign/sponsored-post' ]">
-                <i nz-icon nzType="plus-circle" theme="outline"></i>
-                <span>{{ 'CampBuyTopPost' |translate}}</span>
-            </a>
+
         </div>
     </div>
     <nz-skeleton *ngIf="!displayData"> </nz-skeleton>

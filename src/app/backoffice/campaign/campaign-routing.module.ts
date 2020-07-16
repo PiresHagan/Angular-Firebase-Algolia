@@ -15,6 +15,7 @@ import { PostCampaignComponent } from './post/post-campaign/post-campaign.compon
 import { BuyPostCampaignComponent } from './post/buy-post-campaign/buy-post-campaign.component';
 import { CheckoutPostCampaignComponent } from './post/checkout-post-campaign/checkout-post-campaign.component';
 import { CheckoutSuccessPostCampaignComponent } from './post/checkout-success-post-campaign/checkout-success-post-campaign.component';
+import { CcampaignListComponent } from './ccampaign-list/ccampaign-list.component';
 
 
 const routes: Routes = [
@@ -27,19 +28,19 @@ const routes: Routes = [
 
   },
   {
-    path: 'search-engine',
+    path: 'campaign-list',
+    component: CcampaignListComponent,
+    data: {
+      title: "Campaign",
+    }
 
+  },
+  {
+    path: '',
     data: {
       title: "CampSearchEngine",
     },
     children: [
-      {
-        path: '',
-        component: SearchEngineCampaignComponent,
-        data: {
-          title: "CampSearchEngine",
-        }
-      },
       {
         path: 'buy-search-engine',
         component: BuySearchEngineCampaignComponent,
@@ -47,35 +48,21 @@ const routes: Routes = [
           title: "BuySearchEngineCamp",
         }
       }, {
-        path: 'checkout-search-engine/:campaignId',
+        path: 'checkout-search-engine/:campaignId/:invoiceId',
         component: CheckoutSearchEngineCampaignComponent,
         data: {
-          title: "CampCheckout",
+          title: "CampCheckOut",
         },
 
-      },
-      {
-        path: 'checkout-success-search-engine',
-        component: CheckoutSuccessSearchEngineCampaignComponent,
-        data: {
-          title: "CampCheckOutSuccess",
-        }
       }
     ]
   },
   {
-    path: 'top-contributor',
+    path: '',
     data: {
       title: "CampSponCon",
     },
     children: [
-      {
-        path: '',
-        component: TopContributorCampaignComponent,
-        data: {
-          title: "CampSponCon",
-        }
-      },
       {
         path: 'buy-top-contributor',
         component: BuyTopContributorCampaignComponent,
@@ -83,35 +70,22 @@ const routes: Routes = [
           title: "BuyponConCamp",
         }
       }, {
-        path: 'checkout-top-contributor/:campaignId',
+        path: 'checkout-top-contributor/:campaignId/:invoiceId',
         component: CheckoutTopContributorCampaignComponent,
         data: {
           title: "CampCheckOut",
         },
 
-      },
-      {
-        path: 'checkout-success-top-contributor',
-        component: CheckoutSuccessTopContributorCampaignComponent,
-        data: {
-          title: "CampCheckOutSuccess",
-        }
       }
     ]
 
   },
   {
-    path: 'sponsored-post',
+    path: '',
     data: {
       title: "CampSponPost",
     }, children: [
-      {
-        path: '',
-        component: PostCampaignComponent,
-        data: {
-          title: "CampSponPost",
-        }
-      },
+
       {
         path: 'buy-sponsored-post',
         component: BuyPostCampaignComponent,
@@ -119,19 +93,12 @@ const routes: Routes = [
           title: "BuySponPostCamp",
         }
       }, {
-        path: 'checkout-sponsored-post/:campaignId',
+        path: 'checkout-sponsored-post/:campaignId/:invoiceId',
         component: CheckoutPostCampaignComponent,
         data: {
-          title: "CampCheckout",
+          title: "CampCheckOut",
         },
 
-      },
-      {
-        path: 'checkout-success-sponsored-post',
-        component: CheckoutSuccessPostCampaignComponent,
-        data: {
-          title: "CampCheckOutSuccess",
-        }
       }
     ]
 

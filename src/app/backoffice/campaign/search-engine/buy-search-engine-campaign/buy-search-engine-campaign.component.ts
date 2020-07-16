@@ -31,7 +31,7 @@ export class BuySearchEngineCampaignComponent implements OnInit {
     private campaignService: CampaignService,
     private router: Router
   ) {
-    const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
+    const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#()?&//=]*)/;
     this.searchEnineCampaignForm = this.fb.group({
       brandName: ['', [Validators.required]],
       brandURL: ['', [Validators.required, Validators.pattern(urlRegex)]],
@@ -125,7 +125,7 @@ export class BuySearchEngineCampaignComponent implements OnInit {
     this.isFormSaving = true;
     this.campaignService.buyBrandSpot(formDetails).subscribe((response: any) => {
       this.isFormSaving = false;
-      this.router.navigate(['app/campaign/search-engine/checkout-search-engine', response.invoiceId]);
+      this.router.navigate(['app/campaign/checkout-search-engine', response.campaignId, response.invoiceId]);
     }, (error) => {
       this.isFormSaving = false;
       let $errorLbl = this.translate.instant("CampERROR");

@@ -42,8 +42,9 @@ export const ROUTES: SideNavInterface[] = [
             staff_only: false,
             submenu: []
         },
+
         {
-            path: '/app/campaign/search-engine',
+            path: '/app/campaign/buy-search-engine',
             title: 'CampSearchEngine',
             iconType: 'nzIcon',
             iconTheme: 'outline',
@@ -52,7 +53,7 @@ export const ROUTES: SideNavInterface[] = [
             submenu: []
         },
         {
-            path: '/app/campaign/top-contributor',
+            path: '/app/campaign/buy-top-contributor',
             title: 'CampSponCon',
             iconType: 'nzIcon',
             iconTheme: 'outline',
@@ -61,7 +62,7 @@ export const ROUTES: SideNavInterface[] = [
             submenu: []
         },
         {
-            path: '/app/campaign/sponsored-post',
+            path: '/app/campaign/buy-sponsored-post',
             title: 'CampSponPost',
             iconType: 'nzIcon',
             iconTheme: 'outline',

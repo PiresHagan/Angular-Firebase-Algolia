@@ -6,7 +6,7 @@
                 nzMessage="{{'CamAvatar' | translate}} {{'required' | translate}}">
             </nz-alert>
             <div class="media align-items-center media-responsive">
-                <!-- <nz-avatar [nzSize]="80" nzIcon="user" [nzSrc]="brandImage" accept="image/*"></nz-avatar> -->
+                <nz-avatar [nzSize]="80" nzIcon="user" [nzSrc]="brandImage" accept="image/*"></nz-avatar>
                 <div class="m-l-20 m-r-20">
                     <h5 class="m-b-5 font-size-18"><span
                             style="color: red;">*</span>{{'SearchEngineBrandImage' | translate}}</h5>
@@ -38,7 +38,8 @@
 
                         <nz-form-item>
 
-                            <nz-form-label nzRequired>{{'SearchEngineBrandURL' | translate}}</nz-form-label>
+                            <nz-form-label nzRequired>{{'SearchEngineBrandURL' | translate}}(e.g: https://www.abc.com)
+                            </nz-form-label>
                             <nz-form-control nzErrorTip="{{'SearchEngineBrandURLErrMsg' | translate}} ">
                                 <input nz-input placeholder="{{'SearchEngineBrandURL' | translate}}"
                                     formControlName="brandURL">
@@ -81,13 +82,8 @@
 
                     </div>
                     <div class="col-md-6">
+                        <img class="screen" src="assets/images/campaign/search-engine.png" alt="" />
 
-                        <nz-empty [nzNotFoundContent]="null" *ngIf="!brandImage" [nzNotFoundContent]="contentTpl">
-                        </nz-empty>
-                        <img [src]="brandImage" alt="" *ngIf="brandImage">
-                        <ng-template #contentTpl>
-                            <span> {{'SearchEngineBrandImage' | translate}}</span>
-                        </ng-template>
                     </div>
 
 

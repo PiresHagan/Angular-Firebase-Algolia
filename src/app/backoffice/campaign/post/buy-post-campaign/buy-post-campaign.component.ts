@@ -68,7 +68,7 @@ export class BuyPostCampaignComponent implements OnInit {
     this.isFormSaving = true;
     this.campaignService.buySponsoredPost(formDetails).subscribe((response: any) => {
       this.isFormSaving = false;
-      this.router.navigate(['app/campaign/sponsored-post/checkout-sponsored-post', response.invoiceId]);
+      this.router.navigate(['app/campaign/checkout-sponsored-post', response.campaignId, response.invoiceId]);
     }, (error) => {
       this.isFormSaving = false;
       let $errorLbl = this.translate.instant("CampERROR");

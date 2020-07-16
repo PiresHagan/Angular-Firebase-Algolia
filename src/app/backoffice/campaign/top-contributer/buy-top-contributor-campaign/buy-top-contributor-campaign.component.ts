@@ -7,6 +7,7 @@ import { Language } from 'src/app/shared/interfaces/language.type';
 import { CampaignService } from 'src/app/backoffice/shared/services/campaign.service';
 import { Router } from '@angular/router';
 import { TOPCONTRIBUTORCAMPAIGN } from 'src/app/shared/constants/campaign-constants';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-buy-top-contributor-campaign',
@@ -30,7 +31,8 @@ export class BuyTopContributorCampaignComponent implements OnInit {
     private modal: NzModalService,
     private languageService: LanguageService,
     private campaignService: CampaignService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {
     this.topContributorForm = this.fb.group({
       lang: ['', [Validators.required]],
@@ -41,6 +43,9 @@ export class BuyTopContributorCampaignComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.setUserDetails()
+
     this.languageList = this.languageService.geLanguageList();
     this.campaignService.getProductPrice(TOPCONTRIBUTORCAMPAIGN).subscribe((data: any) => {
       this.price = data[0].price;
@@ -127,7 +132,7 @@ export class BuyTopContributorCampaignComponent implements OnInit {
     this.isFormSaving = true;
     this.campaignService.buyTopContributorSpot(formDetails).subscribe((response: any) => {
       this.isFormSaving = false;
-      this.router.navigate(['app/campaign/top-contributor/checkout-top-contributor', response.invoiceId]);
+      this.router.navigate(['app/campaign/checkout-top-contributor', response.campaignId, response.invoiceId]);
     }, (error) => {
       this.isFormSaving = false;
       let $errorLbl = this.translate.instant("CampERROR");
@@ -155,6 +160,20 @@ export class BuyTopContributorCampaignComponent implements OnInit {
     });
   }
 
+  setUserDetails() {
+    this.userService.getCurrentUser().then((user) => {
+      this.userService.getMember(user.uid).subscribe((memberDetails) => {
+
+        if (memberDetails && memberDetails.avatar && memberDetails.avatar.url) {
+          this.avatarImageObj = memberDetails.avatar;
+          this.avatarImage = memberDetails.avatar.url;
+          this.isProfilePicRequiredErr = false;
+        }
+
+      })
+
+    })
+  }
 
 
 }
