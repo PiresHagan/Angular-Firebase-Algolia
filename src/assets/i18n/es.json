@@ -400,5 +400,7 @@
     "TopPostCampaign": "Campaña de publicaciones principales",
     "SearchEngineBrandURLErrMsg": "La URL de la marca debe ser una URL válida",
     "CampaignStop": "¿Desea detener esta campaña?",
-    "CampaignStopMsg": "Al hacer clic en el botón Aceptar, esta campaña se detendrá de inmediato"
+    "CampaignStopMsg": "Al hacer clic en el botón Aceptar, esta campaña se detendrá de inmediato",
+    "CampaignStopped": "La campaña se detuvo correctamente",
+    "CampaignStoppedErr": "Algo salió mal. Póngase en contacto con el administrador del sitio"
 }

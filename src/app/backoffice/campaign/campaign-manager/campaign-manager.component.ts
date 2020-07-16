@@ -28,6 +28,7 @@ export class CampaignManagerComponent implements OnInit {
   SEARCHENGINECAMPAIGN = SEARCHENGINECAMPAIGN;
   TOPCONTRIBUTORCAMPAIGN = TOPCONTRIBUTORCAMPAIGN;
   TOPPOSTCAMPAIGN = TOPPOSTCAMPAIGN;
+  isLoading: boolean = true;
 
 
   orderColumn = [
@@ -62,10 +63,7 @@ export class CampaignManagerComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.campaign.getCampaign().subscribe((data: DataItem[]) => {
-      this.displayData = data;
-      this.originalData = data;
-    })
+    this.loadData();
   }
 
   statusChange(value: string): void {
@@ -82,13 +80,32 @@ export class CampaignManagerComponent implements OnInit {
       nzOnOk: () =>
         new Promise((resolve, reject) => {
           this.campaign.terminate(id).subscribe(() => {
-            this.modal.success()
+            this.modal.success({
+              nzTitle: this.translate.instant("CampaignStopped")
+            })
+            this.loadData();
             resolve()
           }, error => {
             reject()
           })
 
-        }).catch(() => console.log('Oops errors!'))
+        }).catch(() => {
+          this.modal.error({
+            nzTitle: this.translate.instant("CampaignStoppedErr")
+          })
+        })
+    });
+  }
+  loadData() {
+    this.isLoading = true;
+    this.campaign.getCampaign().subscribe((data: DataItem[]) => {
+      this.isLoading = false;
+      this.displayData = data;
+      this.originalData = data;
+    }, error => {
+      this.modal.error({
+        nzTitle: this.translate.instant("CampaignStoppedErr")
+      })
     });
   }
 }    

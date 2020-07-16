@@ -400,5 +400,7 @@
     "TopPostCampaign": "Top Post Campaign",
     "SearchEngineBrandURLErrMsg": "L'URL de la marque doit être une URL valide.",
     "CampaignStop": "Voulez-vous arrêter cette campagne?",
-    "CampaignStopMsg": "Lorsque vous cliquez sur le bouton OK, cette campagne sera arrêtée immédiatement."
+    "CampaignStopMsg": "Lorsque vous cliquez sur le bouton OK, cette campagne sera arrêtée immédiatement.",
+    "CampaignStopped": "La campagne s'est arrêtée avec succès.",
+    "CampaignStoppedErr": "Une erreur s'est produite. Veuillez contacter l'administrateur du site."
 }

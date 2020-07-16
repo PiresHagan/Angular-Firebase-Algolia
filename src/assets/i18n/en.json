@@ -402,5 +402,7 @@
     "TopPostCampaign": "Top Post Campaign",
     "SearchEngineBrandURLErrMsg": "The Brand URL must be a valid URL.",
     "CampaignStop": "Do you Want to stop this campaign?",
-    "CampaignStopMsg": "When clicking the OK button, this campaign will be stopped immediately."
+    "CampaignStopMsg": "When clicking the OK button, this campaign will be stopped immediately.",
+    "CampaignStopped": "Campaign stopped successfully.",
+    "CampaignStoppedErr": "Something went wrong. Please contact with site Admin."
 }

@@ -1,7 +1,7 @@
 <nz-card>
     <div class="row m-b-30">
         <div class="col-lg-4">
-            <div class="d-md-flex">
+            <div class="d-md-flex m-t-10">
 
                 <div class="m-b-10 m-r-20 d-flex align-items-center">
                     <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Status"
@@ -9,7 +9,7 @@
                         <nz-option nzLabel="All" nzValue="All"></nz-option>
                         <nz-option nzLabel="Active" nzValue="active"></nz-option>
                         <nz-option nzLabel="Pending" nzValue="pending"></nz-option>
-                        <nz-option nzLabel="Terminated" nzValue="archived"></nz-option>
+                        <nz-option nzLabel="Terminated" nzValue="inactive"></nz-option>
                     </nz-select>
                 </div>
             </div>
@@ -30,7 +30,7 @@
         </div>
     </div>
     <nz-skeleton *ngIf="!displayData"> </nz-skeleton>
-    <nz-table #productsListTable [nzData]="displayData" *ngIf="displayData">
+    <nz-table #productsListTable [nzData]="displayData" *ngIf="displayData" [nzLoading]="isLoading">
 
         <thead>
             <tr>
@@ -65,12 +65,13 @@
                     <span class="text-capitalize">{{item.status}}</span>
                 </td>
                 <td class="text-md-right">
-                    <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit">
+                    <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit"
+                        *ngIf="item.status == 'pending' || item.status == 'active'">
                         <i nz-icon nzType="edit" theme="outline"></i>
                     </a>
                     <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Stop"
-                        (click)="stopCampaign(item.id)">
-                        <i nz-icon nzType="delete" theme="outline"></i>
+                        *ngIf="item.status == 'active'" (click)="stopCampaign(item.id)">
+                        <i nz-icon nzType="stop" nzTheme="outline"></i>
                     </button>
                 </td>
             </tr>
