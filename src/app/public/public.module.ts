@@ -25,8 +25,26 @@ import { QuillModule } from 'ngx-quill';
 import { createTranslateLoader } from '../shared/shared.module';
 import { InfluencerComponent } from './influencer/influencer.component';
 import { TodayComponent } from './today/today.component';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { PrivacyEnComponent } from './privacy/privacy-en/privacy-en.component';
 @NgModule({
-  declarations: [HomeComponent, CategoryComponent, ArticleComponent, ProfileComponent, Copywriter1Component, Copywriter2Component, ContactComponent, TermsComponent, FaqComponent, SearchEngineComponent, BuyComponent, InfluencerComponent, TodayComponent],
+  declarations: [
+    HomeComponent, 
+    CategoryComponent, 
+    ArticleComponent, 
+    ProfileComponent, 
+    Copywriter1Component, 
+    Copywriter2Component, 
+    ContactComponent, 
+    TermsComponent, 
+    FaqComponent, 
+    SearchEngineComponent, 
+    BuyComponent, 
+    InfluencerComponent, 
+    TodayComponent,
+    PrivacyComponent,
+    PrivacyEnComponent
+  ],
   imports: [
     CommonModule,
     PublicRoutingModule,
