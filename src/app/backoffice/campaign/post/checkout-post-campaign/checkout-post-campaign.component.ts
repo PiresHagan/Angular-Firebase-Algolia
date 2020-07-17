@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CampaignService } from 'src/app/backoffice/shared/services/campaign.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { TOPPOSTCAMPAIGN } from 'src/app/shared/constants/campaign-constants';
 import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
 import { ACTIVE } from 'src/app/shared/constants/status-constants';
 import { UserService } from 'src/app/shared/services/user.service';
+import { UpdateBillingComponent } from '../../update-billing/update-billing.component';
 
 @Component({
   selector: 'app-checkout-post-campaign',
@@ -16,12 +17,11 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class CheckoutPostCampaignComponent implements OnInit {
 
-
+  @ViewChild(UpdateBillingComponent) paymentDetails: UpdateBillingComponent;
   checkoutCampaign: FormGroup;
   isFormSaving: boolean = false;
   price;
   campaignData;
-  Cards;
   loading;
   articleData;
   constructor(private fb: FormBuilder,
@@ -50,15 +50,10 @@ export class CheckoutPostCampaignComponent implements OnInit {
       this.campaignData = data;
       this.loadArticleData(data.articleId);
     }, error => {
-      let $errorLbl = this.translate.instant("CampERROR");
-      let $OkBtn = this.translate.instant("CampOK");
-      this.modal.error({
-        nzTitle: $errorLbl,
-        nzContent: '<p>' + error ? error.message : error.message + '</p>',
-        nzOnOk: () => $OkBtn
-      });
+
+      this.router.navigate(['app/campaign/campaign-manager']);
     })
-    this.displayPaymentMethod()
+
   }
   submitForm(values) {
     this.isFormSaving = true;
@@ -86,7 +81,7 @@ export class CheckoutPostCampaignComponent implements OnInit {
       let $OkBtn = this.translate.instant("CampOK");
       this.modal.error({
         nzTitle: $errorLbl,
-        nzContent: '<p>' + error ? error.message : error.message + '</p>',
+        nzContent: '<p>' + error && error.error.message ? error.error.message : error.message + '</p>',
         nzOnOk: () => $OkBtn
       });
     })
@@ -104,33 +99,8 @@ export class CheckoutPostCampaignComponent implements OnInit {
 
   }
 
-  displayPaymentMethod() {
-    this.campaignService.getPaymentMethod().subscribe((data) => {
-      this.Cards = data;
-    })
-  }
-  updateBilling() {
-    this.loading = true;
-    this.campaignService.updateBilling().subscribe((response: any) => {
-      this.loading = false;
-      if (response.url) {
-        window && window.open(response.url, '_self')
-      } else {
-        this.showError();
-      }
-    }, (errror) => {
-      this.loading = false;
-      this.showError();
-    })
 
 
-  }
-  showError() {
-    const msg = this.translate.instant("CampError");
-    this.modal.warning({
-      nzTitle: "<i>" + msg + "</i>",
-    });
-  }
 }
 
 

@@ -5,20 +5,15 @@
 
             <form nz-form [formGroup]="checkoutCampaign" class="login-form"
                 (ngSubmit)="submitForm(checkoutCampaign.value)">
-                <!-- avatarImage: {url: "https://firebasestorage.googleapis.com/v0/b/my-tre…=media&token=3f5800d2-0f50-439d-8092-698c3c261dab", alt: "My Invitation"}
-                campaignDate: "2020-07-09T11:46:10.962Z"
-                createdAt: {_seconds: 1594900079, _nanoseconds: 937000000}
-                language: "en"
-                memberId: "rftAcO0vUjNnn4PtXthkp25lazp1"
-                price: 10
-                sortBio: "sdfasdfasdfasdf"
-                status: "pending"
-                type: "top-contributor-spot"
-                userId: "rftAcO0vUjNnn4PtXthkp25lazp1"
-                 -->
+
                 <div class="row">
                     <div class="col-md-12">
-                        <nz-card nzTitle="{{'CampaignDetails' | translate}}">
+                        <nz-card nzTitle="{{'CampaignDetails' | translate}}" *ngIf="!campaignData">
+                            <nz-skeleton>
+
+                            </nz-skeleton>
+                        </nz-card>
+                        <nz-card nzTitle="{{'CampaignDetails' | translate}}" *ngIf="campaignData">
 
 
                             <nz-form-item>
@@ -50,6 +45,8 @@
                                 </nz-form-control>
                             </nz-form-item>
                         </nz-card>
+
+
                     </div>
                     <!-- <div class="col-md-12">
                         <nz-form-item>
@@ -63,27 +60,7 @@
                     </div> -->
                 </div>
                 <div class="billing-container">
-                    <nz-skeleton *ngIf="!Cards">
-
-                    </nz-skeleton>
-                    <nz-card nzTitle="{{'CardDetails' | translate}}" *ngIf="Cards">
-
-
-                        <div class="credit-card  selectable" *ngFor="let card of Cards"
-                            [class.selected]="isDefault === true">
-                            <div class="credit-card-last4">
-                                {{card.last4}}
-                            </div>
-                            <div class="credit-card-expiry">
-                                {{card.exp_month}}/{{card.exp_year}}
-                            </div>
-                        </div>
-                        <button (click)="updateBilling()" [nzLoading]="loading" nz-button
-                            nzType="primary">{{'CampBillingBtn' | translate}}</button>
-
-                    </nz-card>
-
-                    <!-- <app-update-billing></app-update-billing> -->
+                    <app-update-billing></app-update-billing>
                 </div>
                 <!-- </nz-card>  -->
                 <br />
@@ -91,8 +68,8 @@
                     <nz-form-item>
                         <nz-form-control>
                             <div>
-                                <button nz-button class="login-form-button" [disabled]="!checkoutCampaign.valid"
-                                    [nzType]="'primary'"
+                                <button type="submit" nz-button class="login-form-button"
+                                    [disabled]="paymentDetails?.paymentError ||  !campaignData" [nzType]="'primary'"
                                     [nzLoading]="isFormSaving">{{'CampMakePayment' | translate}}</button>
                             </div>
                         </nz-form-control>

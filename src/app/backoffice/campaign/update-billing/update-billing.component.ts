@@ -10,14 +10,18 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class UpdateBillingComponent implements OnInit {
   loading = false;
+  paymentError = true;
+  Cards;
   constructor(private campaignService: CampaignService, private modelService: NzModalService, private translate: TranslateService) { }
 
   ngOnInit(): void {
+    this.displayPaymentMethod();
   }
   updateBilling() {
     this.loading = true;
     this.campaignService.updateBilling().subscribe((response: any) => {
       this.loading = false;
+
       if (response.url) {
         window && window.open(response.url, '_self')
       } else {
@@ -35,6 +39,16 @@ export class UpdateBillingComponent implements OnInit {
     this.modelService.warning({
       nzTitle: "<i>" + msg + "</i>",
     });
+  }
+  displayPaymentMethod() {
+    this.campaignService.getPaymentMethod().subscribe((data) => {
+      this.Cards = data;
+      this.paymentError = false;
+    }, (error) => {
+      this.paymentError = true;
+      this.Cards = [];
+
+    })
   }
 
 }

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CampaignService } from 'src/app/backoffice/shared/services/campaign.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { TranslateService } from '@ngx-translate/core';
+import { UpdateBillingComponent } from '../../update-billing/update-billing.component';
 
 @Component({
   selector: 'app-checkout-search-engine-campaign',
@@ -11,12 +12,12 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./checkout-search-engine-campaign.component.css']
 })
 export class CheckoutSearchEngineCampaignComponent implements OnInit {
+  @ViewChild(UpdateBillingComponent) paymentDetails: UpdateBillingComponent;
   campaignData;
   checkoutCampaign: FormGroup;
   isFormSaving: boolean = false;
-  Cards;
   loading = false;
-  paymentError = false;
+
   constructor(private fb: FormBuilder, private modal: NzModalService, private router: Router, private campaignService: CampaignService, private route: ActivatedRoute, private translate: TranslateService) {
 
     this.checkoutCampaign = this.fb.group({
@@ -26,21 +27,16 @@ export class CheckoutSearchEngineCampaignComponent implements OnInit {
 
   }
 
+
   ngOnInit(): void {
     const campaignId = this.route.snapshot.params['campaignId'];
     this.campaignService.getCampaignInfo(campaignId).subscribe((data) => {
       console.log(data);
       this.campaignData = data;
     }, error => {
-      let $errorLbl = this.translate.instant("CampERROR");
-      let $OkBtn = this.translate.instant("CampOK");
-      this.modal.error({
-        nzTitle: $errorLbl,
-        nzContent: '<p>' + error ? error.message : error.message + '</p>',
-        nzOnOk: () => $OkBtn
-      });
+      this.router.navigate(['app/campaign/campaign-manager']);
     })
-    this.displayPaymentMethod()
+
   }
 
 
@@ -75,37 +71,8 @@ export class CheckoutSearchEngineCampaignComponent implements OnInit {
       });
     })
   }
-  displayPaymentMethod() {
-    this.campaignService.getPaymentMethod().subscribe((data) => {
-      this.Cards = data;
-    }, (error) => {
-      this.paymentError = true;
-      this.Cards = [];
-
-    })
-  }
-  updateBilling() {
-    this.loading = true;
-    this.campaignService.updateBilling().subscribe((response: any) => {
-      this.loading = false;
-      if (response.url) {
-        window && window.open(response.url, '_self')
-      } else {
-        this.showError();
-      }
-    }, (errror) => {
-      this.loading = false;
-      this.showError();
-    })
 
 
-  }
-  showError() {
-    const msg = this.translate.instant("CampError");
-    this.modal.warning({
-      nzTitle: "<i>" + msg + "</i>",
-    });
-  }
 }
 
 
