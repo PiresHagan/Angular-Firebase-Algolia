@@ -20,6 +20,7 @@ export class CheckoutTopContributorCampaignComponent implements OnInit {
   checkoutCampaign: FormGroup;
   isFormSaving: boolean = false;
   loading = false;
+  campaignId: string;
   constructor(private fb: FormBuilder, private language: LanguageService, private modal: NzModalService, private router: Router, private campaignService: CampaignService, private route: ActivatedRoute, private translate: TranslateService) {
 
     this.checkoutCampaign = this.fb.group({
@@ -30,8 +31,8 @@ export class CheckoutTopContributorCampaignComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const campaignId = this.route.snapshot.params['campaignId'];
-    this.campaignService.getCampaignInfo(campaignId).subscribe((data) => {
+    this.campaignId = this.route.snapshot.params['campaignId'];
+    this.campaignService.getCampaignInfo(this.campaignId).subscribe((data) => {
       console.log(data);
       this.campaignData = data;
     }, error => {
@@ -43,8 +44,8 @@ export class CheckoutTopContributorCampaignComponent implements OnInit {
 
   submitForm(values) {
     this.isFormSaving = true;
-    const campaignId = this.route.snapshot.params['campaignId'];
-    this.campaignService.checkoutCampaign(campaignId, { campaignInfo: values.campaignInfo }).subscribe((data: any) => {
+
+    this.campaignService.checkoutCampaign(this.campaignId, { campaignInfo: values.campaignInfo }).subscribe((data: any) => {
       this.isFormSaving = false;
       let $paymentMessage = this.translate.instant("CampPaymentMessage");
       let $paymentHeading = this.translate.instant("CampPaymentSuccessful");

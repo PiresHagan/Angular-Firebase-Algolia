@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
 import { CampaignService } from 'src/app/backoffice/shared/services/campaign.service';
 import { formatDate } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TOPPOSTCAMPAIGN } from 'src/app/shared/constants/campaign-constants';
 
 @Component({
@@ -22,9 +22,11 @@ export class BuyPostCampaignComponent implements OnInit {
   articleList: Article[];;
   userDetails;
   price;
+  campaignData;
+  campaignId;
   constructor(private fb: FormBuilder,
     private translate: TranslateService,
-    private modal: NzModalService, private articleService: BackofficeArticleService, public authService: AuthService, private campaignService: CampaignService, private router: Router) {
+    private modal: NzModalService, private activatedRoute: ActivatedRoute, private articleService: BackofficeArticleService, public authService: AuthService, private campaignService: CampaignService, private router: Router) {
 
     this.postCampaignForm = this.fb.group({
       article: ['', [Validators.required]],
@@ -38,6 +40,17 @@ export class BuyPostCampaignComponent implements OnInit {
       this.price = data[0].price;
     })
 
+    const campaignId = this.activatedRoute.snapshot.queryParams['campaign'];
+    this.campaignId = campaignId;
+    if (campaignId) {
+      this.campaignService.getCampaignInfo(campaignId).subscribe((data: any) => {
+        this.campaignData = data;
+        this.setFomData();
+      }, error => {
+
+        this.router.navigate(['app/campaign/campaign-manager']);
+      })
+    }
     this.authService.getAuthState().subscribe(async (user) => {
       if (!user)
         return;
@@ -52,6 +65,13 @@ export class BuyPostCampaignComponent implements OnInit {
 
     })
   }
+  setFomData() {
+    this.postCampaignForm.setValue({
+      article: this.campaignData.articleId,
+      campaignDate: new Date(this.campaignData.campaignDate)
+
+    });
+  }
   submitForm(value): void {
 
     for (const key in this.postCampaignForm.controls) {
@@ -62,13 +82,15 @@ export class BuyPostCampaignComponent implements OnInit {
       articleId: value.article,
       campaignDate: value.campaignDate.toISOString()
     }
+
+
     this.buySponsoredPost(formDetails)
   }
   buySponsoredPost(formDetails) {
     this.isFormSaving = true;
-    this.campaignService.buySponsoredPost(formDetails).subscribe((response: any) => {
+    this.campaignService.buySponsoredPost(formDetails, this.campaignId).subscribe((response: any) => {
       this.isFormSaving = false;
-      this.router.navigate(['app/campaign/checkout-sponsored-post', response.campaignId, response.invoiceId]);
+      this.router.navigate(['app/campaign/checkout-sponsored-post', response.campaignId]);
     }, (error) => {
       this.isFormSaving = false;
       let $errorLbl = this.translate.instant("CampERROR");

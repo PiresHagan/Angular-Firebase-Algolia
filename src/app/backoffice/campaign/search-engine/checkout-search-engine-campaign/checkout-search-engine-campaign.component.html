@@ -70,6 +70,11 @@
                     <nz-form-item>
                         <nz-form-control>
                             <div>
+                                <a [routerLink]="['/app/campaign/buy-search-engine']" class="login-form-button"
+                                    [queryParams]="{campaign:campaignId}"
+                                    class="article-edit-link m-5 p-t-10 p-b-10 p-l-25 p-r-25" nz-button nzType="default"
+                                    nzGhost>{{'artGoBackbtn' | translate}}</a>
+
                                 <button type="submit" nz-button class="login-form-button"
                                     [disabled]="paymentDetails?.paymentError || !campaignData" [nzType]="'primary'"
                                     [nzLoading]="isFormSaving">{{'CampMakePayment' | translate}}</button>

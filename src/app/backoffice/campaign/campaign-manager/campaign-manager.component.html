@@ -59,9 +59,27 @@
                 </td>
                 <td class="text-md-right">
                     <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit"
-                        *ngIf="item.status == 'pending' || item.status == 'active'">
+                        [routerLink]="['/app/campaign/buy-search-engine']" class="login-form-button"
+                        [queryParams]="{campaign:item.id}"
+                        *ngIf="item.status == 'pending'  && item.type==SEARCHENGINECAMPAIGN">
                         <i nz-icon nzType="edit" theme="outline"></i>
                     </a>
+
+                    <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit"
+                        [routerLink]="['/app/campaign/buy-top-contributor']" class="login-form-button"
+                        [queryParams]="{campaign:item.id}"
+                        *ngIf="item.status == 'pending' && item.type==TOPCONTRIBUTORCAMPAIGN">
+                        <i nz-icon nzType="edit" theme="outline"></i>
+                    </a>
+
+                    <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit"
+                        [routerLink]="['/app/campaign/buy-sponsored-post']" class="login-form-button"
+                        [queryParams]="{campaign:item.id}"
+                        *ngIf="item.status == 'pending' && item.type==TOPPOSTCAMPAIGN">
+                        <i nz-icon nzType="edit" theme="outline"></i>
+                    </a>
+
+
                     <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Stop"
                         *ngIf="item.status == 'active'" (click)="stopCampaign(item.id)">
                         <i nz-icon nzType="stop" nzTheme="outline"></i>

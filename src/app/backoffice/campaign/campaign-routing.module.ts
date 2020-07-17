@@ -41,7 +41,7 @@ const routes: Routes = [
           title: "BuySearchEngineCamp",
         }
       }, {
-        path: 'checkout-search-engine/:campaignId/:invoiceId',
+        path: 'checkout-search-engine/:campaignId',
         component: CheckoutSearchEngineCampaignComponent,
         data: {
           title: "CampCheckOut",
@@ -63,7 +63,7 @@ const routes: Routes = [
           title: "BuyponConCamp",
         }
       }, {
-        path: 'checkout-top-contributor/:campaignId/:invoiceId',
+        path: 'checkout-top-contributor/:campaignId',
         component: CheckoutTopContributorCampaignComponent,
         data: {
           title: "CampCheckOut",
@@ -86,7 +86,7 @@ const routes: Routes = [
           title: "BuySponPostCamp",
         }
       }, {
-        path: 'checkout-sponsored-post/:campaignId/:invoiceId',
+        path: 'checkout-sponsored-post/:campaignId',
         component: CheckoutPostCampaignComponent,
         data: {
           title: "CampCheckOut",

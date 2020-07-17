@@ -24,6 +24,7 @@ export class CheckoutPostCampaignComponent implements OnInit {
   campaignData;
   loading;
   articleData;
+  campaignId: string;
   constructor(private fb: FormBuilder,
     private modal: NzModalService,
     private router: Router,
@@ -44,8 +45,8 @@ export class CheckoutPostCampaignComponent implements OnInit {
     this.campaignService.getProductPrice(TOPPOSTCAMPAIGN).subscribe((data: any) => {
       this.price = data[0].price;
     })
-    const campaignId = this.route.snapshot.params['campaignId'];
-    this.campaignService.getCampaignInfo(campaignId).subscribe((data: any) => {
+    this.campaignId = this.route.snapshot.params['campaignId'];
+    this.campaignService.getCampaignInfo(this.campaignId).subscribe((data: any) => {
       console.log(data);
       this.campaignData = data;
       this.loadArticleData(data.articleId);

@@ -5,9 +5,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { Language } from 'src/app/shared/interfaces/language.type';
 import { CampaignService } from 'src/app/backoffice/shared/services/campaign.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TOPCONTRIBUTORCAMPAIGN } from 'src/app/shared/constants/campaign-constants';
 import { UserService } from 'src/app/shared/services/user.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-buy-top-contributor-campaign',
@@ -24,6 +25,8 @@ export class BuyTopContributorCampaignComponent implements OnInit {
   languageList: Language[];
   isProfilePicRequiredErr: boolean = false;
   price;
+  campaignData;
+  campaignId: string;
 
   constructor(
     private fb: FormBuilder,
@@ -32,6 +35,7 @@ export class BuyTopContributorCampaignComponent implements OnInit {
     private languageService: LanguageService,
     private campaignService: CampaignService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private userService: UserService
   ) {
     this.topContributorForm = this.fb.group({
@@ -50,6 +54,27 @@ export class BuyTopContributorCampaignComponent implements OnInit {
     this.campaignService.getProductPrice(TOPCONTRIBUTORCAMPAIGN).subscribe((data: any) => {
       this.price = data[0].price;
     })
+
+    this.campaignId = this.activatedRoute.snapshot.queryParams['campaign'];
+    if (this.campaignId) {
+      this.campaignService.getCampaignInfo(this.campaignId).subscribe((data: any) => {
+        this.campaignData = data;
+        this.setFomData();
+      }, error => {
+        this.router.navigate(['app/campaign/campaign-manager']);
+      })
+    }
+
+  }
+  setFomData() {
+    this.topContributorForm.setValue({
+      lang: this.campaignData.language,
+      sortBio: this.campaignData.sortBio,
+      campaignDate: new Date(this.campaignData.campaignDate)
+
+    });
+    this.avatarImageObj = this.campaignData.avatarImage;
+    this.avatarImage = this.campaignData.avatarImage.url;
   }
 
 
@@ -113,7 +138,8 @@ export class BuyTopContributorCampaignComponent implements OnInit {
       language: value.lang,
       sortBio: value.sortBio,
       avatarImage: this.avatarImageObj,
-      campaignDate: value.campaignDate.toISOString()
+      campaignDate: value.campaignDate.toISOString(),
+
     }
     console.log(formDetails);
     this.buyTopContributorSpot(formDetails)
@@ -130,9 +156,9 @@ export class BuyTopContributorCampaignComponent implements OnInit {
 
   buyTopContributorSpot(formDetails) {
     this.isFormSaving = true;
-    this.campaignService.buyTopContributorSpot(formDetails).subscribe((response: any) => {
+    this.campaignService.buyTopContributorSpot(formDetails, this.campaignId).subscribe((response: any) => {
       this.isFormSaving = false;
-      this.router.navigate(['app/campaign/checkout-top-contributor', response.campaignId, response.invoiceId]);
+      this.router.navigate(['app/campaign/checkout-top-contributor', response.campaignId]);
     }, (error) => {
       this.isFormSaving = false;
       let $errorLbl = this.translate.instant("CampERROR");

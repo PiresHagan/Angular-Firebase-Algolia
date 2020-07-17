@@ -28,21 +28,40 @@ export class CampaignService {
 
   }
 
-  buySponsoredPost(postData) {
-    return this.http.post(environment.baseAPIDomain + '/api/v1/payment/invoices/sponsored-post', { "articleId": postData.articleId, "campaignDate": postData.campaignDate })
+  buySponsoredPost(postData, campaignId) {
+    const buyAPI = environment.baseAPIDomain + '/api/campaigns/sponsored-post';
+    const updateAPI = environment.baseAPIDomain + '/api/campaigns/' + campaignId + '/sponsored-post';
+    if (campaignId) {
+      return this.http.put(updateAPI, postData)
+    }
+    return this.http.post(buyAPI, postData)
   }
 
-  buyBrandSpot(postData) {
-    return this.http.post(environment.baseAPIDomain + '/api/v1/payment/invoices/brand-spot', { "brandName": postData.brandName, "brandUrl": postData.brandUrl, "campaignDate": postData.campaignDate, brandImage: postData.brandImage })
+  buyBrandSpot(postData, campaignId) {
+    const buyAPI = environment.baseAPIDomain + '/api/campaigns/brand-spot';
+    const updateAPI = environment.baseAPIDomain + '/api/campaigns/' + campaignId + '/brand-spot';
+    if (campaignId) {
+      return this.http.put(updateAPI, postData)
+    }
+    return this.http.post(buyAPI, postData)
+
   }
 
-  buyTopContributorSpot(postData) {
-    return this.http.post(environment.baseAPIDomain + '/api/v1/payment/invoices/top-contributor-spot', postData)
+  buyTopContributorSpot(postData, campaignId) {
+    const buyAPI = environment.baseAPIDomain + '/api/campaigns/top-contributor-spot';
+    const updateAPI = environment.baseAPIDomain + '/api/campaigns/' + campaignId + '/top-contributor-spot';
+    if (campaignId) {
+      return this.http.put(updateAPI, postData)
+    }
+    return this.http.post(buyAPI, postData)
   }
+
 
   checkoutCampaign(campaignId, postData) {
-    return this.http.post(environment.baseAPIDomain + '/api/v1/payment/invoices/' + campaignId + '/charge', {})
+
+    return this.http.post(environment.baseAPIDomain + '/api/v1/payment/campaigns/' + campaignId + '/charge', {})
   }
+
 
   getCampaign() {
     return this.http.get(environment.baseAPIDomain + '/api/campaigns');

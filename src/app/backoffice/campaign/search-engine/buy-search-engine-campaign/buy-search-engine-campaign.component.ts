@@ -5,8 +5,9 @@ import { NzMessageService, UploadFile, NzModalService } from 'ng-zorro-antd';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { Language } from 'src/app/shared/interfaces/language.type';
 import { CampaignService } from 'src/app/backoffice/shared/services/campaign.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SEARCHENGINECAMPAIGN } from 'src/app/shared/constants/campaign-constants';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-buy-search-engine-campaign',
@@ -23,13 +24,16 @@ export class BuySearchEngineCampaignComponent implements OnInit {
   languageList: Language[];
   isBrandPicRequiredErr: boolean = false;
   price;
+  campaignId;
+  campaignData;
   constructor(
     private fb: FormBuilder,
     private translate: TranslateService,
     private modal: NzModalService,
     private languageService: LanguageService,
     private campaignService: CampaignService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#()?&//=]*)/;
     this.searchEnineCampaignForm = this.fb.group({
@@ -43,7 +47,29 @@ export class BuySearchEngineCampaignComponent implements OnInit {
     this.languageList = this.languageService.geLanguageList();
     this.campaignService.getProductPrice(SEARCHENGINECAMPAIGN).subscribe((data: any) => {
       this.price = data[0].price;
-    })
+    });
+
+    this.campaignId = this.activatedRoute.snapshot.queryParams['campaign'];
+    if (this.campaignId) {
+      this.campaignService.getCampaignInfo(this.campaignId).subscribe((data: any) => {
+        this.campaignData = data;
+        this.setFomData();
+      }, error => {
+        this.router.navigate(['app/campaign/campaign-manager']);
+      });
+    }
+
+
+  }
+  setFomData() {
+    this.searchEnineCampaignForm.setValue({
+      brandName: this.campaignData.brandName,
+      brandURL: this.campaignData.brandUrl,
+      campaignDate: new Date(this.campaignData.campaignDate)
+    });
+    this.brandImage = this.campaignData.brandImage.url;
+    this.brandImageObj = this.campaignData.brandImage;
+    this.isBrandPicRequiredErr = false;
   }
 
 
@@ -106,7 +132,7 @@ export class BuySearchEngineCampaignComponent implements OnInit {
       brandName: value.brandName,
       brandUrl: value.brandURL,
       brandImage: this.brandImageObj,
-      campaignDate: value.campaignDate.toISOString()
+      campaignDate: value.campaignDate.toISOString(),
 
     }
     console.log(formDetails);
@@ -123,9 +149,9 @@ export class BuySearchEngineCampaignComponent implements OnInit {
   }
   buySearchengineSpot(formDetails) {
     this.isFormSaving = true;
-    this.campaignService.buyBrandSpot(formDetails).subscribe((response: any) => {
+    this.campaignService.buyBrandSpot(formDetails, this.campaignId).subscribe((response: any) => {
       this.isFormSaving = false;
-      this.router.navigate(['app/campaign/checkout-search-engine', response.campaignId, response.invoiceId]);
+      this.router.navigate(['app/campaign/checkout-search-engine', response.campaignId]);
     }, (error) => {
       this.isFormSaving = false;
       let $errorLbl = this.translate.instant("CampERROR");
