@@ -13,6 +13,7 @@ import { SearchEngineComponent } from './search-engine/search-engine.component';
 import { BuyComponent } from './buy/buy.component';
 import { InfluencerComponent } from './influencer/influencer.component';
 import { TodayComponent } from './today/today.component';
+import { PrivacyComponent } from './privacy/privacy.component';
 
 
 const routes: Routes = [
@@ -77,6 +78,14 @@ const routes: Routes = [
     component: TermsComponent,
     data: {
       title: 'terms version 2',
+      headerDisplay: "none"
+    }
+  },
+  {
+    path: 'privacy',
+    component: PrivacyComponent,
+    data: {
+      title: 'privacy policies',
       headerDisplay: "none"
     }
   },
