@@ -108,4 +108,27 @@ export class CampaignManagerComponent implements OnInit {
       })
     });
   }
+  deleteCampaign(id) {
+    this.modal.confirm({
+      nzTitle: this.translate.instant("CampDeletMsgConf"),
+      nzOnOk: () =>
+        new Promise((resolve, reject) => {
+          this.campaign.deleteCampaign(id).subscribe(() => {
+            this.modal.success({
+              nzTitle: this.translate.instant("CampDeleted")
+            })
+            this.loadData();
+            resolve()
+          }, error => {
+            reject()
+          })
+
+        }).catch(() => {
+          this.modal.error({
+            nzTitle: this.translate.instant("CampaignStoppedErr")
+          })
+        })
+    });
+
+  }
 }    

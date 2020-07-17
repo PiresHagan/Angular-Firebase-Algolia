@@ -84,6 +84,11 @@
                         *ngIf="item.status == 'active'" (click)="stopCampaign(item.id)">
                         <i nz-icon nzType="stop" nzTheme="outline"></i>
                     </button>
+
+                    <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete"
+                        *ngIf="item.status == 'inactive' || item.status == 'pending'" (click)="deleteCampaign(item.id)">
+                        <i nz-icon nzType="delete" nzTheme="outline"></i>
+                    </button>
                 </td>
             </tr>
         </tbody>

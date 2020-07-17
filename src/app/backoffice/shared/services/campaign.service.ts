@@ -76,8 +76,11 @@ export class CampaignService {
   }
 
   getCampaignInfo(campaignId) {
-    return this.http.get(environment.baseAPIDomain + '/api/campaigns/' + campaignId)
+    return this.http.get(environment.baseAPIDomain + '/api/campaigns/' + campaignId);
 
+  }
+  deleteCampaign(campaignId) {
+    return this.http.delete(environment.baseAPIDomain + '/api/campaigns/' + campaignId);
   }
   getPaymentMethod() {
     return this.http.get(environment.baseAPIDomain + '/api/v1/payment/methods')

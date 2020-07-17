@@ -420,5 +420,7 @@
     "CampBrandURL": "Brand URL",
     "CardDetails": "Payment Details",
     "CardArticle": "Article Title",
-    "PaymentCardMsg": "Payment method not selected. Click on below button to update the payment method."
+    "PaymentCardMsg": "Payment method not selected. Click on below button to update the payment method.",
+    "CampDeletMsgConf": "Are you sure want to delete Campaign?",
+    "CampDeleted": "Campaign deleted successfully!"
 }
