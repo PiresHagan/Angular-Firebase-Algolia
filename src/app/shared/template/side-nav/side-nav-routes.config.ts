@@ -18,7 +18,7 @@ export const ROUTES: SideNavInterface[] = [
         staff_only: false,
         submenu: []
     },
-    {
+    /* {
         path: '/app/campaign/campaign-manager',
         title: 'Campaign Manager',
         iconType: 'nzIcon',
@@ -26,7 +26,7 @@ export const ROUTES: SideNavInterface[] = [
         icon: 'notification',
         staff_only: false,
         submenu: []
-    },
+    }, */
     {
         path: '/app/admin',
         title: 'Admin Center',

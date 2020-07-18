@@ -17,14 +17,7 @@ export class SearchEngineComponent implements OnInit {
   config = {
     indexName: 'dev_articles',
     searchClient,
-    searchFunction(helper) {
-      helper.search();
-      const analytics = firebase.analytics();
-    
-      analytics.logEvent('search', {
-        query: helper.state.query
-      });
-    }
+    routing: true
   };
   
   constructor (
