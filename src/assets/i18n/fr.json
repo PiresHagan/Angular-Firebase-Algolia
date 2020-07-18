@@ -341,5 +341,9 @@
     "MemberSearchInfo": "Rechercher un membre par nom complet, e-mail ou slug.",
     "MemEditByEmail": "Modifier le membre par e-mail",
     "MemEditByName": "Modifier le membre par nom complet",
-    "MemEditBySlug": "Modifier le membre par slug"
+    "MemEditBySlug": "Modifier le membre par slug",
+    "GotoConsole": "Accéder à la console",
+    "GotoHome": "Go to Home",
+    "URL404": "URL non trouvée",
+    "URLNotFound": "L'URL demandée n'a pas été trouvée sur ce serveur."
 }

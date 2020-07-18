@@ -343,5 +343,9 @@
     "MemberSearchInfo": "Search Member by FullName or Email or Slug.",
     "MemEditByEmail": "Edit Member By Email",
     "MemEditByName": "Edit Member By FullName",
-    "MemEditBySlug": "Edit Member By Slug"
+    "MemEditBySlug": "Edit Member By Slug",
+    "GotoConsole": "Go to Console",
+    "GotoHome": "Go to Home",
+    "URL404": "URL not found",
+    "URLNotFound": "The requested URL was not found on this server."
 }

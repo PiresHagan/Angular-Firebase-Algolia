@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 import { StaffArticleService } from 'src/app/shared/services/staff-article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-article-list',
@@ -28,6 +29,7 @@ export class StaffArticlesComponent implements OnInit {
     public articleService: StaffArticleService,
     public router: Router,
     private staffService: StaffArticleService,
+    private modalService: NzModalService
   ) { }
 
 
@@ -99,5 +101,20 @@ export class StaffArticlesComponent implements OnInit {
         this.notFound = false;
       }, 1000)
     })
+  }
+  deleteArticle(articleId: string) {
+    let articleMessageConf = this.translate.instant("articleDeletMsgConf");
+    let articleMessageSucc = this.translate.instant("articleDeletMsgSuc");
+    this.modalService.confirm({
+      nzTitle: "<i>" + articleMessageConf + "</i>",
+      nzOnOk: () => {
+        this.articleService.deleteArticle(articleId).then(() => {
+          this.modalService.success({
+            nzTitle: "<i>" + articleMessageSucc + "</i>",
+          });
+        })
+      },
+    });
+
   }
 }

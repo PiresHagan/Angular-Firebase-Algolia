@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
@@ -13,6 +13,7 @@ import { AuthorService } from 'src/app/shared/services/author.service';
 import { environment } from 'src/environments/environment';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import * as firebase from 'firebase/app';
+import { NzModalService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-article',
@@ -51,6 +52,7 @@ export class ArticleComponent implements OnInit {
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
+    private router: Router,
     public translate: TranslateService,
     public authService: AuthService,
     public authorService: AuthorService,
@@ -58,7 +60,8 @@ export class ArticleComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private titleService: Title,
     private metaTagService: Meta,
-    private langService: LanguageService
+    private langService: LanguageService,
+    private modal: NzModalService
   ) {
 
   }
@@ -67,7 +70,16 @@ export class ArticleComponent implements OnInit {
 
       const slug = params.get('slug');
       this.articleService.getArtical(slug).subscribe(artical => {
+
         this.article = artical[0];
+        if (!this.article) {
+          this.modal.error({
+            nzTitle: this.translate.instant('URL404'),
+            nzContent: this.translate.instant('URLNotFound'),
+            nzOnOk: () => { this.router.navigate(['/']) }
+          })
+          return
+        }
         const articleId = this.article.id;
 
         this.articleLikes = this.article.likes_count;
@@ -287,15 +299,15 @@ export class ArticleComponent implements OnInit {
   }
   async follow(authorId) {
     const userDetails = this.getUserDetails();
-    
+
     await this.authorService.follow(authorId, userDetails);
-    
+
     await this.authorService.following(userDetails.id, this.article.author);
-    
+
     this.authorService.followCount(authorId, userDetails.id, 1);
-    
+
     const analytics = firebase.analytics();
-    
+
     analytics.logEvent("follow_author", {
       author_id: this.article.author.id,
       author_name: this.article.author.fullname,
@@ -306,15 +318,15 @@ export class ArticleComponent implements OnInit {
 
   async unfollow(authorId) {
     const userDetails = this.getUserDetails();
-    
+
     await this.authorService.unfollow(authorId, userDetails.id);
-    
+
     await this.authorService.unfollowing(userDetails.id, authorId);
-    
+
     this.authorService.followCount(authorId, userDetails.id, -1);
-    
+
     const analytics = firebase.analytics();
-    
+
     analytics.logEvent("unfollow_author", {
       author_id: this.article.author.id,
       author_name: this.article.author.fullname,

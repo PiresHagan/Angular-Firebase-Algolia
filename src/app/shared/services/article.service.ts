@@ -34,6 +34,7 @@ export class ArticleService {
   getArtical(slug: string) {
     return this.db.collection<Article>(this.articleCollection, ref => ref
       .where('slug', '==', slug)
+      .where('status', "==", ACTIVE)
       .limit(1)
     ).snapshotChanges().pipe(take(1),
       map(actions => {

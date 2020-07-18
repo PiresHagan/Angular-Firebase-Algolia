@@ -7,6 +7,7 @@ import { ThemeConstantService } from 'src/app/shared/services/theme-constant.ser
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
+import { StaffArticleService } from 'src/app/shared/services/staff-article.service';
 //import { } from '@types/gapi';
 
 //declare var gapi: any;
@@ -29,7 +30,7 @@ export class ArticleSingleComponent implements OnInit {
 
 
   constructor(
-    private articleService: ArticleService,
+    private articleService: StaffArticleService,
     private route: ActivatedRoute,
     public translate: TranslateService,
     public authService: AuthService,
