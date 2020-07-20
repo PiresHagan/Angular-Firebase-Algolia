@@ -27,6 +27,8 @@ import { InfluencerComponent } from './influencer/influencer.component';
 import { TodayComponent } from './today/today.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { PrivacyEnComponent } from './privacy/privacy-en/privacy-en.component';
+import { PrivacyFrComponent } from './privacy/privacy-fr/privacy-fr.component';
+import { PrivacyEsComponent } from './privacy/privacy-es/privacy-es.component';
 @NgModule({
   declarations: [
     HomeComponent, 
@@ -43,7 +45,9 @@ import { PrivacyEnComponent } from './privacy/privacy-en/privacy-en.component';
     InfluencerComponent, 
     TodayComponent,
     PrivacyComponent,
-    PrivacyEnComponent
+    PrivacyEnComponent,
+    PrivacyFrComponent,
+    PrivacyEsComponent
   ],
   imports: [
     CommonModule,
