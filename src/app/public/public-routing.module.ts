@@ -14,6 +14,8 @@ import { BuyComponent } from './buy/buy.component';
 import { InfluencerComponent } from './influencer/influencer.component';
 import { TodayComponent } from './today/today.component';
 import { PrivacyComponent } from './privacy/privacy.component';
+import { VideoComponent } from './video/video.component';
+import { AudioComponent } from './audio/audio.component';
 
 
 const routes: Routes = [
@@ -133,6 +135,22 @@ const routes: Routes = [
       headerDisplay: "none"
     }
   },
+  {
+    path: 'video',
+    component: VideoComponent,
+    data: {
+      title: 'video',
+      headerDisplay: "none"
+    }
+  },
+  {
+    path: 'audio',
+    component: AudioComponent,
+    data: {
+      title: 'audio',
+      headerDisplay: "none"
+    }
+  }
   // {
   //   path: '**',
   //   component: HomeComponent,
