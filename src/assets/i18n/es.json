@@ -419,5 +419,22 @@
     "CampBrandURL": "URL de marca",
     "Detalles de la tarjeta": "Detalles de pago",
     "CardArticle": "Título del artículo",
-    "PaymentCardMsg": "Método de pago no seleccionado. Haga clic en el botón a continuación para actualizar el método de pago"
+    "PaymentCardMsg": "Método de pago no seleccionado. Haga clic en el botón a continuación para actualizar el método de pago",
+    "CampDeletMsgConf": "¿Seguro que desea eliminar Campaign?",
+    "CampDeleted": "¡Campaña eliminada con éxito!",
+    "ClickToUpload": "Haga clic para cargar",
+    "ClickToChange": "Haga clic para cambiar el archivo",
+    "VideoRequired": "Seleccione Video",
+    "TextStory": "Text Story",
+    "AudioStory": "Audio Story",
+    "VideoStory": "Video Story",
+    "SelectVideo": "Seleccionar video para la historia",
+    "SelectAudio": "Seleccionar audio para la historia",
+    "InvalidFormat": "Seleccione un formato válido",
+    "InvalidSize": "El tamaño del archivo debe ser menor que",
+    "VideoInfo": "-Prohíbe estrictamente cargar datos de la empresa u otros archivos incorrectos",
+    "VideoInfo1": "-El archivo debe tener menos de 100 MB",
+    "AudioInfo": "-Prohíbe estrictamente cargar datos de la empresa u otros archivos incorrectos",
+    "AudioInfo1": "-El archivo debe ser inferior a 100 MB",
+    "SomethingWentWrong1": "<p> <strong> Posible error: </strong></p> <p> -Su contenido no es válido. </p> <p> -Su campaña ya está en estado pendiente o en ejecución . </p> <p>: está intentando crear la misma campaña varias veces el mismo día. </p> "
 }

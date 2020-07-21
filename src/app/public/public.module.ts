@@ -29,6 +29,8 @@ import { PrivacyComponent } from './privacy/privacy.component';
 import { PrivacyEnComponent } from './privacy/privacy-en/privacy-en.component';
 import { VideoComponent } from './video/video.component';
 import { AudioComponent } from './audio/audio.component';
+import { PrivacyFrComponent } from './privacy/privacy-fr/privacy-fr.component';
+import { PrivacyEsComponent } from './privacy/privacy-es/privacy-es.component';
 @NgModule({
   declarations: [
     HomeComponent, 
@@ -47,7 +49,9 @@ import { AudioComponent } from './audio/audio.component';
     PrivacyComponent,
     PrivacyEnComponent,
     VideoComponent,
-    AudioComponent
+    AudioComponent,
+    PrivacyFrComponent,
+    PrivacyEsComponent
   ],
   imports: [
     CommonModule,

@@ -20,4 +20,9 @@ export interface Article {
     published_on?: string;
     created_at?: string;
     published_at?: string;
+    type?: string;
+    article_file?: {
+        url: string,
+        name: string
+    }
 }

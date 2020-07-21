@@ -158,7 +158,7 @@ export class BuySearchEngineCampaignComponent implements OnInit {
       let $OkBtn = this.translate.instant("CampOK");
       this.modal.error({
         nzTitle: $errorLbl,
-        nzContent: '<p>' + error ? error.message : error.message + '</p>',
+        nzContent: this.translate.instant("SomethingWentWrong1"),
         nzOnOk: () => $OkBtn
       });
 

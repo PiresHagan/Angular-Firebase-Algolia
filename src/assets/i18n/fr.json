@@ -419,5 +419,22 @@
     "CampBrandURL": "URL de la marque",
     "CardDetails": "Détails du paiement",
     "CardArticle": "Titre de l'article",
-    "PaymentCardMsg": "Mode de paiement non sélectionné. Cliquez sur le bouton ci-dessous pour mettre à jour le mode de paiement."
+    "PaymentCardMsg": "Mode de paiement non sélectionné. Cliquez sur le bouton ci-dessous pour mettre à jour le mode de paiement.",
+    "CampDeletMsgConf": "Voulez-vous vraiment supprimer la campagne?",
+    "CampDeleted": "Campagne supprimée avec succès!",
+    "ClickToUpload": "Cliquez pour télécharger",
+    "ClickToChange": "Cliquez pour changer de fichier",
+    "VideoRequired": "Veuillez sélectionner la vidéo.",
+    "TextStory": "Text Story",
+    "AudioStory": "Audio Story",
+    "VideoStory": "Video Story",
+    "SelectVideo": "Sélectionner la vidéo pour l'histoire",
+    "SelectAudio": "Sélectionner l'audio pour l'histoire",
+    "InvalidFormat": "Veuillez sélectionner un format valide.",
+    "InvalidSize": "La taille du fichier doit être inférieure à",
+    "VideoInfo": "- Interdire strictement de télécharger des données d'entreprise ou d'autres fichiers défectueux.",
+    "VideoInfo1": "-Le fichier doit être inférieur à 100 Mo",
+    "AudioInfo": "- Interdire strictement de télécharger des données d'entreprise ou d'autres fichiers défectueux.",
+    "AudioInfo1": "-Le fichier doit être inférieur à 100 Mo",
+    "SomethingWentWrong1": "<p> <strong> Erreur possible: </strong></p> <p> -Votre contenu n'est pas valide. </p> <p> -Votre campagne est déjà en attente ou en cours d'exécution . </p> <p> -Vous essayez de créer la même campagne plusieurs fois le même jour. </p> "
 }
