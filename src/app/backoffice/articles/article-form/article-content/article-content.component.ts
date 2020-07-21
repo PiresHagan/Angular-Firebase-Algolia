@@ -6,7 +6,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { NzModalService } from 'ng-zorro-antd';
+import { NzModalService, UploadFile } from 'ng-zorro-antd';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DRAFT } from 'src/app/shared/constants/status-constants';
 import { LanguageService } from 'src/app/shared/services/language.service';
@@ -22,7 +22,7 @@ export class ArticleContentComponent implements OnInit {
 
   tagList: [] = [];
   tagValue = [];
-  article: Article = {};
+  article: Article = null;
   categoryList: Category[] = [];
   articleForm: any;
   contentValidation: boolean = false;
@@ -33,6 +33,12 @@ export class ArticleContentComponent implements OnInit {
   loading: boolean = true;
   languageList;
   topicList = [];
+  radioValue = 'text';
+  allowedArticleVideo = ['mimetypes:video/x-ms-asf', 'video/x-flv', 'video/mp4', 'application/x-mpegURL', 'video/MP2T', 'video/3gpp', 'video/quicktime', 'video/x-msvideo', 'video/x-ms-wmv', 'video/avi'];
+  allowedArticleAudio = ['audio/mpeg'];
+  articleFile;
+  videoFile;
+  audioFile;
 
   editorConfig = {
     toolbar: [
@@ -57,17 +63,69 @@ export class ArticleContentComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private languageService: LanguageService,
-    private location: Location
+    private location: Location,
+    private modal: NzModalService
   ) {
 
     this.articleForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],
       excerpt: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(160)]],
-      content: ['', [Validators.required, Validators.minLength(10)]],
+      content: ['', [Validators.minLength(10)]],
       category: ['', [Validators.required]],
       lang: ['', [Validators.required]],
-      topics: ['']
+      topics: [''],
+      type: ['text']
     });
+  }
+  isValidVideo(mimeType) {
+    return this.allowedArticleVideo.indexOf(mimeType) > -1;
+  }
+  isValidAudio(mimeType) {
+    return this.allowedArticleAudio.indexOf(mimeType) > -1;
+  }
+  isValidSize(fileSize, requiredSize) {
+    return fileSize! / 1024 / 1024 < requiredSize
+  }
+  showMessage(msg, type, extras = '') {
+    if (type == 'error') {
+      this.modalService.error({
+        nzTitle: this.translate.instant("CampERROR"),
+        nzContent: this.translate.instant(msg) + extras
+      })
+    } else if (type == 'warning') {
+      this.modalService.warning({
+        nzTitle: this.translate.instant("CampWarning"),
+        nzContent: this.translate.instant(msg) + extras
+      })
+
+    } else if (type == 'success') {
+      this.modalService.warning({
+        nzTitle: this.translate.instant("CampSuccess"),
+        nzContent: this.translate.instant(msg) + extras
+      })
+
+    }
+  }
+
+  beforeUpload = (file: UploadFile, _fileList: UploadFile[]) => {
+
+    const isValidFile = this.articleType == 'audio' ? this.isValidAudio(file.type) : this.isValidVideo(file.type);
+    if (!isValidFile) {
+      this.showMessage('InvalidFormat', 'error');
+      return false;
+    }
+
+    const validSize = this.articleType == 'audio' ? this.isValidSize(file.size, 10) : this.isValidSize(file.size, 20);
+    if (!validSize) {
+      this.showMessage('InvalidSize', 'error', this.articleType == 'audio' ? '10MB' : '20Mb');
+      return false;
+    }
+    this.articleFile = file;
+
+    return false;
+  };
+
+  saveVideo() {
 
   }
 
@@ -115,35 +173,36 @@ export class ArticleContentComponent implements OnInit {
       this.isFormSaving = true;
       const articleData = {
         category: this.getFilteredCategory(this.articleForm.get('category').value),
-        content: this.articleForm.get('content').value,
+        content: this.articleType == 'text' ? this.articleForm.get('content').value : '',
         title: this.articleForm.get('title').value,
         slug: this.getSlug(this.articleForm.get('title').value.trim()),
         excerpt: this.articleForm.get('excerpt').value,
-        author: this.article.author ? this.article.author : this.getUserDetails(),
+        author: this.article && this.article.author ? this.article.author : this.getUserDetails(),
         summary: this.articleForm.get('title').value,
         status: this.article && this.article.status ? this.article.status : DRAFT,
         lang: this.articleForm.get('lang').value ? this.articleForm.get('lang').value : this.userDetails.lang,
         topics: this.getTopicFilter(this.articleForm.get('topics').value),
         topic_list: this.getTopicSlug(this.articleForm.get('topics').value),
+        type: this.articleForm.get('type').value,
+        article_file: this.article ? this.article.article_file : {},
         created_at: this.article && this.article.id && this.article.created_at ? this.article.created_at : new Date().toISOString()
       }
-      if (this.article && this.article.id) {
-        this.articleService.updateArticleImage(this.article.id, articleData).then(() => {
-          this.resetAndNavigate();
+      if (this.articleFile) {
+        this.articleService.uploadArticleFile(this.articleFile).then(data => {
+          articleData['article_file'] = data;
+          this.addOrUpdateArticle(articleData);
         })
       } else {
-        this.articleService.createArticle(articleData).then((article) => {
-          this.resetAndNavigate(article);
-        }).catch(() => {
-          this.showError();
-        })
+        if (this.articleType == "text")
+          articleData['article_file'] = null;
+        this.addOrUpdateArticle(articleData);
       }
 
     }
     console.log(this.articleForm)
   }
   resetAndNavigate(article = null) {
-    this.articleId = article ? article.id : this.article.id;
+    this.articleId = article ? article.articleId : this.article.id;
     this.isFormSaving = false;
     this.router.navigate(['app/article/compose/image', this.articleId]);
     this.articleForm.reset();
@@ -153,14 +212,39 @@ export class ArticleContentComponent implements OnInit {
     const invalid = [];
     const controls = this.articleForm.controls;
     for (const name in controls) {
-      if (name == "content" && controls[name].invalid) {
-        this.contentValidation = true;
-      }
+
       if (controls[name].invalid) {
         invalid.push(name);
       }
     }
-
+    this.contentValidation = false;
+    if ((this.articleType == 'text' || this.articleType == undefined) && !this.articleForm.controls['content'].value) {
+      this.contentValidation = true;
+      invalid.push('content');
+    }
+    if (this.articleType == 'audio') {
+      if (!this.articleFile && !this.article) {
+        this.contentValidation = true;
+        invalid.push('audio');
+      } else if (!this.articleFile && this.article && !this.article.article_file) {
+        this.contentValidation = true;
+        invalid.push('audio');
+      } else if (!this.articleFile && this.article && this.article.article_file && this.article.type !== 'audio') {
+        this.contentValidation = true;
+        invalid.push('audio');
+      }
+    } else if (this.articleType == 'video') {
+      if (!this.articleFile && !this.article) {
+        this.contentValidation = true;
+        invalid.push('video');
+      } else if (!this.articleFile && this.article && !this.article.article_file) {
+        this.contentValidation = true;
+        invalid.push('video');
+      } else if (!this.articleFile && this.article && this.article.article_file && this.article.type !== 'video') {
+        this.contentValidation = true;
+        invalid.push('video');
+      }
+    }
     return invalid;
   }
   getSlug(title: string) {
@@ -230,12 +314,12 @@ export class ArticleContentComponent implements OnInit {
     });
   }
   showError(): void {
-
+    this.isFormSaving = false;
     let $message = this.translate.instant("artError");
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       $message = this.translate.instant("artError");
     })
-    this.modalService.success({
+    this.modalService.error({
       nzTitle: "<i>" + $message + "</i>",
     });
   }
@@ -248,7 +332,10 @@ export class ArticleContentComponent implements OnInit {
       lang: this.article.lang,
       category: this.getSelectedCategory(this.article.category['id']),
       topics: this.getSelectedTopic(this.article.topics),
+      type: this.article.type ? this.article.type : 'text'
     });
+    this.audioFile = this.article.type === "audio" ? this.article.article_file : '';
+    this.videoFile = this.article.type === "video" ? this.article.article_file : '';
   }
   getSelectedCategory(categoryId) {
     return this.categoryList.find(element => element.uid == categoryId || element.id == categoryId);
@@ -287,8 +374,27 @@ export class ArticleContentComponent implements OnInit {
   goBack() {
     this.location.back();
   }
+  removeFile() {
+    this.articleFile = null;
+    this.contentValidation = false;
 
+  }
+  addOrUpdateArticle(articleData) {
+    if (this.article && this.article.id)
+      this.articleService.updateArticle(this.article.id, articleData).then(() => {
+        this.resetAndNavigate();
+      }).catch(() => {
+        this.showError();
+      })
+    else
+      this.articleService.createArticle(articleData).then((article: any) => {
+        this.resetAndNavigate(article);
+      }).catch(() => {
+        this.showError();
+      })
+  }
 
+  get articleType() { return this.articleForm.get('type').value; }
 
 
 

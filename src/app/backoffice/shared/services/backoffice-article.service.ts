@@ -9,6 +9,8 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { ACTIVE } from 'src/app/shared/constants/status-constants';
 import { STAFF } from 'src/app/shared/constants/member-constant';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -19,7 +21,7 @@ export class BackofficeArticleService {
   articleLikesCollection: string = 'likes';
   articleCommentsCollection: string = 'comments';
   articleImagePath: string = '/article';
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private storage: AngularFireStorage, ) { }
+  constructor(private afAuth: AngularFireAuth, private http: HttpClient, private db: AngularFirestore, private storage: AngularFireStorage, ) { }
 
   deleteArticle(articleId) {
     return this.db.collection(this.articleCollection).doc(articleId).delete();
@@ -48,13 +50,24 @@ export class BackofficeArticleService {
   createArticle(article) {
     return new Promise((resolve, reject) => {
       article.slug = article.slug + '-' + this.makeid()
-      this.db.collection(`${this.articleCollection}`).add(article).then((articleData) => {
+      this.http.post(environment.baseAPIDomain + '/api/v1/articles', article).subscribe((articleData) => {
         resolve(articleData)
+      }, (error) => {
+        reject(error)
       })
-    }).catch((error) => {
-      console.log(error)
     })
   }
+  updateArticle(articleId: string, articleDetails) {
+    return new Promise((resolve, reject) => {
+      return this.http.put(environment.baseAPIDomain + '/api/v1/articles/' + articleId, articleDetails).subscribe((articleData) => {
+        resolve(articleData)
+      }, (error) => {
+        reject(error)
+      })
+    })
+
+  }
+
 
   addArticleImage(articleId: string, imageDetails: any) {
     const path = `${this.articleImagePath}/${Date.now()}_${imageDetails.file.name}`;
@@ -72,6 +85,23 @@ export class BackofficeArticleService {
 
     })
   }
+  uploadArticleFile(fileDetails: any) {
+    const path = `${this.articleImagePath}/${Date.now()}_${fileDetails.name}`;
+    return new Promise((resolve, reject) => {
+      this.storage.upload(path, fileDetails).then(
+        snapshot => {
+          snapshot.ref.getDownloadURL().then((downloadURL) => {
+            const imageUrl: string = downloadURL;
+            resolve({ url: imageUrl, name: fileDetails.name })
+          }).catch(err => reject(err))
+        }).catch((error) => {
+          console.log(error);
+          reject();
+        });
+
+    })
+  }
+
   makeid(length = 6) {
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -82,9 +112,6 @@ export class BackofficeArticleService {
     return result;
   }
 
-  updateArticle(articleId: string, articleDetails) {
-    return this.db.collection(`${this.articleCollection}`).doc(`${articleId}`).set(articleDetails)
-  }
 
   getArticlesByUser(authorId, limit: number = 10, navigation: string = "first", lastVisible = null) {
     if (!limit) {
@@ -329,6 +356,8 @@ export class BackofficeArticleService {
     })
     );
   }
+
+
 
 
 }
