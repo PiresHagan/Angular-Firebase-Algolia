@@ -84,7 +84,7 @@ export class StaffArticlesComponent implements OnInit {
     if (this.searchSlug) {
       this.articleTitle = "";
       searchKey = "slug";
-      searchValue = this.searchSlug
+      searchValue = decodeURIComponent(this.searchSlug);
     }
     if (this.articleTitle) {
       this.searchSlug = "";
