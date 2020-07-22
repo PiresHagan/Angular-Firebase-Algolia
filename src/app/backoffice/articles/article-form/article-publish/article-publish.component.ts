@@ -60,7 +60,7 @@ export class ArticlePublishComponent implements OnInit {
   }
   savePublishStatus() {
     this.isFormSaving = true;
-    this.articleService.updateArticleImage(this.articleId, { status: ACTIVE, published_at: new Date().toISOString() }).then(async () => {
+    this.articleService.updateArticleImage(this.articleId, { status: ACTIVE, published_at: this.article && this.article.published_at ? this.article.published_at : new Date().toISOString() }).then(async () => {
 
       if ((!this.userDetails.type || this.userDetails.type == MEMBER) && this.userDetails.type != STAFF)
         await this.userService.updateMember(this.userDetails.id, { type: AUTHOR });
