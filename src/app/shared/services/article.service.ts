@@ -450,7 +450,6 @@ export class ArticleService {
 
   createArticle(article) {
     return new Promise((resolve, reject) => {
-      article.slug = article.slug + '-' + this.makeid()
       this.db.collection(`${this.articleCollection}`).add(article).then((articleData) => {
         resolve(articleData)
       })
@@ -515,15 +514,6 @@ export class ArticleService {
     return this.db.collection(`${this.articleCollection}`).doc(`${articleId}`).set(articleDetails)
   }
 
-  makeid(length = 6) {
-    var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  }
   updateViewCount(articleId: string) {
     const db = firebase.firestore();
     const increment = firebase.firestore.FieldValue.increment(1);
