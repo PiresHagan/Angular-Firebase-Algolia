@@ -90,7 +90,7 @@ export class ArticlePublishComponent implements OnInit {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       $message = this.translate.instant("artPublishMsg");
     })
-    this.modalService.confirm({
+    this.modalService.success({
       nzTitle: "<i>" + $message + "</i>",
       nzOnOk: () => {
         if (this.userDetails.type == STAFF)

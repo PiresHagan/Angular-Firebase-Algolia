@@ -164,7 +164,20 @@ export class ArticleContentComponent implements OnInit {
     return invalid;
   }
   getSlug(title: string) {
-    return title.replace(/ /g, '-')?.toLowerCase();
+    if (this.article && this.article.slug && this.article.title && title == this.article.title.trim()) {
+      return this.article.slug;
+    }
+    return title.replace(/ /g, '-')?.toLowerCase() + '-' + this.makeid();
+  }
+
+  makeid(length = 6) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result.toLowerCase();
   }
 
   getFilteredCategory(category) {
