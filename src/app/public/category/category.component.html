@@ -11,8 +11,10 @@
                     <form action="" method="post" id="form_add_sub_cat" [formGroup]="newsLetterForm">
                         <input type="hidden" name="csrfmiddlewaretoken" value="dM4QEapppMGbO2CnodWzQm2slYLJTdJp">
                         <input name="category-constant_contact" [value]="category?.title" type="text" hidden="">
-                        <nz-alert class="mb-2" nzType="error" nzMessage="{{'errorSubscribe' | translate}}" nzShowIcon *ngIf="errorSubscribe"></nz-alert>
-                        <nz-alert class="mb-2" nzType="success" nzMessage="{{'successSubscribe' | translate}}" nzShowIcon *ngIf="successSubscribe"></nz-alert>
+                        <nz-alert class="mb-2" nzType="error" nzMessage="{{'errorSubscribe' | translate}}" nzShowIcon
+                            *ngIf="errorSubscribe"></nz-alert>
+                        <nz-alert class="mb-2" nzType="success" nzMessage="{{'successSubscribe' | translate}}"
+                            nzShowIcon *ngIf="successSubscribe"></nz-alert>
                         <div class="form-group">
                             <input class="form-control newsletter-input" formControlName="email" id="id_category-email"
                                 maxlength="100" name="category-email" email="true"
@@ -46,7 +48,7 @@
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5" *ngFor="let article of articles"
                                 [ngClass]="category.slug">
                                 <div class="item-card item-card-life-and-styles">
-                                    <a [routerLink]="['/article/',article.slug]">
+                                    <a [routerLink]="['/',article.author.slug,article.slug]">
                                         <div class="item-card-image">
 
                                             <img [src]="replaceImage(article?.image?.url)" [alt]="article?.image?.alt">

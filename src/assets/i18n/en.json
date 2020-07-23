@@ -443,5 +443,6 @@
     "SomethingWentWrong1": "<p><strong>Possible Error : </strong></p><p>-Your content is not valid.</p><p>-Your campaign is already in pending state or running state.</p><p>-You are trying to create the same campaign multiple times same day.</p>",
     "AllStories": "All",
     "VideStories": "Video",
-    "AudioStories": "Audio"
+    "AudioStories": "Audio",
+    "NoArticle": "No Article Found."
 }

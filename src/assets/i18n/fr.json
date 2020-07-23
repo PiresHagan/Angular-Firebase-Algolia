@@ -439,5 +439,6 @@
     "SomethingWentWrong1": "<p> <strong> Erreur possible: </strong></p> <p> -Votre contenu n'est pas valide. </p> <p> -Votre campagne est déjà en attente ou en cours d'exécution . </p> <p> -Vous essayez de créer la même campagne plusieurs fois le même jour. </p> ",
     "AllStories": "Tous",
     "VideoStories": "Vidéo",
-    "AudioStories": "Audio"
+    "AudioStories": "Audio",
+    "NoArticle": "Aucun article trouvé."
 }

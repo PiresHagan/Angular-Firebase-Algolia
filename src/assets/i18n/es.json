@@ -439,5 +439,6 @@
     "SomethingWentWrong1": "<p> <strong> Posible error: </strong></p> <p> -Su contenido no es válido. </p> <p> -Su campaña ya está en estado pendiente o en ejecución . </p> <p>: está intentando crear la misma campaña varias veces el mismo día. </p> ",
     "AllStories": "Todos",
     "VideoStories": "Video",
-    "AudioStories": "Audio"
+    "AudioStories": "Audio",
+    "NoArticle": "No se encontró ningún artículo"
 }
