@@ -32,6 +32,7 @@ import { LanguageService } from './shared/services/language.service';
 import { PreviousRouteService } from './shared/services/previous-route.service';
 import { NgAisModule } from 'angular-instantsearch';
 import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
+import { ArticleInteractionComponent } from './shared/component/article-interaction/article-interaction.component';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -46,8 +47,7 @@ registerLocaleData(en);
         AppComponent,
         CommonLayoutComponent,
         FullLayoutComponent,
-        BackofficeLayoutComponent
-    ],
+        BackofficeLayoutComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
