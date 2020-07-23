@@ -30,7 +30,6 @@ export class ArticleComponent implements OnInit {
   articleVicewCount: number = 0;
   slug: string;
   articleComments: any = [];
-  publishedRelativeDate: string;
   commentForm: FormGroup;
   isFormSaving: boolean = false;
   isCommentSavedSuccessfully: boolean = false;
@@ -49,6 +48,8 @@ export class ArticleComponent implements OnInit {
   isLoaded: boolean = false;
   isReportAbuseLoading: boolean = false;
   selectedLang: string = '';
+  similarArticleList;
+  selectedLanguage: string = "";
   TEXT = TEXT;
   AUDIO = AUDIO;
   VIDEO = VIDEO;
@@ -72,12 +73,15 @@ export class ArticleComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
 
+    this.selectedLanguage = this.langService.getSelectedLanguage();
+
       const slug = params.get('slug');
       this.articleService.getArtical(slug).subscribe(artical => {
         this.article = artical[0];
         const articleId = this.article.id;
 
-        this.publishedRelativeDate = moment(this.article.published_at).fromNow();
+        this.similarArticleList = this.articleService.getCategoryRow(this.article.category.slug, this.selectedLanguage);
+
         this.articleType = this.article.type ? this.article.type : TEXT;
         this.articleLikes = this.article.likes_count;
         this.articleVicewCount = this.article.view_count;
@@ -405,6 +409,10 @@ export class ArticleComponent implements OnInit {
         .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
     }
     return latestURL;
+  }
+
+  getRelativeDate(date: string) {
+    return moment(date).fromNow();
   }
 
 }

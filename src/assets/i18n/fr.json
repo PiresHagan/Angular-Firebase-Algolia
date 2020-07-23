@@ -440,5 +440,6 @@
     "AllStories": "Tous",
     "VideoStories": "Vidéo",
     "AudioStories": "Audio",
-    "NoArticle": "Aucun article trouvé."
+    "NoArticle": "Aucun article trouvé.",
+    "SimilarArticles": "Articles similaires"
 }

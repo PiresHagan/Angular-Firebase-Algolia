@@ -100,20 +100,13 @@
                                 <ul>
                                     <li>
                                         <a>
-                                            <img src="assets/images/video/icon/like.png" alt="" />
-                                            {{ articleLikes }}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <img src="assets/images/video/icon/comment.png" alt="">
-                                            {{ articleComments.length }}
+                                            <article-interaction [article]="article"></article-interaction>
                                         </a>
                                     </li>
                                     <li>
                                         <a>
                                             <img src="assets/images/video/icon/point.png" alt="" class="bullet">
-                                            {{ publishedRelativeDate }}
+                                            {{ getRelativeDate(article.published_at) }}
                                         </a>
                                     </li>
                                 </ul>
@@ -132,20 +125,13 @@
                                 <ul>
                                     <li>
                                         <a>
-                                            <img src="assets/images/video/icon/like.png" alt="" />
-                                            {{ articleLikes | number:'1.0-0' }}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <img src="assets/images/video/icon/comment.png" alt="">
-                                            {{ articleComments.length | number:'1.0-0'}}
+                                            <article-interaction [article]="article"></article-interaction>
                                         </a>
                                     </li>
                                     <li>
                                         <a>
                                             <img src="assets/images/video/icon/point.png" alt="" class="bullet">
-                                            {{ publishedRelativeDate }}
+                                            {{ getRelativeDate(article.published_at) }}
                                         </a>
                                     </li>
                                 </ul>
@@ -323,306 +309,61 @@
                 <div *ngIf="false" class="ads-box">
                     Ads Section
                 </div>
-                <div *ngIf="articleType === VIDEO" class="related-video-sec">
-                    <h2>Similar Videos</h2>
-                    <div class="related-video">
-                        <div class="thumbnail-video">
-                            <img src="assets/images/video/thumbnail-video.jpg" alt="" />
-                            <div class="overlay-detail">
-                                <span class="time">5:08</span>
-                                <div class="play-btn">
-                                    <i class="fas fa-play"></i>
+                <div class="related-article-sec">
+                    <h2>{{ "SimilarArticles" | translate }}</h2>
+                    <div *ngFor="let similarArticle of similarArticleList | async">
+                        <a [routerLink]="['/',similarArticle.author.slug,similarArticle.slug]">
+                            <div *ngIf="similarArticle.type === VIDEO" class="related-video">
+                                <div class="thumbnail-video">
+                                    <img [src]="similarArticle.image?.url" [alt]="similarArticle.image.alt" />
+                                    <div class="overlay-detail">
+                                        <!-- <span class="time">5:08</span> -->
+                                        <div class="play-btn">
+                                            <i class="fas fa-play"></i>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="related-video-detail">
+                                    <h2>{{ similarArticle.title }}</h2>
+                                    <p>{{ similarArticle.excerpt }}</p>
+                                    <ul>
+                                        <li>
+                                            <a>
+                                                <article-interaction [article]="similarArticle"></article-interaction>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a>
+                                                <img src="assets/images/video/icon/point.png" alt="" class="bullet">
+                                                {{ getRelativeDate(similarArticle.published_at) }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div><div class="clearfix"></div>
                             </div>
-                        </div>
-                        <div class="related-video-detail">
-                            <h2>Title</h2>
-                            <p>Today you will find a large number of frameworks available which can be used for the
-                                development </p>
-                            <ul>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/view.png" alt="">
-                                        80M
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/watch-later.png" alt="">
-                                        Watch Later
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/point.png" alt="" class="bullet">
-                                        1 day ago
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="related-video">
-                        <div class="thumbnail-video">
-                            <img src="assets/images/video/thumbnail-video.jpg" alt="" />
-                            <div class="overlay-detail">
-                                <span class="time">5:08</span>
-                                <div class="play-btn">
-                                    <i class="fas fa-play"></i>
+                            <div *ngIf="similarArticle.type !== VIDEO" class="related-audio">
+                                <div class="thumbnail-audio">
+                                    <img [src]="similarArticle.image?.url" [alt]="similarArticle.image.alt" />
                                 </div>
+                                <div class="related-audio-detail">
+                                    <h2>{{ similarArticle.title }}</h2>
+                                    <p>{{ similarArticle.excerpt }}</p>
+                                    <ul>
+                                        <li>
+                                            <a>
+                                                <article-interaction [article]="similarArticle"></article-interaction>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a>
+                                                <img src="assets/images/video/icon/point.png" alt="" class="bullet">
+                                                {{ getRelativeDate(similarArticle.published_at) }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div><div class="clearfix"></div>
                             </div>
-                        </div>
-                        <div class="related-video-detail">
-                            <h2>Title</h2>
-                            <p>Today you will find a large number of frameworks available which can be used for the
-                                development </p>
-                            <ul>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/view.png" alt="">
-                                        80M
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/watch-later.png" alt="">
-                                        Watch Later
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/point.png" alt="" class="bullet">
-                                        1 day ago
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="related-video">
-                        <div class="thumbnail-video">
-                            <img src="assets/images/video/thumbnail-video.jpg" alt="" />
-                            <div class="overlay-detail">
-                                <span class="time">5:08</span>
-                                <div class="play-btn">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="related-video-detail">
-                            <h2>Title</h2>
-                            <p>Today you will find a large number of frameworks available which can be used for the
-                                development </p>
-                            <ul>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/view.png" alt="">
-                                        80M
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/watch-later.png" alt="">
-                                        Watch Later
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/point.png" alt="" class="bullet">
-                                        1 day ago
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="related-video">
-                        <div class="thumbnail-video">
-                            <img src="assets/images/video/thumbnail-video.jpg" alt="" />
-                            <div class="overlay-detail">
-                                <span class="time">5:08</span>
-                                <div class="play-btn">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="related-video-detail">
-                            <h2>Title</h2>
-                            <p>Today you will find a large number of frameworks available which can be used for the
-                                development </p>
-                            <ul>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/view.png" alt="">
-                                        80M
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/watch-later.png" alt="">
-                                        Watch Later
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/point.png" alt="" class="bullet">
-                                        1 day ago
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-                <div *ngIf="articleType === AUDIO" class="related-audio-sec">
-                    <h2>Similar Audio</h2>
-                    <div class="related-audio">
-                        <div class="thumbnail-audio">
-                            <img src="assets/images/video/thumbnail-video.jpg" alt="" />
-                        </div>
-                        <div class="related-audio-detail">
-                            <h2>How music can boost my mind</h2>
-                            <p>Today you will find a large number of frameworks available which can be used for the
-                                development </p>
-                            <ul>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/play-count.png" alt="">
-                                        60K
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/like.png" alt="">
-                                        50K
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/repost.png" alt="">
-                                        repost
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/comment.png" alt="">
-                                        10K
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="related-audio">
-                        <div class="thumbnail-audio">
-                            <img src="assets/images/video/thumbnail-video.jpg" alt="" />
-                        </div>
-                        <div class="related-audio-detail">
-                            <h2>How music can boost my mind</h2>
-                            <p>Today you will find a large number of frameworks available which can be used for the
-                                development </p>
-                            <ul>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/play-count.png" alt="">
-                                        60K
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/like.png" alt="">
-                                        50K
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/repost.png" alt="">
-                                        repost
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/comment.png" alt="">
-                                        10K
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="related-audio">
-                        <div class="thumbnail-audio">
-                            <img src="assets/images/video/thumbnail-video.jpg" alt="" />
-                        </div>
-                        <div class="related-audio-detail">
-                            <h2>How music can boost my mind</h2>
-                            <p>Today you will find a large number of frameworks available which can be used for the
-                                development </p>
-                            <ul>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/play-count.png" alt="">
-                                        60K
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/like.png" alt="">
-                                        50K
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/repost.png" alt="">
-                                        repost
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/comment.png" alt="">
-                                        10K
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="related-audio">
-                        <div class="thumbnail-audio">
-                            <img src="assets/images/video/thumbnail-video.jpg" alt="" />
-                        </div>
-                        <div class="related-audio-detail">
-                            <h2>How music can boost my mind</h2>
-                            <p>Today you will find a large number of frameworks available which can be used for the
-                                development </p>
-                            <ul>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/play-count.png" alt="">
-                                        60K
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/like.png" alt="">
-                                        50K
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/repost.png" alt="">
-                                        repost
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <img src="assets/images/video/icon/comment.png" alt="">
-                                        10K
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"></div>
+                        </a>
                     </div>
                 </div>
             </div>

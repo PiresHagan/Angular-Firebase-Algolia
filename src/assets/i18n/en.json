@@ -444,5 +444,6 @@
     "AllStories": "All",
     "VideStories": "Video",
     "AudioStories": "Audio",
-    "NoArticle": "No Article Found."
+    "NoArticle": "No Article Found.",
+    "SimilarArticles": "Similar Articles"
 }
