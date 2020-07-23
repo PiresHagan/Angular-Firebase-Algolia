@@ -9,6 +9,7 @@ import { NzModalService } from 'ng-zorro-antd';
 import { STAFF, AUTHOR, MEMBER } from 'src/app/shared/constants/member-constant';
 import { Location } from '@angular/common';
 import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-article-publish',
@@ -21,6 +22,7 @@ export class ArticlePublishComponent implements OnInit {
   userDetails;
   article;
   isFormSaving: boolean = false;
+  fileURL: string;
   constructor(public userService: UserService,
     public translate: TranslateService,
     public authService: AuthService,
@@ -28,6 +30,7 @@ export class ArticlePublishComponent implements OnInit {
     private router: Router,
     private modalService: NzModalService,
     private location: Location,
+    private sanitizer: DomSanitizer,
     public articleService: BackofficeArticleService) { }
 
   ngOnInit() {
@@ -45,6 +48,8 @@ export class ArticlePublishComponent implements OnInit {
       if (this.articleId) {
         try {
           this.article = await this.articleService.getArticleById(this.articleId, this.userDetails.id, this.userDetails.type);
+          const format = this.article.type === "audio" ? 'mp3' : 'mp4';
+          this.fileURL = this.article.type === "video" && `https://player.cloudinary.com/embed/?cloud_name=mytrendingstories&public_id=${this.article.article_file.cloudinary_id}&fluid=true&controls=true&source_types%5B0%5D=${format}`
         } catch (error) {
           this.article = null;
           this.router.navigate(['/app/error'])
@@ -58,6 +63,9 @@ export class ArticlePublishComponent implements OnInit {
 
     })
 
+  }
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
   savePublishStatus() {
     this.isFormSaving = true;

@@ -15,7 +15,7 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: '',
+        path: 'articles',
         component: ArticleListComponent,
         data: {
           title: "myArticles"

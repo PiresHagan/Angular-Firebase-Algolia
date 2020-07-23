@@ -10,7 +10,7 @@ export const ROUTES: SideNavInterface[] = [
         submenu: []
     },
     {
-        path: '/app/article',
+        path: '/app/article/articles',
         title: 'myArticles',
         iconType: 'nzIcon',
         iconTheme: 'outline',

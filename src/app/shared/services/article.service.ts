@@ -274,7 +274,7 @@ export class ArticleService {
   }
 
 
-  getArticlesByAuthor(authorId: string, limit: number = 10, navigation: string = "first", lastVisible = null) {
+  getArticlesByAuthor(authorId: string, limit: number = 10, navigation: string = "first", lastVisible = null, type = null) {
     if (!limit) {
       limit = 10;
     }
@@ -284,6 +284,16 @@ export class ArticleService {
       .orderBy('published_at', 'desc')
       .limit(limit)
     )
+    if (type) {
+      dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+        .where("author.id", "==", authorId)
+        .where('status', "==", ACTIVE)
+        .where('type', "==", type)
+        .orderBy('published_at', 'desc')
+
+        .limit(limit)
+      )
+    }
     switch (navigation) {
       case 'next':
         dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
@@ -292,6 +302,15 @@ export class ArticleService {
           .orderBy('published_at', 'desc')
           .limit(limit)
           .startAfter(lastVisible))
+        if (type) {
+          dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+            .where("author.id", "==", authorId)
+            .where('status', "==", ACTIVE)
+            .where('type', "==", type)
+            .orderBy('published_at', 'desc')
+            .limit(limit)
+            .startAfter(lastVisible))
+        }
         break;
     }
     return dataQuery.snapshotChanges().pipe(map(actions => {

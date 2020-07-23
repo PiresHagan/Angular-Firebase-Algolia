@@ -13,6 +13,12 @@
                     </div>
                 </div>
             </div>
+            <div class="m-t-30" *ngIf="fileURL">
+                <iframe [src]="transform(fileURL)" width="100%" height="650px"
+                    allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen
+                    frameborder="0"></iframe>
+
+            </div>
             <div class="m-t-30 lh-1-8 pl-2 pr-2" innerHTML="{{article?.content}}">
 
             </div>

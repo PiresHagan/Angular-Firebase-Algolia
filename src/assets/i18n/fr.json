@@ -436,5 +436,8 @@
     "VideoInfo1": "-Le fichier doit être inférieur à 100 Mo",
     "AudioInfo": "- Interdire strictement de télécharger des données d'entreprise ou d'autres fichiers défectueux.",
     "AudioInfo1": "-Le fichier doit être inférieur à 100 Mo",
-    "SomethingWentWrong1": "<p> <strong> Erreur possible: </strong></p> <p> -Votre contenu n'est pas valide. </p> <p> -Votre campagne est déjà en attente ou en cours d'exécution . </p> <p> -Vous essayez de créer la même campagne plusieurs fois le même jour. </p> "
+    "SomethingWentWrong1": "<p> <strong> Erreur possible: </strong></p> <p> -Votre contenu n'est pas valide. </p> <p> -Votre campagne est déjà en attente ou en cours d'exécution . </p> <p> -Vous essayez de créer la même campagne plusieurs fois le même jour. </p> ",
+    "AllStories": "Tous",
+    "VideoStories": "Vidéo",
+    "AudioStories": "Audio"
 }

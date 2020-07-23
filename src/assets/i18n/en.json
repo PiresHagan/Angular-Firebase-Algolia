@@ -440,5 +440,8 @@
     "VideoInfo1": "-The file should be less then 100MB",
     "AudioInfo": "-Strictly prohibit from uploading company data or other bad files.",
     "AudioInfo1": "-The file should be less then 100MB",
-    "SomethingWentWrong1": "<p><strong>Possible Error : </strong></p><p>-Your content is not valid.</p><p>-Your campaign is already in pending state or running state.</p><p>-You are trying to create the same campaign multiple times same day.</p>"
+    "SomethingWentWrong1": "<p><strong>Possible Error : </strong></p><p>-Your content is not valid.</p><p>-Your campaign is already in pending state or running state.</p><p>-You are trying to create the same campaign multiple times same day.</p>",
+    "AllStories": "All",
+    "VideStories": "Video",
+    "AudioStories": "Audio"
 }

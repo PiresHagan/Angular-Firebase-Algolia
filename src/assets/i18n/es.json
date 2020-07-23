@@ -436,5 +436,8 @@
     "VideoInfo1": "-El archivo debe tener menos de 100 MB",
     "AudioInfo": "-Prohíbe estrictamente cargar datos de la empresa u otros archivos incorrectos",
     "AudioInfo1": "-El archivo debe ser inferior a 100 MB",
-    "SomethingWentWrong1": "<p> <strong> Posible error: </strong></p> <p> -Su contenido no es válido. </p> <p> -Su campaña ya está en estado pendiente o en ejecución . </p> <p>: está intentando crear la misma campaña varias veces el mismo día. </p> "
+    "SomethingWentWrong1": "<p> <strong> Posible error: </strong></p> <p> -Su contenido no es válido. </p> <p> -Su campaña ya está en estado pendiente o en ejecución . </p> <p>: está intentando crear la misma campaña varias veces el mismo día. </p> ",
+    "AllStories": "Todos",
+    "VideoStories": "Video",
+    "AudioStories": "Audio"
 }

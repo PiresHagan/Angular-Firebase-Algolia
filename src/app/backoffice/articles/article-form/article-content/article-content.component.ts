@@ -12,6 +12,7 @@ import { DRAFT } from 'src/app/shared/constants/status-constants';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { Location } from '@angular/common';
 import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-article-content',
@@ -39,6 +40,9 @@ export class ArticleContentComponent implements OnInit {
   articleFile;
   videoFile;
   audioFile;
+  fileURL: string;
+  videofileURL: string;
+  audioFileUrl: string;
 
   editorConfig = {
     toolbar: [
@@ -64,7 +68,8 @@ export class ArticleContentComponent implements OnInit {
     private route: ActivatedRoute,
     private languageService: LanguageService,
     private location: Location,
-    private modal: NzModalService
+    private modal: NzModalService,
+    private sanitizer: DomSanitizer
   ) {
 
     this.articleForm = this.fb.group({
@@ -336,10 +341,16 @@ export class ArticleContentComponent implements OnInit {
     });
     this.audioFile = this.article.type === "audio" ? this.article.article_file : '';
     this.videoFile = this.article.type === "video" ? this.article.article_file : '';
+    const format = this.article.type === "audio" ? 'mp3' : 'mp4';
+    this.videofileURL = this.article.type === "video" && `https://player.cloudinary.com/embed/?cloud_name=mytrendingstories&public_id=${this.article.article_file.cloudinary_id}&fluid=true&controls=true&source_types%5B0%5D=${format}`
+    this.audioFileUrl = this.article.type === "audio" && `https://player.cloudinary.com/embed/?cloud_name=mytrendingstories&public_id=${this.article.article_file.cloudinary_id}&fluid=true&controls=true&source_types%5B0%5D=${format}`
   }
   getSelectedCategory(categoryId) {
     return this.categoryList.find(element => element.uid == categoryId || element.id == categoryId);
 
+  }
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
   getSelectedTopic(savedTopicData) {
 

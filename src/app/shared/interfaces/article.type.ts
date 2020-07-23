@@ -23,6 +23,7 @@ export interface Article {
     type?: string;
     article_file?: {
         url: string,
-        name: string
+        name: string,
+        cloudinary_id: string
     }
 }

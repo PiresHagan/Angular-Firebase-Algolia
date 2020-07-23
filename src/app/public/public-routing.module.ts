@@ -150,7 +150,7 @@ const routes: Routes = [
       title: 'audio',
       headerDisplay: "none"
     }
-  }
+  },
   // {
   //   path: '**',
   //   component: HomeComponent,
@@ -160,6 +160,22 @@ const routes: Routes = [
   //   }
 
   // },
+  {
+    path: ':userSlug/:slug',
+    component: ArticleComponent,
+    data: {
+      title: 'Article',
+      headerDisplay: "none"
+    }
+  },
+  {
+    path: ':slug',
+    component: ProfileComponent,
+    data: {
+      title: 'Profile',
+      headerDisplay: "none"
+    }
+  },
 
 ];
 
