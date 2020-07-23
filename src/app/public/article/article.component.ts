@@ -13,6 +13,8 @@ import { AuthorService } from 'src/app/shared/services/author.service';
 import { environment } from 'src/environments/environment';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import * as firebase from 'firebase/app';
+import { TEXT, AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-article',
@@ -23,10 +25,12 @@ import * as firebase from 'firebase/app';
 export class ArticleComponent implements OnInit {
 
   article: Article;
+  articleType: string;
   articleLikes: number = 0;
   articleVicewCount: number = 0;
   slug: string;
-  articleComments: any;
+  articleComments: any = [];
+  publishedRelativeDate: string;
   commentForm: FormGroup;
   isFormSaving: boolean = false;
   isCommentSavedSuccessfully: boolean = false;
@@ -45,6 +49,9 @@ export class ArticleComponent implements OnInit {
   isLoaded: boolean = false;
   isReportAbuseLoading: boolean = false;
   selectedLang: string = '';
+  TEXT = TEXT;
+  AUDIO = AUDIO;
+  VIDEO = VIDEO;
   @ViewChild('commentSection') private myScrollContainer: ElementRef;
   @ViewChild('commentReplySection') private commentReplyContainer: ElementRef;
 
@@ -70,6 +77,8 @@ export class ArticleComponent implements OnInit {
         this.article = artical[0];
         const articleId = this.article.id;
 
+        this.publishedRelativeDate = moment(this.article.published_at).fromNow();
+        this.articleType = this.article.type ? this.article.type : TEXT;
         this.articleLikes = this.article.likes_count;
         this.articleVicewCount = this.article.view_count;
         this.setUserDetails();
