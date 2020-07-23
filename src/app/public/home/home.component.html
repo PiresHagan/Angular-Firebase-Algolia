@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-7 pl-18">
             <a class="is-hero-card" *ngFor="let article of heroArticles | slice:0:1"
-                [routerLink]="['/article/',article.slug]">
+                [routerLink]="['/',article.author.slug,article.slug]">
                 <div class="is-card-bg"
                     [ngStyle]="{'background-image': 'url(' + replaceImage(article.image.url) + ')'}">
                 </div>
@@ -34,7 +34,7 @@
 
         <div class="col-12 col-sm-12 col-md-6 col-lg-5 pr-18">
             <a class="is-hero-card" *ngFor="let article of heroArticles | slice:1:2"
-                [routerLink]="['/article/',article.slug]">
+                [routerLink]="['/',article.author.slug,article.slug]">
                 <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + replaceImage(article.image.url)+ ')'}">
                 </div>
                 <div class="is-profile-main">
@@ -67,8 +67,8 @@
     <div class="row">
         <div class="is-bottom-hero">
             <div class="row is-row-height pt-18">
-                <div *ngFor="let article of heroArticles | slice:2:5" [routerLink]="['/article/',article.slug]"
-                    class="col-12 col-sm-12 col-md-12 col-lg-4">
+                <div *ngFor="let article of heroArticles | slice:2:5"
+                    [routerLink]="['/',article.author.slug,article.slug]" class="col-12 col-sm-12 col-md-12 col-lg-4">
                     <a class="is-hero-card is-small-card">
 
                         <div class="is-card-bg"
@@ -119,7 +119,7 @@
             <div class="is-member-item" *ngFor="let author of (authorList | async)" [ngClass]="showTooltip"
                 (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
 
-                <a [routerLink]="['/profile/',author.slug]" class="is-profile-img-link">
+                <a [routerLink]="['/',author.slug]" class="is-profile-img-link">
                     <img [src]="replaceImage(author?.avatar?.url)!= unknown ? replaceImage(author?.avatar?.url) : DefaultAvatar"
                         class="is-profile" [alt]="author?.avatar?.alt" />
 
@@ -169,7 +169,7 @@
                     <div class="col-sm-15 box_shadow" *ngFor="let article of slugWiseData[category.slug] | async">
 
                         <div class="item-card item-card-life-and-styles">
-                            <a [routerLink]="['/article/',article.slug]">
+                            <a [routerLink]="['/',article.author.slug,article.slug]">
                                 <div class="item-card-image">
                                     <img [src]="replaceImage(article.image.url)" [alt]="article.image.alt">
                                     <h3 class="is-category-title">{{article.category.title}}</h3>
