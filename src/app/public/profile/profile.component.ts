@@ -140,14 +140,14 @@ export class ProfileComponent implements OnInit {
     });
   }
   getArticleList(authorId) {
-    this.articleService.getArticlesByAuthor(authorId, 12).subscribe((articleData) => {
+    this.articleService.getArticlesByAuthor(authorId, 1).subscribe((articleData) => {
       this.articles = articleData.articleList;
       this.lastArticleIndex = articleData.lastVisible;
     })
   }
   loadMoreArticle() {
     const authorId = this.authorDetails.id;
-    this.articleService.getArticlesByAuthor(authorId, 12, 'next', this.lastArticleIndex).subscribe((articleData) => {
+    this.articleService.getArticlesByAuthor(authorId, 1, 'next', this.lastArticleIndex).subscribe((articleData) => {
       let mergedData: any = [...this.articles, ...articleData.articleList];
       this.articles = this.getDistinctArray(mergedData)
       this.lastArticleIndex = articleData.lastVisible;
@@ -286,7 +286,7 @@ export class ProfileComponent implements OnInit {
     if (this.audioArticles.length != 0)
       return;
     const authorId = this.authorDetails.id;
-    this.articleService.getArticlesByAuthor(authorId, 12, 'first', null, 'audio').subscribe((articleData) => {
+    this.articleService.getArticlesByAuthor(authorId, 1, 'first', null, 'audio').subscribe((articleData) => {
       this.audioArticles = articleData.articleList;
       this.lastArticleIndexOfAudio = articleData.lastVisible;
     })
@@ -295,15 +295,15 @@ export class ProfileComponent implements OnInit {
     if (this.videoArticles.length != 0)
       return;
     const authorId = this.authorDetails.id;
-    this.articleService.getArticlesByAuthor(authorId, 12, 'first', null, 'video').subscribe((articleData) => {
+    this.articleService.getArticlesByAuthor(authorId, 1, 'first', null, 'video').subscribe((articleData) => {
       this.videoArticles = articleData.articleList;
       this.lastArticleIndexOfVideo = articleData.lastVisible;
     })
   }
   loadMoreAudioArticles() {
     const authorId = this.authorDetails.id;
-    this.articleService.getArticlesByAuthor(authorId, 12, 'next', this.lastArticleIndex, 'audio').subscribe((articleData) => {
-      let mergedData: any = [...this.articles, ...articleData.articleList];
+    this.articleService.getArticlesByAuthor(authorId, 1, 'next', this.lastArticleIndexOfAudio, 'audio').subscribe((articleData) => {
+      let mergedData: any = [...this.audioArticles, ...articleData.articleList];
       this.audioArticles = this.getDistinctArray(mergedData)
       this.lastArticleIndexOfAudio = articleData.lastVisible;
     })
@@ -311,8 +311,8 @@ export class ProfileComponent implements OnInit {
 
   loadMoreVideoArticles() {
     const authorId = this.authorDetails.id;
-    this.articleService.getArticlesByAuthor(authorId, 12, 'next', this.lastArticleIndex, 'video').subscribe((articleData) => {
-      let mergedData: any = [...this.articles, ...articleData.articleList];
+    this.articleService.getArticlesByAuthor(authorId, 1, 'next', this.lastArticleIndexOfVideo, 'video').subscribe((articleData) => {
+      let mergedData: any = [...this.videoArticles, ...articleData.articleList];
       this.videoArticles = this.getDistinctArray(mergedData)
       this.lastArticleIndexOfVideo = articleData.lastVisible;
     })
