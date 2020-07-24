@@ -322,9 +322,13 @@ hr{
           }
         }
         .main-audio-sec{
-          .cld-audio{
+          .cld-audio-wave{
             width:100%;
             height: 100px;
+          }
+          .cld-audio{
+            width:100%;
+            height: 80px;
           }
           .video-control{
             padding-bottom: 10px;

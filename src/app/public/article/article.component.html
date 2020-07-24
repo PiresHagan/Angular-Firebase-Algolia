@@ -36,15 +36,15 @@
                                 src="assets/images/article/icon/like.png" />{{'like' | translate}} <span
                                 class="likes-count">{{articleLikes}}</span></a> -->
 
-                        <a class="is-like" *ngIf="!isLike" (click)="like()">
+                        <a class="is-like" *ngIf="!isLike && articleLikes" (click)="like()">
                             <i class="far fa-thumbs-up"></i>
                             {{'like' | translate}} <span class="like-count">{{articleLikes}}</span>
                         </a>
-                        <a class="is-like" *ngIf="isLike" (click)="disLike()">
+                        <a class="is-like" *ngIf="isLike && articleLikes" (click)="disLike()">
                             <i class="fas fa-heart"></i>
                             {{'liked' | translate}} <span class="like-count">{{articleLikes}}</span>
                         </a>
-                        <a class="is-like"><span class="likes-count"><i
+                        <a class="is-like" *ngIf="articleVicewCount"><span class="likes-count"><i
                                     class="fas fa-eye"></i>{{articleVicewCount}}</span></a>
                         <!-- 
                         <a class="is-bookmark" href=""><img src="assets/images/article/icon/bookmark.png" /></a>
@@ -116,11 +116,10 @@
                             </div>
                         </div>
                         <div *ngIf="articleType === AUDIO" class="main-audio-sec">
-                            <cl-video [public-id]="article.article_file.cloudinary_id" secure="true" controls="true"
-                                class="cld-audio">
-                                <!-- <cl-transformation height="200" width="500" flags="waveform" color="black" background="white">
-                                </cl-transformation> -->
-                            </cl-video>
+                            <cl-video [public-id]="article.article_file.cloudinary_id" resource-type="video" class="cld-audio-wave">
+                                <cl-transformation flags="waveform"></cl-transformation>
+                              </cl-video>
+                            <cl-video [public-id]="article.article_file.cloudinary_id" secure="true" controls="true" class="cld-audio"></cl-video>
                             <div class="video-control">
                                 <ul>
                                     <li>
