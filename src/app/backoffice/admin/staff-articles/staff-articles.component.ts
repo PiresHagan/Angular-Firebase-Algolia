@@ -22,6 +22,7 @@ export class StaffArticlesComponent implements OnInit {
   searchSlug: string = "";
   articleTitle: string = "";
   notFound = false;
+  oldArtilceList: Article[];
 
   constructor(
     public translate: TranslateService,
@@ -95,7 +96,7 @@ export class StaffArticlesComponent implements OnInit {
 
     this.staffService.getArticle(searchKey, searchValue).subscribe((result) => {
       if (result && result[0])
-        this.router.navigate(['app/article/compose'], { queryParams: { article: result[0].id } });
+        this.articles = result
       else
         this.notFound = true;
       setTimeout(() => {
@@ -117,5 +118,15 @@ export class StaffArticlesComponent implements OnInit {
       },
     });
 
+
+  }
+  resetSearch() {
+    this.searchSlug = '';
+    this.articleTitle = '';
+    this.articleService.getArticles(10).subscribe((data) => {
+      this.articles = data.articleList;
+      this.lastVisible = data.lastVisible;
+      this.loading = false;
+    });
   }
 }
