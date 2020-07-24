@@ -239,6 +239,24 @@ li{
   .is-see-more{
     background: #fbca20 !important;
     }
+    .item-card{
+      &:hover .article-image-icon{
+        background: #fbca20;
+      }
+     
+      .article-icon{
+        i{
+          color: #faaf44 !important;
+        }
+      }
+      &:hover .article-icon{
+        background: #faaf44 !important;
+        i{
+          color: #fff !important;
+        }
+      }
+    }
+
 }
 
 .creative{
@@ -248,6 +266,22 @@ li{
   .is-see-more{
     background: #faaf44 !important;
   }
+  .item-card{
+    &:hover .article-image-icon{
+      background: #fbca20;
+    }
+    .article-icon{
+      i{
+        color: #fbca20 !important;
+      }
+    }
+    &:hover .article-icon{
+      background: #fbca20 !important;
+      i{
+        color: #fff !important;
+      }
+    }
+  }
 }
 .city, .ville,.ciudad{
   .is-category-title{
@@ -255,6 +289,22 @@ li{
   }
   .is-see-more{
     background: #23d7d5 !important;
+  }
+  .item-card{
+    &:hover .article-image-icon{
+      background: #23d7d5;
+    }
+    .article-icon{
+      i{
+        color: #23d7d5 !important;
+      }
+    }
+    &:hover .article-icon{
+      background: #23d7d5 !important;
+      i{
+        color: #fff !important;
+      }
+    }
   }
 }
 .news, .nouvelles, .noticias {
@@ -264,6 +314,22 @@ li{
   .is-see-more{
     background: #faaf44 !important;
   }
+  .item-card{
+    &:hover .article-image-icon{
+      background: #faaf44;
+    }
+    .article-icon{
+      i{
+        color: #faaf44 !important;
+      }
+    }
+    &:hover .article-icon{
+      background: #faaf44 !important;
+      i{
+        color: #fff !important;
+      }
+    }
+  }
 }
 .entertainment, .divertissement, .entretenimiento{
   .is-category-title{
@@ -271,6 +337,22 @@ li{
   }
   .is-see-more{
     background: #f64747 !important;
+  }
+  .item-card{
+    &:hover .article-image-icon{
+      background: #f64747;
+    }
+    .article-icon{
+      i{
+        color: #f64747 !important;
+      }
+    }
+    &:hover .article-icon{
+      background: #f64747 !important;
+      i{
+        color: #fff !important;
+      }
+    }
   }
 }
 .business, .Entreprise, .negocio{
@@ -280,6 +362,22 @@ li{
   .is-see-more{
     background: #2baad3 !important;
   }
+  .item-card{
+    &:hover .article-image-icon{
+      background: #2baad3;
+    }
+    .article-icon{
+      i{
+        color: #2baad3 !important;
+      }
+    }
+    &:hover .article-icon{
+      background: #2baad3 !important;
+      i{
+        color: #fff !important;
+      }
+    }
+  }
 }
 .tech-and-science, .technologie-et-science, .tech-y-la-ciencia{
   .is-category-title{
@@ -287,6 +385,22 @@ li{
   }
   .is-see-more{
     background: #3fbb22 !important;
+  }
+  .item-card{
+    &:hover .article-image-icon{
+      background: #3fbb22;
+    }
+    .article-icon{
+      i{
+        color: #3fbb22 !important;
+      }
+    }
+    &:hover .article-icon{
+      background: #3fbb22 !important;
+      i{
+        color: #fff !important;
+      }
+    }
   }
 }
 .Opinion, .Opinion, .OPINIÓN{
@@ -296,6 +410,22 @@ li{
   .is-see-more{
     background: #7122bb !important;
   }
+  .item-card{
+    &:hover .article-image-icon{
+      background: #7122bb;
+    }
+    .article-icon{
+      i{
+        color: #7122bb !important;
+      }
+    }
+    &:hover .article-icon{
+      background: #7122bb !important;
+      i{
+        color: #fff !important;
+      }
+    }
+  }
 }
 .sport, .sport-fr, .deporte{
   .is-category-title{
@@ -303,6 +433,22 @@ li{
   }
   .is-see-more{
     background: #2baad3 !important;
+  }
+  .item-card{
+    &:hover .article-image-icon{
+      background: #2baad3;
+    }
+    .article-icon{
+      i{
+        color: #2baad3 !important;
+      }
+    }
+    &:hover .article-icon{
+      background: #2baad3 !important;
+      i{
+        color: #fff !important;
+      }
+    }
   }
 }
 .viral, .viral-fr, .viral-es{
@@ -312,6 +458,22 @@ li{
   .is-see-more{
     background: #f64747 !important;
   }
+  .item-card{
+    &:hover .article-image-icon{
+      background: #f64747;
+    }
+    .article-icon{
+      i{
+        color: #f64747 !important;
+      }
+    }
+    &:hover .article-icon{
+      background: #f64747 !important;
+      i{
+        color: #fff !important;
+      }
+    }
+  }
 }
 .religion, .religion-fr, .religión{
   .is-category-title{
@@ -320,7 +482,25 @@ li{
   .is-see-more{
     background: #23d7d5 !important;
   }
+  .item-card{
+    &:hover .article-image-icon{
+      background: #23d7d5;
+    }
+    .article-icon{
+      i{
+        color: #23d7d5 !important;
+      }
+    }
+    &:hover .article-icon{
+      background: #23d7d5 !important;
+      i{
+        color: #fff !important;
+      }
+    }
+  }
 }
+
+
 
 
 

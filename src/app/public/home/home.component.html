@@ -1,6 +1,6 @@
 <section class="is-hero">
     <div class="row">
-        <div class="col-12 col-sm-12 col-md-6 col-lg-7 pl-18">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-7 pl-18 article-height">
             <a class="is-hero-card" *ngFor="let article of heroArticles | slice:0:1"
                 [routerLink]="['/',article.author.slug,article.slug]">
                 <div class="is-card-bg"
@@ -27,12 +27,48 @@
                     </h2>
                     <p class="is-card-description">{{article.excerpt | slice:0:100 }}</p>
                     <button type="button" class="is-read-more">{{'readMore' | translate}} <img
-                            src="assets/images/read-more-icon.png" alt="read more" /></button>
+                        src="assets/images/read-more-icon.png" alt="read more" /></button>
+                   
+                </div>
+                <div class="article-comment-info">
+                    <div class="article-icon">
+                        <div class="icon-circle"  *ngIf="article.type==='audio'">
+                            <i class="fas fa-volume-down"></i>
+                        </div>
+                        <div class="icon-circle"  *ngIf="article.type==='video'">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="icon-circle"  *ngIf="!(article.type==='audio' || article.type==='video')">
+                            <i class="far fa-file-alt"></i>
+                        </div>
+                    </div>
+                    <div class="comment-section">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <i class="far fa-eye"></i>
+                                    80M
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="far fa-heart"></i>
+                                    80M
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="far fa-comment"></i>
+                                    80M
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </a>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-6 col-lg-5 pr-18">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-5 pr-18 article-height">
             <a class="is-hero-card" *ngFor="let article of heroArticles | slice:1:2"
                 [routerLink]="['/',article.author.slug,article.slug]">
                 <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + replaceImage(article.image.url)+ ')'}">
@@ -59,6 +95,47 @@
                     <p class="is-card-description">{{article.excerpt | slice:0:100 }}</p>
                     <button type="button" class="is-read-more">{{'readMore' | translate}} <img
                             src="assets/images/read-more-icon.png" alt="read more" /></button>
+                    
+                </div>
+                <div class="article-comment-info">
+                    <div class="article-icon">
+                        <div class="icon-circle"  *ngIf="article.type==='audio'">
+                            <i class="fas fa-volume-down"></i>
+                        </div>
+                        <div class="icon-circle"  *ngIf="article.type==='video'">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="icon-circle"  *ngIf="article.type==='audio' || article.type==='video';  else articleBlock">
+                            <i class="fas fa-volume-down"></i>
+                        </div>
+                        <ng-template #articleBlock>
+                            <div class="icon-circle">
+                                <i class="far fa-file-alt"></i>
+                            </div>
+                          </ng-template>
+                    </div>
+                    <div class="comment-section">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <i class="far fa-eye"></i>
+                                    80M
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="far fa-heart"></i>
+                                    80M
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="far fa-comment"></i>
+                                    80M
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </a>
         </div>
@@ -68,8 +145,8 @@
         <div class="is-bottom-hero">
             <div class="row is-row-height pt-18">
                 <div *ngFor="let article of heroArticles | slice:2:5"
-                    [routerLink]="['/',article.author.slug,article.slug]" class="col-12 col-sm-12 col-md-12 col-lg-4">
-                    <a class="is-hero-card is-small-card">
+                    [routerLink]="['/',article.author.slug,article.slug]" class="article-height col-12 col-sm-12 col-md-12 col-lg-4">
+                    <a class="is-hero-card is-small-card"> 
 
                         <div class="is-card-bg"
                             [ngStyle]="{'background-image': 'url(' + replaceImage(article.image.url)+ ')'}"></div>
@@ -95,6 +172,42 @@
                             <button type="button" class="is-read-more">{{'readMore' | translate}} <img
                                     src="assets/images/read-more-icon.png" alt="read more" /></button>
 
+                        </div>
+                        <div class="article-comment-info">
+                            <div class="article-icon">
+                                
+                                <div class="icon-circle"  *ngIf="article.type==='video'">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div class="icon-circle"  *ngIf="article.type==='audio'">
+                                    <i class="fas fa-volume-down"></i>
+                                </div>
+                                <div class="icon-circle"  *ngIf="!(article.type==='audio' || article.type==='video')">
+                                    <i class="far fa-file-alt"></i>
+                                </div>
+                            </div>
+                            <div class="comment-section">
+                                <ul>
+                            <li>
+                                <a href="#">
+                                    <i class="far fa-eye"></i>
+                                    80M
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="far fa-heart"></i>
+                                    80M
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="far fa-comment"></i>
+                                    80M
+                                </a>
+                            </li>
+                        </ul>
+                            </div>
                         </div>
                     </a>
                 </div>
@@ -167,12 +280,49 @@
             <div class="cat-box-gallery">
                 <div class="row article-row">
                     <div class="col-sm-15 box_shadow" *ngFor="let article of slugWiseData[category.slug] | async">
-
+                       
                         <div class="item-card item-card-life-and-styles">
                             <a [routerLink]="['/',article.author.slug,article.slug]">
                                 <div class="item-card-image">
                                     <img [src]="replaceImage(article.image.url)" [alt]="article.image.alt">
                                     <h3 class="is-category-title">{{article.category.title}}</h3>
+                                    <div class="article-image-icon" *ngIf="article.type==='audio'">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                    <div class="article-image-icon" *ngIf="article.type==='video'">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                    <div class="article-image-icon" *ngIf="!(article.type==='audio' || article.type==='video')">
+                                        <i class="fas fa-angle-right"></i>
+                                    </div>
+
+                                    <div class="comment-right">
+                                        <div class="article-comment-info">
+                                            <div class="comment-section">
+                                                <ul>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="far fa-eye"></i>
+                                                            80M
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="far fa-heart"></i>
+                                                            80M
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="far fa-comment"></i>
+                                                            80M
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="item-card-content">
                                     <div class="item-card-category cat-yellow">
@@ -188,8 +338,22 @@
                                     </div>
                                     <div class="item-card-texte">
                                         <p>{{article.excerpt}}</p>
-                                        <button type="button" class="is-read-more">{{'readMore' | translate }} <img
-                                                src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                        <div class="category-article-readmore">
+                                                <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                                                    src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                            <div class="article-icon-main">
+                                                <div class="article-icon" *ngIf="article.type==='audio'">
+                                                    <i class="fas fa-volume-down"></i>
+                                                </div>
+                                                <div class="article-icon" *ngIf="article.type==='video'">
+                                                    <i class="fas fa-video"></i>
+                                                </div>
+                                                <div class="article-icon" *ngIf="!(article.type==='audio' || article.type==='video')">
+                                                    <i class="far fa-file-alt"></i>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </a>
