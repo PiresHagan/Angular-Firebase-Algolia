@@ -104,7 +104,7 @@ export class ArticleImageComponent implements OnInit {
         this.isFormSaving = false;
       })
     } else {
-      this.articleService.updateArticleImage(this.articleId, this.getUpdatedObject()).then(() => {
+      this.articleService.updateArticle(this.articleId, this.getUpdatedObject()).then(() => {
         this.router.navigate(['/app/article/compose/seo', this.articleId]);
         this.isFormSaving = false;
       })

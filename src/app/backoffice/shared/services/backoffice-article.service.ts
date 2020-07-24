@@ -76,7 +76,7 @@ export class BackofficeArticleService {
         snapshot => {
           snapshot.ref.getDownloadURL().then((downloadURL) => {
             const imageUrl: string = downloadURL;
-            this.updateArticleImage(articleId, { image: { url: imageUrl, alt: imageDetails.alt } }).then(res => resolve()).catch(err => reject(err))
+            this.updateArticle(articleId, { image: { url: imageUrl, alt: imageDetails.alt } }).then(res => resolve()).catch(err => reject(err))
           }).catch(err => reject(err))
         }).catch((error) => {
           console.log(error);

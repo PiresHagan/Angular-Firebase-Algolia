@@ -5,6 +5,7 @@ import { Router, ActivatedRoute, Routes } from '@angular/router';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { ACTIVE, DRAFT } from 'src/app/shared/constants/status-constants';
+import { AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
 import { NzModalService } from 'ng-zorro-antd';
 import { STAFF, AUTHOR, MEMBER } from 'src/app/shared/constants/member-constant';
 import { Location } from '@angular/common';
@@ -23,6 +24,9 @@ export class ArticlePublishComponent implements OnInit {
   article;
   isFormSaving: boolean = false;
   fileURL: string;
+  AUDIO = AUDIO;
+  VIDEO = VIDEO;
+
   constructor(public userService: UserService,
     public translate: TranslateService,
     public authService: AuthService,
@@ -48,7 +52,7 @@ export class ArticlePublishComponent implements OnInit {
       if (this.articleId) {
         try {
           this.article = await this.articleService.getArticleById(this.articleId, this.userDetails.id, this.userDetails.type);
-          const format = this.article.type === "audio" ? 'mp3' : 'mp4';
+          const format = 'mp4';
           this.fileURL = this.article.type === "video" && `https://player.cloudinary.com/embed/?cloud_name=mytrendingstories&public_id=${this.article.article_file.cloudinary_id}&fluid=true&controls=true&source_types%5B0%5D=${format}`
         } catch (error) {
           this.article = null;
@@ -69,7 +73,7 @@ export class ArticlePublishComponent implements OnInit {
   }
   savePublishStatus() {
     this.isFormSaving = true;
-    this.articleService.updateArticleImage(this.articleId, { status: ACTIVE, published_at: new Date().toISOString() }).then(async () => {
+    this.articleService.updateArticle(this.articleId, { status: ACTIVE, published_at: new Date().toISOString() }).then(async () => {
 
       if ((!this.userDetails.type || this.userDetails.type == MEMBER) && this.userDetails.type != STAFF)
         await this.userService.updateMember(this.userDetails.id, { type: AUTHOR });

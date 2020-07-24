@@ -12,6 +12,7 @@ import { DRAFT } from 'src/app/shared/constants/status-constants';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { Location } from '@angular/common';
 import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
+import { AUDIO, VIDEO, TEXT } from 'src/app/shared/constants/article-constants';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -43,6 +44,9 @@ export class ArticleContentComponent implements OnInit {
   fileURL: string;
   videofileURL: string;
   audioFileUrl: string;
+  VIDEO = VIDEO;
+  AUDIO = AUDIO;
+  TEXT = TEXT;
 
   editorConfig = {
     toolbar: [

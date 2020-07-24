@@ -69,7 +69,7 @@ export class ArticleSeoComponent implements OnInit {
   }
   saveMetaData() {
     this.isFormSaving = true;
-    this.articleService.updateArticleImage(this.articleId, this.getMetaDetails()).then(() => {
+    this.articleService.updateArticle(this.articleId, this.getMetaDetails()).then(() => {
       this.isFormSaving = false;
       this.router.navigate(['/app/article/compose/publish', this.articleId]);
 
