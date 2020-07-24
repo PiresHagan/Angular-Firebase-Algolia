@@ -36,15 +36,15 @@
                                 src="assets/images/article/icon/like.png" />{{'like' | translate}} <span
                                 class="likes-count">{{articleLikes}}</span></a> -->
 
-                        <a class="is-like" *ngIf="!isLike && articleLikes" (click)="like()">
+                        <a class="is-like" *ngIf="!isLike" (click)="like()">
                             <i class="far fa-thumbs-up"></i>
                             {{'like' | translate}} <span class="like-count">{{articleLikes}}</span>
                         </a>
-                        <a class="is-like" *ngIf="isLike && articleLikes" (click)="disLike()">
+                        <a class="is-like" *ngIf="isLike" (click)="disLike()">
                             <i class="fas fa-heart"></i>
                             {{'liked' | translate}} <span class="like-count">{{articleLikes}}</span>
                         </a>
-                        <a class="is-like" *ngIf="articleVicewCount"><span class="likes-count"><i
+                        <a class="is-like"><span class="likes-count"><i
                                     class="fas fa-eye"></i>{{articleVicewCount}}</span></a>
                         <!-- 
                         <a class="is-bookmark" href=""><img src="assets/images/article/icon/bookmark.png" /></a>
