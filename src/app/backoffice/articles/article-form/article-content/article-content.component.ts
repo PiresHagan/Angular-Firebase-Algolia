@@ -118,15 +118,15 @@ export class ArticleContentComponent implements OnInit {
 
   beforeUpload = (file: UploadFile, _fileList: UploadFile[]) => {
 
-    const isValidFile = this.articleType == 'audio' ? this.isValidAudio(file.type) : this.isValidVideo(file.type);
+    const isValidFile = this.articleType == AUDIO ? this.isValidAudio(file.type) : this.isValidVideo(file.type);
     if (!isValidFile) {
       this.showMessage('InvalidFormat', 'error');
       return false;
     }
 
-    const validSize = this.articleType == 'audio' ? this.isValidSize(file.size, 10) : this.isValidSize(file.size, 20);
+    const validSize = this.articleType == AUDIO ? this.isValidSize(file.size, 100) : this.isValidSize(file.size, 100);
     if (!validSize) {
-      this.showMessage('InvalidSize', 'error', this.articleType == 'audio' ? '10MB' : '20Mb');
+      this.showMessage('InvalidSize', 'error', this.articleType == AUDIO ? '100MB' : '100MB');
       return false;
     }
     this.articleFile = file;
