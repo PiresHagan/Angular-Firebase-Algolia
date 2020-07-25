@@ -92,7 +92,7 @@ export class ArticlePublishComponent implements OnInit {
       if (this.userDetails.type == STAFF)
         this.router.navigate(['/app/admin/article']);
       else
-        this.router.navigate(['/app/article']);
+        this.router.navigate(['/app/article/articles']);
 
     })
   }
@@ -109,7 +109,7 @@ export class ArticlePublishComponent implements OnInit {
         if (this.userDetails.type == STAFF)
           this.router.navigate(['/app/admin/article']);
         else
-          this.router.navigate(['/app/article']);
+          this.router.navigate(['/app/article/articles']);
       },
     });
   }
