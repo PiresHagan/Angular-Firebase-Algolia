@@ -16,11 +16,7 @@ const appRoutes: Routes = [
         redirectTo: '/dashboard/default',
         pathMatch: 'full',
     }, */
-    {
-        path: '',
-        component: CommonLayoutComponent,
-        children: CommonLayout_ROUTES
-    },
+
     {
         path: '',
         component: FullLayoutComponent,
@@ -30,6 +26,11 @@ const appRoutes: Routes = [
         path: '',
         component: BackofficeLayoutComponent,
         children: BackofficeLayout_ROUTES
+    },
+    {
+        path: '',
+        component: CommonLayoutComponent,
+        children: CommonLayout_ROUTES
     }
 ];
 
