@@ -49,7 +49,6 @@ export class BackofficeArticleService {
 
   createArticle(article) {
     return new Promise((resolve, reject) => {
-      article.slug = article.slug + '-' + this.makeid()
       this.http.post(environment.baseAPIDomain + '/api/v1/articles', article).subscribe((articleData) => {
         resolve(articleData)
       }, (error) => {
@@ -101,17 +100,6 @@ export class BackofficeArticleService {
 
     })
   }
-
-  makeid(length = 6) {
-    var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  }
-
 
   getArticlesByUser(authorId, limit: number = 10, navigation: string = "first", lastVisible = null) {
     if (!limit) {
