@@ -55,6 +55,8 @@ export class ProfileComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
 
       const slug = params.get('slug');
+      if (slug == 'undefined')
+        return;
 
       this.authorService.getUserBySlug(slug).subscribe(author => {
         this.authorDetails = author;
