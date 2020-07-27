@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="profile-article-list">
+
+        <nz-card nzTitle="{{'CardDetails' | translate}}">
+            <p>{{ 'CampBillingNote' | translate }}
+            </p>
+
+            <nz-alert nzType="info" nzMessage="{{'PaymentCardMsg' | translate}}" class="m-b-10" nzShowIcon
+                *ngIf="paymentError"></nz-alert>
+
+            <nz-skeleton *ngIf="!Cards">
+
+            </nz-skeleton>
+            <div class="credit-card  selectable" *ngFor="let card of Cards" [class.selected]="card.isDefault === true">
+
+                <div class="credit-card-last4">
+                    {{card.last4}}
+                </div>
+                <div class="credit-card-expiry">
+                    {{card.exp_month}}/{{card.exp_year}}
+                </div>
+            </div>
+            <button type="button" (click)="updateBilling()" [nzLoading]="loading" nz-button
+                nzType="primary">{{'CampBillingBtn' | translate}}</button>
+
+        </nz-card>
+
+    </div>
+</div>

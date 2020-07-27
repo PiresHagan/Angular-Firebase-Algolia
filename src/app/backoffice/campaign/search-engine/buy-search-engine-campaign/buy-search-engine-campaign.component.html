@@ -1,0 +1,96 @@
+<div class="container m-t-10">
+    <div class="profile-article-list">
+        <nz-card [nzBordered]="false" nzTitle="{{ 'SearchEngineHeading' | translate}}">
+            <!-- <h4>{{ 'SearchEngineNote' | translate}}</h4> -->
+            <nz-alert class="m-b-10" nzType="warning" nzCloseable *ngIf="isBrandPicRequiredErr"
+                nzMessage="{{'CamAvatar' | translate}} {{'required' | translate}}">
+            </nz-alert>
+            <div class="media align-items-center media-responsive">
+                <nz-avatar [nzSize]="80" nzIcon="user" [nzSrc]="brandImage" accept="image/*"></nz-avatar>
+                <div class="m-l-20 m-r-20">
+                    <h5 class="m-b-5 font-size-18"><span
+                            style="color: red;">*</span>{{'SearchEngineBrandImage' | translate}}</h5>
+                    <p class="opacity-07 font   -size-13 m-b-0">
+                        {{'CampSearchEngineBrandSize' | translate}}
+                    </p>
+                </div>
+                <nz-upload nzName="avatar" [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload"
+                    (nzChange)="handleChange($event)">
+                    <button nz-button nzType="primary" nzGhost [nzLoading]="loading">
+                        <span>{{'loginProfileUpload' | translate}}</span>
+                    </button>
+                </nz-upload>
+            </div>
+            <form nz-form [formGroup]="searchEnineCampaignForm" class="login-form"
+                (ngSubmit)="submitForm(searchEnineCampaignForm.value)">
+                <hr class="m-v-25">
+                <div class="row">
+                    <div class="col-md-6">
+                        <nz-form-item>
+
+                            <nz-form-label nzRequired>{{'SearchEngineBrandName' | translate}}</nz-form-label>
+                            <nz-form-control
+                                nzErrorTip="{{'SearchEngineBrandName' | translate}} {{'required' | translate}}">
+                                <input nz-input placeholder="{{'SearchEngineBrandName' | translate}}"
+                                    formControlName="brandName">
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+
+                            <nz-form-label nzRequired>{{'SearchEngineBrandURL' | translate}}(e.g: https://www.abc.com)
+                            </nz-form-label>
+                            <nz-form-control nzErrorTip="{{'SearchEngineBrandURLErrMsg' | translate}} ">
+                                <input nz-input placeholder="{{'SearchEngineBrandURL' | translate}}"
+                                    formControlName="brandURL">
+                            </nz-form-control>
+                        </nz-form-item>
+                        <!-- <nz-form-item>
+
+                            <nz-form-label nzRequired>{{'SearchEngineBrandURL' | translate}}</nz-form-label>
+                            <nz-form-control
+                                nzErrorTip="{{'SearchEngineBrandURL' | translate}} {{'required' | translate}}">
+                                <input nz-input placeholder="{{'SearchEngineBrandURL' | translate}}"
+                                    formControlName="brandURL">
+                            </nz-form-control>
+                        </nz-form-item> -->
+
+                        <nz-form-item>
+                            <nz-form-label nzRequired>{{'SearchEngineStartDate' | translate}}</nz-form-label>
+                            <nz-form-control
+                                nzErrorTip="{{'SearchEngineStartDate' | translate}} {{'required' | translate}}">
+                                <nz-date-picker class="w-100" nzFormat="yyyy/MM/dd" formControlName="campaignDate"
+                                    nzPlaceHolder="{{'SearchEngineStartDate' | translate}}"></nz-date-picker>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <strong class="m-b-10">{{'CampPrice' |translate}}: ${{price}}</strong>
+                        </nz-form-item>
+
+                        <div class="d-flex align-items-center justify-content-between">
+                            <nz-form-item>
+                                <nz-form-control>
+                                    <div>
+                                        <button nz-button class="login-form-button"
+                                            [disabled]="!searchEnineCampaignForm.valid || !brandImage"
+                                            [nzType]="'primary'"
+                                            [nzLoading]="isFormSaving">{{'CampNext' | translate}}</button>
+                                    </div>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <img class="screen" src="assets/images/campaign/search-engine.png" alt="" />
+
+                    </div>
+
+
+                </div>
+                <!-- </nz-card>  -->
+
+            </form>
+        </nz-card>
+    </div>
+</div>

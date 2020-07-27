@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 import { AuthService } from 'src/app/shared/services/authentication.service';
-import { StaffArticleService } from 'src/app/shared/services/staff-article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd';
+import { CommonBackofficeService } from '../../shared/services/common-backoffice.service';
+import { BackofficeArticleService } from '../../shared/services/backoffice-article.service';
 
 @Component({
   selector: 'app-article-list',
@@ -27,10 +28,11 @@ export class StaffArticlesComponent implements OnInit {
   constructor(
     public translate: TranslateService,
     public authService: AuthService,
-    public articleService: StaffArticleService,
+    public commonService: CommonBackofficeService,
     public router: Router,
-    private staffService: StaffArticleService,
+    private articleService: BackofficeArticleService,
     private modalService: NzModalService
+
   ) { }
 
 
@@ -41,7 +43,7 @@ export class StaffArticlesComponent implements OnInit {
         return;
       this.userDetails = await this.authService.getLoggedInUserDetails();
       if (this.userDetails) {
-        this.articleService.getArticles(10).subscribe((data) => {
+        this.commonService.getArticles(10).subscribe((data) => {
           this.articles = data.articleList;
           this.lastVisible = data.lastVisible;
           this.loading = false;
@@ -60,7 +62,7 @@ export class StaffArticlesComponent implements OnInit {
       const offset = event.target.documentElement.offsetHeight
       if (top > height - offset - 1 - 100 && this.lastVisible && !this.loadingMore) {
         this.loadingMore = true;
-        this.articleService.getArticles(null, 'next', this.lastVisible).subscribe((data) => {
+        this.commonService.getArticles(null, 'next', this.lastVisible).subscribe((data) => {
           this.loadingMore = false;
           this.articles = [...this.articles, ...data.articleList];
           this.lastVisible = data.lastVisible;
@@ -94,7 +96,7 @@ export class StaffArticlesComponent implements OnInit {
       searchValue = this.articleTitle;
     }
 
-    this.staffService.getArticle(searchKey, searchValue).subscribe((result) => {
+    this.commonService.getArticle(searchKey, searchValue).subscribe((result) => {
       if (result && result[0])
         this.articles = result
       else

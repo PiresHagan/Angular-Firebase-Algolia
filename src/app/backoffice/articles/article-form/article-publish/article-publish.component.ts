@@ -5,9 +5,12 @@ import { Router, ActivatedRoute, Routes } from '@angular/router';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { ACTIVE, DRAFT } from 'src/app/shared/constants/status-constants';
+import { AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
 import { NzModalService } from 'ng-zorro-antd';
 import { STAFF, AUTHOR, MEMBER } from 'src/app/shared/constants/member-constant';
 import { Location } from '@angular/common';
+import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-article-publish',
@@ -20,6 +23,10 @@ export class ArticlePublishComponent implements OnInit {
   userDetails;
   article;
   isFormSaving: boolean = false;
+  fileURL: string;
+  AUDIO = AUDIO;
+  VIDEO = VIDEO;
+
   constructor(public userService: UserService,
     public translate: TranslateService,
     public authService: AuthService,
@@ -27,7 +34,8 @@ export class ArticlePublishComponent implements OnInit {
     private router: Router,
     private modalService: NzModalService,
     private location: Location,
-    public articleService: ArticleService) { }
+    private sanitizer: DomSanitizer,
+    public articleService: BackofficeArticleService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -44,6 +52,8 @@ export class ArticlePublishComponent implements OnInit {
       if (this.articleId) {
         try {
           this.article = await this.articleService.getArticleById(this.articleId, this.userDetails.id, this.userDetails.type);
+          const format = 'mp4';
+          this.fileURL = this.article.type === "video" && `https://player.cloudinary.com/embed/?cloud_name=mytrendingstories&public_id=${this.article.article_file.cloudinary_id}&fluid=true&controls=true&source_types%5B0%5D=${format}`
         } catch (error) {
           this.article = null;
           this.router.navigate(['/app/error'])
@@ -57,6 +67,9 @@ export class ArticlePublishComponent implements OnInit {
 
     })
 
+  }
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
   savePublishStatus() {
     this.isFormSaving = true;
@@ -79,7 +92,7 @@ export class ArticlePublishComponent implements OnInit {
       if (this.userDetails.type == STAFF)
         this.router.navigate(['/app/admin/article']);
       else
-        this.router.navigate(['/app/article']);
+        this.router.navigate(['/app/article/articles']);
 
     })
   }
@@ -96,7 +109,7 @@ export class ArticlePublishComponent implements OnInit {
         if (this.userDetails.type == STAFF)
           this.router.navigate(['/app/admin/article']);
         else
-          this.router.navigate(['/app/article']);
+          this.router.navigate(['/app/article/articles']);
       },
     });
   }

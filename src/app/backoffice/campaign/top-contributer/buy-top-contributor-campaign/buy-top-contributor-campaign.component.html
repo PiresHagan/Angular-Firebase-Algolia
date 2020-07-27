@@ -1,0 +1,96 @@
+<div class="container m-t-10">
+    <div class="profile-article-list">
+        <nz-card [nzBordered]="false" nzTitle="{{ 'CampHeading' | translate}}">
+            <!-- <h4>{{ 'CampHeadMessage' | translate}}</h4> -->
+            <nz-alert class="m-b-10" *ngIf="isProfilePicRequiredErr" nzType="warning" nzCloseable
+                nzMessage="{{'CamAvatar' | translate}} {{'required' | translate}}">
+            </nz-alert>
+            <div class="media align-items-center media-responsive">
+                <nz-avatar [nzSize]="80" nzIcon="user" [nzSrc]="avatarImage" accept="image/*"></nz-avatar>
+                <div class="m-l-20 m-r-20">
+                    <h5 class="m-b-5 font-size-18"><span
+                            style="color: red;">*</span>{{'loginProfileSetAvtar' | translate}}</h5>
+                    <p class="opacity-07 font   -size-13 m-b-0">
+                        {{'loginProfileAvtarDimension' | translate}} <br>
+                        {{'loginProfileAvtarSize' | translate}}
+                    </p>
+                </div>
+                <nz-upload nzName="avatar" [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload"
+                    (nzChange)="handleChange($event)">
+                    <button nz-button nzType="primary" nzGhost [nzLoading]="loading">
+                        <span>{{'loginProfileUpload' | translate}}</span>
+                    </button>
+                </nz-upload>
+            </div>
+            <form nz-form [formGroup]="topContributorForm" class="login-form"
+                (ngSubmit)="submitForm(topContributorForm.value)">
+                <hr class="m-v-25">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- <nz-form-item>
+
+                            <nz-form-label nzRequired>{{'CampPhoneNo' | translate}}</nz-form-label>
+                            <nz-form-control nzErrorTip="{{'CampPhoneNo' | translate}} {{'required' | translate}}">
+                                <input nz-input placeholder="{{'CampPhoneNo' | translate}}" formControlName="phone">
+                            </nz-form-control>
+                        </nz-form-item> -->
+
+
+                        <nz-form-item>
+                            <nz-form-label nzRequired>{{'CamChooseLanguage' | translate}}</nz-form-label>
+                            <nz-form-control nzErrorTip="{{'langErr' | translate}}" class="m-5">
+                                <nz-select class="m-r-10" formControlName="lang" nzAllowClear
+                                    nzPlaceHolder="{{'lang' | translate}}">
+                                    <!-- (ngModelChange)="languageSelected($event)" -->
+                                    <nz-option *ngFor="let language of languageList" [nzValue]="language.code"
+                                        nzLabel="{{language.label}}">
+                                    </nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+
+
+                        <nz-form-item>
+                            <nz-form-label nzRequired>{{'CamShortBio' | translate}}</nz-form-label>
+                            <nz-form-control nzErrorTip="{{'CamShortBio' | translate}} {{'required' | translate}}">
+                                <textarea rows="4" nz-input name="content" formControlName="sortBio"></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-label nzRequired>{{'CamPickADate' | translate}}</nz-form-label>
+                            <nz-form-control nzErrorTip="{{'CamPickADate' | translate}} {{'required' | translate}}">
+                                <nz-date-picker class="w-100" nzFormat="yyyy/MM/dd" formControlName="campaignDate"
+                                    nzPlaceHolder="{{'CamPickADate' | translate}}"></nz-date-picker>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <strong class="m-b-10">{{'CampPrice' |translate}}: ${{price}}</strong>
+                        </nz-form-item>
+
+                    </div>
+                    <div class="col-md-6">
+                        <img class="screen" src="assets/images/campaign/top-con.png" alt="" />
+
+                    </div>
+
+
+                </div>
+                <!-- </nz-card>  -->
+                <br />
+                <div class="d-flex align-items-center justify-content-between">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <div>
+                                <button nz-button class="login-form-button"
+                                    [disabled]="!topContributorForm.valid || !avatarImage" [nzType]="'primary'"
+                                    [nzLoading]="isFormSaving">{{'CampNext' | translate}}</button>
+                            </div>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </form>
+        </nz-card>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+<div class="container m-t-10">
+    <div class="profile-article-list">
+        <nz-card [nzBordered]="false" nzTitle="{{ 'CampCheckOut' | translate}}">
+            <!-- <h4>{{ 'CampHeadMessage' | translate}}</h4> -->
+
+            <form nz-form [formGroup]="checkoutCampaign" class="login-form"
+                (ngSubmit)="submitForm(checkoutCampaign.value)">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <nz-card nzTitle="{{'CampaignDetails' | translate}}" *ngIf="!campaignData">
+                            <nz-skeleton>
+
+                            </nz-skeleton>
+                        </nz-card>
+                        <nz-card nzTitle="{{'CampaignDetails' | translate}}" *ngIf="campaignData">
+
+                            <nz-form-item>
+                                <nz-form-label>{{'CardArticle' | translate}}</nz-form-label>
+                                <nz-form-control>
+                                    {{articleData?.title}}
+                                </nz-form-control>
+                            </nz-form-item>
+
+
+                            <nz-form-item>
+                                <nz-form-label>{{'CampaignDate' | translate}}</nz-form-label>
+                                <nz-form-control>
+                                    {{campaignData?.campaignDate | date:'medium'}}
+                                </nz-form-control>
+                            </nz-form-item>
+                        </nz-card>
+
+
+                    </div>
+                    <!-- <div class="col-md-12">
+                        <nz-form-item>
+                            <nz-form-label>{{'CampBillingInfoLable' | translate}}</nz-form-label>
+                            <nz-form-control
+                                nzErrorTip="{{'CampBillingInfoLable' | translate}} {{'required' | translate}}">
+                                <textarea rows="4" nz-input name="content"
+                                    formControlName="campaignBillingInfo"></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div> -->
+                </div>
+                <div class="billing-container">
+                    <app-update-billing></app-update-billing>
+                </div>
+                <!-- </nz-card>  -->
+                <br />
+                <div class="d-flex align-items-center justify-content-between">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <div>
+                                <a [routerLink]="['/app/campaign/buy-sponsored-post']" class="login-form-button"
+                                    [queryParams]="{campaign:campaignId}"
+                                    class="article-edit-link m-5 p-t-10 p-b-10 p-l-25 p-r-25" nz-button nzType="default"
+                                    nzGhost>{{'artGoBackbtn' | translate}}</a>
+
+                                <button type="submit" nz-button class="login-form-button"
+                                    [disabled]="paymentDetails?.paymentError || !campaignData" [nzType]="'primary'"
+                                    [nzLoading]="isFormSaving">{{'CampMakePayment' | translate}}</button>
+
+
+
+                            </div>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </form>
+        </nz-card>
+    </div>
+</div>

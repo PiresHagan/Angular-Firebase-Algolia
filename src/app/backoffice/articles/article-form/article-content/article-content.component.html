@@ -1,28 +1,34 @@
 <div class="container">
   <nz-card class="new-article-card">
-
     <br />
     <nz-steps [nzCurrent]="0">
       <nz-step nzTitle="{{'artCompose' | translate}}"></nz-step>
       <nz-step nzTitle="{{'artFeaturedImage' | translate}}"></nz-step>
       <nz-step nzTitle="{{'artOptimize' | translate}}"></nz-step>
-      <!-- <nz-step nzTitle="{{'artPromote' | translate}}"></nz-step> -->
       <nz-step nzTitle="{{'artPublish' | translate}}"></nz-step>
-      <!-- <nz-step nzTitle="Publish"></nz-step> -->
     </nz-steps>
     <br />
     <nz-divider></nz-divider>
     <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
       <form nz-form id="article-form" [formGroup]="articleForm" (ngSubmit)="submitArticle()">
-
         <div class="filter-dropdown-sec">
           <div class="filter-title">
             <h5 class="m-b-20">{{'newArt' | translate}}</h5>
+            <nz-form-item>
+              <nz-form-control>
+                <nz-radio-group formControlName="type" (ngModelChange)="removeFile()">
+                  <label nz-radio nzValue="text">{{'TextStory' | translate}}</label>
+                  <label nz-radio nzValue="video">{{'VideoStory' | translate}}</label>
+                  <label nz-radio nzValue="audio">{{'AudioStory' | translate}}</label>
+
+                </nz-radio-group>
+              </nz-form-control>
+            </nz-form-item>
           </div>
           <div class="filter-dropodown">
+
+
             <nz-form-item>
-
-
               <nz-form-control nzErrorTip="{{'langErr' | translate}}" class="m-5">
                 <nz-select class="m-r-10" formControlName="lang" nzAllowClear nzPlaceHolder="{{'lang' | translate}}"
                   (ngModelChange)="languageSelected($event)">
@@ -31,79 +37,110 @@
                   </nz-option>
                 </nz-select>
               </nz-form-control>
-
               <nz-form-control nzErrorTip="{{'artCategoryErr' | translate}}" class="m-5">
                 <nz-select class="m-r-10" formControlName="category" (ngModelChange)="categorySelected($event)"
                   nzAllowClear nzPlaceHolder="{{'artCategory' | translate}}">
                   <nz-option *ngFor="let category of categoryList" [nzValue]="category" nzLabel="{{category.title}}">
                   </nz-option>
-
                 </nz-select>
               </nz-form-control>
-
               <nz-form-control nzErrorTip="{{'artCategoryErr' | translate}}" class="m-5" style="min-width: 200px;">
                 <label *ngIf="!topicList || !topicList.length" class="placeholder-label">{{'topic' | translate}}</label>
                 <nz-select class="m-r-10" formControlName="topics" nzAllowClear nzMode="multiple"
                   nzPlaceHolder="{{'topic' | translate}}" *ngIf="topicList && topicList.length">
                   <nz-option *ngFor="let topic of topicList" [nzValue]="topic" nzLabel="{{topic.title}}">
                   </nz-option>
-
                 </nz-select>
               </nz-form-control>
             </nz-form-item>
-
-
-
-
-
-
-
-
-
-
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
-
             <div id="codex-editor"></div>
             <nz-form-item>
               <nz-form-control nzErrorTip="{{'artTitleErr' | translate}}">
                 <input nz-input formControlName="title" type="text" placeholder="{{'artTitle' | translate}}">
               </nz-form-control>
             </nz-form-item>
-
-
             <nz-form-item>
               <nz-form-control nzErrorTip="{{'artExcerptErr' | translate}}">
                 <textarea rows="3" nz-input formControlName="excerpt"
                   placeholder="{{'artExcerpt' | translate}}"></textarea>
               </nz-form-control>
             </nz-form-item>
-            <div>
+
+
+            <div class="content" *ngIf="articleType==TEXT">
               <nz-form-item>
                 <quill-editor [style]="{height: '300px',width: '100%'}" formControlName="content"
                   [modules]="editorConfig" placeholder="{{'artContent' | translate}}"></quill-editor>
               </nz-form-item>
+              <div *ngIf="contentValidation" class="content-message">
+                {{'artContentErr' | translate}}
+              </div>
             </div>
-            <div *ngIf="contentValidation" class="content-message">
-              {{'artContentErr' | translate}}
-            </div>
+            <div class="video" *ngIf="articleType==VIDEO">
+              <nz-form-item>
+                <nz-form-label nzRequired>{{'SelectVideo' | translate}}</nz-form-label>
+                <nz-upload [nzMultiple]="false" [nzLimit]="1" [nzBeforeUpload]="beforeUpload"
+                  [nzShowUploadList]="false">
+                  <button nz-button type="button"><i nz-icon nzType="upload"></i>{{'ClickToUpload' |translate}}</button>
+                </nz-upload>
+                <div class="m-5">
+                  <strong>{{articleFile?.name || videoFile?.name }}</strong>
+                </div>
+              </nz-form-item>
+              <div *ngIf="contentValidation" style="color: red;">
+                {{'SelectVideo' | translate}}
+              </div>
+              <div [hidden]="!videofileURL" [class.data-not]="!videofileURL">
+                <iframe [src]="transform(videofileURL)" width="60%" height="600px"
+                  allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen
+                  frameborder="0"></iframe>
+              </div>
 
+              <div class="ant-alert-info p-10">
+
+                <p>{{'VideoInfo' |translate}}</p>
+                <p>{{'VideoInfo1' |translate}}</p>
+              </div>
+
+            </div>
+            <div class="audio" *ngIf="articleType==AUDIO">
+              <nz-form-item>
+                <nz-form-label nzRequired>{{'SelectAudio' | translate}}</nz-form-label>
+                <nz-upload [nzMultiple]="false" [nzLimit]="1" [nzBeforeUpload]="beforeUpload"
+                  [nzShowUploadList]="false">
+                  <button nz-button type="button"><i nz-icon nzType="upload"></i>{{'ClickToUpload' |translate}}</button>
+                </nz-upload>
+                <div class="m-5">
+                  <strong>{{articleFile?.name || audioFile?.name }}</strong>
+                </div>
+
+              </nz-form-item>
+
+              <div *ngIf="contentValidation" style="color: red;">
+                {{'SelectAudio' | translate}}
+              </div>
+              <audio controls class="m-t-10 m-b-10" [hidden]="article?.type ==AUDIO"
+                [class.data-not]="article?.type ==AUDIO">
+                <source [src]="audioFile?.url || articleFile?.url" type="audio/mpeg">
+                Your browser does not support the audio tag.
+              </audio>
+              <!-- <div *ngIf="audioFileUrl && articleType=='audio'">
+                <iframe [src]="transform(audioFileUrl)" width="100%" height="650px"
+                  allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen
+                  frameborder="0"></iframe>
+              </div> -->
+              <div class="ant-alert-info p-10">
+                <p>{{'AudioInfo' |translate}}</p>
+                <p>{{'AudioInfo1' |translate}}</p>
+              </div>
+            </div>
 
           </div>
-
           <div class="col-md-12 mt-5">
-
-
-            <!-- <nz-form-item>
-            <nz-select formControlName="tags" nzMode="tags" [nzMaxTagCount]="5"
-              nzPlaceHolder="{{'artTags' | translate}}">
-              <nz-option *ngFor="let tag of tagList" [nzLabel]="tag" [nzValue]="tag">
-              </nz-option>
-            </nz-select>
-          </nz-form-item> -->
-
             <div class="d-inline-block">
               <nz-form-item>
                 <button nz-button type="button" (click)="goBack()" class="login-form-button m-10"
@@ -112,13 +149,9 @@
                   [nzType]="'primary'">{{'artNext' | translate}}</button>
               </nz-form-item>
             </div>
-
           </div>
-
         </div>
       </form>
     </nz-skeleton>
-
-
   </nz-card>
 </div>

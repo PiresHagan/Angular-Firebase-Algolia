@@ -1,73 +1,96 @@
+<nz-card>
+    <div class="row m-b-30">
+        <div class="col-lg-4">
+            <div class="d-md-flex m-t-10">
 
-<section>
-    <div class="container">
-        <div  class="campaign-manager-sec">
-            <div class="is-comman-title">
-                Campaigns
-            </div>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-            
-        <div class="card-sec">
-            <div class="row">
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="item-card">
-                        <a href="#" routerLink="../sponsored-post">
-                            <div class="item-card-image">
-                                <img src="assets/images/campaign/post-2.jpg" alt="">
-                            </div>
-                            <div class="item-card-content">
-                                <div class="item-card-title">
-                                    <h4 class="item-long-title">Sponsored Post</h4>
-                                </div>
-                                <div class="item-card-texte">
-                                    <p>Get your article promoted on home page</p>
-                                    <button type="button" class="is-read-more">Read More<img
-                                            src="assets/images/read-more-icon.png" alt="Read More"/></button>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="item-card">
-                        <a href="#" routerLink="../sponsored-contributor">
-                            <div class="item-card-image">
-                                <img src="assets/images/campaign/contributor.jpeg" alt="">
-                            </div>
-                            <div class="item-card-content">
-                                <div class="item-card-title">
-                                    <h4 class="item-long-title">Top Contributors</h4>
-                                </div>
-                                <div class="item-card-texte">
-                                    <p>Be part of the 10 contributors displayed on home page</p>
-                                    <button type="button" class="is-read-more">Read More<img
-                                            src="assets/images/read-more-icon.png" alt="Read More"/></button>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="item-card">
-                        <a href="#" routerLink="../search-engine">
-                            <div class="item-card-image">
-                                <img src="assets/images/campaign/search-engine.jpg" alt="">
-                            </div>
-                            <div class="item-card-content">
-                                <div class="item-card-title">
-                                    <h4 class="item-long-title">Search Engine ads</h4>
-                                </div>
-                                <div class="item-card-texte">
-                                    <p>Stand out from the competition with your logo in the search engine page</p>
-                                    <button type="button" class="is-read-more">Read More<img
-                                            src="assets/images/read-more-icon.png" alt="Read More"/></button>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                <div class="m-b-10 m-r-20 d-flex align-items-center">
+                    <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Status"
+                        [(ngModel)]="selectedStatus" (ngModelChange)="statusChange($event)">
+                        <nz-option nzLabel="All" nzValue="All"></nz-option>
+                        <nz-option nzLabel="Active" nzValue="active"></nz-option>
+                        <nz-option nzLabel="Pending" nzValue="pending"></nz-option>
+                        <nz-option nzLabel="Terminated" nzValue="inactive"></nz-option>
+                    </nz-select>
                 </div>
             </div>
         </div>
+        <div class="col-lg-8 text-right">
+            <a nz-button nzType="primary" class="p-t-10 m-2" [routerLink]="[ '/app/campaign/campaign-list' ]">
+                <i nz-icon nzType="plus-circle" theme="outline"></i>
+                <span>{{ 'AddCampaign' | translate}}</span>
+            </a>
+
         </div>
     </div>
-</section>
+    <nz-skeleton *ngIf="!displayData"> </nz-skeleton>
+    <nz-table #productsListTable [nzData]="displayData" *ngIf="displayData" [nzLoading]="isLoading">
+
+        <thead>
+            <tr>
+                <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare">{{ column.title | translate }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of productsListTable.data;  let i=index">
+                <td>#{{item.id}}</td>
+                <td>
+                    <div class="d-flex align-items-center">
+
+                        <span class="m-l-10"
+                            *ngIf="item.type==SEARCHENGINECAMPAIGN">{{'SearchEngineCampaign' |translate}} </span>
+                        <span class="m-l-10"
+                            *ngIf="item.type==TOPCONTRIBUTORCAMPAIGN">{{'TopContributorCampaign' |translate}}</span>
+                        <span class="m-l-10" *ngIf="item.type==TOPPOSTCAMPAIGN">{{'TopPostCampaign' |translate}}</span>
+
+
+
+                    </div>
+                </td>
+
+                <td>${{item.price | number:'2.2-5'}}</td>
+                <td>{{item.date | date:'medium'}}</td>
+
+                <td>
+                    <nz-badge *ngIf="item.status == 'active'" nzStatus="success"></nz-badge>
+                    <nz-badge *ngIf="item.status == 'pending'" nzStatus="warning"></nz-badge>
+                    <nz-badge *ngIf="item.status == 'inactive'" nzStatus="error"></nz-badge>
+
+                    <span class="text-capitalize">{{item.status}}</span>
+                </td>
+                <td class="text-md-right">
+                    <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit"
+                        [routerLink]="['/app/campaign/buy-search-engine']" class="login-form-button"
+                        [queryParams]="{campaign:item.id}"
+                        *ngIf="item.status == 'pending'  && item.type==SEARCHENGINECAMPAIGN">
+                        <i nz-icon nzType="edit" theme="outline"></i>
+                    </a>
+
+                    <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit"
+                        [routerLink]="['/app/campaign/buy-top-contributor']" class="login-form-button"
+                        [queryParams]="{campaign:item.id}"
+                        *ngIf="item.status == 'pending' && item.type==TOPCONTRIBUTORCAMPAIGN">
+                        <i nz-icon nzType="edit" theme="outline"></i>
+                    </a>
+
+                    <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit"
+                        [routerLink]="['/app/campaign/buy-sponsored-post']" class="login-form-button"
+                        [queryParams]="{campaign:item.id}"
+                        *ngIf="item.status == 'pending' && item.type==TOPPOSTCAMPAIGN">
+                        <i nz-icon nzType="edit" theme="outline"></i>
+                    </a>
+
+
+                    <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Stop"
+                        *ngIf="item.status == 'active'" (click)="stopCampaign(item.id)">
+                        <i nz-icon nzType="stop" nzTheme="outline"></i>
+                    </button>
+
+                    <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete"
+                        *ngIf="item.status == 'inactive' || item.status == 'pending'" (click)="deleteCampaign(item.id)">
+                        <i nz-icon nzType="delete" nzTheme="outline"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>

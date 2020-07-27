@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { Meta, Title } from '@angular/platform-browser';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import * as firebase from 'firebase/app';
+import { Article } from 'src/app/shared/interfaces/article.type';
 
 @Component({
   selector: 'app-profile',
@@ -32,6 +33,10 @@ export class ProfileComponent implements OnInit {
   loadingMoreFollowers: boolean = false;
   loadingMoreFollowings: boolean = false;
   lastArticleIndex;
+  lastArticleIndexOfAudio;
+  lastArticleIndexOfVideo;
+  audioArticles: Article[] = [];
+  videoArticles: Article[] = [];
   constructor(
     private titleService: Title,
     private metaTagService: Meta,
@@ -143,7 +148,6 @@ export class ProfileComponent implements OnInit {
   loadMoreArticle() {
     const authorId = this.authorDetails.id;
     this.articleService.getArticlesByAuthor(authorId, 12, 'next', this.lastArticleIndex).subscribe((articleData) => {
-      //this.articles = articleData.articleList;
       let mergedData: any = [...this.articles, ...articleData.articleList];
       this.articles = this.getDistinctArray(mergedData)
       this.lastArticleIndex = articleData.lastVisible;
@@ -175,17 +179,17 @@ export class ProfileComponent implements OnInit {
   }
   async follow(authorId) {
     const userDetails = this.getUserDetails();
-    
+
     const authorDetails = this.getAuthorDetails();
-    
+
     await this.authorService.follow(authorId, userDetails);
-    
+
     await this.authorService.following(userDetails.id, authorDetails);
-    
+
     this.authorService.followCount(authorId, userDetails.id, 1);
-    
+
     const analytics = firebase.analytics();
-    
+
     analytics.logEvent("follow_author", {
       author_id: authorDetails.id,
       author_name: authorDetails.fullname,
@@ -196,17 +200,17 @@ export class ProfileComponent implements OnInit {
 
   async unfollow(authorId) {
     const userDetails = this.getUserDetails();
-    
+
     const authorDetails = this.getAuthorDetails();
 
     await this.authorService.unfollow(authorId, userDetails.id);
-    
+
     await this.authorService.unfollowing(userDetails.id, authorId);
-    
+
     this.authorService.followCount(authorId, userDetails.id, -1);
-    
+
     const analytics = firebase.analytics();
-    
+
     analytics.logEvent("unfollow_author", {
       author_id: authorDetails.id,
       author_name: authorDetails.fullname,
@@ -278,4 +282,40 @@ export class ProfileComponent implements OnInit {
     });
     return resArr;
   }
+  getAudioArticles() {
+    if (this.audioArticles.length != 0)
+      return;
+    const authorId = this.authorDetails.id;
+    this.articleService.getArticlesByAuthor(authorId, 12, 'first', null, 'audio').subscribe((articleData) => {
+      this.audioArticles = articleData.articleList;
+      this.lastArticleIndexOfAudio = articleData.lastVisible;
+    })
+  }
+  getVideoArticles() {
+    if (this.videoArticles.length != 0)
+      return;
+    const authorId = this.authorDetails.id;
+    this.articleService.getArticlesByAuthor(authorId, 12, 'first', null, 'video').subscribe((articleData) => {
+      this.videoArticles = articleData.articleList;
+      this.lastArticleIndexOfVideo = articleData.lastVisible;
+    })
+  }
+  loadMoreAudioArticles() {
+    const authorId = this.authorDetails.id;
+    this.articleService.getArticlesByAuthor(authorId, 12, 'next', this.lastArticleIndexOfAudio, 'audio').subscribe((articleData) => {
+      let mergedData: any = [...this.audioArticles, ...articleData.articleList];
+      this.audioArticles = this.getDistinctArray(mergedData)
+      this.lastArticleIndexOfAudio = articleData.lastVisible;
+    })
+  }
+
+  loadMoreVideoArticles() {
+    const authorId = this.authorDetails.id;
+    this.articleService.getArticlesByAuthor(authorId, 12, 'next', this.lastArticleIndexOfVideo, 'video').subscribe((articleData) => {
+      let mergedData: any = [...this.videoArticles, ...articleData.articleList];
+      this.videoArticles = this.getDistinctArray(mergedData)
+      this.lastArticleIndexOfVideo = articleData.lastVisible;
+    })
+  }
+
 }

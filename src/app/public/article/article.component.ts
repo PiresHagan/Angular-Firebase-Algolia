@@ -14,6 +14,8 @@ import { environment } from 'src/environments/environment';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import * as firebase from 'firebase/app';
 import { NzModalService } from 'ng-zorro-antd';
+import { TEXT, AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
+
 
 @Component({
   selector: 'app-article',
@@ -24,10 +26,11 @@ import { NzModalService } from 'ng-zorro-antd';
 export class ArticleComponent implements OnInit {
 
   article: Article;
+  articleType: string;
   articleLikes: number = 0;
   articleVicewCount: number = 0;
   slug: string;
-  articleComments: any;
+  articleComments: any = [];
   commentForm: FormGroup;
   isFormSaving: boolean = false;
   isCommentSavedSuccessfully: boolean = false;
@@ -46,6 +49,11 @@ export class ArticleComponent implements OnInit {
   isLoaded: boolean = false;
   isReportAbuseLoading: boolean = false;
   selectedLang: string = '';
+  similarArticleList;
+  selectedLanguage: string = "";
+  TEXT = TEXT;
+  AUDIO = AUDIO;
+  VIDEO = VIDEO;
   @ViewChild('commentSection') private myScrollContainer: ElementRef;
   @ViewChild('commentReplySection') private commentReplyContainer: ElementRef;
 
@@ -68,6 +76,8 @@ export class ArticleComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
 
+      this.selectedLanguage = this.langService.getSelectedLanguage();
+
       const slug = params.get('slug');
       this.articleService.getArtical(slug).subscribe(artical => {
 
@@ -82,6 +92,9 @@ export class ArticleComponent implements OnInit {
         }
         const articleId = this.article.id;
 
+        this.similarArticleList = this.articleService.getCategoryRow(this.article.category.slug, this.selectedLanguage);
+
+        this.articleType = this.article.type ? this.article.type : TEXT;
         this.articleLikes = this.article.likes_count;
         this.articleVicewCount = this.article.view_count;
         this.setUserDetails();
@@ -408,6 +421,10 @@ export class ArticleComponent implements OnInit {
         .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
     }
     return latestURL;
+  }
+
+  getRelativeDate(date: string) {
+    return moment(date).fromNow();
   }
 
 }
