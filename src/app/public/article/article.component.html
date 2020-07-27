@@ -72,25 +72,25 @@
                                     {{article?.title}}
                                 </span>
                             </a>
-                            </h1>
-                            <div class="is-small-profile">
-                                <div class="is-image">
-                                    <a [routerLink]="['/',article?.author?.slug]" itemprop="url" *ngIf="article">
-                                        <img class="avatar" alt="{{article?.author?.avatar?.alt}}"
-                                            src="{{replaceImage(article?.author?.avatar?.url)}}"
-                                            onerror="this.src='assets/images/default-avatar.png'" />
-                                        <span class="name" itemprop="name">
-                                            {{article?.author.fullname}}</span>
-                                    </a>
-                                </div>
-                                <div class="is-date">
-                                    {{article?.published_at | date:'medium' }}
-                                    <a class="category cat-purple" [routerLink]="['/category/',article?.category?.slug]"
-                                        *ngIf="article">
-                                        {{article?.category.title}}
-                                    </a>
-                                </div>
+                        </h2>
+                        <div class="is-small-profile">
+                            <div class="is-image">
+                                <a [routerLink]="['/',article?.author?.slug]" itemprop="url" *ngIf="article">
+                                    <img class="avatar" alt="{{article?.author?.avatar?.alt}}"
+                                        src="{{replaceImage(article?.author?.avatar?.url)}}"
+                                        onerror="this.src='assets/images/default-avatar.png'" />
+                                    <span class="name" itemprop="name">
+                                        {{article?.author.fullname}}</span>
+                                </a>
                             </div>
+                            <div class="is-date">
+                                {{article?.published_at | date:'medium' }}
+                                <a class="category cat-purple" [routerLink]="['/category/',article?.category?.slug]"
+                                    *ngIf="article">
+                                    {{article?.category.title}}
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="is-body">
                         <div *ngIf="articleType === VIDEO" class="main-video-sec">

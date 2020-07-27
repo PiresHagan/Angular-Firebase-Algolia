@@ -15,7 +15,7 @@ import { LanguageService } from 'src/app/shared/services/language.service';
 import * as firebase from 'firebase/app';
 import { NzModalService } from 'ng-zorro-antd';
 import { TEXT, AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-article',
