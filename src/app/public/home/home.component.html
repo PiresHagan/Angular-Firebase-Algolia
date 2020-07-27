@@ -26,9 +26,19 @@
                         <div>{{article.title}}</div>
                     </h2>
                     <p class="is-card-description">{{article.excerpt | slice:0:100 }}</p>
-                    <button type="button" class="is-read-more">{{'readMore' | translate}} <img
-                        src="assets/images/read-more-icon.png" alt="read more" /></button>
-                   
+                    
+                        <div  *ngIf="article.type==='audio'">
+                            <button type="button" class="is-read-more">{{'ListenNow' | translate }}<img
+                            src="assets/images/read-more-icon.png" alt="Listen Now" /></button>
+                        </div>
+                        <div  *ngIf="article.type==='video'">
+                            <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                            src="assets/images/read-more-icon.png" alt="Watch Now" /></button>
+                        </div>
+                        <div  *ngIf="!(article.type==='audio' || article.type==='video')">
+                            <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                            src="assets/images/read-more-icon.png" alt="Read More" /></button>
+                        </div>
                 </div>
                 <div class="article-comment-info">
                     <div class="article-icon">
@@ -44,22 +54,22 @@
                     </div>
                     <div class="comment-section">
                         <ul>
-                            <li>
+                            <li *ngIf="article.view_count">
                                 <a href="#">
-                                    <i class="far fa-eye"></i>
-                                    80M
+                                    <i class="fas fa-eye"></i>
+                                    {{article.view_count}}
                                 </a>
                             </li>
-                            <li>
+                            <li *ngIf="article.likes_count">
                                 <a href="#">
-                                    <i class="far fa-heart"></i>
-                                    80M
+                                    <i class="fas fa-heart"></i>
+                                    {{article.likes_count}}
                                 </a>
                             </li>
-                            <li>
+                            <li *ngIf="article.comments_count">
                                 <a href="#">
-                                    <i class="far fa-comment"></i>
-                                    80M
+                                    <i class="fa fa-comment"></i>
+                                    {{article.comments_count}}
                                 </a>
                             </li>
                         </ul>
@@ -93,8 +103,18 @@
                         <div>{{article.title}}</div>
                     </h2>
                     <p class="is-card-description">{{article.excerpt | slice:0:100 }}</p>
-                    <button type="button" class="is-read-more">{{'readMore' | translate}} <img
-                            src="assets/images/read-more-icon.png" alt="read more" /></button>
+                    <div  *ngIf="article.type==='audio'">
+                        <button type="button" class="is-read-more">{{'ListenNow' | translate }}<img
+                        src="assets/images/read-more-icon.png" alt="Listen Now" /></button>
+                    </div>
+                    <div  *ngIf="article.type==='video'">
+                        <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                        src="assets/images/read-more-icon.png" alt="Watch Now" /></button>
+                    </div>
+                    <div  *ngIf="!(article.type==='audio' || article.type==='video')">
+                        <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                        src="assets/images/read-more-icon.png" alt="Read More" /></button>
+                    </div>
                     
                 </div>
                 <div class="article-comment-info">
@@ -105,33 +125,28 @@
                         <div class="icon-circle"  *ngIf="article.type==='video'">
                             <i class="fas fa-video"></i>
                         </div>
-                        <div class="icon-circle"  *ngIf="article.type==='audio' || article.type==='video';  else articleBlock">
-                            <i class="fas fa-volume-down"></i>
+                        <div class="icon-circle"  *ngIf="!(article.type==='audio' || article.type==='video')">
+                            <i class="far fa-file-alt"></i>
                         </div>
-                        <ng-template #articleBlock>
-                            <div class="icon-circle">
-                                <i class="far fa-file-alt"></i>
-                            </div>
-                          </ng-template>
                     </div>
                     <div class="comment-section">
                         <ul>
-                            <li>
+                            <li *ngIf="article.view_count">
                                 <a href="#">
-                                    <i class="far fa-eye"></i>
-                                    80M
+                                    <i class="fas fa-eye"></i>
+                                    {{article.view_count}}
                                 </a>
                             </li>
-                            <li>
+                            <li *ngIf="article.likes_count">
                                 <a href="#">
-                                    <i class="far fa-heart"></i>
-                                    80M
+                                    <i class="fas fa-heart"></i>
+                                    {{article.likes_count}}
                                 </a>
                             </li>
-                            <li>
+                            <li *ngIf="article.comments_count">
                                 <a href="#">
-                                    <i class="far fa-comment"></i>
-                                    80M
+                                    <i class="fa fa-comment"></i>
+                                    {{article.comments_count}}
                                 </a>
                             </li>
                         </ul>
@@ -169,8 +184,18 @@
                                 <div>{{article.title}}</div>
                             </h2>
                             <p class="is-card-description">{{article.excerpt}}</p>
-                            <button type="button" class="is-read-more">{{'readMore' | translate}} <img
-                                    src="assets/images/read-more-icon.png" alt="read more" /></button>
+                            <div  *ngIf="article.type==='audio'">
+                                <button type="button" class="is-read-more">{{'ListenNow' | translate }}<img
+                                src="assets/images/read-more-icon.png" alt="Listen Now" /></button>
+                            </div>
+                            <div  *ngIf="article.type==='video'">
+                                <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                                src="assets/images/read-more-icon.png" alt="Watch Now" /></button>
+                            </div>
+                            <div  *ngIf="!(article.type==='audio' || article.type==='video')">
+                                <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                                src="assets/images/read-more-icon.png" alt="Read More" /></button>
+                            </div>
 
                         </div>
                         <div class="article-comment-info">
@@ -188,25 +213,25 @@
                             </div>
                             <div class="comment-section">
                                 <ul>
-                            <li>
-                                <a href="#">
-                                    <i class="far fa-eye"></i>
-                                    80M
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="far fa-heart"></i>
-                                    80M
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="far fa-comment"></i>
-                                    80M
-                                </a>
-                            </li>
-                        </ul>
+                                    <li *ngIf="article.view_count">
+                                        <a href="#">
+                                            <i class="fas fa-eye"></i>
+                                            {{article.view_count}}
+                                        </a>
+                                    </li>
+                                    <li *ngIf="article.likes_count">
+                                        <a href="#">
+                                            <i class="fas fa-heart"></i>
+                                            {{article.likes_count}}
+                                        </a>
+                                    </li>
+                                    <li *ngIf="article.comments_count">
+                                        <a href="#">
+                                            <i class="fa fa-comment"></i>
+                                            {{article.comments_count}}
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </a>
@@ -280,7 +305,6 @@
             <div class="cat-box-gallery">
                 <div class="row article-row">
                     <div class="col-sm-15 box_shadow" *ngFor="let article of slugWiseData[category.slug] | async">
-                       
                         <div class="item-card item-card-life-and-styles">
                             <a [routerLink]="['/',article.author.slug,article.slug]">
                                 <div class="item-card-image">
@@ -300,22 +324,22 @@
                                         <div class="article-comment-info">
                                             <div class="comment-section">
                                                 <ul>
-                                                    <li>
+                                                    <li *ngIf="article.view_count">
                                                         <a href="#">
-                                                            <i class="far fa-eye"></i>
-                                                            80M
+                                                            <i class="fas fa-eye"></i>
+                                                            {{article.view_count}}
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li *ngIf="article.likes_count">
                                                         <a href="#">
-                                                            <i class="far fa-heart"></i>
-                                                            80M
+                                                            <i class="fas fa-heart"></i>
+                                                            {{article.likes_count}}
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <li *ngIf="article.comments_count">
                                                         <a href="#">
-                                                            <i class="far fa-comment"></i>
-                                                            80M
+                                                            <i class="fa fa-comment"></i>
+                                                            {{article.comments_count}}
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -339,8 +363,18 @@
                                     <div class="item-card-texte">
                                         <p>{{article.excerpt}}</p>
                                         <div class="category-article-readmore">
+                                            <div  *ngIf="article.type==='audio'">
+                                                <button type="button" class="is-read-more">{{'ListenNow' | translate }} <img
+                                                src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                            </div>
+                                            <div  *ngIf="article.type==='video'">
+                                                <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                                                src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                            </div>
+                                            <div  *ngIf="!(article.type==='audio' || article.type==='video')">
                                                 <button type="button" class="is-read-more">{{'readMore' | translate }} <img
-                                                    src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                                src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                            </div>
                                             <div class="article-icon-main">
                                                 <div class="article-icon" *ngIf="article.type==='audio'">
                                                     <i class="fas fa-volume-down"></i>

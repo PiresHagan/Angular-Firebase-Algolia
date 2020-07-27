@@ -441,5 +441,7 @@
     "VideoStories": "Video",
     "AudioStories": "Audio",
     "NoArticle": "No se encontró ningún artículo",
-    "SimilarArticles": "Artículos similares"
+    "SimilarArticles": "Artículos similares",
+    "ListenNow":"Escucha ahora",
+    "WatchNow":"Ver ahora"
 }
