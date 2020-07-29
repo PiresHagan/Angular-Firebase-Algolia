@@ -28,6 +28,12 @@ const routes: Routes = [
     data: { roles: [STAFF], title: "Admin", }
 
 
+  },
+  {
+    path: 'company',
+    loadChildren: () => import('./company/company.module').then(m => m.CompanyModule),
+
+
   }
 ];
 

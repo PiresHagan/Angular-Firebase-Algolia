@@ -98,5 +98,22 @@ export const ROUTES: SideNavInterface[] = [
                 submenu: []
             }
         ]
+    },
+    {
+        path: '/app/campaign/buy-sponsored-post',
+        title: 'CampSponPost',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'notification',
+        staff_only: false,
+        submenu: []
+    }, {
+        path: '/app/company/company-list',
+        title: 'CompanyList',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'notification',
+        staff_only: false,
+        submenu: []
     }
 ]
