@@ -1,0 +1,76 @@
+<section class="is-article-block">
+    <div class="container">
+        <div class="article-full-img">
+            <img [src]='company.cover.url' [alt]='company.cover.alt'>
+        </div>
+        <div class="is-article-sec">
+            <div class="is-left-profile">
+                <div class="sticky-box">
+                    <div class="is-profile">
+                        <a>
+                            <img class="avatar" src="assets/images/company/company-logo.png" alt="company logo"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="is-main-article-content">
+                <div class="company-img">
+                    <img [src]='company.logo.url' [alt]='company.logo.alt'>
+                </div>
+                <div class="is-content">
+                    <div class="is-head">
+                        <div class="company-name">
+                            <h1>
+                                <a>
+                                    {{ company.name }}
+                                </a>
+                            </h1>
+                        </div>
+                        <div class="media-section">
+                            <div class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                                <a><img src="assets/images/company/follow-icon.png" alt="company img">Follow Us</a>
+                            </div>
+                            <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                                <a><img src="assets/images/company/follow-icon.png" alt="company img">Unfollow Us</a>
+                            </div>
+                            <div class="share-sec">
+                                <div class="addthis_inline_share_toolbox"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="is-body">
+                        <div class="is-paragraph">
+                            <p class="big">{{ company.bio }}</p>
+                            <br>
+                            <p>{{ company.presentation }}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="is-right-ad-section">
+                <div class="company-form">
+                    <h2>Get in touch</h2>
+                    <div class="form-row">
+                        <input type="text" placeholder="First name" class="input-box" />
+                    </div>
+                    <div class="form-row">
+                        <input type="text" placeholder="Last name" class="input-box" />
+                    </div>
+                    <div class="form-row">
+                        <input type="text" placeholder="Email" class="input-box" />
+                    </div>
+                    <div class="form-row">
+                        <input type="text" placeholder="Phone number" class="input-box" />
+                    </div>
+                    <div class="form-row">
+                        <button type="button" class="is-see-more">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
