@@ -475,5 +475,6 @@
     "CompanyPresentation": "Présentation de l'entreprise",
     "CoverImageRequired": "Image de couverture requise.",
     "LogoImageRequired": "Image du logo requise",
-    "PleaseCheckAllFields": "Une erreur s'est produite! Veuillez vérifier tous les champs."
+    "PleaseCheckAllFields": "Une erreur s'est produite! Veuillez vérifier tous les champs.",
+    "BackToList": "Retour à la liste"
 }

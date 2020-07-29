@@ -474,5 +474,6 @@
     "Presentación de la empresa": "Presentación de la empresa",
     "CoverImageRequired": "Imagen de portada requerida",
     "LogoImageRequired": "Se requiere imagen de logotipo",
-    "PleaseCheckAllFields": "¡Algo salió mal! Compruebe todos los campos"
+    "PleaseCheckAllFields": "¡Algo salió mal! Compruebe todos los campos",
+    "BackToList": "Volver a la lista"
 }
