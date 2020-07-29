@@ -162,7 +162,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'company/:slug',
+    path: 'companies/:slug',
     component: CompanyComponent,
     data: {
       title: 'company',
