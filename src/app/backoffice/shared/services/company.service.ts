@@ -15,6 +15,7 @@ export class CompanyService {
   private basePath = '/companies/';
   private companyCollection = 'companies'
   private followersCollection = "followers"
+  private leadsCollection = "leads"
   constructor(private http: HttpClient,
     public db: AngularFirestore) {
 
@@ -104,6 +105,35 @@ export class CompanyService {
     return dataQuery.snapshotChanges().pipe(map(actions => {
       return {
         followers: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+        lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
+    })
+    );
+  }
+
+  getLeads(companyId, limit: number = 10, navigation: string = "first", lastVisible = null) {
+    if (!limit) {
+      limit = 10;
+    }
+    let dataQuery = this.db.collection(this.companyCollection).doc(companyId).collection(`${this.leadsCollection}`, ref => ref
+      //.limit(limit)
+    )
+    switch (navigation) {
+      case 'next':
+        dataQuery = this.db.collection(this.companyCollection).doc(companyId).collection(`${this.leadsCollection}`, ref => ref
+          .orderBy('created_at', 'desc')
+          //.limit(limit)
+          .startAfter(lastVisible))
+        break;
+    }
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        leads: actions.map(a => {
 
           const data: any = a.payload.doc.data();
           const id = a.payload.doc.id;

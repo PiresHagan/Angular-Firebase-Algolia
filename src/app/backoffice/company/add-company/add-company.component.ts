@@ -60,7 +60,7 @@ export class AddCompanyComponent implements OnInit {
       company_email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
       company_phone: ['', [Validators.required, Validators.maxLength(10)]],
       company_lang: ['', [Validators.required]],
-      company_slug: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],
+      company_slug: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(70), Validators.pattern('^[a-z0-9-]+$')]],
       company_bio: ['', [Validators.required]],
       company_presentation: ['', [Validators.required]],
       comany_color_code: ['']
@@ -76,7 +76,7 @@ export class AddCompanyComponent implements OnInit {
       company_slug: companyDetails.slug,
       company_bio: companyDetails.bio,
       company_presentation: companyDetails.presentation,
-      comany_color_code: companyDetails.color_code,
+      company_color_code: companyDetails.color_code,
     });
     this.coverImage = companyDetails.cover;
     this.logoImage = companyDetails.logo;

@@ -36,7 +36,7 @@ export class CharityListComponent implements OnInit {
         return;
       this.userDetails = await this.authService.getLoggedInUserDetails();
       if (this.userDetails) {
-        this.charityService.getAllCompanies(this.userDetails.id).subscribe((data) => {
+        this.charityService.getAllCharities(this.userDetails.id).subscribe((data) => {
           this.charities = data.charityList;
           this.lastVisible = data.lastVisible;
           this.loading = false;
@@ -55,7 +55,7 @@ export class CharityListComponent implements OnInit {
       const offset = event.target.documentElement.offsetHeight
       if (top > height - offset - 1 - 100 && this.lastVisible && !this.loadingMore) {
         this.loadingMore = true;
-        this.charityService.getAllCompanies(this.userDetails.id, null, 'next', this.lastVisible).subscribe((data) => {
+        this.charityService.getAllCharities(this.userDetails.id, null, 'next', this.lastVisible).subscribe((data) => {
           this.loadingMore = false;
           this.charities = [...this.charities, ...data.charityList];
           this.lastVisible = data.lastVisible;

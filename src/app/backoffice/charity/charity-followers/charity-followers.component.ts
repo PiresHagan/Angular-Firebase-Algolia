@@ -21,7 +21,7 @@ export class CharityFollowersComponent implements OnInit {
     let charityId = this.activatedRoute.snapshot.queryParams["charity"];
     if (!charityId)
       return;
-    this.charityService.getComanyFollowers(charityId, 5, null, this.lastVisibleFollower).subscribe((data) => {
+    this.charityService.getCharityFollowers(charityId, 5, null, this.lastVisibleFollower).subscribe((data) => {
       this.loadingMoreFollowers = false;
 
       this.followers = data.followers;
@@ -34,7 +34,7 @@ export class CharityFollowersComponent implements OnInit {
     if (!charityId)
       return;
     this.loadingMoreFollowers = true;
-    this.charityService.getComanyFollowers(charityId, 5, action, this.lastVisibleFollower).subscribe((data) => {
+    this.charityService.getCharityFollowers(charityId, 5, action, this.lastVisibleFollower).subscribe((data) => {
       this.loadingMoreFollowers = false;
       let mergedData: any = [...this.followers, ...data.followers]
       this.followers = this.getDistinctArray(mergedData)

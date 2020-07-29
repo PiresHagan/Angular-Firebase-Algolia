@@ -54,7 +54,7 @@ export class CharityService {
     return this.http.delete(apicall);
   }
 
-  getAllCompanies(userId, limit: number = 10, navigation: string = "first", lastVisible = null) {
+  getAllCharities(userId, limit: number = 10, navigation: string = "first", lastVisible = null) {
     if (!limit) {
       limit = 10;
     }
@@ -86,7 +86,7 @@ export class CharityService {
     );
   }
 
-  getComanyFollowers(charityId, limit: number = 10, navigation: string = "first", lastVisible = null) {
+  getCharityFollowers(charityId, limit: number = 10, navigation: string = "first", lastVisible = null) {
     if (!limit) {
       limit = 10;
     }

@@ -57,13 +57,13 @@ export class AddCharityComponent implements OnInit {
   createForm() {
     this.charityForm = this.fb.group({
       charity_name: ['', [Validators.required, Validators.maxLength(70)]],
-      charity_email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
+      charity_email: ['', [Validators.required, Validators.pattern("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$")]],
       charity_phone: ['', [Validators.required, Validators.maxLength(10)]],
       charity_lang: ['', [Validators.required]],
-      charity_slug: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],
+      charity_slug: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(70), Validators.pattern('^[a-z0-9-]+$')]],
       charity_bio: ['', [Validators.required]],
       charity_presentation: ['', [Validators.required]],
-      comany_color_code: ['']
+      charity_color_code: ['']
     });
   }
   setFormValues(charityDetails: Charity) {
