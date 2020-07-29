@@ -14,6 +14,7 @@ export class CompanyFollowersComponent implements OnInit {
   constructor(private companyService: CompanyService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.getFollowers();
   }
 
   getFollowers() {

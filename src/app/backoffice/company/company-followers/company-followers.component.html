@@ -1,10 +1,10 @@
 <section class="is-followers-sec m-10" *ngIf="followers.length">
     <div class="container">
         <div class="is-followers-user">
-            <div class="is-followers-item" *ngFor="let subscriber of subscribers">
-                <a [routerLink]="['/',subscriber.slug]" target="_blank">
-                    <img src="{{replaceImage(subscriber?.avatar?.url)}}"
-                        onerror="this.src='assets/images/default-avatar.png'" alt="{{subscriber?.avatar?.alt}}" />
+            <div class="is-followers-item" *ngFor="let subscriber of followers">
+                <a [routerLink]="['/',subscriber.slug]" target="_blank" title="{{subscriber?.fullname}}">
+                    <img src="{{subscriber?.avatar?.url}}" onerror="this.src='assets/images/default-avatar.png'"
+                        alt="{{subscriber?.avatar?.alt}}" />
                 </a>
             </div>
 
@@ -15,6 +15,6 @@
         </div>
     </div>
 </section>
-<div class="m-10">
+<div class="m-10" *ngIf="!followers.length">
     {{'NoFollowers' | translate}}
 </div>

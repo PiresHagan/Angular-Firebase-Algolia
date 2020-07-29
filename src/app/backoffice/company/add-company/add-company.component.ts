@@ -101,7 +101,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   backToList() {
-
+    this.router.navigate(['app/company/company-list'])
   }
 
   submitDetails() {

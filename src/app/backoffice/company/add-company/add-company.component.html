@@ -142,9 +142,17 @@
             <nz-form-item>
                 <nz-form-control>
                     <div>
-                        <button nz-button [nzLoading]="isFormSaving" class="login-form-button" [nzType]="'primary'">
+                        <button nz-button [nzLoading]="isFormSaving" type="submit" class="login-form-button"
+                            [nzType]="'primary'">
                             {{'saveDetails'| translate}}
                         </button>
+                        <button nz-button [nzLoading]="isFormSaving" type="button" (click)="backToList()"
+                            class="login-form-button m-l-10" [nzType]="'primary'">
+                            {{'BackToList'| translate}}
+                        </button>
+
+
+
                     </div>
                 </nz-form-control>
             </nz-form-item>

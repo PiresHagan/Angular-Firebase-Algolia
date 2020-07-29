@@ -479,5 +479,6 @@
     "CompanyPresentation": "Company Presentation ",
     "CoverImageRequired": "Cover Image required.",
     "LogoImageRequired": "Logo Image required",
-    "PleaseCheckAllFields": "Something went wrong! Please check all fields."
+    "PleaseCheckAllFields": "Something went wrong! Please check all fields.",
+    "BackToList": "Back To List"
 }
