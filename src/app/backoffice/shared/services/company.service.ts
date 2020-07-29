@@ -12,8 +12,8 @@ import { take, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CompanyService {
-  private basePath = '/company/';
-  private companyCollection = 'company'
+  private basePath = '/companies/';
+  private companyCollection = 'companies'
   private followersCollection = "followers"
   constructor(private http: HttpClient,
     public db: AngularFirestore) {
@@ -59,14 +59,14 @@ export class CompanyService {
       limit = 10;
     }
     let dataQuery = this.db.collection<Company[]>(`${this.companyCollection}`, ref => ref
-      .where("author.id", "==", userId)
+      .where("owner.id", "==", userId)
       .orderBy('created_at', 'desc')
       .limit(limit)
     )
     switch (navigation) {
       case 'next':
         dataQuery = this.db.collection<Company[]>(`${this.companyCollection}`, ref => ref
-          .where("author.id", "==", userId)
+          .where("owner.id", "==", userId)
           .orderBy('created_at', 'desc')
           .limit(limit)
           .startAfter(lastVisible))

@@ -73,6 +73,10 @@ export class CompanyListComponent implements OnInit {
           this.modalService.success({
             nzTitle: "<i>" + this.translate.instant("DeleteSuccess") + "</i>",
           });
+        }, (error) => {
+          this.modalService.error({
+            nzTitle: this.translate.instant("SomethingWrong"),
+          });
         })
       },
     });

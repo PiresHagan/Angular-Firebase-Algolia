@@ -164,6 +164,9 @@ export class AddCompanyComponent implements OnInit {
     this.companyService.addCompany(formData).subscribe(() => {
       this.isFormSaving = false;
       this.showSuccessMessage('CompanyAdded');
+      setTimeout(() => {
+        this.router.navigate(['app/company/company-list'])
+      }, 2000);
       return null;
     }, (error) => {
       this.isFormSaving = false;
@@ -184,7 +187,7 @@ export class AddCompanyComponent implements OnInit {
 
   showSuccessMessage(message) {
     let $message = this.translate.instant(message);
-    this.modalService.error({
+    this.modalService.success({
       nzTitle: $message,
     });
 
