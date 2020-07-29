@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
@@ -7,6 +7,7 @@ import { User } from 'src/app/shared/interfaces/user.type';
 import { Company } from 'src/app/shared/interfaces/company.type';
 import { CompanyService } from 'src/app/shared/services/company.service';
 import { Title, Meta } from '@angular/platform-browser';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-company',
@@ -22,8 +23,25 @@ export class CompanyComponent implements OnInit {
   isLoggedInUser: boolean = false;
   selectedLanguage: string = "";
   userDetails: User;
+  invalidCaptcha: boolean = false;
+  addLeadSuccess: boolean = false;
+  isFormSaving: boolean = false;
+  addLeadForm: FormGroup;
+  recaptchaElement;
+  isCaptchaElementReady: boolean = false;
+  isCapchaScriptLoaded: boolean = false;
+  captchaToken: string;
+  capchaObject;
+  @ViewChild('recaptcha') set SetThing(e: CompanyComponent) {
+      this.isCaptchaElementReady = true;
+      this.recaptchaElement = e;
+      if (this.isCaptchaElementReady && this.isCapchaScriptLoaded) {
+          this.renderReCaptcha();
+      }
+  }
 
   constructor(
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private authService: AuthService,
     private langService: LanguageService,
@@ -37,8 +55,10 @@ export class CompanyComponent implements OnInit {
       this.selectedLanguage = this.langService.getSelectedLanguage();
 
       const slug = params.get('slug');
+
       this.companyService.getCompanyBySlug(slug).subscribe(data => {
         this.company = data[0];
+
         this.companyId = this.company.id;
 
         this.setUserDetails();
@@ -55,6 +75,15 @@ export class CompanyComponent implements OnInit {
           { name: "og:image", content: `${this.company.logo.url}` },
           { name: "og:description", content: `${this.company.bio.substring(0, 154)}` }
         ]);
+      });
+
+      this.addRecaptchaScript();
+
+      this.addLeadForm = this.fb.group({
+        first_name: [null, [Validators.required]],
+        last_name: [null, [Validators.required]],
+        email: [null, [Validators.email, Validators.required]], 
+        mobile_number: [null, [Validators.required]]
       });
 
       this.setUserDetails();
@@ -133,6 +162,100 @@ export class CompanyComponent implements OnInit {
         this.setFollowOrNot();
       });
     }
+  }
+
+  addRecaptchaScript() {
+    window['grecaptchaCallback'] = () => {
+      this.isCapchaScriptLoaded = true;
+      if (this.isCapchaScriptLoaded && this.isCaptchaElementReady)
+        this.renderReCaptcha(); 
+      return;
+    }
+
+    (function (d, s, id, obj) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+          obj.isCapchaScriptLoaded = true;
+          if (obj.isCapchaScriptLoaded && obj.isCaptchaElementReady)
+              obj.renderReCaptcha(); return;
+      }
+      js = d.createElement(s); js.id = id;
+      js.src = "https://www.google.com/recaptcha/api.js?onload=grecaptchaCallback&render=explicit";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'recaptcha-jssdk', this));
+  }
+
+  renderReCaptcha() {
+    if (!this.recaptchaElement || this.capchaObject)
+      return;
+
+    this.capchaObject = window['grecaptcha'].render(this.recaptchaElement.nativeElement, {
+      'sitekey': environment.captchaKey,
+      'callback': (response) => {
+        this.invalidCaptcha = false;
+        this.captchaToken = response;
+      },
+      'expired-callback': () => {
+        this.captchaToken = '';
+      }
+    });
+  }
+
+  public findInvalidControls() {
+    const invalid = [];
+    const controls = this.addLeadForm.controls;
+
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        invalid.push(name);
+      }
+    }
+
+    return invalid;
+  }
+
+  submitForm() {
+    for (const i in this.addLeadForm.controls) {
+      this.addLeadForm.controls[i].markAsDirty();
+      this.addLeadForm.controls[i].updateValueAndValidity();
+    }
+
+    if (this.findInvalidControls().length == 0) {
+      try {
+        if (this.captchaToken) {
+          this.isFormSaving = true;
+          this.invalidCaptcha = false;
+          this.authService.validateCaptcha(this.captchaToken).subscribe((success) => {
+            this.saveDataOnServer(this.addLeadForm.value);
+          }, (error) => {
+            window['grecaptcha'].reset(this.capchaObject);
+            this.isFormSaving = false;
+            this.invalidCaptcha = true;
+          });
+        } else {
+            this.invalidCaptcha = true;
+        }
+      } catch (err) {
+        this.isFormSaving = false;
+      }
+    }
+    else {
+      this.isFormSaving = false;
+    }
+  }
+
+  saveDataOnServer(data) {
+    this.companyService.createCompanyLead(this.companyId, data).then(data => {
+      this.addLeadForm.reset();
+      this.addLeadSuccess = true;
+      this.isFormSaving = false;
+      setTimeout(() => {
+        this.addLeadSuccess = false;
+      }, 5000);
+      window['grecaptcha'].reset(this.capchaObject);
+    }).catch((error) => {
+      this.isFormSaving = false;
+    });
   }
 
 }
