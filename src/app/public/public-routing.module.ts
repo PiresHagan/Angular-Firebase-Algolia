@@ -16,6 +16,7 @@ import { TodayComponent } from './today/today.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { VideoComponent } from './video/video.component';
 import { AudioComponent } from './audio/audio.component';
+import { CompaniesComponent } from './companies/companies.component';
 
 
 const routes: Routes = [
@@ -148,6 +149,14 @@ const routes: Routes = [
     component: AudioComponent,
     data: {
       title: 'audio',
+      headerDisplay: "none"
+    }
+  },
+  {
+    path: 'companies',
+    component: CompaniesComponent,
+    data: {
+      title: 'companies',
       headerDisplay: "none"
     }
   },
