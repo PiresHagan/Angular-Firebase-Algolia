@@ -34,6 +34,7 @@ import { PrivacyEsComponent } from './privacy/privacy-es/privacy-es.component';
 import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
 import { Cloudinary } from 'cloudinary-core';
 import { CompanyComponent } from './company/company.component';
+import { CompaniesComponent } from './companies/companies.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -55,7 +56,8 @@ import { CompanyComponent } from './company/company.component';
     AudioComponent,
     PrivacyFrComponent,
     PrivacyEsComponent,
-    CompanyComponent
+    CompanyComponent,
+    CompaniesComponent
   ],
   imports: [
     CloudinaryModule.forRoot({Cloudinary}, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),

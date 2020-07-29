@@ -477,6 +477,13 @@ img{
           width: 100%;
           margin-top: 0px;
           padding: 20px;
+          .company-img{
+            text-align: center;
+            margin-top: 0px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
           .is-content {
             .is-head {
               h2 {
