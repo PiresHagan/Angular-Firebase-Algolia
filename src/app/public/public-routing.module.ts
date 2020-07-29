@@ -16,7 +16,8 @@ import { TodayComponent } from './today/today.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { VideoComponent } from './video/video.component';
 import { AudioComponent } from './audio/audio.component';
-import { CompanyComponent } from './companies/company.component';
+import { CompanyComponent } from './company/company.component';
+import { CompaniesComponent } from './companies/companies.component';
 
 
 const routes: Routes = [
@@ -153,7 +154,15 @@ const routes: Routes = [
     }
   },
   {
-    path: 'company/:slug',
+    path: 'companies',
+    component: CompaniesComponent,
+    data: {
+      title: 'companies',
+      headerDisplay: "none"
+    }
+  },
+  {
+    path: 'companies/:slug',
     component: CompanyComponent,
     data: {
       title: 'company',

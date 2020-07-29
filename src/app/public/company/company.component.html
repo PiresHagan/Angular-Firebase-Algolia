@@ -10,6 +10,9 @@
                         <a>
                             <img class="avatar" src="assets/images/company/company-logo.png" alt="company logo"/>
                         </a>
+                        <div class="share-sec">
+                            <div class="addthis_inline_share_toolbox"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -21,20 +24,17 @@
                     <div class="is-head">
                         <div class="company-name">
                             <h1>
-                                <a>
+                                <a [ngStyle]="{'color': company.color_code}">
                                     {{ company.name }}
                                 </a>
                             </h1>
                         </div>
                         <div class="media-section">
                             <div class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-                                <a><img src="assets/images/company/follow-icon.png" alt="company img">Follow Us</a>
+                                <a><img src="assets/images/company/follow-icon.png" alt="company img">{{ "followCompany" | translate }}</a>
                             </div>
                             <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-                                <a><img src="assets/images/company/follow-icon.png" alt="company img">Unfollow Us</a>
-                            </div>
-                            <div class="share-sec">
-                                <div class="addthis_inline_share_toolbox"></div>
+                                <a><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowCompany" | translate }}</a>
                             </div>
                         </div>
                         <div class="clearfix"></div>

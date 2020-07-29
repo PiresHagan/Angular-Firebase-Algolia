@@ -480,5 +480,7 @@
     "CoverImageRequired": "Cover Image required.",
     "LogoImageRequired": "Logo Image required",
     "PleaseCheckAllFields": "Something went wrong! Please check all fields.",
-    "BackToList": "Back To List"
+    "BackToList": "Back To List",
+    "followCompany": "Follow Us",
+    "unfollowCompany": "Unfollow Us"
 }
