@@ -1,0 +1,161 @@
+<div class="m-10">
+    <div class="media">
+        <nz-avatar [nzSize]="150" nzIcon="user" [nzSrc]="logoImage?.url"></nz-avatar>
+        <div class="profile-upload-txt m-10">
+            <nz-upload nzName="avatar" [nzShowUploadList]="false" (nzChange)="handleChange($event)"
+                [nzBeforeUpload]="beforeUpload">
+                <button nz-button nzType="primary" [nzLoading]="isLogoImageUploading">
+                    <i nz-icon nzType="upload"></i>
+                    <span>{{'upload'| translate}}</span>
+                </button>
+            </nz-upload>
+            <h5>{{'SelectCharityLogo'| translate}}</h5>
+            <p>
+                {{'recommendedDim'| translate}}:
+                120x120 {{'maxfile'| translate}}: 5MB
+            </p>
+        </div>
+    </div>
+    <hr class="m-v-25" />
+    <form nz-form [formGroup]="charityForm" class="login-form" (ngSubmit)="submitDetails()">
+        <div class="row">
+            <div class="col-md-3">
+                <nz-form-item>
+                    <nz-form-label>{{'CharityName'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'CharityName'| translate}} {{'required' | translate}}">
+                        <input nz-input placeholder="{{'CharityName'| translate}}" formControlName="charity_name"
+                            type="text" value="" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-3">
+                <nz-form-item>
+                    <nz-form-label>{{'CharityEmail'| translate}}</nz-form-label>
+                    <nz-form-control
+                        nzErrorTip="{{'CharityEmail'| translate}} {{'required' | translate}} {{'AndValidFormat' | translate}}">
+                        <input nz-input placeholder="{{'CharityEmail'| translate}}" type="email" value=""
+                            formControlName="charity_email" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-2">
+                <nz-form-item>
+                    <nz-form-label>{{'CharityPhone'| translate}}</nz-form-label>
+                    <nz-form-control
+                        nzErrorTip="{{'CharityPhone'| translate}} {{'required' | translate}} {{'AndValidFormat' | translate}} e.g:9876543210">
+                        <input nz-input placeholder="{{'CharityPhone'| translate}}" formControlName="charity_phone" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-2">
+                <nz-form-item>
+                    <nz-form-label>{{'CharityColorCode'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'CharityColorCode'| translate}} {{'required' | translate}}">
+                        <input nz-input placeholder="{{'CharityColorCode'| translate}}"
+                            formControlName="charity_phone" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-2">
+                <nz-form-item>
+                    <nz-form-label>{{'lang' | translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'langErr' | translate}}" class="m-5">
+                        <nz-select class="m-r-10" formControlName="charity_lang" nzAllowClear
+                            nzPlaceHolder="{{'lang' | translate}}">
+                            <nz-option *ngFor="let language of languageList" [nzValue]="language.code"
+                                nzLabel="{{language.label}}">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <nz-form-item>
+                    <nz-form-label>{{'CharitySlug'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'CharitySlug'| translate}} {{'required' | translate}}">
+                        <input nz-input name="charity_slug" placeholder="CharitySlug" formControlName="charity_slug" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <nz-form-item>
+                    <nz-form-label>{{'CharityBio'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'CharityBio'| translate}} {{'required' | translate}}">
+                        <textarea rows="4" nz-input name="charity_bio" formControlName="charity_bio"></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <nz-form-item>
+                    <nz-form-label>{{'CharityPresentation'| translate}}</nz-form-label>
+                    <nz-form-control
+                        nzErrorTip="{{'CharityPresentation'| translate}} {{'required' | translate}} {{'AndValidFormat' | translate}}">
+                        <textarea rows="4" nz-input name="charity_presentation"
+                            placeholder="{{'CharityPresentation'| translate}}"
+                            formControlName="charity_presentation"></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <nz-form-item>
+                    <nz-form-label>{{'CoverImage'| translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-upload nzType="drag" [nzMultiple]="true" (nzChange)="handleCoverImageChange($event)"
+                            [nzLimit]="1" [nzBeforeUpload]="beforeUpload" [nzShowUploadList]="false">
+
+                            <ng-container *ngIf="!coverImage?.url">
+                                <div *ngIf="!isCoverImageUploading">
+                                    <p class="ant-upload-drag-icon">
+                                        <i nz-icon nzType="inbox"></i>
+                                    </p>
+                                    <p class="ant-upload-text">{{'artImageMessage1' | translate}}</p>
+                                    <p class="ant-upload-hint">
+                                        {{'artImageMessage2' | translate}}
+                                    </p>
+                                    <p class="ant-upload-hint" style="color: red;">
+                                        {{'CoverImageRequired' | translate}}
+                                    </p>
+                                    <div class="ant-upload-text">{{'artImageUpload' | translate}}</div>
+                                </div>
+                                <i class="upload-icon" *ngIf="isCoverImageUploading" nz-icon
+                                    [nzType]="isCoverImageUploading ? 'loading' : 'plus'"></i>
+                            </ng-container>
+                            <img *ngIf="coverImage" [src]="coverImage?.url" style="width: 100%" />
+                        </nz-upload>
+
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <hr class="m-v-25" />
+        <div class="d-flex align-items-center justify-content-between m-t-10">
+            <nz-form-item>
+                <nz-form-control>
+                    <div>
+                        <button nz-button [nzLoading]="isFormSaving" type="submit" class="login-form-button"
+                            [nzType]="'primary'">
+                            {{'saveDetails'| translate}}
+                        </button>
+                        <button nz-button [nzLoading]="isFormSaving" type="button" (click)="backToList()"
+                            class="login-form-button m-l-10" [nzType]="'primary'">
+                            {{'BackToList'| translate}}
+                        </button>
+
+
+
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </form>
+</div>

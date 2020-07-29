@@ -14,6 +14,7 @@ import { CompanyFollowersComponent } from './company-followers/company-followers
 import { CompanyLeadsComponent } from './company-leads/company-leads.component';
 
 
+
 @NgModule({
   declarations: [AddCompanyComponent, CompanyListComponent, CompanyDetailsComponent, CompanyFollowersComponent, CompanyLeadsComponent],
   imports: [
