@@ -54,6 +54,7 @@ img{
           text-align: center;
           a {
             display: inline-block;
+            padding-bottom: 20px;
             img {
               width: 140px;
               height: 140px;
@@ -93,7 +94,7 @@ img{
                     a {
                         font-family: "josefin_sanssemibold";
                         display: block;
-                        font-size: 28px;
+                        font-size: 30px;
                         color: #000;
 
                     }
@@ -257,8 +258,6 @@ img{
       }
     }
   }
-  
- 
   
   @media screen and (max-width: 580px) {
     .article-full-img img {

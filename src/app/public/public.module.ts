@@ -33,7 +33,7 @@ import { PrivacyFrComponent } from './privacy/privacy-fr/privacy-fr.component';
 import { PrivacyEsComponent } from './privacy/privacy-es/privacy-es.component';
 import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
 import { Cloudinary } from 'cloudinary-core';
-import { CompanyComponent } from './companies/company.component';
+import { CompanyComponent } from './company/company.component';
 @NgModule({
   declarations: [
     HomeComponent,

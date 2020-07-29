@@ -476,5 +476,7 @@
     "CoverImageRequired": "Image de couverture requise.",
     "LogoImageRequired": "Image du logo requise",
     "PleaseCheckAllFields": "Une erreur s'est produite! Veuillez vérifier tous les champs.",
-    "BackToList": "Retour à la liste"
+    "BackToList": "Retour à la liste",
+    "followCompany": "Suivez nous",
+    "unfollowCompany": "Suivez-nouss"
 }
