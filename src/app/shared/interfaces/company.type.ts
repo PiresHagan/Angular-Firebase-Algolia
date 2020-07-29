@@ -1,4 +1,5 @@
 export interface Company {
+    id?: string;
     name?: string,
     email?: string,
     lang?: string,
@@ -17,5 +18,5 @@ export interface Company {
     },
     created_at: string,
     updated_at: string;
-
+    type?: string;
 }

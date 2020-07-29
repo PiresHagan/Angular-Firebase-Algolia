@@ -95,11 +95,12 @@
             <div class="col-md-12">
                 <nz-form-item>
                     <nz-form-label>{{'CompanyPresentation'| translate}}</nz-form-label>
-                    <nz-form-control
-                        nzErrorTip="{{'CompanyPresentation'| translate}} {{'required' | translate}} {{'AndValidFormat' | translate}}">
-                        <textarea rows="4" nz-input name="company_presentation"
-                            placeholder="{{'CompanyPresentation'| translate}}"
-                            formControlName="company_presentation"></textarea>
+                    <nz-form-control nzErrorTip="{{'CompanyPresentation'| translate}} {{'required' | translate}}">
+
+                        <quill-editor [style]="{height: '300px',width: '100%'}" formControlName="company_presentation"
+                            [modules]="editorConfig" placeholder="{{'CompanyPresentation'| translate}}"></quill-editor>
+
+
                     </nz-form-control>
                 </nz-form-item>
             </div>
