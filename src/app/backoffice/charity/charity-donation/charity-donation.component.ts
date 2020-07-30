@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TableService } from 'src/app/shared/services/table.service';
-import { CompanyService } from '../../shared/services/company.service';
 import { ActivatedRoute } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd';
 import { TranslateService } from '@ngx-translate/core';
