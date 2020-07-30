@@ -18,6 +18,7 @@ import { VideoComponent } from './video/video.component';
 import { AudioComponent } from './audio/audio.component';
 import { CompanyComponent } from './company/company.component';
 import { CompaniesComponent } from './companies/companies.component';
+import { CharityComponent } from './charity/charity.component';
 
 
 const routes: Routes = [
@@ -162,6 +163,14 @@ const routes: Routes = [
     }
   },
   {
+    path: 'charity',
+    component: CharityComponent,
+    data: {
+      title: 'charity',
+      headerDisplay: "none"
+    }
+  },
+  {
     path: 'companies/:slug',
     component: CompanyComponent,
     data: {
@@ -194,6 +203,7 @@ const routes: Routes = [
       headerDisplay: "none"
     }
   },
+
 
 ];
 
