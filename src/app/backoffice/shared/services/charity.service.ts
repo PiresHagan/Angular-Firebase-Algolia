@@ -13,8 +13,9 @@ import { take, map } from 'rxjs/operators';
 })
 export class CharityService {
   private basePath = '/charities/';
-  private charityCollection = 'charities'
-  private followersCollection = "followers"
+  private charityCollection = 'charities';
+  private followersCollection = "followers";
+  private charityDonation = "donations";
   constructor(private http: HttpClient,
     public db: AngularFirestore) {
 
@@ -104,6 +105,36 @@ export class CharityService {
     return dataQuery.snapshotChanges().pipe(map(actions => {
       return {
         followers: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+        lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
+    })
+    );
+  }
+
+
+  getDonation(charityId, limit: number = 10, navigation: string = "first", lastVisible = null) {
+    if (!limit) {
+      limit = 10;
+    }
+    let dataQuery = this.db.collection(this.charityCollection).doc(charityId).collection(`${this.charityDonation}`, ref => ref
+      //.limit(limit)
+    )
+    switch (navigation) {
+      case 'next':
+        dataQuery = this.db.collection(this.charityCollection).doc(charityId).collection(`${this.charityDonation}`, ref => ref
+          .orderBy('created_at', 'desc')
+          //.limit(limit)
+          .startAfter(lastVisible))
+        break;
+    }
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        donations: actions.map(a => {
 
           const data: any = a.payload.doc.data();
           const id = a.payload.doc.id;
