@@ -45,9 +45,9 @@ export class CompanyLeadsComponent implements OnInit {
     {
       title: 'Created At'
     },
-    {
-      title: ''
-    }
+    // {
+    //   title: ''
+    // }
   ]
   originalData: DataItem[];
 

@@ -35,9 +35,10 @@
 
                             <td>{{item.first_name}} </td>
                             <td>{{item.last_name}} </td>
-                            <td>{{item.email}}</td>
                             <td>{{item.mobile_number}}</td>
-                            <td>{{item?.created_at}}</td>
+                            <td>{{item.email}}</td>
+                            <td>${{item.amount}}</td>
+                            <td>{{item?.created_at | date:'medium'}}</td>
 
                         </tr>
                     </tbody>

@@ -35,15 +35,15 @@
 
                             <td>{{item.first_name}} </td>
                             <td>{{item.last_name}} </td>
-                            <td>{{item.email}}</td>
                             <td>{{item.mobile_number}}</td>
-                            <td>{{item.created_at}}</td>
-                            <td class="text-md-right">
+                            <td>{{item.email}}</td>
+                            <td>{{item.created_at | date:'medium'}}</td>
+                            <!-- <td class="text-md-right">
                                 <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete"
                                     (click)="deleteLead(item.id)">
                                     <i nz-icon nzType="delete" nzTheme="outline"></i>
                                 </button>
-                            </td>
+                            </td> -->
                         </tr>
                     </tbody>
                 </nz-table>
