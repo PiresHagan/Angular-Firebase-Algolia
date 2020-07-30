@@ -63,7 +63,7 @@ export class AddCompanyComponent implements OnInit {
       company_slug: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(70), Validators.pattern('^[a-z0-9-]+$')]],
       company_bio: ['', [Validators.required]],
       company_presentation: ['', [Validators.required]],
-      comany_color_code: ['']
+      company_color_code: ['']
     });
   }
   setFormValues(companyDetails: Company) {
@@ -76,7 +76,7 @@ export class AddCompanyComponent implements OnInit {
       company_slug: companyDetails.slug,
       company_bio: companyDetails.bio,
       company_presentation: companyDetails.presentation,
-      company_color_code: companyDetails.color_code,
+      company_color_code: companyDetails.color_code ? companyDetails.color_code : "",
     });
     this.coverImage = companyDetails.cover;
     this.logoImage = companyDetails.logo;
@@ -132,7 +132,7 @@ export class AddCompanyComponent implements OnInit {
       slug: this.companyForm.value.company_slug,
       bio: this.companyForm.value.company_bio,
       presentation: this.companyForm.value.company_presentation,
-      color_code: this.companyForm.value.comany_color_code,
+      color_code: this.companyForm.value.company_color_code,
       logo: this.logoImage,
       // author: await this.getUserDetails(),
       cover: this.coverImage,

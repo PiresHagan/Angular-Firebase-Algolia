@@ -9,7 +9,7 @@
                             <div class="m-b-10 m-r-20 d-flex align-items-center">
                                 <div class="m-b-10 m-r-20">
                                     <nz-input-group [nzPrefix]="prefixTemplate">
-                                        <input type="text" nz-input placeholder="Search Project"
+                                        <input type="text" nz-input placeholder="{{'ComSearch' | translate}}"
                                             [(ngModel)]="searchInput" (ngModelChange)="search()">
                                     </nz-input-group>
                                     <ng-template #prefixTemplate>
@@ -40,8 +40,7 @@
                             <td>{{item.created_at}}</td>
                             <td class="text-md-right">
                                 <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete"
-                                    *ngIf="item.status == 'inactive' || item.status == 'pending'"
-                                    (click)="deleteCampaign(item.id)">
+                                    (click)="deleteLead(item.id)">
                                     <i nz-icon nzType="delete" nzTheme="outline"></i>
                                 </button>
                             </td>

@@ -76,7 +76,7 @@ export class AddCharityComponent implements OnInit {
       charity_slug: charityDetails.slug,
       charity_bio: charityDetails.bio,
       charity_presentation: charityDetails.presentation,
-      comany_color_code: charityDetails.color_code,
+      charity_color_code: charityDetails.color_code ? charityDetails.color_code : "",
     });
     this.coverImage = charityDetails.cover;
     this.logoImage = charityDetails.logo;

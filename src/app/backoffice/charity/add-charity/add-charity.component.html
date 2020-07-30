@@ -43,7 +43,7 @@
                     <nz-form-label>{{'CharityPhone'| translate}}</nz-form-label>
                     <nz-form-control
                         nzErrorTip="{{'CharityPhone'| translate}} {{'required' | translate}} {{'AndValidFormat' | translate}} e.g:9876543210">
-                        <input nz-input placeholder="{{'CharityPhone'| translate}}" formControlName="charity_phone" />
+                        <input nz-input placeholder="e.g :9xxxx9xxxx" formControlName="charity_phone" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -76,7 +76,8 @@
                 <nz-form-item>
                     <nz-form-label>{{'CharitySlug'| translate}}</nz-form-label>
                     <nz-form-control nzErrorTip="{{'CharitySlugError'| translate}}">
-                        <input nz-input name="charity_slug" placeholder="CharitySlug" formControlName="charity_slug" />
+                        <input nz-input name="charity_slug" placeholder="eg: abc-def-ghi"
+                            formControlName="charity_slug" />
                     </nz-form-control>
                 </nz-form-item>
             </div>

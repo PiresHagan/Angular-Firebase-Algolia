@@ -33,8 +33,8 @@
                     <nz-form-label>{{'CompanyEmail'| translate}}</nz-form-label>
                     <nz-form-control
                         nzErrorTip="{{'CompanyEmail'| translate}} {{'required' | translate}} {{'AndValidFormat' | translate}}">
-                        <input nz-input placeholder="{{'CompanyEmail'| translate}}" type="email" value=""
-                            formControlName="company_email" />
+                        <input nz-input placeholder="{{'CompanyEmail'| translate}} e.g: abc@gmail.com" type="email"
+                            value="" formControlName="company_email" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -43,7 +43,8 @@
                     <nz-form-label>{{'CompanyPhone'| translate}}</nz-form-label>
                     <nz-form-control
                         nzErrorTip="{{'CompanyPhone'| translate}} {{'required' | translate}} {{'AndValidFormat' | translate}} e.g:9876543210">
-                        <input nz-input placeholder="{{'CompanyPhone'| translate}}" formControlName="company_phone" />
+                        <input nz-input placeholder="{{'CompanyPhone'| translate}} eg: 9xxxx9xxxx"
+                            formControlName="company_phone" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -75,8 +76,9 @@
             <div class="col-md-12">
                 <nz-form-item>
                     <nz-form-label>{{'CompanySlug'| translate}}</nz-form-label>
-                    <nz-form-control nzErrorTip="{{'CompanySlug'| translate}} {{'required' | translate}}">
-                        <input nz-input name="company_slug" placeholder="CompanySlug" formControlName="company_slug" />
+                    <nz-form-control nzErrorTip="{{'CompanySlug'| translate}} {{'required' | translate}} ">
+                        <input nz-input name="company_slug" placeholder="{{'CompanySlug' |translate}} e.g: abc-def-ghi"
+                            formControlName="company_slug" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
