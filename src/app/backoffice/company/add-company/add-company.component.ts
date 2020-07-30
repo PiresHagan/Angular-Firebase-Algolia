@@ -61,9 +61,9 @@ export class AddCompanyComponent implements OnInit {
       company_phone: ['', [Validators.required, Validators.maxLength(10)]],
       company_lang: ['', [Validators.required]],
       company_slug: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(70), Validators.pattern('^[a-z0-9-]+$')]],
-      company_bio: ['', [Validators.required]],
+      company_bio: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]],
       company_presentation: ['', [Validators.required]],
-      company_color_code: ['']
+      company_color_code: ['', [Validators.pattern("^[#0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]]
     });
   }
   setFormValues(companyDetails: Company) {
