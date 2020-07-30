@@ -477,5 +477,16 @@
     "PleaseCheckAllFields": "¡Algo salió mal! Compruebe todos los campos",
     "BackToList": "Volver a la lista",
     "followCompany": "Síguenos",
-    "unfollowCompany": "Dejar de seguirnos"
+    "unfollowCompany": "Dejar de seguirnos",
+    "leadFirstNameError": "Ingrese su nombre",
+    "leadLastNameError": "Ingrese su apellido",
+    "leadEmailError": "Ingrese un correo electrónico válido",
+    "leadMobileError": "Ingrese su número de teléfono",
+    "addLeadFormTitle": "Póngase en contacto",
+    "leadSubmit": "Enviar",
+    "leadAddSuccess": "Enviado correctamente",
+    "leadInputFirstName": "Nombre",
+    "leadInputLastName": "Apellido",
+    "leadInputEmail": "Correo electrónico",
+    "leadInputPhoneNumber": "Número de teléfono"
 }

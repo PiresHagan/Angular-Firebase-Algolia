@@ -1,7 +1,7 @@
 <section class="is-article-block">
     <div class="container">
         <div class="article-full-img">
-            <img [src]='company.cover.url' [alt]='company.cover.alt'>
+            <img [src]='company?.cover?.url' [alt]='company?.cover?.alt'>
         </div>
         <div class="is-article-sec">
             <div class="is-left-profile">
@@ -18,14 +18,14 @@
             </div>
             <div class="is-main-article-content">
                 <div class="company-img">
-                    <img [src]='company.logo.url' [alt]='company.logo.alt'>
+                    <img [src]='company?.logo?.url' [alt]='company?.logo?.alt'>
                 </div>
                 <div class="is-content">
                     <div class="is-head">
                         <div class="company-name">
                             <h1>
-                                <a [ngStyle]="{'color': company.color_code}">
-                                    {{ company.name }}
+                                <a [ngStyle]="{'color': company?.color_code}">
+                                    {{ company?.name }}
                                 </a>
                             </h1>
                         </div>
@@ -41,9 +41,9 @@
                     </div>
                     <div class="is-body">
                         <div class="is-paragraph">
-                            <p class="big">{{ company.bio }}</p>
+                            <p class="big">{{ company?.bio }}</p>
                             <br>
-                            <p>{{ company.presentation }}</p>
+                            <p>{{ company?.presentation }}</p>
                         </div>
                     </div>
                 </div>
@@ -51,22 +51,49 @@
             </div>
             <div class="is-right-ad-section">
                 <div class="company-form">
-                    <h2>Get in touch</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="First name" class="input-box" />
-                    </div>
-                    <div class="form-row">
-                        <input type="text" placeholder="Last name" class="input-box" />
-                    </div>
-                    <div class="form-row">
-                        <input type="text" placeholder="Email" class="input-box" />
-                    </div>
-                    <div class="form-row">
-                        <input type="text" placeholder="Phone number" class="input-box" />
-                    </div>
-                    <div class="form-row">
-                        <button type="button" class="is-see-more">Submit</button>
-                    </div>
+                    <h2>{{ "addLeadFormTitle" | translate }}</h2>
+
+                    <form nz-form [formGroup]="addLeadForm" class="lead-form" (ngSubmit)="submitForm()">
+                        <nz-alert class="m-b-10" nzType="error" nzDescription="{{'invalidCaptchaErr' | translate}}" nzShowIcon *ngIf="invalidCaptcha"></nz-alert>
+
+                        <nz-alert class="m-b-10" nzType="success" nzMessage="{{'leadAddSuccess' | translate}}" nzShowIcon *ngIf="addLeadSuccess"></nz-alert>
+
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="{{'leadFirstNameError' | translate}}">
+                                <input type="text" nz-input formControlName="first_name" placeholder="{{'leadInputFirstName' | translate}}" id="firstName">
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="{{'leadLastNameError' | translate}}">
+                                <input type="text" nz-input formControlName="last_name" placeholder="{{'leadInputLastName' | translate}}" id="lastName">
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="{{'leadFirstNameError' | translate}}">
+                                <input type="email" nz-input formControlName="email" placeholder="{{'leadInputEmail' | translate}}" id="email">
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="{{'leadMobileError' | translate}}">
+                                <input type="number" nz-input formControlName="mobile_number" placeholder="{{'leadInputPhoneNumber' | translate}}" id="phoneNumber">
+                            </nz-form-control>
+                        </nz-form-item>
+                    
+                        <div>
+                            <div #recaptcha class="m-b-10">Loading Captcha...</div>
+
+                            <nz-form-item>
+                                <nz-form-control>
+                                    <div class="text-center">
+                                        <button nz-button class="is-login-btn" [nzLoading]="isFormSaving" [nzType]="'primary'">{{"leadSubmit" | translate}}</button>
+                                    </div>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

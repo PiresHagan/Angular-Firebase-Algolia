@@ -478,5 +478,16 @@
     "PleaseCheckAllFields": "Une erreur s'est produite! Veuillez vérifier tous les champs.",
     "BackToList": "Retour à la liste",
     "followCompany": "Suivez nous",
-    "unfollowCompany": "Suivez-nouss"
+    "unfollowCompany": "Suivez-nouss",
+    "leadFirstNameError": "Veuillez saisir votre prénom",
+    "leadLastNameError": "Veuillez saisir votre nom de famille",
+    "leadEmailError": "Veuillez saisir un e-mail valide",
+    "leadMobileError": "Veuillez saisir votre numéro de téléphone",
+    "addLeadFormTitle": "Entrez en contact",
+    "leadSubmit": "Soumettre",
+    "leadAddSuccess": "Soumis avec succès",
+    "leadInputFirstName": "Prénom",
+    "leadInputLastName": "Nom de famille",
+    "leadInputEmail": "E-mail",
+    "leadInputPhoneNumber": "Numéro de téléphone"
 }
