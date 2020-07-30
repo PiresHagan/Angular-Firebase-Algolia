@@ -516,5 +516,6 @@
     "leadInputFirstName": "First Name",
     "leadInputLastName": "Last Name",
     "leadInputEmail": "Email",
-    "leadInputPhoneNumber": "Phone Number"
+    "leadInputPhoneNumber": "Phone Number",
+    "companiesTitle": "Companies"
 }

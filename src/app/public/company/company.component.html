@@ -1,7 +1,7 @@
 <section class="is-article-block">
     <div class="container">
         <div class="article-full-img">
-            <img [src]='company?.cover?.url' [alt]='company?.cover?.alt'>
+            <img *ngIf="company" [src]='company?.cover?.url' [alt]='company?.cover?.alt'>
         </div>
         <div class="is-article-sec">
             <div class="is-left-profile">
@@ -18,7 +18,7 @@
             </div>
             <div class="is-main-article-content">
                 <div class="company-img">
-                    <img [src]='company?.logo?.url' [alt]='company?.logo?.alt'>
+                    <img *ngIf="company" [src]='company?.logo?.url' [alt]='company?.logo?.alt'>
                 </div>
                 <div class="is-content">
                     <div class="is-head">
@@ -43,14 +43,14 @@
                         <div class="is-paragraph">
                             <p class="big">{{ company?.bio }}</p>
                             <br>
-                            <p>{{ company?.presentation }}</p>
+                            <p innerHTML={{company?.presentation}}></p>
                         </div>
                     </div>
                 </div>
 
             </div>
             <div class="is-right-ad-section">
-                <div class="company-form">
+                <div class="company-form" *ngIf="company">
                     <h2>{{ "addLeadFormTitle" | translate }}</h2>
 
                     <form nz-form [formGroup]="addLeadForm" class="lead-form" (ngSubmit)="submitForm()">

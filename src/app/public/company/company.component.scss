@@ -4,6 +4,10 @@
   left: 25px;
 }
 
+nz-alert {
+  text-align: center;
+}
+
 img{
     max-width: 100%;
   }
@@ -87,6 +91,7 @@ img{
                 object-fit: cover;
                 border-radius: 100%;
                 border: 3px solid #fff;
+                background-color: white;
             }
         }
         .is-head {
@@ -572,5 +577,5 @@ img{
     .is-article-block .is-article-sec .is-left-profile .sticky-box {
       top: 190px;
   }
-  }
+}
   
