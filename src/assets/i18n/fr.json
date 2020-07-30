@@ -489,5 +489,6 @@
     "leadInputFirstName": "Prénom",
     "leadInputLastName": "Nom de famille",
     "leadInputEmail": "E-mail",
-    "leadInputPhoneNumber": "Numéro de téléphone"
+    "leadInputPhoneNumber": "Numéro de téléphone",
+    "companiesTitle": "Entreprises"
 }

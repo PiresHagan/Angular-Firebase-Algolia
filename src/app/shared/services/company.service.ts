@@ -79,4 +79,30 @@ export class CompanyService {
     return this.db.collection(this.companiesCollection).doc(companyId).collection(this.followersSubCollection).doc(followerId).valueChanges();
   }
 
+  getCompaniesOnScroll(limit: number, navigation: string, lastVisible, lang: string) {
+    let dataQuery = this.db.collection<Company[]>(`${this.companiesCollection}`, ref => ref
+      .where("lang", "==", lang)
+      .orderBy('created_at', 'desc')
+      .limit(limit));
+    
+    if(navigation == 'next') {
+      dataQuery = this.db.collection<Company[]>(`${this.companiesCollection}`, ref => ref
+        .where("lang", "==", lang)
+        .orderBy('created_at', 'desc')
+        .limit(limit)
+        .startAfter(lastVisible));
+    }
+
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        companyList: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          return data;
+        }),
+        lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
+    }));
+  }
+
 }
