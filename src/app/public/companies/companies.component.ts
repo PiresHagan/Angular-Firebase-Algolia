@@ -14,7 +14,7 @@ export class CompaniesComponent implements OnInit {
   loading: boolean = true;
   loadingMore: boolean = false;
   selectedLanguage: string = "";
-  companyLimit = 10;
+  companyLimit = 20;
 
   constructor(
     private companyService: CompanyService,

@@ -163,18 +163,18 @@ const routes: Routes = [
     }
   },
   {
-    path: 'charity',
-    component: CharityComponent,
-    data: {
-      title: 'charity',
-      headerDisplay: "none"
-    }
-  },
-  {
     path: 'companies/:slug',
     component: CompanyComponent,
     data: {
       title: 'company',
+      headerDisplay: "none"
+    }
+  },
+  {
+    path: 'charities/:slug',
+    component: CharityComponent,
+    data: {
+      title: 'charity',
       headerDisplay: "none"
     }
   },
