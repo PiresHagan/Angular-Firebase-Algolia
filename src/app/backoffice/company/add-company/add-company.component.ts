@@ -63,7 +63,7 @@ export class AddCompanyComponent implements OnInit {
       company_slug: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(70), Validators.pattern('^[a-z0-9-]+$')]],
       company_bio: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]],
       company_presentation: ['', [Validators.required]],
-      company_color_code: ['', [Validators.pattern("^[#0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]]
+      company_color_code: ['', [Validators.pattern("^[#0-9a-f]{7}$")]]
     });
   }
   setFormValues(companyDetails: Company) {
@@ -274,6 +274,10 @@ export class AddCompanyComponent implements OnInit {
       }
     }
     return invalid;
+  }
+
+  get company(): Company {
+    return this.companyDetails;
   }
 
 }
