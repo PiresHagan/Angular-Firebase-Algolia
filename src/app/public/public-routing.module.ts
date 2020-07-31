@@ -19,6 +19,7 @@ import { AudioComponent } from './audio/audio.component';
 import { CompanyComponent } from './company/company.component';
 import { CompaniesComponent } from './companies/companies.component';
 import { CharityComponent } from './charity/charity.component';
+import { CharityListComponent } from './charity-list/charity-list.component';
 
 
 const routes: Routes = [
@@ -167,6 +168,14 @@ const routes: Routes = [
     component: CompanyComponent,
     data: {
       title: 'company',
+      headerDisplay: "none"
+    }
+  },
+  {
+    path: 'charities',
+    component: CharityListComponent,
+    data: {
+      title: 'charities',
       headerDisplay: "none"
     }
   },
