@@ -517,5 +517,20 @@
     "leadInputLastName": "Last Name",
     "leadInputEmail": "Email",
     "leadInputPhoneNumber": "Phone Number",
-    "companiesTitle": "Companies"
+    "companiesTitle": "Companies",
+    "donateCharityTitle": "Donate",
+    "followCharity": "Follow Us",
+    "unfollowCharity": "Unfollow Us",
+    "donatedSuccessfully": "Donated Successfully",
+    "donateInputFirstName": "First Name",
+    "donateInputLastName": "Last Name",
+    "donateInputEmail": "Email",
+    "donateInputPhoneNumber": "Phone Number",
+    "donateInputAmount": "Amount",
+    "donateFirstNameError": "Please input your first name",
+    "donateLastNameError": "Please input your last name",
+    "donateEmailError": "Please input a valid email",
+    "donateMobileError": "Please input a valid phone number",
+    "donateAmountError": "Please input a valid amount",
+    "charitiesTitle": "Charities"
 }

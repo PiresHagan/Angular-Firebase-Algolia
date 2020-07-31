@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { CompanyService } from 'src/app/shared/services/company.service';
 import { LanguageService } from 'src/app/shared/services/language.service';
+import { CharityService } from 'src/app/shared/services/charity.service';
 
 @Component({
-  selector: 'app-companies',
-  templateUrl: './companies.component.html',
-  styleUrls: ['./companies.component.scss']
+  selector: 'app-charity-list',
+  templateUrl: './charity-list.component.html',
+  styleUrls: ['./charity-list.component.scss']
 })
-export class CompaniesComponent implements OnInit {
+export class CharityListComponent implements OnInit {
 
-  companies: any[];
+  charities: any[];
   lastVisible: any = null;
   loading: boolean = true;
   loadingMore: boolean = false;
   selectedLanguage: string = "";
-  companyLimit = 20;
+  charityListLimit = 20;
 
   constructor(
-    private companyService: CompanyService,
+    private charityService: CharityService,
     private langService: LanguageService
   ) { }
 
@@ -26,12 +26,12 @@ export class CompaniesComponent implements OnInit {
 
     window.addEventListener('scroll', this.scrollEvent, true);
 
-    this.getFirstCompanies();
+    this.getFirstCharities();
   }
 
-  getFirstCompanies() {
-    this.companyService.getCompaniesOnScroll(this.companyLimit, 'first', this.lastVisible, this.selectedLanguage).subscribe((data) => {
-      this.companies = data.companyList;
+  getFirstCharities() {
+    this.charityService.getCharitiesOnScroll(this.charityListLimit, 'first', this.lastVisible, this.selectedLanguage).subscribe((data) => {
+      this.charities = data.charityList;
       this.lastVisible = data.lastVisible;
       this.loading = false;
     });
@@ -44,9 +44,9 @@ export class CompaniesComponent implements OnInit {
       const offset = event.target.documentElement.offsetHeight
       if (top > height - offset - 1 - 100 && this.lastVisible && !this.loadingMore) {
         this.loadingMore = true;
-        this.companyService.getCompaniesOnScroll(this.companyLimit, 'next', this.lastVisible, this.selectedLanguage).subscribe((data) => {
+        this.charityService.getCharitiesOnScroll(this.charityListLimit, 'next', this.lastVisible, this.selectedLanguage).subscribe((data) => {
           this.loadingMore = false;
-          this.companies = [...this.companies, ...data.companyList];
+          this.charities = [...this.charities, ...data.charityList];
           this.lastVisible = data.lastVisible;
         });
       }

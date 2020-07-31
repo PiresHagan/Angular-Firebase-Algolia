@@ -1,4 +1,5 @@
 export interface Charity {
+    id?: string;
     name?: string,
     email?: string,
     lang?: string,

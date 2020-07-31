@@ -1,3 +1,13 @@
+:host ::ng-deep .ant-alert-icon {
+  top: 7px;
+  font-size: 20px;
+  left: 25px;
+}
+
+nz-alert {
+  text-align: center;
+}
+
 img{
     max-width: 100%;
   }
@@ -81,6 +91,7 @@ img{
               object-fit: cover;
               border-radius: 100%;
               border: 3px solid #fff;
+              background-color: white;
           }
       }
         .is-head {
@@ -94,7 +105,7 @@ img{
                     a {
                         font-family: "josefin_sanssemibold";
                         display: block;
-                        font-size: 28px;
+                        font-size: 30px;
                         color: #ff4020;
                         span{
                           display: block;
@@ -246,10 +257,10 @@ img{
       .is-right-ad-section {
         width: 25%;
         padding:30px 0px 0px 20px;
-        .company-form{
-          text-align: center;
+        .charity-form{
           box-shadow: 0px 0px 9px 10px rgba(0,0,0,0.02);
           padding: 20px;
+          margin-bottom: 100px;
           >h2{
               font-family: "josefin_sanssemibold";
               text-align: center;
