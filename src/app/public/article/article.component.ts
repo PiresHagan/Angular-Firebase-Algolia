@@ -73,7 +73,7 @@ export class ArticleComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
 
-    this.selectedLanguage = this.langService.getSelectedLanguage();
+      this.selectedLanguage = this.langService.getSelectedLanguage();
 
       const slug = params.get('slug');
       this.articleService.getArtical(slug).subscribe(artical => {
@@ -209,14 +209,14 @@ export class ArticleComponent implements OnInit {
 
 
   saveCommentOnServer(commentData) {
-    this.articleService.createComment(this.article.id, commentData).then(() => {
+    this.articleService.createComment(this.article.id, commentData).subscribe(() => {
       this.isFormSaving = false;
       this.messageDetails = '';
       this.articleService.commentCount(this.article.id);
       this.showCommentSavedMessage();
       this.newComment();
-    }).catch((e) => {
-      console.log(e)
+    }, err => {
+
       this.isFormSaving = false;
     })
   }
@@ -232,14 +232,14 @@ export class ArticleComponent implements OnInit {
   updateCommentOnServer(editedCommentId, commentData) {
     this.editedCommentId = '';
 
-    this.articleService.updateComment(this.article.id, editedCommentId, commentData).then(() => {
+    this.articleService.updateComment(this.article.id, editedCommentId, commentData).subscribe(() => {
       this.isFormSaving = false;
       this.messageDetails = '';
       this.showCommentSavedMessage();
       this.newComment();
 
-    }).catch((e) => {
-      console.log(e)
+    }, () => {
+
       this.isFormSaving = false;
     })
   }
@@ -300,15 +300,15 @@ export class ArticleComponent implements OnInit {
   }
   async follow(authorId) {
     const userDetails = this.getUserDetails();
-    
+
     await this.authorService.follow(authorId, userDetails);
-    
+
     await this.authorService.following(userDetails.id, this.article.author);
-    
+
     this.authorService.followCount(authorId, userDetails.id, 1);
-    
+
     const analytics = firebase.analytics();
-    
+
     analytics.logEvent("follow_author", {
       author_id: this.article.author.id,
       author_name: this.article.author.fullname,
@@ -319,15 +319,15 @@ export class ArticleComponent implements OnInit {
 
   async unfollow(authorId) {
     const userDetails = this.getUserDetails();
-    
+
     await this.authorService.unfollow(authorId, userDetails.id);
-    
+
     await this.authorService.unfollowing(userDetails.id, authorId);
-    
+
     this.authorService.followCount(authorId, userDetails.id, -1);
-    
+
     const analytics = firebase.analytics();
-    
+
     analytics.logEvent("unfollow_author", {
       author_id: this.article.author.id,
       author_name: this.article.author.fullname,

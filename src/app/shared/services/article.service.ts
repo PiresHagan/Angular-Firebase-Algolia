@@ -8,6 +8,8 @@ import { ACTIVE } from '../constants/status-constants';
 import * as firebase from 'firebase/app';
 import * as moment from 'moment';
 import { STAFF } from '../constants/member-constant';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,8 @@ export class ArticleService {
   articleLikesCollection: string = 'likes';
   articleCommentsCollection: string = 'comments';
   articleImagePath: string = '/article';
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore, private storage: AngularFireStorage, ) { }
+  constructor(private afAuth: AngularFireAuth,
+    private db: AngularFirestore, private storage: AngularFireStorage, private http: HttpClient) { }
 
   getAll() {
     return this.db.collection<Article[]>(this.articleCollection).snapshotChanges().pipe(
@@ -116,7 +119,8 @@ export class ArticleService {
    */
 
   createComment(articleId: string, commentDtails: Comment) {
-    return this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`).add(commentDtails);
+
+    return this.http.post(environment.baseAPIDomain + '/api/v1/articles/' + articleId + "/comments", commentDtails);
   }
 
   /**
@@ -127,7 +131,8 @@ export class ArticleService {
    * @param commentDtails 
    */
   updateComment(articleId: string, commentid: string, commentDtails: Comment) {
-    return this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`).doc(commentid).set(commentDtails)
+    return this.http.put(environment.baseAPIDomain + '/api/v1/articles/' + articleId + "/comments/" + commentid, commentDtails);
+    // return this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`).doc(commentid).set(commentDtails)
   }
 
 
@@ -470,15 +475,23 @@ export class ArticleService {
 
 
   like(articleId: string, likerData) {
-    return this.db.collection(this.articleCollection).doc(articleId).collection(this.articleLikesCollection).doc(likerData.id).set(likerData).then(() => {
-      this.likeCount(articleId)
-    })
+
+
+    return this.http.post(environment.baseAPIDomain + '/api/v1/articles/' + articleId + "/like/", likerData).subscribe(() => {
+
+    });
+
+
   }
 
   disLike(articleId: string, likerId) {
-    return this.db.collection(this.articleCollection).doc(articleId).collection(this.articleLikesCollection).doc(likerId).delete().then(() => {
-      this.disLikeCount(articleId)
-    })
+    return this.http.post(environment.baseAPIDomain + '/api/v1/articles/' + articleId + "/unlike/", {}).subscribe(() => {
+
+    });
+
+    // return this.db.collection(this.articleCollection).doc(articleId).collection(this.articleLikesCollection).doc(likerId).delete().then(() => {
+    //   this.disLikeCount(articleId)
+    // })
   }
 
   isLikedByUser(articleId: string, likerId) {

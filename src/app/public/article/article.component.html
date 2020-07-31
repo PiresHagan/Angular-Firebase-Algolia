@@ -116,10 +116,12 @@
                             </div>
                         </div>
                         <div *ngIf="articleType === AUDIO" class="main-audio-sec">
-                            <cl-video [public-id]="article.article_file.cloudinary_id" resource-type="video" class="cld-audio-wave">
+                            <cl-video [public-id]="article.article_file.cloudinary_id" resource-type="video"
+                                class="cld-audio-wave">
                                 <cl-transformation flags="waveform"></cl-transformation>
-                              </cl-video>
-                            <cl-video [public-id]="article.article_file.cloudinary_id" secure="true" controls="true" class="cld-audio"></cl-video>
+                            </cl-video>
+                            <cl-video [public-id]="article.article_file.cloudinary_id" secure="true" controls="true"
+                                class="cld-audio"></cl-video>
                             <div class="video-control">
                                 <ul>
                                     <li>
@@ -188,18 +190,18 @@
                                             </div>
                                             <div class="pull-right">
                                                 <a class="comment-view-replies" *ngIf="isLoggedInUser"
-                                                    (click)="replyComment(articleComment.uid,articleComment)">
+                                                    (click)="replyComment(articleComment.id,articleComment)">
                                                     {{'reply' | translate}}</a>
                                                 <span
                                                     *ngIf="isLoggedInUser && userDetails?.id===articleComment?.author?.id">
                                                     / </span><a class="comment-view-replies"
                                                     *ngIf="isLoggedInUser && userDetails?.id===articleComment?.author?.id"
-                                                    (click)="editComment(articleComment.uid,articleComment)">
+                                                    (click)="editComment(articleComment.id,articleComment)">
                                                     {{'edit' | translate}}</a> <span
                                                     *ngIf="isLoggedInUser  && userDetails?.id!==articleComment?.author?.id">
                                                     / </span><a [nzLoading]="true" class="comment-view-replies"
                                                     *ngIf="isLoggedInUser && userDetails?.id!==articleComment?.author?.id"
-                                                    (click)="reportAbuseComment(articleComment.uid,articleComment)">
+                                                    (click)="reportAbuseComment(articleComment.id,articleComment)">
                                                     <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseLoading">
                                                     </nz-spin>
                                                     {{'reportAbuse' | translate}}
@@ -338,7 +340,8 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </div><div class="clearfix"></div>
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
                             <div *ngIf="similarArticle.type !== VIDEO" class="related-audio">
                                 <div class="thumbnail-audio">
@@ -360,7 +363,8 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </div><div class="clearfix"></div>
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
                         </a>
                     </div>
