@@ -531,5 +531,6 @@
     "donateLastNameError": "Please input your last name",
     "donateEmailError": "Please input a valid email",
     "donateMobileError": "Please input a valid phone number",
-    "donateAmountError": "Please input a valid amount"
+    "donateAmountError": "Please input a valid amount",
+    "charitiesTitle": "Charities"
 }

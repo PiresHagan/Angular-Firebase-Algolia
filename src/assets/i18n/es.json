@@ -503,5 +503,6 @@
     "donateLastNameError": "Ingrese su apellido",
     "donateEmailError": "Ingrese un correo electrónico válido",
     "donateMobileError": "Ingrese un número de teléfono válido",
-    "donateAmountError": "Ingrese una cantidad válida"
+    "donateAmountError": "Ingrese una cantidad válida",
+    "charitiesTitle": "Caridades"
 }

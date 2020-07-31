@@ -504,5 +504,6 @@
     "donateLastNameError": "Veuillez saisir votre nom de famille",
     "donateEmailError": "Veuillez saisir un e-mail valide",
     "donateMobileError": "Veuillez saisir un numéro de téléphone valide",
-    "donateAmountError": "Veuillez saisir un montant valide"
+    "donateAmountError": "Veuillez saisir un montant valide",
+    "charitiesTitle": "Charities"
 }
