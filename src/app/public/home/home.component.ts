@@ -12,6 +12,7 @@ import { Author } from 'src/app/shared/interfaces/authors.type';
 import { Observable } from 'rxjs';
 import { SeoDataService } from 'src/app/shared/services/seo-data.service';
 import { SeoData } from 'src/app/shared/interfaces/seo-data.type';
+import { CacheService } from 'src/app/shared/services/cache.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -38,6 +39,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private articleService: ArticleService,
     private authorService: AuthorService,
+    private cacheService: CacheService,
     public translate: TranslateService,
     private themeService: ThemeConstantService,
     private titleService: Title,
@@ -78,7 +80,7 @@ export class HomeComponent implements OnInit {
 
     this.selectedLanguage = this.languageService.getSelectedLanguage();
 
-    this.articleService.getHeroArticles(this.selectedLanguage).subscribe(articles => {
+    this.cacheService.getSponsoredArticles(this.selectedLanguage).subscribe(articles => {
       this.heroArticles = articles;
     });
 
@@ -93,7 +95,7 @@ export class HomeComponent implements OnInit {
       this.setArticleData();
       this.getAuthors();
 
-      this.articleService.getHeroArticles(this.selectedLanguage).subscribe(articles => {
+      this.cacheService.getSponsoredArticles(this.selectedLanguage).subscribe(articles => {
         this.heroArticles = articles;
       });
       
@@ -117,9 +119,9 @@ export class HomeComponent implements OnInit {
   }
 
   getAuthors() {
-    this.authorList = this.authorService.getAuthors(this.selectedLanguage);
-
+    this.authorList = this.cacheService.getTopContributors(this.selectedLanguage);
   }
+
   replaceImage(url) {
     let latestURL = url
     if (url) {
