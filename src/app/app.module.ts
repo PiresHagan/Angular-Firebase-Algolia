@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
+import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
+import { Cloudinary } from 'cloudinary-core';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 
@@ -27,10 +29,13 @@ import { AuthService } from './shared/services/authentication.service';
 
 import { TranslateLoader, TranslateModule, TranslateStore } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LanguageService } from './shared/services/language.service';
 import { PreviousRouteService } from './shared/services/previous-route.service';
 import { NgAisModule } from 'angular-instantsearch';
+import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
+import { ArticleInteractionComponent } from './shared/component/article-interaction/article-interaction.component';
+
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -44,11 +49,11 @@ registerLocaleData(en);
         AppComponent,
         CommonLayoutComponent,
         FullLayoutComponent,
-        BackofficeLayoutComponent
-    ],
+        BackofficeLayoutComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
+        CloudinaryModule.forRoot({Cloudinary}, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
         NgZorroAntdModule,
         AppRoutingModule,
         TemplateModule,
@@ -62,7 +67,7 @@ registerLocaleData(en);
         QuillModule.forRoot(),
         HttpClientModule,
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] } }),
-        NgAisModule.forRoot(),
+        NgAisModule.forRoot()
     ],
     exports: [
     ],
@@ -76,8 +81,9 @@ registerLocaleData(en);
         AuthService,
         PreviousRouteService,
         ScreenTrackingService,
-        UserTrackingService
+        UserTrackingService,
 
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
 })

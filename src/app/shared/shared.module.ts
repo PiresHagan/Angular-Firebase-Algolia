@@ -11,6 +11,7 @@ import { StripTagsPipe } from './pipes/striptags.pipe';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ImgSizePipe } from './pipes/img-size.pipe';
+import { ArticleInteractionComponent } from './component/article-interaction/article-interaction.component';
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -23,20 +24,25 @@ export function createTranslateLoader(http: HttpClient) {
         HttpClientModule,
         NgZorroAntdModule,
         PerfectScrollbarModule,
-        SearchPipe
+        SearchPipe,
+        ArticleInteractionComponent
     ],
     imports: [
         RouterModule,
         CommonModule,
         NgZorroAntdModule,
         PerfectScrollbarModule,
+
         TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })
     ],
     declarations: [
         SearchPipe,
         StripTagsPipe,
         ImgSizePipe,
+        ArticleInteractionComponent
+
     ],
+
     providers: [
         ThemeConstantService
     ]

@@ -1,0 +1,119 @@
+.is-follower-member {
+    background: #fff;
+    padding: 20px 20px 0px 20px;
+    margin: 20px 0px;
+    border: 1px solid #eee;
+    .is-comman-title {
+        color: #000;
+        padding: 0px 0px 5px 0px;
+        font-weight: bold;
+        font-size: 24px;
+        width: 100%;
+        font-family: "josefin_sanssemibold";
+        position: relative;
+        margin-bottom: 10px;
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            width: 60px;
+            height: 1px;
+            background: #000;
+        }
+    }
+    .container {
+        width: 1780px;
+        margin: auto;
+        padding: 0px 15px;
+    }
+    .col-lg-1 {
+        padding: 0px;
+    }
+
+    .is-member {
+        display: flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+        align-items: center;
+        padding-top: 30px;
+
+        .is-member-item {
+            margin: 0px 10px 0px 10px;
+            position: relative;
+            width: 110px;
+            height: 110px;
+            border-radius: 100%;
+            text-align: center;
+            position: relative;
+            .is-profile-img-link {
+                display: block;
+                cursor: pointer;
+                position: relative;
+                border-radius: 100%;
+                overflow: hidden;
+                &::after {
+                    content: "";
+                    position: absolute;
+                    left: 0px;
+                    top: 0px;
+                    background: rgba(0, 0, 0, 0.5);
+                    width: 100%;
+                    height: 100%;
+                }
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 100%;
+                }
+                .overlay-txt {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    color: #f5f5f5;
+                    z-index: 1;
+                    h2 {
+                        font-size: 20px;
+                        color: #fff;
+                        position: relative;
+                        font-family: "josefin_sanslight";
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            bottom: 0px;
+                            width: 20px;
+                            height: 1px;
+                            background: #fff;
+                            margin: auto;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .is-see-more {
+        font-size: 18px;
+        background: #23d7d4;
+        border: 0px;
+        color: #fff;
+        padding: 10px 35px 8px 35px;
+        cursor: pointer;
+        font-family: "josefin_sansregular";
+        border-radius: 55px;
+        line-height: 26px;
+        outline: none;
+        margin-bottom: 20px;
+        width: 240px;
+        margin: 20px auto 20px;
+        &:focus {
+            outline: none;
+        }
+    }
+}

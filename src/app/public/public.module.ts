@@ -22,34 +22,41 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgAisModule } from 'angular-instantsearch';
 import { BuyComponent } from './buy/buy.component';
 import { QuillModule } from 'ngx-quill';
-import { createTranslateLoader } from '../shared/shared.module';
+import { createTranslateLoader, SharedModule } from '../shared/shared.module';
 import { InfluencerComponent } from './influencer/influencer.component';
 import { TodayComponent } from './today/today.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { PrivacyEnComponent } from './privacy/privacy-en/privacy-en.component';
+import { VideoComponent } from './video/video.component';
+import { AudioComponent } from './audio/audio.component';
 import { PrivacyFrComponent } from './privacy/privacy-fr/privacy-fr.component';
 import { PrivacyEsComponent } from './privacy/privacy-es/privacy-es.component';
+import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
+import { Cloudinary } from 'cloudinary-core';
 @NgModule({
   declarations: [
-    HomeComponent, 
-    CategoryComponent, 
-    ArticleComponent, 
-    ProfileComponent, 
-    Copywriter1Component, 
-    Copywriter2Component, 
-    ContactComponent, 
-    TermsComponent, 
-    FaqComponent, 
-    SearchEngineComponent, 
-    BuyComponent, 
-    InfluencerComponent, 
+    HomeComponent,
+    CategoryComponent,
+    ArticleComponent,
+    ProfileComponent,
+    Copywriter1Component,
+    Copywriter2Component,
+    ContactComponent,
+    TermsComponent,
+    FaqComponent,
+    SearchEngineComponent,
+    BuyComponent,
+    InfluencerComponent,
     TodayComponent,
     PrivacyComponent,
     PrivacyEnComponent,
+    VideoComponent,
+    AudioComponent,
     PrivacyFrComponent,
     PrivacyEsComponent
   ],
   imports: [
+    CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
     CommonModule,
     PublicRoutingModule,
     HttpClientModule,
@@ -60,7 +67,8 @@ import { PrivacyEsComponent } from './privacy/privacy-es/privacy-es.component';
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } }),
     NzCollapseModule,
     NgAisModule.forRoot(),
+    SharedModule
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PublicModule { }

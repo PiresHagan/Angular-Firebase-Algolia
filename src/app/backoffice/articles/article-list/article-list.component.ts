@@ -4,6 +4,7 @@ import { Article } from 'src/app/shared/interfaces/article.type';
 import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { NzModalService, NzMessageService } from "ng-zorro-antd";
+import { BackofficeArticleService } from '../../shared/services/backoffice-article.service';
 
 @Component({
   selector: 'app-article-list',
@@ -22,7 +23,7 @@ export class ArticleListComponent implements OnInit {
   constructor(
     public translate: TranslateService,
     public authService: AuthService,
-    public articleService: ArticleService,
+    public articleService: BackofficeArticleService,
     private modalService: NzModalService,
     private message: NzMessageService,
   ) { }

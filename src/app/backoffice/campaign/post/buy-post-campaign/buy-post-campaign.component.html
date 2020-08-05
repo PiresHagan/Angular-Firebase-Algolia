@@ -1,0 +1,72 @@
+<div class="container m-t-10">
+    <div class="profile-article-list">
+        <nz-card [nzBordered]="false" nzTitle="{{ 'CampSponPost' | translate}}">
+
+            <form nz-form [formGroup]="postCampaignForm" class="login-form"
+                (ngSubmit)="submitForm(postCampaignForm.value)">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- <nz-form-item>
+
+                            <nz-form-label nzRequired>{{'PostSelectAnArticle' | translate}}</nz-form-label>
+                            <nz-form-control
+                                nzErrorTip="{{'PostSelectAnArticle' | translate}} {{'required' | translate}}">
+                                <input nz-input placeholder="{{'PostSelectAnArticle' | translate}}"
+                                    formControlName="article">
+                            </nz-form-control>
+                        </nz-form-item> -->
+
+                        <nz-form-item>
+                            <nz-form-label nzRequired>{{'PostSelectAnArticle' | translate}}</nz-form-label>
+                            <nz-form-control
+                                nzErrorTip="{{'PostSelectAnArticle' | translate}} {{'required' | translate}}"
+                                class="m-5">
+                                <nz-select class="m-r-10" formControlName="article" nzAllowClear
+                                    nzPlaceHolder="{{'PostSelectAnArticle' | translate}}">
+                                    <!-- (ngModelChange)="languageSelected($event)" -->
+                                    <nz-option *ngFor="let article of articleList" [nzValue]="article.id"
+                                        nzLabel="{{article.title}}">
+                                    </nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+
+
+                        <nz-form-item>
+                            <nz-form-label nzRequired>{{'PostPickADate' | translate}}</nz-form-label>
+                            <nz-form-control nzErrorTip="{{'PostPickADate' | translate}} {{'required' | translate}}">
+                                <nz-date-picker class="w-100" nzFormat="yyyy/MM/dd" formControlName="campaignDate"
+                                    nzPlaceHolder="{{'PostPickADate' | translate}}"></nz-date-picker>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <strong class="m-b-10">{{'CampPrice' |translate}}: ${{price}}</strong>
+                        </nz-form-item>
+
+                        <div class="d-flex align-items-center justify-content-between">
+                            <nz-form-item>
+                                <nz-form-control>
+                                    <div>
+                                        <button nz-button class="login-form-button" [disabled]="!postCampaignForm.valid"
+                                            [nzType]="'primary'"
+                                            [nzLoading]="isFormSaving">{{'CampNext' | translate}}</button>
+                                    </div>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <img class="screen" src="assets/images/campaign/top-article.png" alt="" />
+
+                    </div>
+
+
+                </div>
+                <!-- </nz-card>  -->
+
+            </form>
+        </nz-card>
+    </div>
+</div>

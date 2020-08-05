@@ -70,4 +70,13 @@ export class LanguageService {
   getlanguageFromLS() {
     return isPlatformBrowser(this.platformId) ? localStorage.getItem('user_lang') : this.defaultLanguage;
   }
+  getLanguageByCode(code: string) {
+    for (let index = 0; index < this.languageList.length; index++) {
+      const language = this.languageList[index];
+      if (language.code == code) {
+        return language;
+      }
+
+    }
+  }
 }

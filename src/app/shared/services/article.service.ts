@@ -275,7 +275,7 @@ export class ArticleService {
   }
 
 
-  getArticlesByAuthor(authorId: string, limit: number = 10, navigation: string = "first", lastVisible = null) {
+  getArticlesByAuthor(authorId: string, limit: number = 10, navigation: string = "first", lastVisible = null, type = null) {
     if (!limit) {
       limit = 10;
     }
@@ -285,6 +285,16 @@ export class ArticleService {
       .orderBy('published_at', 'desc')
       .limit(limit)
     )
+    if (type) {
+      dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+        .where("author.id", "==", authorId)
+        .where('status', "==", ACTIVE)
+        .where('type', "==", type)
+        .orderBy('published_at', 'desc')
+
+        .limit(limit)
+      )
+    }
     switch (navigation) {
       case 'next':
         dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
@@ -293,6 +303,15 @@ export class ArticleService {
           .orderBy('published_at', 'desc')
           .limit(limit)
           .startAfter(lastVisible))
+        if (type) {
+          dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+            .where("author.id", "==", authorId)
+            .where('status', "==", ACTIVE)
+            .where('type', "==", type)
+            .orderBy('published_at', 'desc')
+            .limit(limit)
+            .startAfter(lastVisible))
+        }
         break;
     }
     return dataQuery.snapshotChanges().pipe(map(actions => {
@@ -448,40 +467,9 @@ export class ArticleService {
     })
   }
 
-  createArticle(article) {
-    return new Promise((resolve, reject) => {
-      this.db.collection(`${this.articleCollection}`).add(article).then((articleData) => {
-        resolve(articleData)
-      })
-    }).catch((error) => {
-      console.log(error)
-    })
-  }
 
-  updateArticleImage(articleId, imageDetails) {
-    return new Promise<any>((resolve, reject) => {
-      this.db.collection(`${this.articleCollection}`).doc(`${articleId}`).update(imageDetails).then(() => {
-        resolve();
-      })
-    })
-  }
 
-  addArticleImage(articleId: string, imageDetails: any) {
-    const path = `${this.articleImagePath}/${Date.now()}_${imageDetails.file.name}`;
-    return new Promise((resolve, reject) => {
-      this.storage.upload(path, imageDetails.file).then(
-        snapshot => {
-          snapshot.ref.getDownloadURL().then((downloadURL) => {
-            const imageUrl: string = downloadURL;
-            this.updateArticleImage(articleId, { image: { url: imageUrl, alt: imageDetails.alt } }).then(res => resolve()).catch(err => reject(err))
-          }).catch(err => reject(err))
-        }).catch((error) => {
-          console.log(error);
-          reject();
-        });
 
-    })
-  }
   like(articleId: string, likerData) {
     return this.db.collection(this.articleCollection).doc(articleId).collection(this.articleLikesCollection).doc(likerData.id).set(likerData).then(() => {
       this.likeCount(articleId)
@@ -509,9 +497,6 @@ export class ArticleService {
         }
       })
     })
-  }
-  updateArticle(articleId: string, articleDetails) {
-    return this.db.collection(`${this.articleCollection}`).doc(`${articleId}`).set(articleDetails)
   }
 
   updateViewCount(articleId: string) {

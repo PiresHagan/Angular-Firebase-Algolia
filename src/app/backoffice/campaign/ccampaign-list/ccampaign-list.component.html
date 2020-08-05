@@ -1,0 +1,78 @@
+<section>
+    <div class="container">
+        <div class="campaign-manager-sec">
+            <div class="is-comman-title">
+                {{'CampaignList' | translate}}
+            </div>
+            <p>{{'CampListText1' | translate}}</p>
+
+
+            <div class="card-sec">
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <div class="item-card">
+                            <a [routerLink]="['/app/campaign/buy-sponsored-post']">
+                                <div class="item-card-image">
+                                    <img src="assets/images/campaign/post-2.jpg" alt="">
+                                </div>
+                                <div class="item-card-content">
+                                    <div class="item-card-title">
+                                        <h4 class="item-long-title">{{'CampSponPost' | translate}}</h4>
+                                    </div>
+                                    <div class="item-card-texte">
+                                        <p>{{'CampListText2' | translate}}</p>
+                                        <button type="button" class="is-read-more">{{'CampBuyTopPost' | translate}}<img
+                                                src="assets/images/read-more-icon.png"
+                                                alt="{{'CampBuyTopPost' | translate}}" /></button>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <div class="item-card">
+                            <a [routerLink]="['/app/campaign/buy-top-contributor']">
+                                <div class="item-card-image">
+                                    <img src="assets/images/campaign/contributor.jpeg" alt="">
+                                </div>
+                                <div class="item-card-content">
+                                    <div class="item-card-title">
+                                        <h4 class="item-long-title">{{'CampSponCon' | translate}}</h4>
+                                    </div>
+                                    <div class="item-card-texte">
+                                        <p>{{'CampListText2' | translate}}</p>
+                                        <button type="button"
+                                            class="is-read-more">{{'CampBuyTopContributor' | translate}}<img
+                                                src="assets/images/read-more-icon.png"
+                                                alt="{{'CampBuyTopContributor' | translate}}" /></button>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <div class="item-card">
+                            <a [routerLink]="['/app/campaign/buy-search-engine']">
+                                <div class="item-card-image">
+                                    <img src="assets/images/campaign/search-engine.jpg" alt="">
+                                </div>
+                                <div class="item-card-content">
+                                    <div class="item-card-title">
+                                        <h4 class="item-long-title">{{'CampSearchEngine' | translate}}</h4>
+                                    </div>
+                                    <div class="item-card-texte">
+                                        <p>{{'CampListText3' | translate}}</p>
+                                        <button type="button"
+                                            class="is-read-more">{{'CampBuySearchEngine' | translate}}<img
+                                                src="assets/images/read-more-icon.png"
+                                                alt="{{'CampBuyTopPost' | translate}}" /></button>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

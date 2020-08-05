@@ -17,7 +17,14 @@ export interface Article {
     view_count?: number;
     status?: any;
     likes_count?: number;
+    comments_count?: number;
     published_on?: string;
     created_at?: string;
     published_at?: string;
+    type?: string;
+    article_file?: {
+        url: string,
+        name: string,
+        cloudinary_id: string
+    }
 }

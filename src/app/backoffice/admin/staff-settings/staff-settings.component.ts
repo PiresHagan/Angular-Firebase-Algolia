@@ -12,8 +12,8 @@ import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 import { Member } from "src/app/shared/interfaces/member.type";
 import { CategoryService } from "src/app/shared/services/category.service";
 import { LanguageService } from "src/app/shared/services/language.service";
-import { StaffArticleService } from "src/app/shared/services/staff-article.service";
 import { AuthService } from "src/app/shared/services/authentication.service";
+import { CommonBackofficeService } from "../../shared/services/common-backoffice.service";
 
 
 @Component({
@@ -50,11 +50,10 @@ export class StaffSettingsComponent {
     private modalService: NzModalService,
     private message: NzMessageService,
     private userService: UserService,
-    private staffService: StaffArticleService,
     public translate: TranslateService,
     public categoryService: CategoryService,
     public languageService: LanguageService,
-    public articleService: StaffArticleService,
+    public commonBackofficeService: CommonBackofficeService,
     public authService: AuthService
   ) { }
 
@@ -138,7 +137,7 @@ export class StaffSettingsComponent {
     this.modalService.confirm({
       nzTitle: "<i>" + $message + "</i>",
       nzOnOk: () => {
-        this.staffService.updatePassword(this.currentUser.email, password).then(() => {
+        this.commonBackofficeService.updatePassword(this.currentUser.email, password).then(() => {
           this.showSuccess();
         })
       },
@@ -256,7 +255,7 @@ export class StaffSettingsComponent {
       searchValue = this.memberSlug
     }
 
-    this.staffService.getMember(searchKey, searchValue).subscribe((receiVedUserDetails) => {
+    this.commonBackofficeService.getMember(searchKey, searchValue).subscribe((receiVedUserDetails) => {
 
       const userDetails = receiVedUserDetails ? receiVedUserDetails[0] : null;
       if (!userDetails) {
@@ -289,7 +288,7 @@ export class StaffSettingsComponent {
     })
   }
   getMemberList() {
-    this.staffService.getMemberList().subscribe((memberData) => {
+    this.commonBackofficeService.getMemberList().subscribe((memberData) => {
       this.memberList = memberData.memberList;
       this.lastVisible = memberData.lastVisible;
     })
@@ -309,7 +308,7 @@ export class StaffSettingsComponent {
       console.log(height, offset, top)
       if (top > height - offset - 1 - 100 && this.lastVisible && !this.loadingMore) {
         this.loadingMore = true;
-        this.staffService.getMemberList(null, 'next', this.lastVisible).subscribe((memberListData) => {
+        this.commonBackofficeService.getMemberList(null, 'next', this.lastVisible).subscribe((memberListData) => {
           this.loadingMore = false;
           if (memberListData &&
             memberListData.memberList &&
