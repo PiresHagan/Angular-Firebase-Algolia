@@ -61,9 +61,9 @@ export class AddCharityComponent implements OnInit {
       charity_phone: ['', [Validators.required, Validators.maxLength(10)]],
       charity_lang: ['', [Validators.required]],
       charity_slug: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(70), Validators.pattern('^[a-z0-9-]+$')]],
-      charity_bio: ['', [Validators.required]],
+      charity_bio: ['', [Validators.required, Validators.maxLength(250)]],
       charity_presentation: ['', [Validators.required]],
-      charity_color_code: ['']
+      charity_color_code: ['', [Validators.pattern("^[#0-9a-f]{7}$")]]
     });
   }
   setFormValues(charityDetails: Charity) {
@@ -84,15 +84,21 @@ export class AddCharityComponent implements OnInit {
 
   }
 
-  getCharityDetails() {
+
+
+  async getCharityDetails() {
     let charityId = this.activatedRoute.snapshot.queryParams["charity"];
+    const userDetails = await this.authService.getLoggedInUserDetails();
     if (!charityId)
       return;
-    this.charityService.get(charityId).subscribe((charityDetails: Charity) => {
-      if (charityDetails) {
-        this.setFormValues(charityDetails)
+    this.charityService.get(charityId, userDetails.id).subscribe((charityDetails: Charity) => {
+      if (charityDetails[0]) {
+        this.setFormValues(charityDetails[0])
       } else {
         this.showErrorMessage('InvalidCharityDetails');
+        setTimeout(() => {
+          this.backToList();
+        }, 2000)
       }
 
     }, () => {
@@ -134,6 +140,7 @@ export class AddCharityComponent implements OnInit {
       presentation: this.charityForm.value.charity_presentation,
       color_code: this.charityForm.value.comany_color_code,
       logo: this.logoImage,
+      type: 'charity',
       // author: await this.getUserDetails(),
       cover: this.coverImage,
       created_at: this.charityDetails && !this.charityDetails.id ? this.charityDetails.created_at : new Date().toISOString(),

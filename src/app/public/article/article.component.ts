@@ -415,4 +415,14 @@ export class ArticleComponent implements OnInit {
     return moment(date).fromNow();
   }
 
+  getArticleUrl(article) {
+    if (!article || !article.author.type) {
+      return '/'
+    } else if (article.author.type == 'charity') {
+      return '/charities/';
+    } else if (article.author.type == 'company') {
+      return '/companies/';
+    }
+  }
+
 }

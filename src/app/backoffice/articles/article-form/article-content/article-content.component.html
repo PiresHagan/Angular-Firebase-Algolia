@@ -29,6 +29,28 @@
 
 
             <nz-form-item>
+              <nz-form-control nzErrorTip="{{'Select Author' | translate}}" class="m-5">
+                <nz-select class="m-r-10" formControlName="author" nzAllowClear
+                  nzPlaceHolder="{{'Select Author' | translate}}">
+
+                  <nz-option-group nzLabel="Author" *ngIf="authorList?.currentUser">
+                    <nz-option [nzValue]="authorList?.currentUser" [nzLabel]="authorList?.currentUser.fullname">
+                    </nz-option>
+                  </nz-option-group>
+
+                  <nz-option-group nzLabel="Companies" *ngIf="authorList?.companies">
+                    <nz-option [nzValue]="company" [nzLabel]="company.name"
+                      *ngFor="let company of authorList?.companies"></nz-option>
+                  </nz-option-group>
+
+                  <nz-option-group nzLabel="Charities" *ngIf="authorList?.charities">
+                    <nz-option [nzValue]="charity" [nzLabel]="charity.name"
+                      *ngFor="let charity of authorList?.charities"></nz-option>
+                  </nz-option-group>
+
+                </nz-select>
+              </nz-form-control>
+
               <nz-form-control nzErrorTip="{{'langErr' | translate}}" class="m-5">
                 <nz-select class="m-r-10" formControlName="lang" nzAllowClear nzPlaceHolder="{{'lang' | translate}}"
                   (ngModelChange)="languageSelected($event)">

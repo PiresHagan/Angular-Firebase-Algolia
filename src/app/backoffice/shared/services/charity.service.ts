@@ -47,8 +47,23 @@ export class CharityService {
     return this.http.put(apicall, postData)
 
   }
-  get(charityId: string): Observable<any> {
-    return this.db.doc(`${this.charityCollection}/${charityId}`).valueChanges();
+
+  get(charityId: string, userId: string): Observable<any> {
+    return this.db.collection<Charity>(`${this.charityCollection}`, ref =>
+      ref.where("owner.id", "==", userId)
+        .where("id", "==", charityId)
+    )
+      .snapshotChanges()
+      .pipe(
+        take(1),
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+      );
   }
   deletCharity(charityId) {
     const apicall = environment.baseAPIDomain + '/api/v1/charities/' + charityId;

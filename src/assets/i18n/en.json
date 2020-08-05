@@ -533,5 +533,8 @@
     "donateMobileError": "Please input a valid phone number",
     "donateAmountError": "Please input a valid amount",
     "charitiesTitle": "Charities",
-    "InvalidValue": "Invalid value."
+    "InvalidValue": "Invalid value.",
+    "CharityArticle": "Charity Articles",
+    "CompanyArticle": "Company Articles",
+    "CharityAdded": "Charity added successfully."
 }

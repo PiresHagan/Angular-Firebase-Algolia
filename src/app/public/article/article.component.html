@@ -7,7 +7,7 @@
             <div class="is-left-profile">
                 <div class="sticky-box">
                     <div class="is-profile">
-                        <a [routerLink]="['/',article?.author?.slug]" itemprop="url" *ngIf="article">
+                        <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
                             <img class="avatar" src="{{replaceImage(article?.author?.avatar?.url)}}"
                                 alt="{{article?.author?.avatar?.alt}}"
                                 onerror="this.src='assets/images/default-avatar.png'" />
@@ -16,7 +16,8 @@
                     <!-- <div class="is-author-name-sec is-divider" *ngIf="isLoggedInUser">-->
                     <div class="is-author-name-sec is-divider">
                         <span class="is-author-name" itemprop="author" itemscope="">
-                            <a [routerLink]="['/',article?.author?.slug]" itemprop="url" *ngIf="article">
+                            <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url"
+                                *ngIf="article">
                                 <span class="name" itemprop="name">
                                     {{article?.author?.fullname}}</span>
                             </a>
@@ -75,7 +76,8 @@
                         </h2>
                         <div class="is-small-profile">
                             <div class="is-image">
-                                <a [routerLink]="['/',article?.author?.slug]" itemprop="url" *ngIf="article">
+                                <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url"
+                                    *ngIf="article">
                                     <img class="avatar" alt="{{article?.author?.avatar?.alt}}"
                                         src="{{replaceImage(article?.author?.avatar?.url)}}"
                                         onerror="this.src='assets/images/default-avatar.png'" />

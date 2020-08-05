@@ -528,5 +528,8 @@
     "donateEmailError": "Veuillez saisir un e-mail valide",
     "donateMobileError": "Veuillez saisir un numéro de téléphone valide",
     "donateAmountError": "Veuillez saisir un montant valide",
-    "charitiesTitle": "Charities"
+    "charitiesTitle": "Charities",
+    "CharityArticle": "Charity Articles",
+    "CompanyArticle": "Articles sur la société",
+    "CharityAdded": "Association caritative ajoutée avec succès."
 }

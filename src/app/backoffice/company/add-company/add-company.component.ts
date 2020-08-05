@@ -45,7 +45,8 @@ export class AddCompanyComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private languageService: LanguageService,
     private companyService: CompanyService,
-    public authService: AuthService,
+    public authService: AuthService
+
 
   ) { }
   ngOnInit(): void {
@@ -84,17 +85,20 @@ export class AddCompanyComponent implements OnInit {
 
   }
 
-  getCompanyDetails() {
+  async getCompanyDetails() {
     let companyId = this.activatedRoute.snapshot.queryParams["company"];
+    const userDetails = await this.authService.getLoggedInUserDetails();
     if (!companyId)
       return;
-    this.companyService.get(companyId).subscribe((companyDetails: Company) => {
-      if (companyDetails) {
-        this.setFormValues(companyDetails)
+    this.companyService.get(companyId, userDetails.id).subscribe((companyDetails: Company) => {
+      if (companyDetails[0]) {
+        this.setFormValues(companyDetails[0])
       } else {
         this.showErrorMessage('InvalidCompanyDetails');
+        setTimeout(() => {
+          this.backToList();
+        }, 2000)
       }
-
     }, () => {
       this.showErrorMessage('InvalidCompanyDetails');
     })
@@ -134,10 +138,11 @@ export class AddCompanyComponent implements OnInit {
       presentation: this.companyForm.value.company_presentation,
       color_code: this.companyForm.value.company_color_code,
       logo: this.logoImage,
+      type: 'company',
       // author: await this.getUserDetails(),
       cover: this.coverImage,
       created_at: this.companyDetails && !this.companyDetails.id ? this.companyDetails.created_at : new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     }
     if (this.companyDetails && this.companyDetails.id) {
       this.updateCompany(formData);

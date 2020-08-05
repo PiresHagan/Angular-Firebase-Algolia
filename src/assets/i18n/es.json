@@ -527,5 +527,8 @@
     "donateEmailError": "Ingrese un correo electrónico válido",
     "donateMobileError": "Ingrese un número de teléfono válido",
     "donateAmountError": "Ingrese una cantidad válida",
-    "charitiesTitle": "Caridades"
+    "charitiesTitle": "Caridades",
+    "CharityArticle": "Artículos de caridad",
+    "CompanyArticle": "Artículos de la empresa",
+    "CharityAdded": "La caridad se agregó con éxito"
 }
