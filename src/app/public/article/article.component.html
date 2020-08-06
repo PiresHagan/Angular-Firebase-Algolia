@@ -21,11 +21,11 @@
                                 <span class="name" itemprop="name">
                                     {{article?.author?.fullname}}</span>
                             </a>
-                            <a class="follow-btn" *ngIf="!isFollowing" (click)="follow(article?.author?.id)">
+                            <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
                                 <img src="assets/images/article/icon/follow.png" />
                                 {{'followAuthor' | translate}}
                             </a>
-                            <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow(article?.author?.id)">
+                            <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
                                 <img src="assets/images/article/icon/un-follow.png" />
                                 {{'unfollowAuthor' | translate}}
                             </a>

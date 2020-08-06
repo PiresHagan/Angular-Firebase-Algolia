@@ -298,36 +298,22 @@ export class ArticleComponent implements OnInit {
       id: this.userDetails.id,
     }
   }
-  async follow(authorId) {
+
+  follow() {
+    this.authorService.follow(this.article.author.id, this.article.author.type);
     const userDetails = this.getUserDetails();
-
-    await this.authorService.follow(authorId, userDetails);
-
-    await this.authorService.following(userDetails.id, this.article.author);
-
-    this.authorService.followCount(authorId, userDetails.id, 1);
-
     const analytics = firebase.analytics();
-
-    analytics.logEvent("follow_author", {
+    analytics.logEvent("unfollow_author", {
       author_id: this.article.author.id,
       author_name: this.article.author.fullname,
       user_uid: userDetails.id,
       user_name: userDetails.fullname,
     });
   }
-
-  async unfollow(authorId) {
+  unfollow() {
+    this.authorService.unfollow(this.article.author.id, this.article.author.type);
     const userDetails = this.getUserDetails();
-
-    await this.authorService.unfollow(authorId, userDetails.id);
-
-    await this.authorService.unfollowing(userDetails.id, authorId);
-
-    this.authorService.followCount(authorId, userDetails.id, -1);
-
     const analytics = firebase.analytics();
-
     analytics.logEvent("unfollow_author", {
       author_id: this.article.author.id,
       author_name: this.article.author.fullname,
@@ -337,7 +323,7 @@ export class ArticleComponent implements OnInit {
   }
 
   setFollowOrNot() {
-    this.authorService.isUserFollowing(this.article.author.id, this.getUserDetails().id).subscribe((data) => {
+    this.authorService.isUserFollowing(this.article.author.id, this.getUserDetails().id, this.article.author.type).subscribe((data) => {
       if (data) {
         this.isFollowing = true;
       } else {
