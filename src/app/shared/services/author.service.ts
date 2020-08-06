@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import 'firebase/storage';
-import * as firebase from 'firebase/app'
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { STAFF, AUTHOR, MEMBER, COMPANY, CHARITY } from '../constants/member-constant';
 
 
 
@@ -52,13 +52,13 @@ export class AuthorService {
   }
 
 
-  isUserFollowing(authorId: string, followerId: string, type: string = "author") {
-    if (type == 'author')
+  isUserFollowing(authorId: string, followerId: string, type: string = null) {
+    if (!type || type == STAFF || type == AUTHOR || type == MEMBER)
       return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followersCollection).doc(followerId).valueChanges();
-    else if (type == 'company') {
+    else if (type == COMPANY) {
       return this.afs.collection(this.companiesColection).doc(authorId).collection(this.followersCollection).doc(followerId).valueChanges();
     }
-    else if (type == 'charity') {
+    else if (type == CHARITY) {
       return this.afs.collection(this.charitiesCollection).doc(authorId).collection(this.followersCollection).doc(followerId).valueChanges();
     }
   }
@@ -146,25 +146,25 @@ export class AuthorService {
     );
   }
 
-  follow(authorId: string, type: string = 'author') {
-    if (type == 'author')
+  follow(authorId: string, type: string = null) {
+    if (!type || type == STAFF || type == AUTHOR || type == MEMBER)
       return this.http.post(environment.baseAPIDomain + `/api/v1/members/${authorId}/follow`, {}).subscribe();
-    else if (type == 'company') {
+    else if (type == COMPANY) {
       return this.http.post(environment.baseAPIDomain + `/api/v1/companies/${authorId}/follow`, {}).subscribe();
     }
-    else if (type == 'charity') {
+    else if (type == CHARITY) {
       return this.http.post(environment.baseAPIDomain + `/api/v1/charities/${authorId}/follow`, {}).subscribe();
     }
 
   }
 
-  unfollow(authorId: string, type: string = 'author') {
-    if (type == 'author')
+  unfollow(authorId: string, type: string = null) {
+    if (!type || type == STAFF || type == AUTHOR || type == MEMBER)
       return this.http.post(environment.baseAPIDomain + `/api/v1/members/${authorId}/unfollow`, {}).subscribe();
-    else if (type == 'company') {
+    else if (type == COMPANY) {
       return this.http.post(environment.baseAPIDomain + `/api/v1/companies/${authorId}/unfollow`, {}).subscribe();
     }
-    else if (type == 'charity') {
+    else if (type == CHARITY) {
       return this.http.post(environment.baseAPIDomain + `/api/v1/charities/${authorId}/unfollow`, {}).subscribe();
     }
 

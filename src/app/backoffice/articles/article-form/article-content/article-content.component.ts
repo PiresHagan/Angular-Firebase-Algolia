@@ -16,6 +16,7 @@ import { AUDIO, VIDEO, TEXT } from 'src/app/shared/constants/article-constants';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CompanyService } from 'src/app/backoffice/shared/services/company.service';
 import { CharityService } from 'src/app/backoffice/shared/services/charity.service';
+import { AUTHOR } from 'src/app/shared/constants/member-constant';
 
 @Component({
   selector: 'app-article-content',
@@ -317,7 +318,7 @@ export class ArticleContentComponent implements OnInit {
         url: userDetails.avatar?.url || userDetails.logo?.url,
         alt: userDetails.avatar?.alt || userDetails.logo?.alt
       },
-      type: userDetails.type ? userDetails.type : 'author',
+      type: userDetails.type ? userDetails.type : AUTHOR,
       id: userDetails.id
     }
   }
