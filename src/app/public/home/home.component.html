@@ -14,7 +14,7 @@
                             [alt]="article.author.avatar?.alt">
                             
                             <div class="special-icon" *ngIf="article.author.type==='company'">
-                                <img src="assets/images/company-icon.png" />
+                                <img src="assets/images/company-icon.png" style="max-width: 22px;"/>
                             </div>
                             <div class="special-icon" *ngIf="article.author.type==='charity'">
                                 <img src="assets/images/charity-icon.png" />
@@ -100,7 +100,7 @@
                             [src]="replaceImage(article.author.avatar?.url)!= unknown ? replaceImage(article.author.avatar?.url) : DefaultAvatar"
                             [alt]="article.author.avatar?.alt">
                             <div class="special-icon" *ngIf="article.author.type==='company'">
-                                <img src="assets/images/company-icon.png" />
+                                <img src="assets/images/company-icon.png" style="max-width: 22px;"/>
                             </div>
                             <div class="special-icon" *ngIf="article.author.type==='charity'">
                                 <img src="assets/images/charity-icon.png" />
@@ -191,7 +191,7 @@
                                         [src]="replaceImage(article.author.avatar?.url)!= unknown ? replaceImage(article.author.avatar?.url) : DefaultAvatar"
                                         [alt]="article.author.avatar?.alt">
                                         <div class="special-icon" *ngIf="article.author.type==='company'">
-                                            <img src="assets/images/company-icon.png" />
+                                            <img src="assets/images/company-icon.png" style="max-width: 22px;"/>
                                         </div>
                                         <div class="special-icon" *ngIf="article.author.type==='charity'">
                                             <img src="assets/images/charity-icon.png" />
