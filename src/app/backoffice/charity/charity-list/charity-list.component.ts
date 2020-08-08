@@ -16,6 +16,7 @@ export class CharityListComponent implements OnInit {
   blogs = [];
   loading: boolean = true;
   loadingMore: boolean = false;
+  setupPaymentLoading: boolean = false;
   charities: Charity[];
   lastVisible: any = null;
   userDetails;
@@ -81,6 +82,20 @@ export class CharityListComponent implements OnInit {
       },
     });
 
+  }
+
+  setupConnectedAccount(charityId: string) {
+    this.setupPaymentLoading = true;
+    this.charityService.setupConnectedAccount(charityId).subscribe((response: any) => {
+      if (response.url) {
+        window && window.open(response.url, '_self')
+      } else {
+      }
+      this.setupPaymentLoading = false;
+    }, (error) => {
+      this.setupPaymentLoading = false;
+      console.error('Error',error);
+    })
   }
 
 

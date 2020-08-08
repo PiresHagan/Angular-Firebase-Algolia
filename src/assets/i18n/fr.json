@@ -491,6 +491,7 @@
     "InvalidCharityDetails": "Détails de l'organisme de bienfaisance non valides.",
     "AddNewCharity": "Ajouter une nouvelle association",
     "NoCharity": "Entreprises non trouvées.",
+    "SetupPaymentAccount": "Configurer le compte de paiement",
     "DeleteCharity": "Delete Charity",
     "EditCharity": "Edit Charity",
     "CharityDetails": "Détails de l'organisme de bienfaisance",

@@ -495,6 +495,7 @@
     "InvalidCharityDetails": "Invalid Charity details.",
     "AddNewCharity": "Add New Charity",
     "NoCharity": "Companies not found.",
+    "SetupPaymentAccount": "Setup Payment Account",
     "DeleteCharity": "Delete Charity",
     "EditCharity": "Edit Charity",
     "CharityDetails": "Charity Details",
