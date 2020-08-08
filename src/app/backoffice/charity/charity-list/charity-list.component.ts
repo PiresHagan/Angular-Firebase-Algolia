@@ -87,16 +87,25 @@ export class CharityListComponent implements OnInit {
   setupConnectedAccount(charityId: string) {
     this.setupPaymentLoading = true;
     this.charityService.setupConnectedAccount(charityId).subscribe((response: any) => {
+      this.setupPaymentLoading = false;
+
       if (response.url) {
         window && window.open(response.url, '_self')
       } else {
+        this.showError("CharityAccountError");
       }
-      this.setupPaymentLoading = false;
     }, (error) => {
       this.setupPaymentLoading = false;
-      console.error('Error',error);
+
+      this.showError("CharityAccountError");
     })
   }
 
+  showError(errorMessage) {
+    const msg = this.translate.instant(errorMessage);
+    this.modalService.error({
+      nzTitle: "<i>" + msg + "</i>",
+    });
+  }
 
 }

@@ -531,5 +531,6 @@
     "charitiesTitle": "Caridades",
     "CharityArticle": "Artículos de caridad",
     "CompanyArticle": "Artículos de la empresa",
-    "CharityAdded": "La caridad se agregó con éxito"
+    "CharityAdded": "La caridad se agregó con éxito",
+    "CharityAccountError": "Une erreur s'est produite. Veuillez vous connecter avec l'équipe d'assistance."
 }

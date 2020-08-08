@@ -532,5 +532,6 @@
     "charitiesTitle": "Charities",
     "CharityArticle": "Charity Articles",
     "CompanyArticle": "Articles sur la société",
-    "CharityAdded": "Association caritative ajoutée avec succès."
+    "CharityAdded": "Association caritative ajoutée avec succès.",
+    "CharityAccountError": "Algo salió mal. Conéctese con el equipo de soporte"
 }

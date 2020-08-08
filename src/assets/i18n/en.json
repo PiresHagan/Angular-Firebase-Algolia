@@ -537,5 +537,6 @@
     "InvalidValue": "Invalid value.",
     "CharityArticle": "Charity Articles",
     "CompanyArticle": "Company Articles",
-    "CharityAdded": "Charity added successfully."
+    "CharityAdded": "Charity added successfully.",
+    "CharityAccountError": "Something went wrong. Please connect with support team."
 }
