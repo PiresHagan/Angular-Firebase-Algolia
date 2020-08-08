@@ -8,9 +8,18 @@
                 </div>
                 <div class="is-profile-main">
                     <div class="is-card-author-group">
-                        <img class="avatar"
+                        <div class="overlay-icon">
+                            <img class="avatar"
                             [src]="replaceImage(article.author.avatar?.url)!= unknown ? replaceImage(article.author.avatar?.url) : DefaultAvatar"
-                            [alt]="article.author.avatar?.alt">&nbsp;
+                            [alt]="article.author.avatar?.alt">
+                            
+                            <div class="special-icon" *ngIf="article.author.type==='company'">
+                                <img src="assets/images/company-icon.png" />
+                            </div>
+                            <div class="special-icon" *ngIf="article.author.type==='charity'">
+                                <img src="assets/images/charity-icon.png" />
+                            </div>
+                        </div>
                         <span class="is-card-author">{{article.author.fullname}}
                         </span>
                     </div>
@@ -27,18 +36,7 @@
                     </h2>
                     <p class="is-card-description">{{article.excerpt | slice:0:100 }}</p>
                     
-                        <div  *ngIf="article.type==='audio'">
-                            <button type="button" class="is-read-more">{{'ListenNow' | translate }}<img
-                            src="assets/images/read-more-icon.png" alt="Listen Now" /></button>
-                        </div>
-                        <div  *ngIf="article.type==='video'">
-                            <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
-                            src="assets/images/read-more-icon.png" alt="Watch Now" /></button>
-                        </div>
-                        <div  *ngIf="!(article.type==='audio' || article.type==='video')">
-                            <button type="button" class="is-read-more">{{'readMore' | translate }} <img
-                            src="assets/images/read-more-icon.png" alt="Read More" /></button>
-                        </div>
+                       
                 </div>
                 <div class="article-comment-info">
                     <div class="article-icon">
@@ -50,6 +48,18 @@
                         </div>
                         <div class="icon-circle"  *ngIf="!(article.type==='audio' || article.type==='video')">
                             <i class="far fa-file-alt"></i>
+                        </div>
+                        <div  *ngIf="article.type==='audio'">
+                            <button type="button" class="is-read-more">{{'ListenNow' | translate }}<img
+                            src="assets/images/read-more-icon.png" alt="Listen Now" /></button>
+                        </div>
+                        <div  *ngIf="article.type==='video'">
+                            <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                            src="assets/images/read-more-icon.png" alt="Watch Now" /></button>
+                        </div>
+                        <div  *ngIf="!(article.type==='audio' || article.type==='video')">
+                            <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                            src="assets/images/read-more-icon.png" alt="Read More" /></button>
                         </div>
                     </div>
                     <div class="comment-section">
@@ -85,9 +95,17 @@
                 </div>
                 <div class="is-profile-main">
                     <div class="is-card-author-group">
-                        <img class="avatar"
+                        <div  class="overlay-icon">
+                            <img class="avatar"
                             [src]="replaceImage(article.author.avatar?.url)!= unknown ? replaceImage(article.author.avatar?.url) : DefaultAvatar"
-                            [alt]="article.author.avatar?.alt">&nbsp;
+                            [alt]="article.author.avatar?.alt">
+                            <div class="special-icon" *ngIf="article.author.type==='company'">
+                                <img src="assets/images/company-icon.png" />
+                            </div>
+                            <div class="special-icon" *ngIf="article.author.type==='charity'">
+                                <img src="assets/images/charity-icon.png" />
+                            </div>
+                        </div>
                         <span class="is-card-author">{{article.author.fullname}}
                         </span>
                     </div>
@@ -103,18 +121,7 @@
                         <div>{{article.title}}</div>
                     </h2>
                     <p class="is-card-description">{{article.excerpt | slice:0:100 }}</p>
-                    <div  *ngIf="article.type==='audio'">
-                        <button type="button" class="is-read-more">{{'ListenNow' | translate }}<img
-                        src="assets/images/read-more-icon.png" alt="Listen Now" /></button>
-                    </div>
-                    <div  *ngIf="article.type==='video'">
-                        <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
-                        src="assets/images/read-more-icon.png" alt="Watch Now" /></button>
-                    </div>
-                    <div  *ngIf="!(article.type==='audio' || article.type==='video')">
-                        <button type="button" class="is-read-more">{{'readMore' | translate }} <img
-                        src="assets/images/read-more-icon.png" alt="Read More" /></button>
-                    </div>
+                    
                     
                 </div>
                 <div class="article-comment-info">
@@ -127,6 +134,18 @@
                         </div>
                         <div class="icon-circle"  *ngIf="!(article.type==='audio' || article.type==='video')">
                             <i class="far fa-file-alt"></i>
+                        </div>
+                        <div  *ngIf="article.type==='audio'">
+                            <button type="button" class="is-read-more">{{'ListenNow' | translate }}<img
+                            src="assets/images/read-more-icon.png" alt="Listen Now" /></button>
+                        </div>
+                        <div  *ngIf="article.type==='video'">
+                            <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                            src="assets/images/read-more-icon.png" alt="Watch Now" /></button>
+                        </div>
+                        <div  *ngIf="!(article.type==='audio' || article.type==='video')">
+                            <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                            src="assets/images/read-more-icon.png" alt="Read More" /></button>
                         </div>
                     </div>
                     <div class="comment-section">
@@ -167,9 +186,17 @@
                             [ngStyle]="{'background-image': 'url(' + replaceImage(article.image.url)+ ')'}"></div>
                         <div class="is-profile-main">
                             <div class="is-card-author-group">
-                                <img class="avatar"
-                                    [src]="replaceImage(article.author.avatar?.url)!= unknown ? replaceImage(article.author.avatar?.url) : DefaultAvatar"
-                                    [alt]="article.author.avatar?.alt">
+                                <div  class="overlay-icon">
+                                    <img class="avatar"
+                                        [src]="replaceImage(article.author.avatar?.url)!= unknown ? replaceImage(article.author.avatar?.url) : DefaultAvatar"
+                                        [alt]="article.author.avatar?.alt">
+                                        <div class="special-icon" *ngIf="article.author.type==='company'">
+                                            <img src="assets/images/company-icon.png" />
+                                        </div>
+                                        <div class="special-icon" *ngIf="article.author.type==='charity'">
+                                            <img src="assets/images/charity-icon.png" />
+                                        </div>
+                                </div>
                                 <span class="is-card-author">{{article.author.fullname}}</span>
                             </div>
                             <div class="divider"></div>
@@ -184,18 +211,7 @@
                                 <div>{{article.title}}</div>
                             </h2>
                             <p class="is-card-description">{{article.excerpt}}</p>
-                            <div  *ngIf="article.type==='audio'">
-                                <button type="button" class="is-read-more">{{'ListenNow' | translate }}<img
-                                src="assets/images/read-more-icon.png" alt="Listen Now" /></button>
-                            </div>
-                            <div  *ngIf="article.type==='video'">
-                                <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
-                                src="assets/images/read-more-icon.png" alt="Watch Now" /></button>
-                            </div>
-                            <div  *ngIf="!(article.type==='audio' || article.type==='video')">
-                                <button type="button" class="is-read-more">{{'readMore' | translate }} <img
-                                src="assets/images/read-more-icon.png" alt="Read More" /></button>
-                            </div>
+                            
 
                         </div>
                         <div class="article-comment-info">
@@ -209,6 +225,18 @@
                                 </div>
                                 <div class="icon-circle"  *ngIf="!(article.type==='audio' || article.type==='video')">
                                     <i class="far fa-file-alt"></i>
+                                </div>
+                                <div  *ngIf="article.type==='audio'">
+                                    <button type="button" class="is-read-more">{{'ListenNow' | translate }}<img
+                                    src="assets/images/read-more-icon.png" alt="Listen Now" /></button>
+                                </div>
+                                <div  *ngIf="article.type==='video'">
+                                    <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                                    src="assets/images/read-more-icon.png" alt="Watch Now" /></button>
+                                </div>
+                                <div  *ngIf="!(article.type==='audio' || article.type==='video')">
+                                    <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                                    src="assets/images/read-more-icon.png" alt="Read More" /></button>
                                 </div>
                             </div>
                             <div class="comment-section">

@@ -97,11 +97,30 @@
         -webkit-box-align: center;
         align-items: center;
         white-space: nowrap;
-      img{
-        width: 40px;
-        height: 40px;
-        border-radius: 100%;
-        object-fit: cover;
+        .overlay-icon{
+          position: relative;
+            >img{
+              width: 70px;
+              height: 70px;
+              border-radius: 100%;
+              object-fit: cover;
+              background: #fff;
+            }
+            .special-icon{
+              position: absolute;
+              top: -10px;
+              right: -10px;
+              width: 40px;
+              height: 40px;
+              background: #000;
+              border: 1px solid #fff;
+              display: flex;
+              border-radius: 100%;
+              img{
+                max-width: 26px;
+                margin: auto;
+              }
+            }
 
       }
       .is-card-author{
@@ -137,6 +156,9 @@
     &:hover .is-card-bg{
       -webkit-transform: scale(1.2);
       transform: scale(1.2);
+    }
+    &:hover .article-comment-info .icon-circle{
+      background: #000 !important;
     }
     .is-card-content{
       position: relative;
@@ -203,16 +225,19 @@
       .article-icon{
         position: relative;
         z-index: 1;
+        display: flex;
+        align-items: center;
         .icon-circle{
-         width:60px;
-         height: 60px;
-         background: #fff;
-         display: flex;
-         border-radius: 100%;
+          width: 45px;
+          height: 45px;
+          background: #ff4020;
+          display: flex;
+          border-radius: 100%;
+          margin-right: 15px;
          i{
-           font-size: 26px;
-           color: #ff4020;
-           margin: auto;
+          font-size: 19px;
+          color: #fff;
+          margin: auto;
          }
         }
 
@@ -945,7 +970,8 @@
       }
 
       .is-hero-card{
-        padding: 15px;
+        padding: 25px;
+        
         .is-profile-main{
           .is-card-author-group{
             img{
@@ -986,9 +1012,12 @@
             }
             
           }
-        
+          
       
     }
+  }
+  .is-hero-card:hover .article-comment-info{
+    background: #000 !important;
   }
   .is-comman-title{
     font-size: 24px;
