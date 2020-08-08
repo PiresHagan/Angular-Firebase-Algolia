@@ -162,7 +162,7 @@ export class CharityService {
   }
 
   setupConnectedAccount(charityId: string) {
-    return this.http.post(environment.baseAPIDomain + '/v1/payment/sessions/connectedAccount', {
+    return this.http.post(environment.baseAPIDomain + '/api/v1/payment/sessions/connectedAccount', {
       charityId: charityId,
       redirectUrl: window && window.location && window.location.href || '',
       refreshUrl: window && window.location && window.location.href || ''
