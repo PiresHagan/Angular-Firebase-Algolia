@@ -538,5 +538,10 @@
     "CharityArticle": "Charity Articles",
     "CompanyArticle": "Company Articles",
     "CharityAdded": "Charity added successfully.",
-    "CharityAccountError": "Something went wrong. Please connect with support team."
+    "CharityAccountError": "Something went wrong. Please connect with support team.",
+    "donateInputMessage": "Message",
+    "donateMessageError": "Please input your message",
+    "cardHoldertName": "Card Holder Name",
+    "invalidCardErrorMessage": "Please input valid card details",
+    "paymentDetails": "Payment Details"
 }

@@ -533,5 +533,10 @@
     "CharityArticle": "Charity Articles",
     "CompanyArticle": "Articles sur la société",
     "CharityAdded": "Association caritative ajoutée avec succès.",
-    "CharityAccountError": "Algo salió mal. Conéctese con el equipo de soporte"
+    "CharityAccountError": "Algo salió mal. Conéctese con el equipo de soporte",
+    "donateInputMessage": "Message",
+    "donateMessageError": "Veuillez saisir votre message",
+    "cardHoldertName": "Nom du titulaire de la carte",
+    "invalidCardErrorMessage": "Veuillez saisir les détails de la carte valide",
+    "paymentDetails": "Détails du paiement"
 }
