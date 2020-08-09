@@ -96,7 +96,7 @@
                         </nz-form-item>
 
                         <div nz-row class="card-info" [ngClass]="{'errorBorder' : showInvalidCardError}">
-                            <p class="card-header">{{ "paymentDetails" | translate }}s</p>
+                            <p class="card-header">{{ "paymentDetails" | translate }}</p>
                             <div nz-col nzSpan="24" class="card-number-col">
                                 <ngx-stripe-card-number [options]="cardOptions"></ngx-stripe-card-number>
                             </div>
