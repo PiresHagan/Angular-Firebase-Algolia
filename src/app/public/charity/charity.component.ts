@@ -27,6 +27,7 @@ import {
 export class CharityComponent implements OnInit {
   charity: Charity;
   charityId: string;
+  isUpdatingFollow: boolean = false;
   isFollowing: boolean = false;
   isLoaded: boolean = false;
   isLoggedInUser: boolean = false;
@@ -104,7 +105,7 @@ export class CharityComponent implements OnInit {
         email: [null, [Validators.email, Validators.required]], 
         mobile_number: [null, [Validators.required]], 
         amount: [null, [Validators.required, Validators.min(1)]],
-        message: [null, [Validators.required]]
+        message: [""]
       });
 
       this.setUserDetails();
@@ -151,11 +152,15 @@ export class CharityComponent implements OnInit {
 
   setFollowOrNot() {
     this.charityService.isUserFollowing(this.charityId, this.getUserDetails().id).subscribe((data) => {
-      if (data) {
-        this.isFollowing = true;
-      } else {
-        this.isFollowing = false;
-      }
+      setTimeout(() => {
+        if (data) {
+          this.isFollowing = true;
+          this.isUpdatingFollow = false;
+        } else {
+          this.isFollowing = false;
+          this.isUpdatingFollow = false;
+        }
+      }, 1500);
     });
   }
 
@@ -171,18 +176,16 @@ export class CharityComponent implements OnInit {
   async follow() {
     await this.setUserDetails();
     if(this.isLoggedInUser) {
-      await this.charityService.followCharity(this.charityId).then(data => {
-        this.setFollowOrNot();
-      });
+      this.isUpdatingFollow = true;
+      await this.charityService.followCharity(this.charityId);
     }
   }
 
   async unfollow() {
     await this.setUserDetails();
     if(this.isLoggedInUser) {
-      await this.charityService.unfollowCharity(this.charityId).then(data => {
-        this.setFollowOrNot();
-      });
+      this.isUpdatingFollow = true;
+      await this.charityService.unfollowCharity(this.charityId);
     }
   }
 
@@ -218,6 +221,9 @@ export class CharityComponent implements OnInit {
             let donorData = JSON.parse(JSON.stringify(this.donateForm.value));
             donorData['charity_id'] = this.charityId;
             donorData['card_token'] = result.token.id;
+            if(donorData.message.length == 0) {
+              delete donorData.message;
+            }
 
             this.charityService.donate(donorData, this.charityId).then(result => {
               this.donateForm.reset();

@@ -32,10 +32,10 @@
                         </div>
                         <div class="media-section">
                             <div class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-                                <a><img src="assets/images/company/follow-icon.png" alt="company img">{{ "followCharity" | translate }}</a>
+                                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "followCharity" | translate }}</a>
                             </div>
                             <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-                                <a><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowCharity" | translate }}</a>
+                                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowCharity" | translate }}</a>
                             </div>
                         </div>
                         <div class="clearfix"></div>
