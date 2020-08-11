@@ -20,6 +20,9 @@
             <div class="is-main-article-content">
                 <div class="company-img">
                     <img *ngIf="charity" [src]='charity?.logo?.url' [alt]='charity?.logo?.alt'/>
+                    <div class="special-icon" *ngIf="charity">
+                        <img src="assets/images/charity-icon.png" />
+                    </div>
                 </div>
                 <div class="is-content">
                     <div class="is-head">

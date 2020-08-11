@@ -12,6 +12,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ImgSizePipe } from './pipes/img-size.pipe';
 import { ArticleInteractionComponent } from './component/article-interaction/article-interaction.component';
+import { ArticleAvatarComponent } from './component/article-avatar/article-avatar.component';
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -25,7 +26,8 @@ export function createTranslateLoader(http: HttpClient) {
         NgZorroAntdModule,
         PerfectScrollbarModule,
         SearchPipe,
-        ArticleInteractionComponent
+        ArticleInteractionComponent,
+        ArticleAvatarComponent
     ],
     imports: [
         RouterModule,
@@ -39,7 +41,8 @@ export function createTranslateLoader(http: HttpClient) {
         SearchPipe,
         StripTagsPipe,
         ImgSizePipe,
-        ArticleInteractionComponent
+        ArticleInteractionComponent,
+        ArticleAvatarComponent
 
     ],
 

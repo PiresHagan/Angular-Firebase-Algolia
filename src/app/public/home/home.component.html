@@ -379,9 +379,12 @@
                                 <div class="item-card-content">
                                     <div class="item-card-category cat-yellow">
                                         <div class="is-avatar-dv">
+                                            <div class="overlay-icon">
                                             <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
                                                 [alt]="article.author.avatar?.alt"
                                                 onerror="this.src='assets/images/default-avatar.png'">
+                                                <app-article-avatar [article]="article"></app-article-avatar>
+                                            </div>
                                             <span class="item-card-author">{{article.author.fullname}}</span>
                                         </div>
                                     </div>

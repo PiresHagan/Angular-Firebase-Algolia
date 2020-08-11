@@ -10,15 +10,18 @@
                         <a>
                             <img class="avatar" src="assets/images/company/company-logo.png" alt="company logo"/>
                         </a>
-                        <div class="share-sec">
-                            <div class="addthis_inline_share_toolbox"></div>
-                        </div>
+                    </div>
+                    <div class="share-sec text-center">
+                        <div class="addthis_inline_share_toolbox"></div>
                     </div>
                 </div>
             </div>
             <div class="is-main-article-content">
                 <div class="company-img">
                     <img *ngIf="company" [src]='company?.logo?.url' [alt]='company?.logo?.alt'/>
+                    <div class="special-icon" *ngIf="company">
+                        <img src="assets/images/company-icon.png" style="max-width:28px;" />
+                    </div>
                 </div>
                 <div class="is-content">
                     <div class="is-head">
