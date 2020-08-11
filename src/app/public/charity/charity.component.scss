@@ -8,6 +8,22 @@ nz-alert {
   text-align: center;
 }
 
+.errorBorder {
+  border: 1px solid red !important;
+}
+
+.err-msg {
+  color: red;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.card-header {
+  color: #d3d7db;
+}
+
 img{
     max-width: 100%;
   }
@@ -304,7 +320,14 @@ img{
                   margin: auto;
               }
           }
-      }
+          .card-info {
+            border: 1px solid #edf2f9;
+            padding: 15px;
+          }
+          .card-number-col{
+            margin-bottom: 15px;
+          }
+        }
         
       }
     }

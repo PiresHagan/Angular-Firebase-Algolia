@@ -15,7 +15,7 @@ export class CharityService {
   private basePath = '/charities/';
   private charityCollection = 'charities';
   private followersCollection = "followers";
-  private charityDonation = "donations";
+  private charityDonation = "donates";
   constructor(private http: HttpClient,
     public db: AngularFirestore) {
 

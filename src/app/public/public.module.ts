@@ -18,6 +18,7 @@ import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { SearchEngineComponent } from './search-engine/search-engine.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxStripeModule } from 'ngx-stripe';
 
 import { NgAisModule } from 'angular-instantsearch';
 import { BuyComponent } from './buy/buy.component';
@@ -37,6 +38,7 @@ import { CompanyComponent } from './company/company.component';
 import { CompaniesComponent } from './companies/companies.component';
 import { CharityComponent } from './charity/charity.component';
 import { CharityListComponent } from './charity-list/charity-list.component';
+import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -75,7 +77,8 @@ import { CharityListComponent } from './charity-list/charity-list.component';
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } }),
     NzCollapseModule,
     NgAisModule.forRoot(),
-    SharedModule
+    SharedModule,
+    NgxStripeModule.forRoot(environment.stripePublishableKey),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

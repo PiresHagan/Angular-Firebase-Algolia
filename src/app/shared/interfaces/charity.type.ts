@@ -18,5 +18,5 @@ export interface Charity {
     },
     created_at: string,
     updated_at: string;
-
+    stripe_status?: string;
 }

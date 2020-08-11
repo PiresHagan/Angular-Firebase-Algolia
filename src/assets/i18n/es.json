@@ -532,5 +532,10 @@
     "CharityArticle": "Artículos de caridad",
     "CompanyArticle": "Artículos de la empresa",
     "CharityAdded": "La caridad se agregó con éxito",
-    "CharityAccountError": "Une erreur s'est produite. Veuillez vous connecter avec l'équipe d'assistance."
+    "CharityAccountError": "Une erreur s'est produite. Veuillez vous connecter avec l'équipe d'assistance.",
+    "donateInputMessage": "Mensaje",
+    "donateMessageError": "Ingrese su mensaje",
+    "cardHoldertName": "Nombre del titular de la tarjeta",
+    "invalidCardErrorMessage": "Ingrese los detalles de la tarjeta válida",
+    "paymentDetails": "Detalles del pago"
 }
