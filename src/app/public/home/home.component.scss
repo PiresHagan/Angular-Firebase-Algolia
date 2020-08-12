@@ -917,6 +917,10 @@
       text-align: center;
       margin: 10px;
       background: #fff;
+      transition: 0.5s all ease;
+      &:hover{
+        transform: translatey(-10px);
+      }
       .company-logo{
         display: flex;
         min-height: 100px;
@@ -1260,35 +1264,28 @@
           font-size: 26px;
         }
     }
-    .company-box-main{
-      margin-top: 40px;
-      .company-box{
-        width:calc(50% - 20px);
-      }
+  }
+
+  .company-box-main{
+    margin-top: 40px;
+    .company-box{
+      width:calc(50% - 20px);
     }
-    .audio-section{
-      min-height: 430px;
-      .audio-detail{
-        h2{
-          font-size: 26px;
-          line-height: normal;
-          margin-bottom: 10px;
-        }
+  }
+  .audio-section{
+    min-height: 430px;
+    .audio-detail{
+      h2{
+        font-size: 26px;
+        line-height: normal;
+        margin-bottom: 10px;
       }
     }
   }
-
 
   }
   @media screen and (max-width:480px){
-    .cat-box{
-      .article-title {
-      flex-direction: column;
-      .line{
-        display: none;
-      }
-    }
-  }
+
   .company-section{
   .company-box-main{
     .company-box{
