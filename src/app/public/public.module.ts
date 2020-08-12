@@ -39,6 +39,7 @@ import { CompaniesComponent } from './companies/companies.component';
 import { CharityComponent } from './charity/charity.component';
 import { CharityListComponent } from './charity-list/charity-list.component';
 import { environment } from 'src/environments/environment';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -79,6 +80,7 @@ import { environment } from 'src/environments/environment';
     NgAisModule.forRoot(),
     SharedModule,
     NgxStripeModule.forRoot(environment.stripePublishableKey),
+    NzModalModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
