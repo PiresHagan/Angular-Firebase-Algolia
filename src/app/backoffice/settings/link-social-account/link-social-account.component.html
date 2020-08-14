@@ -1,0 +1,10 @@
+<div class="account-div">
+    <img src="./assets/images/company-logo/facebook.png">
+    Facebook
+    <button *ngIf="!fbAccountLinkStatus" class="m-l-30" nz-button nzSize="small" nzType="default" [nzLoading]="fbloading" (click)="linkFacebook()">
+        Link
+    </button>
+    <button *ngIf="fbAccountLinkStatus" class="m-l-30" nz-button nzSize="small" nzType="default" [nzLoading]="fbloading" (click)="unlinkFacebook()">
+        Unlink
+    </button>
+</div>
