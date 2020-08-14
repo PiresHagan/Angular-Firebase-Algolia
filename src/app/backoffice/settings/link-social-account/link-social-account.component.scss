@@ -14,3 +14,53 @@
 .m-l-30 {
     margin-left: 30px;
 }
+
+::ng-deep .friends-list-tbl{
+    margin: 50px 0;
+}
+
+::ng-deep .friends-list-tbl .ant-table-thead tr{
+    background: #eee;
+    font-family: "josefin_sansregular";
+}
+
+::ng-deep .friends-list-tbl tbody tr td{
+    font-family: "open_sansregular";
+}
+
+::ng-deep .friends-list-tbl tbody tr:hover td{
+    background: #eee;
+}
+
+::ng-deep .friends-list-tbl .ant-table-filter-column-title{
+    flex: unset;
+}
+
+::ng-deep .friends-list-tbl  .ant-table-filter-trigger-container{
+    position: unset;
+}
+
+::ng-deep .friends-list-tbl  .ant-table-filter-trigger-container:hover{
+    background: transparent;
+}
+
+::ng-deep .friends-list-tbl .ant-table-filter-trigger .anticon{
+    font-size: 18px;
+    position: relative;
+    top: 26px;
+    color: #000;
+}
+
+::ng-deep .friends-list-tbl .ant-table-pagination-right{
+    float:none;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0px;
+}
+
+@media screen and (max-width:580px){
+    ::ng-deep .friends-list-tbl .ant-table table{
+        display: table-caption;
+    }
+
+}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 declare var FB: any;
 
 @Component({
@@ -14,7 +14,9 @@ export class LinkSocialAccountComponent implements OnInit {
   fbAccountLinkStatus: boolean = false;
   userFirendsList = [];
 
-  constructor() { }
+  constructor( 
+    public translate: TranslateService
+  ) { }
 
   ngOnInit(): void {
     (window as any).fbAsyncInit = function() {
@@ -97,7 +99,7 @@ export class LinkSocialAccountComponent implements OnInit {
 
   getFacebookFriends(authtResponse) {
     FB.api(
-      `/${authtResponse.userID}/friends`,
+      `/me/friends`,
       'GET',
       {},
       function(response) {
