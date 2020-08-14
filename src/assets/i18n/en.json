@@ -543,5 +543,7 @@
     "donateMessageError": "Please input your message",
     "cardHoldertName": "Card Holder Name",
     "invalidCardErrorMessage": "Please input valid card details",
-    "paymentDetails": "Payment Details"
+    "paymentDetails": "Payment Details",
+    "LatestArticle":"Latest Article",
+    "TopTrendingArticle":"Top Trending Article"
 }

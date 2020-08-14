@@ -537,5 +537,7 @@
     "donateMessageError": "Ingrese su mensaje",
     "cardHoldertName": "Nombre del titular de la tarjeta",
     "invalidCardErrorMessage": "Ingrese los detalles de la tarjeta válida",
-    "paymentDetails": "Detalles del pago"
+    "paymentDetails": "Detalles del pago",
+    "LatestArticle":"último artículo",
+    "TopTrendingArticle":"Artículo de tendencia principal"
 }
