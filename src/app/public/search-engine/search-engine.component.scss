@@ -144,7 +144,46 @@
 					object-fit: cover;
 					height: 220px;
 				}
+				.article-image-icon{
+					width:50px;
+					height: 50px;
+					display: flex;
+					border-radius: 100%;
+					position: absolute;
+					top:50%;
+					left: 50%;
+					transform: translate(-50%,-50%);
+					z-index: 1;
+					i{
+					 margin: auto;
+					 font-size: 24px;
+					 color: #fff;
+					}
+				  }
 			}
+			.is-read-more{
+				background: transparent;
+				border:0px;
+				display: flex;
+				align-items: center;
+				font-family: "josefin_sansregular";
+				outline: none;
+				position: relative;
+				cursor: pointer;
+				padding: 0px;
+				&:before{
+				  content: '';
+				  position: absolute;
+				  bottom: 0px;
+				  left: 0px;
+				  width: 100%;
+				  height: 1px;
+				  background: #000;
+				}
+				img{
+				  margin-left: 10px;
+				}
+			  }
 			.sr-article-detail {
 				display: flex;
 				align-items: center;
@@ -160,7 +199,7 @@
 				.sr-article-txt {
 					font-family: 'josefin_sansregular';
 					font-size: 13px;
-					padding-right: 20px;
+					padding-right: 15px;
 					width: calc(100% - 45px);
 					h2 {
 						font-family: 'josefin_sansregular';
@@ -174,19 +213,63 @@
 						height: 37px;
 						overflow: hidden;
 					}
+					.category-article-readmore{
+						display: flex;
+						align-items: center;
+						padding-top: 10px;
+						.is-read-more{
+							color: #000;
+							font-size: 13px;
+							&:before{
+							  background: #000;
+							}
+						  }
+						.article-icon-main{
+						  flex: 1;
+						  justify-content: flex-end;
+						  display: flex;
+						  .article-icon {
+							width: 25px;
+							height: 25px;
+							background: #fff;
+							display: flex;
+							border-radius: 100%;
+							i{
+								color: #000;
+								font-size: 18px;
+								margin: auto;
+							}
+						  }
+						}
+					}
 				}
 				.sr-avtar {
-					width: 40px;
-					height: 40px;
+					width: 50px;
+					height: 50px;
 					border-radius: 100%;
+					
 					img {
-						width: 40px;
-						height: 40px;
+						width: 50px;
+						height: 50px;
 						border-radius: 100%;
 						object-fit: cover;
 					}
+					&.bg-black{
+						background: #000;
+						display: flex;
+						img{
+							max-width: 28px;
+							margin: auto;
+							width: auto;
+							height: auto;
+							object-fit: unset;
+							border-radius: unset;
+						}
+					}
 				}
+				
 			}
+		
 		}
 		.sr-article-sec-item.ads-main {
 			width: 50%;
@@ -401,10 +484,9 @@
     }
   
   }
-  @media screen and (min-width: 1500px){
-body .container {
-    width: 1170px;
-    max-width: 100%;
-    margin: auto;
-}
-}
+
+ .container {
+		width: 1140px;
+		max-width: 100%;
+		margin: auto;
+	}
