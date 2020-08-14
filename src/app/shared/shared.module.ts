@@ -13,7 +13,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ImgSizePipe } from './pipes/img-size.pipe';
 import { ArticleInteractionComponent } from './component/article-interaction/article-interaction.component';
 import { ArticleAvatarComponent } from './component/article-avatar/article-avatar.component';
-import { HomeArticleComponent } from './component/home-article/home-article.component';
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -29,7 +28,6 @@ export function createTranslateLoader(http: HttpClient) {
         SearchPipe,
         ArticleInteractionComponent,
         ArticleAvatarComponent,
-        HomeArticleComponent
     ],
     imports: [
         RouterModule,
@@ -45,7 +43,7 @@ export function createTranslateLoader(http: HttpClient) {
         ImgSizePipe,
         ArticleInteractionComponent,
         ArticleAvatarComponent,
-        HomeArticleComponent
+        
 
     ],
 

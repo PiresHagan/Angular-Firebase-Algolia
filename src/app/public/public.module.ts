@@ -40,6 +40,7 @@ import { CharityComponent } from './charity/charity.component';
 import { CharityListComponent } from './charity-list/charity-list.component';
 import { environment } from 'src/environments/environment';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NewHomeComponent } from './new-home/new-home.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -64,7 +65,9 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
     CompanyComponent,
     CompaniesComponent,
     CharityComponent,
-    CharityListComponent
+    CharityListComponent,
+    NewHomeComponent,
+
   ],
   imports: [
     CloudinaryModule.forRoot({Cloudinary}, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
