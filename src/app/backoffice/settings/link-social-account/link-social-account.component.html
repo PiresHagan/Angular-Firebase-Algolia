@@ -8,3 +8,18 @@
         Unlink
     </button>
 </div>
+
+<nz-table *ngIf="fbAccountLinkStatus" #nzTable [nzData]="userFirendsList" nzTableLayout="fixed" class="friends-list-tbl">
+    <thead>
+        <tr>
+            <th>{{'importName' | translate}}</th>
+            <th>{{'importEmail' | translate}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of nzTable.data">
+            <td>{{ data.name}}</td>
+            <td>{{ data.email}}</td>
+        </tr>
+    </tbody>
+</nz-table>
