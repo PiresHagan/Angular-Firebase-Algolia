@@ -95,4 +95,14 @@ export class CharityService {
     }));
   }
 
+  donate(data, charityId: string) {
+    return new Promise((resolve, reject) => {
+      this.http.post(environment.baseAPIDomain + `/api/v1/payment/charities/${charityId}/donates`, data).subscribe((response) => {
+        resolve(response)
+      }, (error) => {
+        reject(error)
+      })
+    })
+  }
+
 }

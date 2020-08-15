@@ -490,6 +490,7 @@
     "InvalidCharityDetails": "Detalles de caridad no válidos",
     "AddNewCharity": "Agregar nueva organización benéfica",
     "NoCharity": "Empresas no encontradas",
+    "SetupPaymentAccount": "Configurar cuenta de pago",
     "DeleteCharity": "Eliminar caridad",
     "EditCharity": "Editar caridad",
     "CharityDetails": "Detalles de la caridad",
@@ -527,5 +528,16 @@
     "donateEmailError": "Ingrese un correo electrónico válido",
     "donateMobileError": "Ingrese un número de teléfono válido",
     "donateAmountError": "Ingrese una cantidad válida",
-    "charitiesTitle": "Caridades"
+    "charitiesTitle": "Caridades",
+    "CharityArticle": "Artículos de caridad",
+    "CompanyArticle": "Artículos de la empresa",
+    "CharityAdded": "La caridad se agregó con éxito",
+    "CharityAccountError": "Une erreur s'est produite. Veuillez vous connecter avec l'équipe d'assistance.",
+    "donateInputMessage": "Mensaje",
+    "donateMessageError": "Ingrese su mensaje",
+    "cardHoldertName": "Nombre del titular de la tarjeta",
+    "invalidCardErrorMessage": "Ingrese los detalles de la tarjeta válida",
+    "paymentDetails": "Detalles del pago",
+    "LatestArticle":"último artículo",
+    "TopTrendingArticle":"Artículo de tendencia principal"
 }

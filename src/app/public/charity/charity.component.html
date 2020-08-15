@@ -20,6 +20,9 @@
             <div class="is-main-article-content">
                 <div class="company-img">
                     <img *ngIf="charity" [src]='charity?.logo?.url' [alt]='charity?.logo?.alt'/>
+                    <div class="special-icon" *ngIf="charity">
+                        <img src="assets/images/charity-icon.png" />
+                    </div>
                 </div>
                 <div class="is-content">
                     <div class="is-head">
@@ -32,10 +35,10 @@
                         </div>
                         <div class="media-section">
                             <div class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-                                <a><img src="assets/images/company/follow-icon.png" alt="company img">{{ "followCharity" | translate }}</a>
+                                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "followCharity" | translate }}</a>
                             </div>
                             <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-                                <a><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowCharity" | translate }}</a>
+                                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowCharity" | translate }}</a>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -51,10 +54,10 @@
 
             </div>
             <div class="is-right-ad-section">
-                <div class="charity-form" *ngIf="charity">
+                <div class="charity-form" *ngIf="charity && charity?.stripe_status == 'active'">
                     <h2>{{ "donateCharityTitle" | translate }}</h2>
 
-                    <form nz-form [formGroup]="donateForm" (ngSubmit)="submitForm()">
+                    <form nz-form [formGroup]="donateForm" (ngSubmit)="submitForm()" ngxStripeCardGroup [elementsOptions]="elementsOptions">
                         <nz-alert class="m-b-10" nzType="success" nzMessage="{{'donatedSuccessfully' | translate}}" nzShowIcon *ngIf="donateSuccess"></nz-alert>
 
                         <nz-form-item>
@@ -70,7 +73,7 @@
                         </nz-form-item>
 
                         <nz-form-item>
-                            <nz-form-control nzErrorTip="{{'donateFirstNameError' | translate}}">
+                            <nz-form-control nzErrorTip="{{'donateEmailError' | translate}}">
                                 <input type="email" nz-input formControlName="email" placeholder="{{'donateInputEmail' | translate}}" id="email">
                             </nz-form-control>
                         </nz-form-item>
@@ -83,15 +86,37 @@
                     
                         <nz-form-item>
                             <nz-form-control nzErrorTip="{{'donateAmountError' | translate}}">
-                                <input type="number" nz-input formControlName="amount" placeholder="{{'donateInputAmount' | translate}}" id="amount">
+                                <nz-input-group nzAddOnBefore="$">
+                                    <input type="number" nz-input formControlName="amount" placeholder="{{'donateInputAmount' | translate}}" id="amount">
+                                </nz-input-group>
                             </nz-form-control>
                         </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="{{'donateMessageError' | translate}}">
+                                <textarea rows="3" nz-input formControlName="message" placeholder="{{'donateInputMessage' | translate}}" id="message"></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <div nz-row class="card-info" [ngClass]="{'errorBorder' : showInvalidCardError}">
+                            <p class="card-header">{{ "paymentDetails" | translate }}</p>
+                            <div nz-col nzSpan="24" class="card-number-col">
+                                <ngx-stripe-card-number [options]="cardOptions"></ngx-stripe-card-number>
+                            </div>
+                            <div nz-col nzSpan="11" class="card-expiry-col">
+                                <ngx-stripe-card-expiry [options]="cardOptions"></ngx-stripe-card-expiry>
+                            </div>
+                            <div nz-col nzSpan="12" class="card-cvc-col">
+                                <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
+                            </div>
+                        </div>
+                        <p *ngIf="showInvalidCardError" class="err-msg">{{ "invalidCardErrorMessage" | translate }}</p>
 
                         <div>
                             <nz-form-item>
                                 <nz-form-control>
                                     <div class="text-center">
-                                        <button nz-button class="is-login-btn" [nzLoading]="isFormSaving" [nzType]="'primary'">{{"leadSubmit" | translate}}</button>
+                                        <button nz-button class="is-login-btn mt-20" [nzLoading]="isFormSaving" [nzType]="'primary'">{{"leadSubmit" | translate}}</button>
                                     </div>
                                 </nz-form-control>
                             </nz-form-item>

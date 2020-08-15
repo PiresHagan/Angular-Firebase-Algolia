@@ -44,39 +44,39 @@ export class SearchEngineComponent implements OnInit {
   public OrderIndex = 0;
   articleBrand = [
     {
-      image:'./assets/images/search-engine/nike.png',
-      name:'Nike'
+      image:'./assets/images/search-engine/1.jpg',
+      name:'NikeNikeNike'
     },
     {
-      image:'./assets/images/search-engine/fb.png',
+      image:'./assets/images/search-engine/a.jpg',
       name:'Facebook'
     },
     {
-      image:'./assets/images/search-engine/ebay.png',
+      image:'./assets/images/search-engine/c.jpg',
       name:'Ebay'
     },
     {
-      image:'./assets/images/search-engine/ibm.png',
+      image:'./assets/images/search-engine/1.jpg',
       name:'IBM'
     },
     {
-      image:'./assets/images/search-engine/apple.png',
+      image:'./assets/images/search-engine/a.jpg',
       name:'Apple'
     },
     {
-      image:'./assets/images/search-engine/lakers.png',
+      image:'./assets/images/search-engine/c.jpg',
       name:'Lakers'
     },
     {
-      image:'./assets/images/search-engine/amazon.png',
+      image:'./assets/images/search-engine/1.jpg',
       name:'Amazon'
     },
     {
-      image:'./assets/images/search-engine/uber.png',
+      image:'./assets/images/search-engine/a.jpg',
       name:'Uber'
     },
     {
-      image:'./assets/images/search-engine/reebok.png',
+      image:'./assets/images/search-engine/c.jpg',
       name:'Reebok'
     },
 

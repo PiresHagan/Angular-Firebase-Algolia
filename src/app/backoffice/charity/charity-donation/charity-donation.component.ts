@@ -10,7 +10,8 @@ interface DataItem {
   last_name: string
   mobile_number: string
   email: string,
-  amount: number
+  amount: number,
+  message: string
 }
 @Component({
   selector: 'app-charity-donation',
@@ -45,6 +46,9 @@ export class CharityDonationComponent implements OnInit {
     {
       title: 'Amount',
       compare: (a: DataItem, b: DataItem) => a.amount - b.amount
+    },
+    {
+      title: 'Message'
     },
     {
       title: 'Created At'

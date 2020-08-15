@@ -33,7 +33,7 @@
                     <nz-form-label>{{'CharityEmail'| translate}}</nz-form-label>
                     <nz-form-control
                         nzErrorTip="{{'CharityEmail'| translate}} {{'required' | translate}} {{'AndValidFormat' | translate}}">
-                        <input nz-input placeholder="{{'CharityEmail'| translate}}" type="email" value=""
+                        <input nz-input placeholder="e.g: abc@gmailcom" type="email" value=""
                             formControlName="charity_email" />
                     </nz-form-control>
                 </nz-form-item>
@@ -51,8 +51,7 @@
                 <nz-form-item>
                     <nz-form-label>{{'CharityColorCode'| translate}}</nz-form-label>
                     <nz-form-control nzErrorTip="{{'CharityColorCode'| translate}} {{'required' | translate}}">
-                        <input nz-input placeholder="{{'CharityColorCode'| translate}}"
-                            formControlName="charity_color_code" />
+                        <input nz-input placeholder="eg: #ff00ff" formControlName="charity_color_code" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -87,7 +86,8 @@
                 <nz-form-item>
                     <nz-form-label>{{'CharityBio'| translate}}</nz-form-label>
                     <nz-form-control nzErrorTip="{{'CharityBio'| translate}} {{'required' | translate}}">
-                        <textarea rows="4" nz-input name="charity_bio" formControlName="charity_bio"></textarea>
+                        <textarea rows="4" nz-input name="charity_bio" placeholder="0-250 character"
+                            formControlName="charity_bio"></textarea>
                     </nz-form-control>
                 </nz-form-item>
             </div>

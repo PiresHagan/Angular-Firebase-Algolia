@@ -26,6 +26,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { QuillModule } from 'ngx-quill';
 import { AuthService } from './shared/services/authentication.service';
+import { NgxStripeModule } from 'ngx-stripe';
 
 import { TranslateLoader, TranslateModule, TranslateStore } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -67,7 +68,8 @@ registerLocaleData(en);
         QuillModule.forRoot(),
         HttpClientModule,
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] } }),
-        NgAisModule.forRoot()
+        NgAisModule.forRoot(),
+        NgxStripeModule.forRoot(environment.stripePublishableKey),
     ],
     exports: [
     ],

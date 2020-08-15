@@ -12,10 +12,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
+import { CharityArticleComponent } from './charity-article/charity-article.component';
 
 
 @NgModule({
-  declarations: [CharityListComponent, CharityDonationComponent, CharityFollowersComponent, CharityDetailsComponent, AddCharityComponent],
+  declarations: [CharityListComponent, CharityDonationComponent, CharityFollowersComponent, CharityDetailsComponent, AddCharityComponent, CharityArticleComponent],
   imports: [
     CommonModule,
     CharityRoutingModule,

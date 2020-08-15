@@ -36,6 +36,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ImportContactComponent } from './import-contact/import-contact.component';
+import { LinkSocialAccountComponent } from './link-social-account/link-social-account.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -66,7 +67,7 @@ const antdModule = [
 ];
 
 @NgModule({
-  declarations: [ProfileSettingsComponent, ImportContactComponent],
+  declarations: [ProfileSettingsComponent, ImportContactComponent, LinkSocialAccountComponent],
   imports: [
     CommonModule,
     SettingsRoutingModule,

@@ -47,8 +47,23 @@ export class CompanyService {
     return this.http.put(apicall, postData)
 
   }
-  get(companyId: string): Observable<any> {
-    return this.db.doc(`${this.companyCollection}/${companyId}`).valueChanges();
+
+  get(companyId: string, userId: string): Observable<any> {
+    return this.db.collection<Company>(`${this.companyCollection}`, ref =>
+      ref.where("owner.id", "==", userId)
+        .where("id", "==", companyId)
+    )
+      .snapshotChanges()
+      .pipe(
+        take(1),
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+      );
   }
   deletCompany(companyId) {
     const apicall = environment.baseAPIDomain + '/api/v1/companies/' + companyId;

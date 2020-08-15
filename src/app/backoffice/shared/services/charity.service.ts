@@ -15,7 +15,7 @@ export class CharityService {
   private basePath = '/charities/';
   private charityCollection = 'charities';
   private followersCollection = "followers";
-  private charityDonation = "donations";
+  private charityDonation = "donates";
   constructor(private http: HttpClient,
     public db: AngularFirestore) {
 
@@ -47,8 +47,23 @@ export class CharityService {
     return this.http.put(apicall, postData)
 
   }
-  get(charityId: string): Observable<any> {
-    return this.db.doc(`${this.charityCollection}/${charityId}`).valueChanges();
+
+  get(charityId: string, userId: string): Observable<any> {
+    return this.db.collection<Charity>(`${this.charityCollection}`, ref =>
+      ref.where("owner.id", "==", userId)
+        .where("id", "==", charityId)
+    )
+      .snapshotChanges()
+      .pipe(
+        take(1),
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+      );
   }
   deletCharity(charityId) {
     const apicall = environment.baseAPIDomain + '/api/v1/charities/' + charityId;
@@ -145,5 +160,14 @@ export class CharityService {
     })
     );
   }
+
+  setupConnectedAccount(charityId: string) {
+    return this.http.post(environment.baseAPIDomain + '/api/v1/payment/sessions/connectedAccount', {
+      charityId: charityId,
+      redirectUrl: window && window.location && window.location.href || '',
+      refreshUrl: window && window.location && window.location.href || ''
+    })
+  }
+
 }
 

@@ -12,11 +12,12 @@ import { CompanyListComponent } from './company-list/company-list.component';
 import { CompanyDetailsComponent } from './company-details/company-details.component';
 import { CompanyFollowersComponent } from './company-followers/company-followers.component';
 import { CompanyLeadsComponent } from './company-leads/company-leads.component';
+import { CompanyArticleComponent } from './company-article/company-article.component';
 
 
 
 @NgModule({
-  declarations: [AddCompanyComponent, CompanyListComponent, CompanyDetailsComponent, CompanyFollowersComponent, CompanyLeadsComponent],
+  declarations: [AddCompanyComponent, CompanyListComponent, CompanyDetailsComponent, CompanyFollowersComponent, CompanyLeadsComponent, CompanyArticleComponent],
   imports: [
     CommonModule,
     SharedModule,

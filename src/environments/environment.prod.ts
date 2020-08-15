@@ -15,5 +15,6 @@ export const environment = {
     appId: "1:172964785852:web:2a5e84ca7c87db14cfeab9",
     measurementId: "G-HWMGQKQ8F1"
   },
-  storeUrl: 'https://store.mytrendingstories.com'
+  storeUrl: 'https://store.mytrendingstories.com',
+  stripePublishableKey: 'pk_live_5kBdKo0mxCY6HVt08s34GF9Z00hqJXEhDc'
 };

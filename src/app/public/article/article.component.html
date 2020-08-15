@@ -7,24 +7,26 @@
             <div class="is-left-profile">
                 <div class="sticky-box">
                     <div class="is-profile">
-                        <a [routerLink]="['/',article?.author?.slug]" itemprop="url" *ngIf="article">
+                        <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
                             <img class="avatar" src="{{replaceImage(article?.author?.avatar?.url)}}"
                                 alt="{{article?.author?.avatar?.alt}}"
                                 onerror="this.src='assets/images/default-avatar.png'" />
                         </a>
+                        <app-article-avatar [article]="article"></app-article-avatar>
                     </div>
                     <!-- <div class="is-author-name-sec is-divider" *ngIf="isLoggedInUser">-->
                     <div class="is-author-name-sec is-divider">
                         <span class="is-author-name" itemprop="author" itemscope="">
-                            <a [routerLink]="['/',article?.author?.slug]" itemprop="url" *ngIf="article">
+                            <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url"
+                                *ngIf="article">
                                 <span class="name" itemprop="name">
                                     {{article?.author?.fullname}}</span>
                             </a>
-                            <a class="follow-btn" *ngIf="!isFollowing" (click)="follow(article?.author?.id)">
+                            <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
                                 <img src="assets/images/article/icon/follow.png" />
                                 {{'followAuthor' | translate}}
                             </a>
-                            <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow(article?.author?.id)">
+                            <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
                                 <img src="assets/images/article/icon/un-follow.png" />
                                 {{'unfollowAuthor' | translate}}
                             </a>
@@ -75,7 +77,8 @@
                         </h2>
                         <div class="is-small-profile">
                             <div class="is-image">
-                                <a [routerLink]="['/',article?.author?.slug]" itemprop="url" *ngIf="article">
+                                <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url"
+                                    *ngIf="article">
                                     <img class="avatar" alt="{{article?.author?.avatar?.alt}}"
                                         src="{{replaceImage(article?.author?.avatar?.url)}}"
                                         onerror="this.src='assets/images/default-avatar.png'" />
