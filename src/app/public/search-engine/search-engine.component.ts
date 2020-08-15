@@ -20,14 +20,14 @@ export class SearchEngineComponent implements OnInit {
     searchClient,
     routing: true
   };
-  public OrderIndex = 0;
-  articleBrand = [];
-  
-  constructor (
+  //public OrderIndex = 0;
+  //articleBrand = [];
+
+  constructor(
     public translate: TranslateService,
     private languageService: LanguageService,
     private cacheService: CacheService
-  ){
+  ) {
   }
   ngOnInit(): void {
     this.selectedLanguage = this.languageService.getSelectedLanguage();
@@ -37,10 +37,48 @@ export class SearchEngineComponent implements OnInit {
       this.selectedLanguage = this.languageService.getSelectedLanguage();
       this.config.indexName = `prod_articles_${this.selectedLanguage}`;
     });
-
-    this.cacheService.getBrands().subscribe(brands => {
-      this.articleBrand = brands;
-    });
   }
+  public OrderIndex = 0;
+  articleBrand = [
+    {
+      image: './assets/images/search-engine/1.jpg',
+      name: 'NikeNikeNike'
+    },
+    {
+      image: './assets/images/search-engine/a.jpg',
+      name: 'Facebook'
+    },
+    {
+      image: './assets/images/search-engine/c.jpg',
+      name: 'Ebay'
+    },
+    {
+      image: './assets/images/search-engine/1.jpg',
+      name: 'IBM'
+    },
+    {
+      image: './assets/images/search-engine/a.jpg',
+      name: 'Apple'
+    },
+    {
+      image: './assets/images/search-engine/c.jpg',
+      name: 'Lakers'
+    },
+    {
+      image: './assets/images/search-engine/1.jpg',
+      name: 'Amazon'
+    },
+    {
+      image: './assets/images/search-engine/a.jpg',
+      name: 'Uber'
+    },
+    {
+      image: './assets/images/search-engine/c.jpg',
+      name: 'Reebok'
+    }
+  ]
 
+  /*this.cacheService.getBrands().subscribe(brands => {
+    this.articleBrand = brands;
+  });*/
 }
