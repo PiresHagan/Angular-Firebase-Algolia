@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
 
 export class BackofficeFundraiserService {
 
-  fundraiserCollection: string = 'fundraisers';
+  fundraiserCollection: string = 'fundraisings';
   fundraiserImagePath: string = '/fundraiser';
   fundraiserDonation = "donates";
   

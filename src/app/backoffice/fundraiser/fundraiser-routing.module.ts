@@ -12,6 +12,12 @@ const routes: Routes = [{
       data: {
         title: "Fundraiser Details"
       },
+      children: [
+        {
+          path: '',
+          loadChildren: () => import('./fundraiser-details/fundraiser-add/fundraiser-add.module').then(m => m.FundraiserAddModule),
+        }
+      ]
     },
     {
       path: 'fundraiser-list',

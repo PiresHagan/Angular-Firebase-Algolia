@@ -1,0 +1,159 @@
+<div class="container">
+    <nz-card class="new-fundraiser-card">
+      <br />
+      <nz-steps [nzCurrent]="0">
+        <nz-step nzTitle="{{'fundraiserCompose' | translate}}"></nz-step>
+        <nz-step nzTitle="{{'fundraiserFeaturedImage' | translate}}"></nz-step>
+        <nz-step nzTitle="{{'fundraiserOptimize' | translate}}"></nz-step>
+        <nz-step nzTitle="{{'fundraiserPublish' | translate}}"></nz-step>
+      </nz-steps>
+      <br />
+      <nz-divider></nz-divider>
+      <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
+        <form nz-form id="fundraiser-form" [formGroup]="fundraiserForm" (ngSubmit)="submitFundraiser()">
+          <div class="filter-dropdown-sec">
+            <div class="filter-title">
+              <h5 class="m-b-20">{{'newFundraiser' | translate}}</h5>
+              <nz-form-item>
+                <nz-form-control>
+                  <nz-radio-group formControlName="type" (ngModelChange)="removeFile()">
+                    <label nz-radio nzValue="text">{{'TextContent' | translate}}</label>
+                    <label nz-radio nzValue="video">{{'VideoContent' | translate}}</label>
+                    <label nz-radio nzValue="audio">{{'AudioContent' | translate}}</label>
+  
+                  </nz-radio-group>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div class="filter-dropodown">
+  
+  
+              <nz-form-item>
+                <nz-form-control nzErrorTip="{{'Select Author' | translate}}" class="m-5">
+                  <nz-select class="m-r-10" formControlName="author" nzAllowClear
+                    nzPlaceHolder="{{'Select Author' | translate}}">
+  
+                    <nz-option-group nzLabel="Author" *ngIf="authorList?.currentUser">
+                      <nz-option [nzValue]="authorList?.currentUser" [nzLabel]="authorList?.currentUser.fullname">
+                      </nz-option>
+                    </nz-option-group>
+  
+                    <nz-option-group nzLabel="Companies" *ngIf="authorList?.companies">
+                      <nz-option [nzValue]="company" [nzLabel]="company.name"
+                        *ngFor="let company of authorList?.companies"></nz-option>
+                    </nz-option-group>
+  
+                    <nz-option-group nzLabel="Charities" *ngIf="authorList?.charities">
+                      <nz-option [nzValue]="charity" [nzLabel]="charity.name"
+                        *ngFor="let charity of authorList?.charities"></nz-option>
+                    </nz-option-group>
+  
+                  </nz-select>
+                </nz-form-control>
+  
+                <nz-form-control nzErrorTip="{{'langErr' | translate}}" class="m-5">
+                  <nz-select class="m-r-10" formControlName="lang" nzAllowClear nzPlaceHolder="{{'lang' | translate}}"
+                    (ngModelChange)="languageSelected($event)">
+                    <nz-option *ngFor="let language of languageList" [nzValue]="language.code"
+                      nzLabel="{{language.label}}">
+                    </nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div id="codex-editor"></div>
+              <nz-form-item>
+                <nz-form-control nzErrorTip="{{'fundraiserTitleErr' | translate}}">
+                  <input nz-input formControlName="title" type="text" placeholder="{{'fundraiserTitle' | translate}}">
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-control nzErrorTip="{{'fundraiserExcerptErr' | translate}}">
+                  <textarea rows="3" nz-input formControlName="excerpt"
+                    placeholder="{{'fundraiserExcerpt' | translate}}"></textarea>
+                </nz-form-control>
+              </nz-form-item>
+  
+  
+              <div class="content" *ngIf="fundraiserType==TEXT">
+                <nz-form-item>
+                  <quill-editor [style]="{height: '300px',width: '100%'}" formControlName="content"
+                    [modules]="editorConfig" placeholder="{{'fundraiserContent' | translate}}"></quill-editor>
+                </nz-form-item>
+                <div *ngIf="contentValidation" class="content-message">
+                  {{'fundraiserContentErr' | translate}}
+                </div>
+              </div>
+              <div class="video" *ngIf="fundraiserType==VIDEO">
+                <nz-form-item>
+                  <nz-form-label nzRequired>{{'SelectVideo' | translate}}</nz-form-label>
+                  <nz-upload [nzMultiple]="false" [nzLimit]="1" [nzBeforeUpload]="beforeUpload"
+                    [nzShowUploadList]="false">
+                    <button nz-button type="button"><i nz-icon nzType="upload"></i>{{'ClickToUpload' |translate}}</button>
+                  </nz-upload>
+                  <div class="m-5">
+                    <strong>{{fundraiserFile?.name || videoFile?.name }}</strong>
+                  </div>
+                </nz-form-item>
+                <div *ngIf="contentValidation" style="color: red;">
+                  {{'SelectVideo' | translate}}
+                </div>
+                <div [hidden]="!videofileURL" [class.data-not]="!videofileURL">
+                  <iframe [src]="transform(videofileURL)" width="60%" height="600px"
+                    allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen
+                    frameborder="0"></iframe>
+                </div>
+  
+                <div class="ant-alert-info p-10">
+  
+                  <p>{{'VideoInfo' |translate}}</p>
+                  <p>{{'VideoInfo1' |translate}}</p>
+                </div>
+  
+              </div>
+              <div class="audio" *ngIf="fundraiserType==AUDIO">
+                <nz-form-item>
+                  <nz-form-label nzRequired>{{'SelectAudio' | translate}}</nz-form-label>
+                  <nz-upload [nzMultiple]="false" [nzLimit]="1" [nzBeforeUpload]="beforeUpload"
+                    [nzShowUploadList]="false">
+                    <button nz-button type="button"><i nz-icon nzType="upload"></i>{{'ClickToUpload' |translate}}</button>
+                  </nz-upload>
+                  <div class="m-5">
+                    <strong>{{fundraiserFile?.name || audioFile?.name }}</strong>
+                  </div>
+  
+                </nz-form-item>
+  
+                <div *ngIf="contentValidation" style="color: red;">
+                  {{'SelectAudio' | translate}}
+                </div>
+                <audio controls class="m-t-10 m-b-10" [hidden]="fundraiser?.type ==AUDIO"
+                  [class.data-not]="fundraiser?.type ==AUDIO">
+                  <source [src]="audioFile?.url || fundraiserFile?.url" type="audio/mpeg">
+                  Your browser does not support the audio tag.
+                </audio>
+                <div class="ant-alert-info p-10">
+                  <p>{{'AudioInfo' |translate}}</p>
+                  <p>{{'AudioInfo1' |translate}}</p>
+                </div>
+              </div>
+  
+            </div>
+            <div class="col-md-12 mt-5">
+              <div class="d-inline-block">
+                <nz-form-item>
+                  <button nz-button type="button" (click)="goBack()" class="login-form-button m-10"
+                    [nzType]="'primary'">{{'goBackbtnFundraiserList' | translate}}</button>
+                  <button nz-button [nzLoading]="isFormSaving" class="login-form-button  m-10"
+                    [nzType]="'primary'">{{'fundraiserNext' | translate}}</button>
+                </nz-form-item>
+              </div>
+            </div>
+          </div>
+        </form>
+      </nz-skeleton>
+    </nz-card>
+  </div>
