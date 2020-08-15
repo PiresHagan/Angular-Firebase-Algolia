@@ -319,11 +319,11 @@
     </div>
  </section>
  <section class="is-cat-box-card-main">
-    <div class="cat-box bg-light">
+    <div class="cat-box bg-white">
        <div class="container">
           <div class="cat-box-title">
              <div class="article-title">
-                <div class="title-txt"> {{'LatestArticle' | translate}}</div>
+                <div class="title-txt"> {{'Latest Stories' | translate}}</div>
                 <span class="line"></span>
              </div>
           </div>
@@ -435,7 +435,7 @@
        <div class="container">
           <div class="cat-box-title">
              <div class="article-title">
-                <div class="title-txt">  {{'TopTrendingArticle' | translate}}</div>
+                <div class="title-txt">  {{'Top Trending Stories' | translate}}</div>
                 <span class="line"></span>
              </div>
           </div>
@@ -545,14 +545,14 @@
  <section class="company-section">
     <div class="container">
        <div class="article-title">
-          <div class="title-txt"> Top 10 Companies</div>
+          <div class="title-txt">The People's Voice</div>
           <span class="line"></span>
        </div>
        <div class="row">
           <div class="col-lg-4 company-detail">
-             <h2>Top 10 Companies on My Trending Stories</h2>
-             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p>
-             <button type="button" class="is-read-more">{{'readMore' | translate }}<img
+             <h2>Top 10 categories on My Trending Stories</h2>
+             <p>My Trending Stories is a creative platform made easy and allows writers, videographers, photographers, artists, musicians and many more, to rack in benefits from their passion.</p>
+             <button type="button" class="is-read-more">{{'Get started' | translate }}<img
                 src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
           </div>
           <div class="col-lg-8">
@@ -561,78 +561,191 @@
                    <div class="company-logo">
                       <img src="assets/images/company-logo/facebook.png" alt="" />
                    </div>
-                   <span>Facebook</span>
+                   <span>Life and Styles</span>
                 </div>
                 <div class="company-box">
                    <div class="company-logo">
                       <img src="assets/images/company-logo/google.png" alt="" />
                    </div>
-                   <span>Google</span>
+                   <span>Business</span>
                 </div>
                 <div class="company-box">
                    <div class="company-logo">
                       <img src="assets/images/company-logo/linked-in.png" alt="" />
                    </div>
-                   <span>Linedin</span>
+                   <span>News</span>
                 </div>
                 <div class="company-box">
                    <div class="company-logo">
                       <img src="assets/images/company-logo/apple.png" alt="" />
                    </div>
-                   <span>Apple</span>
+                   <span>Sports</span>
                 </div>
                 <div class="company-box">
                    <div class="company-logo">
                       <img src="assets/images/company-logo/nike.png" alt="" />
                    </div>
-                   <span>Nike</span>
+                   <span>Religion</span>
                 </div>
                 <div class="company-box">
                    <div class="company-logo">
                       <img src="assets/images/company-logo/uber.png" alt="" />
                    </div>
-                   <span>Uber</span>
+                   <span>Creative</span>
                 </div>
                 <div class="company-box">
                    <div class="company-logo">
                       <img src="assets/images/company-logo/apple.png" alt="" />
                    </div>
-                   <span>Apple</span>
+                   <span>Opinion</span>
                 </div>
                 <div class="company-box">
                    <div class="company-logo">
                       <img src="assets/images/company-logo/youtube.png" alt="" />
                    </div>
-                   <span>Youtube</span>
+                   <span>Tech and Science</span>
                 </div>
                 <div class="company-box">
                    <div class="company-logo">
                       <img src="assets/images/company-logo/reebok.png" alt="" />
                    </div>
-                   <span>Reebok</span>
+                   <span>Viral</span>
                 </div>
                 <div class="company-box">
                    <div class="company-logo">
                       <img src="assets/images/company-logo/amazon.png" alt="" />
                    </div>
-                   <span>Amazon</span>
+                   <span>Entertainment</span>
                 </div>
              </div>
           </div>
        </div>
     </div>
  </section>
+
+ <section class="is-cat-box-card-main">
+    <div class="cat-box bg-white">
+       <div class="container">
+          <div class="cat-box-title">
+             <div class="article-title">
+                <div class="title-txt"> {{'Editors pick' | translate}}</div>
+                <span class="line"></span>
+             </div>
+          </div>
+          <div class="cat-box-gallery">
+             <div class="row article-row">
+                <div class="col-sm-15 box_shadow"  *ngFor="let article of heroArticles | slice:0:5" [ngClass]="article.category.slug">
+                 <div class="item-card item-card-life-and-styles">
+                   <a [routerLink]="['/',article.author.slug,article.slug]">
+                      <div class="item-card-image">
+                         <img [src]="replaceImage(article.image.url)" [alt]="article.image.alt">
+                         <h3 class="is-category-title">{{article.category.title}}</h3>
+                         <div class="article-image-icon" *ngIf="article.type==='audio'">
+                            <i class="fas fa-play"></i>
+                         </div>
+                         <div class="article-image-icon" *ngIf="article.type==='video'">
+                            <i class="fas fa-play"></i>
+                         </div>
+                         <div class="article-image-icon" *ngIf="!(article.type==='audio' || article.type==='video')">
+                            <i class="fas fa-angle-right"></i>
+                         </div>
+                         <div class="comment-right">
+                            <div class="article-comment-info">
+                               <div class="comment-section">
+                                  <ul>
+                                     <li *ngIf="article.view_count">
+                   <a href="#">
+                   <i class="fas fa-eye"></i>
+                   {{article.view_count}}
+                   </a>
+                   </li>
+                   <li *ngIf="article.likes_count">
+                   <a href="#">
+                   <i class="fas fa-heart"></i>
+                   {{article.likes_count}}
+                   </a>
+                   </li>
+                   <li *ngIf="article.comments_count">
+                   <a href="#">
+                   <i class="fa fa-comment"></i>
+                   {{article.comments_count}}
+                   </a>
+                   </li>
+                   </ul>
+                   </div>
+                   <div class="clearfix"></div>
+                   </div>
+                   </div>
+                   </div>
+                   <div class="item-card-content">
+                      <div class="item-card-category cat-yellow">
+                         <div class="is-avatar-dv">
+                            <div class="overlay-icon">
+                               <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                               [alt]="article.author.avatar?.alt"
+                               onerror="this.src='assets/images/default-avatar.png'">
+                               <app-article-avatar [article]="article"></app-article-avatar>
+                            </div>
+                            <span class="item-card-author">{{article.author.fullname}}</span>
+                         </div>
+                      </div>
+                      <div class="item-card-title">
+                         <h4 class="item-long-title">{{article.title}}</h4>
+                      </div>
+                      <div class="item-card-texte">
+                         <p>{{article.excerpt}}</p>
+                         <div class="category-article-readmore">
+                            <div  *ngIf="article.type==='audio'">
+                               <button type="button" class="is-read-more">{{'ListenNow' | translate }} <img
+                                  src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                            </div>
+                            <div  *ngIf="article.type==='video'">
+                               <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                                  src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                            </div>
+                            <div  *ngIf="!(article.type==='audio' || article.type==='video')">
+                               <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                                  src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                            </div>
+                            <div class="article-icon-main">
+                               <div class="article-icon" *ngIf="article.type==='audio'">
+                                  <i class="fas fa-volume-down"></i>
+                               </div>
+                               <div class="article-icon" *ngIf="article.type==='video'">
+                                  <i class="fas fa-video"></i>
+                               </div>
+                               <div class="article-icon" *ngIf="!(article.type==='audio' || article.type==='video')">
+                                  <i class="far fa-file-alt"></i>
+                               </div>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                   </a>
+                </div>
+             </div>
+             <div class="clearfix"></div>
+             <!-- <div class="is-more-btn">
+                <a [routerLink]="['/category/', category.slug]" class="is-see-more">
+                   Load More
+                </a>
+                </div> -->
+          </div>
+       </div>
+    </div>
+    </div>
+ </section>
  <section class="audio-section" style="background: url(assets/images/home-audio-banner.jpg) top center no-repeat;">
     <div class="container">
        <div class="audio-detail">
-          <span class="category">Creative</span>
+          <span class="category">Newsletter</span>
           <h2>
              How to Describe Company Culture in Positive Words
           </h2>
           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard, when an unknown printer took a galley of type</p>
           <a href="#">
-          <span class="circle"><i class="fas fa-volume-down"></i></span>
-          {{'ListenNow' | translate }}
+          <span class="circle"><i class="fas fa-sign-in-alt"></i></span>
+          {{'Subscribe' | translate }}
           </a>
        </div>
     </div>
