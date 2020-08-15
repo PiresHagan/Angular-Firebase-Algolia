@@ -18,6 +18,7 @@ export class BackofficeFundraiserService {
 
   fundraiserCollection: string = 'fundraisers';
   fundraiserImagePath: string = '/fundraiser';
+  fundraiserDonation = "donates";
   
   constructor(private http: HttpClient, private db: AngularFirestore, private storage: AngularFireStorage, ) { }
 
@@ -255,6 +256,32 @@ export class BackofficeFundraiserService {
         return { id, ...data };
       })
     }));
+  }
+
+  getDonation(fundraiserId, limit: number = 10, navigation: string = "first", lastVisible = null) {
+    if (!limit) {
+      limit = 10;
+    }
+    let dataQuery = this.db.collection(this.fundraiserCollection).doc(fundraiserId).collection(`${this.fundraiserDonation}`, ref => ref)
+    switch (navigation) {
+      case 'next':
+        dataQuery = this.db.collection(this.fundraiserCollection).doc(fundraiserId).collection(`${this.fundraiserDonation}`, ref => ref
+          .orderBy('created_at', 'desc')
+          .startAfter(lastVisible))
+        break;
+    }
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        donations: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+        lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
+    })
+    );
   }
 
 }
