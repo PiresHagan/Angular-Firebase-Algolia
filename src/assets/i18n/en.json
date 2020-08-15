@@ -545,5 +545,14 @@
     "invalidCardErrorMessage": "Please input valid card details",
     "paymentDetails": "Payment Details",
     "LatestArticle":"Latest Article",
-    "TopTrendingArticle":"Top Trending Article"
+    "TopTrendingArticle":"Top Trending Article",
+    "noFundraiser": "No fundraiser found ..",
+    "newFundraiser": "New Fundraiser",
+    "deleteFundraiser": "Delete",
+    "draftFundraiser": "Draft",
+    "editFundraiser": "Edit",
+    "loadingMoreFundraiser": "Loading more Fundraisers...",
+    "readMoreFundraiser": "Read More",
+    "fundraiserDeletMsgSuc": "Fundraiser deleted successfully!",
+    "fundraiserDeletMsgConf": "Are you sure want to delete fundraiser?"
 }
