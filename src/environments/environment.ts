@@ -19,7 +19,8 @@ export const environment = {
     appId: "1:446215367606:web:8f9ef10855e88708c9af17",
     measurementId: "G-EY017BDB3Z"
   },
-  storeUrl: 'https://devstore.mytrendingstories.com'
+  storeUrl: 'https://devstore.mytrendingstories.com',
+  stripePublishableKey: 'pk_test_OLjCckOxOe5cMKFD4kQaSdGe00j69EehH2'
 };
 
 /*

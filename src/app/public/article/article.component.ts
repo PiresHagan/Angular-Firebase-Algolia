@@ -221,14 +221,14 @@ export class ArticleComponent implements OnInit {
 
 
   saveCommentOnServer(commentData) {
-    this.articleService.createComment(this.article.id, commentData).then(() => {
+    this.articleService.createComment(this.article.id, commentData).subscribe(() => {
       this.isFormSaving = false;
       this.messageDetails = '';
       this.articleService.commentCount(this.article.id);
       this.showCommentSavedMessage();
       this.newComment();
-    }).catch((e) => {
-      console.log(e)
+    }, err => {
+
       this.isFormSaving = false;
     })
   }
@@ -244,14 +244,14 @@ export class ArticleComponent implements OnInit {
   updateCommentOnServer(editedCommentId, commentData) {
     this.editedCommentId = '';
 
-    this.articleService.updateComment(this.article.id, editedCommentId, commentData).then(() => {
+    this.articleService.updateComment(this.article.id, editedCommentId, commentData).subscribe(() => {
       this.isFormSaving = false;
       this.messageDetails = '';
       this.showCommentSavedMessage();
       this.newComment();
 
-    }).catch((e) => {
-      console.log(e)
+    }, () => {
+
       this.isFormSaving = false;
     })
   }
@@ -310,14 +310,10 @@ export class ArticleComponent implements OnInit {
       id: this.userDetails.id,
     }
   }
-  async follow(authorId) {
+
+  follow() {
+    this.authorService.follow(this.article.author.id, this.article.author.type);
     const userDetails = this.getUserDetails();
-
-    await this.authorService.follow(authorId, userDetails);
-
-    await this.authorService.following(userDetails.id, this.article.author);
-
-    this.authorService.followCount(authorId, userDetails.id, 1);
 
     const analytics = firebase.analytics();
 
@@ -328,15 +324,9 @@ export class ArticleComponent implements OnInit {
       user_name: userDetails.fullname,
     });
   }
-
-  async unfollow(authorId) {
+  unfollow() {
+    this.authorService.unfollow(this.article.author.id, this.article.author.type);
     const userDetails = this.getUserDetails();
-
-    await this.authorService.unfollow(authorId, userDetails.id);
-
-    await this.authorService.unfollowing(userDetails.id, authorId);
-
-    this.authorService.followCount(authorId, userDetails.id, -1);
 
     const analytics = firebase.analytics();
 
@@ -349,7 +339,7 @@ export class ArticleComponent implements OnInit {
   }
 
   setFollowOrNot() {
-    this.authorService.isUserFollowing(this.article.author.id, this.getUserDetails().id).subscribe((data) => {
+    this.authorService.isUserFollowing(this.article.author.id, this.getUserDetails().id, this.article.author.type).subscribe((data) => {
       if (data) {
         this.isFollowing = true;
       } else {
@@ -425,6 +415,16 @@ export class ArticleComponent implements OnInit {
 
   getRelativeDate(date: string) {
     return moment(date).fromNow();
+  }
+
+  getArticleUrl(article) {
+    if (!article || !article.author.type) {
+      return '/'
+    } else if (article.author.type == 'charity') {
+      return '/charities/';
+    } else if (article.author.type == 'company') {
+      return '/companies/';
+    }
   }
 
 }

@@ -16,6 +16,12 @@ import { TodayComponent } from './today/today.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { VideoComponent } from './video/video.component';
 import { AudioComponent } from './audio/audio.component';
+import { CompanyComponent } from './company/company.component';
+import { CompaniesComponent } from './companies/companies.component';
+import { CharityComponent } from './charity/charity.component';
+import { CharityListComponent } from './charity-list/charity-list.component';
+import { NewHomeComponent } from './new-home/new-home.component';
+import { FundraiserComponent } from './fundraiser/fundraiser.component';
 
 
 const routes: Routes = [
@@ -64,6 +70,22 @@ const routes: Routes = [
     component: Copywriter2Component,
     data: {
       title: 'Copywriter version 2',
+      headerDisplay: "none"
+    }
+  },
+  {
+    path: 'new-home',
+    component: NewHomeComponent,
+    data: {
+      title: 'New home',
+      headerDisplay: "none"
+    }
+  },
+  {
+    path: 'fundraiser',
+    component: FundraiserComponent,
+    data: {
+      title: 'fundraiser',
       headerDisplay: "none"
     }
   },
@@ -151,6 +173,38 @@ const routes: Routes = [
       headerDisplay: "none"
     }
   },
+  {
+    path: 'companies',
+    component: CompaniesComponent,
+    data: {
+      title: 'companies',
+      headerDisplay: "none"
+    }
+  },
+  {
+    path: 'companies/:slug',
+    component: CompanyComponent,
+    data: {
+      title: 'company',
+      headerDisplay: "none"
+    }
+  },
+  {
+    path: 'charities',
+    component: CharityListComponent,
+    data: {
+      title: 'charities',
+      headerDisplay: "none"
+    }
+  },
+  {
+    path: 'charities/:slug',
+    component: CharityComponent,
+    data: {
+      title: 'charity',
+      headerDisplay: "none"
+    }
+  },
   // {
   //   path: '**',
   //   component: HomeComponent,
@@ -176,6 +230,7 @@ const routes: Routes = [
       headerDisplay: "none"
     }
   },
+  
 
 ];
 

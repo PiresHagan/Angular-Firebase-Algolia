@@ -18,6 +18,7 @@ import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { SearchEngineComponent } from './search-engine/search-engine.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxStripeModule } from 'ngx-stripe';
 
 import { NgAisModule } from 'angular-instantsearch';
 import { BuyComponent } from './buy/buy.component';
@@ -33,6 +34,14 @@ import { PrivacyFrComponent } from './privacy/privacy-fr/privacy-fr.component';
 import { PrivacyEsComponent } from './privacy/privacy-es/privacy-es.component';
 import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
 import { Cloudinary } from 'cloudinary-core';
+import { CompanyComponent } from './company/company.component';
+import { CompaniesComponent } from './companies/companies.component';
+import { CharityComponent } from './charity/charity.component';
+import { CharityListComponent } from './charity-list/charity-list.component';
+import { environment } from 'src/environments/environment';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NewHomeComponent } from './new-home/new-home.component';
+import { FundraiserComponent } from './fundraiser/fundraiser.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -53,7 +62,14 @@ import { Cloudinary } from 'cloudinary-core';
     VideoComponent,
     AudioComponent,
     PrivacyFrComponent,
-    PrivacyEsComponent
+    PrivacyEsComponent,
+    CompanyComponent,
+    CompaniesComponent,
+    CharityComponent,
+    CharityListComponent,
+    NewHomeComponent,
+    FundraiserComponent,
+
   ],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
@@ -67,7 +83,9 @@ import { Cloudinary } from 'cloudinary-core';
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } }),
     NzCollapseModule,
     NgAisModule.forRoot(),
-    SharedModule
+    SharedModule,
+    NgxStripeModule.forRoot(environment.stripePublishableKey),
+    NzModalModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
