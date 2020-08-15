@@ -552,7 +552,10 @@
     "draftFundraiser": "Draft",
     "editFundraiser": "Edit",
     "loadingMoreFundraiser": "Loading more Fundraisers...",
-    "readMoreFundraiser": "Read More",
     "fundraiserDeletMsgSuc": "Fundraiser deleted successfully!",
-    "fundraiserDeletMsgConf": "Are you sure want to delete fundraiser?"
+    "fundraiserDeletMsgConf": "Are you sure want to delete fundraiser?",
+    "fundraiserInfo": "Fundraiser Info",
+    "fundraiserDetails": "Fundraiser Details",
+    "fundraiserFollowers": "Fundraiser Followers",
+    "fundraiserDonation": "Fundraiser Donation"
 }

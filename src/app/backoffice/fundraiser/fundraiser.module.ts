@@ -9,10 +9,11 @@ import { HttpClient } from '@angular/common/http';
 
 import { FundraiserRoutingModule } from './fundraiser-routing.module';
 import { FundraiserListComponent } from './fundraiser-list/fundraiser-list.component';
+import { FundraiserDetailsComponent } from './fundraiser-details/fundraiser-details.component';
 
 
 @NgModule({
-  declarations: [FundraiserListComponent],
+  declarations: [FundraiserListComponent, FundraiserDetailsComponent],
   imports: [
     CommonModule,
     CommonModule,
