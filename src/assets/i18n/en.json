@@ -586,5 +586,7 @@
     "fundraiserImageSizeErr": "Image must smaller than 2MB!",
     "fundraiserMetaTitle": "Meta Title",
     "fundraiserMetaKeyword": "Meta Keyword",
-    "fundraiserMetaDesc": "Meta Description"
+    "fundraiserMetaDesc": "Meta Description",
+    "fundraiserPublishMsg": "Congratulations, your fundraiser is published!",
+    "fundraiserDraft": "Draft"
 }

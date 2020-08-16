@@ -1,1 +1,45 @@
-<p>fundraiser-publish works!</p>
+<div class="container">
+    <nz-card class="fundraiser-publish-sec">
+        <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
+            <div class="publish-image"><img class="img-fluid w-100" [src]="fundraiser?.image?.url"
+                    alt="{{fundraiser?.image.alt}}"></div>
+            <div class="publish-fundraiser-title">
+                <h2>{{fundraiser?.title}}</h2>
+                <div class="media">
+                    <nz-avatar nzSrc="{{fundraiser?.author?.avatar?.url }}"></nz-avatar>
+                    <div class="m-l-10">
+                        <h6 class="m-b-0">{{fundraiser?.author?.fullname}}</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="m-t-30" [hidden]="!fileURL" [class.data-not]="!fileURL">
+                <iframe [src]="transform(fileURL)" width="100%" height="650px"
+                    allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen
+                    frameborder="0"></iframe>
+
+            </div>
+            <audio controls class="m-t-10 m-b-10" [hidden]="fundraiser?.type !=AUDIO"
+                [class.data-not]="fundraiser?.type !=AUDIO">
+                <source [src]="fundraiser?.fundraising_file?.url" type="audio/mpeg">
+                Your browser does not support the audio tag.
+            </audio>
+            <div class="m-t-30 lh-1-8 pl-2 pr-2" innerHTML="{{fundraiser?.content}}">
+            </div>
+            <hr>
+            <nz-form-item>
+                <nz-form-control>
+                    <div class="pl-2">
+                        <button nz-button (click)="goBack()" class="login-form-button m-10"
+                            [nzType]="'primary'">{{'fundraiserGoBackbtn' | translate}}</button>
+
+                        <button nz-button class="login-form-button m-5" [nzLoading]="isFormSaving" [nzType]="'primary'"
+                            (click)="savePublishStatus()">{{'fundraiserPublish' |translate}}</button>
+
+                        <button nz-button class="login-form-button m-5" [nzLoading]="isFormSaving" [nzType]="'primary'"
+                            (click)="saveDraftStatus()">{{'fundraiserDraft' |translate}}</button>
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+        </nz-skeleton>
+    </nz-card>
+</div>
