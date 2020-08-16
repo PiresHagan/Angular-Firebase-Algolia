@@ -48,7 +48,7 @@ export class FundraiserSeoComponent implements OnInit {
       if (this.fundraiserId) {
         try {
 
-          this.fundraiser = await this.fundraiserService.getFundraiserById(this.fundraiserId, this.userDetails.id, this.userDetails.type);
+          this.fundraiser = await this.fundraiserService.getFundraiserById(this.fundraiserId);
           this.title = this.fundraiser && this.fundraiser.meta && this.fundraiser.meta.title ? this.fundraiser.meta.title : '';
           this.keywords = this.fundraiser && this.fundraiser.meta && this.fundraiser.meta.keywords ? this.fundraiser.meta.keywords : '';
           this.description = this.fundraiser && this.fundraiser.meta && this.fundraiser.meta.description ? this.fundraiser.meta.description : '';

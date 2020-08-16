@@ -596,5 +596,7 @@
     "FundraiserEmail": "Fundraiser Email",
     "FundraiserSelectVideo": "Select Video For Fundraiser",
     "FundraiserSelectAudio": "Select Audio For Fundraiser",
-    "SelectFundraiserLogo": "Select Fundraiser Logo"
+    "SelectFundraiserLogo": "Select Fundraiser Logo",
+    "CompanyFundraisers": "Company Fundraisers",
+    "CharityFundraisers": "Charity Fundraisers"
 }

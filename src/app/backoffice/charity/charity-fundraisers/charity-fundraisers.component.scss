@@ -1,0 +1,178 @@
+a.ant-btn {
+    padding: 0.65rem 1.25rem;
+}
+body {
+    background: #fff !important;
+}
+.profile-fundraiser-list {
+    border: 0px;
+    background: #fff;
+    padding: 15px;
+    margin: 20px 0px;
+    ::ng-deep .ant-card {
+        border: 0px;
+    }
+    ::ng-deep .profile-fundraiser-item-main {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0px -15px;
+        ::ng-deep .profile-fundraiser-item {
+            width: 33.3333%;
+            padding: 0px 15px;
+            box-sizing: border-box;
+            ::ng-deep .ant-card-body {
+                padding: 0px;
+                .profile-fundraiser-list-item {
+                    display: flex;
+                    flex-wrap: wrap;
+                    border: 1px solid #f1f1f1;
+                    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.02);
+                    .profile-fundraiser-img {
+                        width: 100%;
+                        img {
+                            width: 100%;
+                            height: 250px;
+                            object-fit: cover;
+                        }
+                    }
+                    .profile-fundraiser-detail {
+                        width: 100%;
+                        padding: 20px;
+                        .profile-fundraiser-avtar {
+                            display: flex;
+                            align-items: center;
+                            flex-wrap: wrap;
+                            font-size: 15px;
+                            text-transform: capitalize;
+                            font-weight: 600;
+                        }
+                        h4 {
+                            font-size: 22px;
+                            color: #000;
+                            margin: 10px 0px 5px 0px;
+                            font-family: "josefin_sanssemibold";
+                        }
+                        .profile-fundraiser-info {
+                            color: #000;
+                            font-family: "josefin_sanslight";
+                        }
+                        p {
+                            font-family: "open_sansregular";
+                            font-size: 15px;
+                            color: #000;
+                            line-height: 33px;
+                            margin-top: 20px;
+                        }
+                        .fundraiser-read-more {
+                            background: transparent !important;
+                            color: #ff563a;
+                            font-size: 16px;
+                            font-family: "josefin_sanssemibold" !important;
+                            border-bottom: 1px solid #ff563a;
+                            padding: 0px 0px 5px 0px;
+                            box-shadow: unset;
+                            border-width: 0px 0px 1px 0px;
+                            border-radius: 0px;
+                        }
+                        .fundraiser-edit-link {
+                            background: transparent !important;
+                            color: #000;
+                            font-size: 16px;
+                            font-family: "josefin_sanssemibold" !important;
+                            border-bottom: 1px solid #000;
+                            padding: 0px 0px 5px 0px;
+
+                            box-shadow: unset;
+                            border-width: 0px 0px 1px 0px;
+                            border-radius: 0px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 580px) {
+    ::ng-deep .profile-fundraiser-item-main {
+        display: flex;
+        flex-wrap: wrap;
+
+        ::ng-deep .profile-fundraiser-item {
+            width: 100% !important;
+        }
+    }
+}
+
+.profile-fundraiser-list {
+    .page-header {
+        margin: 0px !important;
+    }
+    .profile-fundraiser-list-item {
+        .profile-fundraiser-detail {
+            h4 {
+                font-size: 20px;
+            }
+            .profile-fundraiser-date {
+                padding-left: 52px;
+                ::ng-deep .ant-divider {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 581px) and (max-width: 767px) {
+    ::ng-deep .profile-fundraiser-item-main {
+        display: flex;
+        flex-wrap: wrap;
+        ::ng-deep .profile-fundraiser-item {
+            width: 50% !important;
+        }
+    }
+    .profile-fundraiser-list {
+        .profile-fundraiser-list-item {
+            .profile-fundraiser-detail {
+                h4 {
+                    font-size: 16px;
+                }
+                .profile-fundraiser-date {
+                    padding-left: 52px;
+                    ::ng-deep .ant-divider {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    ::ng-deep .profile-fundraiser-item-main {
+        display: flex;
+        flex-wrap: wrap;
+        ::ng-deep .profile-fundraiser-item {
+            width: 50% !important;
+        }
+    }
+
+    .profile-fundraiser-list {
+        .page-header {
+            margin: 0px !important;
+        }
+        .profile-fundraiser-list-item {
+            .profile-fundraiser-detail {
+                h4 {
+                    font-size: 16px;
+                }
+                .profile-fundraiser-date {
+                    padding-left: 52px;
+                    ::ng-deep .ant-divider {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

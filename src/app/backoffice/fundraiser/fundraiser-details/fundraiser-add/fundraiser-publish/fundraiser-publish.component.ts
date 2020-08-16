@@ -56,7 +56,7 @@ export class FundraiserPublishComponent implements OnInit {
       this.userDetails = await this.authService.getLoggedInUserDetails();
       if (this.fundraiserId) {
         try {
-          this.fundraiser = await this.fundraiserService.getFundraiserById(this.fundraiserId, this.userDetails.id, this.userDetails.type);
+          this.fundraiser = await this.fundraiserService.getFundraiserById(this.fundraiserId);
           const format = 'mp4';
           this.fileURL = this.fundraiser.type === "video" && `https://player.cloudinary.com/embed/?cloud_name=mytrendingstories&public_id=${this.fundraiser.fundraising_file.cloudinary_id}&fluid=true&controls=true&source_types%5B0%5D=${format}`
         } catch (error) {

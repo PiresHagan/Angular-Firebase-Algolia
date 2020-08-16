@@ -208,7 +208,7 @@ export class FundraiserContentComponent implements OnInit {
 
       if (fundraiserId) {
         try {
-          this.fundraiser = await this.fundraiserService.getFundraiserById(fundraiserId, this.userDetails.id, this.userDetails.type);
+          this.fundraiser = await this.fundraiserService.getFundraiserById(fundraiserId);
           if (this.fundraiser && (this.fundraiser['id'])) {
             this.setFormDetails();
             this.getCompanyAndCharity(this.fundraiser.author);

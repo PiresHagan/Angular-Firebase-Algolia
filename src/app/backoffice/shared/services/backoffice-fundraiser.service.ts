@@ -26,10 +26,10 @@ export class BackofficeFundraiserService {
     return this.http.delete(environment.baseAPIDomain + '/api/v1/fundraisings/' + fundraiserId);
   }
 
-  getFundraiserById(fundraiserId: string, authorId, type: string) {
+  getFundraiserById(fundraiserId: string) {
     return new Promise<any>((resolve, reject) => {
       this.db.doc(`${this.fundraiserCollection}/${fundraiserId}`).valueChanges().subscribe((data) => {
-        if (data && data['author'].id === authorId) {
+        if (data) {
           data['id'] = fundraiserId;
           resolve(data)
         } else {
