@@ -8,9 +8,44 @@
             <div class="sticky-box">
                <div class="is-profile">
                   <a>
-                  <img class="avatar" src="assets/images/charity/fundraiser.png" alt="charity logo"/>
+                  <img class="avatar" src="assets/images/charity/badge-pink.png" alt="charity logo"/>
                   </a>
                </div>
+
+               <div class="is-author-name-sec is-divider">
+                  <div class="logo">
+                     <img src="assets/images/charity/facebook.png" alt="facebook">
+                     <div class="special-icon">
+                        <img src="assets/images/charity/author.png" alt="author icon"/>
+                    </div>
+                  </div>
+                  <span class="is-author-name">
+                      <a>
+                          <span class="name"> Author Name</span>
+                      </a>
+                      <a class="follow-btn">
+                          <img src="assets/images/article/icon/follow.png" />
+                          {{'followAuthor' | translate}}
+                      </a>
+                      <!-- <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                          <img src="assets/images/article/icon/un-follow.png" />
+                          {{'unfollowAuthor' | translate}}
+                      </a> -->
+                  </span>
+              </div>
+              <div class="is-like-sec is-divider">
+
+               <a class="is-like">
+                   <i class="far fa-thumbs-up"></i>
+                   {{'like' | translate}} <span class="like-count">12</span>
+               </a>
+               <!-- <a class="is-like" *ngIf="isLike" (click)="disLike()">
+                   <i class="fas fa-heart"></i>
+                   {{'liked' | translate}} <span class="like-count">{{articleLikes}}</span>
+               </a> -->
+               <a class="is-like"><span class="likes-count"><i
+                  class="fas fa-eye"></i>12</span></a>
+           </div>
                <div class="share-sec text-center">
                   <div class="addthis_inline_share_toolbox"></div>
                </div>

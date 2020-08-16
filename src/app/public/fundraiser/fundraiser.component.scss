@@ -80,14 +80,108 @@
             text-align: center;
             a {
               display: block;
-              margin-bottom: 20px;
               img {
                 width: 140px;
                 height: 140px;
                 border-radius: 100%;
                 margin: auto;
                 object-fit: cover;
-                padding: 15px;
+                padding: 0px;
+              }
+            }
+          }
+          .is-divider {
+            position: relative;
+            padding-bottom: 7px;
+            margin-bottom: 10px;
+            &:before {
+              content: "";
+              position: absolute;
+              bottom: 0px;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              width: 80px;
+              height: 1px;
+              background: #e3e3e3;
+            }
+          }
+          .is-author-name-sec {
+            text-align: center;
+            .logo{
+              position: relative;
+              width: 100px;
+              margin: 20px auto 0px;
+              >img{
+                width: 80px;
+                height: 80px;
+              }
+              .special-icon{
+                position: absolute;
+                top: -10px;
+                right: -10px;
+                width: 50px;
+                height: 50px;
+                background: #000;
+                border: 1px solid #fff;
+                display: flex;
+                border-radius: 100%;
+                img{
+                  max-width: 28px !important;
+                  margin: auto;
+                }
+              }
+            }
+            .is-author-name {
+              a {
+                display: block;
+                font-family: "josefin_sanssemibold";
+               img{
+                max-width: 24px;
+                vertical-align: sub;
+                margin-right: 5px;
+               }
+                .name {
+                  display: inline-block;
+                  font-size: 24px;
+                  color: #fd6147;
+                  padding-top: 15px;
+                }
+                &.follow-btn {
+                  color: #042c99;
+                  font-size: 20px;
+                  img {
+                    max-width: 16px;
+                    vertical-align: text-top;
+                  }
+                }
+              }
+            }
+          }
+          .is-like-sec {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            a {
+              font-size: 20px;
+              color: #042c99;
+              font-family: "josefin_sanssemibold";
+              margin: 0px 4px;
+              &.is-like {
+                min-width: 85px;
+                .far {
+                  font-size: 17px;
+                }
+                .likes-count{
+                  .fas{
+                    font-size: 19px;
+                    margin: 0px 10px 0px 10px;
+                  }
+                }
+              }
+              img {
+                max-width: 16px;
+                margin-right: 7px;
+                vertical-align: text-top;
               }
             }
           }
