@@ -573,5 +573,15 @@
     "fundraiserContentErr": "Fundraiser Content should not be less than 10 characters.",
     "fundraiserTitle": "Title",
     "fundraiserContent": "Content",
-    "fundraiserExcerpt": "Excerpt"
+    "fundraiserExcerpt": "Excerpt",
+    "fundraiserGoBackbtn": "Back",
+    "fundraiserImageMessage1": "Click or drag file to this area to upload",
+    "fundraiserImageMessage2": "Strictly prohibit from uploading company data or other bad files.",
+    "fundraiserImageMessage3": "Fundraiser image is required.",
+    "fundraiserImageUpload": "Upload",
+    "fundraiserImageAltText": "Alternative Text",
+    "fundraiserImageAltTextErr": "Please enter valid value. The value length should ne greater than 2 and less then 100.",
+    "fundraiserImageGeneralErr": "Please use valid image.",
+    "fundraiserImageTypeErr": "You can only upload JPG/PNG file!",
+    "fundraiserImageSizeErr": "Image must smaller than 2MB!"
 }
