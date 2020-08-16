@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map, take } from 'rxjs/operators';
-
 import { AngularFireStorage } from '@angular/fire/storage';
+import * as firebase from 'firebase/app';
 
 import { Fundraiser } from 'src/app/shared/interfaces/fundraiser.type';
 import { ACTIVE } from 'src/app/shared/constants/status-constants';
@@ -282,6 +282,20 @@ export class BackofficeFundraiserService {
       }
     })
     );
+  }
+
+  addImage(file: string, fileName: string) {
+    return new Promise((resolve, reject) => {
+      firebase.storage().ref(`${this.fundraiserImagePath}/${fileName}`).putString(file, "data_url").then( snapshot => {
+        snapshot.ref.getDownloadURL().then((downloadURL) => {
+          const imageUrl: string = downloadURL;
+          resolve({ url: downloadURL, alt: fileName });
+        }).catch(err => reject(err))
+      }).catch((error) => {
+        console.log(error);
+        reject();
+      });
+    })
   }
 
 }

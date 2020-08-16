@@ -34,6 +34,7 @@ export class FundraiserContentComponent implements OnInit {
   fundraiserId: string;
   isFormSaving: boolean = false;
   loading: boolean = true;
+  isLogoImageUploading = false;
   languageList;
   radioValue = 'text';
   allowedFundraiserVideo = ['mimetypes:video/x-ms-asf', 'video/x-flv', 'video/mp4', 'application/x-mpegURL', 'video/MP2T', 'video/3gpp', 'video/quicktime', 'video/x-msvideo', 'video/x-ms-wmv', 'video/avi'];
@@ -41,6 +42,7 @@ export class FundraiserContentComponent implements OnInit {
   fundraiserFile;
   videoFile;
   audioFile;
+  logoImage;
   fileURL: string;
   videofileURL: string;
   audioFileUrl: string;
@@ -76,8 +78,12 @@ export class FundraiserContentComponent implements OnInit {
     private charityService: CharityService,
     private companyService: CompanyService
   ) {
-
     this.fundraiserForm = this.fb.group({
+      name: ['', [Validators.required, Validators.maxLength(70)]],
+      email: ['', [Validators.required, Validators.pattern("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$")]],
+      phone: ['', [Validators.required, Validators.maxLength(10)]],
+      goal_amount: [null, [Validators.required, Validators.min(1)]],
+      color_code: ['', [Validators.pattern("^[#0-9a-f]{7}$")]],
       title: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],
       excerpt: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(160)]],
       content: ['', [Validators.minLength(10)]],
@@ -86,15 +92,19 @@ export class FundraiserContentComponent implements OnInit {
       author: ['', [Validators.required]]
     });
   }
+
   isValidVideo(mimeType) {
     return this.allowedFundraiserVideo.indexOf(mimeType) > -1;
   }
+
   isValidAudio(mimeType) {
     return this.allowedFundraiserAudio.indexOf(mimeType) > -1;
   }
+
   isValidSize(fileSize, requiredSize) {
     return fileSize! / 1024 / 1024 < requiredSize
   }
+
   showMessage(msg, type, extras = '') {
     if (type == 'error') {
       this.modalService.error({
@@ -116,8 +126,17 @@ export class FundraiserContentComponent implements OnInit {
     }
   }
 
-  beforeUpload = (file: UploadFile, _fileList: UploadFile[]) => {
+  private getBase64(img: File, callback: (img: {}) => void): void {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => callback(reader.result));
+    reader.readAsDataURL(img);
+  }
 
+  saveImageOnServer(base64, name) {
+    return this.fundraiserService.addImage(base64, name)
+  }
+  
+  beforeUpload = (file: UploadFile, _fileList: UploadFile[]) => {
     const isValidFile = this.fundraiserType == AUDIO ? this.isValidAudio(file.type) : this.isValidVideo(file.type);
     if (!isValidFile) {
       this.showMessage('InvalidFormat', 'error');
@@ -129,13 +148,52 @@ export class FundraiserContentComponent implements OnInit {
       this.showMessage('InvalidSize', 'error', this.fundraiserType == AUDIO ? '100MB' : '100MB');
       return false;
     }
-    this.fundraiserFile = file;
 
+    this.fundraiserFile = file;
     return false;
   };
 
-  saveVideo() {
+  beforeUploadLogo = (file: UploadFile, _fileList: UploadFile[]) => {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+      this.showErrorMessage("artImageTypeErr");
+      return false;
+    }
+    const isLt2M = file.size! / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      this.showErrorMessage("artImageSizeErr");
+      return false;
+    }
+    return true;
+  };
 
+  handleChange(info: { file: UploadFile }): void {
+    try {
+      this.isLogoImageUploading = true;
+      this.getBase64(info.file.originFileObj, (img: string) => {
+        this.saveImageOnServer(img, info.file.name).then((imageObject) => {
+          this.logoImage = imageObject;
+          this.isLogoImageUploading = false;
+        })
+      })
+    } catch (error) {
+      this.isLogoImageUploading = false;
+      this.showErrorMessage('artImageGeneralErr');
+    }
+  }
+
+  showErrorMessage(message) {
+    let $message = this.translate.instant(message);
+    this.modalService.error({
+      nzTitle: $message,
+    });
+  }
+
+  showWarningMessage(message) {
+    let $message = this.translate.instant(message);
+    this.modalService.warning({
+      nzTitle: $message,
+    });
   }
 
   async ngOnInit() {
@@ -167,13 +225,24 @@ export class FundraiserContentComponent implements OnInit {
   }
 
   submitFundraiser() {
+    if (!this.logoImage) {
+      this.showWarningMessage("LogoImageRequired");
+      return
+    }
+
     for (const i in this.fundraiserForm.controls) {
       this.fundraiserForm.controls[i].markAsDirty();
       this.fundraiserForm.controls[i].updateValueAndValidity();
     }
+
     if (this.findInvalidControls().length == 0) {
       this.isFormSaving = true;
       const fundraiserData = {
+        name: this.fundraiserForm.get('name').value,
+        email: this.fundraiserForm.get('email').value,
+        phone: this.fundraiserForm.get('phone').value,
+        goal_amount: this.fundraiserForm.get('goal_amount').value,
+        color_code: this.fundraiserForm.get('color_code').value,
         content: this.fundraiserType == 'text' ? this.fundraiserForm.get('content').value : '',
         title: this.fundraiserForm.get('title').value,
         slug: this.getSlug(this.fundraiserForm.get('title').value.trim()),
@@ -183,6 +252,7 @@ export class FundraiserContentComponent implements OnInit {
         status: this.fundraiser && this.fundraiser.status ? this.fundraiser.status : DRAFT,
         lang: this.fundraiserForm.get('lang').value ? this.fundraiserForm.get('lang').value : this.userDetails.lang,
         type: this.fundraiserForm.get('type').value,
+        logo: this.logoImage,
         fundraising_file: this.fundraiser ? this.fundraiser.fundraising_file : {},
         created_at: this.fundraiser && this.fundraiser.id && this.fundraiser.created_at ? this.fundraiser.created_at : new Date().toISOString()
       }
@@ -287,6 +357,11 @@ export class FundraiserContentComponent implements OnInit {
 
   setFormDetails() {
     this.fundraiserForm.setValue({
+      name: this.fundraiser.name,
+      email: this.fundraiser.email,
+      phone: this.fundraiser.phone,
+      goal_amount: this.fundraiser.goal_amount,
+      color_code: this.fundraiser.color_code,
       title: this.fundraiser.title,
       excerpt: this.fundraiser.excerpt,
       content: this.fundraiser.content,
@@ -294,6 +369,7 @@ export class FundraiserContentComponent implements OnInit {
       type: this.fundraiser.type ? this.fundraiser.type : 'text',
       author: this.fundraiser.author ? this.fundraiser.author : null
     });
+    this.logoImage = this.fundraiser.logo;
     this.audioFile = this.fundraiser.type === "audio" ? this.fundraiser.fundraising_file : '';
     this.videoFile = this.fundraiser.type === "video" ? this.fundraiser.fundraising_file : '';
     const format = this.fundraiser.type === "audio" ? 'mp3' : 'mp4';

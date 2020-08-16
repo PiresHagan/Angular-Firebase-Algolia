@@ -7,6 +7,8 @@ export interface Fundraiser {
     email?: string,
     phone?: string
     title?: string;
+    goal_amount?: number;
+    color_code?: string;
     slug?: string;
     summary?: string;
     author?: any;
@@ -19,7 +21,6 @@ export interface Fundraiser {
         url: string,
         alt: string
     },
-    view_count?: number;
     status?: any;
     published_on?: string;
     created_at?: string;

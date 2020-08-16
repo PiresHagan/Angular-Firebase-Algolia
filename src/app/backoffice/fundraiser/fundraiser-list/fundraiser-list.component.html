@@ -34,15 +34,15 @@
                             <div class="profile-fundraiser-info">
                                 <div class="profile-fundraiser-avtar">
                                     <div class="d-flex align-items-center">
-                                        <nz-avatar nzSize="medium" [nzSrc]="item.author?.avatar.url">
+                                        <nz-avatar nzSize="medium" [nzSrc]="item?.logo?.url">
                                         </nz-avatar>
                                         <div class="m-l-10">
-                                            <span class="">{{item.author?.fullname}}</span>
+                                            <span class="">{{item.name}}</span>
                                         </div>
                                     </div>
                                     <div class="profile-fundraiser-date">
                                         <nz-divider nzType="vertical"></nz-divider>
-                                        <span>{{item.published_on | date:'medium'}}</span>
+                                        <span>{{item.published_at | date:'medium'}}</span>
                                     </div>
                                 </div>
                             </div>

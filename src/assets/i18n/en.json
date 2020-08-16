@@ -588,5 +588,13 @@
     "fundraiserMetaKeyword": "Meta Keyword",
     "fundraiserMetaDesc": "Meta Description",
     "fundraiserPublishMsg": "Congratulations, your fundraiser is published!",
-    "fundraiserDraft": "Draft"
+    "fundraiserDraft": "Draft",
+    "fundraiserGoalAmount": "Fundraiser Goal Amount",
+    "FundraiserPhone": "Fundraiser Phone",
+    "FundraiserColorCode": "Fundraiser Color",
+    "FundraiserName": "Fundraiser Name",
+    "FundraiserEmail": "Fundraiser Email",
+    "FundraiserSelectVideo": "Select Video For Fundraiser",
+    "FundraiserSelectAudio": "Select Audio For Fundraiser",
+    "SelectFundraiserLogo": "Select Fundraiser Logo"
 }
