@@ -132,11 +132,9 @@ export class FundraiserImageComponent implements OnInit {
       this.userDetails = await this.authService.getLoggedInUserDetails();
       if (this.fundraiserId) {
         try {
-
           this.fundraiser = await this.fundraiserService.getFundraiserById(this.fundraiserId, this.userDetails.id, this.userDetails.type);
           this.fundraiserImage = this.fundraiser && this.fundraiser.image && this.fundraiser.image.url ? this.fundraiser.image.url : '';
           this.alternative = this.fundraiser && this.fundraiser.image && this.fundraiser.image.alt ? this.fundraiser.image.alt : '';
-
         } catch (error) {
           this.router.navigate(['/app/error'])
         }

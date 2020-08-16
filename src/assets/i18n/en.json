@@ -583,5 +583,8 @@
     "fundraiserImageAltTextErr": "Please enter valid value. The value length should ne greater than 2 and less then 100.",
     "fundraiserImageGeneralErr": "Please use valid image.",
     "fundraiserImageTypeErr": "You can only upload JPG/PNG file!",
-    "fundraiserImageSizeErr": "Image must smaller than 2MB!"
+    "fundraiserImageSizeErr": "Image must smaller than 2MB!",
+    "fundraiserMetaTitle": "Meta Title",
+    "fundraiserMetaKeyword": "Meta Keyword",
+    "fundraiserMetaDesc": "Meta Description"
 }
