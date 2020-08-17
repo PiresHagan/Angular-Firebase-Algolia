@@ -594,5 +594,8 @@
     "SelectFundraiserLogo": "Sélectionnez le logo de la collecte de fonds",
     "CompanyFundraisers": "CompanyFundraisers",
     "CharityFundraisers": "Charity Fundraisers",
-    "FundraiserAccountError": "Algo salió mal. Conéctese con el equipo de soporte"
+    "FundraiserAccountError": "Algo salió mal. Conéctese con el equipo de soporte",
+    "donateFundraiserTitle": "Faire un don",
+    "followFundraiser": "Suivez-nous",
+    "unfollowFundraiser": "Ne nous désabonner"
 }

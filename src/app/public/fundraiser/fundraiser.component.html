@@ -1,51 +1,32 @@
 <section class="is-article-block">
    <div class="container">
       <div class="article-full-img">
-         <img  src="assets/images/charity/banner.jpg" alt="Banner"/>
+         <img *ngIf="fundraiser" [src]='fundraiser?.image?.url' [alt]='fundraiser?.image?.alt'/>
       </div>
       <div class="is-article-sec">
          <div class="is-left-profile">
             <div class="sticky-box">
                <div class="is-profile">
                   <a>
-                  <img class="avatar" src="assets/images/charity/badge-pink.png" alt="charity logo"/>
+                     <img class="avatar" src="assets/images/charity/badge-pink.png" alt="charity logo"/>
                   </a>
                </div>
 
                <div class="is-author-name-sec is-divider">
                   <div class="logo">
-                     <img src="assets/images/charity/facebook.png" alt="facebook">
-                     <div class="special-icon">
-                        <img src="assets/images/charity/author.png" alt="author icon"/>
-                    </div>
+                     <a [routerLink]="[getAuthorUrl(fundraiser),fundraiser?.author?.slug]" itemprop="url" *ngIf="fundraiser">
+                        <img class="avatar" [src]="fundraiser?.author?.avatar?.url"
+                            [alt]="fundraiser?.author?.avatar?.alt"
+                            onerror="this.src='assets/images/default-avatar.png'" />
+                    </a>
+                     <app-article-avatar *ngIf="fundraiser" [article]="fundraiser"></app-article-avatar>
                   </div>
                   <span class="is-author-name">
                       <a>
-                          <span class="name"> Author Name</span>
+                          <span class="name">{{ fundraiser?.author?.fullname }}</span>
                       </a>
-                      <a class="follow-btn">
-                          <img src="assets/images/article/icon/follow.png" />
-                          {{'followAuthor' | translate}}
-                      </a>
-                      <!-- <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-                          <img src="assets/images/article/icon/un-follow.png" />
-                          {{'unfollowAuthor' | translate}}
-                      </a> -->
                   </span>
               </div>
-              <div class="is-like-sec is-divider">
-
-               <a class="is-like">
-                   <i class="far fa-thumbs-up"></i>
-                   {{'like' | translate}} <span class="like-count">12</span>
-               </a>
-               <!-- <a class="is-like" *ngIf="isLike" (click)="disLike()">
-                   <i class="fas fa-heart"></i>
-                   {{'liked' | translate}} <span class="like-count">{{articleLikes}}</span>
-               </a> -->
-               <a class="is-like"><span class="likes-count"><i
-                  class="fas fa-eye"></i>12</span></a>
-           </div>
                <div class="share-sec text-center">
                   <div class="addthis_inline_share_toolbox"></div>
                </div>
@@ -53,103 +34,148 @@
          </div>
          <div class="is-main-article-content">
             <div class="company-img">
-               <img  src="assets/images/charity/facebook.png" alt="facebook"/>
+               <img *ngIf="fundraiser" [src]="fundraiser?.logo?.url" [alt]="fundraiser?.logo?.alt" />
             </div>
             <div class="is-content">
                <div class="is-head">
                   <div class="company-name">
                      <h1>
                         <a>
-                        Fundraiser Name
+                           {{ fundraiser?.name }}
                         </a>
                      </h1>
                   </div>
                   <div class="media-section">
-                     <div class="follow-btn">
-                        <a nz-button><img src="assets/images/company/follow-icon.png" alt="company img">{{ "followCharity" | translate }}</a>
+                     <div class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                        <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="fundraiser follow img">{{ "followFundraiser" | translate }}</a>
+                     </div>
+                     <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                           <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="fundraiser unfollow img">{{ "unfollowFundraiser" | translate }}</a>
                      </div>
                   </div>
                   <div class="clearfix"></div>
                </div>
                <div class="is-body">
                   <div class="fundraiser-content">
-                      <h2>Mental Health Donate</h2>
-                      <div class="d-inline-block mb-4">
-                        <h5><b>$1000,000 </b>MTS Raised $ 250,000</h5>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                      <p class="big mb-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-                      <p class="big mb-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-                      <p class="big mb-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-                    <p class="big">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                     <h2>{{ fundraiser?.title }}</h2>
+                     <div class="d-inline-block mb-4">
+                        <h5>
+                           <b>{{ fundraiser?.goal_amount | currency :'USD':'symbol':'1.0-2' }}</b>
+                              MTS Raised {{ fundraiser?.amount | currency :'USD':'symbol':'1.0-2' }}
+                        </h5>
+                        <nz-progress [nzPercent]="donationPercentage" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"></nz-progress>
+                     </div>
+                     <p class="big mb-3">{{ fundraiser?.excerpt }}</p>
+                     <div *ngIf="fundraiser?.type === TEXT" class="is-paragraph">
+                        <p class="big " innerHTML="{{ fundraiser?.content }}"></p>
+                     </div>
+                  </div>
+                  <div *ngIf="fundraiser?.type === VIDEO" class="main-video-sec">
+                     <cl-video [public-id]="fundraiser?.fundraising_file?.cloudinary_id" secure="true" controls="true" class="cld-video"></cl-video>
+                  </div>
+                  <div *ngIf="fundraiser?.type === AUDIO" class="main-audio-sec">
+                        <cl-video [public-id]="fundraiser?.fundraising_file?.cloudinary_id" resource-type="video" class="cld-audio-wave">
+                           <cl-transformation flags="waveform"></cl-transformation>
+                        </cl-video>
+                        <cl-video [public-id]="fundraiser?.fundraising_file?.cloudinary_id" secure="true" controls="true" class="cld-audio"></cl-video>
                   </div>
                </div>
             </div>
          </div>
          <div class="is-right-ad-section">
             <div class="charity-form">
-                <h5><b>$1000,000 </b>MTS Raised $ 250,000</h5>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <div class="donor-detail">
-                      <div class="donor-row">
-                          <span>23</span>
-                          Donors
-                      </div>
-                      <div class="donor-row">
+               <h5>
+                  <b>{{ fundraiser?.goal_amount | currency :'USD':'symbol':'1.0-2' }}</b>
+                   MTS Raised {{ fundraiser?.amount | currency :'USD':'symbol':'1.0-2' }}
+               </h5>
+                  
+               <nz-progress [nzPercent]="donationPercentage" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"></nz-progress>
+               
+               <div class="donor-detail">
+                     <div class="donor-row">
                         <span>23</span>
-                        Shares
-                    </div>
-                    <div class="donor-row">
-                        <span>23</span>
-                        Followers
-                    </div>
+                        Donors
+                     </div>
+                     <div class="donor-row">
+                     <span>23</span>
+                     Shares
                   </div>
+                  <div class="donor-row">
+                     <span>23</span>
+                     Followers
+                  </div>
+               </div>
             </div>
-            <div class="charity-form">
-               <h2>{{ "donateCharityTitle" | translate }}</h2>
-               <form nz-form  class="login-form" >
-                  <nz-form-item>
-                     <nz-form-control nzErrorTip="Please input your First Name">
-                        <nz-input-group>
-                           <input type="text" nz-input formControlName="userName" placeholder="First Name" />
-                        </nz-input-group>
-                     </nz-form-control>
-                  </nz-form-item>
-                  <nz-form-item>
-                  <nz-form-control nzErrorTip="Please input your Last Name">
-                     <nz-input-group>
-                        <input type="text" nz-input formControlName="userName" placeholder="Last Name" />
-                     </nz-input-group>
-                  </nz-form-control>
-                </nz-form-item>
-                  <nz-form-item>
-                  <nz-form-control nzErrorTip="Please input your Email">
-                     <nz-input-group>
-                        <input type="text" nz-input formControlName="userName" placeholder="Email" />
-                     </nz-input-group>
-                  </nz-form-control>
-                </nz-form-item>
-                  <nz-form-item>
-                     <nz-form-control nzErrorTip="Please input your Phone Number">
-                        <nz-input-group>
-                           <input type="text" nz-input formControlName="userName" placeholder="Phone Number" />
-                        </nz-input-group>
-                     </nz-form-control>
-                  </nz-form-item>
-                  <nz-form-item>
-                     <nz-form-control nzErrorTip="Please input your Amount">
-                        <nz-input-group nzAddOnBefore="$">
-                           <input type="text" nz-input formControlName="userName" placeholder="Amount" />
-                        </nz-input-group>
-                     </nz-form-control>
-                  </nz-form-item>
-                  <div class="text-center"><button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Submit</button></div>
+            <!-- <div class="charity-form" *ngIf="fundraiser && fundraiser?.stripe_status == 'active'"> -->
+            <div class="charity-form" *ngIf="fundraiser">
+               <h2>{{ "donateFundraiserTitle" | translate }}</h2>
+
+               <form nz-form [formGroup]="donateForm" (ngSubmit)="submitForm()" ngxStripeCardGroup [elementsOptions]="elementsOptions">
+                   <nz-alert class="m-b-10" nzType="success" nzMessage="{{'donatedSuccessfully' | translate}}" nzShowIcon *ngIf="donateSuccess"></nz-alert>
+
+                   <nz-form-item>
+                       <nz-form-control nzErrorTip="{{'donateFirstNameError' | translate}}">
+                           <input type="text" nz-input formControlName="first_name" placeholder="{{'donateInputFirstName' | translate}}" id="firstName">
+                       </nz-form-control>
+                   </nz-form-item>
+
+                   <nz-form-item>
+                       <nz-form-control nzErrorTip="{{'donateLastNameError' | translate}}">
+                           <input type="text" nz-input formControlName="last_name" placeholder="{{'donateInputLastName' | translate}}" id="lastName">
+                       </nz-form-control>
+                   </nz-form-item>
+
+                   <nz-form-item>
+                       <nz-form-control nzErrorTip="{{'donateEmailError' | translate}}">
+                           <input type="email" nz-input formControlName="email" placeholder="{{'donateInputEmail' | translate}}" id="email">
+                       </nz-form-control>
+                   </nz-form-item>
+
+                   <nz-form-item>
+                       <nz-form-control nzErrorTip="{{'donateMobileError' | translate}}">
+                           <input type="number" nz-input formControlName="mobile_number" placeholder="{{'donateInputPhoneNumber' | translate}}" id="phoneNumber">
+                       </nz-form-control>
+                   </nz-form-item>
+               
+                   <nz-form-item>
+                       <nz-form-control nzErrorTip="{{'donateAmountError' | translate}}">
+                           <nz-input-group nzAddOnBefore="$">
+                               <input type="number" nz-input formControlName="amount" placeholder="{{'donateInputAmount' | translate}}" id="amount">
+                           </nz-input-group>
+                       </nz-form-control>
+                   </nz-form-item>
+
+                   <nz-form-item>
+                       <nz-form-control nzErrorTip="{{'donateMessageError' | translate}}">
+                           <textarea rows="3" nz-input formControlName="message" placeholder="{{'donateInputMessage' | translate}}" id="message"></textarea>
+                       </nz-form-control>
+                   </nz-form-item>
+
+                   <div nz-row class="card-info" [ngClass]="{'errorBorder' : showInvalidCardError}">
+                       <p class="card-header">{{ "paymentDetails" | translate }}</p>
+                       <div nz-col nzSpan="24" class="card-number-col">
+                           <ngx-stripe-card-number [options]="cardOptions"></ngx-stripe-card-number>
+                       </div>
+                       <div nz-col nzSpan="11" class="card-expiry-col">
+                           <ngx-stripe-card-expiry [options]="cardOptions"></ngx-stripe-card-expiry>
+                       </div>
+                       <div nz-col nzSpan="12" class="card-cvc-col">
+                           <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
+                       </div>
+                   </div>
+                   <p *ngIf="showInvalidCardError" class="err-msg">{{ "invalidCardErrorMessage" | translate }}</p>
+
+                   <div>
+                       <nz-form-item>
+                           <nz-form-control>
+                               <div class="text-center">
+                                   <button nz-button class="is-login-btn mt-20" [nzLoading]="isFormSaving" [nzType]="'primary'">{{"leadSubmit" | translate}}</button>
+                               </div>
+                           </nz-form-control>
+                       </nz-form-item>
+                   </div>
                </form>
-            </div>
+           </div>
          </div>
       </div>
    </div>

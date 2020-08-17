@@ -8,6 +8,7 @@ export interface Fundraiser {
     phone?: string
     title?: string;
     goal_amount?: number;
+    amount?: number;
     color_code?: string;
     slug?: string;
     summary?: string;

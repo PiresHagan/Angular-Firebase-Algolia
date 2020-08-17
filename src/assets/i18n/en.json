@@ -599,5 +599,8 @@
     "SelectFundraiserLogo": "Select Fundraiser Logo",
     "CompanyFundraisers": "Company Fundraisers",
     "CharityFundraisers": "Charity Fundraisers",
-    "FundraiserAccountError": "Something went wrong. Please connect with support team."
+    "FundraiserAccountError": "Something went wrong. Please connect with support team.",
+    "donateFundraiserTitle": "Donate",
+    "followFundraiser": "Follow Us",
+    "unfollowFundraiser": "Unfollow Us"
 }

@@ -593,5 +593,8 @@
     "SelectFundraiserLogo": "Seleccionar logotipo de recaudación de fondos",
     "CompanyFundraisers": "CompanyFundraisers",
     "CharityFundraisers": "CharityFundraisers",
-    "FundraiserAccountError": "Une erreur s'est produite. Veuillez vous connecter avec l'équipe d'assistance."
+    "FundraiserAccountError": "Une erreur s'est produite. Veuillez vous connecter avec l'équipe d'assistance.",
+    "donateFundraiserTitle": "Donar",
+    "followFundraiser": "Síguenos",
+    "unfollowFundraiser": "Dejar de seguirnos"
 }

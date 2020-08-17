@@ -83,7 +83,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'fundraiser',
+    path: 'fundraisers/:slug',
     component: FundraiserComponent,
     data: {
       title: 'fundraiser',
