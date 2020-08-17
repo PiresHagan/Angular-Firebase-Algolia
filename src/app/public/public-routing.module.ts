@@ -22,6 +22,7 @@ import { CharityComponent } from './charity/charity.component';
 import { CharityListComponent } from './charity-list/charity-list.component';
 import { NewHomeComponent } from './new-home/new-home.component';
 import { FundraiserComponent } from './fundraiser/fundraiser.component';
+import { FundraiserListComponent } from './fundraiser-list/fundraiser-list.component';
 
 
 const routes: Routes = [
@@ -86,6 +87,14 @@ const routes: Routes = [
     component: FundraiserComponent,
     data: {
       title: 'fundraiser',
+      headerDisplay: "none"
+    }
+  },
+  {
+    path: 'fundraisers',
+    component: FundraiserListComponent,
+    data: {
+      title: 'fundraisers',
       headerDisplay: "none"
     }
   },
