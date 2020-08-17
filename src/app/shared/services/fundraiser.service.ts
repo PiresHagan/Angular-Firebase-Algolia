@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Fundraiser } from '../interfaces/fundraiser.type';
+import { ACTIVE } from '../constants/status-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -48,12 +49,14 @@ export class FundraiserService {
   getFundraisersOnScroll(limit: number, navigation: string, lastVisible, lang: string) {
     let dataQuery = this.db.collection<Fundraiser[]>(`${this.fundraisersCollection}`, ref => ref
       .where("lang", "==", lang)
+      .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(limit));
     
     if(navigation == 'next') {
       dataQuery = this.db.collection<Fundraiser[]>(`${this.fundraisersCollection}`, ref => ref
         .where("lang", "==", lang)
+        .where('status', "==", ACTIVE)
         .orderBy('published_at', 'desc')
         .limit(limit)
         .startAfter(lastVisible));

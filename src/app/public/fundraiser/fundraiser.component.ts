@@ -39,6 +39,7 @@ export class FundraiserComponent implements OnInit {
   donateForm: FormGroup;
   showInvalidCardError: boolean = false;
   donationPercentage: number = 0;
+  authorFollowersCount: number = 0;
   TEXT = TEXT;
   AUDIO = AUDIO;
   VIDEO = VIDEO;
@@ -90,6 +91,10 @@ export class FundraiserComponent implements OnInit {
         if(this.fundraiser.goal_amount && this.fundraiser.amount) {
           this.donationPercentage = (this.fundraiser.amount / this.fundraiser.goal_amount) * 100;
         }
+
+        this.authorService.getAllFollowersByAuthorType(this.fundraiser.author.id, this.fundraiser.author.type).subscribe((followers) => {
+          this.authorFollowersCount = followers.length;
+        });
 
         this.fundraiserId = this.fundraiser.id;
 

@@ -92,22 +92,21 @@
                <nz-progress [nzPercent]="donationPercentage" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"></nz-progress>
                
                <div class="donor-detail">
-                     <div class="donor-row">
-                        <span>23</span>
-                        Donors
-                     </div>
-                     <div class="donor-row">
+                  <div class="donor-row">
+                     <span>{{ fundraiser?.donor_count | number:'1.0-0' }}</span>
+                     {{ 'fundraiserDonors' | translate }}
+                  </div>
+                  <!-- <div class="donor-row">
                      <span>23</span>
                      Shares
-                  </div>
+                  </div> -->
                   <div class="donor-row">
-                     <span>23</span>
-                     Followers
+                     <span>{{ authorFollowersCount }}</span>
+                     {{ "profileFollowers" | translate }}
                   </div>
                </div>
             </div>
-            <!-- <div class="charity-form" *ngIf="fundraiser && fundraiser?.stripe_status == 'active'"> -->
-            <div class="charity-form" *ngIf="fundraiser">
+            <div class="charity-form" *ngIf="fundraiser && fundraiser?.stripe_status == 'active'">
                <h2>{{ "donateFundraiserTitle" | translate }}</h2>
 
                <form nz-form [formGroup]="donateForm" (ngSubmit)="submitForm()" ngxStripeCardGroup [elementsOptions]="elementsOptions">

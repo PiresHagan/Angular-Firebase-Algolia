@@ -9,6 +9,7 @@ export interface Fundraiser {
     title?: string;
     goal_amount?: number;
     amount?: number;
+    donor_count?: number;
     color_code?: string;
     slug?: string;
     summary?: string;

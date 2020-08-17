@@ -602,5 +602,9 @@
     "FundraiserAccountError": "Something went wrong. Please connect with support team.",
     "donateFundraiserTitle": "Donate",
     "followFundraiser": "Follow Us",
-    "unfollowFundraiser": "Unfollow Us"
+    "unfollowFundraiser": "Unfollow Us",
+    "fundraisersTitle": "Trending Fundraisers",
+    "fundraiserDonors": "Donors",
+    "Raised": "Raised",
+    "Goal": "Goal"
 }

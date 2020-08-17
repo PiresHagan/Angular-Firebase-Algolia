@@ -596,5 +596,9 @@
     "FundraiserAccountError": "Une erreur s'est produite. Veuillez vous connecter avec l'équipe d'assistance.",
     "donateFundraiserTitle": "Donar",
     "followFundraiser": "Síguenos",
-    "unfollowFundraiser": "Dejar de seguirnos"
+    "unfollowFundraiser": "Dejar de seguirnos",
+    "fundraisersTitle": "Tendencias de recaudación de fondos",
+    "fundraiserDonors": "Donantes",
+    "Raised": "recaudado",
+    "Goal": "Objetivo"
 }

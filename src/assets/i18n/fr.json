@@ -597,5 +597,9 @@
     "FundraiserAccountError": "Algo salió mal. Conéctese con el equipo de soporte",
     "donateFundraiserTitle": "Faire un don",
     "followFundraiser": "Suivez-nous",
-    "unfollowFundraiser": "Ne nous désabonner"
+    "unfollowFundraiser": "Ne nous désabonner",
+    "fundraisersTitle": "Trending Fundraisers",
+    "fundraiserDonors": "Donors",
+    "Raised": "Raised",
+    "Goal": "Objectif"
 }
