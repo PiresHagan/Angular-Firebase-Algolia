@@ -67,7 +67,6 @@ export class BackofficeFundraiserService {
     })
   }
 
-
   addFundraiserImage(fundraiserId: string, imageDetails: any) {
     const path = `${this.fundraiserImagePath}/${Date.now()}_${imageDetails.file.name}`;
     return new Promise((resolve, reject) => {
@@ -295,6 +294,13 @@ export class BackofficeFundraiserService {
         console.log(error);
         reject();
       });
+    })
+  }
+
+  setupConnectedAccount(fundraiserId: string) {
+    return this.http.post(environment.baseAPIDomain + `/api/v1/payment/sessions/fundraisings/${fundraiserId}/connectedAccount`, {
+      redirectUrl: window && window.location && window.location.href || '',
+      refreshUrl: window && window.location && window.location.href || ''
     })
   }
 

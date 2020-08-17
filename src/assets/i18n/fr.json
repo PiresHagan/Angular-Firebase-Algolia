@@ -593,5 +593,6 @@
     "FundraiserSelectAudio": "Sélectionner l'audio pour la collecte de fonds",
     "SelectFundraiserLogo": "Sélectionnez le logo de la collecte de fonds",
     "CompanyFundraisers": "CompanyFundraisers",
-    "CharityFundraisers": "Charity Fundraisers"
+    "CharityFundraisers": "Charity Fundraisers",
+    "FundraiserAccountError": "Algo salió mal. Conéctese con el equipo de soporte"
 }

@@ -598,5 +598,6 @@
     "FundraiserSelectAudio": "Select Audio For Fundraiser",
     "SelectFundraiserLogo": "Select Fundraiser Logo",
     "CompanyFundraisers": "Company Fundraisers",
-    "CharityFundraisers": "Charity Fundraisers"
+    "CharityFundraisers": "Charity Fundraisers",
+    "FundraiserAccountError": "Something went wrong. Please connect with support team."
 }

@@ -592,5 +592,6 @@
     "FundraiserSelectAudio": "Seleccionar audio para la recaudación de fondos",
     "SelectFundraiserLogo": "Seleccionar logotipo de recaudación de fondos",
     "CompanyFundraisers": "CompanyFundraisers",
-    "CharityFundraisers": "CharityFundraisers"
+    "CharityFundraisers": "CharityFundraisers",
+    "FundraiserAccountError": "Une erreur s'est produite. Veuillez vous connecter avec l'équipe d'assistance."
 }
