@@ -19,6 +19,7 @@ export class CharityFundraisersComponent implements OnInit {
   fundraisers: Fundraiser[];
   lastVisible: any = null;
   userDetails;
+  setupPaymentLoading: boolean = false;
 
   constructor(
     public translate: TranslateService,
@@ -80,7 +81,28 @@ export class CharityFundraisersComponent implements OnInit {
         })
       },
     });
+  }
 
+  setupConnectedAccount(fundraiserId: string) {
+    this.setupPaymentLoading = true;
+    this.fundraiserService.setupConnectedAccount(fundraiserId).subscribe((response: any) => {
+      if (response.url) {
+        window && window.open(response.url, '_self')
+      } else {
+        this.showError("FundraiserAccountError");
+      }
+      this.setupPaymentLoading = false;
+    }, (error) => {
+      this.setupPaymentLoading = false;
+      this.showError("FundraiserAccountError");
+    })
+  }
+
+  showError(errorMessage) {
+    const msg = this.translate.instant(errorMessage);
+    this.modalService.error({
+      nzTitle: "<i>" + msg + "</i>",
+    });
   }
 
 
