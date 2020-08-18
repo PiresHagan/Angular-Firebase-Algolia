@@ -290,6 +290,22 @@ export class FundraiserComponent implements OnInit {
       return '/companies/';
     }
   }
+  isVisible = false;
+  isOkLoading = false;
 
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.isOkLoading = false;
+    }, 2000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
 }
 
