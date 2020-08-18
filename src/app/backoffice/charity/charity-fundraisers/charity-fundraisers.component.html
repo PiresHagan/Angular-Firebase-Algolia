@@ -46,10 +46,6 @@
 
                                 <a (click)="deleteFundraiser(item.id)" class="fundraiser-edit-link m-5" nz-button
                                     nzType="default" nzGhost>{{'deleteFundraiser' | translate}}</a>
-
-                                <a (click)="setupConnectedAccount(item.id)" [nzLoading]="setupPaymentLoading" *ngIf="item.stripe_status != 'active'" class="fundraiser-edit-link m-5" nz-button
-                                    nzType="default" nzGhost>{{'SetupPaymentAccount' | translate}}</a>
-
                             </div>
 
                         </div>

@@ -18,6 +18,9 @@ import {
 } from '@stripe/stripe-js';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { TEXT, AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
+import { UserService } from 'src/app/shared/services/user.service';
+import { CompanyService } from 'src/app/shared/services/company.service';
+import { CharityService } from 'src/app/shared/services/charity.service';
 
 @Component({
   selector: 'app-fundraiser',
@@ -27,6 +30,7 @@ import { TEXT, AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
 
 export class FundraiserComponent implements OnInit {
   fundraiser: Fundraiser;
+  fundraiserAuthor;
   fundraiserId: string;
   isUpdatingFollow: boolean = false;
   isFollowing: boolean = false;
@@ -76,7 +80,10 @@ export class FundraiserComponent implements OnInit {
     private metaTagService: Meta, 
     private stripeService: StripeService,
     private modalService: NzModalService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public userService: UserService,
+    public companyService: CompanyService,
+    public charityService: CharityService
   ) { }
 
   ngOnInit(): void {
@@ -88,6 +95,8 @@ export class FundraiserComponent implements OnInit {
       this.fundraiserService.getFundraiserBySlug(slug).subscribe(data => {
         this.fundraiser = data[0];
 
+        this.fundraiserId = this.fundraiser.id;
+  
         if(this.fundraiser.goal_amount && this.fundraiser.amount) {
           this.donationPercentage = ((this.fundraiser.amount / this.fundraiser.goal_amount) * 100).toFixed(1);
         }
@@ -96,7 +105,19 @@ export class FundraiserComponent implements OnInit {
           this.authorFollowersCount = followers.length;
         });
 
-        this.fundraiserId = this.fundraiser.id;
+        if(this.fundraiser.author.type == 'charity') {
+          this.charityService.getCharityById(this.fundraiser.author.id).subscribe(charity => {
+            this.fundraiserAuthor = charity;
+          });
+        } else if(this.fundraiser.author.type == 'company') {
+          this.companyService.getCompanyById(this.fundraiser.author.id).subscribe(company => {
+            this.fundraiserAuthor = company;
+          });
+        } else {
+          this.userService.getMember(this.fundraiser.author.id).subscribe(member => {
+            this.fundraiserAuthor = member;
+          });
+        }
 
         this.setUserDetails();
 
@@ -282,13 +303,13 @@ export class FundraiserComponent implements OnInit {
   }
 
   getAuthorUrl(fundraiser) {
-    if (!fundraiser || !fundraiser.author.type) {
-      return '/'
-    } else if (fundraiser.author.type == 'charity') {
+    if (fundraiser.author.type == 'charity') {
       return '/charities/';
     } else if (fundraiser.author.type == 'company') {
       return '/companies/';
-    }
+    } else {
+      return '/'
+    }  
   }
   isVisible = false;
   isOkLoading = false;

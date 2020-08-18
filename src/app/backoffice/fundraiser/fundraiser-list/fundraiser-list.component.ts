@@ -4,6 +4,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { NzModalService } from "ng-zorro-antd";
 import { BackofficeFundraiserService } from '../../shared/services/backoffice-fundraiser.service';
+import { BackofficeMemberService } from '../../shared/services/backoffice-member.service';
 
 @Component({
   selector: 'app-fundraiser-list',
@@ -18,11 +19,13 @@ export class FundraiserListComponent implements OnInit {
   fundraisers: Fundraiser[];
   lastVisible: any = null;
   userDetails;
+  loggedInMember;
   setupPaymentLoading: boolean = false;
 
   constructor(
     public translate: TranslateService,
     public authService: AuthService,
+    public memberService: BackofficeMemberService,
     public fundraiserService: BackofficeFundraiserService,
     private modalService: NzModalService
   ) { }
@@ -34,6 +37,7 @@ export class FundraiserListComponent implements OnInit {
       if (!user)
         return;
       this.userDetails = await this.authService.getLoggedInUserDetails();
+
       if (this.userDetails) {
         this.fundraiserService.getFundraisersByUser(this.userDetails.id).subscribe((data) => {
           this.fundraisers = data.fundraiserList;
@@ -41,6 +45,10 @@ export class FundraiserListComponent implements OnInit {
           this.loading = false;
         });
       }
+
+      this.memberService.getMemberByUid(this.userDetails.id).subscribe((member) => {
+        this.loggedInMember = member;
+      })
 
     })
 
@@ -82,9 +90,9 @@ export class FundraiserListComponent implements OnInit {
     });
   }
 
-  setupConnectedAccount(fundraiserId: string) {
+  setupConnectedAccount(memberId: string) {
     this.setupPaymentLoading = true;
-    this.fundraiserService.setupConnectedAccount(fundraiserId).subscribe((response: any) => {
+    this.memberService.setupConnectedAccount(memberId).subscribe((response: any) => {
       if (response.url) {
         window && window.open(response.url, '_self')
       } else {

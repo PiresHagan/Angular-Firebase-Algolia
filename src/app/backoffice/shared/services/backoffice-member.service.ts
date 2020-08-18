@@ -7,6 +7,7 @@ import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { take, map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { User } from "src/app/shared/interfaces/user.type";
+import { HttpClient } from "@angular/common/http";
 
 
 @Injectable({
@@ -25,8 +26,7 @@ export class BackofficeMemberService {
   constructor(
     public db: AngularFirestore,
     public afAuth: AngularFireAuth,
-
-
+    private http: HttpClient
   ) {
     this.afAuth.authState.subscribe((user) => {
       if (user && !user.isAnonymous)
@@ -65,5 +65,16 @@ export class BackofficeMemberService {
         resolve(data);
       })
     })
+  }
+
+  setupConnectedAccount(memberId: string) {
+    return this.http.post(environment.baseAPIDomain + `/api/v1/payment/sessions/members/${memberId}/connectedAccount`, {
+      redirectUrl: window && window.location && window.location.href || '',
+      refreshUrl: window && window.location && window.location.href || ''
+    })
+  }
+
+  getMemberByUid(uid: string): Observable<any> {
+    return this.db.doc(`${this.memberCollection}/${uid}`).valueChanges();
   }
 }

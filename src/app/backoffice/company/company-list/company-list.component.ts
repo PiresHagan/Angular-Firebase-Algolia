@@ -19,6 +19,7 @@ export class CompanyListComponent implements OnInit {
   companies: Company[];
   lastVisible: any = null;
   userDetails;
+  setupPaymentLoading: boolean = false;
 
   constructor(
     public translate: TranslateService,
@@ -81,6 +82,30 @@ export class CompanyListComponent implements OnInit {
       },
     });
 
+  }
+
+  setupConnectedAccount(companyId: string) {
+    this.setupPaymentLoading = true;
+    this.companyService.setupConnectedAccount(companyId).subscribe((response: any) => {
+      this.setupPaymentLoading = false;
+
+      if (response.url) {
+        window && window.open(response.url, '_self')
+      } else {
+        this.showError("CharityAccountError");
+      }
+    }, (error) => {
+      this.setupPaymentLoading = false;
+
+      this.showError("CharityAccountError");
+    })
+  }
+
+  showError(errorMessage) {
+    const msg = this.translate.instant(errorMessage);
+    this.modalService.error({
+      nzTitle: "<i>" + msg + "</i>",
+    });
   }
 
 
