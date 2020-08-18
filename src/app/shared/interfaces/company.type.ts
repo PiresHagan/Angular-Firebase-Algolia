@@ -17,6 +17,7 @@ export interface Company {
         alt: string
     },
     created_at: string,
-    updated_at: string;
-    type?: string;
+    updated_at: string,
+    type?: string,
+    stripe_status?: string,
 }

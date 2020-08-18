@@ -6,5 +6,6 @@ export interface Member {
     updated_at?: string,
     lang?: string,
     avatar?: any,
-    bio?: string
+    bio?: string,
+    stripe_status?: string
 }

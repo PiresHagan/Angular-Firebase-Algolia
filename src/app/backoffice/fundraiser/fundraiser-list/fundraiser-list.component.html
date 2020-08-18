@@ -2,11 +2,18 @@
     <div class="profile-fundraiser-list">
         <div class="page-header">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 inline-flex-div">
                     <div class="m-v-10">
                         <button nz-button nzType="primary" [routerLink]="['/app/fundraiser/fundraiser-details']">
                             <i nz-icon nzType="plus"></i>
                             <span>{{'newFundraiser' | translate}}</span>
+                        </button>
+                    </div>
+                    <div *ngIf="loggedInMember" class="m-v-10 m-l-20">
+                        <button nz-button nzType="primary" (click)="setupConnectedAccount(loggedInMember.id)" 
+                            [nzLoading]="setupPaymentLoading" *ngIf="loggedInMember.stripe_status != 'active'">
+                            <i nz-icon nzType="money"></i>
+                            <span>{{'SetupPaymentAccount' | translate}}</span>
                         </button>
                     </div>
                 </div>
@@ -58,11 +65,6 @@
 
                                 <a (click)="deleteFundraiser(item.id)" class="fundraiser-edit-link m-5" nz-button
                                     nzType="default" nzGhost>{{'deleteFundraiser' | translate}}</a>
-                                
-                                <a (click)="setupConnectedAccount(item.id)" [nzLoading]="setupPaymentLoading" *ngIf="item.stripe_status != 'active'" class="fundraiser-edit-link m-5" nz-button
-                                    nzType="default" nzGhost>{{'SetupPaymentAccount' | translate}}</a>
-
-
                             </div>
 
                         </div>

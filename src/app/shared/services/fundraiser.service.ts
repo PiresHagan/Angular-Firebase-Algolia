@@ -32,18 +32,7 @@ export class FundraiserService {
   }
 
   getFundraiserBySlug(slug: string) {
-    return this.db.collection<Fundraiser>(this.fundraisersCollection, ref => ref
-      .where('slug', '==', slug)
-      .limit(1)
-    ).snapshotChanges().pipe(take(1),
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        });
-      })
-    );
+    return this.db.collection<Fundraiser>(this.fundraisersCollection, ref => ref.where('slug', '==', slug).limit(1)).valueChanges()
   }
 
   getFundraisersOnScroll(limit: number, navigation: string, lastVisible, lang: string) {

@@ -106,7 +106,7 @@
                   </div>
                </div>
             </div>
-            <div class="charity-form" *ngIf="fundraiser && fundraiser?.stripe_status == 'active'">
+            <div class="charity-form" *ngIf="fundraiserAuthor && fundraiserAuthor?.stripe_status == 'active'">
                <h2>{{ "donateFundraiserTitle" | translate }}</h2>
 
                <form nz-form [formGroup]="donateForm" (ngSubmit)="submitForm()" ngxStripeCardGroup [elementsOptions]="elementsOptions">
