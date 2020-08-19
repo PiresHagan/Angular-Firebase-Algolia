@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Company } from '../interfaces/company.type';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,10 @@ export class CompanyService {
         });
       })
     );
+  }
+
+  getCompanyById(companyId: string): Observable<any> {
+    return this.db.doc(`${this.companiesCollection}/${companyId}`).valueChanges();
   }
 
   getCompanyBySlug(slug: string) {

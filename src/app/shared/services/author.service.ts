@@ -63,6 +63,17 @@ export class AuthorService {
     }
   }
 
+  getAllFollowersByAuthorType(authorId: string, type: string) {
+    if (!type || type == STAFF || type == AUTHOR || type == MEMBER)
+      return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followersCollection).valueChanges();
+    else if (type == COMPANY) {
+      return this.afs.collection(this.companiesColection).doc(authorId).collection(this.followersCollection).valueChanges();
+    }
+    else if (type == CHARITY) {
+      return this.afs.collection(this.charitiesCollection).doc(authorId).collection(this.followersCollection).valueChanges();
+    }
+  }
+
   getFollowers(authorId) {
     return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followersCollection).valueChanges()
   }

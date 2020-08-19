@@ -159,5 +159,13 @@ export class CompanyService {
     })
     );
   }
+
+  setupConnectedAccount(companyId: string) {
+    return this.http.post(environment.baseAPIDomain + `/api/v1/payment/sessions/companies/${companyId}/connectedAccount`, {
+      redirectUrl: window && window.location && window.location.href || '',
+      refreshUrl: window && window.location && window.location.href || ''
+    })
+  }
+
 }
 

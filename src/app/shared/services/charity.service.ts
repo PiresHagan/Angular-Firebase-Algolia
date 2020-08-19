@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Charity } from '../interfaces/charity.type';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,10 @@ export class CharityService {
         });
       })
     );
+  }
+
+  getCharityById(charityId: string): Observable<any> {
+    return this.db.doc(`${this.charitiesCollection}/${charityId}`).valueChanges();
   }
 
   getCharityBySlug(slug: string) {

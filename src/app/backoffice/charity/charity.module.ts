@@ -13,10 +13,11 @@ import { QuillModule } from 'ngx-quill';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { CharityArticleComponent } from './charity-article/charity-article.component';
+import { CharityFundraisersComponent } from './charity-fundraisers/charity-fundraisers.component';
 
 
 @NgModule({
-  declarations: [CharityListComponent, CharityDonationComponent, CharityFollowersComponent, CharityDetailsComponent, AddCharityComponent, CharityArticleComponent],
+  declarations: [CharityListComponent, CharityDonationComponent, CharityFollowersComponent, CharityDetailsComponent, AddCharityComponent, CharityArticleComponent, CharityFundraisersComponent],
   imports: [
     CommonModule,
     CharityRoutingModule,
