@@ -244,11 +244,66 @@ export class ArticleService {
 
   getToday(lang: string = 'en') {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('published_at', '>=', moment().subtract(1, 'days').toISOString())
+      .where('published_at', '>=', moment().subtract(2, 'days').toISOString())
       .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
-      .limit(30)
+      .limit(60)
+    ).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+  }
+
+  getTrending(lang: string = 'en') {
+    return this.db.collection<Article[]>(this.articleCollection, ref => ref
+      .where('published_at', '>=', moment().subtract(30, 'days').toISOString())
+      .where('lang', "==", lang)
+      .where('status', "==", ACTIVE)
+      .orderBy('published_at')
+      .orderBy('view_count', 'desc')
+      .limit(15)
+    ).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+  }
+
+  getLatest(lang: string = 'en') {
+    return this.db.collection<Article[]>(this.articleCollection, ref => ref
+      .where('published_at', '>=', moment().subtract(30, 'days').toISOString())
+      .where('lang', "==", lang)
+      .where('status', "==", ACTIVE)
+      .orderBy('published_at', 'desc')
+      .limit(15)
+    ).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+  }
+
+  getEditorsPick(lang: string = 'en') {
+    return this.db.collection<Article[]>(this.articleCollection, ref => ref
+      .where('lang', "==", lang)
+      .where('status', "==", ACTIVE)
+      .where('editors_pick', "==", true)
+      .orderBy('published_at', 'desc')
+      .limit(15)
     ).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
