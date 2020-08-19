@@ -79,7 +79,6 @@ export class FundraiserContentComponent implements OnInit {
     private companyService: CompanyService
   ) {
     this.fundraiserForm = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(70)]],
       email: ['', [Validators.required, Validators.pattern("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$")]],
       phone: ['', [Validators.required, Validators.maxLength(10)]],
       goal_amount: [null, [Validators.required, Validators.min(1)]],
@@ -238,7 +237,6 @@ export class FundraiserContentComponent implements OnInit {
     if (this.findInvalidControls().length == 0) {
       this.isFormSaving = true;
       const fundraiserData = {
-        name: this.fundraiserForm.get('name').value,
         email: this.fundraiserForm.get('email').value,
         phone: this.fundraiserForm.get('phone').value,
         goal_amount: this.fundraiserForm.get('goal_amount').value,
@@ -357,7 +355,6 @@ export class FundraiserContentComponent implements OnInit {
 
   setFormDetails() {
     this.fundraiserForm.setValue({
-      name: this.fundraiser.name,
       email: this.fundraiser.email,
       phone: this.fundraiser.phone,
       goal_amount: this.fundraiser.goal_amount,
