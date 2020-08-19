@@ -604,6 +604,9 @@ hr {
  ::ng-deep .ant-modal {
 	top: 20px;
 }
+::ng-deep .ant-modal-footer{
+	display:none;
+}
 
 .donation-btn {
 	display: flex;

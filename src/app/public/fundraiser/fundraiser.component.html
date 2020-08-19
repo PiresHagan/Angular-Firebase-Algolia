@@ -97,13 +97,14 @@
                      <span>{{ fundraiser?.donor_count | number:'1.0-0' }}</span>
                      {{ 'fundraiserDonors' | translate }}
                   </div>
-                  <!-- <div class="donor-row">
-                     <span>23</span>
-                     Shares
-                  </div> -->
+                  
                   <div class="donor-row">
                      <span>{{ authorFollowersCount }}</span>
                      {{ "profileFollowers" | translate }}
+                  </div>
+                  <div class="donor-row">
+                     <span>2</span>
+                     Days Left
                   </div>
                </div>
                <div class="text-center pb-3" *ngIf="fundraiserAuthor && fundraiserAuthor?.stripe_status == 'active'">
@@ -112,7 +113,6 @@
                    [(nzVisible)]="isVisible"
                    nzTitle="{{ 'donateFundraiserTitle' | translate }}"
                    (nzOnCancel)="handleCancel()"
-                   [nzOkLoading]="isOkLoading"
                    >
                   <div class="charity-form">
                      <form nz-form [formGroup]="donateForm" (ngSubmit)="submitForm()" ngxStripeCardGroup [elementsOptions]="elementsOptions">
