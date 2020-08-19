@@ -314,10 +314,8 @@ export class ArticleComponent implements OnInit {
   follow() {
     this.authorService.follow(this.article.author.id, this.article.author.type);
     const userDetails = this.getUserDetails();
-
     const analytics = firebase.analytics();
-
-    analytics.logEvent("follow_author", {
+    analytics.logEvent("unfollow_author", {
       author_id: this.article.author.id,
       author_name: this.article.author.fullname,
       user_uid: userDetails.id,
@@ -327,9 +325,7 @@ export class ArticleComponent implements OnInit {
   unfollow() {
     this.authorService.unfollow(this.article.author.id, this.article.author.type);
     const userDetails = this.getUserDetails();
-
     const analytics = firebase.analytics();
-
     analytics.logEvent("unfollow_author", {
       author_id: this.article.author.id,
       author_name: this.article.author.fullname,
@@ -428,3 +424,4 @@ export class ArticleComponent implements OnInit {
   }
 
 }
+

@@ -15,6 +15,7 @@ const searchClient = algoliasearch(
 })
 export class SearchEngineComponent implements OnInit {
   selectedLanguage: string = "";
+  articleBrand: any;
   config = {
     indexName: 'dev_articles',
     searchClient,
@@ -37,48 +38,10 @@ export class SearchEngineComponent implements OnInit {
       this.selectedLanguage = this.languageService.getSelectedLanguage();
       this.config.indexName = `prod_articles_${this.selectedLanguage}`;
     });
-  }
-  public OrderIndex = 0;
-  articleBrand = [
-    {
-      image: './assets/images/search-engine/1.jpg',
-      name: 'NikeNikeNike'
-    },
-    {
-      image: './assets/images/search-engine/a.jpg',
-      name: 'Facebook'
-    },
-    {
-      image: './assets/images/search-engine/c.jpg',
-      name: 'Ebay'
-    },
-    {
-      image: './assets/images/search-engine/1.jpg',
-      name: 'IBM'
-    },
-    {
-      image: './assets/images/search-engine/a.jpg',
-      name: 'Apple'
-    },
-    {
-      image: './assets/images/search-engine/c.jpg',
-      name: 'Lakers'
-    },
-    {
-      image: './assets/images/search-engine/1.jpg',
-      name: 'Amazon'
-    },
-    {
-      image: './assets/images/search-engine/a.jpg',
-      name: 'Uber'
-    },
-    {
-      image: './assets/images/search-engine/c.jpg',
-      name: 'Reebok'
-    }
-  ]
 
-  /*this.cacheService.getBrands().subscribe(brands => {
-    this.articleBrand = brands;
-  });*/
+    this.cacheService.getBrands().subscribe(brands => {
+      this.articleBrand = brands;
+    });
+  }
+
 }

@@ -1,0 +1,27 @@
+.account-div {
+    color: #3b5998;
+    img {
+        height: 40px;
+        width: 40px;
+    }
+    button {
+        color: #3b5998;
+        border: 1px solid #3b5998;
+    }
+
+    button:hover {
+        background-color: #3b5998;
+        color: white;
+    }
+}
+
+@media screen and (max-width:580px){
+    .media-responsive{
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+    .media-responsive p{
+        margin:5px 0px 10px 0px !important;
+    }   
+} 

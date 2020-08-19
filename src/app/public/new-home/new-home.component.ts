@@ -25,6 +25,8 @@ export class NewHomeComponent implements OnInit {
   heroLarge: any;
   heroSmall: any;
   heroArticles: any;
+  latestArticles: any;
+  trendingArticles: any;
   business: any;
   creative: any;
   entertainment: any;
@@ -83,6 +85,15 @@ export class NewHomeComponent implements OnInit {
       this.heroArticles = articles;
     });
 
+    this.articleService.getTrending(this.selectedLanguage).subscribe(articles => {
+      this.trendingArticles = articles;
+    });
+
+    this.articleService.getLatest(this.selectedLanguage).subscribe(articles => {
+      this.latestArticles = articles;
+      console.log('latest articles', this.latestArticles);
+    });
+
     this.getAuthors();
     this.categories = this.categoryService.getAll(this.selectedLanguage);
     this.setArticleData();
@@ -96,6 +107,14 @@ export class NewHomeComponent implements OnInit {
 
       this.articleService.getHeroArticles(this.selectedLanguage).subscribe(articles => {
         this.heroArticles = articles;
+      });
+
+      this.articleService.getTrending(this.selectedLanguage).subscribe(articles => {
+        this.trendingArticles = articles;
+      });
+  
+      this.articleService.getLatest(this.selectedLanguage).subscribe(articles => {
+        this.latestArticles = articles;
       });
       
     });

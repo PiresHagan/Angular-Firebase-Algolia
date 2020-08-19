@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 declare var FB: any;
 
 @Component({
@@ -10,6 +11,7 @@ declare var FB: any;
 
 export class LinkSocialAccountComponent implements OnInit {
 
+  isLoaded: boolean = false;
   fbloading: boolean = false;
   fbAccountLinkStatus: boolean = false;
   userFirendsList = [];
@@ -21,10 +23,10 @@ export class LinkSocialAccountComponent implements OnInit {
   ngOnInit(): void {
     (window as any).fbAsyncInit = function() {
       FB.init({
-        appId      : '327118671669396',
+        appId      : environment.facebook.appId,
         cookie     : true,
         xfbml      : true,
-        version    : 'v8.0'
+        version    : environment.facebook.version
       });
         
       FB.AppEvents.logPageView();   
@@ -42,6 +44,23 @@ export class LinkSocialAccountComponent implements OnInit {
 
   ngAfterViewInit() {
     this.getFBLoginStatus();
+  }
+
+  ngAfterViewChecked(): void {
+    if (!this.isLoaded) {
+      delete window['addthis']
+      setTimeout(() => { this.loadScript(); }, 100);
+      this.isLoaded = true;
+    }
+  }
+
+  loadScript() {
+    let node = document.createElement('script');
+    node.src = environment.addThisScript;
+    node.type = 'text/javascript';
+    node.async = true;
+    node.charset = 'utf-8';
+    document.getElementsByTagName('head')[0].appendChild(node);
   }
 
   linkFacebook() {

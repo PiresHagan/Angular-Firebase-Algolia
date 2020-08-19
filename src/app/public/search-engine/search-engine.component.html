@@ -1,17 +1,17 @@
 <section class="sr-engine-sec">
     <ais-instantsearch [config]="config">
       <div class="container">
-          <div class="sr-brand">
-              <div class="sr-brand-item" *ngFor="let brands of articleBrand">
-                  <div class="sr-brand-logo"><img src="{{brands.image}}" /></div>
-                  <span class="sr-brand-name">{{brands.name}}</span>
+          <div class="sr-brand" *ngIf="articleBrand.length != 0">
+              <div class="sr-brand-item" *ngFor="let brand of articleBrand">
+                  <a href="{{brand.brandUrl}}">
+                    <div class="sr-brand-logo"><img [src]="brand?.brandImage?.url" [alt]="brand?.brandImage?.alt" /></div>
+                    <div class="sr-brand-name">{{brand.brandName}}</div>
+                  </a>
               </div>
              
               <!-- <div class="sr-brand-item btn">
                   <a href="#" routerLink="/buy">Buy</a>
-              </div>
-  
-              
+              </div> -->
           </div>
           <div class="sr-bar-with-ads">
               <!-- <div class="ads">

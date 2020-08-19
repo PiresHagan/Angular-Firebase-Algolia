@@ -269,9 +269,21 @@ export class ArticleContentComponent implements OnInit {
     if (this.article && this.article.slug && this.article.title && title == this.article.title.trim()) {
       return this.article.slug;
     }
-    return title.replace(/ /g, '-')?.toLowerCase() + '-' + this.makeid();
+    return this.slugify(title) + '-' + this.makeid();
   }
 
+  slugify(string) {
+    return string
+      .toString()
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-zA-Z ]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/[^\w\-]+/g, "")
+      .replace(/\-\-+/g, "-")
+      .replace(/^-+/, "")
+      .replace(/-+$/, "");
+  }
   makeid(length = 6) {
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';

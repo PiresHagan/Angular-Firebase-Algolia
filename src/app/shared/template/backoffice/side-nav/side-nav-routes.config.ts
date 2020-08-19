@@ -116,5 +116,14 @@ export const ROUTES: SideNavInterface[] = [
         icon: 'notification',
         staff_only: false,
         submenu: []
+    },
+    {
+        path: '/app/fundraiser/fundraiser-list',
+        title: 'Fundraisers',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'notification',
+        staff_only: false,
+        submenu: []
     }
 ]

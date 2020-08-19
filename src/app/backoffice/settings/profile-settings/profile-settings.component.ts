@@ -253,7 +253,7 @@ export class ProfileSettingsComponent {
       try {
         this.isLoading = true;
         await this.userService.update(this.currentUser.uid, { mobile, birthdate, lang });
-        await this.userService.updateMember(this.currentUser.uid, { bio, fullname, lang, slug: this.getSlug(loggedInUser.displayName) + '-' + this.makeid() });
+        await this.userService.updateMember(this.currentUser.uid, { bio, fullname, lang, slug: this.getSlug(loggedInUser.displayName) });
         this.isLoading = false;
         this.showSuccess();
       } catch (e) {
@@ -314,16 +314,20 @@ export class ProfileSettingsComponent {
     }
   }
   private getSlug(displayName: string) {
-    return displayName.replace(/ /g, '-')?.toLowerCase();
+    return this.slugify(displayName)
   }
-  makeid(length = 6) {
-    let result = '';
-    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result.toLowerCase();
+
+  slugify(string) {
+    return string
+      .toString()
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-zA-Z ]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/[^\w\-]+/g, "")
+      .replace(/\-\-+/g, "-")
+      .replace(/^-+/, "")
+      .replace(/-+$/, "");
   }
 
 }

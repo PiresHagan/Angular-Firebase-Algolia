@@ -42,6 +42,7 @@ import { environment } from 'src/environments/environment';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NewHomeComponent } from './new-home/new-home.component';
 import { FundraiserComponent } from './fundraiser/fundraiser.component';
+import { FundraiserListComponent } from './fundraiser-list/fundraiser-list.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -69,6 +70,7 @@ import { FundraiserComponent } from './fundraiser/fundraiser.component';
     CharityListComponent,
     NewHomeComponent,
     FundraiserComponent,
+    FundraiserListComponent,
 
   ],
   imports: [

@@ -1,0 +1,35 @@
+.fundraiser-publish-sec {
+    border: 0px;
+    ::ng-deep .ant-card-body {
+        padding-left: 0px;
+        padding-right: 0px;
+        .publish-fundraiser-title {
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+            align-items: center;
+            h2 {
+                flex: 1;
+                font-family: "josefin_sansregular";
+                line-height: 42px;
+                margin-bottom: 0px;
+            }
+            .media {
+                font-family: "josefin_sansregular";
+                align-items: center;
+            }
+        }
+    }
+}
+.publish-image {
+    img {
+        height: 450px;
+        object-fit: cover;
+    }
+}
+.data-not {
+    height: 0px;
+    width: 0px;
+}

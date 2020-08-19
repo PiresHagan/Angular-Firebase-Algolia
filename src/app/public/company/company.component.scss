@@ -384,7 +384,7 @@ img{
           .company-img{
             text-align: center;
             margin-top: 0px;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 0px;
             padding-bottom: 15px;
             margin-bottom: 15px;
         }
@@ -449,7 +449,7 @@ img{
           .company-img{
             text-align: center;
             margin-top: 0px;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 0px;
             padding-bottom: 15px;
             margin-bottom: 15px;
         }
@@ -487,12 +487,14 @@ img{
       }
     }
   }
-  @media screen and (min-width: 992px) and (max-width: 1200px) {
+  @media screen and (min-width: 992px) and (max-width: 1500px) {
     .is-article-block {
       margin-top: 50px;
       .is-article-sec {
         .is-left-profile {
           width: 100%;
+          border-bottom:1px solid #eee;
+          margin-bottom: 25px;
           .is-profile {
             a {
               margin-top: -90px;
@@ -503,15 +505,16 @@ img{
           }
         }
         .is-main-article-content {
-          width: 100%;
+          width: 60%;
           margin-top: 0px;
           padding: 20px;
           .company-img{
             text-align: center;
             margin-top: 0px;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 0px;
             padding-bottom: 15px;
             margin-bottom: 15px;
+            margin:auto;
         }
           .is-content {
             .is-head {
@@ -542,8 +545,7 @@ img{
          
         }
         .is-right-ad-section {
-          width: 100%;
-          padding:0px;
+          width: 40%;
         }
       }
       .article-related {
@@ -554,30 +556,9 @@ img{
       }
     }
   }
-  @media screen and (min-width: 1201px) and (max-width: 1499px) {
+  @media screen and (min-width: 1360px) and (max-width: 1500px) {
     .is-article-block {
-      .is-article-sec {
-        .is-left-profile {
-          width: 30%;
-          .is-profile {
-            a {
-              margin-top: -90px;
-            }
-          }
-          .sticky-box {
-            top: 120px;
-          }
-        }
-        .is-main-article-content {
-          width: 60%;
-          margin-top: 0px;
-          padding: 20px;
-        }
-      }
-      .is-right-ad-section {
-        width: 33% !important;
-        padding:0px;
-      }
+        margin-top: 0px;
     }
   }
   @media screen and (min-width: 1500px) {
