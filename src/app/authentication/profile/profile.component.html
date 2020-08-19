@@ -27,7 +27,7 @@
                         <form nz-form [formGroup]="profileForm" class="login-form" (ngSubmit)="submitForm()">
                             <hr class="m-v-25">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <nz-form-item>
 
                                         <nz-form-label>{{'LoginProfilePhone' | translate}}</nz-form-label>
@@ -38,7 +38,7 @@
                                         </nz-form-control>
                                     </nz-form-item>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <nz-form-item>
                                         <nz-form-label>{{'loginProfileDOB' | translate}}</nz-form-label>
                                         <nz-form-control
@@ -50,7 +50,7 @@
 
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <nz-form-item>
                                         <nz-form-label>{{'lang' | translate}}</nz-form-label>
                                         <nz-form-control nzErrorTip="{{'langErr' | translate}}" class="m-5">
@@ -63,11 +63,23 @@
                                             </nz-select>
                                         </nz-form-control>
                                     </nz-form-item>
-
-
                                 </div>
 
-
+                                <div class="col-md-6">
+                                    <nz-form-item>
+                                        <nz-form-label>{{'LinkSocialAccounts' | translate}}</nz-form-label>
+                                        <div class="account-div">
+                                            <img src="./assets/images/company-logo/facebook.png">
+                                            Facebook
+                                            <button type="button" *ngIf="!fbAccountLinkStatus" class="m-l-10" nz-button nzSize="small" nzType="default" [nzLoading]="fbloading" (click)="linkFacebook()">
+                                                {{ "Link" | translate }}
+                                            </button>
+                                            <button type="button" *ngIf="fbAccountLinkStatus" class="m-l-10" nz-button nzSize="small" nzType="default" [nzLoading]="fbloading" (click)="unlinkFacebook()">
+                                                {{ "Unlink" | translate }}
+                                            </button>
+                                        </div>
+                                    </nz-form-item>
+                                </div>
 
                                 <div class="col-md-12">
                                     <nz-form-item>

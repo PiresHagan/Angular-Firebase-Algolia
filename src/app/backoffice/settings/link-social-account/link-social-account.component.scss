@@ -1,0 +1,140 @@
+.account-div {
+    color: #3b5998;
+    margin-bottom: 20px;
+    img {
+        height: 60px;
+        width: 60px;
+    }
+    button {
+        color: #3b5998;
+        border: 1px solid #3b5998;
+    }
+}
+
+.m-l-30 {
+    margin-left: 30px;
+}
+
+::ng-deep .friends-list-tbl{
+    margin: 50px 0;
+}
+
+::ng-deep .friends-list-tbl .ant-table-thead tr{
+    background: #eee;
+    font-family: "josefin_sansregular";
+}
+
+::ng-deep .friends-list-tbl tbody tr td{
+    font-family: "open_sansregular";
+}
+
+::ng-deep .friends-list-tbl tbody tr:hover td{
+    background: #eee;
+}
+
+::ng-deep .friends-list-tbl .ant-table-filter-column-title{
+    flex: unset;
+}
+
+::ng-deep .friends-list-tbl  .ant-table-filter-trigger-container{
+    position: unset;
+}
+
+::ng-deep .friends-list-tbl  .ant-table-filter-trigger-container:hover{
+    background: transparent;
+}
+
+::ng-deep .friends-list-tbl .ant-table-filter-trigger .anticon{
+    font-size: 18px;
+    position: relative;
+    top: 26px;
+    color: #000;
+}
+
+::ng-deep .friends-list-tbl .ant-table-pagination-right{
+    float:none;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0px;
+}
+
+::ng-deep .addthis_inline_share_toolbox {
+    .at-share-btn-elements {
+      .at-svc-facebook {
+        background: transparent !important;
+        .at-icon {
+          fill: rgb(59, 89, 152) !important;
+          border: 0;
+        }
+        &:hover {
+          background: rgb(59, 89, 152) !important;
+        }
+        &:hover .at-icon {
+          fill: #fff !important;
+        }
+      }
+  
+      .at-svc-twitter {
+        background: transparent !important;
+        .at-icon {
+          fill: rgb(29, 161, 242) !important;
+          border: 0;
+        }
+        &:hover {
+          background: rgb(29, 161, 242) !important;
+        }
+        &:hover .at-icon {
+          fill: #fff !important;
+        }
+      }
+  
+      .at-svc-messenger {
+        background: transparent !important;
+        .at-icon {
+          fill: rgb(0, 132, 255) !important;
+          border: 0;
+        }
+        &:hover {
+          background: rgb(0, 132, 255) !important;
+        }
+        &:hover .at-icon {
+          fill: #fff !important;
+        }
+      }
+  
+      .at-svc-whatsapp {
+        background: transparent !important;
+        .at-icon {
+          fill: rgb(77, 194, 71) !important;
+          border: 0;
+        }
+        &:hover {
+          background: rgb(77, 194, 71) !important;
+        }
+        &:hover .at-icon {
+          fill: #fff !important;
+        }
+      }
+  
+      .at-svc-compact {
+        background: transparent !important;
+        .at-icon {
+          fill: rgb(255, 101, 80) !important;
+          border: 0;
+        }
+        &:hover {
+          background: rgb(255, 101, 80) !important;
+        }
+        &:hover .at-icon {
+          fill: #fff !important;
+        }
+      }
+    }
+}
+
+@media screen and (max-width:580px){
+    ::ng-deep .friends-list-tbl .ant-table table{
+        display: table-caption;
+    }
+
+}

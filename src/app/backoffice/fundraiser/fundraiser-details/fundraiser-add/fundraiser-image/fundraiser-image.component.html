@@ -1,0 +1,60 @@
+<div class="container">
+    <nz-card class="fundraiser-image-sec">
+      <br />
+      <nz-steps [nzCurrent]="1">
+        <nz-step nzTitle="{{'fundraiserCompose' | translate}}"></nz-step>
+        <nz-step nzTitle="{{'fundraiserFeaturedImage' | translate}}"></nz-step>
+        <nz-step nzTitle="{{'fundraiserOptimize' | translate}}"></nz-step>
+        <nz-step nzTitle="{{'fundraiserPublish' | translate}}"></nz-step>
+      </nz-steps>
+      <br />
+      <nz-divider></nz-divider>
+  
+      <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
+        <div class="content-wrapper">
+          <nz-upload nzType="drag" [nzMultiple]="true" [nzLimit]="1" [nzBeforeUpload]="beforeUpload"
+            [nzShowUploadList]="false">
+            <ng-container *ngIf="!fundraiserImage">
+              <div *ngIf="!loading">
+                <p class="ant-upload-drag-icon">
+                  <i nz-icon nzType="inbox"></i>
+                </p>
+                <p class="ant-upload-text">{{'fundraiserImageMessage1' | translate}}</p>
+                <p class="ant-upload-hint">
+                  {{'fundraiserImageMessage2' | translate}}
+                </p>
+                <p class="ant-upload-hint" style="color: red;">
+                  {{'fundraiserImageMessage3' | translate}}
+                </p>
+                <div class="ant-upload-text">{{'fundraiserImageUpload' | translate}}</div>
+              </div>
+              <i class="upload-icon" *ngIf="loading" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+            </ng-container>
+            <img *ngIf="fundraiserImage" [src]="fundraiserImage" style="width: 100%" />
+          </nz-upload>
+          <form nz-form class="m-t-20">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24" nzFor="title">{{'fundraiserImageAltText' | translate}}</nz-form-label>
+              <nz-form-control [nzSpan]="24" nzErrorTip="{{'fundraiserImageAltTextErr' | translate}}">
+                <input nz-input name="alternative" required minlength="2" required maxlength="100"
+                  [(ngModel)]="alternative" type="text" id="alternative">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control>
+                <div>
+                  <button nz-button (click)="goBack()" class="login-form-button m-10"
+                    [nzType]="'primary'">{{'fundraiserGoBackbtn' | translate}}</button>
+  
+                  <button nz-button class="login-form-button" [nzLoading]="isFormSaving" [nzType]="'primary'"
+                    (click)="saveFundraiserImage()">{{'fundraiserNext' |translate}}</button>
+                </div>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </div>
+      </nz-skeleton>
+  
+  
+    </nz-card>
+  </div>

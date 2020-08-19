@@ -1,0 +1,106 @@
+<section class="is-article-block">
+    <div class="container">
+        <div class="article-full-img">
+            <img *ngIf="company" [src]='company?.cover?.url' [alt]='company?.cover?.alt'/>
+        </div>
+        <div class="is-article-sec">
+            <div class="is-left-profile">
+                <div class="sticky-box">
+                    <div class="is-profile">
+                        <a>
+                            <img class="avatar" src="assets/images/company/company-logo.png" alt="company logo"/>
+                        </a>
+                    </div>
+                    <div class="share-sec text-center">
+                        <div class="addthis_inline_share_toolbox"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="is-main-article-content">
+                <div class="company-img">
+                    <img *ngIf="company" [src]='company?.logo?.url' [alt]='company?.logo?.alt'/>
+                    <div class="special-icon" *ngIf="company">
+                        <img src="assets/images/company-icon.png" style="max-width:28px;" />
+                    </div>
+                </div>
+                <div class="is-content">
+                    <div class="is-head">
+                        <div class="company-name">
+                            <h1>
+                                <a [ngStyle]="{'color': company?.color_code}">
+                                    {{ company?.name }}
+                                </a>
+                            </h1>
+                        </div>
+                        <div class="media-section">
+                            <div class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                                <a><img src="assets/images/company/follow-icon.png" alt="company img">{{ "followCompany" | translate }}</a>
+                            </div>
+                            <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                                <a><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowCompany" | translate }}</a>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="is-body">
+                        <div class="is-paragraph">
+                            <p class="big">{{ company?.bio }}</p>
+                            <br>
+                            <p innerHTML={{company?.presentation}}></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="is-right-ad-section">
+                <div class="company-form" *ngIf="company">
+                    <h2>{{ "addLeadFormTitle" | translate }}</h2>
+
+                    <form nz-form [formGroup]="addLeadForm" class="lead-form" (ngSubmit)="submitForm()">
+                        <nz-alert class="m-b-10" nzType="error" nzDescription="{{'invalidCaptchaErr' | translate}}" nzShowIcon *ngIf="invalidCaptcha"></nz-alert>
+
+                        <nz-alert class="m-b-10" nzType="success" nzMessage="{{'leadAddSuccess' | translate}}" nzShowIcon *ngIf="addLeadSuccess"></nz-alert>
+
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="{{'leadFirstNameError' | translate}}">
+                                <input type="text" nz-input formControlName="first_name" placeholder="{{'leadInputFirstName' | translate}}" id="firstName">
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="{{'leadLastNameError' | translate}}">
+                                <input type="text" nz-input formControlName="last_name" placeholder="{{'leadInputLastName' | translate}}" id="lastName">
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="{{'leadFirstNameError' | translate}}">
+                                <input type="email" nz-input formControlName="email" placeholder="{{'leadInputEmail' | translate}}" id="email">
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="{{'leadMobileError' | translate}}">
+                                <input type="number" nz-input formControlName="mobile_number" placeholder="{{'leadInputPhoneNumber' | translate}}" id="phoneNumber">
+                            </nz-form-control>
+                        </nz-form-item>
+                    
+                        <div>
+                            <div #recaptcha class="m-b-10">Loading Captcha...</div>
+
+                            <nz-form-item>
+                                <nz-form-control>
+                                    <div class="text-center">
+                                        <button nz-button class="is-login-btn" [nzLoading]="isFormSaving" [nzType]="'primary'">{{"leadSubmit" | translate}}</button>
+                                    </div>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>

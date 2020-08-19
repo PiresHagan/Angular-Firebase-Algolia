@@ -1,0 +1,20 @@
+.is-followers-sec {
+    background: #fff;
+
+    .is-followers-user {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        .is-followers-item {
+            margin: 0px 20px 20px 20px;
+            img {
+                width: 130px;
+                height: 130px;
+                border: 3px solid #000;
+                border-radius: 100%;
+                object-fit: cover;
+                background: #ff4020;
+            }
+        }
+    }
+}

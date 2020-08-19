@@ -103,8 +103,8 @@ export class InterestComponent implements OnInit {
         }
         this.userService.update(this.currentUser.uid, { interests }).then(() => {
             this.isFormSaving = false;
-            //this.router.navigate(['/auth/import-contact']);
-            this.done();
+            this.router.navigate(['/auth/import-contact']);
+            // this.done();
             const analytics = firebase.analytics();
 
             interests.forEach(interest => {

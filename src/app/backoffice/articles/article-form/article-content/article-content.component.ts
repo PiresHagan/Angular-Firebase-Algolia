@@ -14,6 +14,9 @@ import { Location } from '@angular/common';
 import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
 import { AUDIO, VIDEO, TEXT } from 'src/app/shared/constants/article-constants';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CompanyService } from 'src/app/backoffice/shared/services/company.service';
+import { CharityService } from 'src/app/backoffice/shared/services/charity.service';
+import { AUTHOR } from 'src/app/shared/constants/member-constant';
 
 @Component({
   selector: 'app-article-content',
@@ -47,6 +50,7 @@ export class ArticleContentComponent implements OnInit {
   VIDEO = VIDEO;
   AUDIO = AUDIO;
   TEXT = TEXT;
+  authorList;
 
   editorConfig = {
     toolbar: [
@@ -73,7 +77,9 @@ export class ArticleContentComponent implements OnInit {
     private languageService: LanguageService,
     private location: Location,
     private modal: NzModalService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private charityService: CharityService,
+    private companyService: CompanyService
   ) {
 
     this.articleForm = this.fb.group({
@@ -83,7 +89,8 @@ export class ArticleContentComponent implements OnInit {
       category: ['', [Validators.required]],
       lang: ['', [Validators.required]],
       topics: [''],
-      type: ['text']
+      type: ['text'],
+      author: ['', [Validators.required]]
     });
   }
   isValidVideo(mimeType) {
@@ -157,6 +164,7 @@ export class ArticleContentComponent implements OnInit {
               this.categoryService.getTopicList(this.article.category.id, this.article.lang).subscribe((topicListData) => {
                 this.topicList = topicListData ? topicListData : [];
                 this.setFormDetails();
+                this.getCompanyAndCharity(this.article.author);
               })
               this.loading = false;
             });
@@ -165,6 +173,7 @@ export class ArticleContentComponent implements OnInit {
           this.article = null;
         }
       } else {
+        this.getCompanyAndCharity(this.userDetails.id);
         this.loading = false;
       }
 
@@ -186,7 +195,7 @@ export class ArticleContentComponent implements OnInit {
         title: this.articleForm.get('title').value,
         slug: this.getSlug(this.articleForm.get('title').value.trim()),
         excerpt: this.articleForm.get('excerpt').value,
-        author: this.article && this.article.author ? this.article.author : this.getUserDetails(),
+        author: this.getUserDetails(this.articleForm.get('author').value),
         summary: this.articleForm.get('title').value,
         status: this.article && this.article.status ? this.article.status : DRAFT,
         lang: this.articleForm.get('lang').value ? this.articleForm.get('lang').value : this.userDetails.lang,
@@ -324,15 +333,18 @@ export class ArticleContentComponent implements OnInit {
 
   }
 
-  getUserDetails() {
+  getUserDetails(userDetails) {
+    if (!userDetails)
+      userDetails = this.userDetails;
     return {
-      slug: this.userDetails.slug ? this.userDetails.slug : '',
-      fullname: this.userDetails.fullname,
+      slug: userDetails.slug ? userDetails.slug : '',
+      fullname: userDetails.fullname || userDetails.name,
       avatar: {
-        url: this.userDetails.avatar?.url ? this.userDetails.avatar?.url : '',
-        alt: this.userDetails.avatar?.alt ? this.userDetails.avatar?.alt : ''
+        url: userDetails.avatar?.url || userDetails.logo?.url,
+        alt: userDetails.avatar?.alt || userDetails.logo?.alt
       },
-      id: this.userDetails.id
+      type: userDetails.type ? userDetails.type : AUTHOR,
+      id: userDetails.id
     }
   }
   showSuccess(): void {
@@ -366,7 +378,8 @@ export class ArticleContentComponent implements OnInit {
       lang: this.article.lang,
       category: this.getSelectedCategory(this.article.category['id']),
       topics: this.getSelectedTopic(this.article.topics),
-      type: this.article.type ? this.article.type : 'text'
+      type: this.article.type ? this.article.type : 'text',
+      author: this.article.author ? this.article.author : null
     });
     this.audioFile = this.article.type === "audio" ? this.article.article_file : '';
     this.videoFile = this.article.type === "video" ? this.article.article_file : '';
@@ -411,6 +424,54 @@ export class ArticleContentComponent implements OnInit {
 
     })
   }
+  getCompanyAndCharity(userId: string) {
+
+    this.authorList = {
+      charities: [],
+      companies: [],
+      currentUser: this.userDetails
+    }
+    this.charityService.getAllCharities(this.userDetails.id, 1000).subscribe((charityData) => {
+      this.authorList.charities = charityData.charityList;
+      this.setAuthorDropdown();
+
+    })
+
+    this.companyService.getAllCompanies(this.userDetails.id, 1000).subscribe((companyData) => {
+      this.authorList.companies = companyData.companyList;
+      this.setAuthorDropdown();
+    })
+
+
+
+  }
+  setAuthorDropdown() {
+    let selectedUser = null;;
+    if (this.article && this.article.author) {
+      if (this.userDetails.id === this.article.author.id) {
+        selectedUser = this.userDetails;
+      }
+      if (this.authorList.charities && this.authorList.charities.length) {
+        selectedUser = this.getRecordFromId(this.authorList.charities, this.article.author.id) || null;
+      }
+      if (this.authorList.companies && this.authorList.companies.length) {
+        selectedUser = this.getRecordFromId(this.authorList.companies, this.article.author.id) || null;
+      }
+      this.articleForm.controls['author'].setValue(selectedUser)
+    }
+  }
+
+  getRecordFromId(list, id) {
+    for (let index = 0; index < list.length; index++) {
+      const element = list[index];
+      if (element.id == id) {
+        return element;
+      }
+
+    }
+    return null;
+  }
+
   goBack() {
     this.location.back();
   }
