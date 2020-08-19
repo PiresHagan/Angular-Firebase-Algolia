@@ -14,16 +14,16 @@
 
                <div class="is-author-name-sec">
                   <div class="logo">
-                     <a [routerLink]="[getAuthorUrl(fundraiser),fundraiser?.author?.slug]" itemprop="url" *ngIf="fundraiser">
-                        <img class="avatar" [src]="fundraiser?.author?.avatar?.url"
-                            [alt]="fundraiser?.author?.avatar?.alt"
+                     <a [routerLink]="[getAuthorUrl(fundraiser),fundraiserAuthor.slug]" itemprop="url" *ngIf="fundraiser">
+                        <img class="avatar" [src]="fundraiserAuthor.avatar?.url"
+                            [alt]="fundraiserAuthor.avatar?.alt"
                             onerror="this.src='assets/images/default-avatar.png'" />
                     </a>
                      <app-article-avatar *ngIf="fundraiser" [article]="fundraiser"></app-article-avatar>
                   </div>
-                  <span class="is-author-name">
+                  <span [routerLink]="[getAuthorUrl(fundraiser),fundraiserAuthor.slug]" class="is-author-name">
                      <a>
-                         <span class="name">{{ fundraiser?.author?.fullname }}</span>
+                         <span class="name">{{ fundraiserAuthor.fullname }}</span>
                      </a>
                  </span>
                   <div class="follow-btn-sec">
