@@ -23,10 +23,10 @@ export class LinkSocialAccountComponent implements OnInit {
   ngOnInit(): void {
     (window as any).fbAsyncInit = function() {
       FB.init({
-        appId      : '327118671669396',
+        appId      : environment.facebook.appId,
         cookie     : true,
         xfbml      : true,
-        version    : 'v8.0'
+        version    : environment.facebook.version
       });
         
       FB.AppEvents.logPageView();   
