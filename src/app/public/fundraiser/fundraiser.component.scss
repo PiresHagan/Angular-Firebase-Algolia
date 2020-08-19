@@ -248,14 +248,18 @@ hr {
 				align-items: center;
 				flex-wrap: wrap;
 				margin-bottom: 30px;
+				margin-top:20px;
 				.company-name {
+					width: calc(100% - 240px);
 					h1 {
 						margin: 0px;
 						a {
 							font-family: "josefin_sanssemibold";
 							display: block;
-							font-size: 30px;
+							font-size: 22px;
 							color: #ff4020;
+							padding-right: 10px;
+							word-break: break-all;
 							span {
 								display: block;
 								color: #53535f;
@@ -270,7 +274,7 @@ hr {
 					}
 				}
 				.media-section {
-					flex: 1;
+					width: 240px;
 					display: flex;
 					align-items: center;
 					justify-content: flex-end;
@@ -650,6 +654,16 @@ hr {
 					padding-bottom: 15px;
 					margin-bottom: 15px;
 				}
+				.is-head{
+					.company-name {
+						width: 100%;
+						
+					}
+					.media-section{
+						width:100%;
+						justify-content: flex-start;
+					}
+				}
 				.is-content {
 					background: #fff;
 					.is-head {
@@ -839,6 +853,16 @@ hr {
         padding: 20px;
 				.company-img {
 					margin: auto;
+				}
+				.is-head{
+					.company-name {
+						width: 100%;
+						
+					}
+					.media-section{
+						width:100%;
+						justify-content: flex-start;
+					}
 				}
 				.is-content {
 					.is-head {

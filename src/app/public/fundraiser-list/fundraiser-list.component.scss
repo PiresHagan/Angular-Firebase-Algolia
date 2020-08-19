@@ -125,6 +125,7 @@
 			}
 		  }
 		  .item-card-texte {
+			  margin-top:15px;
 			p {
 			  font-family: "open_sansregular";
 			  font-size: 15px;
@@ -225,11 +226,12 @@
 	.item-card-category{
 	  .is-avatar-dv{
 		.item-card-author {
-		  font-family: "josefin_sansregular";
-		  font-size: 15px;
-		  display: inline-block;
-		  color: #000;
-		  margin-left: 10px;
+			font-family: "josefin_sansregular";
+			font-size: 17px;
+			display: inline-block;
+			color: #000;
+			margin-left: 10px;
+			font-weight: 600;
 		}
 	  }
 	

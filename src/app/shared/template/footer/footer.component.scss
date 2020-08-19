@@ -71,16 +71,16 @@
             &:hover{
                 color: #ff4020;
             }
-            &:after{
-                content: "";
-                position: absolute;
-                left: 0px;
-                top: 7px;
-                width: 8px;
-                height: 8px;
-                border-radius: 100%;
-                background: #4f4a4a;
-            }
+            // &:after{
+            //     content: "";
+            //     position: absolute;
+            //     left: 0px;
+            //     top: 7px;
+            //     width: 8px;
+            //     height: 8px;
+            //     border-radius: 100%;
+            //     background: #4f4a4a;
+            // }
            }
        }
 }
