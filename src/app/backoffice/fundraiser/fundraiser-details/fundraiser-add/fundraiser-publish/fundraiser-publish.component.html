@@ -7,9 +7,6 @@
                 <h2>{{fundraiser?.title}}</h2>
                 <div class="media">
                     <nz-avatar nzSrc="{{fundraiser?.logo?.url }}"></nz-avatar>
-                    <div class="m-l-10">
-                        <h6 class="m-b-0">{{fundraiser?.name}}</h6>
-                    </div>
                 </div>
             </div>
             <div class="m-t-30" [hidden]="!fileURL" [class.data-not]="!fileURL">

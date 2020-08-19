@@ -3,9 +3,8 @@ import { FundraiserImage } from "./fundraiser-image.type";
 
 export interface Fundraiser {
     id?: string;
-    name?: string,
-    email?: string,
-    phone?: string
+    email?: string;
+    phone?: string;
     title?: string;
     goal_amount?: number;
     amount?: number;
@@ -21,8 +20,8 @@ export interface Fundraiser {
     image?: FundraiserImage;
     logo?: {
         url: string,
-        alt: string
-    },
+        alt: string,
+    };
     status?: any;
     published_on?: string;
     created_at?: string;
@@ -32,6 +31,6 @@ export interface Fundraiser {
         url: string,
         name: string,
         cloudinary_id: string
-    },
+    };
     stripe_status?: string;
 }

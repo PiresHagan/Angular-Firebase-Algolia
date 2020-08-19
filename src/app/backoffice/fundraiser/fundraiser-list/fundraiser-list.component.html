@@ -44,7 +44,7 @@
                                         <nz-avatar nzSize="medium" [nzSrc]="item?.logo?.url">
                                         </nz-avatar>
                                         <div class="m-l-10">
-                                            <span class="">{{item.name}}</span>
+                                            <span class="">{{item.title}}</span>
                                         </div>
                                     </div>
                                     <div class="profile-fundraiser-date">
@@ -53,8 +53,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <h4><span *ngIf="item.status == 'draft'" style="color: red;">{{'draftFundraiser' | translate}}:
-                                </span>{{item.title}}</h4>
+                            <h4><span *ngIf="item.status == 'draft'" style="color: red;">{{'draftFundraiser' | translate}}
+                                </span></h4>
                             <p>
                                 <span>{{item.excerpt}}</span>
                             </p>
