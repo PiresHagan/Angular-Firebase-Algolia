@@ -1,0 +1,163 @@
+<div class="m-10">
+    <div class="media">
+        <nz-avatar [nzSize]="150" nzIcon="user" [nzSrc]="logoImage?.url"></nz-avatar>
+        <div class="profile-upload-txt m-10">
+            <nz-upload nzName="avatar" [nzShowUploadList]="false" (nzChange)="handleChange($event)"
+                [nzBeforeUpload]="beforeUpload">
+                <button nz-button nzType="primary" [nzLoading]="isLogoImageUploading">
+                    <i nz-icon nzType="upload"></i>
+                    <span>{{'upload'| translate}}</span>
+                </button>
+            </nz-upload>
+            <h5>{{'SelectCompanyLogo'| translate}}</h5>
+            <p>
+                {{'recommendedDim'| translate}}:
+                120x120 {{'maxfile'| translate}}: 5MB
+            </p>
+        </div>
+    </div>
+    <hr class="m-v-25" />
+    <form nz-form [formGroup]="companyForm" class="login-form" (ngSubmit)="submitDetails()">
+        <div class="row">
+            <div class="col-md-3">
+                <nz-form-item>
+                    <nz-form-label>{{'CompanyName'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'CompanyName'| translate}} {{'required' | translate}}">
+                        <input nz-input placeholder="{{'CompanyName'| translate}}" formControlName="company_name"
+                            type="text" value="" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-3">
+                <nz-form-item>
+                    <nz-form-label>{{'CompanyEmail'| translate}}</nz-form-label>
+                    <nz-form-control
+                        nzErrorTip="{{'CompanyEmail'| translate}} {{'required' | translate}} {{'AndValidFormat' | translate}}">
+                        <input nz-input placeholder="e.g: abc@gmail.com" type="email" value=""
+                            formControlName="company_email" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-2">
+                <nz-form-item>
+                    <nz-form-label>{{'CompanyPhone'| translate}}</nz-form-label>
+                    <nz-form-control
+                        nzErrorTip="{{'CompanyPhone'| translate}} {{'required' | translate}} {{'AndValidFormat' | translate}} e.g:9876543210">
+                        <input nz-input placeholder="eg: 9xxxx9xxxx" formControlName="company_phone" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-2">
+                <nz-form-item>
+                    <nz-form-label>{{'CompanyColorCode'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'InvalidValue'| translate}}">
+                        <input nz-input placeholder="e.g #123456" formControlName="company_color_code" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col-md-2">
+                <nz-form-item>
+                    <nz-form-label>{{'lang' | translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'langErr' | translate}}" class="m-5">
+                        <nz-select class="m-r-10" formControlName="company_lang" nzAllowClear
+                            nzPlaceHolder="{{'lang' | translate}}">
+                            <nz-option *ngFor="let language of languageList" [nzValue]="language.code"
+                                nzLabel="{{language.label}}">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <nz-form-item>
+                    <nz-form-label>{{'CompanySlug'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'CompanySlug'| translate}} {{'required' | translate}} ">
+                        <input nz-input name="company_slug" placeholder="{{'CompanySlug' |translate}} e.g: abc-def-ghi"
+                            formControlName="company_slug" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <nz-form-item>
+                    <nz-form-label>{{'CompanyBio'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'CompanyBio'| translate}} {{'required' | translate}}">
+                        <textarea rows="4" nz-input name="company_bio" formControlName="company_bio"
+                            placeholder="{{'CompanyBio' | translate}}(10-250 char)"></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <nz-form-item>
+                    <nz-form-label>{{'CompanyPresentation'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'CompanyPresentation'| translate}} {{'required' | translate}}">
+
+                        <quill-editor [style]="{height: '300px',width: '100%'}" formControlName="company_presentation"
+                            [modules]="editorConfig" placeholder="{{'CompanyPresentation'| translate}}"></quill-editor>
+
+
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <nz-form-item>
+                    <nz-form-label>{{'CoverImage'| translate}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-upload nzType="drag" [nzMultiple]="true" (nzChange)="handleCoverImageChange($event)"
+                            [nzLimit]="1" [nzBeforeUpload]="beforeUpload" [nzShowUploadList]="false">
+
+                            <ng-container *ngIf="!coverImage?.url">
+                                <div *ngIf="!isCoverImageUploading">
+                                    <p class="ant-upload-drag-icon">
+                                        <i nz-icon nzType="inbox"></i>
+                                    </p>
+                                    <p class="ant-upload-text">{{'artImageMessage1' | translate}}</p>
+                                    <p class="ant-upload-hint">
+                                        {{'artImageMessage2' | translate}}
+                                    </p>
+                                    <p class="ant-upload-hint" style="color: red;">
+                                        {{'CoverImageRequired' | translate}}
+                                    </p>
+                                    <div class="ant-upload-text">{{'artImageUpload' | translate}}</div>
+                                </div>
+                                <i class="upload-icon" *ngIf="isCoverImageUploading" nz-icon
+                                    [nzType]="isCoverImageUploading ? 'loading' : 'plus'"></i>
+                            </ng-container>
+                            <img *ngIf="coverImage" [src]="coverImage?.url" style="width: 100%" />
+                        </nz-upload>
+
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <hr class="m-v-25" />
+        <div class="d-flex align-items-center justify-content-between m-t-10">
+            <nz-form-item>
+                <nz-form-control>
+                    <div>
+                        <button nz-button [nzLoading]="isFormSaving" type="submit" class="login-form-button"
+                            [nzType]="'primary'">
+                            {{'saveDetails'| translate}}
+                        </button>
+                        <button nz-button [nzLoading]="isFormSaving" type="button" (click)="backToList()"
+                            class="login-form-button m-l-10" [nzType]="'primary'">
+                            {{'BackToList'| translate}}
+                        </button>
+
+
+
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </form>
+</div>

@@ -1,34 +1,27 @@
-<!-- <footer class="footer">
-    <div class="footer-content justify-content-between">
-        <div class="footer-logo">
-            <img src="assets\images\logo\logo-white.png" />
-            
-        </div>
-        
-        <span>
-            <a href="" class="m-r-15">Contact</a>
-            <a href="" class="m-r-15">Term &amp; Conditions</a>
-            <a href="">FREQUENTLY ASKED QUESTIONS</a>
-        </span>
-    </div>
-    <p class="m-b-0 text-center">© MY TRENDING STORIES 2020</p>
-   
-</footer> -->
 
 <footer class="footer">
-    <div class="footer-content justify-content-between">
+    <div class="footer-content">
         <!-- <div class="footer-media">
            <a href="#" class="fb"><i class="fab fa-facebook-f"></i></a>
            <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
            <a href="#" class="fb-messenger"><i class="fab fa-facebook-messenger"></i></a>
            <a href="#" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
        </div>  -->
-        <div class="footer-link">
-            <a routerLink="/contact" class="m-r-15">{{'contact' | translate}} </a>
-            <a routerLink="/terms" class="m-r-15">{{'terms' | translate}}</a>
-            <a routerLink="/privacy" class="m-r-15">{{'privacy' | translate}}</a>
-            <a routerLink="/faq">{{'faq' | translate}}</a>
-        </div>
+       <div class="container">
+       <div class="row m-0">
+            <div class="col-lg-12">
+                <div class="footer-link text-center">
+                    <a [routerLink]="['/companies']">{{ "companiesTitle" | translate }}</a>
+                    <a [routerLink]="['/charities']">{{ "charitiesTitle" | translate }}</a>
+                    <a [routerLink]="['/fundraisers']">{{ "fundraisersTitle" | translate }}</a>
+                    <a [routerLink]="['/contact']">{{'contact' | translate}} </a>
+                    <a [routerLink]="['/terms']">{{'terms' | translate}}</a>
+                    <a [routerLink]="['/privacy']">{{'privacy' | translate}}</a>
+                    <a [routerLink]="['/faq']">{{'faq' | translate}}</a>
+            </div>
+            </div>
+       </div>
+    </div>
     </div>
     <p class="m-b-0 text-center">© MY TRENDING STORIES 2020</p>
 

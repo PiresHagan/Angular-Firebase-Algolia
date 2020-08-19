@@ -1,0 +1,29 @@
+<div class="account-div">
+    <img src="./assets/images/company-logo/facebook.png">
+    Facebook
+    <button *ngIf="!fbAccountLinkStatus" class="m-l-30" nz-button nzSize="small" nzType="default" [nzLoading]="fbloading" (click)="linkFacebook()">
+        {{ "Link" | translate }}
+    </button>
+    <button *ngIf="fbAccountLinkStatus" class="m-l-30" nz-button nzSize="small" nzType="default" [nzLoading]="fbloading" (click)="unlinkFacebook()">
+        {{ "Unlink" | translate }}
+    </button>
+</div>
+
+<nz-table *ngIf="fbAccountLinkStatus" #nzTable [nzData]="userFirendsList" nzTableLayout="fixed" class="friends-list-tbl">
+    <thead>
+        <tr>
+            <th>{{'importName' | translate}}</th>
+            <th>{{'importEmail' | translate}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of nzTable.data">
+            <td>{{ data.name}}</td>
+            <td>{{ data.email}}</td>
+        </tr>
+    </tbody>
+</nz-table>
+
+<div class="share-sec text-center">
+    <div class="addthis_inline_share_toolbox"></div>
+</div>

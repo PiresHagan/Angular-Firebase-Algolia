@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <nz-card>
+                <div class="row m-b-30">
+                    <div class="col-lg-4">
+                        <div class="d-md-flex m-t-10">
+
+                            <div class="m-b-10 m-r-20 d-flex align-items-center">
+                                <div class="m-b-10 m-r-20">
+                                    <nz-input-group [nzPrefix]="prefixTemplate">
+                                        <input type="text" nz-input placeholder="{{'ComSearch' | translate}}"
+                                            [(ngModel)]="searchInput" (ngModelChange)="search()">
+                                    </nz-input-group>
+                                    <ng-template #prefixTemplate>
+                                        <i nz-icon nzType="search" class="opacity-05"></i>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <nz-skeleton *ngIf="!displayData"> </nz-skeleton>
+                <nz-table #productsListTable [nzData]="displayData" *ngIf="displayData" [nzLoading]="isLoading">
+
+                    <thead>
+                        <tr>
+                            <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare">
+                                {{ column.title | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of productsListTable.data;  let i=index">
+
+                            <td>{{item.first_name}} </td>
+                            <td>{{item.last_name}} </td>
+                            <td>{{item.mobile_number}}</td>
+                            <td>{{item.email}}</td>
+                            <td>${{item.amount}}</td>
+                            <td>{{item?.message}}</td>
+                            <td>{{item?.created_at | date:'medium'}}</td>
+
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </nz-card>
+        </div>
+    </div>
+</div>

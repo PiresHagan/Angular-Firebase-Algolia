@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import 'firebase/storage';
-import * as firebase from 'firebase/app'
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { STAFF, AUTHOR, MEMBER, COMPANY, CHARITY } from '../constants/member-constant';
 
 
 
@@ -12,10 +14,12 @@ import * as firebase from 'firebase/app'
 export class AuthorService {
 
   authorsCollection: string = 'members';
+  charitiesCollection: string = 'charities';
+  companiesColection: string = 'companies';
   private followersCollection: string = 'followers';
   private followingsCollection: string = "followings";
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(private afs: AngularFirestore, private http: HttpClient) { }
 
   getUserBySlug(slug: string) {
     return this.afs.collection(this.authorsCollection, ref =>
@@ -38,7 +42,6 @@ export class AuthorService {
 
   }
   reportAbusedUser(userId: string) {
-
     return new Promise<any>((resolve, reject) => {
       this.afs.collection(`${this.authorsCollection}`).doc(`${userId}`).update({ is_abused: true }).then(() => {
         resolve();
@@ -47,37 +50,34 @@ export class AuthorService {
       })
     })
   }
-  /**
-   * Create author follower collection
-   * 
-   * @param articleId 
-   * @param commentDtails 
-   */
 
-  follow(authorId: string, followerData) {
-    return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followersCollection).doc(followerData.id).set(followerData)
+
+  isUserFollowing(authorId: string, followerId: string, type: string = null) {
+    if (!type || type == STAFF || type == AUTHOR || type == MEMBER)
+      return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followersCollection).doc(followerId).valueChanges();
+    else if (type == COMPANY) {
+      return this.afs.collection(this.companiesColection).doc(authorId).collection(this.followersCollection).doc(followerId).valueChanges();
+    }
+    else if (type == CHARITY) {
+      return this.afs.collection(this.charitiesCollection).doc(authorId).collection(this.followersCollection).doc(followerId).valueChanges();
+    }
   }
 
-  unfollow(authorId: string, followerId) {
-    return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followersCollection).doc(followerId).delete();
+  getAllFollowersByAuthorType(authorId: string, type: string) {
+    if (!type || type == STAFF || type == AUTHOR || type == MEMBER)
+      return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followersCollection).valueChanges();
+    else if (type == COMPANY) {
+      return this.afs.collection(this.companiesColection).doc(authorId).collection(this.followersCollection).valueChanges();
+    }
+    else if (type == CHARITY) {
+      return this.afs.collection(this.charitiesCollection).doc(authorId).collection(this.followersCollection).valueChanges();
+    }
   }
 
-
-  isUserFollowing(authorId: string, followerId) {
-    return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followersCollection).doc(followerId).valueChanges();
-  }
   getFollowers(authorId) {
     return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followersCollection).valueChanges()
   }
 
-  following(userId, authorData) {
-    return this.afs.collection(this.authorsCollection).doc(userId).collection(this.followingsCollection).doc(authorData.id).set(authorData);
-
-  }
-  unfollowing(userId, authorId) {
-    return this.afs.collection(this.authorsCollection).doc(userId).collection(this.followingsCollection).doc(authorId).delete();
-
-  }
   getFollowings(authorId) {
     return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followingsCollection).valueChanges()
   }
@@ -156,11 +156,29 @@ export class AuthorService {
     })
     );
   }
-  followCount(authorId: string, followerId: string, value: number) {
-    const db = firebase.firestore();
-    const followerInc = firebase.firestore.FieldValue.increment(value);
-    const followerRef = db.collection(this.authorsCollection).doc(followerId);
-    followerRef.update({ followings_count: followerInc })
+
+  follow(authorId: string, type: string = null) {
+    if (!type || type == STAFF || type == AUTHOR || type == MEMBER)
+      return this.http.post(environment.baseAPIDomain + `/api/v1/members/${authorId}/follow`, {}).subscribe();
+    else if (type == COMPANY) {
+      return this.http.post(environment.baseAPIDomain + `/api/v1/companies/${authorId}/follow`, {}).subscribe();
+    }
+    else if (type == CHARITY) {
+      return this.http.post(environment.baseAPIDomain + `/api/v1/charities/${authorId}/follow`, {}).subscribe();
+    }
+
+  }
+
+  unfollow(authorId: string, type: string = null) {
+    if (!type || type == STAFF || type == AUTHOR || type == MEMBER)
+      return this.http.post(environment.baseAPIDomain + `/api/v1/members/${authorId}/unfollow`, {}).subscribe();
+    else if (type == COMPANY) {
+      return this.http.post(environment.baseAPIDomain + `/api/v1/companies/${authorId}/unfollow`, {}).subscribe();
+    }
+    else if (type == CHARITY) {
+      return this.http.post(environment.baseAPIDomain + `/api/v1/charities/${authorId}/unfollow`, {}).subscribe();
+    }
+
   }
 
 }

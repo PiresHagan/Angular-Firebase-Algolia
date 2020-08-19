@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="profile-setting-main">
+        <div class="page-header has-tab">
+            <h2 class="font-weight-normal"> {{ 'CharityInfo' | translate }}</h2>
+        </div>
+        <nz-tabset class="page-header-tab">
+            <nz-tab nzTitle="{{'CharityDetails'| translate}}">
+                <app-add-charity class="m-10"></app-add-charity>
+            </nz-tab>
+            <nz-tab nzTitle="{{'CharityFollowers'| translate}}">
+                <app-charity-followers></app-charity-followers>
+            </nz-tab>
+            <nz-tab nzTitle="{{'CharityLeads'| translate}}">
+                <app-charity-donation></app-charity-donation>
+            </nz-tab>
+            <nz-tab nzTitle="{{'CharityArticle'| translate}}">
+                <app-charity-article></app-charity-article>
+            </nz-tab>
+            <nz-tab nzTitle="{{'CharityFundraisers'| translate}}">
+                <app-charity-fundraisers></app-charity-fundraisers>
+            </nz-tab>
+        </nz-tabset>
+
+    </div>
+</div>

@@ -31,6 +31,7 @@ export class CampaignManagerComponent implements OnInit {
   isLoading: boolean = true;
 
 
+
   orderColumn = [
     {
       title: 'ID',
