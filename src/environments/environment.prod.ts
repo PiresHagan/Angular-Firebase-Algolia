@@ -5,6 +5,10 @@ export const environment = {
   isAnonymousUserEnabled: true,
   captchaKey: "6LfMnKoZAAAAALeLCs7H9LL9MhOy3EmcwtchxUf-",
   baseAPIDomain: 'https://us-central1-my-trending-stories-66f81.cloudfunctions.net',
+  facebook: {
+    appId: '327118671669396',
+    version: 'v8.0'
+  },
   firebase: {
     apiKey: "AIzaSyBrkchwLnuHo6bqJzCYpENfSrg7Hfg2cDM",
     authDomain: "my-trending-stories-66f81.firebaseapp.com",

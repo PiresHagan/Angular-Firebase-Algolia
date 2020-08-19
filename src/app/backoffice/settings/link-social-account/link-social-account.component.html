@@ -2,10 +2,10 @@
     <img src="./assets/images/company-logo/facebook.png">
     Facebook
     <button *ngIf="!fbAccountLinkStatus" class="m-l-30" nz-button nzSize="small" nzType="default" [nzLoading]="fbloading" (click)="linkFacebook()">
-        Link
+        {{ "Link" | translate }}
     </button>
     <button *ngIf="fbAccountLinkStatus" class="m-l-30" nz-button nzSize="small" nzType="default" [nzLoading]="fbloading" (click)="unlinkFacebook()">
-        Unlink
+        {{ "Unlink" | translate }}
     </button>
 </div>
 

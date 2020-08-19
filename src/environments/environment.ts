@@ -9,6 +9,10 @@ export const environment = {
   production: false,
   captchaKey: "6LfMnKoZAAAAALeLCs7H9LL9MhOy3EmcwtchxUf-",
   baseAPIDomain: 'https://us-central1-my-trending-stories-dev.cloudfunctions.net',
+  facebook: {
+    appId: '327118671669396',
+    version: 'v8.0'
+  },
   firebase: {
     apiKey: "AIzaSyC83ZSVEBAP_9tuNucpudqPzya8zNsYxL8",
     authDomain: "my-trending-stories-dev.firebaseapp.com",
