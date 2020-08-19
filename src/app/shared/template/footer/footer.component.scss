@@ -57,6 +57,9 @@
            }
        }
        .footer-link{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
            a{
             color: #4f4a4a;
             font-size: 15px;
@@ -121,6 +124,7 @@ p{
         .footer-link{
             a{
                 font-size: 16px !important;
+                margin-bottom: 7px;
             }
         }
   
