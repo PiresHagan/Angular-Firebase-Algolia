@@ -40,7 +40,7 @@
          </div>
          <div class="is-main-article-content">
             <div class="company-img">
-               <img *ngIf="fundraiser" [src]="fundraiser?.logo?.url" [alt]="fundraiser?.logo?.alt" />
+               <img *ngIf="fundraiser" [src]="fundraiser?.logo?.url" [alt]="fundraiser?.logo?.alt"  onerror="this.src='assets/images/default-avatar.png'"/>
             </div>
             <div class="is-content">
                <div class="is-head">
