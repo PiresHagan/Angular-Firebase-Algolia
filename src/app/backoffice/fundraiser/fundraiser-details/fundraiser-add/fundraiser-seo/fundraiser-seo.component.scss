@@ -1,0 +1,51 @@
+.fundraiser-seo-sec{
+    border:0px;
+
+    .content-wrapper{
+        max-width: 800px;
+        margin:auto;
+    }
+
+    ::ng-deep .ant-form{
+        .ant-input{
+            border:1px solid #ccc;
+            font-family: "josefin_sansregular";
+        }
+
+        .ant-select-selector{
+            border-color: #ccc;
+        }
+
+        .ant-form-item-label{
+            label{
+                font-family: "josefin_sansregular";
+                color: #000;
+            }
+        }
+    }
+
+    ::ng-deep .ant-steps-item{
+        &.ant-steps-item-finish{
+            .ant-steps-item-title{
+                &:after{
+                    background: #ff4020 !important;
+                }
+            }
+        }
+
+        .ant-steps-item-title{
+            font-family: "josefin_sansregular";
+            &:after{
+                height: 2px;
+            }
+        }
+
+        &.ant-steps-item-active{
+            .ant-steps-item-title{
+                &:after{
+                    background: #ff4020 !important;
+                }
+            }
+        }
+    }
+}

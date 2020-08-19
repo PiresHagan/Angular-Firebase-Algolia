@@ -1,0 +1,96 @@
+nz-select {
+    width: 100%;
+  }
+  #fundraiser-form {
+    .content-message {
+      margin-top: 45px;
+      color: #ff4d4f;
+      font-size: 14px;
+      line-height: 1.5715;
+    }
+  }
+  :host::ng-deep .ant-form-item-explain {
+    color: #ff4d4f;
+  }
+  :host::ng-deep .ng-dirty.ng-invalid .ql-container {
+    border: 1px solid #ff4d4f;
+    border-top: 0px;
+  }
+  :host::ng-deep .ng-dirty.ng-invalid .ql-toolbar {
+    border: 1px solid #ff4d4f;
+    border-bottom: 1px solid #ccc;
+  }
+  .new-fundraiser-card {
+    border: 0px;
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 0 15px;
+    margin-bottom: 20px;
+    ::ng-deep .ant-card-body {
+      padding: 0px;
+      .ant-input {
+        border: 1px solid #ccc;
+        font-family: "josefin_sansregular";
+      }
+      .placeholder-label {
+        width: 100%;
+        border: 1px solid #ccc;
+        display: inline-block;
+        padding: 4px;
+        color: #ccc;
+      }
+      .ant-select-selector {
+        border-color: #ccc;
+      }
+      .ant-form-item-label {
+        label {
+          font-family: "josefin_sansregular";
+          color: #000;
+        }
+      }
+      .ant-form-item {
+        .ql-toolbar {
+          border-color: #ccc;
+        }
+        .ql-container {
+          &.ql-snow {
+            border-color: #ccc;
+          }
+        }
+        .ql-editor {
+          font-family: "josefin_sansregular";
+          color: #000;
+        }
+      }
+      .ant-steps-item {
+        .ant-steps-item-title {
+          font-family: "josefin_sansregular";
+          &:after {
+            height: 2px;
+          }
+        }
+        &.ant-steps-item-active {
+          .ant-steps-item-title {
+            &:after {
+              background: #ff4020;
+            }
+          }
+        }
+        &.ant-steps-item-finish {
+          .ant-steps-item-title {
+            &:after {
+              background: #ff4020;
+            }
+          }
+        }
+      }
+    }
+    .filter-dropdown-sec {
+      display: flex;
+      flex-wrap: wrap;
+      .filter-title {
+        flex: 1;
+      }
+    }
+  }
+  

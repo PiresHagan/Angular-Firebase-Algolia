@@ -15,19 +15,20 @@ const searchClient = algoliasearch(
 })
 export class SearchEngineComponent implements OnInit {
   selectedLanguage: string = "";
+  articleBrand: any;
   config = {
     indexName: 'dev_articles',
     searchClient,
     routing: true
   };
-  public OrderIndex = 0;
-  articleBrand = [];
-  
-  constructor (
+  //public OrderIndex = 0;
+  //articleBrand = [];
+
+  constructor(
     public translate: TranslateService,
     private languageService: LanguageService,
     private cacheService: CacheService
-  ){
+  ) {
   }
   ngOnInit(): void {
     this.selectedLanguage = this.languageService.getSelectedLanguage();

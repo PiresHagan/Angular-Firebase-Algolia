@@ -1,0 +1,25 @@
+<section>
+    <div class="container">
+        <div class="is-comman-title"> {{ "companiesTitle" | translate }} </div>
+        <div class="all-companies-main-sec">
+            <div class="companies-box">
+                <div class="row">
+                    <div *ngFor="let company of companies" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <a [routerLink]="['/companies',company.slug]">
+                            <div class="companies-box-item">
+                                <div>
+                                    <img [src]="company?.logo?.url" [alt]="company?.logo?.alt"/>
+                                    <h2 [ngStyle]="{'color': company?.color_code}">{{ company?.name }}</h2>
+                                    <p>{{ company?.bio }}</p>
+                                    <button type="button" class="is-read-more">
+                                        {{'readMore' | translate }} <img src="assets/images/read-more-icon-black.png" alt="Read More" />
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

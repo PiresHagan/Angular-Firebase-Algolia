@@ -9,11 +9,14 @@ import { Member } from 'src/app/shared/interfaces/member.type';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
+import { environment } from 'src/environments/environment';
+
+declare var FB: any;
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.scss']
 })
 
 export class ProfileComponent implements OnInit {
@@ -28,6 +31,8 @@ export class ProfileComponent implements OnInit {
   isFormSaving: boolean = false;
   languageList;
   loggedInUser;
+  fbloading: boolean = false;
+  fbAccountLinkStatus: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -50,7 +55,50 @@ export class ProfileComponent implements OnInit {
       later: [null]
     });
     this.setFormData();
+
+    (window as any).fbAsyncInit = function() {
+      FB.init({
+        appId      : environment.facebook.appId,
+        cookie     : true,
+        xfbml      : true,
+        version    : environment.facebook.version
+      });
+        
+      FB.AppEvents.logPageView(); 
+    };
+
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
   }
+
+  linkFacebook() {
+    this.fbloading = true;
+    FB.login((response) => {
+      console.log('submitLogin',response);
+      if (response.authResponse) {
+        this.fbloading = false;
+        this.fbAccountLinkStatus = true;
+      } else {
+      console.log('User login failed');
+      this.fbloading = false;
+      }
+    });
+  }
+
+  unlinkFacebook() {
+    let self = this;
+    this.fbloading = true;
+    FB.logout(function(response) {
+      self.fbAccountLinkStatus = false;
+      self.fbloading = false;
+    });
+  }
+
   setUserDetails(userDetails: User) {
     this.profileForm.controls['phone'].setValue(userDetails?.mobile);
     this.profileForm.controls['birth'].setValue(userDetails?.birthdate ? formatDate(
@@ -108,7 +156,7 @@ export class ProfileComponent implements OnInit {
             bio: bio ? bio : '',
             fullname: loggedInUser.displayName,
             lang,
-            slug: this.getSlug(loggedInUser.displayName) + '-' + this.makeid()
+            slug: this.getSlug(loggedInUser.displayName)
           });
         this.isFormSaving = false;
         this.router.navigate(['/auth/interest']);
@@ -162,17 +210,21 @@ export class ProfileComponent implements OnInit {
     }
     return invalid;
   }
-  private getSlug(displayName: string) {
-    return displayName.replace(/ /g, '-')?.toLowerCase();
+  getSlug(displayName: string) {
+    return this.slugify(displayName)
   }
-  makeid(length = 6) {
-    let result = '';
-    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result.toLowerCase();
+
+  slugify(string) {
+    return string
+      .toString()
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-zA-Z ]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/[^\w\-]+/g, "")
+      .replace(/\-\-+/g, "-")
+      .replace(/^-+/, "")
+      .replace(/-+$/, "");
   }
 
 

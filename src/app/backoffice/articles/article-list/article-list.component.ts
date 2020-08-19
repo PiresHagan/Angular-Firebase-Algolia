@@ -83,9 +83,13 @@ export class ArticleListComponent implements OnInit {
     this.modalService.confirm({
       nzTitle: "<i>" + articleMessageConf + "</i>",
       nzOnOk: () => {
-        this.articleService.deleteArticle(articleId).then(() => {
+        this.articleService.deleteArticle(articleId).subscribe(() => {
           this.modalService.success({
             nzTitle: "<i>" + articleMessageSucc + "</i>",
+          });
+        }, error => {
+          this.modalService.error({
+            nzTitle: "<i>" + this.translate.instant("SomethingWrong") + "</i>",
           });
         })
       },

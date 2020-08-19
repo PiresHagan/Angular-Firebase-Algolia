@@ -24,7 +24,7 @@ export class BackofficeArticleService {
   constructor(private afAuth: AngularFireAuth, private http: HttpClient, private db: AngularFirestore, private storage: AngularFireStorage, ) { }
 
   deleteArticle(articleId) {
-    return this.db.collection(this.articleCollection).doc(articleId).delete();
+    return this.http.delete(environment.baseAPIDomain + '/api/v1/articles/' + articleId);
   }
 
   getArticleById(articleId: string, authorId, type: string) {

@@ -112,7 +112,7 @@ export class StaffArticlesComponent implements OnInit {
     this.modalService.confirm({
       nzTitle: "<i>" + articleMessageConf + "</i>",
       nzOnOk: () => {
-        this.articleService.deleteArticle(articleId).then(() => {
+        this.articleService.deleteArticle(articleId).subscribe(() => {
           this.modalService.success({
             nzTitle: "<i>" + articleMessageSucc + "</i>",
           });

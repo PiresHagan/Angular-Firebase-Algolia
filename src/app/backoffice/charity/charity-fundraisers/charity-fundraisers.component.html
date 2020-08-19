@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="profile-fundraiser-list">
+
+        <nz-empty nzNotFoundImage="simple" *ngIf="!fundraisers?.length" [nzNotFoundContent]="contentTpl">
+            <ng-template #contentTpl>
+                <span>{{'noFundraiser' | translate}} </span>
+            </ng-template>
+        </nz-empty>
+
+        <div class="profile-fundraiser-item-main">
+            <nz-card *ngFor="let item of (fundraisers)" class="profile-fundraiser-item">
+                <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
+                    <div class="profile-fundraiser-list-item">
+                        <div class="profile-fundraiser-img">
+                            <img class="img-fluid" [src]="item?.image?.url" [alt]="item.title"
+                                *ngIf="item?.image">
+                            <nz-empty [nzNotFoundContent]="null" nzNotFoundImage="simple" *ngIf="!item?.image">
+                            </nz-empty>
+                        </div>
+                        <div class="profile-fundraiser-detail">
+
+                            <div class="profile-fundraiser-info">
+                                <div class="profile-fundraiser-avtar">
+                                    <div class="d-flex align-items-center">
+                                        <nz-avatar nzSize="medium" [nzSrc]="item?.logo?.url">
+                                        </nz-avatar>
+                                        <div class="m-l-10">
+                                            <span class="">{{item.title}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="profile-fundraiser-date">
+                                        <nz-divider nzType="vertical"></nz-divider>
+                                        <span>{{item.published_at | date:'medium'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <h4><span *ngIf="item.status == 'draft'" style="color: red;">{{'draftFundraiser' | translate}}
+                                </span></h4>
+                            <p>
+                                <span>{{item.excerpt}}</span>
+                            </p>
+                            <div class="profile-fundraiser-read-more text-center">
+                                <a [routerLink]="['/app/fundraiser/fundraiser-details']" [queryParams]="{fundraiser: item.id}"
+                                    class="fundraiser-edit-link m-5" nz-button nzType="default"
+                                    nzGhost>{{'editFundraiser' | translate}}</a>
+
+                                <a (click)="deleteFundraiser(item.id)" class="fundraiser-edit-link m-5" nz-button
+                                    nzType="default" nzGhost>{{'deleteFundraiser' | translate}}</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </nz-skeleton>
+            </nz-card>
+        </div>
+        <div class="m-t-30 text-center">
+            <nz-spin nzSimple [nzSize]="'large'" *ngIf="loadingMore" nzTip="{{'loadingMoreFundraiser' | translate}}"></nz-spin>
+        </div>
+
+    </div>
+
+</div>

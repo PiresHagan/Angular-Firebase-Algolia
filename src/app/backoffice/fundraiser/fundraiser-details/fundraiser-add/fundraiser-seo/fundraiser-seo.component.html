@@ -1,0 +1,63 @@
+<div class="container">
+    <nz-card class="fundraiser-seo-sec">
+        <br />
+
+        <nz-steps [nzCurrent]="2">
+            <nz-step nzTitle="{{'fundraiserCompose' | translate}}"></nz-step>
+            <nz-step nzTitle="{{'fundraiserFeaturedImage' | translate}}"></nz-step>
+            <nz-step nzTitle="{{'fundraiserOptimize' | translate}}"></nz-step>
+            <nz-step nzTitle="{{'fundraiserPublish' | translate}}"></nz-step>
+        </nz-steps>
+
+        <br />
+
+        <nz-divider></nz-divider>
+
+        <nz-skeleton [nzLoading]="loading" [nzActive]="loading">
+            <div class="content-wrapper">
+                <form nz-form>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="title">{{'fundraiserMetaTitle' | translate}}</nz-form-label>
+                        <nz-form-control [nzSpan]="24"
+                            nzErrorTip="{{'fundraiserMetaTitle' | translate}} {{'required' | translate}}">
+                            <input nz-input name="title" required [(ngModel)]="title" type="text" id="title"
+                                #titleE="ngModel">
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="description">{{'fundraiserMetaDesc' | translate}}</nz-form-label>
+                        <nz-form-control [nzSpan]="24"
+                            nzErrorTip="{{'fundraiserMetaDesc' | translate}} {{'required' | translate}}">
+                            <textarea rows="4" required nz-input name="description" [(ngModel)]="description"
+                                #descriptionE="ngModel"></textarea>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="24" nzFor="keywords">{{'fundraiserMetaKeyword' | translate}}</nz-form-label>
+                        <nz-form-control [nzSpan]="24"
+                            nzErrorTip="{{'fundraiserMetaKeyword' | translate}} {{'required' | translate}}">
+                            <textarea rows="4" required nz-input name="keywords" [(ngModel)]="keywords"
+                                #keywordsE="ngModel"></textarea>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-control>
+                            <div>
+                                <button nz-button (click)="goBack()" class="login-form-button m-10"
+                                    [nzType]="'primary'">{{'fundraiserGoBackbtn' | translate}}</button>
+                                <button
+                                    [attr.disabled]="keywordsE.invalid|| descriptionE.invalid || titleE.invalid  ? 'disabled' : null"
+                                    nz-button class="login-form-button" [nzLoading]="isFormSaving" [nzType]="'primary'"
+                                    (click)="saveMetaData()">{{'fundraiserNext' |translate}}</button>
+                            </div>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </div>
+        </nz-skeleton>
+
+    </nz-card>
+</div>

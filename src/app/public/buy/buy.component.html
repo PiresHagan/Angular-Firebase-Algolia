@@ -9,13 +9,18 @@
                 <div class="monthly-price">Monthaly Price</div>
             </div>
             <div class="buy-content">
-                <div class="buy-input">
-                    <label>My Trending Stories URL:</label>
-                    <input type="text" placeholder="Enter url...">
-                </div>
-                <div class="price">$10,000</div>
+                <div class="price">$100</div>
                 <div class="buy-btn-main">
-                    <a href="#" class="buy-btn">Buy it</a>
+                    <button class="buy-btn" nz-button nzType="primary" (click)="showModal()">Buy it</button>
+                    <nz-modal
+                        [(nzVisible)]="isVisible"
+                        nzTitle="My Trending Stories"
+                        (nzOnCancel)="handleCancel()"
+                        (nzOnOk)="handleOk()"
+                        [nzOkLoading]="isOkLoading"
+                        >
+                        <p class="text-black">Please, sign in or sign up before buying your spot</p>
+                        </nz-modal>
                 </div>
             </div>
         </div>
