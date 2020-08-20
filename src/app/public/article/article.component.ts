@@ -415,7 +415,7 @@ export class ArticleComponent implements OnInit {
 
   getArticleUrl(article) {
     if (!article || !article.author.type) {
-      return '/'
+      return '/';
     } else if (article.author.type == 'charity') {
       return '/charities/';
     } else if (article.author.type == 'company') {
