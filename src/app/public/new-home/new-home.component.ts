@@ -12,6 +12,7 @@ import { Author } from 'src/app/shared/interfaces/authors.type';
 import { Observable } from 'rxjs';
 import { SeoDataService } from 'src/app/shared/services/seo-data.service';
 import { SeoData } from 'src/app/shared/interfaces/seo-data.type';
+import { CacheService } from 'src/app/shared/services/cache.service';
 
 @Component({
   selector: 'app-new-home',
@@ -26,7 +27,7 @@ export class NewHomeComponent implements OnInit {
   heroSmall: any;
   heroArticles: any;
   latestArticles: any;
-  trendingArticles: any;
+  trendingArticles: any[] = new Array();
   business: any;
   creative: any;
   entertainment: any;
@@ -42,6 +43,7 @@ export class NewHomeComponent implements OnInit {
     private articleService: ArticleService,
     private authorService: AuthorService,
     public translate: TranslateService,
+    private cacheService: CacheService,
     private themeService: ThemeConstantService,
     private titleService: Title,
     private metaTagService: Meta,
@@ -85,13 +87,20 @@ export class NewHomeComponent implements OnInit {
       this.heroArticles = articles;
     });
 
+    this.cacheService.getSponsoredArticles(this.selectedLanguage).subscribe(articles => {
+      this.heroArticles = articles;
+    });
+
     this.articleService.getTrending(this.selectedLanguage).subscribe(articles => {
-      this.trendingArticles = articles;
+      for (const article of articles) {
+        if(article['view_count'] > 50){
+          this.trendingArticles.push(article);
+        }
+      }
     });
 
     this.articleService.getLatest(this.selectedLanguage).subscribe(articles => {
       this.latestArticles = articles;
-      console.log('latest articles', this.latestArticles);
     });
 
     this.getAuthors();
@@ -106,6 +115,10 @@ export class NewHomeComponent implements OnInit {
       this.getAuthors();
 
       this.articleService.getHeroArticles(this.selectedLanguage).subscribe(articles => {
+        this.heroArticles = articles;
+      });
+
+      this.cacheService.getSponsoredArticles(this.selectedLanguage).subscribe(articles => {
         this.heroArticles = articles;
       });
 

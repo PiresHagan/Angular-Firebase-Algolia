@@ -245,7 +245,7 @@ export class ArticleService {
 
   getToday(lang: string = 'en') {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('published_at', '>=', moment().subtract(2, 'days').toISOString())
+      .where('published_at', '>=', moment().subtract(1, 'days').toISOString())
       .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
@@ -267,8 +267,7 @@ export class ArticleService {
       .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('view_count', 'desc')
-      .orderBy('published_at', 'desc')
-      .limit(15)
+      .limit(200)
     ).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
