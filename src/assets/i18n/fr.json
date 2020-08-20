@@ -602,11 +602,12 @@
     "donateFundraiserTitle": "Faire un don",
     "followFundraiser": "Suivez-nous",
     "unfollowFundraiser": "Ne nous désabonner",
-    "fundraisersTitle": "Trending Fundraisers",
+    "fundraisersTitle": "Collectes de fonds tendance",
     "fundraiserDonors": "Donors",
     "Raised": "Raised",
     "Goal": "Objectif",
     "LinkSocialAccounts": "Lier des comptes sociaux",
     "Link": "Lien",
-    "Unlink": "Dissocier"
+    "Unlink": "Dissocier",
+    "fundraisers": "Collectes de fonds"
 }

@@ -18,7 +18,9 @@
             </div>
             <div class="is-main-article-content">
                 <div class="company-img">
-                    <img *ngIf="company" [src]='company?.logo?.url' [alt]='company?.logo?.alt'/>
+                    <img *ngIf="company" [src]='company?.logo?.url' [alt]='company?.logo?.alt' 
+                    onerror="this.src='assets/images/default-avatar.png'"
+                    />
                     <div class="special-icon" *ngIf="company">
                         <img src="assets/images/company-icon.png" style="max-width:28px;" />
                     </div>

@@ -96,3 +96,18 @@
       }
   
   }
+
+  @media screen and (min-width: 992px) and (max-width: 1359px) {
+  	.is-comman-title {
+		  margin-top: 40px;
+	  }
+
+}
+  @media (min-width: 1200px){
+    section{
+      .container {
+        width: 1140px;
+        max-width: 100%;
+    }
+    }
+    }
