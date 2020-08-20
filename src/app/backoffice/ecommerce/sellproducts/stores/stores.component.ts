@@ -35,6 +35,7 @@ export class StoresComponent {
   uplodedImage
   authorList;
   loading = false;
+  storeLoading = true;
   paymentError = true;
   Cards;
   notificationConfigList = [
@@ -87,6 +88,7 @@ export class StoresComponent {
       this.currentUser = user;
 
       this.storeService.getStoreById(user.uid).subscribe((storeDetails: Store) => {
+        this.storeLoading = false;
         this.storeDetails = storeDetails && storeDetails[0];
         this.getCompanyAndCharity(this.storeDetails ? this.storeDetails.owner : this.userDetails, this.storeDetails?.owner?.id);
         if (!this.storeDetails)
@@ -101,6 +103,8 @@ export class StoresComponent {
 
 
 
+      }, error => {
+        this.storeLoading = false;
       })
 
 

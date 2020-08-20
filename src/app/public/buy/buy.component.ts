@@ -38,7 +38,7 @@ export class BuyComponent implements OnInit {
   handleCancel(): void {
     this.isVisible = false;
   }
-  checkLogin(){
+  checkLogin() {
     this.authService.getAuthState().subscribe(async (user) => {
       if (!user.isAnonymous) {
         this.router.navigate(["/app/campaign/buy-search-engine"]);

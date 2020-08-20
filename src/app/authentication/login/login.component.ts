@@ -1,12 +1,11 @@
-import { Component, NgZone, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, NgZone, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { UserService } from 'src/app/shared/services/user.service';
 import { PreviousRouteService } from 'src/app/shared/services/previous-route.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { LanguageService } from 'src/app/shared/services/language.service';
 import { environment } from "src/environments/environment";
 import { combineLatest, Subscription } from 'rxjs';
 
@@ -58,21 +57,16 @@ export class LoginComponent {
         public afAuth: AngularFireAuth,
         public authService: AuthService,
         public previousRoute: PreviousRouteService,
-        public translate: TranslateService,
-        private language: LanguageService
-    ) {
-
-
-    }
+        public translate: TranslateService
+    ) { }
 
     async ngOnInit(): Promise<void> {
-
         this.addRecaptchaScript();
         this.invalidPassErr = this.translate.instant("invalidPassErr");
         this.invalidCredErr = this.translate.instant("invalidCredErr");
         this.somethingWentWrongErr = this.translate.instant("somethingWrongErr");
         this.invalidCaptchaErr = this.translate.instant("invalidCaptchaErr");
-        this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+        this.translate.onLangChange.subscribe((_event: LangChangeEvent) => {
             this.invalidPassErr = this.translate.instant("invalidPassErr");
             this.invalidCredErr = this.translate.instant("invalidCredErr");
             this.somethingWentWrongErr = this.translate.instant("somethingWrongErr");
@@ -117,17 +111,6 @@ export class LoginComponent {
                     }
                 })
 
-                // this.authService.getMember(loginDetails.user.uid).subscribe((memberDetails) => {
-
-                //     if (memberDetails) {
-                //         this.memberDetails = memberDetails;
-                //         this.validatePassAndNext(userData);
-                //     }
-
-                // })
-
-
-
             }
             this.isFormSaving = false;
 
@@ -142,13 +125,13 @@ export class LoginComponent {
             } else {
 
                 try {
-                    this.checkDejangoCred(userData).subscribe((djangoData) => {
+                    this.checkDejangoCred(userData).subscribe((_djangoData) => {
                         this.authService.doLogin(userData.email, userData.password).then(() => {
                             this.isFormSaving = false;
                             this.validatePassAndNext(userData);
 
                         })
-                    }, error => {
+                    }, _error => {
                         this.resetCaptcha();
                         this.isFormSaving = false;
                         this.errorMessage = this.invalidCredErr;
@@ -243,14 +226,12 @@ export class LoginComponent {
         });
     }
     validateCaptcha() {
-        //this.onLogin();
-        //return
         if (this.captchaToken) {
             this.isFormSaving = true;
             this.invalidCaptcha = false;
-            this.authService.validateCaptcha(this.captchaToken).subscribe((success) => {
+            this.authService.validateCaptcha(this.captchaToken).subscribe((_success) => {
                 this.onLogin();
-            }, (error) => {
+            }, (_error) => {
                 this.isFormSaving = false;
                 this.errorMessage = this.invalidCaptchaErr;
                 this.invalidCaptcha = true;
@@ -320,7 +301,7 @@ export class LoginComponent {
         const memberDetails = this.memberDetails;
         const userDetails = this.userDetails;
         if ((!memberDetails.bio && !memberDetails.biography_en && !memberDetails.biography_es && !memberDetails.biography_fr) ||
-            !memberDetails.avatar || !userDetails.interests || !memberDetails.lang || userDetails.interests.length == 0)
+            !memberDetails.avatar || !userDetails.interests || !memberDetails.lang || userDetails.interests.length == 0 || !memberDetails.avatar || !memberDetails.avatar.url)
             return false;
         else
             return true;

@@ -6,6 +6,7 @@ import { ArticleImageComponent } from './article-form/article-image/article-imag
 import { ArticleSeoComponent } from './article-form/article-seo/article-seo.component';
 import { ArticlePublishComponent } from './article-form/article-publish/article-publish.component';
 import { ArticleContentComponent } from './article-form/article-content/article-content.component';
+import { ProfileGuard } from 'src/app/shared/guard/profile.guard';
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
       },
       {
         path: 'compose',
+        canActivate: [ProfileGuard],
         children: [
           {
             path: '',

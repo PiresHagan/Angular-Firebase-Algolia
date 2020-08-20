@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CharityDetailsComponent } from './charity-details/charity-details.component';
 import { CharityListComponent } from './charity-list/charity-list.component';
+import { ProfileGuard } from 'src/app/shared/guard/profile.guard';
 
 
 
@@ -10,6 +11,7 @@ const routes: Routes = [{
   children: [
     {
       path: 'charity-details',
+      canActivate: [ProfileGuard],
       component: CharityDetailsComponent,
       data: {
         title: "CharityDetails"

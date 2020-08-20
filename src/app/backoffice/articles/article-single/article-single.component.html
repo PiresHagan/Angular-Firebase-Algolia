@@ -30,6 +30,11 @@
                     <ng-template #item let-item>
                         <nz-comment nzAuthor="{{item.author?.fullname}}"
                             nzDatetime="{{item?.published_on | date:'medium' }}">
+
+                            <a nz-button nzType="primary" *ngIf="isStaff" style="padding-top:10px"
+                                (click)="deleteComment(article.id,item.id)">
+                                {{'deleteFundraiser' | translate}}
+                            </a>
                             <nz-avatar nz-comment-avatar nzIcon="user"
                                 nzSrc="{{replaceImage(item.author?.avatar?.url)}}">
                             </nz-avatar>

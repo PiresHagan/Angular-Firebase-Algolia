@@ -39,21 +39,16 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
-              "node_modules/instantsearch.css/themes/algolia.css",
-              "node_modules/instantsearch.css/themes/reset.css",
               "src/styles.scss"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.js",
-              "src/assets/lib/hljs/highlight.pack.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
+                  "maximumWarning": "40kb"
                 }
               ],
               "fileReplacements": [
@@ -72,7 +67,7 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
               "namedChunks": false,
               "aot": true,
@@ -138,7 +133,7 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/enlink/server",
+            "outputPath": "dist/server",
             "main": "server.ts",
             "tsConfig": "src/tsconfig.server.json",
             "externalDependencies": [

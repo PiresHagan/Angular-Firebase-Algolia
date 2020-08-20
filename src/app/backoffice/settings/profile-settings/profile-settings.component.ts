@@ -13,7 +13,8 @@ import { Member } from "src/app/shared/interfaces/member.type";
 import { CategoryService } from "src/app/shared/services/category.service";
 import { LanguageService } from "src/app/shared/services/language.service";
 import { AuthService } from 'src/app/shared/services/authentication.service';
-
+import { ActivatedRoute } from "@angular/router";
+import { AnalyticsService } from "src/app/shared/services/analytics/analytics.service";
 
 @Component({
   templateUrl: "./profile-settings.component.html",
@@ -35,7 +36,8 @@ export class ProfileSettingsComponent {
   memberDetails: Member;
   userDetails: User;
   languageList;
-
+  avatarData = null;
+  showIncompleteProfileMessage = false;
   notificationConfigList = [
 
   ];
@@ -48,10 +50,18 @@ export class ProfileSettingsComponent {
     public translate: TranslateService,
     public categoryService: CategoryService,
     public languageService: LanguageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private analyticsService: AnalyticsService,
   ) { }
 
   ngOnInit(): void {
+
+    if (this.route.snapshot.queryParams && this.route.snapshot.queryParams.incomplete)
+      this.showIncompleteProfileMessage = true;
+
+
+
     this.languageList = this.languageService.geLanguageList();
     /**
      * Password Form
@@ -67,8 +77,8 @@ export class ProfileSettingsComponent {
 
     this.profileForm = this.fb.group({
       phone: [null, [Validators.required]],
-      birth: [null, [Validators.required]],
-      biography: [null],
+      birth: [null],
+      biography: [null, [Validators.required]],
       displayName: [null, [Validators.required]],
       lang: [null, [Validators.required]]
     });
@@ -99,13 +109,20 @@ export class ProfileSettingsComponent {
         this.setIntrestForm(userDetails);
       })
       this.userService.getMember(user.uid).subscribe((memberDetails) => {
-        this.photoURL = memberDetails?.avatar?.url;
+        this.photoURL = memberDetails?.avatar?.url ? memberDetails?.avatar?.url.replace('http://', 'https://') : '';
+        if (this.photoURL)
+          this.avatarData = {
+            url: memberDetails?.avatar?.url,
+            alt: memberDetails?.avatar?.alt
+          }
         this.memberDetails = memberDetails
         this.setMemberDetails(memberDetails);
       })
 
     })
   }
+
+
   setUserDetails(userDetails: User) {
     this.profileForm.controls['phone'].setValue(userDetails.mobile);
     this.profileForm.controls['birth'].setValue(userDetails.birthdate ? formatDate(
@@ -200,6 +217,7 @@ export class ProfileSettingsComponent {
 
   submitForm(): void {
 
+
     for (const i in this.changePWForm.controls) {
       this.changePWForm.controls[i].markAsDirty();
       this.changePWForm.controls[i].updateValueAndValidity();
@@ -219,7 +237,8 @@ export class ProfileSettingsComponent {
     this.isPhotoChangeLoading = true;
     this.getBase64(info.file.originFileObj, (img: string) => {
       this.photoURL = img;
-      this.userService.addProfileImage(this.currentUser.uid, img, info.file?.name).then(() => {
+      this.userService.addProfileImage(this.currentUser.uid, img, info.file?.name).then((details) => {
+        this.avatarData = details;
         this.isPhotoChangeLoading = false;
       }).catch(() => {
         this.isPhotoChangeLoading = false;
@@ -231,6 +250,16 @@ export class ProfileSettingsComponent {
   async saveBasicDetails() {
     if (!this.currentUser)
       return;
+
+    if (!this.avatarData) {
+      this.modalService.warning({
+        nzTitle: this.translate.instant("ProfileImageErrorTitle"),
+        nzContent: this.translate.instant("ProfileImageErrorContent")
+      });
+      return
+    }
+
+
     for (const i in this.profileForm.controls) {
       this.profileForm.controls[i].markAsDirty();
       this.profileForm.controls[i].updateValueAndValidity();
@@ -253,7 +282,7 @@ export class ProfileSettingsComponent {
       try {
         this.isLoading = true;
         await this.userService.update(this.currentUser.uid, { mobile, birthdate, lang });
-        await this.userService.updateMember(this.currentUser.uid, { bio, fullname, lang, slug: this.getSlug(loggedInUser.displayName) });
+        await this.userService.updateMember(this.currentUser.uid, { bio, fullname, lang, slug: this.memberDetails && this.memberDetails.slug ? this.memberDetails.slug : this.getSlug(loggedInUser.displayName), avatar: this.avatarData });
         this.isLoading = false;
         this.showSuccess();
       } catch (e) {
@@ -295,16 +324,15 @@ export class ProfileSettingsComponent {
       .then(() => {
         this.isNotificationLoading = false;
         this.showSuccess();
-        const analytics = firebase.analytics();
 
-        interests.forEach(interest => {
-          analytics.logEvent("interest_opt_in", {
+        this.analyticsService.logEvents('interest_opt_in', interests.map(interest => {
+          return {
             category_title: interest.title,
             category_id: interest.id,
             user_uid: this.currentUser.uid,
             user_name: this.currentUser.displayName
-          });
-        });
+          };
+        }));
       });
   }
 

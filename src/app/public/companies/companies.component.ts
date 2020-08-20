@@ -58,7 +58,7 @@ export class CompaniesComponent implements OnInit {
     }
   }
 
- 
+
   isVisible = false;
   isOkLoading = false;
   showModal(): void {
@@ -74,7 +74,7 @@ export class CompaniesComponent implements OnInit {
   handleCancel(): void {
     this.isVisible = false;
   }
-  checkLogin(){
+  checkLogin() {
     this.authService.getAuthState().subscribe(async (user) => {
       if (!user.isAnonymous) {
         this.router.navigate(["/app/company/company-list"]);

@@ -10,6 +10,10 @@ import { Article } from 'src/app/shared/interfaces/article.type';
 import { BackofficeArticleService } from '../../shared/services/backoffice-article.service';
 import { AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NzModalService } from 'ng-zorro-antd';
+import { STAFF } from 'src/app/shared/constants/member-constant';
+import { AngularFireAuth } from '@angular/fire/auth';
+
 //import { } from '@types/gapi';
 
 //declare var gapi: any;
@@ -32,6 +36,7 @@ export class ArticleSingleComponent implements OnInit {
   fileURL: string;
   AUDIO = AUDIO;
   VIDEO = VIDEO;
+  isStaff = false;
 
   constructor(
     private articleService: BackofficeArticleService,
@@ -40,11 +45,15 @@ export class ArticleSingleComponent implements OnInit {
     public authService: AuthService,
     public userService: UserService,
     private sanitizer: DomSanitizer,
+    private modalService: NzModalService,
+    private afAuth: AngularFireAuth,
 
   ) {
   }
 
   ngOnInit() {
+
+
     window.addEventListener('scroll', this.scrollEvent, true);
     this.route.paramMap.subscribe(params => {
 
@@ -60,6 +69,15 @@ export class ArticleSingleComponent implements OnInit {
     });
 
     this.setUserDetails();
+
+
+    this.afAuth.authState.subscribe(() => {
+      this.authService.getCustomClaimData().then((role) => {
+        if (role == STAFF) {
+          this.isStaff = true;
+        }
+      })
+    })
 
   }
   /**
@@ -120,7 +138,7 @@ export class ArticleSingleComponent implements OnInit {
     let latestURL = url
     if (url) {
       latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
-        .replace('https://cdn.mytrendingstories.com/', "https://assets.mytrendingstories.com/")
+        .replace('http://cdn.mytrendingstories.com/', "https://cdn.mytrendingstories.com/")
         .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
     }
     return latestURL;
@@ -128,6 +146,36 @@ export class ArticleSingleComponent implements OnInit {
 
   transform(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+
+  deleteComment(articleId: string, commentId: string) {
+    this.authService.getCustomClaimData().then((role) => {
+      if (role == STAFF) {
+        let commentMessageConf = this.translate.instant("DeletMsgConf");
+        let commentMessageSucc = this.translate.instant("DeletMsgSuc");
+        let commentErrorMsg = this.translate.instant("somethingWrongErr");
+        this.modalService.confirm({
+          nzContent: commentMessageConf,
+          nzOnOk: () =>
+            new Promise((resolve, reject) => {
+              this.articleService.deleteComment(articleId, commentId).subscribe(() => {
+                this.modalService.success({
+                  nzTitle: "<i>" + commentMessageSucc + "</i>",
+                });
+                resolve();
+              }, (err) => {
+                this.modalService.error({
+                  nzTitle: "<i>" + commentErrorMsg + "</i>",
+                });
+                reject();
+              })
+            }).catch(() => console.log('Oops errors!'))
+        });
+      }
+
+    })
+
   }
 
 }

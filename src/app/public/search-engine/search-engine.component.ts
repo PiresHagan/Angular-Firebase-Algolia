@@ -16,7 +16,7 @@ const searchClient = algoliasearch(
 export class SearchEngineComponent implements OnInit {
   selectedLanguage: string = "";
   articleBrand: any;
-  buyCount:any;
+  buyCount: any;
   config = {
     indexName: 'dev_fullsearch',
     searchClient,
@@ -24,18 +24,18 @@ export class SearchEngineComponent implements OnInit {
   };
   //public OrderIndex = 0;
   articleBrand1 = [
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""}
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" }
   ];
 
   constructor(
@@ -46,34 +46,34 @@ export class SearchEngineComponent implements OnInit {
   }
   ngOnInit(): void {
     this.selectedLanguage = this.languageService.getSelectedLanguage();
-    this.config.indexName = `dev_fullsearch_${this.selectedLanguage}`;
+    this.config.indexName = `prod_fullsearch_${this.selectedLanguage}`;
 
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.selectedLanguage = this.languageService.getSelectedLanguage();
-      this.config.indexName = `dev_fullsearch_${this.selectedLanguage}`;
+      this.config.indexName = `prod_fullsearch_${this.selectedLanguage}`;
     });
 
     this.cacheService.getBrands().subscribe(brands => {
       this.articleBrand = brands;
       if (this.articleBrand.length < 11) {
         this.buyCount = 12 - this.articleBrand.length;
-      }else{
+      } else {
         this.buyCount = 0;
       }
-    this.articleBrand1.splice(this.buyCount);
-    for (var val of this.articleBrand) { 
-      this.articleBrand1.push(val);
-     
-    }
-    
-    var m = this.articleBrand1.length, t, i;
+      this.articleBrand1.splice(this.buyCount);
+      for (var val of this.articleBrand) {
+        this.articleBrand1.push(val);
+
+      }
+
+      var m = this.articleBrand1.length, t, i;
       while (m) {
         i = Math.floor(Math.random() * m--);
         t = this.articleBrand1[m];
         this.articleBrand1[m] = this.articleBrand1[i];
         this.articleBrand1[i] = t;
       }
-    
+
     });
   }
   ShowBtn(n: number): any[] {

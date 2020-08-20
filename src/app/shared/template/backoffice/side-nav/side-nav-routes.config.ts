@@ -97,15 +97,15 @@ export const ROUTES: SideNavInterface[] = [
                 staff_only: true,
                 submenu: []
             },
-            {
-                path: '/app/admin/ad-network',
-                title: 'Ad network',
-                iconType: 'nzIcon',
-                iconTheme: 'outline',
-                icon: 'lock',
-                staff_only: true,
-                submenu: []
-            }
+            // {
+            //     path: '/app/admin/ad-network',
+            //     title: 'Ad network',
+            //     iconType: 'nzIcon',
+            //     iconTheme: 'outline',
+            //     icon: 'lock',
+            //     staff_only: true,
+            //     submenu: []
+            // }
         ]
     },
     {
@@ -135,25 +135,26 @@ export const ROUTES: SideNavInterface[] = [
         staff_only: false,
         submenu: []
     },
-    {
-        path: 'app/ad-network',
-        title: 'Ad Network',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'notification',
-        staff_only: false,
-        submenu: [
-            {
-                path: 'ad-network/sites',
-                title: 'My Sites',
-                iconType: 'nzIcon',
-                iconTheme: 'outline',
-                icon: 'crown',
-                staff_only: false,
-                submenu: []
-            }
-        ]
-    },
+    // {
+    //     path: 'app/ad-network',
+    //     title: 'Ad Network',
+    //     iconType: 'nzIcon',
+    //     iconTheme: 'outline',
+    //     icon: 'notification',
+    //     staff_only: false,
+    //     submenu: [
+    //         {
+    //             path: 'ad-network/sites',
+    //             title: 'My Sites',
+    //             iconType: 'nzIcon',
+    //             iconTheme: 'outline',
+    //             icon: 'crown',
+    //             staff_only: false,
+    //             submenu: []
+    //         }
+    //     ]
+    // }
+
     {
         path: '/app/social-sharing/post-list',
         title: 'Social Sharing',

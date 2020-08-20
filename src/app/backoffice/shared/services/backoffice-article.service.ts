@@ -344,6 +344,9 @@ export class BackofficeArticleService {
     })
     );
   }
+  deleteComment(articleId, commentId) {
+    return this.http.delete(environment.baseAPIDomain + '/api/v1/articles/' + articleId + '/comments/' + commentId)
+  }
 
 
 

@@ -1,9 +1,9 @@
 import { SeoImage } from "./seo-image.type";
 
-export interface SeoData {
+export class SeoData {
 	title?: string;
 	description?: string;
 	type?: string;
-    keywords?: string;
-    image: SeoImage
+	keywords?: string;
+	image?: SeoImage;
 }

@@ -627,6 +627,8 @@
   "NoAudio": "No se encontró audio.",
   "Report": "Reporte",
   "ReportMessage": "Gracias por dejarnos saber. Si descubrimos que esto infringe la regla del sitio web, tomaremos medidas al respecto.",
+  "ProfileImageErrorTitle": "Falta la imagen del perfil",
+  "ProfileImageErrorContent": "Se requiere una imagen de perfil",
   "LeadsPackageTitle": "Mes del paquete de clientes potenciales",
   "leadsTitle": "Guías",
   "Please": "Por favor",
@@ -634,8 +636,13 @@
   "or": "o",
   "toContinue": "continuar",
   "buyingSpotText": "antes de comprar tu lugar",
+  "ProfileDataMisssing": "Complete su perfil antes de crear contenido en el sitio web",
+  "FollowNotAllowed": "Seguir",
+  "FollowNotAllowedMessage": "No puedes seguir tu propio perfil",
   "ShowMore": "Mostrar más",
   "ShowLess": "Muestra menos",
+  "DeletMsgSuc": "¡Registro eliminado correctamente!",
+  "DeletMsgConf": "¿Desea eliminar estos registros?",
   "WrittenBy": "Escrito por",
   "StoreSettings": "Configuración de la tienda",
   "StoreDetails": "Detalles de la tienda",
@@ -683,5 +690,5 @@
   "SubTotalAmount": "Sub - Importe total",
   "AcceptBilling": "Puede actualizar su información de facturación o agregar un método de pago para aceptar el pago haciendo clic en el botón Actualizar facturación a continuación. Si hay un problema con la dirección de facturación o la fecha de vencimiento, toque o haga clic en Actualizar facturación , luego actualice la información de pago. Si cambia su método de pago, use un método de pago válido en su país o región con dinero disponible. No vamos a cobrar nada mientras actualiza la información de pago ",
   "ShippingDataUpdated": "Detalles de seguimiento del pedido guardados",
-  "ShippingDataError": "Se produjo un error. Conéctese con el equipo de asistencia".
+  "ShippingDataError": "Se produjo un error. Conéctese con el equipo de asistencia"
 }

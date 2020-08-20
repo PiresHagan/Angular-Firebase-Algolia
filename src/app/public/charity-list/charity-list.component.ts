@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { CharityService } from 'src/app/shared/services/charity.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/authentication.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/shared/interfaces/user.type';
 @Component({
   selector: 'app-charity-list',
@@ -21,9 +21,9 @@ export class CharityListComponent implements OnInit {
   constructor(
     private charityService: CharityService,
     private langService: LanguageService,
-    private route: ActivatedRoute,
-    private router: Router,
     public authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -57,7 +57,8 @@ export class CharityListComponent implements OnInit {
       }
     }
   }
-  
+
+
   isVisible = false;
   isOkLoading = false;
   showModal(): void {
@@ -73,7 +74,7 @@ export class CharityListComponent implements OnInit {
   handleCancel(): void {
     this.isVisible = false;
   }
-  checkLogin(){
+  checkLogin() {
     this.authService.getAuthState().subscribe(async (user) => {
       if (!user.isAnonymous) {
         this.router.navigate(["/app/charity/charity-list"]);

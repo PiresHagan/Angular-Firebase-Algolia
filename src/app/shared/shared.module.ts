@@ -13,6 +13,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ArticleInteractionComponent } from './component/article-interaction/article-interaction.component';
 import { ArticleAvatarComponent } from './component/article-avatar/article-avatar.component';
 import { CloudinaryImgComponent } from './component/cloudinary-img/cloudinary-img.component';
+import { ShareButtonsComponent } from './component/share-buttons/share-buttons.component';
 import { ImgSizePipe } from './pipes/img-size.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 import { ShopProductAddReviewComponent } from './component/shop-product-add-review/shop-product-add-review.component';
@@ -21,6 +22,9 @@ import { StoreComponent } from './component/store/store.component';
 import { StripTagsPipe } from './pipes/striptags.pipe';
 import { ThemeConstantService } from './services/theme-constant.service';
 import { ProductStarRatingComponent } from './component/product-star-rating/product-star-rating.component';
+import { AdDirective } from './directives/ad/ad.directive';
+import { AnalyticsService } from './services/analytics/analytics.service';
+import { SeoService } from './services/seo/seo.service';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -38,10 +42,12 @@ export function createTranslateLoader(http: HttpClient) {
         ArticleInteractionComponent,
         ArticleAvatarComponent,
         CloudinaryImgComponent,
+        ShareButtonsComponent,
         ShopProductCardComponent,
         StoreComponent,
         ShopProductAddReviewComponent,
-        ProductStarRatingComponent
+        ProductStarRatingComponent,
+        AdDirective,
     ],
     imports: [
         RouterModule,
@@ -51,7 +57,15 @@ export function createTranslateLoader(http: HttpClient) {
         PerfectScrollbarModule,
         ReactiveFormsModule,
         CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
-        TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })
+        TranslateModule.forChild({
+            useDefaultLang: true,
+            isolate: false,
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [HttpClient]
+            }
+        })
     ],
     declarations: [
         SearchPipe,
@@ -60,14 +74,17 @@ export function createTranslateLoader(http: HttpClient) {
         ArticleInteractionComponent,
         ArticleAvatarComponent,
         CloudinaryImgComponent,
+        ShareButtonsComponent,
         ShopProductCardComponent,
         StoreComponent,
         ShopProductAddReviewComponent,
-        ProductStarRatingComponent
+        ProductStarRatingComponent,
+        AdDirective
     ],
-
     providers: [
-        ThemeConstantService
+        ThemeConstantService,
+        AnalyticsService,
+        SeoService,
     ]
 })
 
