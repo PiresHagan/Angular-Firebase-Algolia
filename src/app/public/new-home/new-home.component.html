@@ -330,7 +330,7 @@
          </div>
          <div class="cat-box-gallery">
             <div class="row article-row">
-               <div class="col-sm-15 box_shadow"  *ngFor="let article of trendingArticles | slice:0:4"  [ngClass]="article.category.slug">
+               <div class="col-sm-15 box_shadow"  *ngFor="let article of trendingArticles | slice:0:10"  [ngClass]="article.category.slug">
                <div class="item-card item-card-life-and-styles">
                   <a [routerLink]="['/',article.author.slug,article.slug]">
                      <div class="item-card-image">
@@ -443,7 +443,7 @@
           </div>
           <div class="cat-box-gallery">
              <div class="row article-row">
-                <div class="col-sm-15 box_shadow"  *ngFor="let article of latestArticles | slice:0:15" [ngClass]="article.category.slug">
+                <div class="col-sm-15 box_shadow"  *ngFor="let article of latestArticles | slice:5:20" [ngClass]="article.category.slug">
                  <div class="item-card item-card-life-and-styles">
                    <a [routerLink]="['/',article.author.slug,article.slug]">
                       <div class="item-card-image">
