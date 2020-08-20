@@ -93,7 +93,7 @@ export class NewHomeComponent implements OnInit {
 
     this.articleService.getTrending(this.selectedLanguage).subscribe(articles => {
       for (const article of articles) {
-        if(article['view_count'] > 50){
+        if(article['view_count'] > 30){
           this.trendingArticles.push(article);
         }
       }
