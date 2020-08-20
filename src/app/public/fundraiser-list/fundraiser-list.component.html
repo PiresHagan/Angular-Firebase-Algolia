@@ -3,7 +3,7 @@
        <div class="container">
             <div class="cat-box-title">
                 <div class="is-comman-title">
-                    {{ "fundraisersTitle" | translate }}
+                    {{ 'fundraisers' | translate }}
                 </div>
             </div>
             <div class="cat-box-gallery">
@@ -59,6 +59,13 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div *ngIf="!fundraisers?.length" class="box-center">
+                <nz-result [nzIcon]="'crown'" [nzTitle]="'CreateFundraiser' | translate">
+                    <div nz-result-extra>
+                    <button nz-button nzType="primary" routerLink="/app/fundraiser/fundraiser-list">{{'CreateFundraiserBtn' | translate}}</button>
+                    </div>
+                </nz-result>
             </div>
         </div>
     </div>

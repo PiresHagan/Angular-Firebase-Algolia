@@ -34,6 +34,8 @@ export class HomeComponent implements OnInit {
   slugWiseData = {};
   categories;
   authorList: any;
+  latestArticles: any;
+  trendingArticles: any;
   private homeDocument = "home";
 
   constructor(
@@ -84,6 +86,15 @@ export class HomeComponent implements OnInit {
       this.heroArticles = articles;
     });
 
+    this.articleService.getTrending(this.selectedLanguage).subscribe(articles => {
+      this.trendingArticles = articles;
+    });
+
+    this.articleService.getLatest(this.selectedLanguage).subscribe(articles => {
+      this.latestArticles = articles;
+      console.log('latest articles', this.latestArticles);
+    });
+
     this.getAuthors();
     this.categories = this.categoryService.getAll(this.selectedLanguage);
     this.setArticleData();
@@ -97,6 +108,14 @@ export class HomeComponent implements OnInit {
 
       this.cacheService.getSponsoredArticles(this.selectedLanguage).subscribe(articles => {
         this.heroArticles = articles;
+      });
+
+      this.articleService.getTrending(this.selectedLanguage).subscribe(articles => {
+        this.trendingArticles = articles;
+      });
+  
+      this.articleService.getLatest(this.selectedLanguage).subscribe(articles => {
+        this.latestArticles = articles;
       });
       
     });

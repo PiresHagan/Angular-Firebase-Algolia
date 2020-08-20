@@ -157,7 +157,7 @@
   }
 
 
-@media screen and (min-width:1200px) and (max-width:1359px) {
+@media screen and (min-width:1200px) and (max-width:1279px) {
     .header{
         height: 140px;
     .logo-col{
@@ -182,28 +182,53 @@
     }
 }
 }
-@media screen and (min-width:1360px) and (max-width:2000px) {
+@media screen and (min-width:1280px) and (max-width:1359px) {
     .header{
+        height: 70px;
     .logo-col{
-        width: 140px;
+        width: auto;
+        max-width: unset;
+        text-align: center;
         flex: unset;
+        border-bottom: 1px solid #eee;
+        .logo{
+            margin: auto;
+        }
     }
     .menu-col{
-        width: calc(100% - 510px);
-        flex: unset;
-        max-width: 100%;
+        width: auto;
+        flex: 1;
+        max-width: unset;
     }
     .language-col{
-        width: 360px;
+        width: auto;
         flex: unset;
-        max-width: 100%;
-        ::ng-deep .ant-select-show-arrow{
-            .ant-select-selector{
-                padding: 0 8px;
-                font-size: 13px;
-            }
+        max-width: unset;
+    }
+}
+}
+@media screen and (min-width:1360px){
+    .header{
+        height: 70px;
+    .logo-col{
+        width: auto;
+        max-width: unset;
+        text-align: center;
+        flex: unset;
+        border-bottom: 1px solid #eee;
+        .logo{
+            margin: auto;
         }
-        
+    }
+    .menu-col{
+        width: auto;
+        flex: 1;
+        max-width: unset;
+    }
+    .language-col{
+        width: auto;
+        flex: unset;
+        max-width: unset;
     }
 }
 }

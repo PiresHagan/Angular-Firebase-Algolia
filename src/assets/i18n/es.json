@@ -608,5 +608,14 @@
     "LinkSocialAccounts": "Vincular cuentas sociales",
     "Link": "Enlace",
     "Unlink": "Desvincular",
-    "fundraisers": "Recaudadores de fondos"
+    "fundraisers": "Recaudadores de fondos",
+    "CreateCharityBtn":"Crear caridad",
+    "CreateCharity":"Crear una organización benéfica en Mis historias de tendencias",
+    "CreateCompanyBtn":"Crear empresa",
+    "CreateCompany":"Crear una empresa en Mis historias de tendencias",
+    "CreateFundraiserBtn":"Crear recaudación de fondos",
+    "CreateFundraiser":"Crear una recaudación de fondos en Mis historias de tendencias",
+    "homeLatestStories":"Últimas historias",
+    "homeTopTrendingStories":"Historias de tendencias principales",
+    "homeEditorspick":"Selección del editor"
 }

@@ -614,5 +614,14 @@
     "LinkSocialAccounts": "Link Social Accounts",
     "Link": "Link",
     "Unlink": "Unlink",
-    "fundraisers": "Fundraisers"
+    "fundraisers": "Fundraisers",
+    "CreateCharityBtn":"Create Charity",
+    "CreateCharity":"Create a Charity on My Trending Stories",
+    "CreateCompanyBtn":"Create Company",
+    "CreateCompany":"Create a Company on My Trending Stories",
+    "CreateFundraiserBtn":"Create Fundraiser",
+    "CreateFundraiser":"Create a Fundraiser on My Trending Stories",
+    "homeLatestStories":"Latest Stories",
+    "homeTopTrendingStories":"Top Trending Stories",
+    "homeEditorspick":"Editors pick"
 }

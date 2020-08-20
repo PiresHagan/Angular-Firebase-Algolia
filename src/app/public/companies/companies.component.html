@@ -1,6 +1,6 @@
 <section>
     <div class="container">
-        <div class="is-comman-title"> {{ "companiesTitle" | translate }} </div>
+        <div class="is-comman-title"> {{'companiesTitle' | translate }} </div>
         <div class="all-companies-main-sec">
             <div class="companies-box">
                 <div class="row">
@@ -8,7 +8,7 @@
                         <a [routerLink]="['/companies',company.slug]">
                             <div class="companies-box-item">
                                 <div>
-                                    <img [src]="company?.logo?.url" [alt]="company?.logo?.alt"/>
+                                    <img [src]="company?.logo?.url" [alt]="company?.logo?.alt"  onerror="this.src='assets/images/default-avatar.png'"/>
                                     <h2 [ngStyle]="{'color': company?.color_code}">{{ company?.name }}</h2>
                                     <p>{{ company?.bio }}</p>
                                     <button type="button" class="is-read-more">
@@ -20,6 +20,13 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div *ngIf="!companies?.length" class="box-center">
+            <nz-result [nzIcon]="'crown'" [nzTitle]="'CreateCompany' | translate">
+                <div nz-result-extra>
+                <button nz-button nzType="primary" routerLink="/app/company/company-list">{{'CreateCompanyBtn' | translate}}</button>
+                </div>
+            </nz-result>
         </div>
     </div>
 </section>
