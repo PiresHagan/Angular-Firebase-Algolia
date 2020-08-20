@@ -830,7 +830,7 @@ hr {
 	}
 }
 
-@media screen and (min-width: 992px) and (max-width: 1500px) {
+@media screen and (min-width: 992px) and (max-width: 1359px) {
 	.is-article-block {
 		margin-top: 50px;
 		.is-article-sec {
@@ -875,9 +875,8 @@ hr {
 					.is-body {
 						.is-paragraph {
 							p {
-								font-size: 16px;
 								strong {
-									font-size: 20px;
+									font-size: 18px;
 								}
 							}
 							.feature-sec {
@@ -906,7 +905,10 @@ hr {
 		}
 	}
 }
-@media screen and (min-width: 1360px) and (max-width: 1500px) {
+@media screen and (min-width: 1360px) and (max-width: 1499px) {
+	.container{
+		width: 100%;
+	  }
   .is-article-block {
       margin-top: 0px;
   }
