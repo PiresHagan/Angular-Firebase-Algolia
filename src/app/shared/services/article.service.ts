@@ -263,9 +263,10 @@ export class ArticleService {
 
   getTrending(lang: string = 'en') {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('view_count', ">", 100)
+      .where('published_at', '>=', moment().subtract(60, 'days').toISOString())
       .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
+      .orderBy('published_at', 'desc')
       .orderBy('view_count', 'desc')
       .limit(200)
     ).snapshotChanges().pipe(
