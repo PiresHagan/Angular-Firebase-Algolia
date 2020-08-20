@@ -26,7 +26,7 @@ export class NewHomeComponent implements OnInit {
   heroSmall: any;
   heroArticles: any;
   latestArticles: any;
-  trendingArticles: any;
+  trendingArticles: any[] = new Array();
   business: any;
   creative: any;
   entertainment: any;
@@ -86,12 +86,16 @@ export class NewHomeComponent implements OnInit {
     });
 
     this.articleService.getTrending(this.selectedLanguage).subscribe(articles => {
-      this.trendingArticles = articles;
+      //this.trendingArticles = articles;
+      for (const article of articles) {
+        if(article['view_count'] > 100){
+          this.trendingArticles.push(article);
+        }
+      }
     });
 
     this.articleService.getLatest(this.selectedLanguage).subscribe(articles => {
       this.latestArticles = articles;
-      console.log('latest articles', this.latestArticles);
     });
 
     this.getAuthors();
