@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 import { SeoDataService } from 'src/app/shared/services/seo-data.service';
 import { SeoData } from 'src/app/shared/interfaces/seo-data.type';
 import { CacheService } from 'src/app/shared/services/cache.service';
+import { newArray } from '@angular/compiler/src/util';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -35,7 +36,7 @@ export class HomeComponent implements OnInit {
   categories;
   authorList: any;
   latestArticles: any;
-  trendingArticles: any;
+  trendingArticles: any[] = new Array();
   private homeDocument = "home";
 
   constructor(
@@ -87,12 +88,15 @@ export class HomeComponent implements OnInit {
     });
 
     this.articleService.getTrending(this.selectedLanguage).subscribe(articles => {
-      this.trendingArticles = articles;
+      for (const article of articles) {
+        if(article['view_count'] > 30){
+          this.trendingArticles.push(article);
+        }
+      }
     });
 
     this.articleService.getLatest(this.selectedLanguage).subscribe(articles => {
       this.latestArticles = articles;
-      console.log('latest articles', this.latestArticles);
     });
 
     this.getAuthors();
@@ -111,7 +115,11 @@ export class HomeComponent implements OnInit {
       });
 
       this.articleService.getTrending(this.selectedLanguage).subscribe(articles => {
-        this.trendingArticles = articles;
+        for (const article of articles) {
+          if(article['view_count'] > 30){
+            this.trendingArticles.push(article);
+          }
+        }
       });
   
       this.articleService.getLatest(this.selectedLanguage).subscribe(articles => {

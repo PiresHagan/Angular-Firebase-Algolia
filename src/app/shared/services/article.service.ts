@@ -267,7 +267,6 @@ export class ArticleService {
       .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
-      .orderBy('view_count', 'desc')
       .limit(60)
     ).snapshotChanges().pipe(
       map(actions => {
@@ -282,7 +281,6 @@ export class ArticleService {
 
   getLatest(lang: string = 'en') {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('published_at', '>=', moment().subtract(30, 'days').toISOString())
       .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
