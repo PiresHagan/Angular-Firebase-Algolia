@@ -173,7 +173,7 @@ export class ArticleContentComponent implements OnInit {
           this.article = null;
         }
       } else {
-        this.getCompanyAndCharity(this.userDetails.id);
+        this.getCompanyAndCharity(this.userDetails);
         this.loading = false;
       }
 
@@ -424,20 +424,24 @@ export class ArticleContentComponent implements OnInit {
 
     })
   }
-  getCompanyAndCharity(userId: string) {
+  getCompanyAndCharity(userId) {
 
     this.authorList = {
       charities: [],
       companies: [],
-      currentUser: this.userDetails
+      currentUser: null
     }
-    this.charityService.getAllCharities(this.userDetails.id, 1000).subscribe((charityData) => {
+    this.userService.getMember(userId.id).subscribe((userDetails) => {
+      this.authorList.currentUser = userDetails;
+      this.setAuthorDropdown();
+    })
+    this.charityService.getAllCharities(userId.id, 1000).subscribe((charityData) => {
       this.authorList.charities = charityData.charityList;
       this.setAuthorDropdown();
 
     })
 
-    this.companyService.getAllCompanies(this.userDetails.id, 1000).subscribe((companyData) => {
+    this.companyService.getAllCompanies(userId.id, 1000).subscribe((companyData) => {
       this.authorList.companies = companyData.companyList;
       this.setAuthorDropdown();
     })
@@ -448,8 +452,8 @@ export class ArticleContentComponent implements OnInit {
   setAuthorDropdown() {
     let selectedUser = null;;
     if (this.article && this.article.author) {
-      if (this.userDetails.id === this.article.author.id) {
-        selectedUser = this.userDetails;
+      if (this.authorList.currentUser.id === this.article.author.id) {
+        selectedUser = this.authorList.currentUser;
       }
       if (this.authorList.charities && this.authorList.charities.length) {
         selectedUser = this.getRecordFromId(this.authorList.charities, this.article.author.id) || null;
