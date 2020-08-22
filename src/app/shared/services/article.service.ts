@@ -267,6 +267,7 @@ export class ArticleService {
       .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
+      .orderBy('view_count', 'desc')
       .limit(200)
     ).snapshotChanges().pipe(
       map(actions => {
