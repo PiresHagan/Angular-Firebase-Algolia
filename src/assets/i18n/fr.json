@@ -602,11 +602,21 @@
     "donateFundraiserTitle": "Faire un don",
     "followFundraiser": "Suivez-nous",
     "unfollowFundraiser": "Ne nous désabonner",
-    "fundraisersTitle": "Trending Fundraisers",
+    "fundraisersTitle": "Collectes de fonds tendance",
     "fundraiserDonors": "Donors",
     "Raised": "Raised",
     "Goal": "Objectif",
     "LinkSocialAccounts": "Lier des comptes sociaux",
     "Link": "Lien",
-    "Unlink": "Dissocier"
+    "Unlink": "Dissocier",
+    "fundraisers": "Collectes de fonds",
+    "CreateCharityBtn":"Créer une association",
+    "CreateCharity":"Créer un organisme de bienfaisance sur mes histoires de tendances",
+    "CreateCompanyBtn":"Créer une entreprise",
+    "CreateCompany":"Créer une entreprise sur mes histoires de tendances",
+    "CreateFundraiserBtn":"Créer une collecte de fonds",
+    "CreateFundraiser":"Créer une collecte de fonds sur mes histoires de tendances",
+    "homeLatestStories":"Dernières histoires",
+    "homeTopTrendingStories":"Top tendances des histoires",
+    "homeEditorspick":"Le choix de l'éditeur"
 }
