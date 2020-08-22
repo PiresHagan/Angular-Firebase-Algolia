@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit {
     this.articleService.getTrending(this.selectedLanguage).subscribe(articles => {
       let i = 0;
       for (const article of articles) {
-        if((article['view_count'] > 30) && (i < 10)){
+        if((article['view_count'] > 30) && (i < 15)){
           this.trendingArticles.push(article);
           i++;
         }
@@ -119,7 +119,7 @@ export class HomeComponent implements OnInit {
       this.articleService.getTrending(this.selectedLanguage).subscribe(articles => {
         let i = 0;
         for (const article of articles) {
-          if((article['view_count'] > 30) && (i < 10)){
+          if((article['view_count'] > 30) && (i < 15)){
             this.trendingArticles.push(article);
             i++;
           }
