@@ -15,7 +15,7 @@ const searchClient = algoliasearch(
 export class SearchEngineComponent implements OnInit {
   selectedLanguage: string = "";
   config = {
-    indexName: 'dev_articles',
+    indexName: 'dev_fullsearch',
     searchClient,
     searchFunction(helper) {
       helper.search();
@@ -34,11 +34,11 @@ export class SearchEngineComponent implements OnInit {
   }
   ngOnInit(): void {
     this.selectedLanguage = this.languageService.getSelectedLanguage();
-    this.config.indexName = `prod_articles_${this.selectedLanguage}`;
+    this.config.indexName = `dev_fullsearch_${this.selectedLanguage}`;
 
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.selectedLanguage = this.languageService.getSelectedLanguage();
-      this.config.indexName = `prod_articles_${this.selectedLanguage}`;
+      this.config.indexName = `dev_fullsearch_${this.selectedLanguage}`;
     });
   }
   public OrderIndex = 0;
