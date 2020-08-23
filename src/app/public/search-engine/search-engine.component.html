@@ -1,7 +1,7 @@
 <section class="sr-engine-sec">
     <ais-instantsearch [config]="config">
       <div class="container">
-          <div class="sr-brand" *ngIf="articleBrand.length != 0">
+          <!-- <div class="sr-brand" *ngIf="articleBrand.length != 0">
               <div class="sr-brand-item" *ngFor="let brand of articleBrand">
                   <a href="{{brand.brandUrl}}">
                     <div class="sr-brand-logo"><img [src]="brand?.brandImage?.url" [alt]="brand?.brandImage?.alt" /></div>
@@ -9,22 +9,42 @@
                   </a>
               </div>
              
-              <!-- <div class="sr-brand-item btn">
+              <div class="sr-brand-item btn">
                   <a href="#" routerLink="/buy">Buy</a>
-              </div> -->
-          </div>
+              </div>
+          </div> -->
+          <div class="sr-brand">
+            <div class="sr-brand-item btn">
+               <a href="#" routerLink="/buy">Buy Now</a>
+           </div>
+           <div class="sr-brand-item btn">
+            <a href="#" routerLink="/buy">Buy Now</a>
+        </div>
+        <div class="sr-brand-item btn">
+         <a href="#" routerLink="/buy">Buy Now</a>
+     </div>
+     <div class="sr-brand-item btn">
+      <a href="#" routerLink="/buy">Buy Now</a>
+  </div>
+  <div class="sr-brand-item btn">
+   <a href="#" routerLink="/buy">Buy Now</a>
+</div>
+            <div class="sr-brand-item btn">
+                <a href="#" routerLink="/buy">Buy Now</a>
+            </div>
+        </div>
           <div class="sr-bar-with-ads">
-              <!-- <div class="ads">
-                  <span>ads</span>
-              </div> -->
+              <div class="ads btn">
+                  <span>Buy Now</span>
+              </div>
               <div class="sr-bar">
                   <div class="sr-box">
                     <ais-search-box></ais-search-box> 
                   </div>
               </div>
-              <!-- <div class="ads">
-                  <span>ads</span>
-              </div> -->
+              <div class="ads btn">
+                  <span>Buy Now</span>
+              </div>
           </div>
           
             <ais-refinement-list attribute="brand"></ais-refinement-list>
