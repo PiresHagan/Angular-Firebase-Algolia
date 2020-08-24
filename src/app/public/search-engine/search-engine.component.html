@@ -8,44 +8,53 @@
                     <div class="sr-brand-name">{{brand.brandName}}</div>
                   </a>
               </div>
-             
-              <!-- <div class="sr-brand-item btn">
-                  <a href="#" routerLink="/buy">Buy</a>
-              </div> -->
+               <div class="sr-brand-item btn" *ngFor="let item of ShowBtn(buyCount)">
+                     <a routerLink="/buy">Buy Now</a>
+               </div>
           </div>
-          <!-- <div class="sr-brand">
-            <div class="sr-brand-item btn">
-               <a href="#" routerLink="/buy">Buy Now</a>
-           </div>
-           <div class="sr-brand-item btn">
-            <a href="#" routerLink="/buy">Buy Now</a>
-        </div>
-        <div class="sr-brand-item btn">
-         <a href="#" routerLink="/buy">Buy Now</a>
-     </div>
-     <div class="sr-brand-item btn">
-      <a href="#" routerLink="/buy">Buy Now</a>
-  </div>
-  <div class="sr-brand-item btn">
-   <a href="#" routerLink="/buy">Buy Now</a>
-</div>
-            <div class="sr-brand-item btn">
-                <a href="#" routerLink="/buy">Buy Now</a>
-            </div>
-        </div> -->
           <div class="sr-bar-with-ads">
-              <div class="ads btn">
-                  <span>Buy Now</span>
-              </div>
-              <div class="sr-bar">
-                  <div class="sr-box">
-                    <ais-search-box></ais-search-box> 
+               <div class="sr-brand border-0 pb-0" *ngIf="articleBrand.length === 11; else buynow">
+                  <div *ngFor="let brand of articleBrand; let i=index">
+                        <div  class="sr-brand-item"  *ngIf="i===10">
+                           <a href="{{brand.brandUrl}}">
+                              <div class="sr-brand-logo"><img src="{{brand.brandImage.url}}" [alt]="brand?.brandImage?.alt" /></div>
+                              <div class="sr-brand-name">{{brand.brandName}}</div>
+                           </a>
+                        </div>
                   </div>
-              </div>
-              <div class="ads btn">
-                  <span>Buy Now</span>
-              </div>
-          </div>
+               </div>
+               <ng-template #buynow>
+                  <div class="sr-brand border-0 pb-0">
+                     <div class="sr-brand-item btn">
+                        <a routerLink="/buy">Buy Now</a>
+                     </div>
+                  </div>
+               </ng-template>
+              
+
+               <div class="sr-bar">
+                     <div class="sr-box">
+                     <ais-search-box></ais-search-box> 
+                     </div>
+               </div>
+               <div class="sr-brand border-0 pb-0" *ngIf="articleBrand.length === 12; else buynow1">
+                  <div *ngFor="let brand of articleBrand; let i=index">
+                        <div  class="sr-brand-item"  *ngIf="i===11">
+                           <a href="{{brand.brandUrl}}">
+                              <div class="sr-brand-logo"><img src="{{brand.brandImage.url}}" [alt]="brand?.brandImage?.alt" /></div>
+                              <div class="sr-brand-name">{{brand.brandName}}</div>
+                           </a>
+                        </div>
+                  </div>
+               </div>
+               <ng-template #buynow1>
+                  <div class="sr-brand border-0 pb-0">
+                     <div class="sr-brand-item btn">
+                        <a routerLink="/buy">Buy Now</a>
+                     </div>
+                  </div>
+               </ng-template>
+            </div>
           
             <ais-refinement-list attribute="brand"></ais-refinement-list>
             <ais-configure [searchParameters]="{ hitsPerPage: 16 }"></ais-configure>
