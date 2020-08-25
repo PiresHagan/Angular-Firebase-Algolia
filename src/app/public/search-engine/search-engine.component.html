@@ -1,7 +1,7 @@
 <section class="sr-engine-sec">
     <ais-instantsearch [config]="config">
       <div class="container">
-          <div class="sr-brand" *ngIf="articleBrand.length != 0">
+          <div class="sr-brand on-mobile-view" *ngIf="articleBrand.length != 0">
               <div class="sr-brand-item" *ngFor="let brand of articleBrand">
                   <a href="{{brand.brandUrl}}">
                     <div class="sr-brand-logo"><img [src]="brand?.brandImage?.url" [alt]="brand?.brandImage?.alt" /></div>
@@ -229,6 +229,48 @@
                                     </div>
                                  </div>
                               </ng-template>
+                           </div>
+                           <div *ngIf="hit.type==='author'">
+                              <div [routerLink]="['/',hit.slug]">
+                                 <div class="sr-article-img">
+                                    <img [src]="hit.avatar.url" [alt]="hit.avatar.alt" />
+                                 </div>
+                                 <div class="sr-article-detail">
+                                    <div class="sr-article-txt">
+                                       <h2>{{hit.bio}}</h2>
+                                       <div class="category-article-readmore">
+                                          <div>
+                                             <button type="button" class="is-read-more">{{'showNow' | translate }} <img
+                                                src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="sr-avtar bg-black">
+                                       <img src="assets/images/author-icon.png"  alt="Author icon" />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div *ngIf="hit.type==='staff'">
+                              <div [routerLink]="['/',hit.slug]">
+                                 <div class="sr-article-img">
+                                    <img [src]="hit.avatar.url" [alt]="hit.avatar.alt" />
+                                 </div>
+                                 <div class="sr-article-detail">
+                                    <div class="sr-article-txt">
+                                       <h2>{{hit.bio}}</h2>
+                                       <div class="category-article-readmore">
+                                          <div>
+                                             <button type="button" class="is-read-more">{{'showNow' | translate }} <img
+                                                src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="sr-avtar bg-black">
+                                       <img src="assets/images/staff-icon.png"  alt="Author icon" />
+                                    </div>
+                                 </div>
+                              </div>
                            </div>
                            
                     </div>
