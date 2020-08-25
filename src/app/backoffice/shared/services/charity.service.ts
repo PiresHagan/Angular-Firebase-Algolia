@@ -47,6 +47,9 @@ export class CharityService {
     return this.http.put(apicall, postData)
 
   }
+  getCharityById(charityId: string): Observable<any> {
+    return this.db.doc(`${this.charityCollection}/${charityId}`).valueChanges();
+  }
 
   get(charityId: string, userId: string): Observable<any> {
     return this.db.collection<Charity>(`${this.charityCollection}`, ref =>

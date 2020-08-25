@@ -27,10 +27,10 @@ export class BackofficeArticleService {
     return this.http.delete(environment.baseAPIDomain + '/api/v1/articles/' + articleId);
   }
 
-  getArticleById(articleId: string, authorId, type: string) {
+  getArticleById(articleId: string, authorId = null, type: string) {
     return new Promise<any>((resolve, reject) => {
       this.db.doc(`${this.articleCollection}/${articleId}`).valueChanges().subscribe((data) => {
-        if (data && data['author'].id === authorId || type == STAFF) {
+        if (!authorId || data && data['author'].id === authorId || type == STAFF) {
           data['id'] = articleId;
           resolve(data)
         } else {
