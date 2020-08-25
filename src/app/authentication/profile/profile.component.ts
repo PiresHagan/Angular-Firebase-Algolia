@@ -76,6 +76,10 @@ export class ProfileComponent implements OnInit {
     }(document, 'script', 'facebook-jssdk'));
   }
 
+  ngAfterViewInit() {
+    this.getFBLoginStatus();
+  }
+
   linkFacebook() {
     this.fbloading = true;
     FB.login((response) => {
@@ -97,6 +101,19 @@ export class ProfileComponent implements OnInit {
       self.fbAccountLinkStatus = false;
       self.fbloading = false;
     });
+  }
+
+  getFBLoginStatus() {
+    let self = this;
+    FB.getLoginStatus(function(response) {
+      self.statusChangeCallback(response);
+    });
+  }
+
+  statusChangeCallback(response) {
+    if (response.status === 'connected') {
+      this.fbAccountLinkStatus = true;
+    }
   }
 
   setUserDetails(userDetails: User) {

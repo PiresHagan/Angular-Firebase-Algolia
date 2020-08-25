@@ -29,8 +29,7 @@ export class LinkSocialAccountComponent implements OnInit {
         version    : environment.facebook.version
       });
         
-      FB.AppEvents.logPageView();   
-        
+      FB.AppEvents.logPageView();
     };
 
     (function(d, s, id){
@@ -66,15 +65,10 @@ export class LinkSocialAccountComponent implements OnInit {
   linkFacebook() {
     this.fbloading = true;
     FB.login((response) => {
-      console.log('submitLogin',response);
       if (response.authResponse) {
         this.fbloading = false;
         this.fbAccountLinkStatus = true;
-        this.getFacebookFriends(response.authResponse);
-        console.log('authResponse',response.authResponse);
-        //login success
-        //login success code here
-        //redirect to home page
+        this.getFacebookFriends();
       } else {
       console.log('User login failed');
       this.fbloading = false;
@@ -93,36 +87,25 @@ export class LinkSocialAccountComponent implements OnInit {
   }
 
   getFBLoginStatus() {
+    let self = this;
     FB.getLoginStatus(function(response) {
-      if (response.status === 'connected') {
-        this.fbAccountLinkStatus = true;
-        console.log('getFBLoginStatus method setting true');
-        // The user is logged in and has authenticated your
-        // app, and response.authResponse supplies
-        // the user's ID, a valid access token, a signed
-        // request, and the time the access token 
-        // and signed request each expire.
-        var uid = response.authResponse.userID;
-        var accessToken = response.authResponse.accessToken;
-      } else if (response.status === 'not_authorized') {
-        // The user hasn't authorized your application.  They
-        // must click the Login button, or you must call FB.login
-        // in response to a user gesture, to launch a login dialog.
-      } else {
-        // The user isn't logged in to Facebook. You can launch a
-        // login dialog with a user gesture, but the user may have
-        // to log in to Facebook before authorizing your application.
-      }
-     });
+      self.statusChangeCallback(response);
+    });
   }
 
-  getFacebookFriends(authtResponse) {
+  statusChangeCallback(response) {
+    if (response.status === 'connected') {
+      this.fbAccountLinkStatus = true;
+      this.getFacebookFriends();
+    }
+  }
+
+  getFacebookFriends() {
     FB.api(
       `/me/friends`,
       'GET',
       {},
       function(response) {
-        console.log('facebook friends', response);
         if(response.data) {
           this.userFirendsList = response.data;
         }

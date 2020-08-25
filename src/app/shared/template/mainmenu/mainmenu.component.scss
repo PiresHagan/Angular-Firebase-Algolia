@@ -456,6 +456,8 @@
 }
 @media screen and (min-width:993px) and (max-width:1359px){
     .megamenu-list{
+        margin-left: 10px;
+        padding-left: 10px !important;
         .mega-body-sec{
             top:109px;
             .megamenu-body{
@@ -484,7 +486,32 @@
         
     }
 }
-
+@media screen and (min-width:1200px) and (max-width:1279px){
+    .megamenu-list{
+        .mega-body-sec{
+            top:119px;
+        }
+        
+    }
+}
+@media screen and (min-width:1280px) and (max-width:1359px){
+    .megamenu-list{
+        margin-left: 10px;
+        padding-left: 10px !important;
+        .mega-body-sec{
+            top:50px;
+        }
+        
+    }
+}
+@media screen and (min-width:1360px) and (max-width:1499px){
+    .megamenu-list{
+        margin-left: 10px;
+        padding-left: 10px !important;
+     
+        
+    }
+}
 @media screen and (min-width:993px) and (max-width:1425px){
    
     .mainmenu {

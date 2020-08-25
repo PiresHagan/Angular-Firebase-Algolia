@@ -17,7 +17,7 @@ import * as firebase from 'firebase/app';
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
-  category: any;
+  category: Category;
   articles: any[];
   loading: boolean = true;
   loadingMore: boolean = false;
@@ -71,24 +71,23 @@ export class CategoryComponent implements OnInit {
           this.pageHeader = this.category?.title;
         }
 
-        this.titleService.setTitle(`${this.category?.title}`);
+        this.titleService.setTitle(this.category.title);
 
-        this.metaTagService.updateTag({
-          name: `${this.category?.long_title}`
-        });
+        if(this.category.meta) {
+          let data = this.category.meta;
 
-        this.titleService.setTitle(`${this.category?.title}`);
+          this.metaTagService.addTags([
+            { name: "description", content: data.description.substring(0, 154) },
+            { name: "keywords", content: data?.keywords },
+            { name: "twitter:card", content: data.description },
+            { name: "og:title", content: data?.title },
+            { name: "og:type", content: data.type },
+            { name: "og:url", content: data.url },
+            { name: "og:image", content: data.image.url? data.image.url : data.image.alt},
+            { name: "og:description", content: data.description }
+          ]);
+        }
 
-        this.metaTagService.addTags([
-          // {name: "description", content: `${this.category.description.substring(0, 154)}`},
-          { name: "keywords", content: `${this.category?.title}` },
-          // {name: "twitter:card", content: `${this.category.description}`},
-          { name: "og:title", content: `${this.category?.title}` },
-          { name: "og:type", content: `category` },
-          { name: "og:url", content: `${window.location.href}` },
-          //{name: "og:image", content: `${this.category.image.url}`},
-          //{name: "og:description", content: `${this.category.description}`}
-        ]);
       });
 
       this.getPageDetails();

@@ -92,7 +92,7 @@ export class ArticleComponent implements OnInit {
         }
         const articleId = this.article.id;
 
-        this.similarArticleList = this.articleService.getCategoryRow(this.article.category.slug, this.selectedLanguage);
+        this.similarArticleList = this.articleService.getCategoryRow(this.article.category.slug, this.selectedLanguage, 7);
 
         this.articleType = this.article.type ? this.article.type : TEXT;
         this.articleLikes = this.article.likes_count;

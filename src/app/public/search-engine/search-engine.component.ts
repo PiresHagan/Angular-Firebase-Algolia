@@ -16,6 +16,7 @@ const searchClient = algoliasearch(
 export class SearchEngineComponent implements OnInit {
   selectedLanguage: string = "";
   articleBrand: any;
+  buyCount:any;
   config = {
     indexName: 'dev_fullsearch',
     searchClient,
@@ -41,7 +42,10 @@ export class SearchEngineComponent implements OnInit {
 
     this.cacheService.getBrands().subscribe(brands => {
       this.articleBrand = brands;
+    this.buyCount = 10 - this.articleBrand.length;
     });
   }
-
+  ShowBtn(n: number): any[] {
+    return Array(n);
+  }
 }

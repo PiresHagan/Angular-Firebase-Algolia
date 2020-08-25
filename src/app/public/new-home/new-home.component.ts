@@ -138,12 +138,12 @@ export class NewHomeComponent implements OnInit {
     return;
   }
   getArticle(slug) {
-    return this.articleService.getCategoryRow(slug, this.selectedLanguage)
+    return this.articleService.getCategoryRow(slug, this.selectedLanguage, 5)
   }
   setArticleData() {
     this.categories.subscribe((categoryData) => {
       categoryData.forEach(element => {
-        this.slugWiseData[element.slug] = this.articleService.getCategoryRow(element.slug, this.selectedLanguage)
+        this.slugWiseData[element.slug] = this.articleService.getCategoryRow(element.slug, this.selectedLanguage, 5)
       });
 
     })
