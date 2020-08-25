@@ -47,6 +47,9 @@ export class CompanyService {
     return this.http.put(apicall, postData)
 
   }
+  getCompanyById(companyId: string): Observable<any> {
+    return this.db.doc(`${this.companyCollection}/${companyId}`).valueChanges();
+  }
 
   get(companyId: string, userId: string): Observable<any> {
     return this.db.collection<Company>(`${this.companyCollection}`, ref =>

@@ -51,7 +51,7 @@ export class ArticlePublishComponent implements OnInit {
       this.userDetails = await this.authService.getLoggedInUserDetails();
       if (this.articleId) {
         try {
-          this.article = await this.articleService.getArticleById(this.articleId, this.userDetails.id, this.userDetails.type);
+          this.article = await this.articleService.getArticleById(this.articleId, null, this.userDetails.type);
           const format = 'mp4';
           this.fileURL = this.article.type === "video" && `https://player.cloudinary.com/embed/?cloud_name=mytrendingstories&public_id=${this.article.article_file.cloudinary_id}&fluid=true&controls=true&source_types%5B0%5D=${format}`
         } catch (error) {

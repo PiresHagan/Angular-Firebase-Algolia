@@ -16,7 +16,7 @@ import { AUDIO, VIDEO, TEXT } from 'src/app/shared/constants/article-constants';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CompanyService } from 'src/app/backoffice/shared/services/company.service';
 import { CharityService } from 'src/app/backoffice/shared/services/charity.service';
-import { AUTHOR } from 'src/app/shared/constants/member-constant';
+import { AUTHOR, STAFF, MEMBER, COMPANY, CHARITY } from 'src/app/shared/constants/member-constant';
 
 @Component({
   selector: 'app-article-content',
@@ -157,14 +157,14 @@ export class ArticleContentComponent implements OnInit {
 
       if (articleId) {
         try {
-          this.article = await this.articleService.getArticleById(articleId, this.userDetails.id, this.userDetails.type);
+          this.article = await this.articleService.getArticleById(articleId, null, this.userDetails.type);
           if (this.article && (this.article['id'])) {
             this.categoryService.getAll(this.article.lang).subscribe((categoryList) => {
               this.categoryList = categoryList ? categoryList : [];
               this.categoryService.getTopicList(this.article.category.id, this.article.lang).subscribe((topicListData) => {
                 this.topicList = topicListData ? topicListData : [];
                 this.setFormDetails();
-                this.getCompanyAndCharity(this.article.author);
+                this.getCompanyAndCharity(this.article.author, articleId);
               })
               this.loading = false;
             });
@@ -424,27 +424,48 @@ export class ArticleContentComponent implements OnInit {
 
     })
   }
-  getCompanyAndCharity(userId) {
+  getCompanyAndCharity(articleAuthor, articleId = null) {
 
     this.authorList = {
       charities: [],
       companies: [],
       currentUser: null
     }
-    this.userService.getMember(userId.id).subscribe((userDetails) => {
-      this.authorList.currentUser = userDetails;
-      this.setAuthorDropdown();
-    })
-    this.charityService.getAllCharities(userId.id, 1000).subscribe((charityData) => {
-      this.authorList.charities = charityData.charityList;
-      this.setAuthorDropdown();
+    if (this.userDetails.type == STAFF && articleId) {
+      if (!articleAuthor.type || articleAuthor.type === MEMBER) {
+        this.userService.getMember(articleAuthor.id).subscribe((userDetails) => {
+          this.authorList.currentUser = userDetails;
+          this.setAuthorDropdown();
+        })
+      } else if (articleAuthor.type === COMPANY) {
+        this.companyService.getCompanyById(articleAuthor.id).subscribe((copanyData) => {
+          this.authorList.companies.push(copanyData);
+          this.setAuthorDropdown();
+        })
+      } else if (articleAuthor.type === CHARITY) {
+        this.charityService.getCharityById(articleAuthor.id).subscribe((charityData) => {
+          this.authorList.charities.push(charityData);
+          this.setAuthorDropdown();
+        })
+      }
 
-    })
+    } else {
+      this.userService.getMember(this.userDetails.id).subscribe((userDetails) => {
+        this.authorList.currentUser = userDetails;
+        this.setAuthorDropdown();
+      })
+      this.charityService.getAllCharities(this.userDetails.id, 1000).subscribe((charityData) => {
+        this.authorList.charities = charityData.charityList;
+        this.setAuthorDropdown();
 
-    this.companyService.getAllCompanies(userId.id, 1000).subscribe((companyData) => {
-      this.authorList.companies = companyData.companyList;
-      this.setAuthorDropdown();
-    })
+      })
+
+      this.companyService.getAllCompanies(this.userDetails.id, 1000).subscribe((companyData) => {
+        this.authorList.companies = companyData.companyList;
+        this.setAuthorDropdown();
+      })
+    }
+
 
 
 
@@ -452,7 +473,7 @@ export class ArticleContentComponent implements OnInit {
   setAuthorDropdown() {
     let selectedUser = null;;
     if (this.article && this.article.author) {
-      if (this.authorList.currentUser.id === this.article.author.id) {
+      if (this.authorList.currentUser && this.authorList.currentUser.id === this.article.author.id) {
         selectedUser = this.authorList.currentUser;
       }
       if (this.authorList.charities && this.authorList.charities.length) {
