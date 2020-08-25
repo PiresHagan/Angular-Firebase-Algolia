@@ -189,13 +189,13 @@ export class ArticleService {
   }
 
 
-  getCategoryRow(slug: string, lang: string = 'en') {
+  getCategoryRow(slug: string, lang: string = 'en', limit: number) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('category.slug', '==', slug)
       .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
-      .limit(5)
+      .limit(limit)
     ).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
