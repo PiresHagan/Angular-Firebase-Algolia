@@ -461,7 +461,8 @@ export class ArticleContentComponent implements OnInit {
       if (this.authorList.companies && this.authorList.companies.length) {
         selectedUser = this.getRecordFromId(this.authorList.companies, this.article.author.id) || null;
       }
-      this.articleForm.controls['author'].setValue(selectedUser)
+      if (selectedUser)
+        this.articleForm.controls['author'].setValue(selectedUser);
     }
   }
 
