@@ -21,6 +21,7 @@ export class CompanyComponent implements OnInit {
   isFollowing: boolean = false;
   isLoaded: boolean = false;
   isLoggedInUser: boolean = false;
+  isUpdatingFollow: boolean = false;
   selectedLanguage: string = "";
   userDetails: User;
   invalidCaptcha: boolean = false;
@@ -129,11 +130,15 @@ export class CompanyComponent implements OnInit {
 
   setFollowOrNot() {
     this.companyService.isUserFollowing(this.company.id, this.getUserDetails().id).subscribe((data) => {
-      if (data) {
-        this.isFollowing = true;
-      } else {
-        this.isFollowing = false;
-      }
+      setTimeout(() => {
+        if (data) {
+          this.isFollowing = true;
+          this.isUpdatingFollow = false;
+        } else {
+          this.isFollowing = false;
+          this.isUpdatingFollow = false;
+        }
+      }, 1500);
     });
   }
 
@@ -149,6 +154,7 @@ export class CompanyComponent implements OnInit {
   async follow() {
     await this.setUserDetails();
     if(this.isLoggedInUser) {
+      this.isUpdatingFollow = true;
       await this.companyService.followCompany(this.companyId).then(data => {
         this.setFollowOrNot();
       });
@@ -158,6 +164,7 @@ export class CompanyComponent implements OnInit {
   async unfollow() {
     await this.setUserDetails();
     if(this.isLoggedInUser) {
+      this.isUpdatingFollow = true;
       await this.companyService.unfollowCompany(this.companyId).then(data => {
         this.setFollowOrNot();
       });
