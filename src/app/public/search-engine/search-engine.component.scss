@@ -390,6 +390,7 @@
 		}
 		.sr-brand {
 			margin-top: 50px;
+			margin-bottom: 30px;
 			.sr-brand-item {
 				width: 43%;
 				height: 120px;
@@ -453,6 +454,9 @@
 			margin-top: 50px;
 		}
 		.sr-bar-with-ads {
+			.sr-brand{
+				margin-top:0px !important;
+			}
 			.sr-bar {
 				flex:1;
 				padding: 0px 15px;
@@ -479,6 +483,9 @@
 			margin-top: 50px;
 		}
 		.sr-bar-with-ads {
+			.sr-brand{
+				margin-top:0px !important;
+			}
 			.sr-bar {
 				flex:1;
 				padding: 0px 15px;
@@ -501,6 +508,11 @@
 
 
 @media screen and (min-width:993px) and (max-width:1200px) {
+	.sr-bar-with-ads {
+		.sr-brand{
+			margin-top:0px !important;
+		}
+	}
 	.sr-engine-sec {
 		.sr-brand {
 			margin-top: 50px;
