@@ -47,6 +47,11 @@
         justify-content: flex-end;
     }
 }
+.is-search-icon{
+    a:focus{
+        background: transparent !important;
+    }
+}
 @media screen and (max-width:992px){
     .header{
         .nav-wrap{

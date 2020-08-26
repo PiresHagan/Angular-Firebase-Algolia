@@ -297,6 +297,7 @@
 	}
 	::ng-deep .ais-Pagination-list{
 		.ais-Pagination-item{
+				margin-bottom: 20px;
 			&.ais-Pagination-item--selected{
 				.ais-Pagination-link{
 					background-color: #ff4121;
@@ -419,31 +420,24 @@
 				width: 100%;
 			}
 		}
-		.on-mobile-view{
-			.sr-brand-item{
-				&.btn{
-					display: none !important;
-				}
-				&.btn:nth-child(1){
-					display: block !important;
-				}
-			}
-			.sr-brand-item{
-				&.btn:nth-child(3){
-					display: inline-flex !important;
-				}
-				&.btn:nth-child(4){
-					display: inline-flex !important;
-				}
-			}
+	}
+.sr-brand{
+	.sr-brand-item{
+		&.btn{
+			display: none !important;
 		}
 	}
-
-	.sr-bar-with-ads{
-		.sr-brand{
-			display: none;
+}
+.on-mobile-view{
+	.sr-brand{
+		width:50%;
+		margin-top:0px;
+		.sr-brand-item{
+			width: 100%;
+			display: inline-flex !important;
 		}
 	}
+}
 	
 
 }
