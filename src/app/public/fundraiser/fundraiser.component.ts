@@ -17,7 +17,7 @@ import {
   PaymentIntent,
 } from '@stripe/stripe-js';
 import { AuthorService } from 'src/app/shared/services/author.service';
-import { TEXT, AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
+// import { TEXT, AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
 import { UserService } from 'src/app/shared/services/user.service';
 import { CompanyService } from 'src/app/shared/services/company.service';
 import { CharityService } from 'src/app/shared/services/charity.service';
@@ -44,9 +44,9 @@ export class FundraiserComponent implements OnInit {
   showInvalidCardError: boolean = false;
   donationPercentage: string = "0";
   authorFollowersCount: number = 0;
-  TEXT = TEXT;
-  AUDIO = AUDIO;
-  VIDEO = VIDEO;
+  // TEXT = TEXT;
+  // AUDIO = AUDIO;
+  // VIDEO = VIDEO;
 
   @ViewChild(StripeCardNumberComponent) card: StripeCardNumberComponent;
 

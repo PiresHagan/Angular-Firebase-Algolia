@@ -30,7 +30,7 @@
         </div>
         <hr class="m-v-25" />
         <form nz-form id="fundraiser-form" [formGroup]="fundraiserForm" (ngSubmit)="submitFundraiser()">
-          <div class="filter-dropdown-sec">
+          <!-- <div class="filter-dropdown-sec">
             <div class="filter-title">
               <nz-form-item>
                 <nz-form-control>
@@ -43,7 +43,7 @@
                 </nz-form-control>
               </nz-form-item>
             </div>
-          </div>
+          </div> -->
           <div class="row">
             <div class="col-md-4">
                 <nz-form-item>
@@ -140,7 +140,7 @@
               </nz-form-item>
   
   
-              <div class="content" *ngIf="fundraiserType==TEXT">
+              <div class="content">
                 <nz-form-item>
                   <nz-form-label>{{'fundraiserContent' | translate}}</nz-form-label>
                   <quill-editor [style]="{height: '300px',width: '100%'}" formControlName="content"
@@ -150,7 +150,7 @@
                   {{'fundraiserContentErr' | translate}}
                 </div>
               </div>
-              <div class="video" *ngIf="fundraiserType==VIDEO">
+              <!-- <div class="video" *ngIf="fundraiserType==VIDEO">
                 <nz-form-item>
                   <nz-form-label nzRequired>{{'FundraiserSelectVideo' | translate}}</nz-form-label>
                   <nz-upload [nzMultiple]="false" [nzLimit]="1" [nzBeforeUpload]="beforeUpload"
@@ -176,8 +176,8 @@
                   <p>{{'VideoInfo1' |translate}}</p>
                 </div>
   
-              </div>
-              <div class="audio" *ngIf="fundraiserType==AUDIO">
+              </div> -->
+              <!-- <div class="audio" *ngIf="fundraiserType==AUDIO">
                 <nz-form-item>
                   <nz-form-label nzRequired>{{'FundraiserSelectAudio' | translate}}</nz-form-label>
                   <nz-upload [nzMultiple]="false" [nzLimit]="1" [nzBeforeUpload]="beforeUpload"
@@ -202,7 +202,7 @@
                   <p>{{'AudioInfo' |translate}}</p>
                   <p>{{'AudioInfo1' |translate}}</p>
                 </div>
-              </div>
+              </div> -->
   
             </div>
             <div class="col-md-12 mt-5">
