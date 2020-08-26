@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
   categories;
   authorList: any;
   latestArticles: any;
-  trendingArticles: any[] = new Array();
+  trendingArticles: any[];
   private homeDocument = "home";
 
   constructor(
@@ -89,6 +89,7 @@ export class HomeComponent implements OnInit {
 
     this.articleService.getTrending(this.selectedLanguage).subscribe(articles => {
       let i = 0;
+      this.trendingArticles = new Array();
       for (const article of articles) {
         if((article['view_count'] > 10) && (i < 15)){
           this.trendingArticles.push(article);
