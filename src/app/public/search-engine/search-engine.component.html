@@ -1,7 +1,7 @@
 <section class="sr-engine-sec">
     <ais-instantsearch [config]="config">
       <div class="container">
-          <div class="sr-brand" *ngIf="articleBrand.length != 0">
+          <div class="sr-brand hide-brand-on-mobile" *ngIf="articleBrand.length != 0">
               <div class="sr-brand-item" *ngFor="let brand of articleBrand">
                   <a href="{{brand.brandUrl}}">
                     <div class="sr-brand-logo"><img [src]="brand?.brandImage?.url" [alt]="brand?.brandImage?.alt" /></div>

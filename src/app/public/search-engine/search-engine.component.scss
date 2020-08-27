@@ -400,12 +400,21 @@
 		}
 		.sr-brand {
 			margin-top: 50px;
-			margin-bottom: 30px;
+			margin-bottom: 15px;
 			.sr-brand-item {
 				width: 43%;
 				height: 120px;
+				display: none;
 				.sr-brand-logo {
 					height: 90px;
+				}
+			}
+			&.hide-brand-on-mobile{
+				.sr-brand-item:nth-child(1){
+					display: block !important;
+				}
+				.sr-brand-item:nth-child(2){
+					display: block !important;
 				}
 			}
 		}
@@ -443,11 +452,11 @@
 		margin-top:0px;
 		.sr-brand-item{
 			width: 100%;
-			display: inline-flex !important;
 		}
 	}
 }
-	
+
+
 
 }
 
