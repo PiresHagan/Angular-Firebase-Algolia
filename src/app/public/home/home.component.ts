@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit {
 
     this.articleService.getLatest(this.selectedLanguage).subscribe(articles => {
       this.latestArticles = articles;
-      this.heroArticles = articles;
+      //this.heroArticles = articles;
     });
 
     this.getAuthors();
@@ -130,7 +130,7 @@ export class HomeComponent implements OnInit {
   
       this.articleService.getLatest(this.selectedLanguage).subscribe(articles => {
         this.latestArticles = articles;
-        this.heroArticles = articles;
+        //this.heroArticles = articles;
       });
       
     });
