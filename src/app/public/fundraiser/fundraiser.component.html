@@ -67,19 +67,19 @@
                         <nz-progress [nzPercent]="donationPercentage" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"></nz-progress>
                      </div> -->
                      <p class="big mb-3">{{ fundraiser?.excerpt }}</p>
-                     <div *ngIf="fundraiser?.type === TEXT" class="is-paragraph">
+                     <div class="is-paragraph">
                         <p class="big " innerHTML="{{ fundraiser?.content }}"></p>
                      </div>
                   </div>
-                  <div *ngIf="fundraiser?.type === VIDEO" class="main-video-sec">
+                  <!-- <div *ngIf="fundraiser?.type === VIDEO" class="main-video-sec">
                      <cl-video [public-id]="fundraiser?.fundraising_file?.cloudinary_id" secure="true" controls="true" class="cld-video"></cl-video>
-                  </div>
-                  <div *ngIf="fundraiser?.type === AUDIO" class="main-audio-sec">
+                  </div> -->
+                  <!-- <div *ngIf="fundraiser?.type === AUDIO" class="main-audio-sec">
                         <cl-video [public-id]="fundraiser?.fundraising_file?.cloudinary_id" resource-type="video" class="cld-audio-wave">
                            <cl-transformation flags="waveform"></cl-transformation>
                         </cl-video>
                         <cl-video [public-id]="fundraiser?.fundraising_file?.cloudinary_id" secure="true" controls="true" class="cld-audio"></cl-video>
-                  </div>
+                  </div> -->
                </div>
             </div>
          </div>
