@@ -26,14 +26,12 @@ export class UserService {
   constructor(
     public db: AngularFirestore,
     public afAuth: AngularFireAuth,
-    public httpClient: HttpClient
-
+    private http: HttpClient
   ) {
     this.afAuth.authState.subscribe((user) => {
       if (user && !user.isAnonymous)
         this.currentUser = { id: user.uid, email: user.email, avatar: user.photoURL, fullname: user.displayName };
     })
-
   }
 
   get activeUser() {
@@ -83,7 +81,7 @@ export class UserService {
   updateMember(uid: string, fields: any): Promise<void> {
 
     return new Promise<any>((resolve, reject) => {
-      this.httpClient.put(environment.baseAPIDomain + '/api/v1/members/' + uid, fields).subscribe(() => {
+      this.http.put(environment.baseAPIDomain + '/api/v1/members/' + uid, fields).subscribe(() => {
         resolve();
       }, err => reject(err))
       // this.db.doc(`${this.memberCollection}/${uid}`).update(fields).then(() => {
@@ -168,8 +166,8 @@ export class UserService {
     return fileName.split('.').slice(0, -1).join('.');
   }
 
-
-
-
-
+  updateUser(userId: string, fields) {
+    const updateUserAPI = environment.baseAPIDomain + `/api/v1/users/${userId}`;
+    return this.http.put(updateUserAPI, fields)
+  }
 }

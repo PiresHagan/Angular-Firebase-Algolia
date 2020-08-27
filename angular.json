@@ -29,6 +29,8 @@
               "src/solo-auth-proxy.html",
               "src/assets",
               "src/ads.txt",
+              "src/firebase-messaging-sw.js",
+              "src/manifest.json",
               {
                 "glob": "**/*",
                 "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
