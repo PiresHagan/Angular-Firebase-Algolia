@@ -60,20 +60,19 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.seoDataService.getSeoData(this.homeDocument).subscribe(homeDocRef => {
-      if(homeDocRef.exists) {
+      if (homeDocRef.exists) {
         const data: SeoData = homeDocRef.data();
 
         this.titleService.setTitle(data.title);
-    
         this.metaTagService.addTags([
-          {name: "description", content: data.description},
-          {name: "keywords", content: data.keywords},
-          {name: "twitter:card", content: data.description},
-          {name: "og:title", content: data.title},
-          {name: "og:type", content: data.type},
-          {name: "og:url", content: `${window.location.href}`},
-          {name: "og:image", content: data.image.url? data.image.url : data.image.alt},
-          {name: "og:description", content: data.description}
+          { name: "description", content: data.description },
+          { name: "keywords", content: data.keywords },
+          { name: "twitter:card", content: data.description },
+          { name: "og:title", content: data.title },
+          { name: "og:type", content: data.type },
+          { name: "og:url", content: `${window.location.href}` },
+          { name: "og:image", content: data.image.url ? data.image.url : data.image.alt },
+          { name: "og:description", content: data.description }
         ]);
       }
     }, err => {
@@ -86,11 +85,11 @@ export class HomeComponent implements OnInit {
       this.heroArticles = articles;
     });
 
-    this.articleService.getTrending(this.selectedLanguage).subscribe(articles => {
+    this.cacheService.getTrendingStories(this.selectedLanguage).subscribe(articles => {
       this.trendingArticles = articles;
     });
 
-    this.articleService.getLatest(this.selectedLanguage).subscribe(articles => {
+    this.cacheService.getLatestStories(this.selectedLanguage).subscribe(articles => {
       this.latestArticles = articles;
       console.log('latest articles', this.latestArticles);
     });
@@ -110,17 +109,17 @@ export class HomeComponent implements OnInit {
         this.heroArticles = articles;
       });
 
-      this.articleService.getTrending(this.selectedLanguage).subscribe(articles => {
+      this.cacheService.getTrendingStories(this.selectedLanguage).subscribe(articles => {
         this.trendingArticles = articles;
       });
-  
-      this.articleService.getLatest(this.selectedLanguage).subscribe(articles => {
+
+      this.cacheService.getLatestStories(this.selectedLanguage).subscribe(articles => {
         this.latestArticles = articles;
       });
-      
+
     });
 
-    
+
 
 
     return;

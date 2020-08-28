@@ -249,7 +249,7 @@ export class ArticleService {
       .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
-      .limit(5)
+      .limit(60)
     ).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -268,7 +268,7 @@ export class ArticleService {
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
       .orderBy('view_count', 'desc')
-      .limit(15)
+      .limit(200)
     ).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -286,7 +286,7 @@ export class ArticleService {
       .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
-      .limit(5)
+      .limit(20)
     ).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -304,7 +304,7 @@ export class ArticleService {
       .where('status', "==", ACTIVE)
       .where('editors_pick', "==", true)
       .orderBy('published_at', 'desc')
-      .limit(5)
+      .limit(15)
     ).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
