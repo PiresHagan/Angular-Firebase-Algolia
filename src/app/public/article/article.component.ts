@@ -224,7 +224,6 @@ export class ArticleComponent implements OnInit {
     this.articleService.createComment(this.article.id, commentData).subscribe(() => {
       this.isFormSaving = false;
       this.messageDetails = '';
-      this.articleService.commentCount(this.article.id);
       this.showCommentSavedMessage();
       this.newComment();
     }, err => {

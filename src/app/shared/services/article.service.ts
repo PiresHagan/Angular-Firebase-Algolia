@@ -572,12 +572,6 @@ export class ArticleService {
     const articleRef = db.collection(this.articleCollection).doc(articleId);
     articleRef.update({ view_count: increment })
   }
-  commentCount(articleId: string) {
-    const db = firebase.firestore();
-    const increment = firebase.firestore.FieldValue.increment(1);
-    const articleRef = db.collection(this.articleCollection).doc(articleId);
-    articleRef.update({ comments_count: increment })
-  }
   likeCount(articleId: string) {
     const db = firebase.firestore();
     const increment = firebase.firestore.FieldValue.increment(1);
