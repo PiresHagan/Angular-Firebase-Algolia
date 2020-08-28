@@ -36,6 +36,7 @@ import { PreviousRouteService } from './shared/services/previous-route.service';
 import { NgAisModule } from 'angular-instantsearch';
 import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
 import { ArticleInteractionComponent } from './shared/component/article-interaction/article-interaction.component';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -62,6 +63,7 @@ registerLocaleData(en);
         NgChartjsModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAnalyticsModule,
+        AngularFireMessagingModule,
         AngularFireAuthModule,
         AngularFirestoreModule,
         NgxMaskModule.forRoot(options),

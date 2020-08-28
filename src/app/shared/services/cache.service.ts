@@ -12,6 +12,8 @@ export class CacheService {
   topContributorsDoc: string = 'top-contributors';
   sponsoredPostsDoc: string = 'sponsored-posts';
   searchEngineDoc: string = 'search-engines';
+  latestStoriesDoc: string = 'latest-stories';
+  topTrendingDoc: string = 'top-trending-stories';
 
   constructor(private db: AngularFirestore) { }
 
@@ -39,6 +41,26 @@ export class CacheService {
 
   getBrands() {
     return this.db.collection(`${this.cacheCollection}/${this.searchEngineDoc}/data`, ref => ref).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          return data;
+        });
+      })
+    );
+  }
+  getTrendingStories(lang: string) {
+    return this.db.collection(`${this.cacheCollection}/${this.topTrendingDoc}/${lang}`, ref => ref).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          return data;
+        });
+      })
+    );
+  }
+  getLatestStories(lang: string) {
+    return this.db.collection(`${this.cacheCollection}/${this.latestStoriesDoc}/${lang}`, ref => ref).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();

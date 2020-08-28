@@ -7,6 +7,7 @@ import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as firebase from 'firebase/app';
 import { STAFF, MEMBER } from "../constants/member-constant";
+import { MessagingService } from "./messaging.service";
 
 
 @Injectable({
@@ -15,7 +16,7 @@ import { STAFF, MEMBER } from "../constants/member-constant";
 export class AuthService {
     loggedInUser;
     loggedInUserDetails;
-    constructor(public afAuth: AngularFireAuth, public db: AngularFirestore, private http: HttpClient) {
+    constructor(public afAuth: AngularFireAuth, public db: AngularFirestore, private http: HttpClient, private messagingService: MessagingService) {
         this.afAuth.authState.subscribe((user) => {
             if (!user || !user.emailVerified) {
                 if (environment && environment.isAnonymousUserEnabled) {
@@ -90,6 +91,8 @@ export class AuthService {
                         user_name: res.user.displayName,
                         provider_id: res.user.providerData.length > 0 ? res.user.providerData[0].providerId : res.additionalUserInfo.providerId
                     });
+
+                    this.messagingService.requestPermission();
 
                     resolve(res);
                 }, err => reject(err))
