@@ -17,7 +17,7 @@ export class MessagingService {
 
   constructor(private userService: UserService, private angularFireMessaging: AngularFireMessaging, private notification: NzNotificationService) {
     angularFireMessaging.onMessage((payload) => {
-      // console.log('Got foreground push',payload);
+      console.log('Got foreground push',payload);
       if(payload.notification && payload.notification.title && payload.notification.body) {
         notification.blank(
           payload.notification.title,
@@ -43,7 +43,7 @@ export class MessagingService {
   getToken() {
     this.angularFireMessaging.getToken.subscribe(currentToken => {
       if (currentToken) {
-        // console.log('Device Token', currentToken);
+        console.log('Device Token', currentToken);
         this.sendTokenToServer(currentToken);
       } else {
         // Show permission request.
@@ -58,11 +58,11 @@ export class MessagingService {
     this.userService.getCurrentUser().then((user) => {
       this.currentUser = { id: user.uid, email: user.email, avatar: user.photoURL, fullname: user.displayName };
       if(this.currentUser.id) {
-        // console.log('Sending Token To Server', token);
+        console.log('Sending Token To Server', token);
         this.userService.updateUser(this.currentUser.id, {
           notification_token: token
         }).subscribe(data => {
-          // console.log(`Updated user notification_token for user : ${this.currentUser.id}`, data);
+          console.log(`Updated user notification_token for user : ${this.currentUser.id}`, data);
         }, err => {
           console.error(`Failed to update notification_token for user : ${this.currentUser.id}`, err);
         })
