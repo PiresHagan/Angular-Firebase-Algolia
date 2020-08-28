@@ -10,7 +10,7 @@ import { DRAFT } from 'src/app/shared/constants/status-constants';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { Location } from '@angular/common';
 import { BackofficeFundraiserService } from 'src/app/backoffice/shared/services/backoffice-fundraiser.service';
-import { AUDIO, VIDEO, TEXT } from 'src/app/shared/constants/article-constants';
+// import { AUDIO, VIDEO, TEXT } from 'src/app/shared/constants/article-constants';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CompanyService } from 'src/app/backoffice/shared/services/company.service';
 import { CharityService } from 'src/app/backoffice/shared/services/charity.service';
@@ -36,19 +36,19 @@ export class FundraiserContentComponent implements OnInit {
   loading: boolean = true;
   isLogoImageUploading = false;
   languageList;
-  radioValue = 'text';
-  allowedFundraiserVideo = ['mimetypes:video/x-ms-asf', 'video/x-flv', 'video/mp4', 'application/x-mpegURL', 'video/MP2T', 'video/3gpp', 'video/quicktime', 'video/x-msvideo', 'video/x-ms-wmv', 'video/avi'];
-  allowedFundraiserAudio = ['audio/mpeg'];
+  // radioValue = 'text';
+  // allowedFundraiserVideo = ['mimetypes:video/x-ms-asf', 'video/x-flv', 'video/mp4', 'application/x-mpegURL', 'video/MP2T', 'video/3gpp', 'video/quicktime', 'video/x-msvideo', 'video/x-ms-wmv', 'video/avi'];
+  // allowedFundraiserAudio = ['audio/mpeg'];
   fundraiserFile;
-  videoFile;
-  audioFile;
+  // videoFile;
+  // audioFile;
   logoImage;
   fileURL: string;
-  videofileURL: string;
-  audioFileUrl: string;
-  VIDEO = VIDEO;
-  AUDIO = AUDIO;
-  TEXT = TEXT;
+  // videofileURL: string;
+  // audioFileUrl: string;
+  // VIDEO = VIDEO;
+  // AUDIO = AUDIO;
+  // TEXT = TEXT;
   authorList;
 
   editorConfig = {
@@ -87,22 +87,22 @@ export class FundraiserContentComponent implements OnInit {
       excerpt: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(160)]],
       content: ['', [Validators.minLength(10)]],
       lang: ['', [Validators.required]],
-      type: ['text'],
+      type: ['fundraiser'],
       author: ['', [Validators.required]]
     });
   }
 
-  isValidVideo(mimeType) {
-    return this.allowedFundraiserVideo.indexOf(mimeType) > -1;
-  }
+  // isValidVideo(mimeType) {
+  //   return this.allowedFundraiserVideo.indexOf(mimeType) > -1;
+  // }
 
-  isValidAudio(mimeType) {
-    return this.allowedFundraiserAudio.indexOf(mimeType) > -1;
-  }
+  // isValidAudio(mimeType) {
+  //   return this.allowedFundraiserAudio.indexOf(mimeType) > -1;
+  // }
 
-  isValidSize(fileSize, requiredSize) {
-    return fileSize! / 1024 / 1024 < requiredSize
-  }
+  // isValidSize(fileSize, requiredSize) {
+  //   return fileSize! / 1024 / 1024 < requiredSize
+  // }
 
   showMessage(msg, type, extras = '') {
     if (type == 'error') {
@@ -135,22 +135,22 @@ export class FundraiserContentComponent implements OnInit {
     return this.fundraiserService.addImage(base64, name)
   }
   
-  beforeUpload = (file: UploadFile, _fileList: UploadFile[]) => {
-    const isValidFile = this.fundraiserType == AUDIO ? this.isValidAudio(file.type) : this.isValidVideo(file.type);
-    if (!isValidFile) {
-      this.showMessage('InvalidFormat', 'error');
-      return false;
-    }
+  // beforeUpload = (file: UploadFile, _fileList: UploadFile[]) => {
+  //   const isValidFile = this.fundraiserType == AUDIO ? this.isValidAudio(file.type) : this.isValidVideo(file.type);
+  //   if (!isValidFile) {
+  //     this.showMessage('InvalidFormat', 'error');
+  //     return false;
+  //   }
 
-    const validSize = this.fundraiserType == AUDIO ? this.isValidSize(file.size, 100) : this.isValidSize(file.size, 100);
-    if (!validSize) {
-      this.showMessage('InvalidSize', 'error', this.fundraiserType == AUDIO ? '100MB' : '100MB');
-      return false;
-    }
+  //   const validSize = this.fundraiserType == AUDIO ? this.isValidSize(file.size, 100) : this.isValidSize(file.size, 100);
+  //   if (!validSize) {
+  //     this.showMessage('InvalidSize', 'error', this.fundraiserType == AUDIO ? '100MB' : '100MB');
+  //     return false;
+  //   }
 
-    this.fundraiserFile = file;
-    return false;
-  };
+  //   this.fundraiserFile = file;
+  //   return false;
+  // };
 
   beforeUploadLogo = (file: UploadFile, _fileList: UploadFile[]) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -241,7 +241,7 @@ export class FundraiserContentComponent implements OnInit {
         phone: this.fundraiserForm.get('phone').value,
         goal_amount: this.fundraiserForm.get('goal_amount').value,
         color_code: this.fundraiserForm.get('color_code').value,
-        content: this.fundraiserType == 'text' ? this.fundraiserForm.get('content').value : '',
+        content: this.fundraiserForm.get('content').value,
         title: this.fundraiserForm.get('title').value,
         slug: this.getSlug(this.fundraiserForm.get('title').value.trim()),
         excerpt: this.fundraiserForm.get('excerpt').value,
@@ -260,7 +260,7 @@ export class FundraiserContentComponent implements OnInit {
           this.addOrUpdateFundraiser(fundraiserData);
         })
       } else {
-        if (this.fundraiserType == "text")
+        // if (this.fundraiserType == "text")
           fundraiserData['fundraising_file'] = null;
         this.addOrUpdateFundraiser(fundraiserData);
       }
@@ -285,33 +285,33 @@ export class FundraiserContentComponent implements OnInit {
       }
     }
     this.contentValidation = false;
-    if ((this.fundraiserType == 'text' || this.fundraiserType == undefined) && !this.fundraiserForm.controls['content'].value) {
+    if (!this.fundraiserForm.controls['content'].value) {
       this.contentValidation = true;
       invalid.push('content');
     }
-    if (this.fundraiserType == 'audio') {
-      if (!this.fundraiserFile && !this.fundraiser) {
-        this.contentValidation = true;
-        invalid.push('audio');
-      } else if (!this.fundraiserFile && this.fundraiser && !this.fundraiser.fundraising_file) {
-        this.contentValidation = true;
-        invalid.push('audio');
-      } else if (!this.fundraiserFile && this.fundraiser && this.fundraiser.fundraising_file && this.fundraiser.type !== 'audio') {
-        this.contentValidation = true;
-        invalid.push('audio');
-      }
-    } else if (this.fundraiserType == 'video') {
-      if (!this.fundraiserFile && !this.fundraiser) {
-        this.contentValidation = true;
-        invalid.push('video');
-      } else if (!this.fundraiserFile && this.fundraiser && !this.fundraiser.fundraising_file) {
-        this.contentValidation = true;
-        invalid.push('video');
-      } else if (!this.fundraiserFile && this.fundraiser && this.fundraiser.fundraising_file && this.fundraiser.type !== 'video') {
-        this.contentValidation = true;
-        invalid.push('video');
-      }
-    }
+    // if (this.fundraiserType == 'audio') {
+    //   if (!this.fundraiserFile && !this.fundraiser) {
+    //     this.contentValidation = true;
+    //     invalid.push('audio');
+    //   } else if (!this.fundraiserFile && this.fundraiser && !this.fundraiser.fundraising_file) {
+    //     this.contentValidation = true;
+    //     invalid.push('audio');
+    //   } else if (!this.fundraiserFile && this.fundraiser && this.fundraiser.fundraising_file && this.fundraiser.type !== 'audio') {
+    //     this.contentValidation = true;
+    //     invalid.push('audio');
+    //   }
+    // } else if (this.fundraiserType == 'video') {
+    //   if (!this.fundraiserFile && !this.fundraiser) {
+    //     this.contentValidation = true;
+    //     invalid.push('video');
+    //   } else if (!this.fundraiserFile && this.fundraiser && !this.fundraiser.fundraising_file) {
+    //     this.contentValidation = true;
+    //     invalid.push('video');
+    //   } else if (!this.fundraiserFile && this.fundraiser && this.fundraiser.fundraising_file && this.fundraiser.type !== 'video') {
+    //     this.contentValidation = true;
+    //     invalid.push('video');
+    //   }
+    // }
     return invalid;
   }
   getSlug(title: string) {
@@ -363,15 +363,15 @@ export class FundraiserContentComponent implements OnInit {
       excerpt: this.fundraiser.excerpt,
       content: this.fundraiser.content,
       lang: this.fundraiser.lang,
-      type: this.fundraiser.type ? this.fundraiser.type : 'text',
+      type: this.fundraiser.type,
       author: this.fundraiser.author ? this.fundraiser.author : null
     });
     this.logoImage = this.fundraiser.logo;
-    this.audioFile = this.fundraiser.type === "audio" ? this.fundraiser.fundraising_file : '';
-    this.videoFile = this.fundraiser.type === "video" ? this.fundraiser.fundraising_file : '';
-    const format = this.fundraiser.type === "audio" ? 'mp3' : 'mp4';
-    this.videofileURL = this.fundraiser.type === "video" && `https://player.cloudinary.com/embed/?cloud_name=mytrendingstories&public_id=${this.fundraiser.fundraising_file.cloudinary_id}&fluid=true&controls=true&source_types%5B0%5D=${format}`
-    this.audioFileUrl = this.fundraiser.type === "audio" && `https://player.cloudinary.com/embed/?cloud_name=mytrendingstories&public_id=${this.fundraiser.fundraising_file.cloudinary_id}&fluid=true&controls=true&source_types%5B0%5D=${format}`
+    // this.audioFile = this.fundraiser.type === "audio" ? this.fundraiser.fundraising_file : '';
+    // this.videoFile = this.fundraiser.type === "video" ? this.fundraiser.fundraising_file : '';
+    // const format = this.fundraiser.type === "audio" ? 'mp3' : 'mp4';
+    // this.videofileURL = this.fundraiser.type === "video" && `https://player.cloudinary.com/embed/?cloud_name=mytrendingstories&public_id=${this.fundraiser.fundraising_file.cloudinary_id}&fluid=true&controls=true&source_types%5B0%5D=${format}`
+    // this.audioFileUrl = this.fundraiser.type === "audio" && `https://player.cloudinary.com/embed/?cloud_name=mytrendingstories&public_id=${this.fundraiser.fundraising_file.cloudinary_id}&fluid=true&controls=true&source_types%5B0%5D=${format}`
   }
 
   transform(url) {
@@ -451,6 +451,6 @@ export class FundraiserContentComponent implements OnInit {
       })
   }
 
-  get fundraiserType() { return this.fundraiserForm.get('type').value; }
+  // get fundraiserType() { return this.fundraiserForm.get('type').value; }
 
 }

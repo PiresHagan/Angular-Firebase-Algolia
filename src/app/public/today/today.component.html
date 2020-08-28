@@ -19,7 +19,8 @@
                                     <div class="item-card-category cat-yellow">
                                         <div class="is-avatar-dv">
                                             <img class="avatar" [src]="today.author.avatar.url"
-                                                [alt]="today.author.avatar.alt">
+                                                [alt]="today.author.avatar.alt"
+                                                onerror="this.src='assets/images/default-avatar.png'">
                                             <span class="item-card-author">{{today.author.fullname}}</span>
                                         </div>
                                     </div>

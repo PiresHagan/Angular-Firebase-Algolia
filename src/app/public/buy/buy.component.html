@@ -1,17 +1,17 @@
 <section class="buy-sec">
     <div class="container">
         <div class="page-title">
-            Buy Our Monthaly Package
+           {{'MonthlyPackageTitle' | translate}}
         </div>
         <div class="buy-main">
             <div class="buy-header-img">
                 <img src="assets/images/buy.jpg" />
-                <div class="monthly-price">Monthaly Price</div>
+                <div class="monthly-price">{{'MonthlyPrice' | translate}}</div>
             </div>
             <div class="buy-content">
                 <div class="price">$100</div>
                 <div class="buy-btn-main">
-                    <button class="buy-btn" nz-button nzType="primary" (click)="showModal()">Buy it</button>
+                    <button class="buy-btn" nz-button nzType="primary" (click)="showModal()">{{'monthlyBuyIt' | translate}}</button>
                     <nz-modal
                         [(nzVisible)]="isVisible"
                         nzTitle="My Trending Stories"
