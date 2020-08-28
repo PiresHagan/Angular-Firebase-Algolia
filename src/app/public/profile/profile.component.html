@@ -155,10 +155,11 @@
                                                 <div class="article-image-icon" *ngIf="article.type==='video'">
                                                     <i class="fas fa-play"></i>
                                                 </div>
-                                                <div class="article-image-icon" *ngIf="!(article.type==='audio' || article.type==='video')">
+                                                <div class="article-image-icon"
+                                                    *ngIf="!(article.type==='audio' || article.type==='video')">
                                                     <i class="fas fa-angle-right"></i>
                                                 </div>
-            
+
                                                 <div class="comment-right">
                                                     <div class="article-comment-info">
                                                         <div class="comment-section">
@@ -205,17 +206,24 @@
                                                 <div class="item-card-texte">
                                                     <p>{{article.excerpt}}</p>
                                                     <div class="category-article-readmore">
-                                                        <div  *ngIf="article.type==='audio'">
-                                                            <button type="button" class="is-read-more">{{'ListenNow' | translate }} <img
-                                                            src="assets/images/read-more-icon-black.png" alt="Listen Now" /></button>
+                                                        <div *ngIf="article.type==='audio'">
+                                                            <button type="button"
+                                                                class="is-read-more">{{'ListenNow' | translate }} <img
+                                                                    src="assets/images/read-more-icon-black.png"
+                                                                    alt="Listen Now" /></button>
                                                         </div>
-                                                        <div  *ngIf="article.type==='video'">
-                                                            <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
-                                                            src="assets/images/read-more-icon-black.png" alt="Watch Now" /></button>
+                                                        <div *ngIf="article.type==='video'">
+                                                            <button type="button"
+                                                                class="is-read-more">{{'WatchNow' | translate }}<img
+                                                                    src="assets/images/read-more-icon-black.png"
+                                                                    alt="Watch Now" /></button>
                                                         </div>
-                                                        <div  *ngIf="!(article.type==='audio' || article.type==='video')">
-                                                            <button type="button" class="is-read-more">{{'readMore' | translate }} <img
-                                                            src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                                        <div
+                                                            *ngIf="!(article.type==='audio' || article.type==='video')">
+                                                            <button type="button"
+                                                                class="is-read-more">{{'readMore' | translate }} <img
+                                                                    src="assets/images/read-more-icon-black.png"
+                                                                    alt="Read More" /></button>
                                                         </div>
                                                         <div class="article-icon-main">
                                                             <div class="article-icon" *ngIf="article.type==='audio'">
@@ -224,10 +232,11 @@
                                                             <div class="article-icon" *ngIf="article.type==='video'">
                                                                 <i class="fas fa-video"></i>
                                                             </div>
-                                                            <div class="article-icon" *ngIf="!(article.type==='audio' || article.type==='video')">
+                                                            <div class="article-icon"
+                                                                *ngIf="!(article.type==='audio' || article.type==='video')">
                                                                 <i class="far fa-file-alt"></i>
                                                             </div>
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -262,10 +271,11 @@
                                                 <div class="article-image-icon" *ngIf="article.type==='video'">
                                                     <i class="fas fa-play"></i>
                                                 </div>
-                                                <div class="article-image-icon" *ngIf="!(article.type==='audio' || article.type==='video')">
+                                                <div class="article-image-icon"
+                                                    *ngIf="!(article.type==='audio' || article.type==='video')">
                                                     <i class="fas fa-angle-right"></i>
                                                 </div>
-            
+
                                                 <div class="comment-right">
                                                     <div class="article-comment-info">
                                                         <div class="comment-section">
@@ -298,14 +308,15 @@
                                                 <div class="item-card-category  cat-yellow">
                                                     <div class="is-avatar-dv">
                                                         <div class="overlay-icon">
-                                                        <img class="avatar"
-                                                            [src]="replaceImage(article?.author?.avatar?.url)"
-                                                            [alt]="article?.author?.avatar?.alt"
-                                                            onerror="this.src='assets/images/default-avatar.png'">
-                                                        <app-article-avatar [article]="article"></app-article-avatar>
-                                                            
+                                                            <img class="avatar"
+                                                                [src]="replaceImage(article?.author?.avatar?.url)"
+                                                                [alt]="article?.author?.avatar?.alt"
+                                                                onerror="this.src='assets/images/default-avatar.png'">
+                                                            <app-article-avatar [article]="article">
+                                                            </app-article-avatar>
+
                                                         </div>
-                                                            <span
+                                                        <span
                                                             class="item-card-author">{{article?.author?.fullname}}</span>
                                                     </div>
                                                 </div>
@@ -315,17 +326,24 @@
                                                 <div class="item-card-texte">
                                                     <p>{{article.excerpt}}</p>
                                                     <div class="category-article-readmore">
-                                                        <div  *ngIf="article.type==='audio'">
-                                                            <button type="button" class="is-read-more">{{'ListenNow' | translate }} <img
-                                                            src="assets/images/read-more-icon-black.png" alt="Listen Now" /></button>
+                                                        <div *ngIf="article.type==='audio'">
+                                                            <button type="button"
+                                                                class="is-read-more">{{'ListenNow' | translate }} <img
+                                                                    src="assets/images/read-more-icon-black.png"
+                                                                    alt="Listen Now" /></button>
                                                         </div>
-                                                        <div  *ngIf="article.type==='video'">
-                                                            <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
-                                                            src="assets/images/read-more-icon-black.png" alt="Watch Now" /></button>
+                                                        <div *ngIf="article.type==='video'">
+                                                            <button type="button"
+                                                                class="is-read-more">{{'WatchNow' | translate }}<img
+                                                                    src="assets/images/read-more-icon-black.png"
+                                                                    alt="Watch Now" /></button>
                                                         </div>
-                                                        <div  *ngIf="!(article.type==='audio' || article.type==='video')">
-                                                            <button type="button" class="is-read-more">{{'readMore' | translate }} <img
-                                                            src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                                        <div
+                                                            *ngIf="!(article.type==='audio' || article.type==='video')">
+                                                            <button type="button"
+                                                                class="is-read-more">{{'readMore' | translate }} <img
+                                                                    src="assets/images/read-more-icon-black.png"
+                                                                    alt="Read More" /></button>
                                                         </div>
                                                         <div class="article-icon-main">
                                                             <div class="article-icon" *ngIf="article.type==='audio'">
@@ -334,10 +352,11 @@
                                                             <div class="article-icon" *ngIf="article.type==='video'">
                                                                 <i class="fas fa-video"></i>
                                                             </div>
-                                                            <div class="article-icon" *ngIf="!(article.type==='audio' || article.type==='video')">
+                                                            <div class="article-icon"
+                                                                *ngIf="!(article.type==='audio' || article.type==='video')">
                                                                 <i class="far fa-file-alt"></i>
                                                             </div>
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -356,7 +375,7 @@
                                 </div>
                             </div>
                             <div *ngIf="!audioArticles.length" class="m-t-10">
-                                {{'NoArticle' | translate}}
+                                {{'NoAudio' | translate}}
                             </div>
                         </nz-tab>
                         <nz-tab nzTitle="{{'Video' | translate}}" (nzClick)="getVideoArticles()">
@@ -376,10 +395,11 @@
                                                 <div class="article-image-icon" *ngIf="article.type==='video'">
                                                     <i class="fas fa-play"></i>
                                                 </div>
-                                                <div class="article-image-icon" *ngIf="!(article.type==='audio' || article.type==='video')">
+                                                <div class="article-image-icon"
+                                                    *ngIf="!(article.type==='audio' || article.type==='video')">
                                                     <i class="fas fa-angle-right"></i>
                                                 </div>
-            
+
                                                 <div class="comment-right">
                                                     <div class="article-comment-info">
                                                         <div class="comment-section">
@@ -426,17 +446,24 @@
                                                 <div class="item-card-texte">
                                                     <p>{{article.excerpt}}</p>
                                                     <div class="category-article-readmore">
-                                                        <div  *ngIf="article.type==='audio'">
-                                                            <button type="button" class="is-read-more">{{'ListenNow' | translate }} <img
-                                                            src="assets/images/read-more-icon-black.png" alt="Listen Now" /></button>
+                                                        <div *ngIf="article.type==='audio'">
+                                                            <button type="button"
+                                                                class="is-read-more">{{'ListenNow' | translate }} <img
+                                                                    src="assets/images/read-more-icon-black.png"
+                                                                    alt="Listen Now" /></button>
                                                         </div>
-                                                        <div  *ngIf="article.type==='video'">
-                                                            <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
-                                                            src="assets/images/read-more-icon-black.png" alt="Watch Now" /></button>
+                                                        <div *ngIf="article.type==='video'">
+                                                            <button type="button"
+                                                                class="is-read-more">{{'WatchNow' | translate }}<img
+                                                                    src="assets/images/read-more-icon-black.png"
+                                                                    alt="Watch Now" /></button>
                                                         </div>
-                                                        <div  *ngIf="!(article.type==='audio' || article.type==='video')">
-                                                            <button type="button" class="is-read-more">{{'readMore' | translate }} <img
-                                                            src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                                        <div
+                                                            *ngIf="!(article.type==='audio' || article.type==='video')">
+                                                            <button type="button"
+                                                                class="is-read-more">{{'readMore' | translate }} <img
+                                                                    src="assets/images/read-more-icon-black.png"
+                                                                    alt="Read More" /></button>
                                                         </div>
                                                         <div class="article-icon-main">
                                                             <div class="article-icon" *ngIf="article.type==='audio'">
@@ -445,10 +472,11 @@
                                                             <div class="article-icon" *ngIf="article.type==='video'">
                                                                 <i class="fas fa-video"></i>
                                                             </div>
-                                                            <div class="article-icon" *ngIf="!(article.type==='audio' || article.type==='video')">
+                                                            <div class="article-icon"
+                                                                *ngIf="!(article.type==='audio' || article.type==='video')">
                                                                 <i class="far fa-file-alt"></i>
                                                             </div>
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -467,7 +495,7 @@
                                 </div>
                             </div>
                             <div *ngIf="!videoArticles.length" class="m-t-10">
-                                {{'NoArticle' | translate}}
+                                {{'NoVideo' | translate}}
                             </div>
                         </nz-tab>
                     </nz-tabset>
