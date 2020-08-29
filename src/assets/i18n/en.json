@@ -629,6 +629,8 @@
     "MonthlyPrice": "Monthly Price",
     "searchBuyNow": "Buy Now",
     "monthlyBuyIt": "Buy it",
-    "NoVideo": "No Video Found",
-    "NoAudio": "No Audio Found"
+    "NoVideo": "No Video Found.",
+    "NoAudio": "No Audio Found.",
+    "Report": "Report",
+    "ReportMessage": "Thanks for letting us know. If we find that this is violating the website rule, we will take action on it."
 }

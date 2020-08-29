@@ -43,11 +43,12 @@ export class AuthorService {
   }
   reportAbusedUser(userId: string) {
     return new Promise<any>((resolve, reject) => {
-      this.afs.collection(`${this.authorsCollection}`).doc(`${userId}`).update({ is_abused: true }).then(() => {
+      return this.http.post(environment.baseAPIDomain + `/api/v1/members/${userId}/abuse`, {}).subscribe(() => {
         resolve();
-      }).catch(() => {
-        reject()
-      })
+      }, err => {
+        reject();
+        console.log(err);
+      });
     })
   }
 

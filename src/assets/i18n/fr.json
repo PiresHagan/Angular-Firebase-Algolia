@@ -624,6 +624,8 @@
     "MonthlyPrice": "Prix mensuel",
     "searchBuyNow": "Acheter maintenant",
     "monthlyBuyIt": "Achète-le",
-    "NoVideo": "Aucune vidéo trouvée",
-    "NoAudio": "Aucun audio trouvé"
+    "NoVideo": "Aucune vidéo trouvée.",
+    "NoAudio": "Aucun audio trouvé.",
+    "Report": "Rapport",
+    "ReportMessage": "Merci de nous en informer. Si nous constatons que cela enfreint la règle du site Web, nous prendrons des mesures à ce sujet."
 }

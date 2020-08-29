@@ -64,9 +64,9 @@
                             </a>
                         </li> -->
                         <li class="report-abuse-spin" *ngIf="isLoggedInUser">
-                            <a class="comment-view-replies" (click)="reportAbuseAuthor()">
+                            <a class="comment-view-replies">
                                 <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseLoading"></nz-spin>
-                                <span>{{'reportAbuseAuth' | translate}}</span>
+                                <span (click)="reportAbuseAuthor()">{{'reportAbuseAuth' | translate}}</span>
                             </a>
 
                         </li>
