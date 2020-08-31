@@ -8,6 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as firebase from 'firebase/app';
 import { STAFF, MEMBER } from "../constants/member-constant";
 import { MessagingService } from "./messaging.service";
+import { UserService } from "./user.service";
 
 
 @Injectable({
@@ -16,7 +17,7 @@ import { MessagingService } from "./messaging.service";
 export class AuthService {
     loggedInUser;
     loggedInUserDetails;
-    constructor(public afAuth: AngularFireAuth, public db: AngularFirestore, private http: HttpClient, private messagingService: MessagingService) {
+    constructor(public afAuth: AngularFireAuth, public db: AngularFirestore, private http: HttpClient, private messagingService: MessagingService, private userService: UserService) {
         this.afAuth.authState.subscribe((user) => {
             if (!user || !user.emailVerified) {
                 if (environment && environment.isAnonymousUserEnabled) {
@@ -52,10 +53,15 @@ export class AuthService {
     doRegister(email: string, password: string, displayName) {
         return new Promise<any>((resolve, reject) => {
             this.afAuth.createUserWithEmailAndPassword(email, password)
-                .then(res => {
+                .then(async (res) => {
                     /**
                      * Send Verification Email here 
                      */
+                    await this.userService.updateMember(res.user.uid,
+                        {
+                            fullname: displayName,
+                            slug: this.getSlug(displayName)
+                        });
                     firebase.auth().currentUser.sendEmailVerification();
 
                     res.user.updateProfile({ displayName }).then((user) => {
@@ -163,6 +169,22 @@ export class AuthService {
     }
     getLoginDetails() {
         return this.loggedInUser;
+    }
+    getSlug(displayName: string) {
+        return this.slugify(displayName)
+    }
+
+    slugify(string) {
+        return string
+            .toString()
+            .trim()
+            .toLowerCase()
+            .replace(/[^a-zA-Z ]/g, "")
+            .replace(/\s+/g, "-")
+            .replace(/[^\w\-]+/g, "")
+            .replace(/\-\-+/g, "-")
+            .replace(/^-+/, "")
+            .replace(/-+$/, "");
     }
 
 }
