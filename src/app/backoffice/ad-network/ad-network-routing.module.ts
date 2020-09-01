@@ -12,7 +12,7 @@ const routes: Routes = [
         path: 'sites',
         component: SitesComponent,
         data: {
-          title: "myArticles"
+          title: "My Sites"
         }
       }
         ]
