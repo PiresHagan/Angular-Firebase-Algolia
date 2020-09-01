@@ -291,6 +291,7 @@ export class ArticleComponent implements OnInit {
     this.isReportAbuseArticleLoading = true;
     this.articleService.updateArticleAbuse(this.article.id).then(() => {
       this.isReportAbuseArticleLoading = false;
+      this.showAbuseSuccessMessage();
       console.log('Your suggestion saved successfully.')
     })
   }
@@ -298,6 +299,7 @@ export class ArticleComponent implements OnInit {
     this.isReportAbuseLoading = true;
     this.articleService.updateArticleCommentAbuse(this.article.id, commentid).then(() => {
       this.isReportAbuseLoading = false;
+      this.showAbuseSuccessMessage();
       console.log('Your suggestion saved successfully.')
     })
   }
@@ -417,10 +419,19 @@ export class ArticleComponent implements OnInit {
       return '/charities/';
     } else if (article.author.type == 'company') {
       return '/companies/';
+    } else {
+      return '/';
     }
     else{
       return '/';
     }
+  }
+  showAbuseSuccessMessage() {
+
+    this.modal.success({
+      nzTitle: this.translate.instant('Report'),
+      nzContent: this.translate.instant('ReportMessage')
+    });
   }
 
 }

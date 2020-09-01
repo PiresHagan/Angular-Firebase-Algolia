@@ -1,0 +1,10 @@
+::ng-deep .hide-avatar{
+    .cloudinary-avatar{
+        display: none !important;
+    }
+}
+::ng-deep .hide-feature-img{
+    .cloudinary-feature-img{
+        display: none !important;
+    }
+}

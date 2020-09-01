@@ -33,10 +33,11 @@ export class HomeComponent implements OnInit {
   showTooltip: string = '';
   selectedLanguage: string = "";
   slugWiseData = {};
-  categories;
+  categories: any;
   authorList: any;
   latestArticles: any;
-  trendingArticles: any[];
+  trendingArticles: any;
+  loading: boolean = true;
   private homeDocument = "home";
 
   constructor(
@@ -84,6 +85,7 @@ export class HomeComponent implements OnInit {
 
     this.cacheService.getSponsoredArticles(this.selectedLanguage).subscribe(articles => {
       this.heroArticles = articles;
+      this.loading = false;
     });
 
     this.cacheService.getTrendingStories(this.selectedLanguage).subscribe(articles => {
@@ -108,6 +110,7 @@ export class HomeComponent implements OnInit {
 
       this.cacheService.getSponsoredArticles(this.selectedLanguage).subscribe(articles => {
         this.heroArticles = articles;
+        this.loading = false;
       });
 
       this.cacheService.getTrendingStories(this.selectedLanguage).subscribe(articles => {

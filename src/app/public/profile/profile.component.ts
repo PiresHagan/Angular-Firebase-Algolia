@@ -11,6 +11,7 @@ import { LanguageService } from 'src/app/shared/services/language.service';
 import * as firebase from 'firebase/app';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { AUTHOR } from 'src/app/shared/constants/member-constant';
+import { NzModalService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-profile',
@@ -47,7 +48,8 @@ export class ProfileComponent implements OnInit {
     public translate: TranslateService,
     private authService: AuthService,
     public userService: UserService,
-    public langService: LanguageService
+    public langService: LanguageService,
+    private modal: NzModalService
   ) {
 
   }
@@ -159,10 +161,18 @@ export class ProfileComponent implements OnInit {
   reportAbuseAuthor() {
     this.isReportAbuseLoading = true;
     this.authorService.reportAbusedUser(this.authorDetails.id).then(() => {
+      this.showAbuseSuccessMessage();
       this.isReportAbuseLoading = false;
     }).catch(() => {
       this.isReportAbuseLoading = false;
     })
+  }
+  showAbuseSuccessMessage() {
+
+    this.modal.success({
+      nzTitle: this.translate.instant('Report'),
+      nzContent: this.translate.instant('ReportMessage')
+    });
   }
   getUserDetails() {
     return {

@@ -8,7 +8,13 @@
                         <a [routerLink]="['/charities',charity.slug]">
                             <div class="companies-box-item">
                                 <div>
-                                    <img [src]="charity?.logo.url" [alt]="charity?.logo?.alt"  onerror="this.src='assets/images/default-avatar.png'"/>
+                                    <img [src]="charity?.logo.url" [alt]="charity?.logo?.alt"  onerror="this.src='assets/images/default-avatar.png'" *ngIf="!(charity.logo.cloudinary_id); else charityCloudinoryImg" />
+                                    <ng-template #charityCloudinoryImg>
+                                        <cl-image loading="lazy" public-id="{{charity.logo.cloudinary_id}}" secure="true">
+                                            <cl-transformation width="140" height="140" gravity="face" crop="thumb">
+                                            </cl-transformation>
+                                        </cl-image>
+                                    </ng-template>
                                     <h2 [ngStyle]="{'color': charity?.color_code}">{{ charity?.name }}</h2>
                                     <p>{{ charity?.bio }}</p>
                                     <button type="button" class="is-read-more">

@@ -64,14 +64,14 @@
                 min-height: 270px;
               div{
                 >img{
-                  max-width: 100%;
+                  width: 70px !important;
                   height: 70px;
                   width: auto;
                   object-fit: cover;
                 }
               }
               h2{
-                font-size: 24px;
+                font-size: 20px;
                 color: #3f4755;
                 font-family: "open_sansregular";
                 margin: 10px 0px 10px 0px;

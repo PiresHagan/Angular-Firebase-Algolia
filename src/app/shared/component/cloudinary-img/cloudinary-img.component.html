@@ -1,0 +1,17 @@
+
+
+<div class="cloudinary-avatar">
+    <cl-image loading="lazy" public-id="{{replaceImage(article.author.avatar.cloudinary_id)}}" secure="true">
+        <cl-transformation width="50" height="50" gravity="face" crop="thumb">
+        </cl-transformation>
+        <cl-transformation radius="100">
+        </cl-transformation>
+      </cl-image>
+</div>
+
+  <div class="cloudinary-feature-img">
+    <cl-image loading="lazy" public-id="{{replaceImage(article.image.cloudinary_id)}}" secure="true">
+        <cl-transformation width="270" height="160" gravity="face" crop="thumb">
+        </cl-transformation>
+      </cl-image>
+  </div>

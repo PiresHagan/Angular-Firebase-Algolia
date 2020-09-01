@@ -51,7 +51,12 @@
                                     <a [routerLink]="['/',article.author.slug,article.slug]">
                                         <div class="item-card-image">
 
-                                            <img [src]="replaceImage(article?.image?.url)" [alt]="article?.image?.alt">
+                                            <img [src]="replaceImage(article?.image?.url)" [alt]="article?.image?.alt" *ngIf="!(article.image.cloudinary_id); else CateCloudinoryImg">
+                                            <ng-template #CateCloudinoryImg>
+                                                <div class="hide-avatar">
+                                                    <app-cloudinary-img [article]="article" ></app-cloudinary-img>
+                                                </div>
+                                            </ng-template>
                                             <h3 class="is-category-title">{{category.title}}</h3>
                                             <div class="article-image-icon" *ngIf="article.type==='audio'">
                                                 <i class="fas fa-play"></i>
@@ -98,7 +103,12 @@
                                                     <img class="avatar"
                                                         [src]="replaceImage(article.author?.avatar?.url)"
                                                         [alt]="article.author?.avatar?.alt"
-                                                        onerror="this.src='assets/images/default-avatar.png'" />
+                                                        onerror="this.src='assets/images/default-avatar.png'" *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg" />
+                                                        <ng-template #CateAvatarCloudinoryImg>
+                                                            <div class="hide-feature-img">
+                                                                <app-cloudinary-img [article]="article" ></app-cloudinary-img>
+                                                            </div>
+                                                        </ng-template>
                                                         <app-article-avatar [article]="article"></app-article-avatar>
                                                     </div>
                                                         <span class="item-card-author">{{article.author.fullname}}</span>

@@ -33,6 +33,7 @@ export class ProfileComponent implements OnInit {
   loggedInUser;
   fbloading: boolean = false;
   fbAccountLinkStatus: boolean = false;
+  memberDetails;
 
   constructor(
     private fb: FormBuilder,
@@ -42,7 +43,7 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     public translate: TranslateService,
     private languageService: LanguageService,
-    private authService: AuthService
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
@@ -56,20 +57,20 @@ export class ProfileComponent implements OnInit {
     });
     this.setFormData();
 
-    (window as any).fbAsyncInit = function() {
+    (window as any).fbAsyncInit = function () {
       FB.init({
-        appId      : environment.facebook.appId,
-        cookie     : true,
-        xfbml      : true,
-        version    : environment.facebook.version
+        appId: environment.facebook.appId,
+        cookie: true,
+        xfbml: true,
+        version: environment.facebook.version
       });
-        
-      FB.AppEvents.logPageView(); 
+
+      FB.AppEvents.logPageView();
     };
 
-    (function(d, s, id){
+    (function (d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
+      if (d.getElementById(id)) { return; }
       js = d.createElement(s); js.id = id;
       js.src = "https://connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
@@ -83,13 +84,13 @@ export class ProfileComponent implements OnInit {
   linkFacebook() {
     this.fbloading = true;
     FB.login((response) => {
-      console.log('submitLogin',response);
+      console.log('submitLogin', response);
       if (response.authResponse) {
         this.fbloading = false;
         this.fbAccountLinkStatus = true;
       } else {
-      console.log('User login failed');
-      this.fbloading = false;
+        console.log('User login failed');
+        this.fbloading = false;
       }
     });
   }
@@ -97,7 +98,7 @@ export class ProfileComponent implements OnInit {
   unlinkFacebook() {
     let self = this;
     this.fbloading = true;
-    FB.logout(function(response) {
+    FB.logout(function (response) {
       self.fbAccountLinkStatus = false;
       self.fbloading = false;
     });
@@ -105,7 +106,7 @@ export class ProfileComponent implements OnInit {
 
   getFBLoginStatus() {
     let self = this;
-    FB.getLoginStatus(function(response) {
+    FB.getLoginStatus(function (response) {
       self.statusChangeCallback(response);
     });
   }
@@ -141,6 +142,7 @@ export class ProfileComponent implements OnInit {
       })
       this.userService.getMember(user.uid).subscribe((memberDetails) => {
         this.avatarUrl = memberDetails?.avatar?.url;
+        this.memberDetails = memberDetails;
         this.setMemberDetails(memberDetails);
       })
 
@@ -171,9 +173,9 @@ export class ProfileComponent implements OnInit {
         await this.userService.updateMember(this.currentUser.id,
           {
             bio: bio ? bio : '',
-            fullname: loggedInUser.displayName,
+            fullname: this.memberDetails && this.memberDetails.fullname ? this.memberDetails.fullname : loggedInUser.displayName,
             lang,
-            slug: this.getSlug(loggedInUser.displayName)
+            slug: this.memberDetails && this.memberDetails.slug ? this.memberDetails.slug : this.authService.getSlug(loggedInUser.displayName)
           });
         this.isFormSaving = false;
         this.router.navigate(['/auth/interest']);
@@ -227,22 +229,7 @@ export class ProfileComponent implements OnInit {
     }
     return invalid;
   }
-  getSlug(displayName: string) {
-    return this.slugify(displayName)
-  }
 
-  slugify(string) {
-    return string
-      .toString()
-      .trim()
-      .toLowerCase()
-      .replace(/[^a-zA-Z ]/g, "")
-      .replace(/\s+/g, "-")
-      .replace(/[^\w\-]+/g, "")
-      .replace(/\-\-+/g, "-")
-      .replace(/^-+/, "")
-      .replace(/-+$/, "");
-  }
 
 
 }
