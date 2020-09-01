@@ -1086,6 +1086,13 @@
 .pr-18{
   padding-right: 18px !important;
 }
+.cloudinary-img{
+  ::ng-deep cl-image{
+    img{
+      border-radius: 100%;
+    }
+  }
+}
 /*Animation End*/
   @media screen and (max-width:580px){
     .pl-18{
