@@ -1,0 +1,87 @@
+<div class="container">
+    <div class="ad-network-section">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-12 inline-flex-div">
+                    <div class="m-v-10 d-inline-block">
+                        <button nz-button nzType="primary" [routerLink]="" nz-button nzType="primary" (click)="showModal()">
+                            <i nz-icon nzType="plus"></i>
+                            <span>Add Site</span>
+                        </button>
+                    <nz-modal
+                        [(nzVisible)]="isVisible"
+                        nzTitle="Ad Site"
+                        (nzOnCancel)="handleCancel()"
+                        (nzOnOk)="handleOk()"
+                        [nzOkLoading]="isOkLoading"
+                        >
+                        <div>
+                            <div class="mb-3">
+                                <label  class="d-block mb-2">Site Url</label>
+                                <nz-input-group nzAddOnBefore="Https://" nzAddOnAfter=".com">
+                                  <input type="text" nz-input  />
+                                </nz-input-group>
+                              </div>
+                              <div  class="mb-3">
+                                <label class="d-block mb-2">Average Daily Traffic</label>
+                                <nz-select ngModel="lucy" class="w-100">
+                                    <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                                    <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                                    <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                                  </nz-select>
+                              </div>
+                              <div  class="mb-3">
+                                <label  class="d-block mb-2">Current AD Revenue</label>
+                                <nz-select ngModel="lucy"  class="w-100">
+                                    <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                                    <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                                    <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                                  </nz-select>
+                              </div>
+                        </div>
+                        </nz-modal>
+                    </div>
+                    <div  class="m-v-10 m-l-20 d-inline-block">
+                        <button nz-button nzType="primary">
+                            <i nz-icon nzType="money"></i>
+                            <span>Get Script</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+<nz-table #sortTable>
+    <thead>
+      <tr>
+        <th>Site</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>https://mytrendingstories.com/</td>
+        <td>Active</td>
+      </tr>
+      <tr>
+        <td>https://mytrendingstories.com/</td>
+        <td>Active</td>
+      </tr>
+      <tr>
+        <td>https://mytrendingstories.com/</td>
+        <td>Active</td>
+      </tr>
+      <tr>
+        <td>https://mytrendingstories.com/</td>
+        <td>Active</td>
+      </tr>
+    </tbody>
+  </nz-table>
+       
+
+      
+       
+
+    </div>
+
+</div>

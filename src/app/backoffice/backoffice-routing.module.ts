@@ -38,6 +38,10 @@ const routes: Routes = [
   {
     path: 'fundraiser',
     loadChildren: () => import('./fundraiser/fundraiser.module').then(m => m.FundraiserModule),
+  },
+  {
+    path: 'ad-network',
+    loadChildren: () => import('./ad-network/ad-network.module').then(m => m.AdNetworkModule),
   }
 ];
 

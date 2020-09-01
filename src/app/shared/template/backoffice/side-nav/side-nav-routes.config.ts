@@ -125,5 +125,33 @@ export const ROUTES: SideNavInterface[] = [
         icon: 'notification',
         staff_only: false,
         submenu: []
+    },
+    {
+        path: 'app/ad-network',
+        title: 'Ad Network',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'notification',
+        staff_only: false,
+        submenu: [
+            {
+                path: 'ad-network/sites',
+                title: 'Sites',
+                iconType: 'nzIcon',
+                iconTheme: 'outline',
+                icon: 'crown',
+                staff_only: true,
+                submenu: []
+            },
+            {
+                path: '',
+                title: 'Ad Unit',
+                iconType: 'nzIcon',
+                iconTheme: 'outline',
+                icon: 'lock',
+                staff_only: true,
+                submenu: []
+            }
+        ]
     }
 ]
