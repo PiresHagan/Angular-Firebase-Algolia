@@ -422,9 +422,6 @@ export class ArticleComponent implements OnInit {
     } else {
       return '/';
     }
-    else{
-      return '/';
-    }
   }
   showAbuseSuccessMessage() {
 
