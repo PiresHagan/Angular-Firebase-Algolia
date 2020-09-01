@@ -12,7 +12,16 @@
                         <div class="item-card item-card-life-and-styles">
                             <a [routerLink]="['/article/',today.slug]">
                                 <div class="item-card-image">
-                                    <img [src]="today.image.url" [alt]="today.image.alt">
+                                    <img [src]="today.image.url" [alt]="today.image.alt"
+                                    *ngIf="!(today.image.cloudinary_id); else todayCloudinoryImg">
+                                    <ng-template #todayCloudinoryImg>
+                                       <div>
+                                        <cl-image loading="lazy" public-id="{{today.image.cloudinary_id}}" secure="true">
+                                            <cl-transformation width="270" height="160" gravity="face" crop="thumb">
+                                            </cl-transformation>
+                                          </cl-image>
+                                       </div>
+                                   </ng-template>
                                     <h3 class="is-category-title">{{today.category.slug}}</h3>
                                 </div>
                                 <div class="item-card-content">
@@ -20,7 +29,18 @@
                                         <div class="is-avatar-dv">
                                             <img class="avatar" [src]="today.author.avatar.url"
                                                 [alt]="today.author.avatar.alt"
-                                                onerror="this.src='assets/images/default-avatar.png'">
+                                                onerror="this.src='assets/images/default-avatar.png'"
+                                                *ngIf="!(today.author.avatar.cloudinary_id); else todayAvatarCloudinoryImg">
+                                                <ng-template #todayAvatarCloudinoryImg>
+                                                <div>
+                                                    <cl-image loading="lazy" public-id="{{today.author.avatar.cloudinary_id}}" secure="true">
+                                                        <cl-transformation width="50" height="50" gravity="face" crop="thumb">
+                                                        </cl-transformation>
+                                                        <cl-transformation radius="100">
+                                                        </cl-transformation>
+                                                      </cl-image>
+                                                </div>
+                                            </ng-template>
                                             <span class="item-card-author">{{today.author.fullname}}</span>
                                         </div>
                                     </div>

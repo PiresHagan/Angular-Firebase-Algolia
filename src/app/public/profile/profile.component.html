@@ -3,7 +3,13 @@
         <div class="is-profile-main">
             <div class="is-author-profile-img">
                 <img class="avatar" itemprop="image" [src]="replaceImage(authorDetails?.avatar?.url)"
-                    alt="{{authorDetails?.avatar?.alt}}" onerror="this.src='assets/images/default-avatar.png'" />
+                    alt="{{authorDetails?.avatar?.alt}}" onerror="this.src='assets/images/default-avatar.png'" *ngIf="!(authorDetails.avatar.cloudinary_id); else profileImg"/>
+                    <ng-template #profileImg>
+                        <cl-image loading="lazy" public-id="{{replaceImage(authorDetails.avatar.cloudinary_id)}}" secure="true">
+                            <cl-transformation width="200" height="250" gravity="face" crop="thumb">
+                            </cl-transformation>
+                          </cl-image>
+                    </ng-template>
             </div>
             <div class="is-author-profile-info">
                 <h2 class="is-author-profile-name is-divider">
@@ -147,7 +153,13 @@
                                             <div class="item-card-image">
 
                                                 <img [src]="replaceImage(article.image.url)"
-                                                    [alt]="article?.image?.alt">
+                                                    [alt]="article?.image?.alt"
+                                                    *ngIf="!(article.image.cloudinary_id); else CateCloudinoryImg">
+                                                    <ng-template #CateCloudinoryImg>
+                                                        <div class="hide-avatar">
+                                                            <app-cloudinary-img [article]="article" ></app-cloudinary-img>
+                                                        </div>
+                                                    </ng-template>
                                                 <h3 class="is-category-title">{{article?.category?.title}}</h3>
                                                 <div class="article-image-icon" *ngIf="article.type==='audio'">
                                                     <i class="fas fa-play"></i>
@@ -195,7 +207,13 @@
                                                         <img class="avatar"
                                                             [src]="replaceImage(article?.author?.avatar?.url)"
                                                             [alt]="article?.author?.avatar?.alt"
-                                                            onerror="this.src='assets/images/default-avatar.png'">
+                                                            onerror="this.src='assets/images/default-avatar.png'"
+                                                            *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg">
+                                                            <ng-template #CateAvatarCloudinoryImg>
+                                                                <div class="hide-feature-img">
+                                                                    <app-cloudinary-img [article]="article" ></app-cloudinary-img>
+                                                                </div>
+                                                            </ng-template>
                                                         <span
                                                             class="item-card-author">{{article?.author?.fullname}}</span>
                                                     </div>
@@ -263,7 +281,13 @@
                                             <div class="item-card-image">
 
                                                 <img [src]="replaceImage(article.image.url)"
-                                                    [alt]="article?.image?.alt">
+                                                    [alt]="article?.image?.alt"
+                                                    *ngIf="!(article.image.cloudinary_id); else CateCloudinoryImg">
+                                                    <ng-template #CateCloudinoryImg>
+                                                        <div class="hide-avatar">
+                                                            <app-cloudinary-img [article]="article" ></app-cloudinary-img>
+                                                        </div>
+                                                    </ng-template>
                                                 <h3 class="is-category-title">{{article?.category?.title}}</h3>
                                                 <div class="article-image-icon" *ngIf="article.type==='audio'">
                                                     <i class="fas fa-play"></i>
@@ -311,7 +335,13 @@
                                                             <img class="avatar"
                                                                 [src]="replaceImage(article?.author?.avatar?.url)"
                                                                 [alt]="article?.author?.avatar?.alt"
-                                                                onerror="this.src='assets/images/default-avatar.png'">
+                                                                onerror="this.src='assets/images/default-avatar.png'"
+                                                                *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg">
+                                                                <ng-template #CateAvatarCloudinoryImg>
+                                                                    <div class="hide-feature-img">
+                                                                        <app-cloudinary-img [article]="article" ></app-cloudinary-img>
+                                                                    </div>
+                                                                </ng-template>
                                                             <app-article-avatar [article]="article">
                                                             </app-article-avatar>
 
@@ -387,7 +417,13 @@
                                             <div class="item-card-image">
 
                                                 <img [src]="replaceImage(article.image.url)"
-                                                    [alt]="article?.image?.alt">
+                                                    [alt]="article?.image?.alt"
+                                                    *ngIf="!(article.image.cloudinary_id); else CateCloudinoryImg">
+                                                    <ng-template #CateCloudinoryImg>
+                                                        <div class="hide-avatar">
+                                                            <app-cloudinary-img [article]="article" ></app-cloudinary-img>
+                                                        </div>
+                                                    </ng-template>
                                                 <h3 class="is-category-title">{{article?.category?.title}}</h3>
                                                 <div class="article-image-icon" *ngIf="article.type==='audio'">
                                                     <i class="fas fa-play"></i>
@@ -435,7 +471,13 @@
                                                         <img class="avatar"
                                                             [src]="replaceImage(article?.author?.avatar?.url)"
                                                             [alt]="article?.author?.avatar?.alt"
-                                                            onerror="this.src='assets/images/default-avatar.png'">
+                                                            onerror="this.src='assets/images/default-avatar.png'"
+                                                            *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg">
+                                                            <ng-template #CateAvatarCloudinoryImg>
+                                                                <div class="hide-feature-img">
+                                                                    <app-cloudinary-img [article]="article" ></app-cloudinary-img>
+                                                                </div>
+                                                            </ng-template>
                                                         <span
                                                             class="item-card-author">{{article?.author?.fullname}}</span>
                                                     </div>
