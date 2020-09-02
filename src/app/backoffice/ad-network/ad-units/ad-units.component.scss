@@ -19,3 +19,17 @@
         }
     }
 }
+::ng-deep .custom-btn{
+    padding:7px 14px;
+    font-size:13px;
+    background: #129f01 !important;
+    color: #fff;
+    border:0px !important;
+    &.black-btn{
+        background-color: #000 !important;
+        color: #fff;
+    }
+    &:focus{
+        border: 0px !important;
+    }
+}

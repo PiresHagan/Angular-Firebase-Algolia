@@ -151,15 +151,6 @@ export const ROUTES: SideNavInterface[] = [
                 icon: 'crown',
                 staff_only: true,
                 submenu: []
-            },
-            {
-                path: '',
-                title: 'Ad Unit',
-                iconType: 'nzIcon',
-                iconTheme: 'outline',
-                icon: 'lock',
-                staff_only: true,
-                submenu: []
             }
         ]
     }

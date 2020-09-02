@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SitesComponent } from './sites/sites.component';
+import { AdUnitsComponent } from './ad-units/ad-units.component';
 
 
 
@@ -13,6 +14,13 @@ const routes: Routes = [
         component: SitesComponent,
         data: {
           title: "My Sites"
+        }
+      },
+      {
+        path: 'ad-units',
+        component: AdUnitsComponent,
+        data: {
+          title: "Ad units"
         }
       }
         ]

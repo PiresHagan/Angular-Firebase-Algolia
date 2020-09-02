@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-12 inline-flex-div">
                     <div class="m-v-10 d-inline-block">
-                        <button nz-button nzType="primary" [routerLink]="" nz-button nzType="primary" (click)="showModal()">
+                        <button class="custom-btn" nz-button nzType="primary" [routerLink]="" nz-button nzType="primary" (click)="showModal()">
                             <i nz-icon nzType="plus"></i>
                             <span>Add Site</span>
                         </button>
@@ -41,12 +41,6 @@
                         </div>
                         </nz-modal>
                     </div>
-                    <div  class="m-v-10 m-l-20 d-inline-block">
-                        <button nz-button nzType="primary">
-                            <i nz-icon nzType="money"></i>
-                            <span>Get Script</span>
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -54,25 +48,15 @@
 <nz-table #sortTable>
     <thead>
       <tr>
-        <th>Site</th>
+        <th>List of Sites</th>
+        <th>Ad Unit</th>
         <th>Status</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>https://mytrendingstories.com/</td>
-        <td>Active</td>
-      </tr>
-      <tr>
-        <td>https://mytrendingstories.com/</td>
-        <td>Active</td>
-      </tr>
-      <tr>
-        <td>https://mytrendingstories.com/</td>
-        <td>Active</td>
-      </tr>
-      <tr>
-        <td>https://mytrendingstories.com/</td>
+        <td><button routerLink="/app/ad-network/ad-units" class="custom-btn" type="button">Ad Unit</button></td>
         <td>Active</td>
       </tr>
     </tbody>

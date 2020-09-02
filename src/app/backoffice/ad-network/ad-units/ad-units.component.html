@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="ad-unit-tbl">
+     <nz-table  #borderedTable nzBordered>
+         <thead>
+           <tr>
+             <th>Ad Unit</th>
+             <th>Ad Format</th>
+             <th>Size</th>
+             <th>Id</th>
+             <th>Status</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td>
+                 <div>
+                     <div class="float-left">
+                         <small>300x250-Default</small>
+                     </div>
+                     <div class="float-right">
+                         <button nz-button nzType="primary" nzGhost class="mr-2" class="custom-btn mr-2">Edit</button>
+                         <button nz-button nzType="default" nzGhost  class="custom-btn black-btn" (click)="showModal()">Get Code</button>                  
+                         <nz-modal
+                         [(nzVisible)]="isVisible"
+                         nzTitle="Ad Units"
+                         (nzOnCancel)="handleCancel()"
+                         (nzOnOk)="handleOk()"
+                         [nzOkLoading]="isOkLoading"
+                         >
+                         <div>
+                             
+                               <div  class="mb-3">
+                                 <nz-select ngModel="lucy" class="w-100">
+                                     <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                                     <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                                     <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                                   </nz-select>
+                               </div>
+                               <div class="pb-3">
+                                 <div>
+                                    <label class="d-block">Paste the below code in any web page on any approved website</label>
+                                   <button class="custom-btn" type="button">Copy Code</button>
+                                 </div>
+                               </div>
+                               <div  class="mb-3">
+                                <textarea
+                                nz-input
+                                placeholder=""
+                                [nzAutosize]="{ minRows: 4, maxRows: 6 }"
+                              ></textarea>
+                               </div>
+                         </div>
+                         </nz-modal>
+                        </div><div class="clearfix"></div>
+                 </div>
+             </td>
+             <td>
+                 <small>Content Ads</small>
+             </td>
+             <td><small>300x250-(Medium Rectangle)</small></td>
+             <td><small>563546354</small></td>
+             <td><small>Active</small></td>
+           </tr>
+      
+         </tbody>
+       </nz-table>
+    </div>
+ </div>
+ 
