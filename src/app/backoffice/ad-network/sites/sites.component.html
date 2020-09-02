@@ -4,42 +4,44 @@
             <div class="row">
                 <div class="col-md-12 inline-flex-div">
                     <div class="m-v-10 d-inline-block">
-                        <button class="custom-btn" nz-button nzType="primary" [routerLink]="" nz-button nzType="primary" (click)="showModal()">
-                            <i nz-icon nzType="plus"></i>
-                            <span>Add Site</span>
-                        </button>
-                    <nz-modal
+                      <button class="custom-btn" nz-button nzType="primary" [routerLink]="" nz-button nzType="primary" (click)="showModal()">
+                          <i nz-icon nzType="plus"></i>
+                          <span>Add New</span>
+                      </button>
+                      <nz-modal
                         [(nzVisible)]="isVisible"
-                        nzTitle="Ad Site"
+                        nzTitle="Add Site"
                         (nzOnCancel)="handleCancel()"
                         (nzOnOk)="handleOk()"
                         [nzOkLoading]="isOkLoading"
                         >
-                        <div>
-                            <div class="mb-3">
-                                <label  class="d-block mb-2">Site Url</label>
-                                <nz-input-group nzAddOnBefore="Https://" nzAddOnAfter=".com">
-                                  <input type="text" nz-input  />
-                                </nz-input-group>
-                              </div>
-                              <div  class="mb-3">
-                                <label class="d-block mb-2">Average Daily Traffic</label>
-                                <nz-select ngModel="lucy" class="w-100">
-                                    <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-                                    <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-                                    <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
-                                  </nz-select>
-                              </div>
-                              <div  class="mb-3">
-                                <label  class="d-block mb-2">Current AD Revenue</label>
-                                <nz-select ngModel="lucy"  class="w-100">
-                                    <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-                                    <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-                                    <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
-                                  </nz-select>
-                              </div>
-                        </div>
-                        </nz-modal>
+                        <form nz-form [formGroup]="addSiteForm">
+                          <nz-form-item>
+                            <nz-form-label nzRequired>Site URL</nz-form-label>
+                            <nz-form-control>
+                              <nz-input-group nzAddOnBefore="https://">
+                                <input type="text" nz-input formControlName="url" placeholder="example.com"/>
+                              </nz-input-group>
+                            </nz-form-control>
+                          </nz-form-item>
+                          <nz-form-item>
+                            <nz-form-label nzRequired>Average Daily Traffic</nz-form-label>
+                            <nz-form-control>
+                              <nz-select formControlName="daily_traffic" nzAllowClear nzPlaceHolder="Select Traffic">
+                                <nz-option *ngFor="let item of dailyTrafficOptions" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+                              </nz-select>
+                            </nz-form-control>
+                          </nz-form-item>
+                          <nz-form-item>
+                            <nz-form-label>Current AD Revenue</nz-form-label>
+                            <nz-form-control>
+                              <nz-select formControlName="revenue" nzAllowClear nzPlaceHolder="Select Revenue">
+                                <nz-option *ngFor="let item of adRevenueOptions" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+                              </nz-select>
+                            </nz-form-control>
+                          </nz-form-item>
+                        </form>
+                      </nz-modal>
                     </div>
                 </div>
             </div>

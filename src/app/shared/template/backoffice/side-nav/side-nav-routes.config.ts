@@ -145,11 +145,11 @@ export const ROUTES: SideNavInterface[] = [
         submenu: [
             {
                 path: 'ad-network/sites',
-                title: 'Sites',
+                title: 'My Sites',
                 iconType: 'nzIcon',
                 iconTheme: 'outline',
                 icon: 'crown',
-                staff_only: true,
+                staff_only: false,
                 submenu: []
             }
         ]
