@@ -1,27 +1,28 @@
 <div class="container">
    <div class="ad-unit-tbl">
-    <nz-table  #borderedTable nzBordered>
+      <nz-skeleton *ngIf="!displayData"> </nz-skeleton>
+      <nz-table #borderedTable nzBordered #sitesTable [nzData]="displayData" nzFrontPagination="false" *ngIf="displayData">
         <thead>
           <tr>
-            <th>List of site</th>
-            <th>Add Script</th>
-            <th>Action</th>
+            <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare" [nzAlign]='column.align'>{{ column.title }}</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td><small>https://mytrendingstories.com/</small></td>
-            <td>
-              <div>
-                <button routerLink="/app/admin/manage-ad-units" nz-button nzType="primary" nzGhost class="mr-2" class="custom-btn mr-2">Manage Ad Unit</button>
-              </div>
+        <tbody *ngIf="displayData">
+          <tr *ngFor="let item of displayData">
+            <td>{{item.url}} </td>
+            <td nzAlign='center'>{{item?.publisher?.name}} </td>
+            <td nzAlign='center'>{{item?.daily_traffic}} </td>
+            <td nzAlign='center'>{{item?.revenue}}</td>
+            <td nzAlign='center'><p [ngStyle]="{ 'color': item.status.color }">{{ item?.status?.title }}</p></td>
+            <td nzAlign='center'>
+              <button [routerLink]="['/app/ad-network/sites/ad-units', item.id]" class="custom-btn" type="button">{{ "SiteADUnitManage" | translate }}</button>
             </td>
-            <td> 
-              <button nz-button nzType="primary" nzGhost class="mr-2" class="custom-btn mr-2">Approve</button>
-              <button nz-button nzType="primary" nzGhost class="custom-btn btn-red">Reject</button>
+            <td nzAlign='center'>{{item?.created_at | date:'medium'}}</td>
+            <td nzAlign='center'>
+              <button [disabled]="item?.status?.title == approved" nz-button nzType="default" class="custom-btn mr-2" (click)="approveSite(item)">Approve</button>
+              <button [disabled]="item?.status?.title == rejected" nz-button nzType="default" class="custom-btn btn-red" (click)="rejectSite(item)">Reject</button>
             </td>
           </tr>
-     
         </tbody>
       </nz-table>
    </div>

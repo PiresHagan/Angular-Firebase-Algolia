@@ -25,6 +25,16 @@ export class BackofficeAdNetworkService {
     })
   }
 
+  updateSite(publisherId: string, siteId: string, siteData) {
+    return new Promise((resolve, reject) => {
+      return this.http.put(environment.baseAPIDomain + `/api/v1/adnetworks/${publisherId}/sites/${siteId}`, siteData).subscribe((siteData) => {
+        resolve(siteData)
+      }, (error) => {
+        reject(error)
+      })
+    })
+  }
+
   deleteSite(publisherId, siteId) {
     return this.http.delete(environment.baseAPIDomain + `/api/v1/adnetworks/${publisherId}/sites/${siteId}`);
   }
