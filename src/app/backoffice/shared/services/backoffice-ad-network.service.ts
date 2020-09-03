@@ -11,9 +11,9 @@ export class BackofficeAdNetworkService {
 
   constructor(private http: HttpClient, private db: AngularFirestore) { }
 
-  addNewSite(siteData) {
+  addNewSite(publisherId, siteData) {
     return new Promise((resolve, reject) => {
-      this.http.post(environment.baseAPIDomain + '/api/v1/adnetworks/sites', siteData).subscribe((result) => {
+      this.http.post(environment.baseAPIDomain + `/api/v1/adnetworks/${publisherId}/sites`, siteData).subscribe((result) => {
         resolve(result) 
       }, (error) => {
         reject(error)

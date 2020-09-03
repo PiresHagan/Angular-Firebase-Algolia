@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BackofficeAdNetworkService } from '../../shared/services/backoffice-ad-network.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { AuthService } from 'src/app/shared/services/authentication.service';
 
 @Component({
   selector: 'app-sites',
@@ -15,6 +16,7 @@ export class SitesComponent implements OnInit {
   isVisible = false;
   isOkLoading = false;
   addSiteForm: FormGroup;
+  loggedInUser;
   dailyTrafficOptions = [
     {
       label: "< 1k page view",
@@ -68,6 +70,7 @@ export class SitesComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private adNetworkService: BackofficeAdNetworkService,
+    private authService: AuthService,
     private message: NzMessageService
   ) { }
 
@@ -77,6 +80,12 @@ export class SitesComponent implements OnInit {
       daily_traffic: [null, [Validators.required]],
       revenue: [null]
     });
+
+    this.authService.getAuthState().subscribe(async (user) => {
+      if (!user)
+        return;
+      this.loggedInUser = await this.authService.getLoggedInUserDetails();
+    })
   }
 
   showModal(): void {
@@ -93,7 +102,8 @@ export class SitesComponent implements OnInit {
       this.isOkLoading = true;
       let siteData = JSON.parse(JSON.stringify(this.addSiteForm.value));
       siteData.url = `https://${siteData.url}`;
-      this.adNetworkService.addNewSite(siteData).then((result: any) => {
+      siteData['publisherType'] = this.loggedInUser.type;
+      this.adNetworkService.addNewSite(this.loggedInUser.id, siteData).then((result: any) => {
         this.handleCancel();
         this.showMessage('success', 'Site added successfully');
       }).catch((err) => {
