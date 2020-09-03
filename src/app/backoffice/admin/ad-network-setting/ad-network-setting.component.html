@@ -4,15 +4,25 @@
         <thead>
           <tr>
             <th>List of site</th>
+            <th>Add Script</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><small>https://mytrendingstories.com/</small></td>
+            <td>
+              <div>
+                <textarea
+                  nz-input
+                  placeholder=""
+                  [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+                ></textarea>
+              </div>
+            </td>
             <td> 
               <button nz-button nzType="primary" nzGhost class="mr-2" class="custom-btn mr-2">Approve</button>
-              <button nz-button nzType="primary" nzGhost class="mr-2" class="custom-btn black-btn">Reject</button>
+              <button nz-button nzType="primary" nzGhost class="mr-2" class="custom-btn btn-red">Reject</button>
             </td>
           </tr>
      
