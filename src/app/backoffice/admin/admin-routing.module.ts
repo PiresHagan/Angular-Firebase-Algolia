@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { StaffArticlesComponent } from './staff-articles/staff-articles.component';
 import { StaffSettingsComponent } from './staff-settings/staff-settings.component';
 import { AdNetworkSettingComponent } from './ad-network-setting/ad-network-setting.component';
+import { ManageAdUnitsComponent } from './manage-ad-units/manage-ad-units.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,13 @@ const routes: Routes = [
   {
     path:'ad-network',
     component:AdNetworkSettingComponent,
+    data:{
+      title: "Ad Network Setting",
+    }
+  },
+  {
+    path:'manage-ad-units',
+    component:ManageAdUnitsComponent,
     data:{
       title: "Ad Network Setting",
     }

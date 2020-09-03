@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="ad-unit-tbl">
+        <button nz-button nzType="primary" nzGhost class="mr-2" class="custom-btn">Add Unit</button>
+  
+        <nz-divider></nz-divider>
+     <div class="row">
+         <div class="col-lg-5">
+            
+             <div class="ad-unit-form mt-3">
+                <form nz-form>
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="12" nzFor="gender" nzRequired  class="d-block">Select Unit</nz-form-label>
+                      <nz-form-control [nzSpan]="12" nzErrorTip="Please enter Unit">
+                        <nz-select nzPlaceHolder="Select a option">
+                          <nz-option nzValue="" nzLabel="Option"></nz-option>
+                          <nz-option nzValue="" nzLabel="Option"></nz-option>
+                        </nz-select>
+                      </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="12" nzRequired nzFor="note" class="d-block">Add Code</nz-form-label>
+                        <nz-form-control [nzSpan]="12" nzErrorTip="Please add code">
+                            <textarea formControlName="comment" nz-input rows="2" placeholder="write any thing"></textarea>
+                        </nz-form-control>
+                      </nz-form-item>
+                    <nz-form-item>
+                      <nz-form-control [nzSpan]="12">
+                        <button nz-button nzType="primary">Submit</button>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </form>
+             </div>
+         </div>
+     </div>
+    </div>
+ </div>
+ 
