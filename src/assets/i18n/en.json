@@ -632,5 +632,12 @@
     "NoVideo": "No Video Found.",
     "NoAudio": "No Audio Found.",
     "Report": "Report",
-    "ReportMessage": "Thanks for letting us know. If we find that this is violating the website rule, we will take action on it."
+    "ReportMessage": "Thanks for letting us know. If we find that this is violating the website rule, we will take action on it.",
+    "SiteDeletMsgConf": "Are you sure you want to delete site {{url}} ?",
+    "SiteDeleted": "Site deleted successfully!",
+    "SiteAddNew": "Add New",
+    "SiteURL": "Site URL",
+    "SiteAvgDailyTraffic": "Average Daily Traffic",
+    "SiteADRevenue": "Current AD Revenue",
+    "SiteADUnitManage": "Manage"
 }

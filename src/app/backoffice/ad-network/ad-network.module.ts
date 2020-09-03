@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdNetworkRoutingModule } from './ad-network-routing.module';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule, createTranslateLoader } from 'src/app/shared/shared.module';
 import { SitesComponent } from './sites/sites.component';
 import { AdUnitsComponent } from './ad-units/ad-units.component';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
 
 
 @NgModule({
@@ -15,7 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     NzFormModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })
   ]
 })
 export class AdNetworkModule { }
