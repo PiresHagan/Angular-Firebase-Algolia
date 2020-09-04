@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, take } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
+import { AdUnitConstant } from 'src/app/shared/constants/ad-unit-constant';
 
 @Injectable({
   providedIn: 'root'
@@ -91,6 +92,22 @@ export class BackofficeAdNetworkService {
 
   getSiteAdUnits(publisherId, siteId, limit: number = 10, lastVisible = null) {
     let dataQuery = this.db.collection(this.adnetworksCollections).doc(publisherId).collection(`${this.adUnitsSubCollection}`, ref => ref.where('site_id', '==', siteId).orderBy('created_at', 'desc'))
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        siteAdUnits: actions.map(a => {
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+        lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
+    })
+    );
+  }
+
+  getSiteAdUnitsForPublisher(publisherId, siteId, limit: number = 10, lastVisible = null) {
+    let dataQuery = this.db.collection(this.adnetworksCollections).doc(publisherId).collection(`${this.adUnitsSubCollection}`, ref => 
+      ref.where('site_id', '==', siteId).where('status.title', '==', AdUnitConstant.ACTIVE.title).orderBy('created_at', 'desc'))
     return dataQuery.snapshotChanges().pipe(map(actions => {
       return {
         siteAdUnits: actions.map(a => {

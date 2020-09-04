@@ -61,7 +61,7 @@
           <td nzAlign='center'>{{item.revenue}}</td>
           <td nzAlign='center'><p [ngStyle]="{ 'color': item.status.color }">{{ item.status.title }}</p></td>
           <td nzAlign='center'>
-            <button routerLink="/app/ad-network/ad-units" class="custom-btn" type="button">{{ "SiteADUnitManage" | translate }}</button>
+            <button [routerLink]="['/app/ad-network/ad-units', item.id]" class="custom-btn" type="button">{{ "SiteADUnitManage" | translate }}</button>
           </td>
           <td nzAlign='center'>
             <button nz-button nzType="primary" nzShape="circle" nzDanger (click)="deleteSite(item)"><i nz-icon nzType="delete"></i></button>
