@@ -23,8 +23,9 @@
                 <nz-form-item>
                     <nz-form-label>{{'CompanyName'| translate}}</nz-form-label>
                     <nz-form-control nzErrorTip="{{'CompanyName'| translate}} {{'required' | translate}}">
-                        <input nz-input placeholder="{{'CompanyName'| translate}}" formControlName="company_name"
-                            type="text" value="" />
+                        <input nz-input placeholder="{{'CompanyName'| translate}} "
+                            (keypress)="omit_special_char($event)" formControlName="company_name" type="text"
+                            value="" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -33,8 +34,8 @@
                     <nz-form-label>{{'CompanyEmail'| translate}}</nz-form-label>
                     <nz-form-control
                         nzErrorTip="{{'CompanyEmail'| translate}} {{'required' | translate}} {{'AndValidFormat' | translate}}">
-                        <input nz-input placeholder="e.g: abc@gmail.com" type="email" value=""
-                            formControlName="company_email" />
+                        <input (keypress)="omit_special_char($event)" nz-input placeholder="e.g: abc@gmail.com"
+                            type="email" value="" formControlName="company_email" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -43,7 +44,8 @@
                     <nz-form-label>{{'CompanyPhone'| translate}}</nz-form-label>
                     <nz-form-control
                         nzErrorTip="{{'CompanyPhone'| translate}} {{'required' | translate}} {{'AndValidFormat' | translate}} e.g:9876543210">
-                        <input nz-input placeholder="eg: 9xxxx9xxxx" formControlName="company_phone" />
+                        <input nz-input placeholder="eg: 9xxxx9xxxx" (keypress)="omit_special_char($event)"
+                            formControlName="company_phone" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -51,7 +53,8 @@
                 <nz-form-item>
                     <nz-form-label>{{'CompanyColorCode'| translate}}</nz-form-label>
                     <nz-form-control nzErrorTip="{{'InvalidValue'| translate}}">
-                        <input nz-input placeholder="e.g #123456" formControlName="company_color_code" />
+                        <input nz-input placeholder="e.g #123456" (keypress)="omit_special_char($event)"
+                            formControlName="company_color_code" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -75,7 +78,8 @@
                 <nz-form-item>
                     <nz-form-label>{{'CompanySlug'| translate}}</nz-form-label>
                     <nz-form-control nzErrorTip="{{'CompanySlug'| translate}} {{'required' | translate}} ">
-                        <input nz-input name="company_slug" placeholder="{{'CompanySlug' |translate}} e.g: abc-def-ghi"
+                        <input nz-input name="company_slug" (keypress)="omit_special_char($event)"
+                            placeholder="{{'CompanySlug' |translate}} e.g: abc-def-ghi"
                             formControlName="company_slug" />
                     </nz-form-control>
                 </nz-form-item>
@@ -87,7 +91,8 @@
                     <nz-form-label>{{'CompanyBio'| translate}}</nz-form-label>
                     <nz-form-control nzErrorTip="{{'CompanyBio'| translate}} {{'required' | translate}}">
                         <textarea rows="4" nz-input name="company_bio" formControlName="company_bio"
-                            placeholder="{{'CompanyBio' | translate}}(10-250 char)"></textarea>
+                            placeholder="{{'CompanyBio' | translate}}(10-250 char)"
+                            (keypress)="omit_special_char($event)"></textarea>
                     </nz-form-control>
                 </nz-form-item>
             </div>

@@ -284,5 +284,11 @@ export class AddCompanyComponent implements OnInit {
   get company(): Company {
     return this.companyDetails;
   }
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return (k != 47 && k != 92 && k != 124 && k != 60 && k != 62 && k != 94 && k != 126 && k != 96);
+
+  }
 
 }
