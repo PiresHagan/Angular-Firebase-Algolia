@@ -17,28 +17,23 @@ export class AdNetworkSettingComponent implements OnInit {
 
   orderColumn = [
     {
-      title: 'List of Sites',
-      compare: (a: Site, b: Site) => a.url.localeCompare(b.url)
+      title: 'List of Sites'
     },
     {
       title: 'Publisher',
-      align: 'center',
-      compare: (a: Site, b: Site) => a.publisher.name.localeCompare(b.publisher.name)
+      align: 'center'
     },
     {
       title: 'Daily Traffic',
-      align: 'center',
-      compare: (a: Site, b: Site) => a.daily_traffic.localeCompare(b.daily_traffic)
+      align: 'center'
     },
     {
       title: 'Revenue',
-      align: 'center',
-      compare: (a: Site, b: Site) => a.revenue.localeCompare(b.revenue)
+      align: 'center'
     },
     {
       title: 'Status',
-      align: 'center',
-      compare: (a: Site, b: Site) => a.status.title.localeCompare(b.status.title)
+      align: 'center'
     },
     {
       title: 'Ad Units',
@@ -46,8 +41,7 @@ export class AdNetworkSettingComponent implements OnInit {
     },
     {
       title: 'Date Created',
-      align: 'center',
-      compare: (a: Site, b: Site) => a.created_at.localeCompare(b.created_at)
+      align: 'center'
     },
     {
       title: 'Action',

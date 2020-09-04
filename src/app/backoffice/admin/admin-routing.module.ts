@@ -28,10 +28,10 @@ const routes: Routes = [
     }
   },
   {
-    path:'manage-ad-units',
+    path:'manage-ad-units/:siteId',
     component:ManageAdUnitsComponent,
     data:{
-      title: "Ad Network Setting",
+      title: "Manage Site Ad Units",
     }
   }
 ];
