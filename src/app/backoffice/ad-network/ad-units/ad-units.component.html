@@ -1,39 +1,5 @@
 <div class="container">
-    <div class="ad-unit-tbl">
-      <button nz-button nzType="primary" nzGhost class="mr-2  mb-2 custom-btn"  (click)="showModal1()">Add New</button>
-      <nz-modal
-      [(nzVisible)]="isVisible1"
-      nzTitle="Add Site"
-      (nzOnCancel)="handleCancel1()"
-      (nzOnOk)="handleOk1()"
-      [nzOkLoading]="isOkLoading"
-      >
-      <form nz-form>
-        <nz-form-item>
-          <nz-form-label nzRequired>Title</nz-form-label>
-          <nz-form-control>
-            <nz-input-group>
-              <input type="text" nz-input formControlName="" placeholder="title"/>
-            </nz-input-group>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label nzRequired>Size</nz-form-label>
-          <nz-form-control>
-            <nz-select formControlName="revenue" nzAllowClear nzPlaceHolder="Select Revenue">
-              <nz-option *ngFor="let item of adSizeOptions" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label>Description</nz-form-label>
-          <nz-form-control>
-            <textarea nz-input  placeholder="description"></textarea>
-          </nz-form-control>
-        </nz-form-item>
-      </form>
-    </nz-modal>
-
+  <div class="ad-unit-tbl">
      <nz-table  #borderedTable nzBordered>
          <thead>
            <tr>

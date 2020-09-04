@@ -199,6 +199,6 @@ export class SitesComponent implements OnInit {
           })
       });
     });
-
   }
+
 }

@@ -98,18 +98,18 @@ export class AdNetworkSettingComponent implements OnInit {
   }
 
   approveSite(site: Site) {
-    this.changeStatus("SiteApproveConfirm", "SiteApproved", site, { status: SiteConstant.APPROVED});
+    this.changeSiteStatus("SiteApproveConfirm", "SiteApproved", site, { status: SiteConstant.APPROVED});
   }
 
   rejectSite(site: Site) {
-    this.changeStatus("SiteRejectConfirm", "SiteRejected", site, { status: SiteConstant.REJECTED});
+    this.changeSiteStatus("SiteRejectConfirm", "SiteRejected", site, { status: SiteConstant.REJECTED});
   }
 
   showMessage(type: string, message: string) {
     this.message.create(type, message);
   }
 
-  changeStatus(title, successMsg, site: Site, statusData) {
+  changeSiteStatus(title, successMsg, site: Site, statusData) {
     this.translate.get(title, { url: site.url }).subscribe((text:string) => {
       const title = text;
       this.modal.confirm({
