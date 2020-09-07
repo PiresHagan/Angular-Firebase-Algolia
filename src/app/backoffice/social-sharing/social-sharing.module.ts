@@ -10,8 +10,6 @@ import { SharedModule, createTranslateLoader } from 'src/app/shared/shared.modul
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 
-
-
 @NgModule({
   declarations: [CreatePostComponent, PostListComponent],
   imports: [
