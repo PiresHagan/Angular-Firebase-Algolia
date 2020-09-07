@@ -10,6 +10,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { environment } from 'src/environments/environment';
+import { BackofficeSocialSharingService } from 'src/app/backoffice/shared/services/backoffice-social-sharing.service';
 
 declare var FB: any;
 
@@ -44,6 +45,7 @@ export class ProfileComponent implements OnInit {
     public translate: TranslateService,
     private languageService: LanguageService,
     private authService: AuthService,
+    private socialSharingService: BackofficeSocialSharingService
   ) { }
 
   ngOnInit() {
@@ -88,6 +90,11 @@ export class ProfileComponent implements OnInit {
       if (response.authResponse) {
         this.fbloading = false;
         this.fbAccountLinkStatus = true;
+        this.socialSharingService.saveAuthTokenToServer({ 
+          social_accounts: { 
+            facebook : response.authResponse
+          }
+        });
       } else {
         console.log('User login failed');
         this.fbloading = false;

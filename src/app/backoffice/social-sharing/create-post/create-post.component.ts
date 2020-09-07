@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from "@ngx-translate/core";
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { BackofficeArticleService } from '../../shared/services/backoffice-article.service';
@@ -11,12 +12,45 @@ import { BackofficeArticleService } from '../../shared/services/backoffice-artic
 export class CreatePostComponent implements OnInit {
 
   current = 0;
-
+  postForm: FormGroup;
+  origin: string;
+  authorSlug: string;
+  selectedStoryURL: string;
   index = 'First-content';
   articles: Article[];
   lastVisible: any = null;
   userDetails;
   loading: boolean = true;
+
+  constructor(
+    public authService: AuthService,
+    public articleService: BackofficeArticleService,
+    private fb: FormBuilder,
+    public translate: TranslateService,
+  ) { }
+
+  ngOnInit(): void {
+    this.postForm = this.fb.group({
+      title: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],
+      image: [null],
+      article_slug: [null, [Validators.required]],
+      post_text: [null, [Validators.required, Validators.minLength(10)]]
+    });
+
+    this.authService.getAuthState().subscribe(async (user) => {
+      if (!user)
+        return;
+      this.userDetails = await this.authService.getLoggedInUserDetails();
+      if (this.userDetails) {
+        this.origin = window.location.origin;
+        this.authorSlug = this.userDetails.slug;
+        this.articleService.getAllArticles(this.userDetails.id).subscribe((data) => {
+          this.articles = data;
+          this.loading = false;
+        });
+      }
+    })
+  }
 
   pre(): void {
     this.current -= 1;
@@ -24,8 +58,21 @@ export class CreatePostComponent implements OnInit {
   }
 
   next(): void {
-    this.current += 1;
-    this.changeContent();
+    for (const i in this.postForm.controls) {
+      this.postForm.controls[i].markAsDirty();
+      this.postForm.controls[i].updateValueAndValidity();
+    }
+
+    if(this.current == 0) {
+      if(this.postForm.valid) { 
+        this.selectedStoryURL = `${this.origin}/${this.authorSlug}/${this.postForm.value.article_slug}`;
+        this.current += 1;
+        this.changeContent();
+      }
+    } else {
+      this.current += 1;
+      this.changeContent();
+    }
   }
 
   done(): void {
@@ -50,25 +97,6 @@ export class CreatePostComponent implements OnInit {
         this.index = 'error';
       }
     }
-  }
-  constructor(
-    public authService: AuthService,
-    public articleService: BackofficeArticleService,
-  ) { }
-
-  ngOnInit(): void {
-    this.authService.getAuthState().subscribe(async (user) => {
-      if (!user)
-        return;
-      this.userDetails = await this.authService.getLoggedInUserDetails();
-      if (this.userDetails) {
-        this.articleService.getArticlesByUser(this.userDetails.id).subscribe((data) => {
-          this.articles = data.articleList;
-          this.lastVisible = data.lastVisible;
-          this.loading = false;
-        });
-      }
-    })
   }
 
 }

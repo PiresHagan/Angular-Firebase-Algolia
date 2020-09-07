@@ -651,5 +651,8 @@
     "AdUnitUpdated": "Ad unit updated successfully!",
     "AdUnitDeletMsgConf": "Are you sure you want to delete ad unit <b>{{title}}</b> ?",
     "AdUnitDeleted": "Ad unit deleted successfully!",
-    "goBackAdUnit": "Back"
+    "goBackAdUnit": "Back",
+    "postTitleErr": "Post Title should not be less than 10 characters and not more than 70 characters.",
+    "postTextErr": "Post message should not be less than 10 characters",
+    "postStoryErr": "Please select story"
 }

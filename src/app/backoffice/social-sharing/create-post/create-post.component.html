@@ -8,16 +8,21 @@
       
           <div class="steps-content">
               <div class="step-1" *ngIf="current === 0">
-                <form nz-form>
+                <form nz-form [formGroup]="postForm">
                   <nz-form-item>
-                    <nz-form-control>
-                      <textarea formControlName="comment" nz-input rows="4" placeholder="write any thing"></textarea>
+                    <nz-form-control nzErrorTip="{{ 'postTitleErr' | translate }}">
+                      <input formControlName="title" type="text" nz-input placeholder="Title" />
                     </nz-form-control>
                   </nz-form-item>
                   <nz-form-item>
-                    <nz-form-control [nzSpan]="7">
-                      <nz-select formControlName="story" nzAllowClear nzPlaceHolder="Select Story">
-                        <nz-option *ngFor="let item of articles" [nzValue]="item.title" [nzLabel]="item.title"></nz-option>
+                    <nz-form-control nzErrorTip="{{ 'postTextErr' | translate }}">
+                      <textarea formControlName="post_text" nz-input rows="4" placeholder="Type your message here..."></textarea>
+                    </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                    <nz-form-control [nzSpan]="7" nzErrorTip="{{ 'postStoryErr' | translate }}">
+                      <nz-select formControlName="article_slug" nzAllowClear nzPlaceHolder="Select Story">
+                        <nz-option *ngFor="let item of articles" [nzValue]="item.slug" [nzLabel]="item.title"></nz-option>
                       </nz-select>
                     </nz-form-control>
                   </nz-form-item>
