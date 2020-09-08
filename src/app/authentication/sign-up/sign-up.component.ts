@@ -225,7 +225,7 @@ export class SignUpComponent {
 
         }).catch((error) => {
             this.isFormSaving = false;
-            if (error.error && error.error.code == "auth/email-already-in-use") {
+            if (error.error && error.error.code == "auth/email-already-exists") {
                 this.errorSignup = true;
             }
             else if (error.error && error.error.code == "auth/weak-password") {
