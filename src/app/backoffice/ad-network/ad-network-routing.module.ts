@@ -17,14 +17,13 @@ const routes: Routes = [
         }
       },
       {
-        path: 'ad-units',
+        path: 'ad-units/:siteId',
         component: AdUnitsComponent,
         data: {
           title: "Ad units"
         }
       }
-        ]
-     
+    ]
   },
 ];
 

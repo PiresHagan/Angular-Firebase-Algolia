@@ -5,9 +5,11 @@ import { SharedModule, createTranslateLoader } from 'src/app/shared/shared.modul
 import { SitesComponent } from './sites/sites.component';
 import { AdUnitsComponent } from './ad-units/ad-units.component';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -16,6 +18,7 @@ import { HttpClient } from '@angular/common/http';
     AdNetworkRoutingModule,
     CommonModule,
     NzFormModule,
+    NzTypographyModule,
     ReactiveFormsModule,
     SharedModule,
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })

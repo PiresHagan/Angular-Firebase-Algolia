@@ -4,7 +4,7 @@ export interface AdUnit {
     description?: string;
     size?: string;
     code?: string;
-    site_url?: string;
+    site_id?: string;
     created_at?: string;
     status?: {
         title: string;

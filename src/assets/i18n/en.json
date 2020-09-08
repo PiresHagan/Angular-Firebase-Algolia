@@ -643,5 +643,13 @@
     "SiteApproveConfirm": "Are you sure you want to approve site <b>{{url}}</b> ?",
     "SiteApproved": "Site approved successfully!",
     "SiteRejectConfirm": "Are you sure you want to reject site <b>{{url}}</b> ?",
-    "SiteRejected": "Site rejected successfully!"
+    "SiteRejected": "Site rejected successfully!",
+    "AdUnitActivateConfirm": "Are you sure you want to activate ad unit <b>{{title}}</b> ?",
+    "AdUnitActivated": "Ad unit activated successfully!",
+    "AdUnitDeactivateConfirm": "Are you sure you want to deactivate ad unit <b>{{title}}</b> ?",
+    "AdUnitDeactivated": "Ad unit deactivated successfully!",
+    "AdUnitUpdated": "Ad unit updated successfully!",
+    "AdUnitDeletMsgConf": "Are you sure you want to delete ad unit <b>{{title}}</b> ?",
+    "AdUnitDeleted": "Ad unit deleted successfully!",
+    "goBackAdUnit": "Back"
 }

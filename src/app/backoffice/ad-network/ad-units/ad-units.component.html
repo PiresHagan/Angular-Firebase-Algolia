@@ -1,102 +1,47 @@
 <div class="container">
-    <div class="ad-unit-tbl">
-      <button nz-button nzType="primary" nzGhost class="mr-2  mb-2 custom-btn"  (click)="showModal1()">Add New</button>
-      <nz-modal
-      [(nzVisible)]="isVisible1"
-      nzTitle="Add Site"
-      (nzOnCancel)="handleCancel1()"
-      (nzOnOk)="handleOk1()"
-      [nzOkLoading]="isOkLoading"
-      >
-      <form nz-form>
-        <nz-form-item>
-          <nz-form-label nzRequired>Title</nz-form-label>
-          <nz-form-control>
-            <nz-input-group>
-              <input type="text" nz-input formControlName="" placeholder="title"/>
-            </nz-input-group>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label nzRequired>Size</nz-form-label>
-          <nz-form-control>
-            <nz-select formControlName="revenue" nzAllowClear nzPlaceHolder="Select Revenue">
-              <nz-option *ngFor="let item of adSizeOptions" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label>Description</nz-form-label>
-          <nz-form-control>
-            <textarea nz-input  placeholder="description"></textarea>
-          </nz-form-control>
-        </nz-form-item>
-      </form>
-    </nz-modal>
+  <div class="ad-unit-tbl">
+    <button nz-button nzType="primary" nzGhost (click)="goBack()" class="mr-2  mb-2 custom-btn btn-red">{{'goBackAdUnit' | translate}}</button>
 
-     <nz-table  #borderedTable nzBordered>
-         <thead>
-           <tr>
-             <th>Ad Unit</th>
-             <th>Ad Format</th>
-             <th>Size</th>
-             <th>Id</th>
-             <th>Status</th>
-           </tr>
-         </thead>
-         <tbody>
-           <tr>
-             <td>
-                 <div>
-                     <div class="float-left">
-                         <small>300x250-Default</small>
-                     </div>
-                     <div class="float-right">
-                         <button nz-button nzType="default" nzGhost  class="custom-btn black-btn" (click)="showModal()">Get Code</button>                  
-                         <nz-modal
-                         [(nzVisible)]="isVisible"
-                         nzTitle="Ad Units"
-                         (nzOnCancel)="handleCancel()"
-                         (nzOnOk)="handleOk()"
-                         [nzOkLoading]="isOkLoading"
-                         >
-                         <div>
-                             
-                               <div  class="mb-3">
-                                 <nz-select ngModel="lucy" class="w-100">
-                                     <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-                                     <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-                                     <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
-                                   </nz-select>
-                               </div>
-                               <div class="pb-3">
-                                 <div>
-                                    <label class="d-block">Paste the below code in any web page on any approved website</label>
-                                   <button class="custom-btn" type="button">Copy Code</button>
-                                 </div>
-                               </div>
-                               <div  class="mb-3">
-                                <textarea
-                                nz-input
-                                placeholder=""
-                                [nzAutosize]="{ minRows: 4, maxRows: 6 }"
-                              ></textarea>
-                               </div>
-                         </div>
-                         </nz-modal>
-                        </div><div class="clearfix"></div>
-                 </div>
-             </td>
-             <td>
-                 <small>Content Ads</small>
-             </td>
-             <td><small>300x250-(Medium Rectangle)</small></td>
-             <td><small>563546354</small></td>
-             <td><small>Active</small></td>
-           </tr>
-      
-         </tbody>
-       </nz-table>
+    <nz-skeleton *ngIf="!displayData"> </nz-skeleton>
+      <div class="title-div" *ngIf="site">
+        <h6><span class="title">Site:</span> {{ site?.url }}</h6>
+      </div>
+      <nz-table #borderedTable nzBordered #siteAdUnitsTable [nzData]="displayData" [nzLoading]="isLoading" *ngIf="displayData">
+        <thead>
+          <tr>
+            <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare" [nzAlign]='column.align'>{{ column.title }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of siteAdUnitsTable.data;  let i=index" class="editable-row">
+            <td>{{item?.size}}</td>
+            <td>{{item?.title}}</td>
+            <td>{{item?.description}} </td>
+            <td nzAlign='center'>
+              <button nz-button nzType="default" nzGhost  class="custom-btn btn-red" (click)="showModal(item)">Get Code</button>                  
+            </td>
+            <td nzAlign='center'><p [ngStyle]="{ 'color': item.status.color }">{{ item?.status?.title }}</p></td>
+          </tr>
+        </tbody>
+      </nz-table>
+
+      <nz-modal 
+        [(nzVisible)]="isVisible"
+        nzTitle="Ad Unit Code"
+        (nzOnCancel)="handleCancel()"
+        (nzOnOk)="handleOk()"
+      >
+        <div>
+          <div class="pb-3">
+            <div>
+              <label class="d-block">On <b>{{site?.url}}</b>, paste the below code in any web page</label>
+            </div>
+          </div>
+          <div  class="mb-3">
+            <p nz-typography nzCopyable [nzContent]="copyAdUnitCode"></p>
+          </div>
+        </div>
+      </nz-modal>
     </div>
  </div>
  
