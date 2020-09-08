@@ -92,7 +92,7 @@ export class ProfileComponent implements OnInit {
         this.fbAccountLinkStatus = true;
         this.socialSharingService.saveAuthTokenToServer({ 
           social_accounts: { 
-            facebook : response.authResponse
+            linkdn : response.authResponse
           }
         });
       } else {
