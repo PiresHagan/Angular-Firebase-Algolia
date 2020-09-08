@@ -25,11 +25,16 @@
                     </nz-form-item>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-5">
                     <nz-form-item>
                         <nz-form-control>
                             <button nz-button nzType="primary" nzSize="large" nzSearch (click)="getArticle()"
                                 [disabled]="!articleTitle && !searchSlug ?true:false">{{'MemSearch' | translate}}</button>
+                            <button class="m-l-10" nz-button nzType="primary" nzSize="large" nzSearch
+                                (click)="resetSearch()">{{'Reset' | translate}}</button>
+
+
+
                         </nz-form-control>
                     </nz-form-item>
                 </div>
@@ -96,6 +101,8 @@
                                 <a [routerLink]="['/app/article/compose']" [queryParams]="{article: item.id}"
                                     class="article-edit-link m-5" nz-button nzType="default"
                                     nzGhost>{{'artEdit' | translate}}</a>
+                                <a (click)="deleteArticle(item.id)" class="article-edit-link m-5" nz-button
+                                    nzType="default" nzGhost>{{'deleteArticle' | translate}}</a>
                             </div>
 
                         </div>

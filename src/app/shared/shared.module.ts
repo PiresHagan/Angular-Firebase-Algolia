@@ -13,6 +13,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ImgSizePipe } from './pipes/img-size.pipe';
 import { ArticleInteractionComponent } from './component/article-interaction/article-interaction.component';
 import { ArticleAvatarComponent } from './component/article-avatar/article-avatar.component';
+import { CloudinaryImgComponent } from './component/cloudinary-img/cloudinary-img.component';
+import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
+import { Cloudinary } from 'cloudinary-core';
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -28,13 +31,14 @@ export function createTranslateLoader(http: HttpClient) {
         SearchPipe,
         ArticleInteractionComponent,
         ArticleAvatarComponent,
+        CloudinaryImgComponent
     ],
     imports: [
         RouterModule,
         CommonModule,
         NgZorroAntdModule,
         PerfectScrollbarModule,
-
+        CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
         TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })
     ],
     declarations: [
@@ -43,6 +47,7 @@ export function createTranslateLoader(http: HttpClient) {
         ImgSizePipe,
         ArticleInteractionComponent,
         ArticleAvatarComponent,
+        CloudinaryImgComponent,
         
 
     ],

@@ -62,15 +62,21 @@
                 justify-content: center;
                 align-items: center;
                 min-height: 270px;
-              img{
-                max-height: 70px;
-              }
+                div{
+                  >img{
+                    width: 70px !important;
+                    height: 70px;
+                    width: auto;
+                    object-fit: cover;
+                  }
+                }
               h2{
-                font-size: 24px;
+                font-size: 20px;
                 color: #3f4755;
                 font-family: "open_sansregular";
                 margin: 10px 0px 10px 0px;
                 font-weight: 600;
+                word-break: break-all;
               }
               p{
                 font-family: "open_sansregular";
@@ -89,18 +95,69 @@
           }
       }
   }
+
+  .box-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
   @media screen and (max-width:580px){
       .is-comman-title{
         font-size: 24px;
         margin-bottom: 0px;
+        margin-top:20px;
       }
-  
+      .all-companies-main-sec{
+        .companies-box{
+            .companies-box-item{
+                 padding:15px;
+                h2{
+                  font-size: 18px;
+                }
+            }
+        }
+    }
   }
+  @media screen and (min-width:581px) and (max-width:768px){
+    .is-comman-title{
+      margin-bottom: 0px;
+      margin-top:20px;
+    }
+    .all-companies-main-sec{
+      .companies-box{
+          .companies-box-item{
+               padding:15px;
+              h2{
+                font-size: 18px;
+              }
+          }
+      }
+  }
+}
+@media screen and (min-width:769px) and (max-width:991px){
+  .is-comman-title{
+    margin-bottom: 0px;
+    margin-top:20px;
+  }
+  .all-companies-main-sec{
+    .companies-box{
+        .companies-box-item{
+             padding:15px;
+            h2{
+              font-size: 18px;
+            }
+        }
+    }
+}
+}
+
+
   @media (min-width: 1200px){
-section{
-  .container {
-    width: 1140px;
-    max-width: 100%;
-}
-}
-}
+    section{
+      .container {
+        width: 1140px;
+        max-width: 100%;
+    }
+    }
+    }

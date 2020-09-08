@@ -283,7 +283,12 @@
      margin-bottom: 30px;
  } 
 	
-
+ .box-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
   @media screen and (min-width: 1500px) {
     .container {
       width: 1520px;
@@ -298,6 +303,7 @@
 	.is-comman-title{
 	  font-size: 24px;
 	  margin-bottom: 0px;
+        margin-top:20px;
 	}
 
 	  .is-cat-box-card-main{
@@ -328,8 +334,7 @@
 	@media screen and (min-width:581px) and (max-width:768px){
 	
 	.is-comman-title{
-	  font-size: 28px;
-	  margin-bottom: 0px;
+	  margin-top:20px;
 	}
 
 	.is-cat-box-card-main{
@@ -352,7 +357,10 @@
 	}
   
 	@media screen and (min-width:769px) and (max-width:991px){
-	 
+		.is-comman-title{
+			margin-bottom: 0px;
+			margin-top:20px;
+		  }
 	
 	.is-cat-box-card-main{
 	  .cat-box{
@@ -404,11 +412,12 @@
 	  
 	}
 	}
+
     @media (min-width: 1200px){
 		section{
-			.container {
-				width: 1140px;
-				max-width: 100%;
-			}
+		  .container {
+			width: 1140px;
+			max-width: 100%;
 		}
-	  }
+		}
+		}

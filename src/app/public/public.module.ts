@@ -74,7 +74,7 @@ import { FundraiserListComponent } from './fundraiser-list/fundraiser-list.compo
 
   ],
   imports: [
-    CloudinaryModule.forRoot({Cloudinary}, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
+    CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
     CommonModule,
     PublicRoutingModule,
     HttpClientModule,

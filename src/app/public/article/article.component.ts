@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
@@ -13,6 +13,7 @@ import { AuthorService } from 'src/app/shared/services/author.service';
 import { environment } from 'src/environments/environment';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import * as firebase from 'firebase/app';
+import { NzModalService } from 'ng-zorro-antd';
 import { TEXT, AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
 import * as moment from 'moment';
 
@@ -59,6 +60,7 @@ export class ArticleComponent implements OnInit {
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
+    private router: Router,
     public translate: TranslateService,
     public authService: AuthService,
     public authorService: AuthorService,
@@ -66,7 +68,8 @@ export class ArticleComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private titleService: Title,
     private metaTagService: Meta,
-    private langService: LanguageService
+    private langService: LanguageService,
+    private modal: NzModalService
   ) {
 
   }
@@ -77,10 +80,19 @@ export class ArticleComponent implements OnInit {
 
       const slug = params.get('slug');
       this.articleService.getArtical(slug).subscribe(artical => {
+
         this.article = artical[0];
+        if (!this.article) {
+          this.modal.error({
+            nzTitle: this.translate.instant('URL404'),
+            nzContent: this.translate.instant('URLNotFound'),
+            nzOnOk: () => { this.router.navigate(['/']) }
+          })
+          return
+        }
         const articleId = this.article.id;
 
-        this.similarArticleList = this.articleService.getCategoryRow(this.article.category.slug, this.selectedLanguage);
+        this.similarArticleList = this.articleService.getCategoryRow(this.article.category.slug, this.selectedLanguage, 7);
 
         this.articleType = this.article.type ? this.article.type : TEXT;
         this.articleLikes = this.article.likes_count;
@@ -212,7 +224,6 @@ export class ArticleComponent implements OnInit {
     this.articleService.createComment(this.article.id, commentData).subscribe(() => {
       this.isFormSaving = false;
       this.messageDetails = '';
-      this.articleService.commentCount(this.article.id);
       this.showCommentSavedMessage();
       this.newComment();
     }, err => {
@@ -280,6 +291,7 @@ export class ArticleComponent implements OnInit {
     this.isReportAbuseArticleLoading = true;
     this.articleService.updateArticleAbuse(this.article.id).then(() => {
       this.isReportAbuseArticleLoading = false;
+      this.showAbuseSuccessMessage();
       console.log('Your suggestion saved successfully.')
     })
   }
@@ -287,6 +299,7 @@ export class ArticleComponent implements OnInit {
     this.isReportAbuseLoading = true;
     this.articleService.updateArticleCommentAbuse(this.article.id, commentid).then(() => {
       this.isReportAbuseLoading = false;
+      this.showAbuseSuccessMessage();
       console.log('Your suggestion saved successfully.')
     })
   }
@@ -402,13 +415,21 @@ export class ArticleComponent implements OnInit {
   }
 
   getArticleUrl(article) {
-    if (!article || !article.author.type) {
-      return '/'
-    } else if (article.author.type == 'charity') {
+    if (article.author.type == 'charity') {
       return '/charities/';
     } else if (article.author.type == 'company') {
       return '/companies/';
+    } else {
+      return '/';
     }
+  }
+  showAbuseSuccessMessage() {
+
+    this.modal.success({
+      nzTitle: this.translate.instant('Report'),
+      nzContent: this.translate.instant('ReportMessage')
+    });
   }
 
 }
+

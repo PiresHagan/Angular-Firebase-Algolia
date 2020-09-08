@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { BackofficeArticleService } from '../../shared/services/backoffice-article.service';
+import { AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
+import { DomSanitizer } from '@angular/platform-browser';
 //import { } from '@types/gapi';
 
 //declare var gapi: any;
@@ -27,7 +29,9 @@ export class ArticleSingleComponent implements OnInit {
   articleComments;
   loadingMore: boolean = false;
   lastVisible: any = null;
-
+  fileURL: string;
+  AUDIO = AUDIO;
+  VIDEO = VIDEO;
 
   constructor(
     private articleService: BackofficeArticleService,
@@ -35,6 +39,7 @@ export class ArticleSingleComponent implements OnInit {
     public translate: TranslateService,
     public authService: AuthService,
     public userService: UserService,
+    private sanitizer: DomSanitizer,
 
   ) {
   }
@@ -46,6 +51,9 @@ export class ArticleSingleComponent implements OnInit {
       const slug = params.get('slug');
       this.articleService.getArtical(slug).subscribe(artical => {
         this.article = artical[0];
+        const format = 'mp4';
+        this.fileURL = this.article.type === "video" && `https://player.cloudinary.com/embed/?cloud_name=mytrendingstories&public_id=${this.article.article_file.cloudinary_id}&fluid=true&controls=true&source_types%5B0%5D=${format}`
+
         this.getArticleComments(this.article.id);
       });
 
@@ -60,6 +68,7 @@ export class ArticleSingleComponent implements OnInit {
   */
   getArticleComments(articleId) {
     this.articleService.getArticaleComments(articleId).subscribe(({ commentList, lastCommentDoc }) => {
+
       this.articleComments = commentList
       this.lastVisible = lastCommentDoc
     })
@@ -117,5 +126,8 @@ export class ArticleSingleComponent implements OnInit {
     return latestURL;
   }
 
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
 
 }

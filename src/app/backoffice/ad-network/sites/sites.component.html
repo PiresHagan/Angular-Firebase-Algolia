@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="ad-network-section">
+    <div class="page-header">
+      <div class="row">
+        <div class="col-md-12 inline-flex-div">
+          <div class="m-v-10 d-inline-block">
+            <button class="custom-btn" nz-button nzType="primary" [routerLink]="" nz-button nzType="primary" (click)="showModal()">
+              <i nz-icon nzType="plus"></i>
+              <span>{{ "SiteAddNew" | translate }}</span>
+            </button>
+            <nz-modal
+              [(nzVisible)]="isVisible"
+              nzTitle="Add Site"
+              (nzOnCancel)="handleCancel()"
+              (nzOnOk)="handleOk()"
+              [nzOkLoading]="isOkLoading"
+              >
+              <form nz-form [formGroup]="addSiteForm">
+                <nz-form-item>
+                  <nz-form-label nzRequired>{{ "SiteURL" | translate }}</nz-form-label>
+                  <nz-form-control>
+                    <nz-input-group nzAddOnBefore="https://">
+                      <input type="text" nz-input formControlName="url" placeholder="example.com"/>
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label nzRequired>{{ "SiteAvgDailyTraffic" | translate }}</nz-form-label>
+                  <nz-form-control>
+                    <nz-select formControlName="daily_traffic" nzAllowClear nzPlaceHolder="Select Traffic">
+                      <nz-option *ngFor="let item of dailyTrafficOptions" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label>{{ "SiteADRevenue" | translate }}</nz-form-label>
+                  <nz-form-control>
+                    <nz-select formControlName="revenue" nzAllowClear nzPlaceHolder="Select Revenue">
+                      <nz-option *ngFor="let item of adRevenueOptions" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </form>
+            </nz-modal>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nz-skeleton *ngIf="!displayData"> </nz-skeleton>
+    <nz-table #borderedTable nzBordered #sitesTable [nzData]="displayData" *ngIf="displayData" [nzLoading]="isLoading">
+      <thead>
+        <tr>
+          <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare" [nzAlign]='column.align'>{{ column.title }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of sitesTable.data;  let i=index">
+          <td>{{item.url}} </td>
+          <td nzAlign='center'>{{item.daily_traffic}} </td>
+          <td nzAlign='center'>{{item.revenue}}</td>
+          <td nzAlign='center'><p [ngStyle]="{ 'color': item.status.color }">{{ item.status.title }}</p></td>
+          <td nzAlign='center'>
+            <button [routerLink]="['/app/ad-network/ad-units', item.id]" class="custom-btn" type="button">{{ "SiteADUnitManage" | translate }}</button>
+          </td>
+          <td nzAlign='center'>
+            <button nz-button nzType="primary" nzShape="circle" nzDanger (click)="deleteSite(item)"><i nz-icon nzType="delete"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MessagingService } from './shared/services/messaging.service';
 
 @Component({
     selector: 'app-root',
@@ -6,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+    constructor(private messagingService: MessagingService) { }
+    
+	ngOnInit() {
+        this.messagingService.requestPermission();
+	}
 }

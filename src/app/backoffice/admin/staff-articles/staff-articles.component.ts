@@ -3,7 +3,9 @@ import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd';
 import { CommonBackofficeService } from '../../shared/services/common-backoffice.service';
+import { BackofficeArticleService } from '../../shared/services/backoffice-article.service';
 
 @Component({
   selector: 'app-article-list',
@@ -21,12 +23,15 @@ export class StaffArticlesComponent implements OnInit {
   searchSlug: string = "";
   articleTitle: string = "";
   notFound = false;
+  oldArtilceList: Article[];
 
   constructor(
     public translate: TranslateService,
     public authService: AuthService,
     public commonService: CommonBackofficeService,
     public router: Router,
+    private articleService: BackofficeArticleService,
+    private modalService: NzModalService
 
   ) { }
 
@@ -82,7 +87,8 @@ export class StaffArticlesComponent implements OnInit {
     if (this.searchSlug) {
       this.articleTitle = "";
       searchKey = "slug";
-      searchValue = this.searchSlug
+      searchValue = decodeURIComponent(this.searchSlug);
+
     }
     if (this.articleTitle) {
       this.searchSlug = "";
@@ -92,12 +98,37 @@ export class StaffArticlesComponent implements OnInit {
 
     this.commonService.getArticle(searchKey, searchValue).subscribe((result) => {
       if (result && result[0])
-        this.router.navigate(['app/article/compose'], { queryParams: { article: result[0].id } });
+        this.articles = result
       else
         this.notFound = true;
       setTimeout(() => {
         this.notFound = false;
       }, 1000)
     })
+  }
+  deleteArticle(articleId: string) {
+    let articleMessageConf = this.translate.instant("articleDeletMsgConf");
+    let articleMessageSucc = this.translate.instant("articleDeletMsgSuc");
+    this.modalService.confirm({
+      nzTitle: "<i>" + articleMessageConf + "</i>",
+      nzOnOk: () => {
+        this.articleService.deleteArticle(articleId).subscribe(() => {
+          this.modalService.success({
+            nzTitle: "<i>" + articleMessageSucc + "</i>",
+          });
+        })
+      },
+    });
+
+
+  }
+  resetSearch() {
+    this.searchSlug = '';
+    this.articleTitle = '';
+    this.articleService.getArticles(10).subscribe((data) => {
+      this.articles = data.articleList;
+      this.lastVisible = data.lastVisible;
+      this.loading = false;
+    });
   }
 }

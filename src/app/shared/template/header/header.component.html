@@ -20,6 +20,11 @@
         <div class="col-10 col-sm-6 col-lg-3 col-xl-2 vertical-center language-col">
             <div class="nav-wrap">
                 <ul class="nav-right">
+                    <li class="is-search-icon">
+                        <a routerLink="/search">
+                            <i nz-icon nzType="search" theme="outline"></i>
+                        </a>
+                    </li>
                     <li>
                         <nz-select (ngModelChange)="switchLang($event)" [(ngModel)]="selectedLanguage">
                             <nz-option *ngFor="let option of languageList" [nzLabel]="option.label"
@@ -52,7 +57,7 @@
                                         <div>
                                             <i class="opacity-04 font-size-16" nz-icon nzType="lock"
                                                 theme="outline"></i>
-                                            <span class="m-l-10"> {{'manageProfile' | translate }}</span>
+                                            <span class="m-l-10"> {{'GotoConsole' | translate }}</span>
                                         </div>
                                         <i class="font-size-10" nz-icon nzType="right" theme="outline"></i>
                                     </a>

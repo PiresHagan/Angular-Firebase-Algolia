@@ -363,7 +363,7 @@
       .is-member-item{
         margin: 0px 1%;
         position: relative;
-        width: 110px;
+        width: 105px;
         text-align: center;
         
         .is-member-hover{
@@ -528,7 +528,7 @@
   background: #fff;
 }
 .cat-box {
-  padding-bottom: 40px;
+  padding-bottom: 20px;
  
   .row{
     margin: 0px;
@@ -842,6 +842,7 @@
 .col-sm-15{
   width:20%;
   float: left;
+  margin-bottom: 20px;
 }
 .article-title{
   display: flex;
@@ -1084,6 +1085,13 @@
 }
 .pr-18{
   padding-right: 18px !important;
+}
+.cloudinary-img{
+  ::ng-deep cl-image{
+    img{
+      border-radius: 100%;
+    }
+  }
 }
 /*Animation End*/
   @media screen and (max-width:580px){
@@ -1660,7 +1668,13 @@
     
   }
   }
-
+  @media screen and (min-width:1280px) and (max-width:1359px){
+    section{
+      &.is-hero{
+        margin-top:0px;
+      }
+    }
+  }
   @media screen and (min-width:992px) and (max-width:1350px){
     .col-sm-15{
       width:25%;

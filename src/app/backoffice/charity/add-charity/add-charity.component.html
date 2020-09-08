@@ -23,8 +23,9 @@
                 <nz-form-item>
                     <nz-form-label>{{'CharityName'| translate}}</nz-form-label>
                     <nz-form-control nzErrorTip="{{'CharityName'| translate}} {{'required' | translate}}">
-                        <input nz-input placeholder="{{'CharityName'| translate}}" formControlName="charity_name"
-                            type="text" value="" />
+                        <input (keypress)="omit_special_char($event)" nz-input
+                            placeholder="{{'CharityName'| translate}}" formControlName="charity_name" type="text"
+                            value="" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -33,8 +34,8 @@
                     <nz-form-label>{{'CharityEmail'| translate}}</nz-form-label>
                     <nz-form-control
                         nzErrorTip="{{'CharityEmail'| translate}} {{'required' | translate}} {{'AndValidFormat' | translate}}">
-                        <input nz-input placeholder="e.g: abc@gmailcom" type="email" value=""
-                            formControlName="charity_email" />
+                        <input (keypress)="omit_special_char($event)" nz-input placeholder="e.g: abc@gmailcom"
+                            type="email" value="" formControlName="charity_email" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -43,7 +44,8 @@
                     <nz-form-label>{{'CharityPhone'| translate}}</nz-form-label>
                     <nz-form-control
                         nzErrorTip="{{'CharityPhone'| translate}} {{'required' | translate}} {{'AndValidFormat' | translate}} e.g:9876543210">
-                        <input nz-input placeholder="e.g :9xxxx9xxxx" formControlName="charity_phone" />
+                        <input (keypress)="omit_special_char($event)" nz-input placeholder="e.g :9xxxx9xxxx"
+                            formControlName="charity_phone" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -51,7 +53,8 @@
                 <nz-form-item>
                     <nz-form-label>{{'CharityColorCode'| translate}}</nz-form-label>
                     <nz-form-control nzErrorTip="{{'CharityColorCode'| translate}} {{'required' | translate}}">
-                        <input nz-input placeholder="eg: #ff00ff" formControlName="charity_color_code" />
+                        <input (keypress)="omit_special_char($event)" nz-input placeholder="eg: #ff00ff"
+                            formControlName="charity_color_code" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -75,8 +78,8 @@
                 <nz-form-item>
                     <nz-form-label>{{'CharitySlug'| translate}}</nz-form-label>
                     <nz-form-control nzErrorTip="{{'CharitySlugError'| translate}}">
-                        <input nz-input name="charity_slug" placeholder="eg: abc-def-ghi"
-                            formControlName="charity_slug" />
+                        <input (keypress)="omit_special_char($event)" nz-input name="charity_slug"
+                            placeholder="eg: abc-def-ghi" formControlName="charity_slug" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -86,8 +89,8 @@
                 <nz-form-item>
                     <nz-form-label>{{'CharityBio'| translate}}</nz-form-label>
                     <nz-form-control nzErrorTip="{{'CharityBio'| translate}} {{'required' | translate}}">
-                        <textarea rows="4" nz-input name="charity_bio" placeholder="0-250 character"
-                            formControlName="charity_bio"></textarea>
+                        <textarea (keypress)="omit_special_char($event)" rows="4" nz-input name="charity_bio"
+                            placeholder="0-250 character" formControlName="charity_bio"></textarea>
                     </nz-form-control>
                 </nz-form-item>
             </div>

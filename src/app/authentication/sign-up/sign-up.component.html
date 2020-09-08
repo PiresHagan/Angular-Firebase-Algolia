@@ -36,6 +36,10 @@
                                 nzShowIcon *ngIf="invalidCaptcha"></nz-alert>
 
 
+                            <nz-alert class="m-b-10" nzType="error" nzDescription="{{'artError' | translate}}"
+                                nzShowIcon *ngIf="errorDetails"></nz-alert>
+
+
                             <nz-alert class="m-b-10" *ngIf="enableEmailVerificationScreen" nzType="info"
                                 nzMessage="{{'verifyEmailTitle' | translate}}"
                                 nzDescription="{{'verifySignUpEmailDesc' | translate}}" nzShowIcon></nz-alert>
@@ -107,7 +111,7 @@
                             <div>
                                 <nz-form-item>
                                     <nz-form-control>
-                                        <label nz-checkbox formControlName="agree" nzRequired
+                                        <label nz-checkbox class="agree-check" formControlName="agree" nzRequired
                                             style="margin-right:0px"><span>{{'signUpTermRead' | translate}}</span></label><a
                                             routerLink="/terms">{{'loginTerms' | translate}}</a>
                                     </nz-form-control>

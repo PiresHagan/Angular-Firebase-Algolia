@@ -18,7 +18,9 @@
             </div>
             <div class="is-main-article-content">
                 <div class="company-img">
-                    <img *ngIf="company" [src]='company?.logo?.url' [alt]='company?.logo?.alt'/>
+                    <img *ngIf="company" [src]='company?.logo?.url' [alt]='company?.logo?.alt' 
+                    onerror="this.src='assets/images/default-avatar.png'"
+                    />
                     <div class="special-icon" *ngIf="company">
                         <img src="assets/images/company-icon.png" style="max-width:28px;" />
                     </div>
@@ -34,10 +36,10 @@
                         </div>
                         <div class="media-section">
                             <div class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-                                <a><img src="assets/images/company/follow-icon.png" alt="company img">{{ "followCompany" | translate }}</a>
+                                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "followCompany" | translate }}</a>
                             </div>
                             <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-                                <a><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowCompany" | translate }}</a>
+                                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowCompany" | translate }}</a>
                             </div>
                         </div>
                         <div class="clearfix"></div>

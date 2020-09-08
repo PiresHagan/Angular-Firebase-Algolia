@@ -17,6 +17,8 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 export class CommonBackofficeService {
   articleCollection: string = 'articles';
   memberCollection: string = 'members';
+  articleCommentsCollection: string = 'comments';
+  sitesCollection: string = 'sites';
   constructor(private db: AngularFirestore, private http: HttpClient, private authService: AuthService) { }
 
   getArticles(limit: number = 10, navigation: string = "first", lastVisible = null) {
@@ -122,6 +124,103 @@ export class CommonBackofficeService {
           });
         })
       );
+  }
+  deleteArticle(articleId) {
+    return this.db.collection(this.articleCollection).doc(articleId).delete();
+  }
+
+  getArtical(slug: string) {
+    return this.db.collection<Article>(this.articleCollection, ref => ref
+      .where('slug', '==', slug)
+      .limit(1)
+    ).snapshotChanges().pipe(take(1),
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          const img = data.image?.url ? data.image?.url : "";
+          if (img)
+            data.image.url = img.replace('https://mytrendingstories.com', 'https://assets.mytrendingstories.com');
+          return { id, ...data };
+        });
+      })
+    );
+  }
+  getArticaleComments(articleId: string, limit: number = 5) {
+    return this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`, ref => ref
+      .orderBy('published_on', 'desc')
+      .limit(limit)
+    ).snapshotChanges().pipe(map(actions => {
+      return {
+        commentList: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+        lastCommentDoc: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      };
+    })
+    );
+  }
+  /**
+  * Function is ise for getting the comments according to last received comment index.
+  * @param articleId 
+  * @param limit 
+  * @param lastCommentDoc 
+  */
+  getArticleCommentNextPage(articleId: string, limit: number = 5, lastCommentDoc) {
+    if (!limit) {
+      limit = 5;
+    }
+    return this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`, ref => ref
+      .orderBy('published_on', 'desc')
+      .startAfter(lastCommentDoc)
+      .limit(limit)
+    ).snapshotChanges().pipe(map(actions => {
+      return {
+        commentList: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+        lastCommentDoc: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
+    })
+    );
+  }
+
+  getAdNetworkSites(limit: number = 25, navigation: string = "first", lastVisible = null) {
+    if (!limit) {
+      limit = 25;
+    }
+    let dataQuery = this.db.collectionGroup(`${this.sitesCollection}`, ref => ref
+      .orderBy('created_at', 'desc')
+      .orderBy('daily_traffic', 'desc')
+      .limit(limit)
+    )
+    switch (navigation) {
+      case 'next':
+        dataQuery = this.db.collectionGroup(`${this.sitesCollection}`, ref => ref
+          .orderBy('created_at', 'desc')
+          .orderBy('daily_traffic', 'desc')
+          .limit(limit)
+          .startAfter(lastVisible))
+        break;
+    }
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        sitesList: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+        lastVisibleSites: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
+    })
+    );
   }
 }
 

@@ -37,6 +37,7 @@ export class ArticleService {
   getArtical(slug: string) {
     return this.db.collection<Article>(this.articleCollection, ref => ref
       .where('slug', '==', slug)
+      .where('status', "==", ACTIVE)
       .limit(1)
     ).snapshotChanges().pipe(take(1),
       map(actions => {
@@ -188,13 +189,13 @@ export class ArticleService {
   }
 
 
-  getCategoryRow(slug: string, lang: string = 'en') {
+  getCategoryRow(slug: string, lang: string = 'en', limit: number) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('category.slug', '==', slug)
       .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
-      .limit(5)
+      .limit(limit)
     ).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -244,7 +245,7 @@ export class ArticleService {
 
   getToday(lang: string = 'en') {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('published_at', '>=', moment().subtract(2, 'days').toISOString())
+      .where('published_at', '>=', moment().subtract(1, 'days').toISOString())
       .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
@@ -262,12 +263,12 @@ export class ArticleService {
 
   getTrending(lang: string = 'en') {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('published_at', '>=', moment().subtract(30, 'days').toISOString())
+      .where('published_at', '>=', moment().subtract(60, 'days').toISOString())
       .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
-      .orderBy('published_at')
+      .orderBy('published_at', 'desc')
       .orderBy('view_count', 'desc')
-      .limit(15)
+      .limit(200)
     ).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -285,7 +286,7 @@ export class ArticleService {
       .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
       .orderBy('published_at', 'desc')
-      .limit(15)
+      .limit(20)
     ).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -566,18 +567,11 @@ export class ArticleService {
     })
   }
 
-
   updateViewCount(articleId: string) {
     const db = firebase.firestore();
     const increment = firebase.firestore.FieldValue.increment(1);
     const articleRef = db.collection(this.articleCollection).doc(articleId);
     articleRef.update({ view_count: increment })
-  }
-  commentCount(articleId: string) {
-    const db = firebase.firestore();
-    const increment = firebase.firestore.FieldValue.increment(1);
-    const articleRef = db.collection(this.articleCollection).doc(articleId);
-    articleRef.update({ comments_count: increment })
   }
   likeCount(articleId: string) {
     const db = firebase.firestore();

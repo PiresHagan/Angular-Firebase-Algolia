@@ -8,6 +8,7 @@ import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { take, map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { Member } from "../interfaces/member.type";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -25,14 +26,12 @@ export class UserService {
   constructor(
     public db: AngularFirestore,
     public afAuth: AngularFireAuth,
-
-
+    private http: HttpClient
   ) {
     this.afAuth.authState.subscribe((user) => {
       if (user && !user.isAnonymous)
         this.currentUser = { id: user.uid, email: user.email, avatar: user.photoURL, fullname: user.displayName };
     })
-
   }
 
   get activeUser() {
@@ -82,11 +81,14 @@ export class UserService {
   updateMember(uid: string, fields: any): Promise<void> {
 
     return new Promise<any>((resolve, reject) => {
-      this.db.doc(`${this.memberCollection}/${uid}`).update(fields).then(() => {
+      this.http.put(environment.baseAPIDomain + '/api/v1/members/' + uid, fields).subscribe(() => {
         resolve();
-      }).catch(() => {
-        reject();
-      })
+      }, err => reject(err))
+      // this.db.doc(`${this.memberCollection}/${uid}`).update(fields).then(() => {
+
+      // }).catch(() => {
+      //   reject();
+      // })
 
     })
 
@@ -164,8 +166,8 @@ export class UserService {
     return fileName.split('.').slice(0, -1).join('.');
   }
 
-
-
-
-
+  updateUser(userId: string, fields) {
+    const updateUserAPI = environment.baseAPIDomain + `/api/v1/users/${userId}`;
+    return this.http.put(updateUserAPI, fields)
+  }
 }

@@ -1,6 +1,6 @@
 <section>
     <div class="container">
-        <div class="is-comman-title"> {{ "charitiesTitle" | translate }} </div>
+        <div class="is-comman-title"> {{ 'charitiesTitle' | translate }} </div>
         <div class="all-companies-main-sec">
             <div class="companies-box">
                 <div class="row">
@@ -8,7 +8,13 @@
                         <a [routerLink]="['/charities',charity.slug]">
                             <div class="companies-box-item">
                                 <div>
-                                    <img [src]="charity?.logo.url" [alt]="charity?.logo?.alt" />
+                                    <img [src]="charity?.logo.url" [alt]="charity?.logo?.alt"  onerror="this.src='assets/images/default-avatar.png'" *ngIf="!(charity.logo.cloudinary_id); else charityCloudinoryImg" />
+                                    <ng-template #charityCloudinoryImg>
+                                        <cl-image loading="lazy" public-id="{{charity.logo.cloudinary_id}}" secure="true">
+                                            <cl-transformation width="140" height="140" gravity="face" crop="thumb">
+                                            </cl-transformation>
+                                        </cl-image>
+                                    </ng-template>
                                     <h2 [ngStyle]="{'color': charity?.color_code}">{{ charity?.name }}</h2>
                                     <p>{{ charity?.bio }}</p>
                                     <button type="button" class="is-read-more">
@@ -21,5 +27,12 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="!charities?.length" class="box-center">
+            <nz-result [nzIcon]="'crown'" [nzTitle]="'CreateCharity' | translate">
+                <div nz-result-extra>
+                <button nz-button nzType="primary" routerLink="/app/charity/charity-list">{{'CreateCharityBtn' | translate}}</button>
+                </div>
+            </nz-result>
+    </div>
     </div>
 </section>

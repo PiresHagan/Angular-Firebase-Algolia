@@ -13,6 +13,17 @@
             <div class="m-t-30 lh-1-8" innerHTML="{{article.content}}">
 
             </div>
+            <div class="m-t-30" [hidden]="!fileURL" [class.data-not]="!fileURL">
+                <iframe [src]="transform(fileURL)" width="100%" height="650px"
+                    allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen
+                    frameborder="0"></iframe>
+
+            </div>
+            <audio controls class="m-t-10 m-b-10" [hidden]="article?.type !=AUDIO"
+                [class.data-not]="article?.type !=AUDIO">
+                <source [src]="article?.article_file?.url" type="audio/mpeg">
+                Your browser does not support the audio tag.
+            </audio>
             <hr>
             <div class="m-t-40">
                 <nz-list [nzDataSource]="articleComments" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">

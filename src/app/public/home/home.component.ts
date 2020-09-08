@@ -12,6 +12,7 @@ import { Author } from 'src/app/shared/interfaces/authors.type';
 import { Observable } from 'rxjs';
 import { SeoDataService } from 'src/app/shared/services/seo-data.service';
 import { SeoData } from 'src/app/shared/interfaces/seo-data.type';
+import { CacheService } from 'src/app/shared/services/cache.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -31,13 +32,17 @@ export class HomeComponent implements OnInit {
   showTooltip: string = '';
   selectedLanguage: string = "";
   slugWiseData = {};
-  categories;
+  categories: any;
   authorList: any;
+  latestArticles: any;
+  trendingArticles: any;
+  loading: boolean = true;
   private homeDocument = "home";
 
   constructor(
     private articleService: ArticleService,
     private authorService: AuthorService,
+    private cacheService: CacheService,
     public translate: TranslateService,
     private themeService: ThemeConstantService,
     private titleService: Title,
@@ -56,20 +61,19 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.seoDataService.getSeoData(this.homeDocument).subscribe(homeDocRef => {
-      if(homeDocRef.exists) {
+      if (homeDocRef.exists) {
         const data: SeoData = homeDocRef.data();
 
         this.titleService.setTitle(data.title);
-    
         this.metaTagService.addTags([
-          {name: "description", content: data.description},
-          {name: "keywords", content: data.keywords},
-          {name: "twitter:card", content: data.description},
-          {name: "og:title", content: data.title},
-          {name: "og:type", content: data.type},
-          {name: "og:url", content: `${window.location.href}`},
-          {name: "og:image", content: data.image.url? data.image.url : data.image.alt},
-          {name: "og:description", content: data.description}
+          { name: "description", content: data.description },
+          { name: "keywords", content: data.keywords },
+          { name: "twitter:card", content: data.description },
+          { name: "og:title", content: data.title },
+          { name: "og:type", content: data.type },
+          { name: "og:url", content: `${window.location.href}` },
+          { name: "og:image", content: data.image.url ? data.image.url : data.image.alt },
+          { name: "og:description", content: data.description }
         ]);
       }
     }, err => {
@@ -78,8 +82,18 @@ export class HomeComponent implements OnInit {
 
     this.selectedLanguage = this.languageService.getSelectedLanguage();
 
-    this.articleService.getHeroArticles(this.selectedLanguage).subscribe(articles => {
+    this.cacheService.getSponsoredArticles(this.selectedLanguage).subscribe(articles => {
       this.heroArticles = articles;
+      this.loading = false;
+    });
+
+    this.cacheService.getTrendingStories(this.selectedLanguage).subscribe(articles => {
+      this.trendingArticles = articles;
+    });
+
+    this.cacheService.getLatestStories(this.selectedLanguage).subscribe(articles => {
+      this.latestArticles = articles;
+      console.log('latest articles', this.latestArticles);
     });
 
     this.getAuthors();
@@ -93,33 +107,42 @@ export class HomeComponent implements OnInit {
       this.setArticleData();
       this.getAuthors();
 
-      this.articleService.getHeroArticles(this.selectedLanguage).subscribe(articles => {
+      this.cacheService.getSponsoredArticles(this.selectedLanguage).subscribe(articles => {
         this.heroArticles = articles;
+        this.loading = false;
       });
-      
+
+      this.cacheService.getTrendingStories(this.selectedLanguage).subscribe(articles => {
+        this.trendingArticles = articles;
+      });
+
+      this.cacheService.getLatestStories(this.selectedLanguage).subscribe(articles => {
+        this.latestArticles = articles;
+      });
+
     });
 
-    
+
 
 
     return;
   }
   getArticle(slug) {
-    return this.articleService.getCategoryRow(slug, this.selectedLanguage)
+    return this.articleService.getCategoryRow(slug, this.selectedLanguage, 5)
   }
   setArticleData() {
     this.categories.subscribe((categoryData) => {
       categoryData.forEach(element => {
-        this.slugWiseData[element.slug] = this.articleService.getCategoryRow(element.slug, this.selectedLanguage)
+        this.slugWiseData[element.slug] = this.articleService.getCategoryRow(element.slug, this.selectedLanguage, 5)
       });
 
     })
   }
 
   getAuthors() {
-    this.authorList = this.authorService.getAuthors(this.selectedLanguage);
-
+    this.authorList = this.cacheService.getTopContributors(this.selectedLanguage);
   }
+
   replaceImage(url) {
     let latestURL = url
     if (url) {

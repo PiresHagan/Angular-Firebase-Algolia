@@ -7,6 +7,8 @@ import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as firebase from 'firebase/app';
 import { STAFF, MEMBER } from "../constants/member-constant";
+import { MessagingService } from "./messaging.service";
+import { UserService } from "./user.service";
 
 
 @Injectable({
@@ -15,7 +17,7 @@ import { STAFF, MEMBER } from "../constants/member-constant";
 export class AuthService {
     loggedInUser;
     loggedInUserDetails;
-    constructor(public afAuth: AngularFireAuth, public db: AngularFirestore, private http: HttpClient) {
+    constructor(public afAuth: AngularFireAuth, public db: AngularFirestore, private http: HttpClient, private messagingService: MessagingService, private userService: UserService) {
         this.afAuth.authState.subscribe((user) => {
             if (!user || !user.emailVerified) {
                 if (environment && environment.isAnonymousUserEnabled) {
@@ -50,25 +52,13 @@ export class AuthService {
 
     doRegister(email: string, password: string, displayName) {
         return new Promise<any>((resolve, reject) => {
-            this.afAuth.createUserWithEmailAndPassword(email, password)
-                .then(res => {
-                    /**
-                     * Send Verification Email here 
-                     */
-                    firebase.auth().currentUser.sendEmailVerification();
-
-                    res.user.updateProfile({ displayName }).then((user) => {
-                        resolve(res);
-                    }).catch(err => reject(err))
-
-                    const analytics = firebase.analytics();
-                    analytics.logEvent("sign_up", {
-                        user_uid: res.user.uid,
-                        user_name: displayName,
-                        user_email: res.user.email
-                    });
-
-                }, err => reject(err))
+            this.http.post(environment.baseAPIDomain + '/api/v1/auth/sign-up', {
+                email: email,
+                password: password,
+                displayName: displayName
+            }).subscribe((data) => {
+                resolve(data);
+            }, err => reject(err))
         })
     }
 
@@ -90,6 +80,8 @@ export class AuthService {
                         user_name: res.user.displayName,
                         provider_id: res.user.providerData.length > 0 ? res.user.providerData[0].providerId : res.additionalUserInfo.providerId
                     });
+
+                    this.messagingService.requestPermission();
 
                     resolve(res);
                 }, err => reject(err))
@@ -160,6 +152,22 @@ export class AuthService {
     }
     getLoginDetails() {
         return this.loggedInUser;
+    }
+    getSlug(displayName: string) {
+        return this.slugify(displayName)
+    }
+
+    slugify(string) {
+        return string
+            .toString()
+            .trim()
+            .toLowerCase()
+            .replace(/[^a-zA-Z ]/g, "")
+            .replace(/\s+/g, "-")
+            .replace(/[^\w\-]+/g, "")
+            .replace(/\-\-+/g, "-")
+            .replace(/^-+/, "")
+            .replace(/-+$/, "");
     }
 
 }

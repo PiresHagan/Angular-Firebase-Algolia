@@ -51,7 +51,7 @@ export class ArticlePublishComponent implements OnInit {
       this.userDetails = await this.authService.getLoggedInUserDetails();
       if (this.articleId) {
         try {
-          this.article = await this.articleService.getArticleById(this.articleId, this.userDetails.id, this.userDetails.type);
+          this.article = await this.articleService.getArticleById(this.articleId, null, this.userDetails.type);
           const format = 'mp4';
           this.fileURL = this.article.type === "video" && `https://player.cloudinary.com/embed/?cloud_name=mytrendingstories&public_id=${this.article.article_file.cloudinary_id}&fluid=true&controls=true&source_types%5B0%5D=${format}`
         } catch (error) {
@@ -73,7 +73,7 @@ export class ArticlePublishComponent implements OnInit {
   }
   savePublishStatus() {
     this.isFormSaving = true;
-    this.articleService.updateArticle(this.articleId, { status: ACTIVE, published_at: new Date().toISOString() }).then(async () => {
+    this.articleService.updateArticleImage(this.articleId, { status: ACTIVE, published_at: this.article && this.article.published_at ? this.article.published_at : new Date().toISOString() }).then(async () => {
 
       if ((!this.userDetails.type || this.userDetails.type == MEMBER) && this.userDetails.type != STAFF)
         await this.userService.updateMember(this.userDetails.id, { type: AUTHOR });
@@ -103,7 +103,7 @@ export class ArticlePublishComponent implements OnInit {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       $message = this.translate.instant("artPublishMsg");
     })
-    this.modalService.confirm({
+    this.modalService.success({
       nzTitle: "<i>" + $message + "</i>",
       nzOnOk: () => {
         if (this.userDetails.type == STAFF)

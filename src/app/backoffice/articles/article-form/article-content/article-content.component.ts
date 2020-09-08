@@ -16,7 +16,7 @@ import { AUDIO, VIDEO, TEXT } from 'src/app/shared/constants/article-constants';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CompanyService } from 'src/app/backoffice/shared/services/company.service';
 import { CharityService } from 'src/app/backoffice/shared/services/charity.service';
-import { AUTHOR } from 'src/app/shared/constants/member-constant';
+import { AUTHOR, STAFF, MEMBER, COMPANY, CHARITY } from 'src/app/shared/constants/member-constant';
 
 @Component({
   selector: 'app-article-content',
@@ -157,14 +157,14 @@ export class ArticleContentComponent implements OnInit {
 
       if (articleId) {
         try {
-          this.article = await this.articleService.getArticleById(articleId, this.userDetails.id, this.userDetails.type);
+          this.article = await this.articleService.getArticleById(articleId, null, this.userDetails.type);
           if (this.article && (this.article['id'])) {
             this.categoryService.getAll(this.article.lang).subscribe((categoryList) => {
               this.categoryList = categoryList ? categoryList : [];
               this.categoryService.getTopicList(this.article.category.id, this.article.lang).subscribe((topicListData) => {
                 this.topicList = topicListData ? topicListData : [];
                 this.setFormDetails();
-                this.getCompanyAndCharity(this.article.author);
+                this.getCompanyAndCharity(this.article.author, articleId);
               })
               this.loading = false;
             });
@@ -173,7 +173,7 @@ export class ArticleContentComponent implements OnInit {
           this.article = null;
         }
       } else {
-        this.getCompanyAndCharity(this.userDetails.id);
+        this.getCompanyAndCharity(this.userDetails);
         this.loading = false;
       }
 
@@ -266,7 +266,32 @@ export class ArticleContentComponent implements OnInit {
     return invalid;
   }
   getSlug(title: string) {
-    return title.replace(/ /g, '-')?.toLowerCase();
+    if (this.article && this.article.slug && this.article.title && title == this.article.title.trim()) {
+      return this.article.slug;
+    }
+    return this.slugify(title) + '-' + this.makeid();
+  }
+
+  slugify(string) {
+    return string
+      .toString()
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-zA-Z ]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/[^\w\-]+/g, "")
+      .replace(/\-\-+/g, "-")
+      .replace(/^-+/, "")
+      .replace(/-+$/, "");
+  }
+  makeid(length = 6) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result.toLowerCase();
   }
 
   getFilteredCategory(category) {
@@ -399,23 +424,48 @@ export class ArticleContentComponent implements OnInit {
 
     })
   }
-  getCompanyAndCharity(userId: string) {
+  getCompanyAndCharity(articleAuthor, articleId = null) {
 
     this.authorList = {
       charities: [],
       companies: [],
-      currentUser: this.userDetails
+      currentUser: null
     }
-    this.charityService.getAllCharities(this.userDetails.id, 1000).subscribe((charityData) => {
-      this.authorList.charities = charityData.charityList;
-      this.setAuthorDropdown();
+    if (this.userDetails.type == STAFF && articleId) {
+      if (!articleAuthor.type || articleAuthor.type === MEMBER) {
+        this.userService.getMember(articleAuthor.id).subscribe((userDetails) => {
+          this.authorList.currentUser = userDetails;
+          this.setAuthorDropdown();
+        })
+      } else if (articleAuthor.type === COMPANY) {
+        this.companyService.getCompanyById(articleAuthor.id).subscribe((copanyData) => {
+          this.authorList.companies.push(copanyData);
+          this.setAuthorDropdown();
+        })
+      } else if (articleAuthor.type === CHARITY) {
+        this.charityService.getCharityById(articleAuthor.id).subscribe((charityData) => {
+          this.authorList.charities.push(charityData);
+          this.setAuthorDropdown();
+        })
+      }
 
-    })
+    } else {
+      this.userService.getMember(this.userDetails.id).subscribe((userDetails) => {
+        this.authorList.currentUser = userDetails;
+        this.setAuthorDropdown();
+      })
+      this.charityService.getAllCharities(this.userDetails.id, 1000).subscribe((charityData) => {
+        this.authorList.charities = charityData.charityList;
+        this.setAuthorDropdown();
 
-    this.companyService.getAllCompanies(this.userDetails.id, 1000).subscribe((companyData) => {
-      this.authorList.companies = companyData.companyList;
-      this.setAuthorDropdown();
-    })
+      })
+
+      this.companyService.getAllCompanies(this.userDetails.id, 1000).subscribe((companyData) => {
+        this.authorList.companies = companyData.companyList;
+        this.setAuthorDropdown();
+      })
+    }
+
 
 
 
@@ -423,8 +473,8 @@ export class ArticleContentComponent implements OnInit {
   setAuthorDropdown() {
     let selectedUser = null;;
     if (this.article && this.article.author) {
-      if (this.userDetails.id === this.article.author.id) {
-        selectedUser = this.userDetails;
+      if (this.authorList.currentUser && this.authorList.currentUser.id === this.article.author.id) {
+        selectedUser = this.authorList.currentUser;
       }
       if (this.authorList.charities && this.authorList.charities.length) {
         selectedUser = this.getRecordFromId(this.authorList.charities, this.article.author.id) || null;
@@ -432,7 +482,8 @@ export class ArticleContentComponent implements OnInit {
       if (this.authorList.companies && this.authorList.companies.length) {
         selectedUser = this.getRecordFromId(this.authorList.companies, this.article.author.id) || null;
       }
-      this.articleForm.controls['author'].setValue(selectedUser)
+      if (selectedUser)
+        this.articleForm.controls['author'].setValue(selectedUser);
     }
   }
 

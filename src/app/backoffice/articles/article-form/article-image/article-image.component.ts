@@ -136,7 +136,7 @@ export class ArticleImageComponent implements OnInit {
       if (this.articleId) {
         try {
 
-          this.article = await this.articleService.getArticleById(this.articleId, this.userDetails.id, this.userDetails.type);
+          this.article = await this.articleService.getArticleById(this.articleId, null, this.userDetails.type);
           this.articleImage = this.article && this.article.image && this.article.image.url ? this.article.image.url : '';
           this.alternative = this.article && this.article.image && this.article.image.alt ? this.article.image.alt : '';
 

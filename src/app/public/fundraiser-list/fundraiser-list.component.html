@@ -3,7 +3,7 @@
        <div class="container">
             <div class="cat-box-title">
                 <div class="is-comman-title">
-                    {{ "fundraisersTitle" | translate }}
+                    {{ 'fundraisers' | translate }}
                 </div>
             </div>
             <div class="cat-box-gallery">
@@ -12,13 +12,27 @@
                         <div class="item-card item-card-life-and-styles">
                             <a [routerLink]="['/fundraisers',fundraiser.slug]">
                                 <div class="item-card-image">
-                                    <img [src]="fundraiser?.image.url" [alt]="fundraiser?.image?.alt">
+                                    <img [src]="fundraiser?.image.url" [alt]="fundraiser?.image?.alt"
+                                    *ngIf="!(fundraiser.image.cloudinary_id); else fundraiserFeatureCloudinaryImg" />
+                                            <ng-template #fundraiserFeatureCloudinaryImg>
+                                                <cl-image loading="lazy" public-id="{{fundraiser.image.cloudinary_id}}" secure="true">
+                                                    <cl-transformation width="260" height="180" gravity="face" crop="thumb">
+                                                    </cl-transformation>
+                                                </cl-image>
+                                            </ng-template>
                                 </div>
                                 <div class="item-card-content">
                                     <div class="item-card-category cat-yellow">
                                         <div class="is-avatar-dv">
                                             <img class="avatar" [src]="fundraiser?.logo.url" [alt]="fundraiser?.logo?.alt"
-                                            onerror="this.src='assets/images/default-avatar.png'">
+                                            onerror="this.src='assets/images/default-avatar.png'"
+                                            *ngIf="!(fundraiser.logo.cloudinary_id); else fundraiserCloudinaryImg" />
+                                            <ng-template #fundraiserCloudinaryImg>
+                                                <cl-image loading="lazy" public-id="{{fundraiser.logo.cloudinary_id}}" secure="true">
+                                                    <cl-transformation width="50" height="50" gravity="face" crop="thumb">
+                                                    </cl-transformation>
+                                                </cl-image>
+                                            </ng-template>
                                         <span class="item-card-author">{{ fundraiser?.title }}</span>
                                         </div>
                                     </div>
@@ -59,6 +73,13 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div *ngIf="!fundraisers?.length" class="box-center">
+                <nz-result [nzIcon]="'crown'" [nzTitle]="'CreateFundraiser' | translate">
+                    <div nz-result-extra>
+                    <button nz-button nzType="primary" routerLink="/app/fundraiser/fundraiser-list">{{'CreateFundraiserBtn' | translate}}</button>
+                    </div>
+                </nz-result>
             </div>
         </div>
     </div>

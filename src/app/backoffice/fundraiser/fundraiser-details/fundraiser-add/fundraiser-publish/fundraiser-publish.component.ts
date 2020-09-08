@@ -7,7 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { ACTIVE, DRAFT } from 'src/app/shared/constants/status-constants';
-import { AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
+// import { AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
 import { AUTHOR, MEMBER } from 'src/app/shared/constants/member-constant';
 import { BackofficeFundraiserService } from 'src/app/backoffice/shared/services/backoffice-fundraiser.service';
 import { Fundraiser } from 'src/app/shared/interfaces/fundraiser.type';
@@ -26,9 +26,9 @@ export class FundraiserPublishComponent implements OnInit {
   userDetails;
   fundraiser: Fundraiser;
   isFormSaving: boolean = false;
-  fileURL: string;
-  AUDIO = AUDIO;
-  VIDEO = VIDEO;
+  // fileURL: string;
+  // AUDIO = AUDIO;
+  // VIDEO = VIDEO;
 
   constructor(
     public userService: UserService,
@@ -57,8 +57,8 @@ export class FundraiserPublishComponent implements OnInit {
       if (this.fundraiserId) {
         try {
           this.fundraiser = await this.fundraiserService.getFundraiserById(this.fundraiserId);
-          const format = 'mp4';
-          this.fileURL = this.fundraiser.type === "video" && `https://player.cloudinary.com/embed/?cloud_name=mytrendingstories&public_id=${this.fundraiser.fundraising_file.cloudinary_id}&fluid=true&controls=true&source_types%5B0%5D=${format}`
+          // const format = 'mp4';
+          // this.fileURL = this.fundraiser.type === "video" && `https://player.cloudinary.com/embed/?cloud_name=mytrendingstories&public_id=${this.fundraiser.fundraising_file.cloudinary_id}&fluid=true&controls=true&source_types%5B0%5D=${format}`
         } catch (error) {
           this.fundraiser = null;
           this.router.navigate(['/app/error'])
@@ -71,9 +71,9 @@ export class FundraiserPublishComponent implements OnInit {
     })
   }
 
-  transform(url) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
+  // transform(url) {
+  //   return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  // }
 
   savePublishStatus() {
     this.isFormSaving = true;

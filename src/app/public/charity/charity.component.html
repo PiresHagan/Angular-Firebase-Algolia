@@ -19,7 +19,7 @@
             </div>
             <div class="is-main-article-content">
                 <div class="company-img">
-                    <img *ngIf="charity" [src]='charity?.logo?.url' [alt]='charity?.logo?.alt'
+                    <img *ngIf="charity" [src]='charity?.logo?.url' [alt]='charity?.logo?.alt' 
                     onerror="this.src='assets/images/default-avatar.png'"
                     />
                     <div class="special-icon" *ngIf="charity">
