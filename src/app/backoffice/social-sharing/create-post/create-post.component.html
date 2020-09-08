@@ -21,17 +21,17 @@
                   </nz-form-item>
                   <nz-form-item>
                     <nz-form-control [nzSpan]="7" nzErrorTip="{{ 'postStoryErr' | translate }}">
-                      <nz-select formControlName="article_slug" nzAllowClear nzPlaceHolder="Select Story">
+                      <nz-select formControlName="story_url" nzAllowClear nzPlaceHolder="Select Story">
                         <nz-option-group nzLabel="My Stories" *ngIf="articleList?.currentUser">
-                          <nz-option *ngFor="let item of articleList?.currentUser" [nzValue]="item.slug" [nzLabel]="item.title"></nz-option>
+                          <nz-option *ngFor="let item of articleList?.currentUser" [nzValue]="getStoryURL(item)" [nzLabel]="item.title"></nz-option>
                         </nz-option-group>
       
-                        <nz-option-group nzLabel="Companies" *ngIf="articleList?.companies">
-                          <nz-option [nzValue]="companyStory.slug" [nzLabel]="companyStory.title" *ngFor="let companyStory of articleList?.companies"></nz-option>
+                        <nz-option-group nzLabel="Companies Stories" *ngIf="articleList?.companies">
+                          <nz-option [nzValue]="getStoryURL(companyStory)" [nzLabel]="companyStory.title" *ngFor="let companyStory of articleList?.companies"></nz-option>
                         </nz-option-group>
       
-                        <nz-option-group nzLabel="Charities" *ngIf="articleList?.charities">
-                          <nz-option [nzValue]="charityStory.slug" [nzLabel]="charityStory.title" *ngFor="let charityStory of articleList?.charities"></nz-option>
+                        <nz-option-group nzLabel="Charities Stories" *ngIf="articleList?.charities">
+                          <nz-option [nzValue]="getStoryURL(charityStory)" [nzLabel]="charityStory.title" *ngFor="let charityStory of articleList?.charities"></nz-option>
                         </nz-option-group>
                       </nz-select>
                     </nz-form-control>

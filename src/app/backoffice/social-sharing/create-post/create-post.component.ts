@@ -7,6 +7,12 @@ import { BackofficeArticleService } from '../../shared/services/backoffice-artic
 import { UploadFile } from 'ng-zorro-antd/upload';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { BackofficeSocialSharingService } from '../../shared/services/backoffice-social-sharing.service';
+import { Post } from 'src/app/shared/interfaces/social-sharing-post.type';
+import { SocialSharingConstant } from 'src/app/shared/constants/social-sharing-constant';
+import { CompanyService } from '../../shared/services/company.service';
+import { Company } from 'src/app/shared/interfaces/company.type';
+import { Charity } from 'src/app/shared/interfaces/charity.type';
+import { CharityService } from '../../shared/services/charity.service';
 
 @Component({
   selector: 'app-create-post',
@@ -23,19 +29,18 @@ export class CreatePostComponent implements OnInit {
   imageSizeErrorMsg: string = "";
   imageGeneralErrorMsg: string = "";
   origin: string;
-  authorSlug: string;
-  selectedStoryURL: string;
   index = 'First-content';
   articleList = {
     currentUser: [],
     companies: [],
     charities: []
   };
+  userNetworks = [];
   lastVisible: any = null;
   userDetails;
   loading: boolean = true;
   isFormSaving: boolean = false;
-  postData;
+  postData: Post;
 
   constructor(
     public authService: AuthService,
@@ -45,13 +50,18 @@ export class CreatePostComponent implements OnInit {
     private modalService: NzModalService,
     private msg: NzMessageService,
     public translate: TranslateService,
+    private companyService: CompanyService,
+    private charityService: CharityService
   ) { }
 
   ngOnInit(): void {
+    this.origin = window.location.origin;
+
     this.postForm = this.fb.group({
       title: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],
-      article_slug: [null, [Validators.required]],
-      post_text: [null, [Validators.required, Validators.minLength(10)]]
+      story_url: [null, [Validators.required]],
+      post_text: [null, [Validators.required, Validators.minLength(10)]],
+      image: [null]
     });
 
     this.authService.getAuthState().subscribe(async (user) => {
@@ -59,13 +69,45 @@ export class CreatePostComponent implements OnInit {
         return;
       this.userDetails = await this.authService.getLoggedInUserDetails();
       if (this.userDetails) {
-        this.origin = window.location.origin;
-        this.authorSlug = this.userDetails.slug;
         this.articleService.getAllArticles(this.userDetails.id).subscribe((data) => {
           this.articleList.currentUser = data;
-          this.loading = false;
         }, err => {
-          this.loading = false;
+          console.error(err);
+        });
+
+        this.companyService.getCompaniesByOwner(this.userDetails.id).subscribe(companyList => {
+          companyList.forEach((company: Company) => {
+            this.articleService.getAllArticles(company.id).subscribe((companyArticleList) => {
+              companyArticleList.forEach(article => {
+                this.articleList.companies.push(article);
+              });
+            }, err => {
+              console.error(err);
+            });
+          });
+        });
+
+        this.charityService.getCharitiesByOwner(this.userDetails.id).subscribe(charityList => {
+          charityList.forEach((charity: Charity) => {
+            this.articleService.getAllArticles(charity.id).subscribe((charityArticleList) => {
+              charityArticleList.forEach(article => {
+                this.articleList.charities.push(article);
+              });
+              this.loading = false;
+            }, err => {
+              console.error(err);
+              this.loading = false;
+            });
+          });
+        });
+
+        this.authService.get(this.userDetails.id).subscribe(data => {
+          if(data[SocialSharingConstant.KEY_FACEBOOK])
+            this.userNetworks.push(data[SocialSharingConstant.KEY_FACEBOOK]);
+          if(data[SocialSharingConstant.KEY_LINKDIN])
+            this.userNetworks.push(data[SocialSharingConstant.KEY_LINKDIN]);
+          if(data[SocialSharingConstant.KEY_TWITTER])
+            this.userNetworks.push(data[SocialSharingConstant.KEY_TWITTER]);
         });
       }
     })
@@ -85,11 +127,7 @@ export class CreatePostComponent implements OnInit {
     if(this.current == 0) {
       if(this.postForm.valid) { 
         this.isFormSaving = true;
-        this.selectedStoryURL = `${this.origin}/${this.authorSlug}/${this.postForm.value.article_slug}`;
         this.postData = JSON.parse(JSON.stringify(this.postForm.value));
-        this.postData['story_url'] = this.selectedStoryURL;
-        this.postData['image'] = this.articleImage;
-        delete this.postData.article_slug;
         if (this.file) {
           this.socialSharingService.addPostImage(this.getImageObject()).then((data: any) => {
             this.postData.image = data.image;
@@ -182,6 +220,11 @@ export class CreatePostComponent implements OnInit {
     return {
       image: { url: this.articleImage }
     }
+  }
+
+  getStoryURL(story: Article) {
+    const url = `${this.origin}/${story?.author?.slug}/${story?.slug}`;
+    return url;
   }
 
 }

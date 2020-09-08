@@ -654,5 +654,7 @@
     "goBackAdUnit": "Back",
     "postTitleErr": "Post Title should not be less than 10 characters and not more than 70 characters.",
     "postTextErr": "Post message should not be less than 10 characters",
-    "postStoryErr": "Please select story"
+    "postStoryErr": "Please select story",
+    "PostDeletMsgConf": "Are you sure you want to delete post <b>{{title}}</b> ?",
+    "PostDeleted": "Post deleted successfully!"
 }
