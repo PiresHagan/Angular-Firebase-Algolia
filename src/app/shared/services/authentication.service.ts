@@ -52,30 +52,13 @@ export class AuthService {
 
     doRegister(email: string, password: string, displayName) {
         return new Promise<any>((resolve, reject) => {
-            this.afAuth.createUserWithEmailAndPassword(email, password)
-                .then(async (res) => {
-                    /**
-                     * Send Verification Email here 
-                     */
-                    await this.userService.updateMember(res.user.uid,
-                        {
-                            fullname: displayName,
-                            slug: this.getSlug(displayName)
-                        });
-                    firebase.auth().currentUser.sendEmailVerification();
-
-                    res.user.updateProfile({ displayName }).then((user) => {
-                        resolve(res);
-                    }).catch(err => reject(err))
-
-                    const analytics = firebase.analytics();
-                    analytics.logEvent("sign_up", {
-                        user_uid: res.user.uid,
-                        user_name: displayName,
-                        user_email: res.user.email
-                    });
-
-                }, err => reject(err))
+            this.http.post(environment.baseAPIDomain + '/api/v1/auth/sign-up', {
+                email: email,
+                password: password,
+                displayName: displayName
+            }).subscribe((data) => {
+                resolve(data);
+            }, err => reject(err))
         })
     }
 
