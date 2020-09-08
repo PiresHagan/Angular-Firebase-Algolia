@@ -153,5 +153,14 @@ export const ROUTES: SideNavInterface[] = [
                 submenu: []
             }
         ]
+    },
+    {
+        path: '/app/social-sharing/post-list',
+        title: 'Social Sharing',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'notification',
+        staff_only: false,
+        submenu: []
     }
 ]

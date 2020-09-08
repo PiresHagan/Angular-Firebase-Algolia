@@ -42,6 +42,10 @@ const routes: Routes = [
   {
     path: 'ad-network',
     loadChildren: () => import('./ad-network/ad-network.module').then(m => m.AdNetworkModule),
+  },
+  {
+    path: 'social-sharing',
+    loadChildren: () => import('./social-sharing/social-sharing.module').then(m => m.SocialSharingModule),
   }
 ];
 
