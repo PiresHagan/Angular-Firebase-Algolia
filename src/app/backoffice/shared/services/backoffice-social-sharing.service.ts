@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 import { UserService } from 'src/app/shared/services/user.service';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,14 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class BackofficeSocialSharingService {
 
     currentUser;
+    postImagePath = 'posts';
 
-    constructor(private http: HttpClient, private db: AngularFirestore, private userService: UserService) { }
+    constructor(
+        private http: HttpClient,
+        private db: AngularFirestore, 
+        private userService: UserService,
+        private storage: AngularFireStorage
+    ) { }
 
     saveAuthTokenToServer(data) {
         this.userService.getCurrentUser().then((user) => {
@@ -50,6 +57,17 @@ export class BackofficeSocialSharingService {
     
     deletePost(postId) {
         return this.http.delete(environment.baseAPIDomain + `/api/v1/posts/${postId}`);
+    }
+  
+    addPostImage(imageDetails: any) {
+        const path = `${this.postImagePath}/${Date.now()}_${imageDetails.file.name}`;
+        return new Promise((resolve, reject) => {
+            this.storage.upload(path, imageDetails.file).then(snapshot => {
+                snapshot.ref.getDownloadURL().then((downloadURL) => {
+                    resolve({ image: { url: downloadURL } });
+                }).catch( err => reject(err) );
+            }).catch( error => reject(error) );
+        })
     }
 
 }
