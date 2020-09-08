@@ -1,1 +1,114 @@
-<p>create-post works!</p>
+<div class="container">
+    <div class="social-sharing-sec">
+        <nz-steps [nzCurrent]="current">
+            <nz-step nzTitle="Create"></nz-step>
+            <nz-step nzTitle="Select Network"></nz-step>
+            <nz-step nzTitle="Schedule"></nz-step>
+          </nz-steps>
+      
+          <div class="steps-content">
+              <div class="step-1" *ngIf="current === 0">
+                <form nz-form>
+                  <nz-form-item>
+                    <nz-form-control>
+                      <textarea formControlName="comment" nz-input rows="4" placeholder="write any thing"></textarea>
+                    </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                    <nz-form-control [nzSpan]="7">
+                      <nz-select formControlName="story" nzAllowClear nzPlaceHolder="Select Story">
+                        <nz-option *ngFor="let item of articles" [nzValue]="item.title" [nzLabel]="item.title"></nz-option>
+                      </nz-select>
+                    </nz-form-control>
+                  </nz-form-item>
+                </form>
+                   
+                
+                <div class="content-type-btn">
+                    <button class="custom-btn" nz-button nzType="primary" [nzSize]="size"><i nz-icon nzType="font-size" nzTheme="outline"></i></button>
+                    <button class="custom-btn" nz-button nzType="primary" [nzSize]="size"><i nz-icon nzType="camera" nzTheme="outline"></i></button>
+                    <button class="custom-btn" nz-button nzType="primary" [nzSize]="size"><i nz-icon nzType="code" nzTheme="outline"></i></button>
+    
+                </div>
+              </div>
+              <div class="step-2"  *ngIf="current === 1">
+                <div class="select-social-btn mb-4">
+                    <button type="button" class="custom-btn">Social Profiles</button>
+                    <button type="button" class="custom-btn">Categories</button>
+                </div>
+                <nz-table  #borderedTable nzBordered>
+                    <thead>
+                        <tr>
+                            <th class="text-align">My Social Networks</th>
+                        </tr>
+                     
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                           <a href="">
+                            <div class="social-network-info">
+                                <div class="social-icon"><i nz-icon nzType="linkedin" nzTheme="outline"></i></div>
+                                <div class="network-name">LinkedIn:</div>
+                                <div class="network-user-name">Rohit Kumar</div>
+                             </div>
+                           </a>
+                        </td>
+                        
+                      </tr>
+                 
+                    </tbody>
+                  </nz-table>  
+                    
+            </div>
+            <div class="step-3"  *ngIf="current === 2" [ngClass]="current">
+                <form nz-form>
+                    <nz-form-item>
+                      <nz-form-label>Time Zone</nz-form-label>
+                      <nz-form-control>
+                        <input nz-input type="text" />
+                      </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label>Select Date & time</nz-form-label>
+                        <nz-form-control>
+                            <nz-date-picker [nzSpan]="14" [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-date-picker>
+                        </nz-form-control>
+                      </nz-form-item>
+                      <nz-form-item>
+                        <nz-form-control>
+                            <button nz-button class="custom-btn mr-2" nzType="default">Add more date & time </button>
+                            <button nz-button class="custom-btn btn-red" nzType="default">Generate Schdule</button>
+                        </nz-form-control>
+                      </nz-form-item>
+                      <nz-form-item>
+                        <nz-form-label>Time lag (Minutes)</nz-form-label>
+                        <nz-form-control>
+                          <input nz-input type="text" />
+                          <small class="d-block">(Time interval between two successive posts)</small>
+                        </nz-form-control>
+                      </nz-form-item>
+
+                      <nz-form-item>
+                        <nz-form-control>
+                          <label nz-checkbox>
+                            <span>Send me a report regarding the delivery status of this post via email</span>
+                          </label>
+                        </nz-form-control>
+                      </nz-form-item>
+                  </form>
+            </div>
+          </div>
+          <div class="steps-action">
+            <button nz-button class="custom-btn btn-grey" nzType="default" (click)="pre()" *ngIf="current > 0">
+              <span>Previous</span>
+            </button>
+            <button nz-button class="custom-btn" nzType="default" (click)="next()" *ngIf="current < 2">
+              <span>Next</span>
+            </button>
+            <button nz-button class="custom-btn btn-red" nzType="primary" (click)="done()" *ngIf="current === 2">
+              <span>Post</span>
+            </button>
+          </div>
+    </div>
+</div>
