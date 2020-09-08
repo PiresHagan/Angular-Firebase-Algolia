@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
 import { BackofficeSocialSharingService } from '../../shared/services/backoffice-social-sharing.service';
+import { SocialSharingConstant } from 'src/app/shared/constants/social-sharing-constant';
 declare var FB: any;
 
 @Component({
@@ -70,11 +71,9 @@ export class LinkSocialAccountComponent implements OnInit {
       if (response.authResponse) {
         this.fbloading = false;
         this.fbAccountLinkStatus = true;
-        this.socialSharingService.saveAuthTokenToServer({ 
-          social_accounts: { 
-            facebook : response.authResponse
-          }
-        });
+        let data = {}
+        data[SocialSharingConstant.KEY_FACEBOOK] = response.authResponse;
+        this.socialSharingService.saveAuthTokenToServer(data);
         this.getFacebookFriends();
       } else {
       console.log('User login failed');
