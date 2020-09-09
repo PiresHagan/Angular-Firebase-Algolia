@@ -71,9 +71,7 @@ export class LinkSocialAccountComponent implements OnInit {
       if (response.authResponse) {
         this.fbloading = false;
         this.fbAccountLinkStatus = true;
-        let data = {}
-        data[SocialSharingConstant.KEY_FACEBOOK] = response.authResponse;
-        this.socialSharingService.saveAuthTokenToServer(data);
+        this.socialSharingService.saveAuthTokenToServer(response.authResponse);
         this.getFacebookFriends();
       } else {
       console.log('User login failed');
