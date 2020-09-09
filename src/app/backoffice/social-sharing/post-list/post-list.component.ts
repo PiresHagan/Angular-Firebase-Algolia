@@ -12,6 +12,8 @@ import { Post } from 'src/app/shared/interfaces/social-sharing-post.type';
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss']
 })
+
+
 export class PostListComponent implements OnInit {
 
   userDetails;
@@ -45,6 +47,7 @@ export class PostListComponent implements OnInit {
   getFirstPosts() {
     this.socialSharigService.getPostsOnScroll(this.userDetails.id, this.postsLimit, 'first', this.lastVisible).subscribe((data) => {
       this.posts = data.postList;
+      console.log('rohit',this.posts);
       this.lastVisible = data.lastVisible;
       this.loading = false;
     });
@@ -90,5 +93,28 @@ export class PostListComponent implements OnInit {
       });
     });
   }
-
+  heroes = [
+    {
+      id:'123',
+      title:'testing data',
+      image:{
+          url:'assets/images/video/thumbnail-video.jpg',
+          alt:'image'
+      },
+      date:'29 Sep 2020',
+      memberId:'123',
+      status:'active',
+    },
+    {
+      id:'123',
+      title:'testing data',
+      image:{
+          url:'',
+          alt:'image'
+      },
+      date:'29 Sep 2020',
+      memberId:'123',
+      status:'active',
+    }
+  ];
 }
