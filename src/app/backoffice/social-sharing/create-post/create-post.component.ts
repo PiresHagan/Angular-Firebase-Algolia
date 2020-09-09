@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from "@ngx-translate/core";
+import { Router } from '@angular/router';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { BackofficeArticleService } from '../../shared/services/backoffice-article.service';
@@ -13,6 +14,7 @@ import { CompanyService } from '../../shared/services/company.service';
 import { Company } from 'src/app/shared/interfaces/company.type';
 import { Charity } from 'src/app/shared/interfaces/charity.type';
 import { CharityService } from '../../shared/services/charity.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-create-post',
@@ -23,6 +25,7 @@ export class CreatePostComponent implements OnInit {
 
   current = 0;
   postForm: FormGroup;
+  datePickerForm: FormGroup;
   file: any;
   articleImage;
   imageTypeErrorMsg: string = "";
@@ -41,20 +44,25 @@ export class CreatePostComponent implements OnInit {
   loading: boolean = true;
   isFormSaving: boolean = false;
   postData: Post;
+  scheduledDateTime;
+  timeZoneValue;
 
   constructor(
     public authService: AuthService,
+    private router: Router,
     private articleService: BackofficeArticleService,
     public socialSharingService: BackofficeSocialSharingService,
     private fb: FormBuilder,
-    private modalService: NzModalService,
-    private msg: NzMessageService,
+    private message: NzMessageService,
+    private modal: NzModalService,
     public translate: TranslateService,
     private companyService: CompanyService,
-    private charityService: CharityService
+    private charityService: CharityService,
+    private socialSharigService: BackofficeSocialSharingService
   ) { }
 
   ngOnInit(): void {
+    this.timeZoneValue = new Date().toString().slice(new Date().toString().search('GMT'));
     this.origin = window.location.origin;
 
     this.postForm = this.fb.group({
@@ -62,6 +70,10 @@ export class CreatePostComponent implements OnInit {
       story_url: [null, [Validators.required]],
       post_text: [null, [Validators.required, Validators.minLength(10)]],
       image: [null]
+    });
+
+    this.datePickerForm = this.fb.group({
+      scheduled_date: [null, [Validators.required]]
     });
 
     this.authService.getAuthState().subscribe(async (user) => {
@@ -114,8 +126,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   pre(): void {
-    this.current -= 1;
-    this.changeContent();
+    this.changeCurrent(-1);
   }
 
   next(): void {
@@ -152,7 +163,15 @@ export class CreatePostComponent implements OnInit {
   }
 
   done(): void {
-    console.log('done');
+    for (const i in this.datePickerForm.controls) {
+      this.datePickerForm.controls[i].markAsDirty();
+      this.datePickerForm.controls[i].updateValueAndValidity();
+    }
+
+    if(this.datePickerForm.valid) {
+      this.postData.scheduled_date = new Date(this.scheduledDateTime).toISOString();
+      this.confirmPostSubmission();
+    }
   }
 
   changeContent(): void {
@@ -183,13 +202,13 @@ export class CreatePostComponent implements OnInit {
 
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
-      this.msg.error(this.imageTypeErrorMsg);
+      this.showMessage("error", this.imageTypeErrorMsg);
       return false;
     }
 
     const isLt2M = file.size! / 1024 / 1024 < 2;
     if (!isLt2M) {
-      this.msg.error(this.imageSizeErrorMsg);
+      this.showMessage("error", this.imageSizeErrorMsg);
       return false;
     }
     this.file = file;
@@ -200,7 +219,7 @@ export class CreatePostComponent implements OnInit {
       });
     } catch (error) {
       this.file = null;
-      this.msg.error(this.imageGeneralErrorMsg);
+      this.showMessage("error", this.imageGeneralErrorMsg);
     }
     return false;
   };
@@ -225,6 +244,31 @@ export class CreatePostComponent implements OnInit {
   getStoryURL(story: Article) {
     const url = `${this.origin}/${story?.author?.slug}/${story?.slug}`;
     return url;
+  }
+
+  showMessage(type: string, message: string) {
+    this.message.create(type, message);
+  }
+
+  confirmPostSubmission() {
+    this.translate.get("PostSubmissionConf").subscribe((text:string) => {
+      const title = text;
+      this.modal.confirm({
+        nzTitle: title,
+        nzOnOk: () =>
+          new Promise((resolve, reject) => {
+            this.socialSharigService.addNewPost(this.postData).then(() => {
+              this.showMessage('success', this.translate.instant("PostCreated"));
+              resolve()
+              this.router.navigate(['/app/social-sharing/post-list'])
+            }, error => {
+              reject(error)
+            });
+          }).catch((err) => {
+            this.showMessage('error', err.message);
+          })
+      });
+    });
   }
 
 }

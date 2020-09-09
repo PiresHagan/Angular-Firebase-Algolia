@@ -67,7 +67,7 @@
                     <button type="button" class="custom-btn">Social Profiles</button>
                     <button type="button" class="custom-btn">Categories</button>
                 </div>
-                <nz-table  #borderedTable nzBordered>
+                <nz-table  #borderedTable nzBordered [nzData]="userNetworks">
                     <thead>
                         <tr>
                             <th class="text-align">My Social Networks</th>
@@ -77,15 +77,23 @@
                     <tbody>
                       <tr>
                         <td>
-                           <a href="">
                             <div class="social-network-info">
-                                <div class="social-icon"><i nz-icon nzType="linkedin" nzTheme="outline"></i></div>
-                                <div class="network-name">LinkedIn:</div>
+                                <label nz-checkbox></label>
+                                <div class="social-icon"><i nz-icon nzType="facebook" nzTheme="outline"></i></div>
+                                <div class="network-name">Facebook:</div>
                                 <div class="network-user-name">Rohit Kumar</div>
                              </div>
-                           </a>
                         </td>
-                        
+                      </tr>
+                      <tr>
+                        <td>
+                            <div class="social-network-info">
+                                <label nz-checkbox></label>
+                                <div class="social-icon"><i nz-icon nzType="facebook" nzTheme="outline"></i></div>
+                                <div class="network-name">Facebook:</div>
+                                <div class="network-user-name">My Trending Stories</div>
+                             </div>
+                        </td>
                       </tr>
                  
                     </tbody>
@@ -93,20 +101,27 @@
                     
             </div>
             <div class="step-3"  *ngIf="current === 2" [ngClass]="current">
-                <form nz-form>
+                <form nz-form [formGroup]="datePickerForm">
                     <nz-form-item>
                       <nz-form-label>Time Zone</nz-form-label>
-                      <nz-form-control>
-                        <input nz-input type="text" />
+                      <nz-form-control [nzSpan]="6">
+                        <input nz-input disabled="true" [value]="timeZoneValue"/>
                       </nz-form-control>
                     </nz-form-item>
                     <nz-form-item>
-                        <nz-form-label>Select Date & time</nz-form-label>
-                        <nz-form-control>
-                            <nz-date-picker [nzSpan]="14" [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-date-picker>
+                        <nz-form-label>{{ "scheduledDate" | translate }}</nz-form-label>
+                        <nz-form-control nzErrorTip="{{ 'postDateErr' | translate }}"> 
+                          <nz-date-picker
+                            formControlName="scheduled_date"
+                            nzShowTime
+                            nzFormat="yyyy-MM-dd HH:mm:ss"
+                            nzPlaceHolder="Select Date & Time"
+                            [(ngModel)] = "scheduledDateTime"
+                            (nzOnOk)="onDatePickerOk($event)"
+                          ></nz-date-picker>
                         </nz-form-control>
                       </nz-form-item>
-                      <nz-form-item>
+                      <!-- <nz-form-item>
                         <nz-form-control>
                             <button nz-button class="custom-btn mr-2" nzType="default">Add more date & time </button>
                             <button nz-button class="custom-btn btn-red" nzType="default">Generate Schdule</button>
@@ -118,11 +133,11 @@
                           <input nz-input type="text" />
                           <small class="d-block">(Time interval between two successive posts)</small>
                         </nz-form-control>
-                      </nz-form-item>
+                      </nz-form-item> -->
 
                       <nz-form-item>
                         <nz-form-control>
-                          <label nz-checkbox>
+                          <label nz-checkbox >
                             <span>Send me a report regarding the delivery status of this post via email</span>
                           </label>
                         </nz-form-control>
