@@ -9,9 +9,9 @@
                 <div class="monthly-price">{{'MonthlyPrice' | translate}}</div>
             </div>
             <div class="buy-content">
-                <div class="price">$100</div>
+                <div class="price">$1000</div>
                 <div class="buy-btn-main">
-                    <button class="buy-btn" nz-button nzType="primary" (click)="showModal()">{{'monthlyBuyIt' | translate}}</button>
+                    <button class="buy-btn" nz-button nzType="primary" (click)="checkLogin()">{{'monthlyBuyIt' | translate}}</button>
                     <nz-modal
                         [(nzVisible)]="isVisible"
                         nzTitle="My Trending Stories"
@@ -19,7 +19,7 @@
                         (nzOnOk)="handleOk()"
                         [nzOkLoading]="isOkLoading"
                         >
-                        <p class="text-black">Please, sign in or sign up before buying your spot</p>
+                        <p class="text-black">Please, <a routerLink="/auth/login">sign in</a> or <a routerLink="/auth/signup">sign up</a>  before buying your spot</p>
                         </nz-modal>
                 </div>
             </div>

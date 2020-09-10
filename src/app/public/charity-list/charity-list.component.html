@@ -30,7 +30,18 @@
         <div *ngIf="!charities?.length" class="box-center">
             <nz-result [nzIcon]="'crown'" [nzTitle]="'CreateCharity' | translate">
                 <div nz-result-extra>
-                <button nz-button nzType="primary" routerLink="/app/charity/charity-list">{{'CreateCharityBtn' | translate}}</button>
+                <button nz-button nzType="primary"  (click)="checkLogin()">{{'CreateCharityBtn' | translate}}</button>
+                </div>
+                <div class="login-popup"  *ngIf="!(isLoggedInUser)">
+                    <nz-modal
+                        [(nzVisible)]="isVisible"
+                        nzTitle="My Trending Stories"
+                        (nzOnCancel)="handleCancel()"
+                        (nzOnOk)="handleOk()"
+                        [nzOkLoading]="isOkLoading"
+                        >
+                        <p class="text-black">Please, <a routerLink="/auth/login">sign in</a> or <a routerLink="/auth/signup">sign up</a></p>
+                        </nz-modal>
                 </div>
             </nz-result>
     </div>

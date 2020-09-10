@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { FundraiserService } from 'src/app/shared/services/fundraiser.service';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/authentication.service';
+import { User } from 'src/app/shared/interfaces/user.type';
 @Component({
   selector: 'app-fundraiser-list',
   templateUrl: './fundraiser-list.component.html',
@@ -14,10 +16,14 @@ export class FundraiserListComponent implements OnInit {
   loadingMore: boolean = false;
   selectedLanguage: string = "";
   fundraiserListLimit = 20;
+  isLoggedInUser: any;
 
   constructor(
     private fundraiserService: FundraiserService,
-    private langService: LanguageService
+    private langService: LanguageService,
+    private route: ActivatedRoute,
+    private router: Router,
+    public authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -52,4 +58,34 @@ export class FundraiserListComponent implements OnInit {
     }
   }
 
+  isVisible = false;
+  isOkLoading = false;
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.router.navigate(["auth/login"]);
+      this.isOkLoading = false;
+    }, 2000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+  
+  checkLogin(){
+    this.authService.getAuthState().subscribe(async (user) => {
+      if (!user.isAnonymous) {
+        this.router.navigate(["/app/fundraiser/fundraiser-list"]);
+      } else {
+        this.showModal()
+      }
+    });
+
+  
+  }
+  
 }
