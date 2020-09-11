@@ -14,11 +14,14 @@ import { CompanyFollowersComponent } from './company-followers/company-followers
 import { CompanyLeadsComponent } from './company-leads/company-leads.component';
 import { CompanyArticleComponent } from './company-article/company-article.component';
 import { CompanyFundraisersComponent } from './company-fundraisers/company-fundraisers.component';
+import { CompanySubscriptionComponent } from './company-subscription/company-subscription.component';
+import { CompanyBillingComponent } from './company-billing/company-billing.component';
+import { CompanyLeadsPackageComponent } from './company-leads-package/company-leads-package.component';
 
 
 
 @NgModule({
-  declarations: [AddCompanyComponent, CompanyListComponent, CompanyDetailsComponent, CompanyFollowersComponent, CompanyLeadsComponent, CompanyArticleComponent, CompanyFundraisersComponent],
+  declarations: [AddCompanyComponent, CompanyListComponent, CompanyDetailsComponent, CompanyFollowersComponent, CompanyLeadsComponent, CompanyArticleComponent, CompanyFundraisersComponent, CompanySubscriptionComponent, CompanyBillingComponent, CompanyLeadsPackageComponent],
   imports: [
     CommonModule,
     SharedModule,
