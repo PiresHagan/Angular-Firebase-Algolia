@@ -37,11 +37,11 @@ import { NgAisModule } from 'angular-instantsearch';
 import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
 import { ArticleInteractionComponent } from './shared/component/article-interaction/article-interaction.component';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
-
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 registerLocaleData(en);
@@ -51,11 +51,12 @@ registerLocaleData(en);
         AppComponent,
         CommonLayoutComponent,
         FullLayoutComponent,
-        BackofficeLayoutComponent],
+        BackofficeLayoutComponent
+    ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        CloudinaryModule.forRoot({Cloudinary}, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
+        CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
         NgZorroAntdModule,
         AppRoutingModule,
         TemplateModule,
@@ -72,9 +73,9 @@ registerLocaleData(en);
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] } }),
         NgAisModule.forRoot(),
         NgxStripeModule.forRoot(environment.stripePublishableKey),
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ],
-    exports: [
-    ],
+    exports: [],
     providers: [
         {
             provide: NZ_I18N,
