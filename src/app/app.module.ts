@@ -37,6 +37,7 @@ import { NgAisModule } from 'angular-instantsearch';
 import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
 import { ArticleInteractionComponent } from './shared/component/article-interaction/article-interaction.component';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -72,6 +73,7 @@ registerLocaleData(en);
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] } }),
         NgAisModule.forRoot(),
         NgxStripeModule.forRoot(environment.stripePublishableKey),
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ],
     exports: [
     ],
