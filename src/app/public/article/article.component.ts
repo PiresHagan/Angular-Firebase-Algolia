@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Output, EventEmitter, Input, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
@@ -23,7 +23,7 @@ import * as moment from 'moment';
   styleUrls: ['./article.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ArticleComponent implements OnInit {
+export class ArticleComponent implements OnInit, AfterViewInit {
 
   article: Article;
   articleType: string;
@@ -126,6 +126,8 @@ export class ArticleComponent implements OnInit {
       this.isLoaded = true;
     }
   }
+
+  ngAfterViewInit() {}
 
   /**
    * Get Article comments using Article Id
