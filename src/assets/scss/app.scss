@@ -109,413 +109,452 @@
 
 @import "demo/demo.scss";
 
-
-li{
-  &.life-and-styles, &.vie-et-styles, &.vida-y-estilos{
-    &.ant-menu-item-selected{
-      background: #fbca20  !important;
+li {
+  &.life-and-styles,
+  &.vie-et-styles,
+  &.vida-y-estilos {
+    &.ant-menu-item-selected {
+      background: #fbca20 !important;
     }
   }
-  &.life-and-styles:hover, &.vie-et-styles:hover, &.vida-y-estilos:hover{
-    background: #fbca20  !important;
+  &.life-and-styles:hover,
+  &.vie-et-styles:hover,
+  &.vida-y-estilos:hover {
+    background: #fbca20 !important;
   }
-  
 }
-li{
-  &.creative{
-    &.ant-menu-item-selected{
-      background: #faaf44  !important;
+li {
+  &.creative {
+    &.ant-menu-item-selected {
+      background: #faaf44 !important;
     }
   }
-  &.creative:hover{
-  background: #faaf44  !important;
+  &.creative:hover {
+    background: #faaf44 !important;
   }
-
 }
 
-li{
-  &.city{
-    &.ant-menu-item-selected{
+li {
+  &.city {
+    &.ant-menu-item-selected {
       background: #23d7d5 !important;
     }
   }
-  &.city:hover{
-  background: #23d7d5 !important;
-}
+  &.city:hover {
+    background: #23d7d5 !important;
+  }
 }
 
-li{
-  &.news,&.nouvelles,&.noticias {
-    &.ant-menu-item-selected{
-      background: #faaf44  !important;
+li {
+  &.news,
+  &.nouvelles,
+  &.noticias {
+    &.ant-menu-item-selected {
+      background: #faaf44 !important;
     }
   }
-  &.news:hover,&.nouvelles:hover,&.noticias :hover{
-  background: #faaf44  !important;
-}
+  &.news:hover,
+  &.nouvelles:hover,
+  &.noticias :hover {
+    background: #faaf44 !important;
+  }
 }
 
-li{
-  &.entertainment,&.divertissement,&.entretenimiento{
-    &.ant-menu-item-selected{
+li {
+  &.entertainment,
+  &.divertissement,
+  &.entretenimiento {
+    &.ant-menu-item-selected {
       background: #f64747 !important;
     }
   }
-  &.entertainment:hover, &.divertissement:hover, &.entretenimiento:hover{
-  background: #f64747 !important;
+  &.entertainment:hover,
+  &.divertissement:hover,
+  &.entretenimiento:hover {
+    background: #f64747 !important;
+  }
 }
-}
-li{
-  &.business, &.Entreprise, &.negocio{
-    &.ant-menu-item-selected{
-      background: #2baad3  !important;
+li {
+  &.business,
+  &.Entreprise,
+  &.negocio {
+    &.ant-menu-item-selected {
+      background: #2baad3 !important;
     }
   }
-  &.business:hover, &.Entreprise:hover, &.negocio:hover{
-  background: #2baad3  !important;
+  &.business:hover,
+  &.Entreprise:hover,
+  &.negocio:hover {
+    background: #2baad3 !important;
+  }
 }
-}
-li{
-  &.tech-and-science, &.technologie-et-science,&.tech-y-la-ciencia{
-    &.ant-menu-item-selected{
-      background: #3fbb22  !important;
+li {
+  &.tech-and-science,
+  &.technologie-et-science,
+  &.tech-y-la-ciencia {
+    &.ant-menu-item-selected {
+      background: #3fbb22 !important;
     }
   }
-  &.tech-and-science:hover,&.technologie-et-science:hover,&.tech-y-la-ciencia:hover{
-  background: #3fbb22  !important;
+  &.tech-and-science:hover,
+  &.technologie-et-science:hover,
+  &.tech-y-la-ciencia:hover {
+    background: #3fbb22 !important;
+  }
 }
-}
-li{
-  &.Opinion,&.Opinion,&.OPINIÓN{
-    &.ant-menu-item-selected{
-      background: #7122bb  !important;
+li {
+  &.Opinion,
+  &.Opinion,
+  &.OPINIÓN {
+    &.ant-menu-item-selected {
+      background: #7122bb !important;
     }
   }
-  &.Opinion:hover,&.Opinion:hover,&.OPINIÓN:hover{
-  background: #7122bb  !important;
+  &.Opinion:hover,
+  &.Opinion:hover,
+  &.OPINIÓN:hover {
+    background: #7122bb !important;
+  }
 }
-}
-li{
-  &.sport,&.sport-fr,&.deporte{
-    &.ant-menu-item-selected{
-      background: #2baad3  !important;
+li {
+  &.sport,
+  &.sport-fr,
+  &.deporte {
+    &.ant-menu-item-selected {
+      background: #2baad3 !important;
     }
   }
-  &.sport:hover,&.sport-fr:hover,&.deporte:hover{
-  background: #2baad3  !important;
+  &.sport:hover,
+  &.sport-fr:hover,
+  &.deporte:hover {
+    background: #2baad3 !important;
+  }
 }
-}
-li{
-  &.viral,&.viral-fr,&.viral-es{
-    &.ant-menu-item-selected{
-      background: #f64747  !important;
+li {
+  &.viral,
+  &.viral-fr,
+  &.viral-es {
+    &.ant-menu-item-selected {
+      background: #f64747 !important;
     }
   }
-  &.viral:hover,&.viral-fr:hover,&.viral-es:hover{
-  background: #f64747  !important;
+  &.viral:hover,
+  &.viral-fr:hover,
+  &.viral-es:hover {
+    background: #f64747 !important;
+  }
 }
-}
-li{
-  &.religion, &.religion-fr, &.religión{
-    &.ant-menu-item-selected{
-      background: #23d7d5  !important;
+li {
+  &.religion,
+  &.religion-fr,
+  &.religión {
+    &.ant-menu-item-selected {
+      background: #23d7d5 !important;
     }
   }
-  &.religion:hover,  &.religion-fr:hover, &.religión:hover{
-  background: #23d7d5  !important;
-}
-}
-
-
-
-
-
-
-
-.life-and-styles, .vie-et-styles, .vida-y-estilos{
-  .is-category-title{
-  background: #fbca20 !important;
+  &.religion:hover,
+  &.religion-fr:hover,
+  &.religión:hover {
+    background: #23d7d5 !important;
   }
-  .is-see-more{
+}
+
+.life-and-styles,
+.vie-et-styles,
+.vida-y-estilos {
+  .is-category-title {
     background: #fbca20 !important;
-    }
-    .item-card{
-      &:hover .article-image-icon{
-        background: #fbca20;
-      }
-     
-      .article-icon{
-        i{
-          color: #faaf44 !important;
-        }
-      }
-      &:hover .article-icon{
-        background: #faaf44 !important;
-        i{
-          color: #fff !important;
-        }
-      }
-    }
-
-}
-
-.creative{
-  .is-category-title{
-    background: #faaf44 !important;
   }
-  .is-see-more{
-    background: #faaf44 !important;
+  .is-see-more {
+    background: #fbca20 !important;
   }
-  .item-card{
-    &:hover .article-image-icon{
+  .item-card {
+    &:hover .article-image-icon {
       background: #fbca20;
     }
-    .article-icon{
-      i{
-        color: #fbca20 !important;
-      }
-    }
-    &:hover .article-icon{
-      background: #fbca20 !important;
-      i{
-        color: #fff !important;
-      }
-    }
-  }
-}
-.city, .ville,.ciudad{
-  .is-category-title{
-    background: #23d7d5 !important;
-  }
-  .is-see-more{
-    background: #23d7d5 !important;
-  }
-  .item-card{
-    &:hover .article-image-icon{
-      background: #23d7d5;
-    }
-    .article-icon{
-      i{
-        color: #23d7d5 !important;
-      }
-    }
-    &:hover .article-icon{
-      background: #23d7d5 !important;
-      i{
-        color: #fff !important;
-      }
-    }
-  }
-}
-.news, .nouvelles, .noticias {
-  .is-category-title{
-    background: #faaf44 !important;
-  }
-  .is-see-more{
-    background: #faaf44 !important;
-  }
-  .item-card{
-    &:hover .article-image-icon{
-      background: #faaf44;
-    }
-    .article-icon{
-      i{
+
+    .article-icon {
+      i {
         color: #faaf44 !important;
       }
     }
-    &:hover .article-icon{
+    &:hover .article-icon {
       background: #faaf44 !important;
-      i{
+      i {
         color: #fff !important;
       }
     }
   }
 }
-.entertainment, .divertissement, .entretenimiento{
-  .is-category-title{
-    background: #f64747 !important;
+
+.creative {
+  .is-category-title {
+    background: #faaf44 !important;
   }
-  .is-see-more{
-    background: #f64747 !important;
+  .is-see-more {
+    background: #faaf44 !important;
   }
-  .item-card{
-    &:hover .article-image-icon{
-      background: #f64747;
+  .item-card {
+    &:hover .article-image-icon {
+      background: #fbca20;
     }
-    .article-icon{
-      i{
-        color: #f64747 !important;
+    .article-icon {
+      i {
+        color: #fbca20 !important;
       }
     }
-    &:hover .article-icon{
-      background: #f64747 !important;
-      i{
+    &:hover .article-icon {
+      background: #fbca20 !important;
+      i {
         color: #fff !important;
       }
     }
   }
 }
-.business, .Entreprise, .negocio{
-  .is-category-title{
-    background: #2baad3 !important;
-  }
-  .is-see-more{
-    background: #2baad3 !important;
-  }
-  .item-card{
-    &:hover .article-image-icon{
-      background: #2baad3;
-    }
-    .article-icon{
-      i{
-        color: #2baad3 !important;
-      }
-    }
-    &:hover .article-icon{
-      background: #2baad3 !important;
-      i{
-        color: #fff !important;
-      }
-    }
-  }
-}
-.tech-and-science, .technologie-et-science, .tech-y-la-ciencia{
-  .is-category-title{
-    background: #3fbb22 !important;
-  }
-  .is-see-more{
-    background: #3fbb22 !important;
-  }
-  .item-card{
-    &:hover .article-image-icon{
-      background: #3fbb22;
-    }
-    .article-icon{
-      i{
-        color: #3fbb22 !important;
-      }
-    }
-    &:hover .article-icon{
-      background: #3fbb22 !important;
-      i{
-        color: #fff !important;
-      }
-    }
-  }
-}
-.Opinion, .Opinion, .OPINIÓN{
-  .is-category-title{
-    background: #7122bb !important;
-  }
-  .is-see-more{
-    background: #7122bb !important;
-  }
-  .item-card{
-    &:hover .article-image-icon{
-      background: #7122bb;
-    }
-    .article-icon{
-      i{
-        color: #7122bb !important;
-      }
-    }
-    &:hover .article-icon{
-      background: #7122bb !important;
-      i{
-        color: #fff !important;
-      }
-    }
-  }
-}
-.sport, .sport-fr, .deporte{
-  .is-category-title{
-    background: #2baad3 !important;
-  }
-  .is-see-more{
-    background: #2baad3 !important;
-  }
-  .item-card{
-    &:hover .article-image-icon{
-      background: #2baad3;
-    }
-    .article-icon{
-      i{
-        color: #2baad3 !important;
-      }
-    }
-    &:hover .article-icon{
-      background: #2baad3 !important;
-      i{
-        color: #fff !important;
-      }
-    }
-  }
-}
-.viral, .viral-fr, .viral-es{
-  .is-category-title{
-    background: #f64747 !important;
-  }
-  .is-see-more{
-    background: #f64747 !important;
-  }
-  .item-card{
-    &:hover .article-image-icon{
-      background: #f64747;
-    }
-    .article-icon{
-      i{
-        color: #f64747 !important;
-      }
-    }
-    &:hover .article-icon{
-      background: #f64747 !important;
-      i{
-        color: #fff !important;
-      }
-    }
-  }
-}
-.religion, .religion-fr, .religión{
-  .is-category-title{
-  background: #23d7d5 !important;
-  }
-  .is-see-more{
+.city,
+.ville,
+.ciudad {
+  .is-category-title {
     background: #23d7d5 !important;
   }
-  .item-card{
-    &:hover .article-image-icon{
+  .is-see-more {
+    background: #23d7d5 !important;
+  }
+  .item-card {
+    &:hover .article-image-icon {
       background: #23d7d5;
     }
-    .article-icon{
-      i{
+    .article-icon {
+      i {
         color: #23d7d5 !important;
       }
     }
-    &:hover .article-icon{
+    &:hover .article-icon {
       background: #23d7d5 !important;
-      i{
+      i {
+        color: #fff !important;
+      }
+    }
+  }
+}
+.news,
+.nouvelles,
+.noticias {
+  .is-category-title {
+    background: #faaf44 !important;
+  }
+  .is-see-more {
+    background: #faaf44 !important;
+  }
+  .item-card {
+    &:hover .article-image-icon {
+      background: #faaf44;
+    }
+    .article-icon {
+      i {
+        color: #faaf44 !important;
+      }
+    }
+    &:hover .article-icon {
+      background: #faaf44 !important;
+      i {
+        color: #fff !important;
+      }
+    }
+  }
+}
+.entertainment,
+.divertissement,
+.entretenimiento {
+  .is-category-title {
+    background: #f64747 !important;
+  }
+  .is-see-more {
+    background: #f64747 !important;
+  }
+  .item-card {
+    &:hover .article-image-icon {
+      background: #f64747;
+    }
+    .article-icon {
+      i {
+        color: #f64747 !important;
+      }
+    }
+    &:hover .article-icon {
+      background: #f64747 !important;
+      i {
+        color: #fff !important;
+      }
+    }
+  }
+}
+.business,
+.Entreprise,
+.negocio {
+  .is-category-title {
+    background: #2baad3 !important;
+  }
+  .is-see-more {
+    background: #2baad3 !important;
+  }
+  .item-card {
+    &:hover .article-image-icon {
+      background: #2baad3;
+    }
+    .article-icon {
+      i {
+        color: #2baad3 !important;
+      }
+    }
+    &:hover .article-icon {
+      background: #2baad3 !important;
+      i {
+        color: #fff !important;
+      }
+    }
+  }
+}
+.tech-and-science,
+.technologie-et-science,
+.tech-y-la-ciencia {
+  .is-category-title {
+    background: #3fbb22 !important;
+  }
+  .is-see-more {
+    background: #3fbb22 !important;
+  }
+  .item-card {
+    &:hover .article-image-icon {
+      background: #3fbb22;
+    }
+    .article-icon {
+      i {
+        color: #3fbb22 !important;
+      }
+    }
+    &:hover .article-icon {
+      background: #3fbb22 !important;
+      i {
+        color: #fff !important;
+      }
+    }
+  }
+}
+.Opinion,
+.Opinion,
+.OPINIÓN {
+  .is-category-title {
+    background: #7122bb !important;
+  }
+  .is-see-more {
+    background: #7122bb !important;
+  }
+  .item-card {
+    &:hover .article-image-icon {
+      background: #7122bb;
+    }
+    .article-icon {
+      i {
+        color: #7122bb !important;
+      }
+    }
+    &:hover .article-icon {
+      background: #7122bb !important;
+      i {
+        color: #fff !important;
+      }
+    }
+  }
+}
+.sport,
+.sport-fr,
+.deporte {
+  .is-category-title {
+    background: #2baad3 !important;
+  }
+  .is-see-more {
+    background: #2baad3 !important;
+  }
+  .item-card {
+    &:hover .article-image-icon {
+      background: #2baad3;
+    }
+    .article-icon {
+      i {
+        color: #2baad3 !important;
+      }
+    }
+    &:hover .article-icon {
+      background: #2baad3 !important;
+      i {
+        color: #fff !important;
+      }
+    }
+  }
+}
+.viral,
+.viral-fr,
+.viral-es {
+  .is-category-title {
+    background: #f64747 !important;
+  }
+  .is-see-more {
+    background: #f64747 !important;
+  }
+  .item-card {
+    &:hover .article-image-icon {
+      background: #f64747;
+    }
+    .article-icon {
+      i {
+        color: #f64747 !important;
+      }
+    }
+    &:hover .article-icon {
+      background: #f64747 !important;
+      i {
+        color: #fff !important;
+      }
+    }
+  }
+}
+.religion,
+.religion-fr,
+.religión {
+  .is-category-title {
+    background: #23d7d5 !important;
+  }
+  .is-see-more {
+    background: #23d7d5 !important;
+  }
+  .item-card {
+    &:hover .article-image-icon {
+      background: #23d7d5;
+    }
+    .article-icon {
+      i {
+        color: #23d7d5 !important;
+      }
+    }
+    &:hover .article-icon {
+      background: #23d7d5 !important;
+      i {
         color: #fff !important;
       }
     }
   }
 }
 
-
-
-
-
-.mainmenu{
-  li{
-    &.city, &.ville,&.ciudad{
+.mainmenu {
+  li {
+    &.city,
+    &.ville,
+    &.ciudad {
       display: none !important;
     }
   }
 }
-
-
-
-
-
 
 .cat-orange {
   color: #faaf44 !important;
@@ -744,45 +783,45 @@ li{
   font-style: normal;
 }
 
-@font-face {
-  font-family: "josefin_sansbold";
-  src: url("assets/scss/fonts/josefinsans-bold-webfont.woff2") format("woff2"),
-    url("assets/scss/fonts/josefinsans-bold-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
+// @font-face {
+//   font-family: "josefin_sansbold";
+//   src: url("assets/scss/fonts/josefinsans-bold-webfont.woff2") format("woff2"),
+//     url("assets/scss/fonts/josefinsans-bold-webfont.woff") format("woff");
+//   font-weight: normal;
+//   font-style: normal;
+// }
 
-@font-face {
-  font-family: "josefin_sansitalic";
-  src: url("assets/scss/fonts/josefinsans-italic-webfont.woff2") format("woff2"),
-    url("assets/scss/fonts/josefinsans-italic-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
+// @font-face {
+//   font-family: "josefin_sansitalic";
+//   src: url("assets/scss/fonts/josefinsans-italic-webfont.woff2") format("woff2"),
+//     url("assets/scss/fonts/josefinsans-italic-webfont.woff") format("woff");
+//   font-weight: normal;
+//   font-style: normal;
+// }
 
-@font-face {
-  font-family: "josefin_sanslight";
-  src: url("assets/scss/fonts/josefinsans-light-webfont.woff2") format("woff2"),
-    url("assets/scss/fonts/josefinsans-light-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
+// @font-face {
+//   font-family: "josefin_sanslight";
+//   src: url("assets/scss/fonts/josefinsans-light-webfont.woff2") format("woff2"),
+//     url("assets/scss/fonts/josefinsans-light-webfont.woff") format("woff");
+//   font-weight: normal;
+//   font-style: normal;
+// }
 
-@font-face {
-  font-family: "josefin_sansregular";
-  src: url("assets/scss/fonts/josefinsans-regular-webfont.woff2") format("woff2"),
-    url("assets/scss/fonts/josefinsans-regular-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
+// @font-face {
+//   font-family: "josefin_sansregular";
+//   src: url("assets/scss/fonts/josefinsans-regular-webfont.woff2") format("woff2"),
+//     url("assets/scss/fonts/josefinsans-regular-webfont.woff") format("woff");
+//   font-weight: normal;
+//   font-style: normal;
+// }
 
-@font-face {
-  font-family: "josefin_sanssemibold";
-  src: url("assets/scss/fonts/josefinsans-semibold-webfont.woff2") format("woff2"),
-    url("assets/scss/fonts/josefinsans-semibold-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
+// @font-face {
+//   font-family: "josefin_sanssemibold";
+//   src: url("assets/scss/fonts/josefinsans-semibold-webfont.woff2") format("woff2"),
+//     url("assets/scss/fonts/josefinsans-semibold-webfont.woff") format("woff");
+//   font-weight: normal;
+//   font-style: normal;
+// }
 /*********************************************************
               Custom Fonts Css End
 ********************************************************/
@@ -819,7 +858,6 @@ li{
   }
 }
 
-
-.agree-check .ant-checkbox{
+.agree-check .ant-checkbox {
   outline: 1px solid #cccccc;
 }

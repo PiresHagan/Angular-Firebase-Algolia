@@ -56,7 +56,7 @@ registerLocaleData(en);
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        CloudinaryModule.forRoot({Cloudinary}, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
+        CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
         NgZorroAntdModule,
         AppRoutingModule,
         TemplateModule,
@@ -75,8 +75,7 @@ registerLocaleData(en);
         NgxStripeModule.forRoot(environment.stripePublishableKey),
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ],
-    exports: [
-    ],
+    exports: [],
     providers: [
         {
             provide: NZ_I18N,
