@@ -1,21 +1,27 @@
 <section class="sr-engine-sec">
     <ais-instantsearch [config]="config">
       <div class="container">
-          <div class="sr-brand hide-brand-on-mobile" *ngIf="articleBrand.length != 0">
-              <div class="sr-brand-item" *ngFor="let brand of articleBrand">
+          <div class="sr-brand hide-brand-on-mobile" *ngIf="articleBrand1.length != 0">
+              <div class="sr-brand-item" *ngFor="let brand of articleBrand1 | slice:0:10">
+                 <div *ngIf="!(brand.brandName === ''); else buySpot">
                   <a href="{{brand.brandUrl}}">
-                    <div class="sr-brand-logo"><img [src]="brand?.brandImage?.url" [alt]="brand?.brandImage?.alt" /></div>
+                    <div class="sr-brand-logo">
+                       <img [src]="brand?.brandImage?.url" [alt]="brand?.brandImage?.alt" />
+                     </div>
                     <div class="sr-brand-name">{{brand.brandName}}</div>
                   </a>
+                  </div>
               </div>
-               <div class="sr-brand-item btn" *ngFor="let item of ShowBtn(buyCount)">
+               <ng-template  #buySpot>
+                  <div class="sr-brand-item btn">
                      <a routerLink="/buy">{{'searchBuyNow' | translate}}</a>
                </div>
+              </ng-template>
           </div>
           <div class="sr-bar-with-ads  on-mobile-view">
-               <div class="sr-brand border-0 pb-0" *ngIf="articleBrand.length === 11; else buynow">
-                  <div *ngFor="let brand of articleBrand; let i=index">
-                        <div  class="sr-brand-item"  *ngIf="i===10">
+               <div class="sr-brand border-0 pb-0" *ngIf="articleBrand.length > 10; else buynow">
+                  <div *ngFor="let brand of articleBrand | slice: 10:11">
+                        <div  class="sr-brand-item">
                            <a href="{{brand.brandUrl}}">
                               <div class="sr-brand-logo"><img src="{{brand.brandImage.url}}" [alt]="brand?.brandImage?.alt" /></div>
                               <div class="sr-brand-name">{{brand.brandName}}</div>
@@ -37,9 +43,9 @@
                      <ais-search-box></ais-search-box> 
                      </div>
                </div>
-               <div class="sr-brand border-0 pb-0" *ngIf="articleBrand.length === 12; else buynow1">
-                  <div *ngFor="let brand of articleBrand; let i=index">
-                        <div  class="sr-brand-item"  *ngIf="i===11">
+               <div class="sr-brand border-0 pb-0" *ngIf="articleBrand.length > 10; else buynow1">
+                  <div  *ngFor="let brand of articleBrand | slice: 11:12">
+                        <div  class="sr-brand-item">
                            <a href="{{brand.brandUrl}}">
                               <div class="sr-brand-logo"><img src="{{brand.brandImage.url}}" [alt]="brand?.brandImage?.alt" /></div>
                               <div class="sr-brand-name">{{brand.brandName}}</div>
@@ -68,7 +74,17 @@
                     <div class="sr-article-sec-item" *ngFor="let hit of hits; let i=index"  [ngStyle]="{'order': OrderIndex + i}">
                              <div [routerLink]="['/companies',hit.slug]"  *ngIf="hit.type==='company'">
                                 <div class="sr-article-img">
-                                   <img src="assets/images/search-engine/company.png" alt="company" />
+                                   <img [src]="hit.logo.url" alt="hit.logo.alt" 
+                                   *ngIf="!(hit.logo.cloudinary_id); else companyLogo"
+                                   />
+                                   <ng-template  #companyLogo>
+                                    <div class="cloudinary-img">
+                                        <cl-image loading="lazy" public-id="{{hit.logo.cloudinary_id}}" secure="true">
+                                            <cl-transformation width="260" height="220" gravity="face" crop="thumb">
+                                            </cl-transformation>
+                                          </cl-image>
+                                    </div>
+                                </ng-template>
                                 </div>
                                 <div class="sr-article-detail">
                                    <div class="sr-article-txt">
@@ -89,7 +105,17 @@
                              </div>
                              <div  [routerLink]="['/charities',hit.slug]" *ngIf="hit.type==='charity'">
                                 <div class="sr-article-img">
-                                   <img src="assets/images/search-engine/charity.png" alt="charity" />
+                                   <img [src]="hit.logo.url" alt="hit.logo.alt" 
+                                   *ngIf="!(hit.logo.cloudinary_id); else charityLogo"
+                                   />
+                                   <ng-template  #charityLogo>
+                                    <div class="cloudinary-img">
+                                        <cl-image loading="lazy" public-id="{{hit.logo.cloudinary_id}}" secure="true">
+                                            <cl-transformation width="260" height="220" gravity="face" crop="thumb">
+                                            </cl-transformation>
+                                          </cl-image>
+                                    </div>
+                                </ng-template>
                                 </div>
                                 <div class="sr-article-detail">
                                    <div class="sr-article-txt">
