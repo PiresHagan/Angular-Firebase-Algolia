@@ -6,21 +6,51 @@
   <base href="/">
 
   <meta charset="utf-8">
-  <meta property="fb:app_id" content="281307678870693" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="google-site-verification" content="FQguGb2_1_Zs29aZApbm0BOHyfdAA0xkUBzzNwzAAYo" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="assets/images/favicon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
   <link rel="manifest" href="./manifest.json">
-  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#ff4020">
+
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/16.png">
+  <link rel="mask-icon" href="assets/images/favicon.png" color="#ff4020">
+  <link rel="apple-touch-icon-precomposed" href="assets/icons/180.png" />
+
+  <meta property="fb:app_id" content="281307678870693" />
+  <meta name="google-site-verification" content="FQguGb2_1_Zs29aZApbm0BOHyfdAA0xkUBzzNwzAAYo" />
+
+  <!-- Search Engine -->
+  <meta name="description" content="Test description of My trending stories here">
+  <meta name="keywords" content="news,articles" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="mytrendstories">
+  <meta name="twitter:title" content="My Trending Stories">
+  <meta name="twitter:image" content="assets/images/favicon.png">
+  <meta name="twitter:description" content="Test description here">
+
+  <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+  <meta property="og:title" content="mytrendstories">
+  <meta property="og:description" content="Test description here">
+  <meta property="og:image" content="assets/images/favicon.png">
+  <meta property="og:url" content="https://mytrendingstories-preprod.web.app">
+  <meta property="og:site_name" content="mytrendstories">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:type" content="website">
 </head>
 
 <body>
   <app-root></app-root>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
 
-  <link rel="preload" href="assets/scss//font-face.css">
+  <link rel="preload" href="assets/scss/font-face.css">
   <script src="https://api.cloudsponge.com/widget/i8PjRDPE-dGlkLjFchRiog.js" async></script>
   <!-- Ce site fait confiance à LeadFox pour convertir ses visiteurs en clients - https://leadfox.co/fr/ -->
   <script async="" src="//app.leadfox.co/js/api/leadfox.js" data-key="3db444e4d735cdfee52c18d544fadb92"></script>
@@ -29,6 +59,7 @@
   <script async="" src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
   <script async="" src="https://adxbid.info/mytrendingstories.js"></script>
   <script>
+    // @TODO Refactor this to be deferred
     setTimeout(() => {
       window.googletag = window.googletag || { cmd: [] };
       googletag.cmd.push(function () {

@@ -17,8 +17,8 @@ export class MessagingService {
 
   constructor(private userService: UserService, private angularFireMessaging: AngularFireMessaging, private notification: NzNotificationService) {
     angularFireMessaging.onMessage((payload) => {
-      console.log('Got foreground push',payload);
-      if(payload.notification && payload.notification.title && payload.notification.body) {
+      console.log('Got foreground push', payload);
+      if (payload.notification && payload.notification.title && payload.notification.body) {
         notification.blank(
           payload.notification.title,
           payload.notification.body,
@@ -27,9 +27,12 @@ export class MessagingService {
       }
     });
 
-    angularFireMessaging.onTokenRefresh((data) => {
-      this.requestPermission();
-    });
+    // @TODO refactor this to be deferred
+    setTimeout(() => {
+      angularFireMessaging.onTokenRefresh((data) => {
+        this.requestPermission();
+      });
+    }, 10000);
   }
 
   requestPermission() {
@@ -57,7 +60,7 @@ export class MessagingService {
   sendTokenToServer(token: string) {
     this.userService.getCurrentUser().then((user) => {
       this.currentUser = { id: user.uid, email: user.email, avatar: user.photoURL, fullname: user.displayName };
-      if(this.currentUser.id) {
+      if (this.currentUser.id) {
         console.log('Sending Token To Server', token);
         this.userService.updateUser(this.currentUser.id, {
           notification_token: token
