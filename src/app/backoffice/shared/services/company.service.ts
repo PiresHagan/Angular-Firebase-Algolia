@@ -184,5 +184,15 @@ export class CompanyService {
     }));
   }
 
+  updateBilling(companyId: string) {
+    return this.http.post(environment.baseAPIDomain + `/api/v1/payment/sessions/companies/${companyId}/customer`, {
+      redirectUrl: window && window.location && window.location.href || '',
+    })
+  }
+
+  getPaymentMethod(companyId: string) {
+    return this.http.get(environment.baseAPIDomain + `/api/v1/payment/companies/${companyId}/methods`)
+  }
+
 }
 
