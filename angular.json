@@ -39,9 +39,18 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
-              "node_modules/instantsearch.css/themes/algolia.css",
-              "node_modules/instantsearch.css/themes/reset.css",
-              "src/styles.scss"
+              {
+                "input": "node_modules/instantsearch.css/themes/algolia.css",
+                "lazy": true
+              },
+              {
+                "input": "node_modules/instantsearch.css/themes/reset.css",
+                "lazy": true
+              },
+              {
+                "input": "src/styles.scss",
+                "lazy": true
+              }
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
