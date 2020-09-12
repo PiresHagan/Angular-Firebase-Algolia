@@ -1,0 +1,21 @@
+<nz-card>
+    <nz-skeleton *ngIf="!displayData" [nzActive]="true"> </nz-skeleton>
+
+    <nz-table #productsListTable [nzData]="displayData" *ngIf="displayData" [nzLoading]="isLoading">
+
+        <thead>
+            <tr>
+                <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare" [nzAlign]='column.align'>{{ column.title | translate }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of productsListTable.data;  let i=index">
+                <td>{{item.first_name}} </td>
+                <td>{{item.last_name}} </td>
+                <td>{{item.mobile_number}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.created_at | date:'medium'}}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>

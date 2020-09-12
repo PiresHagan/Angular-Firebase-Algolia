@@ -1,53 +1,40 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div *ngIf="!selectedMonthData" class="col-md-12">
             <nz-card>
-                <div class="row m-b-30">
-                    <div class="col-lg-4">
-                        <div class="d-md-flex m-t-10">
+                <nz-skeleton [nzActive]="true" *ngIf="!displayData"> </nz-skeleton>
 
-                            <div class="m-b-10 m-r-20 d-flex align-items-center">
-                                <div class="m-b-10 m-r-20">
-                                    <nz-input-group [nzPrefix]="prefixTemplate">
-                                        <input type="text" nz-input placeholder="{{'ComSearch' | translate}}"
-                                            [(ngModel)]="searchInput" (ngModelChange)="search()">
-                                    </nz-input-group>
-                                    <ng-template #prefixTemplate>
-                                        <i nz-icon nzType="search" class="opacity-05"></i>
-                                    </ng-template>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <nz-skeleton *ngIf="!displayData"> </nz-skeleton>
-                <nz-table #productsListTable [nzData]="displayData" *ngIf="displayData" [nzLoading]="isLoading">
+                <nz-table #leadsTable [nzData]="displayData" *ngIf="displayData" [nzLoading]="isLoading">
 
                     <thead>
                         <tr>
-                            <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare">
-                                {{ column.title | translate }}</th>
+                            <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare" [nzAlign]='column.align'>{{ column.title | translate }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of productsListTable.data;  let i=index">
-
-                            <td>{{item.first_name}} </td>
-                            <td>{{item.last_name}} </td>
-                            <td>{{item.mobile_number}}</td>
-                            <td>{{item.email}}</td>
-                            <td>{{item.created_at | date:'medium'}}</td>
-                            <!-- <td class="text-md-right">
-                                <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete"
-                                    (click)="deleteLead(item.id)">
-                                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+                        <tr *ngFor="let item of leadsTable.data;  let i=index">
+                            <td nzAlign='center'>{{item.month | date:'MMMM, yyyy'}} </td>
+                            <td nzAlign='center' class="green">{{item.total_leads_count | number:'1.0-0'}} </td>
+                            <td nzAlign='center' class="red">{{item.leads_count_over_limit | number:'1.0-0'}}</td>
+                            <td nzAlign='center'>
+                                <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="View"
+                                    (click)="viewLeadsByMonth(item)">
+                                    <i nz-icon nzType="eye" nzTheme="outline"></i>
                                 </button>
-                            </td> -->
+                                <button class="m-l-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Upgrade Plan"
+                                    (click)="upgradePlan(item)">
+                                    <i nz-icon nzType="up-square" nzTheme="outline"></i>
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </nz-table>
             </nz-card>
+        </div>
+        <div *ngIf="selectedMonthData" class="col-md-12">
+            <button nz-button nzType="primary" (click)="goBack()">Go Back</button>
+
+            <app-monthly-leads [companyId]="companyId" [monthData]="selectedMonthData"></app-monthly-leads>
         </div>
     </div>
 </div>
