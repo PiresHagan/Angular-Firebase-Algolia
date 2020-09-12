@@ -27,20 +27,19 @@ export class MessagingService {
       }
     });
 
-    // @TODO refactor this to be deferred
-    setTimeout(() => {
-      angularFireMessaging.onTokenRefresh((data) => {
-        this.requestPermission();
-      });
-    }, 10000);
+    angularFireMessaging.onTokenRefresh((data) => {
+      this.requestPermission();
+    });
   }
 
   requestPermission() {
-    this.angularFireMessaging.requestPermission.subscribe(data => {
-      this.getToken()
-    }, err => {
-      console.log('Unable to get permission to notify.', err);
-    });
+    // @TODO this should be handled another way
+    console.log('Notifications permission suspended for now.')
+    // this.angularFireMessaging.requestPermission.subscribe(data => {
+    //   this.getToken()
+    // }, err => {
+    //   console.log('Unable to get permission to notify.', err);
+    // });
   }
 
   getToken() {
