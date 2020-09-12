@@ -43,6 +43,17 @@
                                 {{'unfollowAuthor' | translate}}
                             </a>
                         </span>
+                        <div class="login-popup"  *ngIf="!isLoggedInUser">
+                            <nz-modal
+                                [(nzVisible)]="isVisible"
+                                nzTitle="My Trending Stories"
+                                (nzOnCancel)="handleCancel()"
+                                (nzOnOk)="handleOk()"
+                                [nzOkLoading]="isOkLoading"
+                                >
+                                <p class="text-black">Please, <a routerLink="/auth/login">sign in</a> or <a routerLink="/auth/signup">sign up</a> to continue.</p>
+                                </nz-modal>
+                        </div>
                     </div>
                     <!--<div class="is-like-sec is-divider" *ngIf="isLoggedInUser">-->
                     <div class="is-like-sec is-divider">

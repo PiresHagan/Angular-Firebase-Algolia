@@ -409,6 +409,9 @@
 				.sr-brand-logo {
 					height: 90px;
 				}
+				.sr-brand-item{
+					width: 100%;
+				}
 			}
 			&.hide-brand-on-mobile{
 				.sr-brand-item:nth-child(1){
@@ -440,13 +443,7 @@
 			}
 		}
 	}
-.sr-brand{
-	.sr-brand-item{
-		&.btn{
-			display: none !important;
-		}
-	}
-}
+
 .on-mobile-view{
 	.sr-brand{
 		width:50%;

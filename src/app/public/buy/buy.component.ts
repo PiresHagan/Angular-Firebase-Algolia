@@ -40,7 +40,7 @@ export class BuyComponent implements OnInit {
   }
   checkLogin(){
     this.authService.getAuthState().subscribe(async (user) => {
-      if (!user.isAnonymous && !(user.isAnonymous)) {
+      if (!user.isAnonymous) {
         this.router.navigate(["/app/campaign/buy-search-engine"]);
       } else {
         this.showModal()

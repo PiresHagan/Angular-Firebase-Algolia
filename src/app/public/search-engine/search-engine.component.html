@@ -1,7 +1,8 @@
 <section class="sr-engine-sec">
     <ais-instantsearch [config]="config">
       <div class="container">
-          <div class="sr-brand hide-brand-on-mobile" *ngIf="articleBrand1.length != 0">
+          <!--visible spot on large Device-->
+          <div class="sr-brand d-none d-sm-flex" *ngIf="articleBrand1.length != 0">
               <div class="sr-brand-item" *ngFor="let brand of articleBrand1 | slice:0:10">
                  <div *ngIf="!(brand.brandName === ''); else buySpot">
                   <a href="{{brand.brandUrl}}">
@@ -18,7 +19,40 @@
                </div>
               </ng-template>
           </div>
-          <div class="sr-bar-with-ads  on-mobile-view">
+           <!--End visible spot on large Device-->
+
+          <!--visible spot on mobile-->
+          <div class="sr-brand d-flex d-sm-none" *ngIf="articleBrand.length != 0; else mobileSpot">
+            <div class="sr-brand-item d-block" *ngFor="let brand of articleBrand | slice:0:2">
+               <div *ngIf="!(brand.brandName === ''); else buySpot">
+                <a href="{{brand.brandUrl}}">
+                  <div class="sr-brand-logo">
+                     <img [src]="brand?.brandImage?.url" [alt]="brand?.brandImage?.alt" />
+                   </div>
+                  <div class="sr-brand-name">{{brand.brandName}}</div>
+                </a>
+                </div>
+            </div>
+             <ng-template  #buySpot>
+                <div class="sr-brand-item btn">
+                   <a routerLink="/buy">{{'searchBuyNow' | translate}}</a>
+             </div>
+            </ng-template>
+        </div>
+        <ng-template #mobileSpot>
+           <div class="sr-brand  d-flex d-sm-none">
+              <div class="sr-brand-item btn mr-2">
+               <a routerLink="/buy">{{'searchBuyNow' | translate}}</a>
+              </div>
+              <div class="sr-brand-item btn">
+               <a routerLink="/buy">{{'searchBuyNow' | translate}}</a>
+              </div>
+           </div>
+           
+        </ng-template>
+         <!--End visible spot on mobile end-->
+
+          <div class="sr-bar-with-ads d-none d-sm-flex">
                <div class="sr-brand border-0 pb-0" *ngIf="articleBrand.length > 10; else buynow">
                   <div *ngFor="let brand of articleBrand | slice: 10:11">
                         <div  class="sr-brand-item">
