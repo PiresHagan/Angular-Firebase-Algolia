@@ -6,50 +6,134 @@ import { NzModalService } from 'ng-zorro-antd';
 import { TranslateService } from '@ngx-translate/core';
 interface DataItem {
   id: string
-  first_name: string
-  last_name: string
-  mobile_number: string
-  email: string,
+  month: string
+  total_leads_count: string
+  leads_count_over_limit: string
+  plan_info: string,
 }
 @Component({
   selector: 'app-company-leads',
   templateUrl: './company-leads.component.html',
-  styleUrls: ['./company-leads.component.css'],
+  styleUrls: ['./company-leads.component.scss'],
   providers: [TableService]
 })
 
 export class CompanyLeadsComponent implements OnInit {
   isLoading: boolean = true;
+  companyId: string;
   displayData = [];
   searchInput: string;
   lastVisibleFollower;
   loadingMoreFollowers;
   orderColumn = [
     {
-      title: 'First Name',
-      compare: (a: DataItem, b: DataItem) => a.first_name.localeCompare(b.first_name)
-    },
-
-    {
-      title: 'Last Name',
-      compare: (a: DataItem, b: DataItem) => a.last_name.localeCompare(b.last_name)
+      title: 'Month & Year',
+      align: 'center',
+      compare: (a: DataItem, b: DataItem) => a.month.localeCompare(b.month)
     },
     {
-      title: 'Phone',
-      compare: (a: DataItem, b: DataItem) => a.mobile_number.localeCompare(b.mobile_number)
+      title: 'Total Lead Count',
+      align: 'center',
+      compare: (a: DataItem, b: DataItem) => a.total_leads_count.localeCompare(b.total_leads_count)
     },
     {
-      title: 'Email',
-      compare: (a: DataItem, b: DataItem) => a.email.localeCompare(b.email)
+      title: 'Leads Count Exceeding Package',
+      align: 'center',
+      compare: (a: DataItem, b: DataItem) => a.leads_count_over_limit.localeCompare(b.leads_count_over_limit)
     },
     {
-      title: 'Created At'
-    },
-    // {
-    //   title: ''
-    // }
+      title: 'Actions',
+      align: 'center',
+    }
   ]
   originalData: DataItem[];
+  dummyData = [
+    {
+      id: "1213232",
+      month: "2020-12-12",
+      total_leads_count: `${Math.random()*10000}`,
+      leads_count_over_limit: `${Math.random()*100}`,
+      plan_id: "2312312"
+    },
+    {
+      id: "1213232",
+      month: "2020-11-12",
+      total_leads_count: `${Math.random()*10000}`,
+      leads_count_over_limit: `${Math.random()*100}`,
+      plan_id: "2312312"
+    },
+    {
+      id: "1213232",
+      month: "2020-10-12",
+      total_leads_count: `${Math.random()*10000}`,
+      leads_count_over_limit: `${Math.random()*100}`,
+      plan_id: "2312312"
+    },
+    {
+      id: "1213232",
+      month: "2020-09-12",
+      total_leads_count: `${Math.random()*10000}`,
+      leads_count_over_limit: `${Math.random()*100}`,
+      plan_id: "2312312"
+    },
+    {
+      id: "1213232",
+      month: "2020-08-12",
+      total_leads_count: `${Math.random()*10000}`,
+      leads_count_over_limit: `${Math.random()*100}`,
+      plan_id: "2312312"
+    },
+    {
+      id: "1213232",
+      month: "2020-07-12",
+      total_leads_count: `${Math.random()*10000}`,
+      leads_count_over_limit: `${Math.random()*100}`,
+      plan_id: "2312312"
+    },
+    {
+      id: "1213232",
+      month: "2020-06-12",
+      total_leads_count: `${Math.random()*10000}`,
+      leads_count_over_limit: `${Math.random()*100}`,
+      plan_id: "2312312"
+    },
+    {
+      id: "1213232",
+      month: "2020-05-12",
+      total_leads_count: `${Math.random()*10000}`,
+      leads_count_over_limit: `${Math.random()*100}`,
+      plan_id: "2312312"
+    },
+    {
+      id: "1213232",
+      month: "2020-04-12",
+      total_leads_count: `${Math.random()*10000}`,
+      leads_count_over_limit: `${Math.random()*100}`,
+      plan_id: "2312312"
+    },
+    {
+      id: "1213232",
+      month: "2020-03-12",
+      total_leads_count: `${Math.random()*10000}`,
+      leads_count_over_limit: `${Math.random()*100}`,
+      plan_id: "2312312"
+    },
+    {
+      id: "1213232",
+      month: "2020-02-12",
+      total_leads_count: `${Math.random()*10000}`,
+      leads_count_over_limit: `${Math.random()*100}`,
+      plan_id: "2312312"
+    },
+    {
+      id: "1213232",
+      month: "2020-01-12",
+      total_leads_count: `${Math.random()*10000}`,
+      leads_count_over_limit: `${Math.random()*100}`,
+      plan_id: "2312312"
+    }
+  ];
+  selectedMonthData;
 
   constructor(
     private modalService: NzModalService,
@@ -62,14 +146,14 @@ export class CompanyLeadsComponent implements OnInit {
   }
   loadData() {
 
-    let companyId = this.activatedRoute.snapshot.queryParams["company"];
-    if (!companyId)
+    this.companyId = this.activatedRoute.snapshot.queryParams["company"];
+    if (!this.companyId)
       return;
-    this.companyService.getLeads(companyId, 5, null, this.lastVisibleFollower).subscribe((data) => {
+    this.companyService.getLeads(this.companyId, 5, null, this.lastVisibleFollower).subscribe((data) => {
       this.loadingMoreFollowers = false;
       this.isLoading = false;
       this.originalData = data.leads;
-      this.displayData = data.leads;
+      this.displayData = [...data.leads, ...this.dummyData];
       this.lastVisibleFollower = data.lastVisible;
     });
 
@@ -95,6 +179,14 @@ export class CompanyLeadsComponent implements OnInit {
       },
     });
 
+  }
+
+  viewLeadsByMonth(month) {
+    this.selectedMonthData = JSON.stringify(month);
+  }
+
+  goBack() {
+    this.selectedMonthData = null;
   }
 
 

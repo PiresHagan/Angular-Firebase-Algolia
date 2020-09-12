@@ -16,6 +16,7 @@ export class CompanyService {
   private companyCollection = 'companies'
   private followersCollection = "followers"
   private leadsCollection = "leads"
+  private leadsPackageCollection = 'lead-packages';
   constructor(private http: HttpClient,
     public db: AngularFirestore) {
 
@@ -192,6 +193,10 @@ export class CompanyService {
 
   getPaymentMethod(companyId: string) {
     return this.http.get(environment.baseAPIDomain + `/api/v1/payment/companies/${companyId}/methods`)
+  }
+
+  getLeadsPackage() {
+    return this.db.collection(this.leadsPackageCollection).valueChanges()
   }
 
 }

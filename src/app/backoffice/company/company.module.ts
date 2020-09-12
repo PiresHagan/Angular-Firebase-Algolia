@@ -17,11 +17,12 @@ import { CompanyFundraisersComponent } from './company-fundraisers/company-fundr
 import { CompanySubscriptionComponent } from './company-subscription/company-subscription.component';
 import { CompanyBillingComponent } from './company-billing/company-billing.component';
 import { CompanyLeadsPackageComponent } from './company-leads-package/company-leads-package.component';
+import { MonthlyLeadsComponent } from './company-leads/monthly-leads/monthly-leads.component';
 
 
 
 @NgModule({
-  declarations: [AddCompanyComponent, CompanyListComponent, CompanyDetailsComponent, CompanyFollowersComponent, CompanyLeadsComponent, CompanyArticleComponent, CompanyFundraisersComponent, CompanySubscriptionComponent, CompanyBillingComponent, CompanyLeadsPackageComponent],
+  declarations: [AddCompanyComponent, CompanyListComponent, CompanyDetailsComponent, CompanyFollowersComponent, CompanyLeadsComponent, CompanyArticleComponent, CompanyFundraisersComponent, CompanySubscriptionComponent, CompanyBillingComponent, CompanyLeadsPackageComponent, MonthlyLeadsComponent],
   imports: [
     CommonModule,
     SharedModule,
