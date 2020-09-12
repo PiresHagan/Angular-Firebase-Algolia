@@ -1,6 +1,9 @@
 (function () {
+  const jquerySrc = 'assets/lib/scripts/jquery.js';
+
   // asynchronously loads other scripts to prevent page slowing down
   const scripts = [
+    'assets/lib/hljs/highlight.pack.js',
     'https://api.cloudsponge.com/widget/i8PjRDPE-dGlkLjFchRiog.js',
     '//app.leadfox.co/js/api/leadfox.js',
     'https://securepubads.g.doubleclick.net/tag/js/gpt.js',
@@ -8,7 +11,9 @@
   ];
 
   window.addEventListener('load', function () {
-    setTimeout(() => {
+    fetch(jquerySrc).then(res => res.text()).then(res => {
+      eval(res);
+
       window.googletag = window.googletag || { cmd: [] };
       googletag.cmd.push(function () {
         googletag.defineSlot('/107720708/adxp_mytrendingstories_billboard', [970, 250], 'div-gpt-ad-1599554495707-0').addService(googletag.pubads());

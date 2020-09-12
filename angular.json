@@ -39,14 +39,9 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
-              "node_modules/instantsearch.css/themes/algolia.css",
-              "node_modules/instantsearch.css/themes/reset.css",
               "src/styles.scss"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.js",
-              "src/assets/lib/hljs/highlight.pack.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
