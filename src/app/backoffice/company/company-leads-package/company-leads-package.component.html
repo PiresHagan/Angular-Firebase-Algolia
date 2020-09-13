@@ -1,1 +1,19 @@
-<p>company-leads-package works!</p>
+<div class="container">
+    <div class="is-comman-title"> {{'LeadsPackageTitle' | translate}}</div>
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-4 mb-4" *ngFor="let package of packages">
+            <div class="package-box">
+                <div class="package-img" style="background: url(assets/images/campaign/contributor.jpeg) center center no-repeat;">
+                    <div class="package-detail">
+                        <h2>
+                            {{package.name}}
+                            <span>{{'leadsTitle' | translate}}</span>
+                        </h2>
+                        <p>${{package.price}}</p>
+                    </div>
+                </div>
+                <a href="" class="is-see-more">{{'CampBuyNow' | translate}}</a>
+            </div>
+        </div>
+    </div>
+</div>
