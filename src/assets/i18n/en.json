@@ -662,5 +662,7 @@
     "PostSubmissionConf": "Create post ?",
     "PostCreated": "Post created successfully",
     "CompanySubscription": "Company Subscription",
-    "CompanyBilling": "Company Billing"
+    "CompanyBilling": "Company Billing",
+    "LeadsPackageTitle":"Leads Package Month",
+    "leadsTitle":"Leads"
 }

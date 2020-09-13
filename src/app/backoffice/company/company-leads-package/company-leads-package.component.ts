@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../../shared/services/company.service';
+import { ThemeConstantService } from 'src/app/shared/services/theme-constant.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-company-leads-package',
@@ -10,7 +12,11 @@ export class CompanyLeadsPackageComponent implements OnInit {
 
   packages = [];
 
-  constructor(private companyService: CompanyService) { }
+  constructor(
+    private companyService: CompanyService,
+    public translate: TranslateService,
+    private themeService: ThemeConstantService
+    ) { }
 
   ngOnInit(): void {
     this.loadData();
