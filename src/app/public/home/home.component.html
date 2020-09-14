@@ -379,7 +379,7 @@
         </div>
     </div>
 </section>
-<section class="is-cat-box-card-main">
+<section class="is-cat-box-card-main" *ngIf="latestArticles">
     <div class="cat-box bg-white">
        <div class="container">
           <div class="cat-box-title">
@@ -501,7 +501,7 @@
     </div>
     </div>
  </section>
- <section class="is-cat-box-card-main">
+ <section class="is-cat-box-card-main" *ngIf="trendingArticles">
     <div class="cat-box bg-white">
        <div class="container">
           <div class="cat-box-title">
@@ -623,7 +623,7 @@
     </div>
     </div>
  </section>
- <section class="is-cat-box-card-main">
+ <section class="is-cat-box-card-main" *ngIf="heroArticles">
     <div class="cat-box bg-white">
        <div class="container">
           <div class="cat-box-title">

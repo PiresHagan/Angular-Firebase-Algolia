@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 import { SeoDataService } from 'src/app/shared/services/seo-data.service';
 import { SeoData } from 'src/app/shared/interfaces/seo-data.type';
 import { CacheService } from 'src/app/shared/services/cache.service';
+import { newArray } from '@angular/compiler/src/util';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -93,7 +94,7 @@ export class HomeComponent implements OnInit {
 
     this.cacheService.getLatestStories(this.selectedLanguage).subscribe(articles => {
       this.latestArticles = articles;
-      console.log('latest articles', this.latestArticles);
+      //this.heroArticles = articles;
     });
 
     this.getAuthors();
@@ -118,6 +119,7 @@ export class HomeComponent implements OnInit {
 
       this.cacheService.getLatestStories(this.selectedLanguage).subscribe(articles => {
         this.latestArticles = articles;
+        //this.heroArticles = articles;
       });
 
     });
@@ -147,7 +149,7 @@ export class HomeComponent implements OnInit {
     let latestURL = url
     if (url) {
       latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
-        .replace('https://cdn.mytrendingstories.com/', "https://assets.mytrendingstories.com/")
+        .replace('http://cdn.mytrendingstories.com/', "https://cdn.mytrendingstories.com/")
         .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
     }
     return latestURL;

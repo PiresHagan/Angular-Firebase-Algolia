@@ -219,7 +219,7 @@
                                                     (click)="editComment(articleComment.id,articleComment)">
                                                     {{'edit' | translate}}</a> <span
                                                     *ngIf="isLoggedInUser  && userDetails?.id!==articleComment?.author?.id">
-                                                    / </span><a [nzLoading]="true" class="comment-view-replies"
+                                                    / </span><a class="comment-view-replies"
                                                     *ngIf="isLoggedInUser && userDetails?.id!==articleComment?.author?.id"
                                                     (click)="reportAbuseComment(articleComment.id,articleComment)">
                                                     <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseLoading">
