@@ -8,7 +8,7 @@ import { Company } from 'src/app/shared/interfaces/company.type';
 import { CompanyService } from 'src/app/shared/services/company.service';
 import { Title, Meta } from '@angular/platform-browser';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import {  Router } from '@angular/router';
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
@@ -48,7 +48,8 @@ export class CompanyComponent implements OnInit {
     private langService: LanguageService,
     private companyService: CompanyService,
     private titleService: Title,
-    private metaTagService: Meta
+    private metaTagService: Meta,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -158,6 +159,8 @@ export class CompanyComponent implements OnInit {
       await this.companyService.followCompany(this.companyId).then(data => {
         this.setFollowOrNot();
       });
+    }else{
+      this.showModal()
     }
   }
 
@@ -168,6 +171,8 @@ export class CompanyComponent implements OnInit {
       await this.companyService.unfollowCompany(this.companyId).then(data => {
         this.setFollowOrNot();
       });
+    }else{
+      this.showModal()
     }
   }
 
@@ -265,4 +270,21 @@ export class CompanyComponent implements OnInit {
     });
   }
 
+  isVisible = false;
+  isOkLoading = false;
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.router.navigate(["auth/login"]);
+      this.isOkLoading = false;
+    }, 2000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
 }

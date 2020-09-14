@@ -629,5 +629,10 @@
     "Report": "Rapport",
     "ReportMessage": "Merci de nous en informer. Si nous constatons que cela enfreint la règle du site Web, nous prendrons des mesures à ce sujet.",
     "LeadsPackageTitle":"Mois du package de prospects",
-    "leadsTitle":"Pistes"
+    "leadsTitle":"Pistes",
+    "Please":"S'il vous plaît",
+    "logInTitle":"s'identifier",
+    "or":"ou",
+    "toContinue":"continuer",
+    "buyingSpotText":"avant d'acheter votre place"
 }

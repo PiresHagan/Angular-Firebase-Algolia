@@ -664,5 +664,10 @@
     "CompanySubscription": "Company Subscription",
     "CompanyBilling": "Company Billing",
     "LeadsPackageTitle":"Leads Package Month",
-    "leadsTitle":"Leads"
+    "leadsTitle":"Leads",
+    "Please":"Please",
+    "logInTitle":"Log in",
+    "or":"or",
+    "toContinue":"to continue",
+    "buyingSpotText":"before buying your spot"
 }

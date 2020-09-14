@@ -289,6 +289,19 @@
     align-items: center;
     width: 100%;
   }
+  .popup-content{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	.bg-logo{
+	  display: inline-block;
+	  max-width: 90px;
+	  margin-right: 20px;
+	  img{
+		max-width: 100%;
+	}
+	}
+  }
   @media screen and (min-width: 1500px) {
     .container {
       width: 1520px;

@@ -17,7 +17,7 @@ import {
   StripeElementsOptions,
   PaymentIntent,
 } from '@stripe/stripe-js';
-
+import {  Router } from '@angular/router';
 @Component({
   selector: 'app-charity',
   templateUrl: './charity.component.html',
@@ -69,7 +69,8 @@ export class CharityComponent implements OnInit {
     private metaTagService: Meta, 
     private stripeService: StripeService,
     private modalService: NzModalService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -178,6 +179,8 @@ export class CharityComponent implements OnInit {
     if(this.isLoggedInUser) {
       this.isUpdatingFollow = true;
       await this.charityService.followCharity(this.charityId);
+    }else{
+      this.showModal()
     }
   }
 
@@ -186,6 +189,8 @@ export class CharityComponent implements OnInit {
     if(this.isLoggedInUser) {
       this.isUpdatingFollow = true;
       await this.charityService.unfollowCharity(this.charityId);
+    }else{
+      this.showModal()
     }
   }
 
@@ -267,6 +272,24 @@ export class CharityComponent implements OnInit {
     this.modalService.error({
       nzTitle: "<i>" + msg + "</i>",
     });
+  }
+
+  isVisible = false;
+  isOkLoading = false;
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.router.navigate(["auth/login"]);
+      this.isOkLoading = false;
+    }, 2000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
   }
 
 }

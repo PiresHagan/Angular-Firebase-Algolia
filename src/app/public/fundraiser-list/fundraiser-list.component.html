@@ -86,7 +86,15 @@
                             (nzOnOk)="handleOk()"
                             [nzOkLoading]="isOkLoading"
                             >
-                            <p class="text-black">Please, <a routerLink="/auth/login">sign in</a> or <a routerLink="/auth/signup">sign up</a></p>
+                            <div class="popup-content">
+                                <div>
+                                    <a [routerLink]="['/']" class="bg-logo">
+                                        <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                                    </a>
+                                </div>
+                                <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' | translate}}</a> {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a> {{'toContinue' | translate}}.</p>
+                               
+                            </div>
                             </nz-modal>
                     </div>    
                 </div>
