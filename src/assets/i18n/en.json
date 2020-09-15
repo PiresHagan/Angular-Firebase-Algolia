@@ -651,5 +651,7 @@
     "AdUnitUpdated": "Ad unit updated successfully!",
     "AdUnitDeletMsgConf": "Are you sure you want to delete ad unit <b>{{title}}</b> ?",
     "AdUnitDeleted": "Ad unit deleted successfully!",
-    "goBackAdUnit": "Back"
+    "goBackAdUnit": "Back",
+    "ProfileImageErrorTitle": "Profile Image Missing",
+    "ProfileImageErrorContent": "Profile image is required."
 }

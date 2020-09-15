@@ -253,7 +253,7 @@ export class ProfileSettingsComponent {
       try {
         this.isLoading = true;
         await this.userService.update(this.currentUser.uid, { mobile, birthdate, lang });
-        await this.userService.updateMember(this.currentUser.uid, { bio, fullname, lang, slug: this.getSlug(loggedInUser.displayName) });
+        await this.userService.updateMember(this.currentUser.uid, { bio, fullname, lang, slug: this.memberDetails && this.memberDetails.slug ? this.memberDetails.slug : this.getSlug(loggedInUser.displayName) });
         this.isLoading = false;
         this.showSuccess();
       } catch (e) {

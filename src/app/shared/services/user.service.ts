@@ -92,6 +92,7 @@ export class UserService {
 
     })
 
+
   }
   uploadContact(uid: string, provider: string, contacts: any): Promise<void> {
     return new Promise<any>((resolve, reject) => {
@@ -131,9 +132,10 @@ export class UserService {
         snapshot => {
           snapshot.ref.getDownloadURL().then((downloadURL) => {
             const imageUrl: string = downloadURL;
-            this.db.collection(`${this.memberCollection}`).doc(uid).update({ avatar: { url: imageUrl, alt: this.removeExt(fileName) } }).then(() => {
-              this.updateCurrentUserProfile({ photoURL: imageUrl }).then(res => resolve()).catch(err => reject(err))
-            }).catch(err => reject(err))
+            resolve({
+              url: imageUrl,
+              alt: fileName
+            });
 
           }).catch(err => reject(err))
         }).catch((error) => {
