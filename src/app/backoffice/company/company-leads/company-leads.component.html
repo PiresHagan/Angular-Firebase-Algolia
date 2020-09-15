@@ -4,7 +4,13 @@
             <nz-card>
                 <nz-skeleton [nzActive]="true" *ngIf="!displayData"> </nz-skeleton>
 
-                <nz-table #leadsTable [nzData]="displayData" *ngIf="displayData" [nzLoading]="isLoading">
+                <button *ngIf="displayData" [disabled]="isLoading" (click)="refresh()" class="m-10" nz-button 
+                    nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Refresh"
+                >
+                    <i nz-icon nzType="reload"></i>
+                </button>
+
+                <nz-table #leadsTable [nzData]="displayData" *ngIf="displayData" nzFrontPagination="false" [nzLoading]="isLoading">
 
                     <thead>
                         <tr>
@@ -13,17 +19,13 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of leadsTable.data;  let i=index">
-                            <td nzAlign='center'>{{item.month | date:'MMMM, yyyy'}} </td>
-                            <td nzAlign='center' class="green">{{item.total_leads_count | number:'1.0-0'}} </td>
-                            <td nzAlign='center' class="red">{{item.leads_count_over_limit | number:'1.0-0'}}</td>
+                            <td>{{item.id | date:'MMMM, yyyy'}} </td>
+                            <td nzAlign='center' class="green">{{item.lead_count | number:'1.0-0'}} </td>
+                            <td nzAlign='center' class="red">{{ getExceedingLeadsCount(item.lead_count) | number:'1.0-0'}}</td>
                             <td nzAlign='center'>
                                 <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="View"
                                     (click)="viewLeadsByMonth(item)">
                                     <i nz-icon nzType="eye" nzTheme="outline"></i>
-                                </button>
-                                <button class="m-l-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Upgrade Plan"
-                                    (click)="upgradePlan(item)">
-                                    <i nz-icon nzType="up-square" nzTheme="outline"></i>
                                 </button>
                             </td>
                         </tr>

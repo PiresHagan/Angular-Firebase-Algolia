@@ -669,5 +669,8 @@
     "logInTitle":"Log in",
     "or":"or",
     "toContinue":"to continue",
-    "buyingSpotText":"before buying your spot"
+    "buyingSpotText":"before buying your spot",
+    "UpgradePackage": "Upgrade",
+    "LeadSubscriptionCancelMsgConf": "Are you sure you want to cancel active subscription ?",
+    "LeadSubscriptionCancelled": "Active subscription cancelled successfully!"
 }

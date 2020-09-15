@@ -1,3 +1,17 @@
-
+<div class="container">
+    <div class="is-comman-title">Active Subscription</div>
+    <div *ngIf="leadPackageComponent?.currentSubscription">
+        <p>Lead Count Limit : {{ leadPackageComponent?.currentSubscription?.limit }}</p>
+        <p>Subscription Date : {{ leadPackageComponent?.currentSubscription?.created_at | date:'medium' }}</p>
+        <p>Status : {{ leadPackageComponent?.currentSubscription?.status | titlecase }}</p>
+        <button nz-button nz-type="default" nzShape="round" class="cancel-btn" (click)="cancelPlan()">
+            Cancel
+        </button>
+    </div>
+    
+    <div *ngIf="!leadPackageComponent?.currentSubscription">
+        Company does not have monthly lead package subscription
+    </div>
+</div>
 
 <app-company-leads-package></app-company-leads-package>

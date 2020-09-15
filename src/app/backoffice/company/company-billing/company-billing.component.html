@@ -1,7 +1,8 @@
 <div class="container">
+    <div class="is-comman-title">{{'CardDetails' | translate}}</div>
     <div class="profile-article-list">
 
-        <nz-card nzTitle="{{'CardDetails' | translate}}">
+        <nz-card>
             <p>{{ 'CampBillingNote' | translate }}
             </p>
 
@@ -11,13 +12,14 @@
             <nz-skeleton *ngIf="!cards">
 
             </nz-skeleton>
-            <div class="credit-card  selectable" *ngFor="let card of cards" [class.selected]="card.isDefault === true">
-
-                <div class="credit-card-last4">
-                    {{card.last4}}
-                </div>
-                <div class="credit-card-expiry">
-                    {{card.exp_month}}/{{card.exp_year}}
+            <div nz-row>
+                <div class="credit-card  selectable" *ngFor="let card of cards" [class.selected]="card.isDefault === true">
+                    <div class="credit-card-last4">
+                        {{card.last4}}
+                    </div>
+                    <div class="credit-card-expiry">
+                        {{card.exp_month}}/{{card.exp_year}}
+                    </div>
                 </div>
             </div>
             <button [disabled]="!companyId" type="button" (click)="updateBilling()" [nzLoading]="loading" nz-button
