@@ -97,15 +97,15 @@ export const ROUTES: SideNavInterface[] = [
                 staff_only: true,
                 submenu: []
             },
-            {
-                path: '/app/admin/ad-network',
-                title: 'Ad network',
-                iconType: 'nzIcon',
-                iconTheme: 'outline',
-                icon: 'lock',
-                staff_only: true,
-                submenu: []
-            }
+            // {
+            //     path: '/app/admin/ad-network',
+            //     title: 'Ad network',
+            //     iconType: 'nzIcon',
+            //     iconTheme: 'outline',
+            //     icon: 'lock',
+            //     staff_only: true,
+            //     submenu: []
+            // }
         ]
     },
     {
