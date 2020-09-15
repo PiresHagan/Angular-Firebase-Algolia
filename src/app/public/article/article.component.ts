@@ -315,6 +315,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   }
 
   follow() {
+    if (this.isLoggedInUser) {
     this.authorService.follow(this.article.author.id, this.article.author.type);
     const userDetails = this.getUserDetails();
     const analytics = firebase.analytics();
@@ -324,8 +325,12 @@ export class ArticleComponent implements OnInit, AfterViewInit {
       user_uid: userDetails.id,
       user_name: userDetails.fullname,
     });
+  }else{
+    this.showModal();
+  }
   }
   unfollow() {
+    if (this.isLoggedInUser) {
     this.authorService.unfollow(this.article.author.id, this.article.author.type);
     const userDetails = this.getUserDetails();
     const analytics = firebase.analytics();
@@ -335,6 +340,9 @@ export class ArticleComponent implements OnInit, AfterViewInit {
       user_uid: userDetails.id,
       user_name: userDetails.fullname,
     });
+    }else{
+      this.showModal();
+    }
   }
 
   setFollowOrNot() {
@@ -347,6 +355,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
     });
   }
   like() {
+    if (this.isLoggedInUser) {
     this.articleService.like(this.article.id, this.getUserDetails());
     const analytics = firebase.analytics();
     const article = this.article;
@@ -361,8 +370,12 @@ export class ArticleComponent implements OnInit, AfterViewInit {
       liked_by_user_name: this.getUserDetails().fullname,
       liked_by_user_id: this.getUserDetails().id,
     });
+    }else{
+      this.showModal();
+    }
   }
   disLike() {
+    if (this.isLoggedInUser) {
     this.articleService.disLike(this.article.id, this.getUserDetails().id);
     const analytics = firebase.analytics();
     const article = this.article;
@@ -377,6 +390,9 @@ export class ArticleComponent implements OnInit, AfterViewInit {
       unliked_by_user_name: this.getUserDetails().fullname,
       unliked_by_user_id: this.getUserDetails().id,
     });
+  }else{
+      this.showModal();
+    }
   }
   setLike() {
 
@@ -433,5 +449,22 @@ export class ArticleComponent implements OnInit, AfterViewInit {
     });
   }
 
+  isVisible = false;
+  isOkLoading = false;
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.router.navigate(["auth/login"]);
+      this.isOkLoading = false;
+    }, 2000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
 }
 

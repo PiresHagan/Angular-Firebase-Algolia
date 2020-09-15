@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from 'src/app/shared/services/company.service';
 import { LanguageService } from 'src/app/shared/services/language.service';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/authentication.service';
 @Component({
   selector: 'app-companies',
   templateUrl: './companies.component.html',
@@ -18,7 +19,9 @@ export class CompaniesComponent implements OnInit {
 
   constructor(
     private companyService: CompanyService,
-    private langService: LanguageService
+    private langService: LanguageService,
+    private router: Router,
+    public authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -53,4 +56,28 @@ export class CompaniesComponent implements OnInit {
     }
   }
 
+  isVisible = false;
+  isOkLoading = false;
+  showModal(): void {
+    this.isVisible = true;
+  }
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.router.navigate(["auth/login"]);
+      this.isOkLoading = false;
+    }, 2000);
+  }
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+  checkLogin(){
+    this.authService.getAuthState().subscribe(async (user) => {
+      if (!user.isAnonymous) {
+        this.router.navigate(["/app/company/company-list"]);
+      } else {
+        this.showModal()
+      }
+    });
+  }
 }
