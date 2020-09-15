@@ -52,6 +52,16 @@
 					object-fit: cover;
 				}
 			}
+			&.sr-brand-item10{
+				position: absolute;
+				bottom: 0px;
+				left:0px;
+			}
+			&.sr-brand-item11{
+				position: absolute;
+				bottom: 0px;
+				right:0px;
+			}
 		}
 		.sr-brand-item.btn {
 			background: #dbdbdb;
@@ -83,6 +93,7 @@
 		flex-wrap: wrap;
 		align-items: center;
 		margin-top: 40px;
+		height: 125px;
 		.ads {
 			background: #f6f7fa;
 			width: 114px;
@@ -332,19 +343,7 @@
 			}
 		}
 	}
-	.next-btn {
-		text-align: center;
-		margin-top: 30px;
-		a {
-			display: inline-block;
-			background: #ff4121;
-			color: #fff;
-			padding: 14px 25px 12px 25px;
-			font-family: 'josefin_sansregular';
-			font-size: 20px;
-			border-radius: 30px;
-		}
-	}
+
 }
 
 ::ng-deep .ais-SearchBox-form{
@@ -412,13 +411,13 @@
 				.sr-brand-item{
 					width: 100%;
 				}
-			}
-			&.hide-brand-on-mobile{
-				.sr-brand-item:nth-child(1){
-					display: block !important;
+				&.sr-brand-item10{
+					position: relative;
+					display: block;
 				}
-				.sr-brand-item:nth-child(2){
-					display: block !important;
+				&.sr-brand-item11{
+					position: relative;
+					display: block;
 				}
 			}
 		}
@@ -462,6 +461,16 @@
 	.sr-engine-sec {
 		.sr-brand {
 			margin-top: 50px;
+			.sr-brand-item{
+				&.sr-brand-item10{
+					position: relative;
+					display: block;
+				}
+				&.sr-brand-item11{
+					position: relative;
+					display: block;
+				}
+			}
 		}
 		.sr-bar-with-ads {
 			.sr-brand{
@@ -497,7 +506,7 @@
 				margin-top:0px !important;
 			}
 			.sr-bar {
-				flex:1;
+				width: calc(100% - 250px);
 				padding: 0px 15px;
 			}
 			.ads {
@@ -518,20 +527,24 @@
 
 
 @media screen and (min-width:993px) and (max-width:1200px) {
-	.sr-bar-with-ads {
-		.sr-brand{
-			margin-top:0px !important;
-		}
-	}
 	.sr-engine-sec {
-		.sr-brand {
-			margin-top: 50px;
+		.sr-bar-with-ads {
+			.sr-brand{
+				margin-top:0px !important;
+			}
+			.sr-bar {
+				width: calc(100% - 250px);
+				padding: 0px 15px;
+			}
 		}
+		.sr-engine-sec {
+			.sr-brand {
+				margin-top: 50px;
+			}
 
+		}
 	}
 }
-
-
 @media screen and (min-width:1200px) and (max-width:1359px){
     .sr-brand{
       margin-top: 65px;

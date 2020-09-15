@@ -56,12 +56,11 @@ export class SearchEngineComponent implements OnInit {
     this.cacheService.getBrands().subscribe(brands => {
       this.articleBrand = brands;
       if (this.articleBrand.length < 11) {
-        this.buyCount = 10 - this.articleBrand.length;
+        this.buyCount = 12 - this.articleBrand.length;
       }else{
         this.buyCount = 0;
       }
     this.articleBrand1.splice(this.buyCount);
-    console.log(this.articleBrand1)
     for (var val of this.articleBrand) { 
       this.articleBrand1.push(val);
      
