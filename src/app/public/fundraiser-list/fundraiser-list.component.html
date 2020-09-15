@@ -77,8 +77,27 @@
             <div *ngIf="!fundraisers?.length" class="box-center">
                 <nz-result [nzIcon]="'crown'" [nzTitle]="'CreateFundraiser' | translate">
                     <div nz-result-extra>
-                    <button nz-button nzType="primary" routerLink="/app/fundraiser/fundraiser-list">{{'CreateFundraiserBtn' | translate}}</button>
-                    </div>
+                    <button nz-button nzType="primary"  (click)="checkLogin()">{{'CreateFundraiserBtn' | translate}}</button>
+                    <div class="login-popup">
+                        <nz-modal
+                            [(nzVisible)]="isVisible"
+                            nzTitle="My Trending Stories"
+                            (nzOnCancel)="handleCancel()"
+                            (nzOnOk)="handleOk()"
+                            [nzOkLoading]="isOkLoading"
+                            >
+                            <div class="popup-content">
+                                <div>
+                                    <a [routerLink]="['/']" class="bg-logo">
+                                        <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                                    </a>
+                                </div>
+                                <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' | translate}}</a> {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a> {{'toContinue' | translate}}.</p>
+                               
+                            </div>
+                            </nz-modal>
+                    </div> 
+                </div>
                 </nz-result>
             </div>
         </div>

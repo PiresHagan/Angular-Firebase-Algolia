@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title, Meta } from '@angular/platform-browser';
@@ -69,7 +69,8 @@ export class CharityComponent implements OnInit {
     private metaTagService: Meta, 
     private stripeService: StripeService,
     private modalService: NzModalService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -178,6 +179,8 @@ export class CharityComponent implements OnInit {
     if(this.isLoggedInUser) {
       this.isUpdatingFollow = true;
       await this.charityService.followCharity(this.charityId);
+    }else{
+      this.showModal()
     }
   }
 
@@ -186,6 +189,8 @@ export class CharityComponent implements OnInit {
     if(this.isLoggedInUser) {
       this.isUpdatingFollow = true;
       await this.charityService.unfollowCharity(this.charityId);
+    }else{
+      this.showModal()
     }
   }
 
@@ -269,4 +274,21 @@ export class CharityComponent implements OnInit {
     });
   }
 
+  isVisible = false;
+  isOkLoading = false;
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.router.navigate(["auth/login"]);
+      this.isOkLoading = false;
+    }, 2000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
 }

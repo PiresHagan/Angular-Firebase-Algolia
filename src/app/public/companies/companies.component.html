@@ -30,8 +30,27 @@
         <div *ngIf="!companies?.length" class="box-center">
             <nz-result [nzIcon]="'crown'" [nzTitle]="'CreateCompany' | translate">
                 <div nz-result-extra>
-                <button nz-button nzType="primary" routerLink="/app/company/company-list">{{'CreateCompanyBtn' | translate}}</button>
-                </div>
+                <button nz-button nzType="primary" (click)="checkLogin()">{{'CreateCompanyBtn' | translate}}</button>
+                <div class="login-popup"  *ngIf="!(isLoggedInUser)">
+                    <nz-modal
+                        [(nzVisible)]="isVisible"
+                        nzTitle="My Trending Stories"
+                        (nzOnCancel)="handleCancel()"
+                        (nzOnOk)="handleOk()"
+                        [nzOkLoading]="isOkLoading"
+                        >
+                        <div class="popup-content">
+                            <div>
+                                <a [routerLink]="['/']" class="bg-logo">
+                                    <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                                </a>
+                            </div>
+                            <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' | translate}}</a> {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a> {{'toContinue' | translate}}.</p>
+                           
+                        </div>
+                        </nz-modal>
+                </div> 
+            </div>
             </nz-result>
         </div>
     </div>
