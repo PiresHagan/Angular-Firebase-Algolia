@@ -4,13 +4,13 @@ import { CompanyService } from '../../shared/services/company.service';
 import { ActivatedRoute } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd';
 import { TranslateService } from '@ngx-translate/core';
-interface DataItem {
-  id: string
-  month: string
-  total_leads_count: string
-  leads_count_over_limit: string
-  plan_info: string,
+import { CompanyConstant } from 'src/app/shared/constants/company-constant';
+
+interface Month {
+  id: string,
+  lead_count: number
 }
+
 @Component({
   selector: 'app-company-leads',
   templateUrl: './company-leads.component.html',
@@ -21,146 +21,60 @@ interface DataItem {
 export class CompanyLeadsComponent implements OnInit {
   isLoading: boolean = true;
   companyId: string;
-  displayData = [];
+  displayData;
   searchInput: string;
-  lastVisibleFollower;
-  loadingMoreFollowers;
   orderColumn = [
     {
-      title: 'Month & Year',
-      align: 'center',
-      compare: (a: DataItem, b: DataItem) => a.month.localeCompare(b.month)
+      title: 'Month & Year'
     },
     {
       title: 'Total Lead Count',
-      align: 'center',
-      compare: (a: DataItem, b: DataItem) => a.total_leads_count.localeCompare(b.total_leads_count)
+      align: 'center'
     },
     {
-      title: 'Leads Count Exceeding Package',
-      align: 'center',
-      compare: (a: DataItem, b: DataItem) => a.leads_count_over_limit.localeCompare(b.leads_count_over_limit)
+      title: 'Lead Count Exceeding Package',
+      align: 'center'
     },
     {
       title: 'Actions',
       align: 'center',
     }
-  ]
-  originalData: DataItem[];
-  dummyData = [
-    {
-      id: "1213232",
-      month: "2020-12-12",
-      total_leads_count: `${Math.random()*10000}`,
-      leads_count_over_limit: `${Math.random()*100}`,
-      plan_id: "2312312"
-    },
-    {
-      id: "1213232",
-      month: "2020-11-12",
-      total_leads_count: `${Math.random()*10000}`,
-      leads_count_over_limit: `${Math.random()*100}`,
-      plan_id: "2312312"
-    },
-    {
-      id: "1213232",
-      month: "2020-10-12",
-      total_leads_count: `${Math.random()*10000}`,
-      leads_count_over_limit: `${Math.random()*100}`,
-      plan_id: "2312312"
-    },
-    {
-      id: "1213232",
-      month: "2020-09-12",
-      total_leads_count: `${Math.random()*10000}`,
-      leads_count_over_limit: `${Math.random()*100}`,
-      plan_id: "2312312"
-    },
-    {
-      id: "1213232",
-      month: "2020-08-12",
-      total_leads_count: `${Math.random()*10000}`,
-      leads_count_over_limit: `${Math.random()*100}`,
-      plan_id: "2312312"
-    },
-    {
-      id: "1213232",
-      month: "2020-07-12",
-      total_leads_count: `${Math.random()*10000}`,
-      leads_count_over_limit: `${Math.random()*100}`,
-      plan_id: "2312312"
-    },
-    {
-      id: "1213232",
-      month: "2020-06-12",
-      total_leads_count: `${Math.random()*10000}`,
-      leads_count_over_limit: `${Math.random()*100}`,
-      plan_id: "2312312"
-    },
-    {
-      id: "1213232",
-      month: "2020-05-12",
-      total_leads_count: `${Math.random()*10000}`,
-      leads_count_over_limit: `${Math.random()*100}`,
-      plan_id: "2312312"
-    },
-    {
-      id: "1213232",
-      month: "2020-04-12",
-      total_leads_count: `${Math.random()*10000}`,
-      leads_count_over_limit: `${Math.random()*100}`,
-      plan_id: "2312312"
-    },
-    {
-      id: "1213232",
-      month: "2020-03-12",
-      total_leads_count: `${Math.random()*10000}`,
-      leads_count_over_limit: `${Math.random()*100}`,
-      plan_id: "2312312"
-    },
-    {
-      id: "1213232",
-      month: "2020-02-12",
-      total_leads_count: `${Math.random()*10000}`,
-      leads_count_over_limit: `${Math.random()*100}`,
-      plan_id: "2312312"
-    },
-    {
-      id: "1213232",
-      month: "2020-01-12",
-      total_leads_count: `${Math.random()*10000}`,
-      leads_count_over_limit: `${Math.random()*100}`,
-      plan_id: "2312312"
-    }
   ];
   selectedMonthData;
+  activeLeadSubscription;
 
   constructor(
     private modalService: NzModalService,
     private translate: TranslateService,
-    private tableSvc: TableService, private companyService: CompanyService, private activatedRoute: ActivatedRoute) { }
+    private companyService: CompanyService, 
+    private activatedRoute: ActivatedRoute
+  ) { }
 
 
   ngOnInit(): void {
     this.loadData();
   }
-  loadData() {
 
+  refresh() {
+    this.isLoading = true;
+    this.loadData();
+  }
+
+  loadData() {
     this.companyId = this.activatedRoute.snapshot.queryParams["company"];
     if (!this.companyId)
       return;
-    this.companyService.getLeads(this.companyId, 5, null, this.lastVisibleFollower).subscribe((data) => {
-      this.loadingMoreFollowers = false;
-      this.isLoading = false;
-      this.originalData = data.leads;
-      this.displayData = [...data.leads, ...this.dummyData];
-      this.lastVisibleFollower = data.lastVisible;
+
+    this.companyService.getCompanySubscription(this.companyId).subscribe((data) => {
+      this.activeLeadSubscription = data[0];
     });
 
-  }
-  search() {
-    const data = this.originalData
-    this.displayData = this.tableSvc.search(this.searchInput, data);
+    this.companyService.getLeadsMonthly(this.companyId).subscribe((data) => {
+      this.isLoading = false;
+      this.displayData = data;
+    }, err => {
+      this.isLoading = false;
+    });
   }
 
   deleteLead(companyId: string) {
@@ -181,12 +95,28 @@ export class CompanyLeadsComponent implements OnInit {
 
   }
 
-  viewLeadsByMonth(month) {
-    this.selectedMonthData = JSON.stringify(month);
+  viewLeadsByMonth(month: Month) {
+    let data: Month = JSON.parse(JSON.stringify(month));
+    data['lead_over_limit'] = this.getExceedingLeadsCount(data.lead_count);
+    this.selectedMonthData = data;
   }
 
   goBack() {
     this.selectedMonthData = null;
+  }
+
+  getExceedingLeadsCount(lead_count: number) {
+    let lead_limit = CompanyConstant.FREE_LEAD_COUNT;
+
+    if(this.activeLeadSubscription) {
+      lead_limit = this.activeLeadSubscription.limit;
+    } 
+
+    const lead_diff = lead_count - lead_limit;
+    if(lead_diff > 0)
+      return lead_diff;
+    else 
+      return 0;
   }
 
 

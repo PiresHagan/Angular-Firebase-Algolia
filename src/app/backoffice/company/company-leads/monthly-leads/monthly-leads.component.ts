@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { CompanyService } from 'src/app/backoffice/shared/services/company.service';
 
 interface Lead {
   id: string
@@ -24,47 +25,46 @@ export class MonthlyLeadsComponent implements OnInit {
   loadingMoreFollowers;
   orderColumn = [
     {
-      title: 'First Name',
-      compare: (a: Lead, b: Lead) => a.first_name.localeCompare(b.first_name)
+      title: 'First Name'
     },
 
     {
-      title: 'Last Name',
-      compare: (a: Lead, b: Lead) => a.last_name.localeCompare(b.last_name)
+      title: 'Last Name'
     },
     {
-      title: 'Phone',
-      compare: (a: Lead, b: Lead) => a.mobile_number.localeCompare(b.mobile_number)
+      title: 'Phone'
     },
     {
-      title: 'Email',
-      compare: (a: Lead, b: Lead) => a.email.localeCompare(b.email)
+      title: 'Email'
     },
     {
       title: 'Created At'
     }
   ];
-  dummyData = [
-    {
-      id: "qiuwq-12-1-21-2-112",
-      first_name: "Rahul",
-      last_name: "Rajabhoj",
-      mobile_number: "8668509701",
-      email: "rahulrajabhoj@gmail.com",
-      created_at: new Date()
-    }
-  ]
 
   @Input() companyId: string;
-  @Input() monthData;
+  @Input() monthData: {
+    id: string,
+    lead_count: number,
+    lead_over_limit: number
+  };
 
-  constructor() { }
+  constructor(
+    private companyService: CompanyService
+  ) { }
 
   ngOnInit(): void {
-    setTimeout(() => {
+    this.loadData();
+  }
+
+  loadData() {
+    this.companyService.getLeadsOfMonth(this.companyId, this.monthData.id).subscribe((data) => {
       this.isLoading = false;
-      this.displayData = this.dummyData;
-    }, 1500);
+      this.displayData = data;
+    }, err => {
+      this.isLoading = false;
+      this.displayData = [];
+    });
   }
 
 }

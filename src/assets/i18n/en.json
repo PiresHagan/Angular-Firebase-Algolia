@@ -672,5 +672,8 @@
     "PostSubmissionConf": "Create post ?",
     "PostCreated": "Post created successfully",
     "CompanySubscription": "Company Subscription",
-    "CompanyBilling": "Company Billing"
+    "CompanyBilling": "Company Billing",
+    "UpgradePackage": "Upgrade",
+    "LeadSubscriptionCancelMsgConf": "Are you sure you want to cancel active subscription ?",
+    "LeadSubscriptionCancelled": "Active subscription cancelled successfully!"
 }

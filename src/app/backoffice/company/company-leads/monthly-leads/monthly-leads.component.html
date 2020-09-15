@@ -1,6 +1,14 @@
 <nz-card>
     <nz-skeleton *ngIf="!displayData" [nzActive]="true"> </nz-skeleton>
 
+    <nz-alert *ngIf="displayData && monthData?.lead_over_limit == 1" nzType="warning" class="lead-warning"
+        nzMessage="{{monthData?.lead_over_limit}} more lead is waiting for you. Upgrade your monthly lead package now!" nzShowIcon>
+    </nz-alert>
+
+    <nz-alert *ngIf="displayData && monthData?.lead_over_limit > 1" nzType="warning" class="lead-warning"
+        nzMessage="{{monthData?.lead_over_limit}} more leads are waiting for you. Upgrade your monthly lead package now!" nzShowIcon>
+    </nz-alert>
+
     <nz-table #productsListTable [nzData]="displayData" *ngIf="displayData" [nzLoading]="isLoading">
 
         <thead>

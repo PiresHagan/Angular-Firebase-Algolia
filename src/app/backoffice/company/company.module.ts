@@ -19,10 +19,20 @@ import { CompanyBillingComponent } from './company-billing/company-billing.compo
 import { CompanyLeadsPackageComponent } from './company-leads-package/company-leads-package.component';
 import { MonthlyLeadsComponent } from './company-leads/monthly-leads/monthly-leads.component';
 
-
-
 @NgModule({
-  declarations: [AddCompanyComponent, CompanyListComponent, CompanyDetailsComponent, CompanyFollowersComponent, CompanyLeadsComponent, CompanyArticleComponent, CompanyFundraisersComponent, CompanySubscriptionComponent, CompanyBillingComponent, CompanyLeadsPackageComponent, MonthlyLeadsComponent],
+  declarations: [
+    AddCompanyComponent, 
+    CompanyListComponent, 
+    CompanyDetailsComponent, 
+    CompanyFollowersComponent, 
+    CompanyLeadsComponent, 
+    CompanyArticleComponent, 
+    CompanyFundraisersComponent, 
+    CompanySubscriptionComponent, 
+    CompanyBillingComponent, 
+    CompanyLeadsPackageComponent, 
+    MonthlyLeadsComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,
