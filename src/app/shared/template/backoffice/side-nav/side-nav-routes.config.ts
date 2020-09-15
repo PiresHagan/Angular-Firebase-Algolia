@@ -135,23 +135,23 @@ export const ROUTES: SideNavInterface[] = [
         staff_only: false,
         submenu: []
     },
-    {
-        path: 'app/ad-network',
-        title: 'Ad Network',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'notification',
-        staff_only: false,
-        submenu: [
-            {
-                path: 'ad-network/sites',
-                title: 'My Sites',
-                iconType: 'nzIcon',
-                iconTheme: 'outline',
-                icon: 'crown',
-                staff_only: false,
-                submenu: []
-            }
-        ]
-    }
+    // {
+    //     path: 'app/ad-network',
+    //     title: 'Ad Network',
+    //     iconType: 'nzIcon',
+    //     iconTheme: 'outline',
+    //     icon: 'notification',
+    //     staff_only: false,
+    //     submenu: [
+    //         {
+    //             path: 'ad-network/sites',
+    //             title: 'My Sites',
+    //             iconType: 'nzIcon',
+    //             iconTheme: 'outline',
+    //             icon: 'crown',
+    //             staff_only: false,
+    //             submenu: []
+    //         }
+    //     ]
+    // }
 ]
