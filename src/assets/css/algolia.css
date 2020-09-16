@@ -412,7 +412,7 @@ a[class^="ais-"] {
   width: 10px;
   height: 10px;
   display: none;
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7.3 24l-2.8-2.8 9.3-9.2-9.3-9.2L7.3 0l12.2 12z' fill='%233A4570'/%3E%3C/svg%3E");
+  background-image: url("assets/images/items/chevron-right.svg");
   background-size: 100% 100%;
 }
 .ais-HierarchicalMenu-item--parent > .ais-HierarchicalMenu-link:after {
@@ -506,7 +506,7 @@ a[class^="ais-"] {
   padding: 0.3rem 2rem 0.3rem 0.3rem;
   max-width: 100%;
   background-color: #fff;
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M0 7.3l2.8-2.8 9.2 9.3 9.2-9.3L24 7.3 12 19.5z' fill='%233A4570'/%3E%3C/svg%3E");
+  background-image: url("assets/images/items/chevron-down.svg");
   background-repeat: no-repeat;
   background-size: 10px 10px;
   background-position: 92% 50%;

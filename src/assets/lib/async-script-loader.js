@@ -39,10 +39,8 @@
           script.async = 'true';
 
           document.body.appendChild(script);
-
-          console.log('Scripted ', src);
         });
-      }, 20000);
-    }, 5000);
+      }, 10000); // @TODO: Instead of timeout, when is it best to load this?
+    });
   });
 })();
