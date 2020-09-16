@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CompanyService } from 'src/app/backoffice/shared/services/company.service';
+import { ExportService } from 'src/app/backoffice/shared/services/export.service';
 
 interface Lead {
   id: string
@@ -7,6 +8,15 @@ interface Lead {
   last_name: string
   mobile_number: string
   email: string,
+  created_at: string
+}
+
+interface ExportLeadData {
+  FirstName: string,
+  LastName: string,
+  MobileNumber: string,
+  Email: string,
+  ContactedOn: string
 }
 
 @Component({
@@ -25,9 +35,11 @@ export class MonthlyLeadsComponent implements OnInit {
   loadingMoreFollowers;
   orderColumn = [
     {
+      title: 'No.'
+    },
+    {
       title: 'First Name'
     },
-
     {
       title: 'Last Name'
     },
@@ -41,6 +53,8 @@ export class MonthlyLeadsComponent implements OnInit {
       title: 'Created At'
     }
   ];
+  exportData: Array<ExportLeadData> = [];
+  exportDataReady: boolean = false;
 
   @Input() companyId: string;
   @Input() monthData: {
@@ -50,7 +64,8 @@ export class MonthlyLeadsComponent implements OnInit {
   };
 
   constructor(
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private exportService: ExportService
   ) { }
 
   ngOnInit(): void {
@@ -61,10 +76,25 @@ export class MonthlyLeadsComponent implements OnInit {
     this.companyService.getLeadsOfMonth(this.companyId, this.monthData.id).subscribe((data) => {
       this.isLoading = false;
       this.displayData = data;
+      for(let lead of this.displayData) {
+        const obj: Lead = lead;
+        this.exportData.push({
+          FirstName: obj.first_name,
+          LastName: obj.last_name,
+          MobileNumber: obj.mobile_number,
+          Email: obj.email,
+          ContactedOn: new Date(obj.created_at).toString()
+        });
+      }
+      this.exportDataReady = true;
     }, err => {
       this.isLoading = false;
       this.displayData = [];
     });
+  }
+  
+  export() {
+    this.exportService.exportExcel(this.exportData, `${this.monthData.id}-leads`);
   }
 
 }
