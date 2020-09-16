@@ -42,6 +42,7 @@ export class CompanyLeadsComponent implements OnInit {
   ];
   selectedMonthData;
   activeLeadSubscription;
+  defaultLeadLimit = CompanyConstant.FREE_LEAD_COUNT;
 
   constructor(
     private modalService: NzModalService,

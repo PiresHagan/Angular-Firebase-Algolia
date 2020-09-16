@@ -4,33 +4,38 @@
             <nz-card>
                 <nz-skeleton [nzActive]="true" *ngIf="!displayData"> </nz-skeleton>
 
-                <button *ngIf="displayData" [disabled]="isLoading" (click)="refresh()" class="m-10" nz-button 
-                    nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Refresh"
-                >
-                    <i nz-icon nzType="reload"></i>
-                </button>
+                <div *ngIf="displayData">
+                    <button [disabled]="isLoading" (click)="refresh()" class="m-10 btn-refresh" nz-button 
+                        nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Refresh">
+                        <i nz-icon nzType="reload"></i>
+                    </button>
 
-                <nz-table #leadsTable [nzData]="displayData" *ngIf="displayData" nzFrontPagination="false" [nzLoading]="isLoading">
+                    <span class="lead-limit-span">Lead count support with active montly subscription : 
+                        <span *ngIf="!activeLeadSubscription"><b class="orange-red md-fnt">{{ defaultLeadLimit }}</b></span>
+                        <span *ngIf="activeLeadSubscription"><b class="orange-red md-fnt">{{ activeLeadSubscription?.limit }}</b></span>
+                    </span>
 
-                    <thead>
-                        <tr>
-                            <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare" [nzAlign]='column.align'>{{ column.title | translate }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of leadsTable.data;  let i=index">
-                            <td>{{item.id | date:'MMMM, yyyy'}} </td>
-                            <td nzAlign='center' class="green">{{item.lead_count | number:'1.0-0'}} </td>
-                            <td nzAlign='center' class="red">{{ getExceedingLeadsCount(item.lead_count) | number:'1.0-0'}}</td>
-                            <td nzAlign='center'>
-                                <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="View"
-                                    (click)="viewLeadsByMonth(item)">
-                                    <i nz-icon nzType="eye" nzTheme="outline"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </nz-table>
+                    <nz-table nzBordered #leadsTable [nzData]="displayData" nzFrontPagination="false" [nzLoading]="isLoading">
+                        <thead>
+                            <tr>
+                                <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare" [nzAlign]='column.align'>{{ column.title | translate }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of leadsTable.data;  let i=index">
+                                <td>{{item.id | date:'MMMM, yyyy'}} </td>
+                                <td nzAlign='center' class="green">{{item.lead_count | number:'1.0-0'}} </td>
+                                <td nzAlign='center' class="red">{{ getExceedingLeadsCount(item.lead_count) | number:'1.0-0'}}</td>
+                                <td nzAlign='center'>
+                                    <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="View"
+                                        (click)="viewLeadsByMonth(item)">
+                                        <i nz-icon nzType="eye" nzTheme="outline"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </div>
             </nz-card>
         </div>
         <div *ngIf="selectedMonthData" class="col-md-12">
