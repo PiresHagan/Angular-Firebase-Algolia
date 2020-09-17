@@ -143,6 +143,11 @@ export class ProfileComponent implements OnInit {
       })
       this.userService.getMember(user.uid).subscribe((memberDetails) => {
         this.avatarUrl = memberDetails?.avatar?.url;
+        if (memberDetails?.avatar && memberDetails?.avatar?.url)
+          this.avatarData = {
+            url: memberDetails?.avatar?.url,
+            alt: memberDetails?.avatar?.alt
+          }
         this.memberDetails = memberDetails;
         this.setMemberDetails(memberDetails);
       })
