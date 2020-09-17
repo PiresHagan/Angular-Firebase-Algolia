@@ -35,7 +35,7 @@ export class AuthService {
             if (!uid && this.loggedInUser) {
                 uid = this.loggedInUser.uid
             }
-            if (!uid) {
+            if (uid) {
                 this.getMember(uid).subscribe((userData) => {
                     resolve(userData)
                 })
