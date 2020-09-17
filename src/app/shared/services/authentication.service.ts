@@ -35,7 +35,7 @@ export class AuthService {
             if (!uid && this.loggedInUser) {
                 uid = this.loggedInUser.uid
             } else {
-                reject('User Is Not Initialized');
+                //reject('User Is Not Initialized');
             }
             this.getMember(uid).subscribe((userData) => {
                 resolve(userData)
