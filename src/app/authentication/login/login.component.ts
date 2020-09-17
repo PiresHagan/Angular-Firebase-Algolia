@@ -117,17 +117,6 @@ export class LoginComponent {
                     }
                 })
 
-                // this.authService.getMember(loginDetails.user.uid).subscribe((memberDetails) => {
-
-                //     if (memberDetails) {
-                //         this.memberDetails = memberDetails;
-                //         this.validatePassAndNext(userData);
-                //     }
-
-                // })
-
-
-
             }
             this.isFormSaving = false;
 
@@ -243,8 +232,6 @@ export class LoginComponent {
         });
     }
     validateCaptcha() {
-        //this.onLogin();
-        //return
         if (this.captchaToken) {
             this.isFormSaving = true;
             this.invalidCaptcha = false;
@@ -320,7 +307,7 @@ export class LoginComponent {
         const memberDetails = this.memberDetails;
         const userDetails = this.userDetails;
         if ((!memberDetails.bio && !memberDetails.biography_en && !memberDetails.biography_es && !memberDetails.biography_fr) ||
-            !memberDetails.avatar || !userDetails.interests || !memberDetails.lang || userDetails.interests.length == 0)
+            !memberDetails.avatar || !userDetails.interests || !memberDetails.lang || userDetails.interests.length == 0 || !memberDetails.avatar || !memberDetails.avatar.url)
             return false;
         else
             return true;
