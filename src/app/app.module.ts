@@ -43,7 +43,6 @@ export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 registerLocaleData(en);
 
@@ -52,7 +51,8 @@ registerLocaleData(en);
         AppComponent,
         CommonLayoutComponent,
         FullLayoutComponent,
-        BackofficeLayoutComponent],
+        BackofficeLayoutComponent
+    ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
