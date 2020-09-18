@@ -70,6 +70,10 @@
             {
               "key": "Access-Control-Allow-Origin",
               "value": "*"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "max-age=31536000"
             }
           ]
         },
@@ -78,7 +82,7 @@
           "headers": [
             {
               "key": "Cache-Control",
-              "value": "max-age=36000"
+              "value": "max-age=31536000"
             }
           ]
         },
@@ -87,7 +91,7 @@
           "headers": [
             {
               "key": "Cache-Control",
-              "value": "max-age=7200"
+              "value": "max-age=604800"
             }
           ]
         }
