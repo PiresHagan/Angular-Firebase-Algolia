@@ -65,7 +65,7 @@
       ],
       "headers": [
         {
-          "source": "*/.@(eot|otf|ttf|ttc|woff|woff2|font.css)",
+          "source": "**/*.@(eot|otf|ttf|ttc|woff|woff2|font.css)",
           "headers": [
             {
               "key": "Access-Control-Allow-Origin",
@@ -74,7 +74,7 @@
           ]
         },
         {
-          "source": "*/.@(jpg|jpeg|gif|png)",
+          "source": "**/*.@(jpg|jpeg|gif|png)",
           "headers": [
             {
               "key": "Cache-Control",
@@ -83,7 +83,7 @@
           ]
         },
         {
-          "source": "*/.@(js|map|css|json)",
+          "source": "**/*.@(js|map|css|json)",
           "headers": [
             {
               "key": "Cache-Control",
