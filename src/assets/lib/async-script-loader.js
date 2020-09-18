@@ -40,7 +40,7 @@
 
           document.body.appendChild(script);
         });
-      }, 10); // @TODO: Instead of timeout, when is it best to load this?
+      }, 15000); // @TODO: Instead of timeout, when is it best to load this?
     });
   });
 })();
