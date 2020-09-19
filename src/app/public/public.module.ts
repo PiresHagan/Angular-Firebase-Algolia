@@ -43,6 +43,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NewHomeComponent } from './new-home/new-home.component';
 import { FundraiserComponent } from './fundraiser/fundraiser.component';
 import { FundraiserListComponent } from './fundraiser-list/fundraiser-list.component';
+import { CharityDonateFormComponent } from './charity/charity-donate-form/charity-donate-form.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -71,6 +72,7 @@ import { FundraiserListComponent } from './fundraiser-list/fundraiser-list.compo
     NewHomeComponent,
     FundraiserComponent,
     FundraiserListComponent,
+    CharityDonateFormComponent,
 
   ],
   imports: [
