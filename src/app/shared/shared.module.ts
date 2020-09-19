@@ -16,6 +16,7 @@ import { ArticleAvatarComponent } from './component/article-avatar/article-avata
 import { CloudinaryImgComponent } from './component/cloudinary-img/cloudinary-img.component';
 import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
 import { Cloudinary } from 'cloudinary-core';
+import { CompanyLeadFormComponent } from './component/company-lead-form/company-lead-form.component';
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -31,7 +32,8 @@ export function createTranslateLoader(http: HttpClient) {
         SearchPipe,
         ArticleInteractionComponent,
         ArticleAvatarComponent,
-        CloudinaryImgComponent
+        CloudinaryImgComponent,
+        CompanyLeadFormComponent
     ],
     imports: [
         RouterModule,
@@ -48,8 +50,7 @@ export function createTranslateLoader(http: HttpClient) {
         ArticleInteractionComponent,
         ArticleAvatarComponent,
         CloudinaryImgComponent,
-        
-
+        CompanyLeadFormComponent
     ],
 
     providers: [
