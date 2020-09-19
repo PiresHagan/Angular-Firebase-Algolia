@@ -6,12 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SeoDataService {
-
-  private seoDataCollection  = 'seo_data';
+  private seoDataCollection = 'seo_data';
 
   constructor(private db: AngularFirestore) { }
 
   getSeoData(documentId: string): Observable<any> {
     return this.db.collection(this.seoDataCollection).doc(documentId).get();
-  } 
+  }
 }

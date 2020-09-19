@@ -1,7 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Title, Meta } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { FundraiserService } from 'src/app/shared/services/fundraiser.service';
 import { LanguageService } from 'src/app/shared/services/language.service';
@@ -14,13 +13,13 @@ import { StripeService, StripeCardNumberComponent } from 'ngx-stripe';
 import {
   StripeCardElementOptions,
   StripeElementsOptions,
-  PaymentIntent,
 } from '@stripe/stripe-js';
 import { AuthorService } from 'src/app/shared/services/author.service';
 // import { TEXT, AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
 import { UserService } from 'src/app/shared/services/user.service';
 import { CompanyService } from 'src/app/shared/services/company.service';
 import { CharityService } from 'src/app/shared/services/charity.service';
+import { SeoService } from 'src/app/shared/services/seo/seo.service';
 
 @Component({
   selector: 'app-fundraiser',
@@ -76,14 +75,13 @@ export class FundraiserComponent implements OnInit {
     private langService: LanguageService,
     private fundraiserService: FundraiserService,
     private authorService: AuthorService,
-    private titleService: Title,
-    private metaTagService: Meta, 
     private stripeService: StripeService,
     private modalService: NzModalService,
     public translate: TranslateService,
     public userService: UserService,
     public companyService: CompanyService,
-    public charityService: CharityService
+    public charityService: CharityService,
+    private seoService: SeoService,
   ) { }
 
   ngOnInit(): void {
@@ -96,8 +94,8 @@ export class FundraiserComponent implements OnInit {
         this.fundraiser = data[0];
 
         this.fundraiserId = this.fundraiser.id;
-  
-        if(this.fundraiser.goal_amount && this.fundraiser.amount) {
+
+        if (this.fundraiser.goal_amount && this.fundraiser.amount) {
           this.donationPercentage = ((this.fundraiser.amount / this.fundraiser.goal_amount) * 100).toFixed(1);
         }
 
@@ -105,11 +103,11 @@ export class FundraiserComponent implements OnInit {
           this.authorFollowersCount = followers.length;
         });
 
-        if(this.fundraiser.author.type == 'charity') {
+        if (this.fundraiser.author.type == 'charity') {
           this.charityService.getCharityById(this.fundraiser.author.id).subscribe(charity => {
             this.fundraiserAuthor = charity;
           });
-        } else if(this.fundraiser.author.type == 'company') {
+        } else if (this.fundraiser.author.type == 'company') {
           this.companyService.getCompanyById(this.fundraiser.author.id).subscribe(company => {
             this.fundraiserAuthor = company;
           });
@@ -121,25 +119,21 @@ export class FundraiserComponent implements OnInit {
 
         this.setUserDetails();
 
-        this.titleService.setTitle(`${this.fundraiser.title.substring(0, 69)}`);
-
-        this.metaTagService.addTags([
-          { name: "description", content: `${this.fundraiser.meta.description.substring(0, 154)}` },
-          { name: "keywords", content: `${this.fundraiser.meta.keyword}` },
-          { name: "twitter:card", content: `${this.fundraiser.meta.description.substring(0, 154)}` },
-          { name: "og:title", content: `${this.fundraiser.meta.title}` },
-          { name: "og:type", content: `fundraiser` },
-          { name: "og:url", content: `${window.location.href}` },
-          { name: "og:image", content: `${this.fundraiser.logo.url}` },
-          { name: "og:description", content: `${this.fundraiser.meta.description.substring(0, 154)}` }
-        ]);
+        this.seoService.updateMetaTags({
+          tabTitle: this.fundraiser.title?.substring(0, 69),
+          description: this.fundraiser.meta?.description?.substring(0, 154),
+          title: this.fundraiser.title,
+          type: 'fundraiser',
+          image: { url: this.fundraiser.logo?.url },
+          keywords: this.fundraiser.meta?.keyword,
+        });
       });
 
       this.donateForm = this.fb.group({
         first_name: [null, [Validators.required]],
         last_name: [null, [Validators.required]],
-        email: [null, [Validators.email, Validators.required]], 
-        mobile_number: [null, [Validators.required]], 
+        email: [null, [Validators.email, Validators.required]],
+        mobile_number: [null, [Validators.required]],
         amount: [null, [Validators.required, Validators.min(1)]],
         message: [""]
       });
@@ -208,7 +202,7 @@ export class FundraiserComponent implements OnInit {
 
   async follow() {
     await this.setUserDetails();
-    if(this.isLoggedInUser) {
+    if (this.isLoggedInUser) {
       this.isUpdatingFollow = true;
       await this.authorService.follow(this.fundraiser.author.id, this.fundraiser.author.type);
     }
@@ -216,7 +210,7 @@ export class FundraiserComponent implements OnInit {
 
   async unfollow() {
     await this.setUserDetails();
-    if(this.isLoggedInUser) {
+    if (this.isLoggedInUser) {
       this.isUpdatingFollow = true;
       await this.authorService.unfollow(this.fundraiser.author.id, this.fundraiser.author.type);
     }
@@ -254,7 +248,7 @@ export class FundraiserComponent implements OnInit {
             let donorData = JSON.parse(JSON.stringify(this.donateForm.value));
             donorData['fundraiser_id'] = this.fundraiserId;
             donorData['card_token'] = result.token.id;
-            if(donorData.message.length == 0) {
+            if (donorData.message.length == 0) {
               delete donorData.message;
             }
 
@@ -279,7 +273,7 @@ export class FundraiserComponent implements OnInit {
         this.isFormSaving = false;
       }
     } else {
-      if(cardElement._empty || cardElement._invalid) {
+      if (cardElement._empty || cardElement._invalid) {
         this.showInvalidCardErr();
       }
 
@@ -290,7 +284,7 @@ export class FundraiserComponent implements OnInit {
   showInvalidCardErr() {
     this.showInvalidCardError = true;
 
-    setTimeout(()=> {
+    setTimeout(() => {
       this.showInvalidCardError = false;
     }, 3000);
   }
@@ -309,7 +303,7 @@ export class FundraiserComponent implements OnInit {
       return '/companies/';
     } else {
       return '/'
-    }  
+    }
   }
   isVisible = false;
   isOkLoading = false;

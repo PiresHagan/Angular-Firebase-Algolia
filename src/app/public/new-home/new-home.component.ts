@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 import { SeoDataService } from 'src/app/shared/services/seo-data.service';
 import { SeoData } from 'src/app/shared/interfaces/seo-data.type';
 import { CacheService } from 'src/app/shared/services/cache.service';
+import { SeoService } from 'src/app/shared/services/seo/seo.service';
 
 @Component({
   selector: 'app-new-home',
@@ -49,10 +50,9 @@ export class NewHomeComponent implements OnInit {
     private metaTagService: Meta,
     private categoryService: CategoryService,
     private languageService: LanguageService,
-    private seoDataService: SeoDataService
-  ) {
-
-  }
+    private seoDataService: SeoDataService,
+    private seoService: SeoService,
+  ) { }
   switchLang(lang: string) {
     this.translate.use(lang);
   }
@@ -60,27 +60,7 @@ export class NewHomeComponent implements OnInit {
   DefaultAvatar: string = 'assets/images/default-avatar.png';
 
   ngOnInit(): void {
-    this.seoDataService.getSeoData(this.homeDocument).subscribe(homeDocRef => {
-      if(homeDocRef.exists) {
-        const data: SeoData = homeDocRef.data();
-
-        this.titleService.setTitle(data.title);
-    
-        this.metaTagService.addTags([
-          {name: "description", content: data.description},
-          {name: "keywords", content: data.keywords},
-          {name: "twitter:card", content: data.description},
-          {name: "og:title", content: data.title},
-          {name: "og:type", content: data.type},
-          {name: "og:url", content: `${window.location.href}`},
-          {name: "og:image", content: data.image.url? data.image.url : data.image.alt},
-          {name: "og:description", content: data.description}
-        ]);
-      }
-    }, err => {
-      console.log('Error getting home seo data', err);
-    });
-
+    this.seoService.updateTagsWithData(this.homeDocument);
     this.selectedLanguage = this.languageService.getSelectedLanguage();
 
     this.articleService.getHeroArticles(this.selectedLanguage).subscribe(articles => {
@@ -93,7 +73,7 @@ export class NewHomeComponent implements OnInit {
 
     this.articleService.getTrending(this.selectedLanguage).subscribe(articles => {
       for (const article of articles) {
-        if(article['view_count'] > 30){
+        if (article['view_count'] > 30) {
           this.trendingArticles.push(article);
         }
       }
@@ -125,14 +105,14 @@ export class NewHomeComponent implements OnInit {
       this.articleService.getTrending(this.selectedLanguage).subscribe(articles => {
         this.trendingArticles = articles;
       });
-  
+
       this.articleService.getLatest(this.selectedLanguage).subscribe(articles => {
         this.latestArticles = articles;
       });
-      
+
     });
 
-    
+
 
 
     return;

@@ -12,6 +12,7 @@ import * as firebase from 'firebase/app';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { AUTHOR } from 'src/app/shared/constants/member-constant';
 import { NzModalService } from 'ng-zorro-antd';
+import { SeoService } from 'src/app/shared/services/seo/seo.service';
 
 @Component({
   selector: 'app-profile',
@@ -39,6 +40,7 @@ export class ProfileComponent implements OnInit {
   lastArticleIndexOfVideo;
   audioArticles: Article[] = [];
   videoArticles: Article[] = [];
+
   constructor(
     private titleService: Title,
     private metaTagService: Meta,
@@ -49,10 +51,9 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     public userService: UserService,
     public langService: LanguageService,
-    private modal: NzModalService
-  ) {
-
-  }
+    private modal: NzModalService,
+    private seoService: SeoService,
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -70,34 +71,29 @@ export class ProfileComponent implements OnInit {
         this.getArticleList(author['id']);
         this.setUserDetails();
 
-        this.titleService.setTitle(`${this.authorDetails.fullname}`);
-
-        this.setLanguageNotification();
-        this.metaTagService.addTags([
-          { name: "description", content: `${this.authorDetails[`biography_${this.authorDetails?.lang}`]?.substring(0, 154)}` },
-          { name: "keywords", content: `${this.authorDetails?.fullname}` },
-          { name: "twitter:card", content: `${this.authorDetails[`biography_${this.authorDetails?.lang}`]}` },
-          { name: "og:title", content: `${this.authorDetails.fullname}` },
-          { name: "og:type", content: `${this.authorDetails?.type}` },
-          { name: "og:url", content: `${window.location?.href}` },
-          { name: "og:image", content: `${this.authorDetails?.avatar?.url}` },
-          { name: "og:description", content: `${this.authorDetails[`biography_${this.authorDetails?.lang}`]}` }
-        ]);
+        this.seoService.updateMetaTags({
+          title: this.authorDetails.fullname,
+          description: this.authorDetails[`biography_${this.authorDetails?.lang}`]?.substring(0, 154),
+          keywords: this.authorDetails.fullname,
+          summary: this.authorDetails[`biography_${this.authorDetails?.lang}`],
+          type: this.authorDetails?.type,
+          image: { url: this.authorDetails?.avatar?.url }
+        });
       });
     });
   }
+
   ngAfterViewChecked(): void {
     if (!this.isLoaded) {
       delete window['addthis']
       setTimeout(() => { this.loadScript(); }, 100);
       this.isLoaded = true;
     }
-
   }
 
   /**
- * Set user params 
- */
+   * Set user params 
+   */
   async setUserDetails() {
 
     this.authService.getAuthState().subscribe(async (user) => {

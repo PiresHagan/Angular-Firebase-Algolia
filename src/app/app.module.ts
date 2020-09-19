@@ -38,6 +38,7 @@ import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
 import { ArticleInteractionComponent } from './shared/component/article-interaction/article-interaction.component';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { SeoService } from './shared/services/seo/seo.service';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -87,7 +88,7 @@ registerLocaleData(en);
         PreviousRouteService,
         ScreenTrackingService,
         UserTrackingService,
-
+        SeoService,
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
