@@ -78,6 +78,15 @@
           ]
         },
         {
+          "source": "**/*@(manifest.json|manifest.webmanifest)",
+          "headers": [
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ]
+        },
+        {
           "source": "**/*.@(jpg|jpeg|gif|png)",
           "headers": [
             {
