@@ -356,6 +356,9 @@
                 <div *ngIf="false" class="ads-box">
                     Ads Section
                 </div>
+
+                <app-company-lead-form *ngIf="article?.author?.type == 'company'" [companyId]="article.author.id"></app-company-lead-form>
+
                 <div class="related-article-sec">
                     <h2>{{ "SimilarArticles" | translate }}</h2>
                     <div *ngFor="let similarArticle of similarArticleList | async">

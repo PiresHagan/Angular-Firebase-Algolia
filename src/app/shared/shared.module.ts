@@ -17,6 +17,7 @@ import { CloudinaryImgComponent } from './component/cloudinary-img/cloudinary-im
 import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
 import { Cloudinary } from 'cloudinary-core';
 import { ShareButtonsComponent } from './component/share-buttons/share-buttons.component';
+import { CompanyLeadFormComponent } from './component/company-lead-form/company-lead-form.component';
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -33,7 +34,8 @@ export function createTranslateLoader(http: HttpClient) {
         ArticleInteractionComponent,
         ArticleAvatarComponent,
         CloudinaryImgComponent,
-        ShareButtonsComponent
+        ShareButtonsComponent,
+        CompanyLeadFormComponent
     ],
     imports: [
         RouterModule,
@@ -51,8 +53,7 @@ export function createTranslateLoader(http: HttpClient) {
         ArticleAvatarComponent,
         CloudinaryImgComponent,
         ShareButtonsComponent,
-
-
+        CompanyLeadFormComponent
     ],
 
     providers: [
