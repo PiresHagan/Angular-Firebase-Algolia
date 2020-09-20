@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "dev",
-      "site": "mytrendongstories-dev",
+      "site": "mytrendingstories-dev",
       "public": "dist",
       "ignore": [
         "firebase.json",
@@ -18,7 +18,7 @@
     },
     {
       "target": "test",
-      "site": "mytrendongstories-test",
+      "site": "mytrendingstories-test",
       "public": "dist",
       "ignore": [
         "firebase.json",
@@ -34,7 +34,7 @@
     },
     {
       "target": "prod",
-      "site": "mytrendongstories",
+      "site": "mytrendingstories",
       "public": "dist",
       "ignore": [
         "firebase.json",
@@ -50,7 +50,7 @@
     },
     {
       "target": "preprod",
-      "site": "mytrendongstories-preprod",
+      "site": "mytrendingstories-preprod",
       "public": "dist",
       "ignore": [
         "firebase.json",
@@ -59,54 +59,8 @@
       ],
       "rewrites": [
         {
-          "source": "/index.html",
-          "destination": "/index.html"
-        },
-        {
           "source": "**",
           "function": "ssr"
-        }
-      ],
-      "headers": [
-        {
-          "source": "**/*.@(eot|otf|ttf|ttc|woff|woff2|font.css)",
-          "headers": [
-            {
-              "key": "Access-Control-Allow-Origin",
-              "value": "*"
-            },
-            {
-              "key": "Cache-Control",
-              "value": "max-age=31536000"
-            }
-          ]
-        },
-        {
-          "source": "**/*@(manifest.json|manifest.webmanifest)",
-          "headers": [
-            {
-              "key": "Access-Control-Allow-Origin",
-              "value": "*"
-            }
-          ]
-        },
-        {
-          "source": "**/*.@(jpg|jpeg|gif|png)",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "max-age=31536000"
-            }
-          ]
-        },
-        {
-          "source": "**/*.@(js|map|css|json)",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "max-age=604800"
-            }
-          ]
         }
       ]
     }
