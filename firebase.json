@@ -59,8 +59,54 @@
       ],
       "rewrites": [
         {
+          "source": "/landing_index",
+          "destination": "/index.html"
+        },
+        {
           "source": "**",
           "function": "ssr"
+        }
+      ],
+      "headers": [
+        {
+          "source": "**/*.@(eot|otf|ttf|ttc|woff|woff2|font.css)",
+          "headers": [
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "max-age=1"
+            }
+          ]
+        },
+        {
+          "source": "**/*@(manifest.json|manifest.webmanifest)",
+          "headers": [
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(jpg|jpeg|gif|png)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "max-age=1"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(js|map|css|json)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "max-age=1"
+            }
+          ]
         }
       ]
     }
