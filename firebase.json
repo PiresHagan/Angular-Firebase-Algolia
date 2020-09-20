@@ -59,6 +59,14 @@
       ],
       "rewrites": [
         {
+          "source": "",
+          "function": "ssr"
+        },
+        {
+          "source": "/",
+          "function": "ssr"
+        },
+        {
           "source": "**",
           "function": "ssr"
         }
