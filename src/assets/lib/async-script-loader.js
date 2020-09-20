@@ -42,11 +42,5 @@
         });
       }, 15000); // @TODO: Instead of timeout, when is it best to load this?
     });
-
-    // const rurl = 'https://my-trending-stories-66f81.uc.r.appspot.com/render/https://mytrendingstories-preprod.web.app/shazia-ahmed-yjy1gk/health-benefits-of-glutathione-gobblb';
-    // fetch(rurl)
-    //   .then(res => res.text()).then(html => {
-    //     console.log(html);
-    //   });
   });
 })();
