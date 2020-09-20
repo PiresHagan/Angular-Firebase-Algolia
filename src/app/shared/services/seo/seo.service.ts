@@ -34,8 +34,6 @@ export class SeoService {
       config.image.url = 'https://mytrendingstories-preprod.web.app/assets/images/favicon.png';
     }
 
-    console.log(config);
-
     this.meta.updateTag({ name: 'twitter:title', content: config.title });
     this.meta.updateTag({ name: 'twitter:description', content: config.description });
     this.meta.updateTag({ name: 'twitter:card', content: config.summary || config.description });
