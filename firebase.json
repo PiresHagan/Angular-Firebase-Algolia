@@ -59,6 +59,10 @@
       ],
       "rewrites": [
         {
+          "source": "/category/**",
+          "function": "ssr"
+        },
+        {
           "source": "**",
           "function": "ssr"
         }
