@@ -1,7 +1,7 @@
 <div class="company-form" *ngIf="companyId">
     <h2>{{ "addLeadFormTitle" | translate }}</h2>
 
-    <form nz-form [formGroup]="addLeadForm" class="lead-form">
+    <form nz-form [formGroup]="addLeadForm" class="lead-form" (ngSubmit)="submitForm()">
         <nz-alert class="m-b-10" nzType="error" nzDescription="{{'invalidCaptchaErr' | translate}}" nzShowIcon *ngIf="invalidCaptcha"></nz-alert>
 
         <nz-alert class="m-b-10" nzType="success" nzMessage="{{'leadAddSuccess' | translate}}" nzShowIcon *ngIf="addLeadSuccess"></nz-alert>
@@ -36,7 +36,7 @@
             <nz-form-item>
                 <nz-form-control>
                     <div class="text-center">
-                        <button type="button" nz-button class="is-login-btn" [nzLoading]="isFormSaving" [nzType]="'primary'" (click)="submitForm()">
+                        <button nz-button class="is-login-btn" [nzLoading]="isFormSaving" [nzType]="'primary'">
                             {{"leadSubmit" | translate}}
                         </button>
                     </div>
