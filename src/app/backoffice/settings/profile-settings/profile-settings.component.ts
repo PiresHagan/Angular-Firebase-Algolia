@@ -13,6 +13,7 @@ import { Member } from "src/app/shared/interfaces/member.type";
 import { CategoryService } from "src/app/shared/services/category.service";
 import { LanguageService } from "src/app/shared/services/language.service";
 import { AuthService } from 'src/app/shared/services/authentication.service';
+import { ActivatedRoute } from "@angular/router";
 
 
 @Component({
@@ -36,6 +37,7 @@ export class ProfileSettingsComponent {
   userDetails: User;
   languageList;
   avatarData = null;
+  showIncompleteProfileMessage = false;
   notificationConfigList = [
 
   ];
@@ -48,10 +50,17 @@ export class ProfileSettingsComponent {
     public translate: TranslateService,
     public categoryService: CategoryService,
     public languageService: LanguageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+
+    if (this.route.snapshot.queryParams && this.route.snapshot.queryParams.incomplete)
+      this.showIncompleteProfileMessage = true;
+
+
+
     this.languageList = this.languageService.geLanguageList();
     /**
      * Password Form
