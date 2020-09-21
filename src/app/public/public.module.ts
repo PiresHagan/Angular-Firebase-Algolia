@@ -44,6 +44,8 @@ import { NewHomeComponent } from './new-home/new-home.component';
 import { FundraiserComponent } from './fundraiser/fundraiser.component';
 import { FundraiserListComponent } from './fundraiser-list/fundraiser-list.component';
 import { CharityDonateFormComponent } from './charity/charity-donate-form/charity-donate-form.component';
+import { CompanyLeadFormComponent } from './company/company-lead-form/company-lead-form.component';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -73,6 +75,7 @@ import { CharityDonateFormComponent } from './charity/charity-donate-form/charit
     FundraiserComponent,
     FundraiserListComponent,
     CharityDonateFormComponent,
+    CompanyLeadFormComponent
 
   ],
   imports: [

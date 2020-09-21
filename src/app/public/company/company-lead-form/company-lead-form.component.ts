@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { AuthService } from '../../services/authentication.service';
+import { AuthService } from '../../../shared/services/authentication.service';
 import { environment } from 'src/environments/environment';
 import { CompanyService } from 'src/app/shared/services/company.service';
 
