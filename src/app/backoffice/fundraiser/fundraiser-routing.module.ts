@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FundraiserListComponent } from './fundraiser-list/fundraiser-list.component';
 import { FundraiserDetailsComponent } from './fundraiser-details/fundraiser-details.component';
+import { ProfileGuard } from 'src/app/shared/guard/profile.guard';
 
 const routes: Routes = [{
   path: '',
   children: [
     {
       path: 'fundraiser-details',
+      canActivate: [ProfileGuard],
       component: FundraiserDetailsComponent,
       data: {
         title: "Fundraiser Details"

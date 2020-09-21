@@ -3,6 +3,8 @@
         <div class="page-header has-tab">
             <h2 class="font-weight-normal"> {{ 'settings' | translate }}</h2>
         </div>
+        <nz-alert *ngIf="showIncompleteProfileMessage" nzType="warning"
+            nzMessage="{{'ProfileDataMisssing' | translate}}" nzShowIcon style="margin-top: 10px;"></nz-alert>
         <nz-tabset class="page-header-tab">
             <nz-tab nzTitle="{{'account'| translate}}">
                 <div class="container">

@@ -654,11 +654,12 @@
     "goBackAdUnit": "Back",
     "ProfileImageErrorTitle": "Profile Image Missing",
     "ProfileImageErrorContent": "Profile image is required.",
-    "LeadsPackageTitle":"Leads Package Month",
-    "leadsTitle":"Leads",
-    "Please":"Please",
-    "logInTitle":"Log in",
-    "or":"or",
-    "toContinue":"to continue",
-    "buyingSpotText":"before buying your spot"
+    "LeadsPackageTitle": "Leads Package Month",
+    "leadsTitle": "Leads",
+    "Please": "Please",
+    "logInTitle": "Log in",
+    "or": "or",
+    "toContinue": "to continue",
+    "buyingSpotText": "before buying your spot",
+    "ProfileDataMisssing": "Please complete your profile before creating content in the website."
 }

@@ -630,11 +630,12 @@
     "ReportMessage": "Merci de nous en informer. Si nous constatons que cela enfreint la règle du site Web, nous prendrons des mesures à ce sujet.",
     "ProfileImageErrorTitle": "Image de profil manquante",
     "ProfileImageErrorContent": "L'image de profil est requise.",
-    "LeadsPackageTitle":"Mois du package de prospects",
-    "leadsTitle":"Pistes",
-    "Please":"S'il vous plaît",
-    "logInTitle":"s'identifier",
-    "or":"ou",
-    "toContinue":"continuer",
-    "buyingSpotText":"avant d'acheter votre place"
+    "LeadsPackageTitle": "Mois du package de prospects",
+    "leadsTitle": "Pistes",
+    "Please": "S'il vous plaît",
+    "logInTitle": "s'identifier",
+    "or": "ou",
+    "toContinue": "continuer",
+    "buyingSpotText": "avant d'acheter votre place",
+    "ProfileDataMisssing": "Veuillez compléter votre profil avant de créer du contenu sur le site."
 }
