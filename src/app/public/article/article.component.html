@@ -1,12 +1,13 @@
 <section class="is-article-block">
     <div class="container">
         <div class="article-full-img">
-            <img src="{{replaceImage(article?.image?.url)}}" alt="{{article.image.alt}}" *ngIf="!(article.image.cloudinary_id); else articleFullimg" />
+            <img src="{{replaceImage(article?.image?.url)}}" alt="{{article.image.alt}}"
+                *ngIf="!(article.image.cloudinary_id); else articleFullimg" />
             <ng-template #articleFullimg>
                 <cl-image loading="lazy" public-id="{{replaceImage(article.image.cloudinary_id)}}" secure="true">
                     <cl-transformation width="1500" height="400" gravity="face" crop="thumb">
                     </cl-transformation>
-                  </cl-image>
+                </cl-image>
             </ng-template>
         </div>
         <div class="is-article-sec">
@@ -16,13 +17,15 @@
                         <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
                             <img class="avatar" src="{{replaceImage(article?.author?.avatar?.url)}}"
                                 alt="{{article?.author?.avatar?.alt}}"
-                                onerror="this.src='assets/images/default-avatar.png'"  *ngIf="!(article.author.avatar.cloudinary_id); else authorImg" />
-                                <ng-template #authorImg>
-                                    <cl-image loading="lazy" public-id="{{replaceImage(article.author.avatar.cloudinary_id)}}" secure="true">
-                                        <cl-transformation width="140" height="140" gravity="face" crop="thumb">
-                                        </cl-transformation>
-                                      </cl-image>
-                                </ng-template>
+                                onerror="this.src='assets/images/default-avatar.png'"
+                                *ngIf="!(article.author.avatar.cloudinary_id); else authorImg" />
+                            <ng-template #authorImg>
+                                <cl-image loading="lazy"
+                                    public-id="{{replaceImage(article.author.avatar.cloudinary_id)}}" secure="true">
+                                    <cl-transformation width="140" height="140" gravity="face" crop="thumb">
+                                    </cl-transformation>
+                                </cl-image>
+                            </ng-template>
                         </a>
                         <app-article-avatar [article]="article"></app-article-avatar>
                     </div>
@@ -43,24 +46,23 @@
                                 {{'unfollowAuthor' | translate}}
                             </a>
 
-                            <div class="login-popup"  *ngIf="!isLoggedInUser">
-                                <nz-modal
-                                    [(nzVisible)]="isVisible"
-                                    nzTitle="My Trending Stories"
-                                    (nzOnCancel)="handleCancel()"
-                                    (nzOnOk)="handleOk()"
-                                    [nzOkLoading]="isOkLoading"
-                                    >
+                            <div class="login-popup" *ngIf="!isLoggedInUser">
+                                <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories"
+                                    (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
                                     <div class="popup-content">
                                         <div>
                                             <a [routerLink]="['/']" class="bg-logo">
                                                 <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
                                             </a>
                                         </div>
-                                        <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' | translate}}</a> {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a> {{'toContinue' | translate}}.</p>
-                                       
+                                        <p class="text-black">{{'Please' | translate}}, <a
+                                                routerLink="/auth/login">{{'logInTitle' | translate}}</a>
+                                            {{'or' | translate}} <a
+                                                routerLink="/auth/signup">{{'signUp' | translate}}</a>
+                                            {{'toContinue' | translate}}.</p>
+
                                     </div>
-                                    </nz-modal>
+                                </nz-modal>
                             </div>
                         </span>
                     </div>
@@ -87,7 +89,7 @@
                     <div class="left-media is-divider">
                         <h3>{{'shareArticle' | translate}}</h3>
                         <!-- <div class="sharethis-inline-share-buttons"></div> -->
-                        <div class="addthis_inline_share_toolbox"></div>
+                        <app-share-buttons></app-share-buttons>
 
                     </div>
                     <!-- <div class="is-influencer-btn" routerLink="/influencer">
@@ -113,12 +115,13 @@
                                     *ngIf="article">
                                     <img class="avatar" alt="{{article?.author?.avatar?.alt}}"
                                         src="{{replaceImage(article?.author?.avatar?.url)}}"
-                                        onerror="this.src='assets/images/default-avatar.png'" *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg" />
-                                        <ng-template #CateAvatarCloudinoryImg>
-                                            <div class="hide-feature-img d-inline-block">
-                                                <app-cloudinary-img [article]="article" ></app-cloudinary-img>
-                                            </div>
-                                        </ng-template>
+                                        onerror="this.src='assets/images/default-avatar.png'"
+                                        *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg" />
+                                    <ng-template #CateAvatarCloudinoryImg>
+                                        <div class="hide-feature-img d-inline-block">
+                                            <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                                        </div>
+                                    </ng-template>
                                     <span class="name" itemprop="name">
                                         {{article?.author.fullname}}</span>
                                 </a>
@@ -206,7 +209,10 @@
                         <div class="is-comment-sec" #commentSection>
                             <div class="is-share is-line">
                                 <h2>{{'share' | translate}} - </h2>
-                                <div class="addthis_inline_share_toolbox"></div>
+                                <app-share-buttons></app-share-buttons>
+
+
+
                             </div>
 
                             <div class="is-middle-ad-section" style="margin:30px 0px;">
@@ -360,12 +366,14 @@
                         <a [routerLink]="['/',similarArticle.author.slug,similarArticle.slug]">
                             <div *ngIf="similarArticle.type === VIDEO" class="related-video">
                                 <div class="thumbnail-video">
-                                    <img [src]="similarArticle.image?.url" [alt]="similarArticle.image.alt" *ngIf="!(similarArticle.image.cloudinary_id); else similarVideoCloudinary"/>
+                                    <img [src]="similarArticle.image?.url" [alt]="similarArticle.image.alt"
+                                        *ngIf="!(similarArticle.image.cloudinary_id); else similarVideoCloudinary" />
                                     <ng-template #similarVideoCloudinary>
-                                        <cl-image loading="lazy" public-id="{{similarArticle.image.cloudinary_id}}" secure="true">
+                                        <cl-image loading="lazy" public-id="{{similarArticle.image.cloudinary_id}}"
+                                            secure="true">
                                             <cl-transformation width="120" height="100" gravity="face" crop="thumb">
                                             </cl-transformation>
-                                          </cl-image>
+                                        </cl-image>
                                     </ng-template>
                                     <div class="overlay-detail">
                                         <!-- <span class="time">5:08</span> -->
@@ -395,12 +403,14 @@
                             </div>
                             <div *ngIf="similarArticle.type !== VIDEO" class="related-audio">
                                 <div class="thumbnail-audio">
-                                    <img [src]="similarArticle.image?.url" [alt]="similarArticle.image.alt"  *ngIf="!(similarArticle.image.cloudinary_id); else similarAudioCloudinary"/>
+                                    <img [src]="similarArticle.image?.url" [alt]="similarArticle.image.alt"
+                                        *ngIf="!(similarArticle.image.cloudinary_id); else similarAudioCloudinary" />
                                     <ng-template #similarAudioCloudinary>
-                                        <cl-image loading="lazy" public-id="{{similarArticle.image.cloudinary_id}}" secure="true">
+                                        <cl-image loading="lazy" public-id="{{similarArticle.image.cloudinary_id}}"
+                                            secure="true">
                                             <cl-transformation width="120" height="100" gravity="face" crop="thumb">
                                             </cl-transformation>
-                                          </cl-image>
+                                        </cl-image>
                                     </ng-template>
                                 </div>
                                 <div class="related-audio-detail">

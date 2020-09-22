@@ -35,7 +35,6 @@ import { LanguageService } from './shared/services/language.service';
 import { PreviousRouteService } from './shared/services/previous-route.service';
 import { NgAisModule } from 'angular-instantsearch';
 import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
-import { ArticleInteractionComponent } from './shared/component/article-interaction/article-interaction.component';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 export function createTranslateLoader(http: HttpClient) {
@@ -55,7 +54,7 @@ registerLocaleData(en);
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        CloudinaryModule.forRoot({Cloudinary}, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
+        CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
         NgZorroAntdModule,
         AppRoutingModule,
         TemplateModule,
