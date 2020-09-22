@@ -108,7 +108,7 @@ export class ProfileSettingsComponent {
         this.setIntrestForm(userDetails);
       })
       this.userService.getMember(user.uid).subscribe((memberDetails) => {
-        this.photoURL = memberDetails?.avatar?.url;
+        this.photoURL = memberDetails?.avatar?.url ? memberDetails?.avatar?.url.replace('http://', 'https://') : '';
         if (this.photoURL)
           this.avatarData = {
             url: memberDetails?.avatar?.url,
