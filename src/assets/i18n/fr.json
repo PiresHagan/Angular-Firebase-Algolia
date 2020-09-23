@@ -634,5 +634,7 @@
     "logInTitle":"s'identifier",
     "or":"ou",
     "toContinue":"continuer",
-    "buyingSpotText":"avant d'acheter votre place"
+    "buyingSpotText":"avant d'acheter votre place",
+    "ShowMore":"Montre plus",
+    "ShowLess":"Montrer moins"
 }

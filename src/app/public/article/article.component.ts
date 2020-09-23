@@ -465,6 +465,9 @@ export class ArticleComponent implements OnInit {
   handleCancel(): void {
     this.isVisible = false;
   }
-
+  SlideRelatedArticle: boolean = false;
+  slideArticle(){
+    this.SlideRelatedArticle = !this.SlideRelatedArticle;   
+  }
 }
 

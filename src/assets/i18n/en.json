@@ -672,5 +672,7 @@
     "buyingSpotText":"before buying your spot",
     "UpgradePackage": "Upgrade",
     "LeadSubscriptionCancelMsgConf": "Are you sure you want to cancel active subscription ?",
-    "LeadSubscriptionCancelled": "Active subscription cancelled successfully!"
+    "LeadSubscriptionCancelled": "Active subscription cancelled successfully!",
+    "ShowMore":"Show More",
+    "ShowLess":"Show Less"
 }

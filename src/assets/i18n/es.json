@@ -633,5 +633,7 @@
     "logInTitle":"iniciar sesión",
     "or":"o",
     "toContinue":"continuar",
-    "buyingSpotText":"antes de comprar tu lugar"
+    "buyingSpotText":"antes de comprar tu lugar",
+    "ShowMore":"Mostrar más",
+    "ShowLess":"Muestra menos"
 }
