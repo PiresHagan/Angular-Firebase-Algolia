@@ -14,10 +14,8 @@
                     <div class="share-sec text-center">
                         <div class="addthis_inline_share_toolbox"></div>
                     </div>
-                </div>
-
-                <div *ngIf="companyId" class="company-followers-div">
-                    <app-company-followers [companyId]="companyId"></app-company-followers>
+                        
+                    <app-company-followers *ngIf="companyId" [companyId]="companyId"></app-company-followers>
                 </div>
             </div>
             <div class="is-main-article-content">
