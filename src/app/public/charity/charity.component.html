@@ -15,9 +15,8 @@
                     <div class="share-sec text-center">
                         <div class="addthis_inline_share_toolbox"></div>
                     </div>
-                </div>
-                <div *ngIf="charityId" class="charity-followers-div">
-                    <app-charity-followers [charityId]="charityId"></app-charity-followers>
+
+                    <app-charity-followers *ngIf="charityId" [charityId]="charityId"></app-charity-followers>
                 </div>
             </div>
             <div class="is-main-article-content">
