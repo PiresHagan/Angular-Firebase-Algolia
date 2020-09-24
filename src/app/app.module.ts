@@ -35,7 +35,6 @@ import { LanguageService } from './shared/services/language.service';
 import { PreviousRouteService } from './shared/services/previous-route.service';
 import { NgAisModule } from 'angular-instantsearch';
 import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
-import { ArticleInteractionComponent } from './shared/component/article-interaction/article-interaction.component';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { SeoService } from './shared/services/seo/seo.service';

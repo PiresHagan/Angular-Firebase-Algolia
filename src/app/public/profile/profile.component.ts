@@ -204,7 +204,7 @@ export class ProfileComponent implements OnInit {
   async unfollow(authorId) {
     const userDetails = this.getUserDetails();
     const authorDetails = this.getAuthorDetails();
-    await this.authorService.unfollow(authorId, userDetails.id);
+    await this.authorService.unfollow(authorId, userDetails.type);
     const analytics = firebase.analytics();
 
     analytics.logEvent("unfollow_author", {

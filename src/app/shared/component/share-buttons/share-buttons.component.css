@@ -1,0 +1,78 @@
+.at-resp-share-element {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    font-size: 0;
+    line-height: 0;
+}
+.at-resp-share-element:after,
+.at-resp-share-element:before {
+    content: " ";
+    display: table;
+}
+.at-resp-share-element.at-mobile .at4-share-count-container,
+.at-resp-share-element.at-mobile .at-label {
+    display: none;
+}
+.at-resp-share-element .at-share-btn {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    margin: 0 2px 5px;
+    padding: 0;
+    overflow: hidden;
+    line-height: 0;
+    text-decoration: none;
+    text-transform: none;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border: 0;
+    font-family: helvetica neue, helvetica, arial, sans-serif;
+    background-color: transparent;
+}
+.at-resp-share-element .at-share-btn::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+.at-resp-share-element .at-share-btn:focus,
+.at-resp-share-element .at-share-btn:hover {
+    transform: translateY(-4px);
+    color: #fff;
+    text-decoration: none;
+}
+.at-resp-share-element .at-share-btn .at-icon-wrapper {
+    float: left;
+}
+.at-resp-share-element .at-share-btn.at-share-btn.at-svc-compact:hover {
+    transform: none;
+}
+.at-resp-share-element .at-share-btn .at-label {
+    font-family: helvetica neue, helvetica, arial, sans-serif;
+    font-size: 9pt;
+    padding: 0 15px 0 0;
+    margin: 0 0 0 5px;
+    height: 2pc;
+    line-height: 2pc;
+    background: none;
+}
+.at-resp-share-element .at-icon,
+.at-resp-share-element .at-label {
+    cursor: pointer;
+}
+.at-resp-share-element .at4-share-count-container {
+    text-decoration: none;
+    float: right;
+    padding-right: 15px;
+    font-size: 9pt;
+}
+.at-mobile .at-resp-share-element .at-label {
+    display: none;
+}
+.at-resp-share-element.at-mobile .at-share-btn {
+    margin-right: 5px;
+}
+.at-mobile .at-resp-share-element .at-share-btn {
+    padding: 5px;
+    margin-right: 5px;
+}
