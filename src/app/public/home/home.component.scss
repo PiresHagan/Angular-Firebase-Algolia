@@ -1103,7 +1103,6 @@
       padding-right: 9px !important;
     }
       .is-hero{ 
-      margin-top: 50px;
       margin-left: -9px;
       margin-right: -9px;
       .article-height{
@@ -1353,7 +1352,6 @@
       padding-right: 9px !important;
     }
     .is-hero{ 
-      margin-top: 50px;
       .no-pl{
         padding-left: 9px;
         margin-bottom: 18px;
@@ -1476,7 +1474,6 @@
 
   @media screen and (min-width:769px) and (max-width:991px){
     .is-hero{ 
-      margin-top: 50px;
       .is-bottom-hero{
         width:100%;
         .is-row-height{
@@ -1592,9 +1589,13 @@
     }
   }
   }
-  @media screen and (min-width:992px) and (max-width:1200px){
+  @media screen and (min-width:992px) and (max-width:1199px){
     .is-hero{ 
       margin-top: 50px;
+    }
+  }
+  @media screen and (min-width:992px) and (max-width:1200px){
+    .is-hero{ 
       .is-hero-card{
         .is-profile-main{
           flex-wrap: wrap;
@@ -1668,13 +1669,7 @@
     
   }
   }
-  @media screen and (min-width:1280px) and (max-width:1359px){
-    section{
-      &.is-hero{
-        margin-top:0px;
-      }
-    }
-  }
+
   @media screen and (min-width:992px) and (max-width:1350px){
     .col-sm-15{
       width:25%;
@@ -1683,9 +1678,6 @@
   }
 
   @media screen and (min-width:1200px) and (max-width:1359px){
-    .is-hero{
-      margin-top: 65px;
-    }
     .is-follower-member{
       .is-member{
         .is-member-item{

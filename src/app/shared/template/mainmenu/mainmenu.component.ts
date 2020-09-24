@@ -4,7 +4,9 @@ import { Category } from '../../interfaces/category.type';
 import { Observable } from 'rxjs';
 import { LanguageService } from '../../services/language.service';
 import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
-
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/authentication.service';
+import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-mainmenu',
   templateUrl: './mainmenu.component.html',
@@ -15,8 +17,17 @@ export class MainmenuComponent implements OnInit {
   categories: Category[];
   searchVisible: boolean = false;
   selectedLanguage: string;
-
-  constructor(private categoryService: CategoryService, private languageService: LanguageService, private translate: TranslateService) { }
+  isLoggedInUser: boolean = false;
+  photoURL: string;
+  displayName: string;
+  constructor(
+        private categoryService: CategoryService,
+        private languageService: LanguageService,
+        private translate: TranslateService,
+        private router: Router,
+        private authService: AuthService,
+        public userService: UserService,
+        ) { }
 
   ngOnInit(): void {
 
@@ -34,6 +45,20 @@ export class MainmenuComponent implements OnInit {
       this.setTopicData(categoryListData);
       //this.dropDownManager();
     })
+    this.authService.getAuthState().subscribe(user => {
+      if (user && !user.isAnonymous) {
+          this.isLoggedInUser = true;
+      } else {
+          this.isLoggedInUser = false;
+      }
+  });
+  this.userService.getCurrentUser().then((user) => {
+    this.userService.getMember(user.uid).subscribe((userDetails) => {
+        this.isLoggedInUser = true;
+        this.photoURL = userDetails?.avatar?.url;
+        this.displayName = userDetails?.fullname;
+    })
+})
 
   }
   ngAfterViewChecked() {
@@ -74,5 +99,22 @@ export class MainmenuComponent implements OnInit {
       document.getElementById('mega-menu-section').style.display = 'none';
     }
   }
+  routeLogin(): void {
+    this.router.navigate(["/auth/login"]);
 
+}
+routeSignup(): void {
+    this.router.navigate(["/auth/signup"]);
+
+}
+signOut(): void {
+    this.authService.signout().then(() => {
+        this.isLoggedInUser = false;
+    })
+}
+isCollapsed = false;
+
+  toggleCollapsed(): void {
+    this.isCollapsed = !this.isCollapsed;
+  }
 }

@@ -173,7 +173,6 @@
 }
 @media screen and (max-width:767px){
     .contact-form{
-        margin-top:50px;
         .col-md-6{ 
         order: 1;
         &.align-center{
@@ -183,13 +182,16 @@
 }
 }
 
-@media screen and (min-width:768px) and (max-width:991px){
-    .contact-form{
+@media screen and (min-width:992px) and (max-width:1199px){
+    .page-title{
         margin-top:50px;
+    }
 }
-}
-@media screen and (min-width:992px) and (max-width:1400px){
-    .contact-form{
-        margin-top:50px;
-}
+
+
+@media (min-width: 1200px){
+    .container {
+        width: 1140px;
+        max-width: 100%;
+    }
 }

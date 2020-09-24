@@ -3,7 +3,7 @@
         <nz-sider nzCollapsible nzBreakpoint="lg" [nzCollapsedWidth]="0">
             <ul nz-menu [nzMode]="'horizontal'" nzTheme="dark">
                 <ng-container *ngFor="let item of (categories)">
-                    <li nz-menu-item [routerLink]="['/category', item.slug]" [ngClass]="item.slug">
+                    <li class="hidden-categories-xs" nz-menu-item [routerLink]="['/category', item.slug]" [ngClass]="item.slug">
                         {{item.title}}</li>
 
                 </ng-container>
@@ -28,7 +28,7 @@
                 <app-search></app-search>
             </nz-drawer>
         </li> -->
-                <li nz-menu-item class="megamenu-list" id="mega-menu-header" (mouseenter)="showMegaMenu()"
+                <li nz-menu-item class="megamenu-list hidden-categories-xs" id="mega-menu-header" (mouseenter)="showMegaMenu()"
                     (mouseleave)="hideMegaMenu()">
                     <a class="megamenu-link">{{'More' | translate}} <i nz-icon nzType="down" nzTheme="outline"></i></a>
                     <div class="mega-body-sec" id="mega-menu-section">
@@ -51,6 +51,34 @@
                         </div>
                     </div>
                 </li>
+                <li class="mobile-mega-menu">
+                    <ul nz-menu nzMode="inline">
+                        <li routerLink="/" nz-menu-item class="border-bottom">Home</li>
+                        <ng-container *ngFor="let item of (categories)">
+                        <li nz-submenu nzTitle="{{item.title}}" class="xs-menu-item" [ngClass]="item.slug">
+                          <ul>
+                            <li *ngFor="let topic of (categoryListData[item.uid].child | async )"
+                                        nz-menu-item [routerLink]="['/category', item.slug]"
+                                        [queryParams]="{topic:topic.slug}" class="xs-menu-sub-category">
+                                        {{topic.title}}
+                            </li>
+                          </ul>
+                        </li>
+                    </ng-container>
+                        <li nz-menu-item *ngIf="!isLoggedInUser" class="hidden-on-lg">
+                            <a class="is-login-link" (click)="routeLogin()">
+                                {{'login' | translate }}
+                            </a>
+                        </li>
+                        <li nz-menu-item *ngIf="!isLoggedInUser" class="hidden-on-lg">
+                            <button (click)="routeSignup()" nz-button nzType="primary" class="is-sign-up-btn">
+                                {{'signUp' | translate }}
+                                <img src="assets/images/sign-up.png" alt="sign up icon">
+                            </button>
+                        </li>
+                      </ul>
+                </li>
+                
             </ul>
         </nz-sider>
     </nz-layout>

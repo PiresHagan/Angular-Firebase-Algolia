@@ -38,7 +38,26 @@
         }
     }
 }
-
+.logo-col{
+    width:140px;
+    padding-right: 9px;
+    .logo{
+        .mobile-logo{
+            display: none;
+        }
+        .lg-logo{
+            display: block;
+        }
+    }
+}
+.menu-col{
+    flex:1;
+    padding-right: 9px;
+    padding-left: 9px;
+}
+.language-col{
+padding-right: 9px;
+}
 }
 
 .vertical-center{
@@ -52,8 +71,50 @@
         background: transparent !important;
     }
 }
-@media screen and (max-width:992px){
+
+@media screen and (max-width:993px){
+    .hidden-on-xs{
+        display: none !important;
+    }
     .header{
+        .menu-col{
+            order: 0;
+            flex:unset;
+            width:45px;
+            padding-right:0px;
+        }
+        .logo-col{
+            order: 1;
+            width: auto;
+            display: flex;
+            align-items: center;
+            padding-right:5px;
+            .logo{
+                width:110px;
+                height: auto;
+                background: transparent;
+                .xs-logo{
+                    display: block;
+                    max-width: 100%;
+                }
+                .lg-logo{
+                    display: none;
+                }
+            }
+        }
+        .language-col{
+            order: 2;
+            flex: 1;
+            .nav-wrap{
+                .nav-right{
+                    .is-search-icon{
+                        a{
+                            padding: 5px 10px 5px 5px;
+                        }
+                    }
+                }
+            }
+        }
         .nav-wrap{
             .nav-right{
                 li{
@@ -67,10 +128,24 @@
         
 }
 }
-
+@media screen and (max-width:360px){
+    .header{
+        .language-col{
+            .nav-wrap{
+                .nav-right{
+                    .is-search-icon{
+                        a{
+                            padding: 5px 5px 5px 5px;
+                        }
+                    }
+                }
+            }
+        } 
+    }
+}
 @media screen and (max-width:993px){
     .header{
-        height: 130px;
+        border-bottom: 1px solid #f5f5f5;
         top:-1px;
         .border-xs{
             border-bottom: 1px solid #eee;
@@ -127,12 +202,21 @@
             border-bottom: 1px solid #eee;
     }
     .logo-col{
+        order:0;
         .logo{
             margin: auto;
         }
     }
-
+    .menu-col{
+        order:2;
+        width:100%;
+        ::ng-deep .ant-layout-sider-children{
+            margin:auto;
+        } 
+    }
     .language-col{
+        order: 1;
+        flex:1;
         padding-left: 0px;
         ::ng-deep .ant-select-show-arrow{
             .ant-select-selector{
@@ -156,84 +240,11 @@
                 font-size: 14px !important;
             }
         }
-        
+      
     }
   }
   }
 
+ 
 
-@media screen and (min-width:1200px) and (max-width:1279px) {
-    .header{
-        height: 140px;
-    .logo-col{
-        width: 100%;
-        max-width: 100%;
-        text-align: center;
-        flex: unset;
-        border-bottom: 1px solid #eee;
-        .logo{
-            margin: auto;
-        }
-    }
-    .menu-col{
-        width: calc(100% - 380px);
-        flex: unset;
-        max-width: 100%;
-    }
-    .language-col{
-        width: 360px;
-        flex: unset;
-        max-width: 100%;
-    }
-}
-}
-@media screen and (min-width:1280px) and (max-width:1359px) {
-    .header{
-        height: 70px;
-    .logo-col{
-        width: auto;
-        max-width: unset;
-        text-align: center;
-        flex: unset;
-        border-bottom: 1px solid #eee;
-        .logo{
-            margin: auto;
-        }
-    }
-    .menu-col{
-        width: auto;
-        flex: 1;
-        max-width: unset;
-    }
-    .language-col{
-        width: auto;
-        flex: unset;
-        max-width: unset;
-    }
-}
-}
-@media screen and (min-width:1360px){
-    .header{
-        height: 70px;
-    .logo-col{
-        width: auto;
-        max-width: unset;
-        text-align: center;
-        flex: unset;
-        border-bottom: 1px solid #eee;
-        .logo{
-            margin: auto;
-        }
-    }
-    .menu-col{
-        width: auto;
-        flex: 1;
-        max-width: unset;
-    }
-    .language-col{
-        width: auto;
-        flex: unset;
-        max-width: unset;
-    }
-}
-}
+
