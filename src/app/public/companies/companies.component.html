@@ -8,17 +8,21 @@
                         <a [routerLink]="['/companies',company.slug]">
                             <div class="companies-box-item">
                                 <div>
-                                    <img [src]="company?.logo?.url" [alt]="company?.logo?.alt"  onerror="this.src='assets/images/default-avatar.png'" *ngIf="!(company.logo.cloudinary_id); else CompaniesCloudinaryImg" />
+                                    <img [src]="company?.logo?.url" [alt]="company?.logo?.alt"
+                                        onerror="this.src='assets/images/default-avatar.png'"
+                                        *ngIf="!(company.logo.cloudinary_id); else CompaniesCloudinaryImg" />
                                     <ng-template #CompaniesCloudinaryImg>
-                                        <cl-image loading="lazy" public-id="{{company.logo.cloudinary_id}}" secure="true">
+                                        <cl-image loading="lazy" public-id="{{company.logo.cloudinary_id}}"
+                                            secure="true">
                                             <cl-transformation width="70" height="70" gravity="face" crop="thumb">
                                             </cl-transformation>
-                                          </cl-image>
+                                        </cl-image>
                                     </ng-template>
                                     <h2 [ngStyle]="{'color': company?.color_code}">{{ company?.name }}</h2>
                                     <p>{{ company?.bio }}</p>
                                     <button type="button" class="is-read-more">
-                                        {{'readMore' | translate }} <img src="assets/images/read-more-icon-black.png" alt="Read More" />
+                                        {{'readMore' | translate }} <img src="assets/images/read-more-icon-black.png"
+                                            alt="Read More" />
                                     </button>
                                 </div>
                             </div>
@@ -30,7 +34,25 @@
         <div *ngIf="!companies?.length" class="box-center">
             <nz-result [nzIcon]="'crown'" [nzTitle]="'CreateCompany' | translate">
                 <div nz-result-extra>
-                <button nz-button nzType="primary" routerLink="/auth/signup">{{'CreateCompanyBtn' | translate}}</button>
+                    <button nz-button nzType="primary"
+                        (click)="checkLogin()">{{'CreateCompanyBtn' | translate}}</button>
+                    <div class="login-popup" *ngIf="!(isLoggedInUser)">
+                        <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()"
+                            (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
+                            <div class="popup-content">
+                                <div>
+                                    <a [routerLink]="['/']" class="bg-logo">
+                                        <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                                    </a>
+                                </div>
+                                <p class="text-black">{{'Please' | translate}}, <a
+                                        routerLink="/auth/login">{{'logInTitle' | translate}}</a> {{'or' | translate}}
+                                    <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
+                                    {{'toContinue' | translate}}.</p>
+
+                            </div>
+                        </nz-modal>
+                    </div>
                 </div>
             </nz-result>
         </div>

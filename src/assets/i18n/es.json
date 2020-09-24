@@ -626,5 +626,14 @@
     "NoVideo": "No se encontró ningún video.",
     "NoAudio": "No se encontró audio.",
     "Report": "Reporte",
-    "ReportMessage": "Gracias por dejarnos saber. Si descubrimos que esto infringe la regla del sitio web, tomaremos medidas al respecto."
+    "ReportMessage": "Gracias por dejarnos saber. Si descubrimos que esto infringe la regla del sitio web, tomaremos medidas al respecto.",
+    "ProfileImageErrorTitle": "Falta la imagen del perfil",
+    "ProfileImageErrorContent": "Se requiere una imagen de perfil",
+    "LeadsPackageTitle":"Mes del paquete de clientes potenciales",
+    "leadsTitle":"Guías",
+    "Please":"Por favor",
+    "logInTitle":"iniciar sesión",
+    "or":"o",
+    "toContinue":"continuar",
+    "buyingSpotText":"antes de comprar tu lugar"
 }

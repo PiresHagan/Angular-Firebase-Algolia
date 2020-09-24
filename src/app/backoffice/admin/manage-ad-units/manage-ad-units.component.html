@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="ad-unit-tbl">
+
+      <button nz-button nzType="primary" nzGhost class="mr-2  mb-2 custom-btn" (click)="showModal()">
+        <i nz-icon nzType="plus"></i>
+        <span>{{ "SiteAddNew" | translate }}</span>
+      </button>
+
+      <button nz-button nzType="primary" nzGhost (click)="goBack()" class="mr-2  mb-2 custom-btn btn-red">{{'goBackAdUnit' | translate}}</button>
+
+      <nz-modal
+        [(nzVisible)]="isVisible"
+        nzTitle="Add New Ad unit"
+        (nzOnCancel)="handleCancel()"
+        (nzOnOk)="handleOk()"
+        [nzOkLoading]="isOkLoading"
+      >
+        <form nz-form [formGroup]="adUnitForm">
+          <nz-form-item>
+            <nz-form-label nzRequired>Size</nz-form-label>
+            <nz-form-control>
+              <nz-select formControlName="size" nzAllowClear nzPlaceHolder="Select Size">
+                <nz-option *ngFor="let item of adSizeOptions" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzRequired>Title</nz-form-label>
+            <nz-form-control>
+              <nz-input-group>
+                <input type="text" nz-input formControlName="title" placeholder="Title"/>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>Code</nz-form-label>
+            <nz-form-control>
+              <textarea nz-input formControlName="code"  placeholder="Code"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>Description</nz-form-label>
+            <nz-form-control>
+              <textarea nz-input formControlName="description"  placeholder="Description"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </nz-modal>
+
+      <nz-skeleton *ngIf="!displayData"> </nz-skeleton>
+      <div class="title-div" *ngIf="site">
+        <h6><span class="title">Site:</span> {{ site?.url }}</h6>
+        <h6><span class="title">Publisher Name:</span> {{ site?.publisher?.name }}</h6>
+      </div>
+      <nz-table #borderedTable nzBordered #siteAdUnitsTable [nzData]="displayData" [nzLoading]="isLoading" *ngIf="displayData">
+        <thead>
+          <tr>
+            <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare" [nzAlign]='column.align'>{{ column.title }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of siteAdUnitsTable.data;  let i=index" class="editable-row">
+            <td>{{item?.size}} </td>
+            <td>{{item?.title}} </td>
+            <td>{{item?.description}} </td>
+            <td nzAlign='center'>
+              <textarea rows="4" [hidden]="editAdUnitId == item.id" type="text" nz-input [(ngModel)]="item.code" (click)="startEdit(item)" class="editable-cell"></textarea>
+              <textarea rows="4" [hidden]="editAdUnitId !== item.id" type="text" nz-input [(ngModel)]="item.code" (blur)="stopEdit()"></textarea>
+            </td>
+            <td nzAlign='center'><p [ngStyle]="{ 'color': item.status.color }">{{ item?.status?.title }}</p></td>
+            <td nzAlign='center'>{{item?.created_at | date:'medium'}}</td>
+            <td nzAlign='center'>
+              <button [disabled]="item?.status?.title == inactive" nz-button nzType="default" class="custom-btn btn-red mr-2" (click)="deactivateAdUnit(item)">Deactivate</button>
+              <button [disabled]="item?.status?.title == active" nz-button nzType="default" class="custom-btn mr-2" (click)="activateAdUnit(item)">Activate</button>
+              <button nz-button nzType="primary" nzShape="circle" nzDanger (click)="deleteAdUnit(item)"><i nz-icon nzType="delete"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+ </div>
+ 

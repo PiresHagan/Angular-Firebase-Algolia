@@ -34,6 +34,7 @@ export class ProfileComponent implements OnInit {
   fbloading: boolean = false;
   fbAccountLinkStatus: boolean = false;
   memberDetails;
+  avatarData = null;
 
   constructor(
     private fb: FormBuilder,
@@ -50,9 +51,9 @@ export class ProfileComponent implements OnInit {
     this.languageList = this.languageService.geLanguageList();
     this.profileForm = this.fb.group({
       phone: [null, [Validators.required]],
-      birth: [null, [Validators.required]],
+      birth: [null],
       lang: [null, [Validators.required]],
-      biography: [null],
+      biography: [null, [Validators.required]],
       later: [null]
     });
     this.setFormData();
@@ -142,6 +143,11 @@ export class ProfileComponent implements OnInit {
       })
       this.userService.getMember(user.uid).subscribe((memberDetails) => {
         this.avatarUrl = memberDetails?.avatar?.url;
+        if (memberDetails?.avatar && memberDetails?.avatar?.url)
+          this.avatarData = {
+            url: memberDetails?.avatar?.url,
+            alt: memberDetails?.avatar?.alt
+          }
         this.memberDetails = memberDetails;
         this.setMemberDetails(memberDetails);
       })
@@ -152,12 +158,23 @@ export class ProfileComponent implements OnInit {
 
 
   async submitForm() {
+
     if (!this.currentUser)
       return;
+
     for (const i in this.profileForm.controls) {
       this.profileForm.controls[i].markAsDirty();
       this.profileForm.controls[i].updateValueAndValidity();
     }
+
+    if (!this.avatarData) {
+      this.modalService.warning({
+        nzTitle: this.translate.instant("ProfileImageErrorTitle"),
+        nzContent: this.translate.instant("ProfileImageErrorContent")
+      });
+      return
+    }
+
 
     if (this.findInvalidControls().length == 0 || this.profileForm.get('later').value) {
       try {
@@ -175,7 +192,8 @@ export class ProfileComponent implements OnInit {
             bio: bio ? bio : '',
             fullname: this.memberDetails && this.memberDetails.fullname ? this.memberDetails.fullname : loggedInUser.displayName,
             lang,
-            slug: this.memberDetails && this.memberDetails.slug ? this.memberDetails.slug : this.authService.getSlug(loggedInUser.displayName)
+            slug: this.memberDetails && this.memberDetails.slug ? this.memberDetails.slug : this.authService.getSlug(loggedInUser.displayName),
+            avatar: this.avatarData
           });
         this.isFormSaving = false;
         this.router.navigate(['/auth/interest']);
@@ -198,6 +216,7 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+
   private getBase64(img: File, callback: (img: {}) => void): void {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
@@ -210,8 +229,12 @@ export class ProfileComponent implements OnInit {
     this.isPhotoChangeLoading = true;
     this.getBase64(info.file.originFileObj, (img: string) => {
       this.avatarUrl = img;
-      this.userService.addProfileImage(this.currentUser.id, img, info.file?.name).then(() => {
+      this.userService.addProfileImage(this.currentUser.id, img, info.file?.name).then((uploadedImage: any) => {
         this.isPhotoChangeLoading = false;
+        this.avatarData = {
+          url: uploadedImage.url,
+          alt: uploadedImage.alt
+        }
       }).catch(() => {
         this.isPhotoChangeLoading = false;
         console.log('Image not uploaded properly')

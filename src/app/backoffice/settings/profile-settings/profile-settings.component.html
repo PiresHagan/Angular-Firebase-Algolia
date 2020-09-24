@@ -32,7 +32,7 @@
                                 <div class="col-md-3">
                                     <nz-form-item>
                                         <nz-form-label>{{'name'| translate}}</nz-form-label>
-                                        <nz-form-control>
+                                        <nz-form-control nzErrorTip="{{'name' | translate}} {{'required' | translate}}">
                                             <input nz-input placeholder="{{'name'| translate}}"
                                                 formControlName="displayName" type="text" value="" />
                                         </nz-form-control>
@@ -50,7 +50,8 @@
                                 <div class="col-md-2">
                                     <nz-form-item>
                                         <nz-form-label>{{'phoneNumber'| translate}}</nz-form-label>
-                                        <nz-form-control>
+                                        <nz-form-control
+                                            nzErrorTip="{{'LoginProfilePhone' | translate}} {{'required' | translate}}">
                                             <input nz-input placeholder="{{'phoneNumber'| translate}}"
                                                 formControlName="phone" mask="(000) 000-0000" />
                                         </nz-form-control>
@@ -59,7 +60,8 @@
                                 <div class="col-md-2">
                                     <nz-form-item>
                                         <nz-form-label>{{'dob'| translate}}</nz-form-label>
-                                        <nz-form-control>
+                                        <nz-form-control
+                                            nzErrorTip="{{'loginProfileDOB' | translate}} {{'required' | translate}}">
                                             <nz-date-picker class="w-100" nzFormat="yyyy/MM/dd" formControlName="birth"
                                                 nzPlaceHolder="{{'dob'| translate}}"></nz-date-picker>
                                         </nz-form-control>
@@ -85,7 +87,8 @@
                                 <div class="col-md-12">
                                     <nz-form-item>
                                         <nz-form-label>{{'sortBio'| translate}}</nz-form-label>
-                                        <nz-form-control>
+                                        <nz-form-control
+                                            nzErrorTip="{{'sortBio' | translate}} {{'required' | translate}}">
                                             <textarea rows="4" nz-input name="content"
                                                 formControlName="biography"></textarea>
                                         </nz-form-control>

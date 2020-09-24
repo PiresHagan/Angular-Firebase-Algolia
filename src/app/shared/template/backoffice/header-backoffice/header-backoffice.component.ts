@@ -48,7 +48,7 @@ export class HeaderBackofficeComponent implements OnInit {
 
     this.userService.getCurrentUser().then((user) => {
       this.userService.getMember(user.uid).subscribe((userDetails) => {
-        this.photoURL = userDetails.avatar?.url;
+        this.photoURL = userDetails?.avatar?.url ? userDetails?.avatar?.url.replace('http://', 'https://') : '';
         this.displayName = userDetails.fullname;
       })
     })

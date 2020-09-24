@@ -38,6 +38,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AdminRoutingModule } from "./admin-routing.module";
 import { StaffArticlesComponent } from "./staff-articles/staff-articles.component";
 import { StaffSettingsComponent } from "./staff-settings/staff-settings.component";
+import { AdNetworkSettingComponent } from './ad-network-setting/ad-network-setting.component';
+import { ManageAdUnitsComponent } from './manage-ad-units/manage-ad-units.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -69,7 +71,7 @@ const antdModule = [
 ];
 
 @NgModule({
-  declarations: [StaffArticlesComponent, StaffSettingsComponent],
+  declarations: [StaffArticlesComponent, StaffSettingsComponent, AdNetworkSettingComponent, ManageAdUnitsComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

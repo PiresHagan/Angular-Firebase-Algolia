@@ -23,8 +23,20 @@ export class SearchEngineComponent implements OnInit {
     routing: true
   };
   //public OrderIndex = 0;
-  //articleBrand = [];
-
+  articleBrand1 = [
+    { "brandName": ""},
+    { "brandName": ""},
+    { "brandName": ""},
+    { "brandName": ""},
+    { "brandName": ""},
+    { "brandName": ""},
+    { "brandName": ""},
+    { "brandName": ""},
+    { "brandName": ""},
+    { "brandName": ""},
+    { "brandName": ""},
+    { "brandName": ""}
+  ];
   constructor(
     public translate: TranslateService,
     private languageService: LanguageService,
@@ -42,7 +54,24 @@ export class SearchEngineComponent implements OnInit {
 
     this.cacheService.getBrands().subscribe(brands => {
       this.articleBrand = brands;
-    this.buyCount = 10 - this.articleBrand.length;
+      if (this.articleBrand.length < 11) {
+        this.buyCount = 12 - this.articleBrand.length;
+      }else{
+        this.buyCount = 0;
+      }
+    this.articleBrand1.splice(this.buyCount);
+    for (var val of this.articleBrand) { 
+      this.articleBrand1.push(val);
+     
+    }
+    
+    var m = this.articleBrand1.length, t, i;
+      while (m) {
+        i = Math.floor(Math.random() * m--);
+        t = this.articleBrand1[m];
+        this.articleBrand1[m] = this.articleBrand1[i];
+        this.articleBrand1[i] = t;
+      }
     });
   }
   ShowBtn(n: number): any[] {

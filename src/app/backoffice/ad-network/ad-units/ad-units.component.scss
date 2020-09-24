@@ -1,0 +1,52 @@
+.ad-unit-tbl{
+
+    .title-div {
+        margin: 10px 0 20px 0;
+        .title {
+            color: #ff4020;
+            padding-bottom: 5px;
+        }
+    }
+
+    border: 0px;
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #eee;
+    margin: 20px 0px;
+    .custom-btn{
+        padding:7px 14px;
+        font-size:13px;
+        background: #129f01 !important;
+        color: #fff;
+        border:0px !important;
+        &.black-btn{
+            background-color: #000 !important;
+            color: #fff;
+        }
+        &.btn-red{
+            background:#ff4020 !important;
+        }
+        &.copy-btn {
+            border: 1px solid #129f01 !important;
+            background: white !important;
+            color: #129f01 !important;
+        }
+        &:focus{
+            border: 0px !important;
+        }
+    }
+}
+::ng-deep .custom-btn{
+    padding:7px 14px;
+    font-size:13px;
+    background: #129f01 !important;
+    color: #fff;
+    border:0px !important;
+    &.black-btn{
+        background-color: #000 !important;
+        color: #fff;
+    }
+    &:focus{
+        border: 0px !important;
+    }
+}

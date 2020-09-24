@@ -61,7 +61,7 @@ export class HeaderComponent {
         this.userService.getCurrentUser().then((user) => {
             this.userService.getMember(user.uid).subscribe((userDetails) => {
                 this.isLoggedInUser = true;
-                this.photoURL = userDetails?.avatar?.url;
+                this.photoURL = userDetails?.avatar?.url ? userDetails?.avatar?.url.replace('http://', 'https://') : '';
                 this.displayName = userDetails?.fullname;
             })
         })
@@ -106,9 +106,9 @@ export class HeaderComponent {
     removeActiveClass() {
         this.categoryService.getAll(this.selectedLanguage).subscribe((categoryListData) => {
             categoryListData.forEach(category => {
-                    const el = document.querySelector('.' + category['slug']);
-                    el.classList.remove("ant-menu-item-selected");
+                const el = document.querySelector('.' + category['slug']);
+                el.classList.remove("ant-menu-item-selected");
             });
-          })
-       }
+        })
+    }
 }

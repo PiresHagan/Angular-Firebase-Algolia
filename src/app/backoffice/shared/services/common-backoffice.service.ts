@@ -18,6 +18,7 @@ export class CommonBackofficeService {
   articleCollection: string = 'articles';
   memberCollection: string = 'members';
   articleCommentsCollection: string = 'comments';
+  sitesCollection: string = 'sites';
   constructor(private db: AngularFirestore, private http: HttpClient, private authService: AuthService) { }
 
   getArticles(limit: number = 10, navigation: string = "first", lastVisible = null) {
@@ -185,6 +186,38 @@ export class CommonBackofficeService {
           return { id, ...data };
         }),
         lastCommentDoc: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
+    })
+    );
+  }
+
+  getAdNetworkSites(limit: number = 25, navigation: string = "first", lastVisible = null) {
+    if (!limit) {
+      limit = 25;
+    }
+    let dataQuery = this.db.collectionGroup(`${this.sitesCollection}`, ref => ref
+      .orderBy('created_at', 'desc')
+      .orderBy('daily_traffic', 'desc')
+      .limit(limit)
+    )
+    switch (navigation) {
+      case 'next':
+        dataQuery = this.db.collectionGroup(`${this.sitesCollection}`, ref => ref
+          .orderBy('created_at', 'desc')
+          .orderBy('daily_traffic', 'desc')
+          .limit(limit)
+          .startAfter(lastVisible))
+        break;
+    }
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        sitesList: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+        lastVisibleSites: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
       }
     })
     );

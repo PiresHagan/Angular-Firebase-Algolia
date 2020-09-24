@@ -1,0 +1,44 @@
+.ad-unit-tbl{
+    .title-div {
+        margin: 10px 0 20px 0;
+        .title {
+            color: #ff4020;
+            padding-bottom: 5px;
+        }
+    }
+
+    border: 0px;
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #eee;
+    margin: 20px 0px;
+    .custom-btn{
+        padding:7px 14px;
+        font-size:13px;
+        background: #129f01 !important;
+        color: #fff;
+        border:0px !important;
+        &.black-btn{
+            background-color: #000 !important;
+            color: #fff;
+        }
+        &.btn-red{
+            background:#ff4020 !important;
+        }
+        &:focus{
+            border: 0px !important;
+        }
+    }
+
+    .editable-cell {
+        position: relative;
+        padding: 5px 12px;
+        cursor: pointer;
+    }
+
+    .editable-row:hover .editable-cell {
+        border: 1px solid #d9d9d9;
+        border-radius: 4px;
+        padding: 4px 11px;
+    }
+}

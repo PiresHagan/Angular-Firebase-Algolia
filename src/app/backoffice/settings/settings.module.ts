@@ -73,10 +73,10 @@ const antdModule = [
     SettingsRoutingModule,
     SharedModule,
     ReactiveFormsModule,
+    HttpClientModule,
     ...antdModule,
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })
   ],
-  providers: [UserService],
   exports: []
 })
 export class SettingsModule { }

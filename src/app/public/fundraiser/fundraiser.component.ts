@@ -205,6 +205,8 @@ export class FundraiserComponent implements OnInit {
     if (this.isLoggedInUser) {
       this.isUpdatingFollow = true;
       await this.authorService.follow(this.fundraiser.author.id, this.fundraiser.author.type);
+    }else{
+      this.showModal()
     }
   }
 
@@ -213,6 +215,8 @@ export class FundraiserComponent implements OnInit {
     if (this.isLoggedInUser) {
       this.isUpdatingFollow = true;
       await this.authorService.unfollow(this.fundraiser.author.id, this.fundraiser.author.type);
+    }else{
+      this.showModal()
     }
   }
 

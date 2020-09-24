@@ -12,7 +12,11 @@
                         <div class="media align-items-center media-responsive">
                             <nz-avatar [nzSize]="80" nzIcon="user" [nzSrc]="avatarUrl" accept="image/*"></nz-avatar>
                             <div class="m-l-20 m-r-20">
-                                <h5 class="m-b-5 font-size-18">{{'loginProfileSetAvtar' | translate}}</h5>
+                                <h5 class="m-b-5 font-size-18">
+
+                                    <nz-form-label nzRequired> {{'loginProfileSetAvtar' | translate}}</nz-form-label>
+
+                                </h5>
                                 <p class="opacity-07 font-size-13 m-b-0">
                                     {{'loginProfileAvtarDimension' | translate}} <br>
                                     {{'loginProfileAvtarSize' | translate}}
@@ -30,7 +34,7 @@
                                 <div class="col-md-6">
                                     <nz-form-item>
 
-                                        <nz-form-label>{{'LoginProfilePhone' | translate}}</nz-form-label>
+                                        <nz-form-label nzRequired>{{'LoginProfilePhone' | translate}}</nz-form-label>
                                         <nz-form-control
                                             nzErrorTip="{{'LoginProfilePhone' | translate}} {{'required' | translate}}">
                                             <input nz-input placeholder="{{'LoginProfilePhone' | translate}}"
@@ -52,7 +56,7 @@
 
                                 <div class="col-md-6">
                                     <nz-form-item>
-                                        <nz-form-label>{{'lang' | translate}}</nz-form-label>
+                                        <nz-form-label nzRequired>{{'lang' | translate}}</nz-form-label>
                                         <nz-form-control nzErrorTip="{{'langErr' | translate}}" class="m-5">
                                             <nz-select class="m-r-10" formControlName="lang" nzAllowClear
                                                 nzPlaceHolder="{{'lang' | translate}}">
@@ -71,10 +75,14 @@
                                         <div class="account-div">
                                             <img src="./assets/images/company-logo/facebook.png">
                                             Facebook
-                                            <button type="button" *ngIf="!fbAccountLinkStatus" class="m-l-10" nz-button nzSize="small" nzType="default" [nzLoading]="fbloading" (click)="linkFacebook()">
+                                            <button type="button" *ngIf="!fbAccountLinkStatus" class="m-l-10" nz-button
+                                                nzSize="small" nzType="default" [nzLoading]="fbloading"
+                                                (click)="linkFacebook()">
                                                 {{ "Link" | translate }}
                                             </button>
-                                            <button type="button" *ngIf="fbAccountLinkStatus" class="m-l-10" nz-button nzSize="small" nzType="default" [nzLoading]="fbloading" (click)="unlinkFacebook()">
+                                            <button type="button" *ngIf="fbAccountLinkStatus" class="m-l-10" nz-button
+                                                nzSize="small" nzType="default" [nzLoading]="fbloading"
+                                                (click)="unlinkFacebook()">
                                                 {{ "Unlink" | translate }}
                                             </button>
                                         </div>
@@ -83,8 +91,9 @@
 
                                 <div class="col-md-12">
                                     <nz-form-item>
-                                        <nz-form-label>{{'loginProfileBio' | translate}}</nz-form-label>
-                                        <nz-form-control>
+                                        <nz-form-label nzRequired>{{'loginProfileBio' | translate}}</nz-form-label>
+                                        <nz-form-control
+                                            nzErrorTip="{{'loginProfileBio' | translate}} {{'required' | translate}}">
                                             <textarea rows="4" nz-input name="content"
                                                 formControlName="biography"></textarea>
                                         </nz-form-control>

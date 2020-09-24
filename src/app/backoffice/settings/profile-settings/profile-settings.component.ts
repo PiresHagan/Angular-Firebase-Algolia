@@ -35,7 +35,7 @@ export class ProfileSettingsComponent {
   memberDetails: Member;
   userDetails: User;
   languageList;
-
+  avatarData = null;
   notificationConfigList = [
 
   ];
@@ -67,8 +67,8 @@ export class ProfileSettingsComponent {
 
     this.profileForm = this.fb.group({
       phone: [null, [Validators.required]],
-      birth: [null, [Validators.required]],
-      biography: [null],
+      birth: [null],
+      biography: [null, [Validators.required]],
       displayName: [null, [Validators.required]],
       lang: [null, [Validators.required]]
     });
@@ -100,12 +100,19 @@ export class ProfileSettingsComponent {
       })
       this.userService.getMember(user.uid).subscribe((memberDetails) => {
         this.photoURL = memberDetails?.avatar?.url;
+        if (this.photoURL)
+          this.avatarData = {
+            url: memberDetails?.avatar?.url,
+            alt: memberDetails?.avatar?.alt
+          }
         this.memberDetails = memberDetails
         this.setMemberDetails(memberDetails);
       })
 
     })
   }
+
+
   setUserDetails(userDetails: User) {
     this.profileForm.controls['phone'].setValue(userDetails.mobile);
     this.profileForm.controls['birth'].setValue(userDetails.birthdate ? formatDate(
@@ -200,6 +207,7 @@ export class ProfileSettingsComponent {
 
   submitForm(): void {
 
+
     for (const i in this.changePWForm.controls) {
       this.changePWForm.controls[i].markAsDirty();
       this.changePWForm.controls[i].updateValueAndValidity();
@@ -219,7 +227,8 @@ export class ProfileSettingsComponent {
     this.isPhotoChangeLoading = true;
     this.getBase64(info.file.originFileObj, (img: string) => {
       this.photoURL = img;
-      this.userService.addProfileImage(this.currentUser.uid, img, info.file?.name).then(() => {
+      this.userService.addProfileImage(this.currentUser.uid, img, info.file?.name).then((details) => {
+        this.avatarData = details;
         this.isPhotoChangeLoading = false;
       }).catch(() => {
         this.isPhotoChangeLoading = false;
@@ -231,6 +240,16 @@ export class ProfileSettingsComponent {
   async saveBasicDetails() {
     if (!this.currentUser)
       return;
+
+    if (!this.avatarData) {
+      this.modalService.warning({
+        nzTitle: this.translate.instant("ProfileImageErrorTitle"),
+        nzContent: this.translate.instant("ProfileImageErrorContent")
+      });
+      return
+    }
+
+
     for (const i in this.profileForm.controls) {
       this.profileForm.controls[i].markAsDirty();
       this.profileForm.controls[i].updateValueAndValidity();
@@ -253,7 +272,7 @@ export class ProfileSettingsComponent {
       try {
         this.isLoading = true;
         await this.userService.update(this.currentUser.uid, { mobile, birthdate, lang });
-        await this.userService.updateMember(this.currentUser.uid, { bio, fullname, lang, slug: this.getSlug(loggedInUser.displayName) });
+        await this.userService.updateMember(this.currentUser.uid, { bio, fullname, lang, slug: this.memberDetails && this.memberDetails.slug ? this.memberDetails.slug : this.getSlug(loggedInUser.displayName), avatar: this.avatarData });
         this.isLoading = false;
         this.showSuccess();
       } catch (e) {

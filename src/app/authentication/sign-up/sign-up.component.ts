@@ -24,6 +24,7 @@ export class SignUpComponent {
     invalidCaptcha: boolean = false;
     captchaToken: string;
     capchaObject;
+    errorDetails;
     @ViewChild('recaptcha') set SetThing(e: SignUpComponent) {
         this.isCaptchaElementReady = true;
         this.recaptchaElement = e;
@@ -224,13 +225,19 @@ export class SignUpComponent {
 
         }).catch((error) => {
             this.isFormSaving = false;
-            if (error.code == "auth/email-already-in-use") {
+            if (error.error && error.error.code == "auth/email-already-exists") {
                 this.errorSignup = true;
-                console.log(this.errorSignup);
             }
-            else if (error.code == "auth/weak-password") {
+            else if (error.error && error.error.code == "auth/weak-password") {
                 this.errorPasswordWeak = true;
+            } else {
+                this.errorDetails = error && error.error && error.error.message;
             }
+            setTimeout(() => {
+                this.errorDetails = "";
+                this.errorSignup = false;
+                this.errorPasswordWeak = false;
+            }, 6000);
         })
     }
 }    

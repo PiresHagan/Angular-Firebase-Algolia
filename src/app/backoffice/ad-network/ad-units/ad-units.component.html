@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="ad-unit-tbl">
+    <button nz-button nzType="primary" nzGhost (click)="goBack()" class="mr-2  mb-2 custom-btn btn-red">{{'goBackAdUnit' | translate}}</button>
+
+    <nz-skeleton *ngIf="!displayData"> </nz-skeleton>
+      <div class="title-div" *ngIf="site">
+        <h6><span class="title">Site:</span> {{ site?.url }}</h6>
+      </div>
+      <nz-table #borderedTable nzBordered #siteAdUnitsTable [nzData]="displayData" [nzLoading]="isLoading" *ngIf="displayData">
+        <thead>
+          <tr>
+            <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare" [nzAlign]='column.align'>{{ column.title }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of siteAdUnitsTable.data;  let i=index" class="editable-row">
+            <td>{{item?.size}}</td>
+            <td>{{item?.title}}</td>
+            <td>{{item?.description}} </td>
+            <td nzAlign='center'>
+              <button nz-button nzType="default" nzGhost  class="custom-btn btn-red" (click)="showModal(item)">Get Code</button>                  
+            </td>
+            <td nzAlign='center'><p [ngStyle]="{ 'color': item.status.color }">{{ item?.status?.title }}</p></td>
+          </tr>
+        </tbody>
+      </nz-table>
+
+      <nz-modal 
+        [(nzVisible)]="isVisible"
+        nzTitle="Ad Unit Code"
+        (nzOnCancel)="handleCancel()"
+        (nzOnOk)="handleOk()"
+      >
+        <div>
+          <div class="pb-3">
+            <div>
+              <label class="d-block">On <b>{{site?.url}}</b>, paste the below code in any web page</label>
+            </div>
+          </div>
+          <div  class="mb-3">
+            <p nz-typography nzCopyable [nzContent]="copyAdUnitCode"></p>
+          </div>
+        </div>
+      </nz-modal>
+    </div>
+ </div>
+ 
