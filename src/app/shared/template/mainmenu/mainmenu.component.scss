@@ -390,7 +390,6 @@
 @media screen and (max-width:993px){
     .hidden-on-lg{
         display: block !important;
-        margin-left: 10px;
     }
     .hidden-categories-xs{
         display: none !important;
@@ -608,6 +607,9 @@
         }
          .xs-menu-item{
              border-bottom: 1px solid #eee;
+             >::ng-deep .ant-menu-submenu-title{
+                 padding-left:10px !important;
+             }
             ::ng-deep .ant-menu-sub{
                 background: #f5f5f5;
             }
