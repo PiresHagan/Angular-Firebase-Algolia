@@ -252,6 +252,7 @@ img{
               color: #464444;
               line-height: 33px;
               margin-bottom: 0px;
+              word-break: break-all;
           }
           .followers-btn{
             padding: 30px 10px 0px;
@@ -316,7 +317,6 @@ img{
     }
     
     .is-article-block {
-      margin-top: 50px;
       .container{
         width:100%;
       }
@@ -393,7 +393,6 @@ img{
       height: 250px;
     }
     .is-article-block {
-      margin-top: 50px;
       .container{
         width:100%;
       }
@@ -458,7 +457,6 @@ img{
       height: 330px;
     }
     .is-article-block {
-      margin-top: 50px;
       .container{
         width:100%;
       }
@@ -518,9 +516,13 @@ img{
       }
     }
   }
-  @media screen and (min-width: 992px) and (max-width: 1279px) {
+  @media screen and (min-width: 992px) and (max-width: 1199px) {
     .is-article-block {
       margin-top: 50px;
+    }
+  }
+  @media screen and (min-width: 992px) and (max-width: 1279px) {
+    .is-article-block {
       .container{
         width:100%;
       }
@@ -674,9 +676,6 @@ img{
     .container{
       width: 100%;
     }
-    .is-article-block {
-        margin-top: 0px;
-    }
   }
   @media screen and (min-width: 1500px) {
     .container {
@@ -687,9 +686,6 @@ img{
   }
 
   @media screen and (min-width:1200px) and (max-width:1359px){
-    .is-article-block{
-      margin-top: 65px;
-    }
     .is-article-block .is-article-sec .is-left-profile .sticky-box {
       top: 190px;
   }

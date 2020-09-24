@@ -874,7 +874,6 @@
   }
   .title-row{
     .right-btn-bar{
-      margin-top: 30px;
       .category-newsletter-container{
         .form-group{
           .newsletter-input{
@@ -890,7 +889,6 @@
 @media screen and (max-width:360px){
   .title-row{
     .right-btn-bar{
-      margin-top: 30px;
       .category-newsletter-container{
         .form-group{
           .newsletter-input{
@@ -905,11 +903,7 @@
 }
 
 @media screen and (min-width:581px) and (max-width:767px){
-  .title-row{
-    .right-btn-bar{
-      margin-top: 30px;
-    }
-  }
+
 .is-comman-title{
   font-size: 28px;
   margin-bottom: 0px;
@@ -942,11 +936,7 @@
 }
 
 @media screen and (min-width:768px) and (max-width:991px){
-  .title-row{
-    .right-btn-bar{
-      margin-top: 30px;
-    }
-  }
+
 .is-cat-box-card-main{
   .cat-box{
     .container{
@@ -1057,9 +1047,3 @@
 
 
 
-@media screen and (min-width:1200px) and (max-width:1359px){
-  .right-btn-bar{
-    margin-top: 65px;
-  }
-
-}

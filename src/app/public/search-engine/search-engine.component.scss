@@ -399,7 +399,6 @@
 			flex-wrap: wrap;
 		}
 		.sr-brand {
-			margin-top: 50px;
 			margin-bottom: 15px;
 			.sr-brand-item {
 				width: 43%;
@@ -460,7 +459,6 @@
 @media screen and (min-width:581px) and (max-width:768px) {
 	.sr-engine-sec {
 		.sr-brand {
-			margin-top: 50px;
 			.sr-brand-item{
 				&.sr-brand-item10{
 					position: relative;
@@ -498,9 +496,6 @@
 
 @media screen and (min-width:768px) and (max-width:992px) {
 	.sr-engine-sec {
-		.sr-brand {
-			margin-top: 50px;
-		}
 		.sr-bar-with-ads {
 			.sr-brand{
 				margin-top:0px !important;
@@ -525,6 +520,13 @@
 	}
 }
 
+@media screen and (min-width:992px) and (max-width:1199px) {
+	.sr-engine-sec {
+		.sr-brand {
+			margin-top: 50px;
+		}
+	}	
+}
 
 @media screen and (min-width:993px) and (max-width:1200px) {
 	.sr-engine-sec {
@@ -545,21 +547,16 @@
 		}
 	}
 }
-@media screen and (min-width:1200px) and (max-width:1359px){
-    .sr-brand{
-      margin-top: 65px;
-    }
-  
-  }
-  @media screen and (min-width:1280px) and (max-width:1359px){
-    .sr-brand{
-      margin-top: 0px;
-    }
-  
-  }
- .container {
-		width: 1140px;
-		max-width: 100%;
-		margin: auto;
-	}
+
+@media screen and (min-width:1280px) and (max-width:1359px){
+.sr-brand{
+	margin-top: 0px;
+}
+
+}
+.container {
+	width: 1140px;
+	max-width: 100%;
+	margin: auto;
+}
 

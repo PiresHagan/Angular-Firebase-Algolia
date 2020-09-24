@@ -263,6 +263,7 @@ hr{
             color: #464444;
             line-height: 33px;
             margin-bottom: 0px;
+            word-break: break-all;
             &.big::first-letter {
               font-size: 100px;
               color: #fd6147;
@@ -993,7 +994,6 @@ hr{
     height: 180px;
   }
   .is-article-block {
-    margin-top: 50px;
     .container{
       width:100%;
     }
@@ -1090,7 +1090,6 @@ hr{
     height: 250px;
   }
   .is-article-block {
-    margin-top: 50px;
     .container{
       width:100%;
     }
@@ -1171,7 +1170,6 @@ hr{
     height: 330px;
   }
   .is-article-block {
-    margin-top: 50px;
     .container{
       width:100%;
     }
@@ -1249,9 +1247,13 @@ hr{
     }
   }
 }
-@media screen and (min-width: 992px) and (max-width: 1279px) {
+@media screen and (min-width: 992px) and (max-width: 1199px){
   .is-article-block {
     margin-top: 50px;
+  }
+}
+@media screen and (min-width: 992px) and (max-width: 1279px) {
+  .is-article-block {
     .container{
       width:100%;
     }
@@ -1462,9 +1464,6 @@ hr{
 }
 
 @media screen and (min-width:1200px) and (max-width:1359px){
-  .is-article-block{
-    margin-top: 65px;
-  }
   .is-article-block .is-article-sec .is-left-profile .sticky-box {
     top: 190px;
 }
