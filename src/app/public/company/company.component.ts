@@ -6,8 +6,8 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { Company } from 'src/app/shared/interfaces/company.type';
 import { CompanyService } from 'src/app/shared/services/company.service';
-import { Title, Meta } from '@angular/platform-browser';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SeoService } from 'src/app/shared/services/seo/seo.service';
 import {  Router } from '@angular/router';
 
 @Component({
@@ -35,11 +35,11 @@ export class CompanyComponent implements OnInit {
   captchaToken: string;
   capchaObject;
   @ViewChild('recaptcha') set SetThing(e: CompanyComponent) {
-      this.isCaptchaElementReady = true;
-      this.recaptchaElement = e;
-      if (this.isCaptchaElementReady && this.isCapchaScriptLoaded) {
-          this.renderReCaptcha();
-      }
+    this.isCaptchaElementReady = true;
+    this.recaptchaElement = e;
+    if (this.isCaptchaElementReady && this.isCapchaScriptLoaded) {
+      this.renderReCaptcha();
+    }
   }
 
   constructor(
@@ -48,8 +48,7 @@ export class CompanyComponent implements OnInit {
     private authService: AuthService,
     private langService: LanguageService,
     private companyService: CompanyService,
-    private titleService: Title,
-    private metaTagService: Meta,
+    private seoService: SeoService,
     private router: Router
   ) { }
 
@@ -66,18 +65,14 @@ export class CompanyComponent implements OnInit {
 
         this.setUserDetails();
 
-        this.titleService.setTitle(`${this.company.name.substring(0, 69)}`);
-
-        this.metaTagService.addTags([
-          { name: "description", content: `${this.company.bio.substring(0, 154)}` },
-          { name: "keywords", content: `${this.company.name}` },
-          { name: "twitter:card", content: `${this.company.bio.substring(0, 154)}` },
-          { name: "og:title", content: `${this.company.name}` },
-          { name: "og:type", content: `company` },
-          { name: "og:url", content: `${window.location.href}` },
-          { name: "og:image", content: `${this.company.logo.url}` },
-          { name: "og:description", content: `${this.company.bio.substring(0, 154)}` }
-        ]);
+        this.seoService.updateMetaTags({
+          title: this.company.name,
+          tabTitle: this.company.name.substring(0, 69),
+          description: this.company.bio.substring(0, 154),
+          keywords: this.company.name,
+          type: 'company',
+          image: { url: this.company.logo.url }
+        });
       });
 
       this.addRecaptchaScript();
@@ -85,7 +80,7 @@ export class CompanyComponent implements OnInit {
       this.addLeadForm = this.fb.group({
         first_name: [null, [Validators.required]],
         last_name: [null, [Validators.required]],
-        email: [null, [Validators.email, Validators.required]], 
+        email: [null, [Validators.email, Validators.required]],
         mobile_number: [null, [Validators.required]]
       });
 
@@ -155,7 +150,7 @@ export class CompanyComponent implements OnInit {
 
   async follow() {
     await this.setUserDetails();
-    if(this.isLoggedInUser) {
+    if (this.isLoggedInUser) {
       this.isUpdatingFollow = true;
       await this.companyService.followCompany(this.companyId).then(data => {
         this.setFollowOrNot();
@@ -167,7 +162,7 @@ export class CompanyComponent implements OnInit {
 
   async unfollow() {
     await this.setUserDetails();
-    if(this.isLoggedInUser) {
+    if (this.isLoggedInUser) {
       this.isUpdatingFollow = true;
       await this.companyService.unfollowCompany(this.companyId).then(data => {
         this.setFollowOrNot();
@@ -181,16 +176,16 @@ export class CompanyComponent implements OnInit {
     window['grecaptchaCallback'] = () => {
       this.isCapchaScriptLoaded = true;
       if (this.isCapchaScriptLoaded && this.isCaptchaElementReady)
-        this.renderReCaptcha(); 
+        this.renderReCaptcha();
       return;
     }
 
     (function (d, s, id, obj) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) {
-          obj.isCapchaScriptLoaded = true;
-          if (obj.isCapchaScriptLoaded && obj.isCaptchaElementReady)
-              obj.renderReCaptcha(); return;
+        obj.isCapchaScriptLoaded = true;
+        if (obj.isCapchaScriptLoaded && obj.isCaptchaElementReady)
+          obj.renderReCaptcha(); return;
       }
       js = d.createElement(s); js.id = id;
       js.src = "https://www.google.com/recaptcha/api.js?onload=grecaptchaCallback&render=explicit";
@@ -246,7 +241,7 @@ export class CompanyComponent implements OnInit {
             this.invalidCaptcha = true;
           });
         } else {
-            this.invalidCaptcha = true;
+          this.invalidCaptcha = true;
         }
       } catch (err) {
         this.isFormSaving = false;

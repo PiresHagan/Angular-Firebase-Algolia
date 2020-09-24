@@ -1,14 +1,13 @@
-import { Component, OnInit, ElementRef, ViewChild, Output, EventEmitter, Input, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
-import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
-import { ThemeConstantService } from 'src/app/shared/services/theme-constant.service';
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { FormGroup, NgForm } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { User } from 'src/app/shared/interfaces/user.type';
-import { DomSanitizer, Title, Meta } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { environment } from 'src/environments/environment';
 import { LanguageService } from 'src/app/shared/services/language.service';
@@ -16,6 +15,7 @@ import * as firebase from 'firebase/app';
 import { NzModalService } from 'ng-zorro-antd';
 import { TEXT, AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
 import * as moment from 'moment';
+import { SeoService } from 'src/app/shared/services/seo/seo.service';
 
 @Component({
   selector: 'app-article',
@@ -24,7 +24,6 @@ import * as moment from 'moment';
   encapsulation: ViewEncapsulation.None,
 })
 export class ArticleComponent implements OnInit, AfterViewInit {
-
   article: Article;
   articleType: string;
   articleLikes: number = 0;
@@ -66,13 +65,11 @@ export class ArticleComponent implements OnInit, AfterViewInit {
     public authorService: AuthorService,
     public userService: UserService,
     private sanitizer: DomSanitizer,
-    private titleService: Title,
-    private metaTagService: Meta,
     private langService: LanguageService,
-    private modal: NzModalService
-  ) {
+    private modal: NzModalService,
+    private seoService: SeoService,
+  ) { }
 
-  }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
 
@@ -100,22 +97,20 @@ export class ArticleComponent implements OnInit, AfterViewInit {
         this.setUserDetails();
         this.getArticleComments(this.article.id);
 
-        this.titleService.setTitle(`${this.article.title.substring(0, 69)}`);
+        this.seoService.updateMetaTags({
+          keywords: this.article.meta.keyword,
+          title: this.article.title,
+          tabTitle: this.article.title.substring(0, 69),
+          description: this.article.meta.description.substring(0, 154),
+          image: { url: this.article.image.url },
+          type: 'article',
+          summary: this.article.summary,
+        });
 
-        this.metaTagService.addTags([
-          { name: "description", content: `${this.article.meta.description.substring(0, 154)}` },
-          { name: "keywords", content: `${this.article.meta.keyword}` },
-          { name: "twitter:card", content: `${this.article.summary}` },
-          { name: "og:title", content: `${this.article.title}` },
-          { name: "og:type", content: `article` },
-          { name: "og:url", content: `${window.location.href}` },
-          { name: "og:image", content: `${this.article.image.url}` },
-          { name: "og:description", content: `${this.article.meta.description}` }
-        ]);
         this.articleService.updateViewCount(articleId);
       });
-      this.setLanguageNotification();
 
+      this.setLanguageNotification();
     });
 
   }
@@ -228,7 +223,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
       this.messageDetails = '';
       this.showCommentSavedMessage();
       this.newComment();
-    }, err => {
+    }, () => {
 
       this.isFormSaving = false;
     })
@@ -282,7 +277,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
     }, 500)
   }
 
-  replyComment(commentid: string, commentData) {
+  replyComment(commentData) {
     this.replyMessage = commentData.message;
     this.scrollToEditCommentSection();
   }
@@ -418,7 +413,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   }
   setLanguageNotification() {
     this.selectedLang = this.langService.getSelectedLanguage();
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+    this.translate.onLangChange.subscribe(() => {
       this.selectedLang = this.langService.getSelectedLanguage();
     })
   }

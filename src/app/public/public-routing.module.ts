@@ -31,7 +31,7 @@ const routes: Routes = [
     component: HomeComponent,
     data: {
       title: 'Home ',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -39,7 +39,7 @@ const routes: Routes = [
     component: CategoryComponent,
     data: {
       title: 'Category ',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -47,7 +47,7 @@ const routes: Routes = [
     component: ArticleComponent,
     data: {
       title: 'Article',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -55,7 +55,7 @@ const routes: Routes = [
     component: ProfileComponent,
     data: {
       title: 'Profile',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -63,7 +63,7 @@ const routes: Routes = [
     component: Copywriter1Component,
     data: {
       title: 'Copywriter version 1',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -71,7 +71,7 @@ const routes: Routes = [
     component: Copywriter2Component,
     data: {
       title: 'Copywriter version 2',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -79,7 +79,7 @@ const routes: Routes = [
     component: NewHomeComponent,
     data: {
       title: 'New home',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -87,7 +87,7 @@ const routes: Routes = [
     component: FundraiserComponent,
     data: {
       title: 'fundraiser',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -95,7 +95,7 @@ const routes: Routes = [
     component: FundraiserListComponent,
     data: {
       title: 'fundraisers',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -103,7 +103,7 @@ const routes: Routes = [
     component: ContactComponent,
     data: {
       title: 'contact version 2',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -111,7 +111,7 @@ const routes: Routes = [
     component: TermsComponent,
     data: {
       title: 'terms version 2',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -119,7 +119,7 @@ const routes: Routes = [
     component: PrivacyComponent,
     data: {
       title: 'privacy policies',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -127,7 +127,7 @@ const routes: Routes = [
     component: FaqComponent,
     data: {
       title: 'faq version 2',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
 
   },
@@ -136,7 +136,7 @@ const routes: Routes = [
     component: SearchEngineComponent,
     data: {
       title: 'faq version 2',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
 
   },
@@ -145,7 +145,7 @@ const routes: Routes = [
     component: BuyComponent,
     data: {
       title: 'faq version 2',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
 
   },
@@ -154,7 +154,7 @@ const routes: Routes = [
     component: InfluencerComponent,
     data: {
       title: 'influencer version 2',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
 
   },
@@ -163,7 +163,7 @@ const routes: Routes = [
     component: TodayComponent,
     data: {
       title: 'today version 2',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -171,7 +171,7 @@ const routes: Routes = [
     component: VideoComponent,
     data: {
       title: 'video',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -179,7 +179,7 @@ const routes: Routes = [
     component: AudioComponent,
     data: {
       title: 'audio',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -187,7 +187,7 @@ const routes: Routes = [
     component: CompaniesComponent,
     data: {
       title: 'companies',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -195,7 +195,7 @@ const routes: Routes = [
     component: CompanyComponent,
     data: {
       title: 'company',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -203,7 +203,7 @@ const routes: Routes = [
     component: CharityListComponent,
     data: {
       title: 'charities',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -211,7 +211,7 @@ const routes: Routes = [
     component: CharityComponent,
     data: {
       title: 'charity',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   // {
@@ -219,7 +219,7 @@ const routes: Routes = [
   //   component: HomeComponent,
   //   data: {
   //     title: 'Home',
-  //     headerDisplay: "none"
+  //     headerDisplay: 'none'
   //   }
 
   // },
@@ -228,7 +228,7 @@ const routes: Routes = [
     component: ArticleComponent,
     data: {
       title: 'Article',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
   {
@@ -236,10 +236,10 @@ const routes: Routes = [
     component: ProfileComponent,
     data: {
       title: 'Profile',
-      headerDisplay: "none"
+      headerDisplay: 'none'
     }
   },
-  
+
 
 ];
 

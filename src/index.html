@@ -2,46 +2,73 @@
 <html lang="en">
 
 <head>
-  <title>My Trending Stories</title>
+  <title>What’s Trending Today | Trending News | Live News | My Trending Stories</title>
   <base href="/">
 
   <meta charset="utf-8">
-  <meta property="fb:app_id" content="281307678870693" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="google-site-verification" content="FQguGb2_1_Zs29aZApbm0BOHyfdAA0xkUBzzNwzAAYo" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
 
-  <script src="https://api.cloudsponge.com/widget/i8PjRDPE-dGlkLjFchRiog.js"></script>
-  <!-- Ce site fait confiance à LeadFox pour convertir ses visiteurs en clients - https://leadfox.co/fr/ -->
-  <script async src="//app.leadfox.co/js/api/leadfox.js" data-key="3db444e4d735cdfee52c18d544fadb92"></script>
-  <!-- LeadFox -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#ff4020">
+
   <link rel="icon" type="image/x-icon" href="assets/images/favicon.png">
-  <link rel="manifest" href="./manifest.json">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/16.png">
+  <link rel="mask-icon" href="assets/images/favicon.png" color="#ff4020">
+  <link rel="apple-touch-icon-precomposed" href="assets/icons/180.png" />
 
-  <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
-  <script async src="https://adxbid.info/mytrendingstories.js"></script>
-  <script>
-    window.googletag = window.googletag || { cmd: [] };
-    googletag.cmd.push(function () {
-      googletag.defineSlot('/107720708/adxp_mytrendingstories_billboard', [970, 250], 'div-gpt-ad-1599554495707-0').addService(googletag.pubads());
-      googletag.defineSlot('/107720708/adxp_mytrendingstories_superLeaderboard', [970, 90], 'div-gpt-ad-1599554517756-0').addService(googletag.pubads());
-      googletag.defineSlot('/107720708/adxp_mytrendingstories_Leaderboard', [728, 90], 'div-gpt-ad-1599554538840-0').addService(googletag.pubads());
-      googletag.defineSlot('/107720708/adxp_mytrendingstories_mRectangle', [300, 250], 'div-gpt-ad-1599554575619-0').addService(googletag.pubads());
-      googletag.defineSlot('/107720708/adxp_mytrendingstories_halfpage', [300, 600], 'div-gpt-ad-1599554597929-0').addService(googletag.pubads());
-      googletag.defineSlot('/107720708/adxp_mytrendingstories_skyscraper', [160, 600], 'div-gpt-ad-1599554619443-0').addService(googletag.pubads());
-      googletag.defineSlot('/107720708/adxp_mytrendingstories_SmartphoneBanner', [320, 50], 'div-gpt-ad-1599554668927-0').addService(googletag.pubads());
-      googletag.defineSlot('/107720708/adxp_mytrendingstories_smartphoneBanner_1', [320, 50], 'div-gpt-ad-1599554708106-0').addService(googletag.pubads());
+  <meta property="fb:app_id" content="281307678870693" />
+  <meta name="google-site-verification" content="FQguGb2_1_Zs29aZApbm0BOHyfdAA0xkUBzzNwzAAYo" />
 
-      googletag.pubads().disableInitialLoad();
-      googletag.pubads().enableSingleRequest();
-      googletag.pubads().collapseEmptyDivs();
-      googletag.enableServices();
-    });
-  </script>
+  <!-- Search Engine -->
+  <meta name="image" content="https://mytrendingstories.com/assets/images/favicon.png">
+  <meta name="description" content="Are you wondering what’s trending today? Find the best trending news on My Trending Stories. Discover our daily live news and never miss anything again.">
+  <meta name="keywords" content="news,articles" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="My Trending Stories">
+  <meta name="twitter:title" content="What’s Trending Today | Trending News | Live News | My Trending Stories">
+  <meta name="twitter:image" content="assets/images/favicon.png">
+  <meta name="twitter:description" content="Are you wondering what’s trending today? Find the best trending news on My Trending Stories. Discover our daily live news and never miss anything again.">
+
+  <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+  <meta property="og:title" content="What’s Trending Today | Trending News | Live News | My Trending Stories">
+  <meta property="og:description" content="Are you wondering what’s trending today? Find the best trending news on My Trending Stories. Discover our daily live news and never miss anything again.">
+  <meta property="og:image" content="assets/images/favicon.png">
+  <meta property="og:url" content="https://mytrendingstories.com">
+  <meta property="og:site_name" content="My Trending Stories">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:type" content="website">
 </head>
 
 <body>
   <app-root></app-root>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+
+  <!-- Preload fonts -->
+  <link rel="preload" href="assets/scss/fonts/opensans-regular-webfont.woff2" as="font">
+  <link rel="preload" href="assets/scss/fonts/opensans-regular-webfont.woff" as="font">
+  <link rel="preload" href="assets/scss/fonts/josefinsans-bold-webfont.woff2" as="font">
+  <link rel="preload" href="assets/scss/fonts/josefinsans-bold-webfont.woff" as="font">
+  <link rel="preload" href="assets/scss/fonts/josefinsans-italic-webfont.woff2" as="font">
+  <link rel="preload" href="assets/scss/fonts/josefinsans-italic-webfont.woff" as="font">
+  <link rel="preload" href="assets/scss/fonts/josefinsans-light-webfont.woff2" as="font">
+  <link rel="preload" href="assets/scss/fonts/josefinsans-light-webfont.woff" as="font">
+  <link rel="preload" href="assets/scss/fonts/josefinsans-regular-webfont.woff2" as="font">
+  <link rel="preload" href="assets/scss/fonts/josefinsans-regular-webfont.woff" as="font">
+  <link rel="preload" href="assets/scss/fonts/josefinsans-semibold-webfont.woff2" as="font">
+  <link rel="preload" href="assets/scss/fonts/josefinsans-semibold-webfont.woff" as="font">
+
+  <link rel="preload" type="text/css" href="assets/css/algolia.css" as="style">
+  <link rel="preload" type="text/css" href="assets/css/reset.css" as="style">
+
+  <script type="text/javascript" src="assets/lib/async-script-loader.js" async></script>
 </body>
 
 </html>
