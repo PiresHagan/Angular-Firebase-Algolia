@@ -198,7 +198,7 @@ export class CompanyService {
   }
 
   getLeadsPackage() {
-    return this.db.collection(this.leadsPackageCollection).valueChanges()
+    return this.db.collection(this.leadsPackageCollection, ref => ref.orderBy('limit', 'asc')).valueChanges()
   }
 
   getLeadsMonthly(companyId: string) {
