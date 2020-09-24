@@ -661,5 +661,7 @@
     "or": "or",
     "toContinue": "to continue",
     "buyingSpotText": "before buying your spot",
-    "ProfileDataMisssing": "Please complete your profile before creating content in the website."
+    "ProfileDataMisssing": "Please complete your profile before creating content in the website.",
+    "FollowNotAllowed": "Follow",
+    "FollowNotAllowedMessage": "You can not follow your own profile."
 }

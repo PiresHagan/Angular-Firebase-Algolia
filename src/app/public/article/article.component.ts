@@ -127,7 +127,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 
   /**
    * Get Article comments using Article Id
@@ -316,31 +316,35 @@ export class ArticleComponent implements OnInit, AfterViewInit {
 
   follow() {
     if (this.isLoggedInUser) {
-    this.authorService.follow(this.article.author.id, this.article.author.type);
-    const userDetails = this.getUserDetails();
-    const analytics = firebase.analytics();
-    analytics.logEvent("unfollow_author", {
-      author_id: this.article.author.id,
-      author_name: this.article.author.fullname,
-      user_uid: userDetails.id,
-      user_name: userDetails.fullname,
-    });
-  }else{
-    this.showModal();
-  }
+      const userDetails = this.getUserDetails();
+      if (userDetails.id == this.article.author.id) {
+        this.showSameFollowerMessage();
+        return;
+      }
+      this.authorService.follow(this.article.author.id, this.article.author.type);
+      const analytics = firebase.analytics();
+      analytics.logEvent("unfollow_author", {
+        author_id: this.article.author.id,
+        author_name: this.article.author.fullname,
+        user_uid: userDetails.id,
+        user_name: userDetails.fullname,
+      });
+    } else {
+      this.showModal();
+    }
   }
   unfollow() {
     if (this.isLoggedInUser) {
-    this.authorService.unfollow(this.article.author.id, this.article.author.type);
-    const userDetails = this.getUserDetails();
-    const analytics = firebase.analytics();
-    analytics.logEvent("unfollow_author", {
-      author_id: this.article.author.id,
-      author_name: this.article.author.fullname,
-      user_uid: userDetails.id,
-      user_name: userDetails.fullname,
-    });
-    }else{
+      this.authorService.unfollow(this.article.author.id, this.article.author.type);
+      const userDetails = this.getUserDetails();
+      const analytics = firebase.analytics();
+      analytics.logEvent("unfollow_author", {
+        author_id: this.article.author.id,
+        author_name: this.article.author.fullname,
+        user_uid: userDetails.id,
+        user_name: userDetails.fullname,
+      });
+    } else {
       this.showModal();
     }
   }
@@ -356,41 +360,41 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   }
   like() {
     if (this.isLoggedInUser) {
-    this.articleService.like(this.article.id, this.getUserDetails());
-    const analytics = firebase.analytics();
-    const article = this.article;
-    analytics.logEvent('liked_article', {
-      article_id: article.id,
-      article_title: article.title,
-      article_language: article.lang,
-      article_author_name: article.author.fullname,
-      article_author_id: article.author.id,
-      article_category_title: article.category.title,
-      article_category_id: article.category.id,
-      liked_by_user_name: this.getUserDetails().fullname,
-      liked_by_user_id: this.getUserDetails().id,
-    });
-    }else{
+      this.articleService.like(this.article.id, this.getUserDetails());
+      const analytics = firebase.analytics();
+      const article = this.article;
+      analytics.logEvent('liked_article', {
+        article_id: article.id,
+        article_title: article.title,
+        article_language: article.lang,
+        article_author_name: article.author.fullname,
+        article_author_id: article.author.id,
+        article_category_title: article.category.title,
+        article_category_id: article.category.id,
+        liked_by_user_name: this.getUserDetails().fullname,
+        liked_by_user_id: this.getUserDetails().id,
+      });
+    } else {
       this.showModal();
     }
   }
   disLike() {
     if (this.isLoggedInUser) {
-    this.articleService.disLike(this.article.id, this.getUserDetails().id);
-    const analytics = firebase.analytics();
-    const article = this.article;
-    analytics.logEvent('unliked_article', {
-      article_id: article.id,
-      article_title: article.title,
-      article_language: article.lang,
-      article_author_name: article.author.fullname,
-      article_author_id: article.author.id,
-      article_category_title: article.category.title,
-      article_category_id: article.category.id,
-      unliked_by_user_name: this.getUserDetails().fullname,
-      unliked_by_user_id: this.getUserDetails().id,
-    });
-  }else{
+      this.articleService.disLike(this.article.id, this.getUserDetails().id);
+      const analytics = firebase.analytics();
+      const article = this.article;
+      analytics.logEvent('unliked_article', {
+        article_id: article.id,
+        article_title: article.title,
+        article_language: article.lang,
+        article_author_name: article.author.fullname,
+        article_author_id: article.author.id,
+        article_category_title: article.category.title,
+        article_category_id: article.category.id,
+        unliked_by_user_name: this.getUserDetails().fullname,
+        unliked_by_user_id: this.getUserDetails().id,
+      });
+    } else {
       this.showModal();
     }
   }
@@ -446,6 +450,12 @@ export class ArticleComponent implements OnInit, AfterViewInit {
     this.modal.success({
       nzTitle: this.translate.instant('Report'),
       nzContent: this.translate.instant('ReportMessage')
+    });
+  }
+  showSameFollowerMessage() {
+    this.modal.warning({
+      nzTitle: this.translate.instant('FollowNotAllowed'),
+      nzContent: this.translate.instant('FollowNotAllowedMessage')
     });
   }
 

@@ -636,5 +636,7 @@
     "or": "o",
     "toContinue": "continuar",
     "buyingSpotText": "antes de comprar tu lugar",
-    "ProfileDataMisssing": "Complete su perfil antes de crear contenido en el sitio web"
+    "ProfileDataMisssing": "Complete su perfil antes de crear contenido en el sitio web",
+    "FollowNotAllowed": "Seguir",
+    "FollowNotAllowedMessage": "No puedes seguir tu propio perfil"
 }

@@ -194,6 +194,10 @@ export class ProfileComponent implements OnInit {
   async follow(authorId) {
     const userDetails = this.getUserDetails();
     const authorDetails = this.getAuthorDetails();
+    if (userDetails.id == authorId) {
+      this.showSameFollowerMessage();
+      return;
+    }
     await this.authorService.follow(authorId, userDetails.type);
     const analytics = firebase.analytics();
 
@@ -202,6 +206,12 @@ export class ProfileComponent implements OnInit {
       author_name: authorDetails.fullname,
       user_uid: userDetails.id,
       user_name: userDetails.fullname,
+    });
+  }
+  showSameFollowerMessage() {
+    this.modal.warning({
+      nzTitle: this.translate.instant('FollowNotAllowed'),
+      nzContent: this.translate.instant('FollowNotAllowedMessage')
     });
   }
 
