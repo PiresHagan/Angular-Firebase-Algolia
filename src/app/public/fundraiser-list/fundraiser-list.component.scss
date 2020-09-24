@@ -316,7 +316,6 @@
 	.is-comman-title{
 	  font-size: 24px;
 	  margin-bottom: 0px;
-        margin-top:20px;
 	}
 
 	  .is-cat-box-card-main{
@@ -346,9 +345,7 @@
   
 	@media screen and (min-width:581px) and (max-width:768px){
 	
-	.is-comman-title{
-	  margin-top:20px;
-	}
+	
 
 	.is-cat-box-card-main{
 	  .cat-box{
@@ -372,7 +369,6 @@
 	@media screen and (min-width:769px) and (max-width:991px){
 		.is-comman-title{
 			margin-bottom: 0px;
-			margin-top:20px;
 		  }
 	
 	.is-cat-box-card-main{
@@ -392,6 +388,12 @@
 		}
 	  }
 	}
+	}
+	@media screen and (min-width:992px) and (max-width:1199px){
+		.is-comman-title{
+			margin-bottom: 0px;
+			margin-top: 20px;
+		  }
 	}
 	@media screen and (min-width:992px) and (max-width:1200px){
 	

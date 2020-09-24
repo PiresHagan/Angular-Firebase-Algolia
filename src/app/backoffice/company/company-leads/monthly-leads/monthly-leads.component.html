@@ -1,0 +1,45 @@
+<nz-card>
+    <nz-skeleton *ngIf="!displayData" [nzActive]="true"> </nz-skeleton>
+
+    <div *ngIf="displayData">
+        <nz-alert *ngIf="monthData?.lead_over_limit == 1" nzType="warning" class="lead-warning"
+            nzMessage="{{monthData?.lead_over_limit}} more lead is waiting for you. Upgrade your monthly lead package now!" nzShowIcon>
+        </nz-alert>
+
+        <nz-alert *ngIf="monthData?.lead_over_limit > 1" nzType="warning" class="lead-warning"
+            nzMessage="{{monthData?.lead_over_limit}} more leads are waiting for you. Upgrade your monthly lead package now!" nzShowIcon>
+        </nz-alert>
+
+        <div nz-row>
+            <div nz-col nzSpan="8">
+                <p><span class="primary-title">Month & Year : </span>{{monthData?.id | date:'MMMM, yyyy'}}</p>
+            </div>
+            <div nz-col nzSpan="8"nzOffset="8">
+                <button (click)="export()" class="float-right dwnld-bg-primary" nz-button nzType="default" nzShape="circle" 
+                    nz-tooltip nzTooltipTitle="Export" [hidden]="!exportDataReady || displayData.length == 0">
+                    <i nz-icon nzType="download"></i>
+                </button>
+            </div>
+        </div>
+
+        <nz-table nzBordered #productsListTable nzFrontPagination="false" [nzData]="displayData" [nzLoading]="isLoading">
+            <thead>
+                <tr>
+                    <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare" [nzAlign]='column.align'>{{ column.title | translate }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of productsListTable.data;  let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{item.first_name}} </td>
+                    <td>{{item.last_name}} </td>
+                    <td>{{item.mobile_number}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.created_at | date:'medium'}}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+
+    
+</nz-card>

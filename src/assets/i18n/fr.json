@@ -639,5 +639,7 @@
     "buyingSpotText": "avant d'acheter votre place",
     "ProfileDataMisssing": "Veuillez compléter votre profil avant de créer du contenu sur le site.",
     "FollowNotAllowed": "Follow",
-    "FollowNotAllowedMessage": "Vous ne pouvez pas suivre votre propre profil."
+    "FollowNotAllowedMessage": "Vous ne pouvez pas suivre votre propre profil.",
+    "ShowMore": "Montre plus",
+    "ShowLess": "Montrer moins"
 }

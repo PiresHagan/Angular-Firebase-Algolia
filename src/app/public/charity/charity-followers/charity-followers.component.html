@@ -1,0 +1,20 @@
+<section class="is-followers-sec" *ngIf="followers.length">
+    <div class="container">
+        <div class="is-comman-title">
+            {{'profileFollowers' | translate}} {{ followers.length }}
+        </div>
+        <div class="is-followers-user">
+            <div class="is-followers-item" *ngFor="let follower of followers">
+
+                <a [routerLink]="['/',follower.slug]">
+                    <img src="{{replaceImage(follower?.avatar?.url)}}"
+                        onerror="this.src='assets/images/default-avatar.png'" alt="{{follower?.avatar?.alt}}" />
+                </a>
+            </div>
+        </div>
+        <div *ngIf="lastVisibleFollower"> <a (click)="loadMoreFollowers()"
+                class="load-more-btn"><span>{{'loadMore' | translate}}</span></a>
+            <nz-spin nzSimple *ngIf="loadingMoreFollowers"></nz-spin>
+        </div>
+    </div>
+</section>

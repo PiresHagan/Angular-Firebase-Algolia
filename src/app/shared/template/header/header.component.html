@@ -1,10 +1,11 @@
 <div class="header">
     <div class="row w-100 m-0">
-        <div class="col-12 col-sm-12 col-lg-12 col-xl-2 border-xs p-0 logo-col">
+        <div class="logo-col">
             <div class="logo logo-dark" (click)="removeActiveClass()">
                 <a [routerLink]="['/']">
-                    <img src="assets/images/logo/logo-white.png" alt="My Trending Stories">
-                    <img class="logo-fold" src="assets/images/logo/logo-white.png" alt="My Trending Stories">
+                    <img class="lg-logo" src="assets/images/logo/logo-white.png" alt="My Trending Stories">
+                    <!-- <img class="logo-fold" src="assets/images/logo/logo-white.png" alt="My Trending Stories"> -->
+                    <img class="xs-logo" src="assets/images/logo/logo.png" alt="My Trending Stories">
                 </a>
             </div>
             <div class="logo logo-white">
@@ -14,10 +15,10 @@
                 </a>
             </div>
         </div>
-        <div class="col-2 col-sm-6 col-lg-9 col-xl-8 vertical-center menu-col">
+        <div class="vertical-center menu-col">
             <app-mainmenu class="w-100"></app-mainmenu>
         </div>
-        <div class="col-10 col-sm-6 col-lg-3 col-xl-2 vertical-center language-col">
+        <div class="vertical-center language-col">
             <div class="nav-wrap">
                 <ul class="nav-right">
                     <li class="is-search-icon">
@@ -77,13 +78,13 @@
                             </ul>
                         </nz-dropdown-menu>
                     </li>
-                    <li *ngIf="!isLoggedInUser">
+                    <li *ngIf="!isLoggedInUser" class="hidden-on-xs">
                         <a class="is-login-link" (click)="routeLogin()">
                             {{'login' | translate }}
                         </a>
                     </li>
 
-                    <li *ngIf="!isLoggedInUser">
+                    <li *ngIf="!isLoggedInUser"  class="hidden-on-xs">
                         <button (click)="routeSignup()" nz-button nzType="primary" class="is-sign-up-btn">
                             {{'signUp' | translate }}
                             <img src="assets/images/sign-up.png" alt="sign up icon">

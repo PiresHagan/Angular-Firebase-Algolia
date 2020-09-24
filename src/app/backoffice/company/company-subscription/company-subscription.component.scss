@@ -1,0 +1,126 @@
+.container {
+    margin-bottom: 20px;
+}
+
+.is-comman-title{
+    color: #000;
+    padding: 30px 0px 10px 0px;
+    font-weight: bold;
+    font-size: 28px;
+    width: 100%;
+    text-align: center;
+    font-family: "josefin_sanssemibold";
+    position: relative;
+    margin-bottom: 30px;
+    &::before{
+      content: "";
+      position: absolute;
+      bottom: 0px;
+      width: 60px;
+      height: 1px;
+      background: #000;
+      margin: auto;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+}
+
+.cancel-btn {
+  background-color: #ff4020;
+  color: white;
+  margin: 20px 0px;
+}
+.no-subscription-sec{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 60px;
+    .subs-icon{
+      width: 120px;
+      height: 120px;
+      margin: auto;
+      border-radius: 100%;
+      display: flex;
+      background: #ff4020;
+      svg{
+        width: 60px;
+        height: 60px;
+        fill: #fff;
+        margin: auto;
+      }
+    }
+  h2{
+    font-size: 18px;
+    color: #7a8690;
+    margin: 25px 0px 0px 0px;
+    font-weight: 400;
+  }
+}
+
+.package-box{
+  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  background: #fff;
+  .package-img{
+      background-size: cover !important;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      position: relative;
+      &:after{
+          content: '';
+          position: absolute;
+          top:0px;
+          left:0px;
+          width:100%;
+          height: 100%;
+          background: rgba(0,0,0,0.5);
+      }
+      .package-detail{
+          position: relative;
+          z-index: 1;
+          text-align: center;
+          h2{
+              font-size: 24px;
+              margin: 0px;
+              color: #fff;
+              span{
+                  color: #fff;
+                  font-size: 18px;
+                  display: block;
+                  padding-top: 20px;
+                  position: relative;
+                  &:before{
+                      content: "";
+                      position: absolute;
+                      width: 50px;
+                      height: 2px;
+                      left: 50%;
+                      transform: translate(-50%, -50%);
+                      background: #fff;
+                      top: 6px;
+                  }
+              }
+          }
+          .subscription-date{
+            color: #fff;
+            font-size: 14px;
+            font-weight: 300;
+            margin-top: 4px;
+          }
+          p{
+              font-size: 24px;
+              color:#fff;
+              &.text-green{
+                color: #00b538;
+                font-size: 18px;
+              }
+          }
+
+      }
+  }
+}

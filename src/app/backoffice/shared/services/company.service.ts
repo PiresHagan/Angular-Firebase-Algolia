@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Company } from 'src/app/shared/interfaces/company.type';
 import { take, map } from 'rxjs/operators';
+import { CompanyConstant } from 'src/app/shared/constants/company-constant';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,8 @@ export class CompanyService {
   private companyCollection = 'companies'
   private followersCollection = "followers"
   private leadsCollection = "leads"
+  private leadsPackageCollection = 'lead-packages';
+  private subscriptionsCollection = 'subscriptions';
   constructor(private http: HttpClient,
     public db: AngularFirestore) {
 
@@ -168,6 +171,68 @@ export class CompanyService {
       redirectUrl: window && window.location && window.location.href || '',
       refreshUrl: window && window.location && window.location.href || ''
     })
+  }
+
+  getCompaniesByOwner(ownerId: string) {
+    let dataQuery = this.db.collection(`${this.companyCollection}`, ref => ref
+      .where("owner.id", "==", ownerId)
+      .orderBy('created_at', 'desc')
+    );
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data: any = a.payload.doc.data();
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      })
+    }));
+  }
+
+  updateBilling(companyId: string) {
+    return this.http.post(environment.baseAPIDomain + `/api/v1/payment/sessions/companies/${companyId}/customer`, {
+      redirectUrl: window && window.location && window.location.href || '',
+    })
+  }
+
+  getPaymentMethod(companyId: string) {
+    return this.http.get(environment.baseAPIDomain + `/api/v1/payment/companies/${companyId}/methods`)
+  }
+
+  getLeadsPackage() {
+    return this.db.collection(this.leadsPackageCollection).valueChanges()
+  }
+
+  getLeadsMonthly(companyId: string) {
+    return this.http.get(environment.baseAPIDomain + `/api/v1/companies/${companyId}/leads/dates`)
+  }
+
+  getLeadsOfMonth(companyId: string, monthId: string) {
+    return this.http.get(environment.baseAPIDomain + `/api/v1/companies/${companyId}/leads/${monthId}`)
+  }
+
+  getCompanySubscription(companyId: string) {
+    let dataQuery = this.db.collection(`${this.subscriptionsCollection}`, ref => ref
+      .where("customer_id", "==", companyId)
+      .where("status", "==", CompanyConstant.STATUS_ACTIVE)
+      .where("type", "==", CompanyConstant.LEAD_PACKAGE)
+    );
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data: any = a.payload.doc.data();
+        return data;
+      })
+    }));
+  }
+
+  createLeadPackageSubscription(companyId: string, postData: { packageId: string, paymentMethodId: string }) {
+    return this.http.post(environment.baseAPIDomain + `/api/v1/payment/companies/${companyId}/subscriptions`, postData)
+  }
+
+  updateLeadPackageSubscription(companyId: string, subscriptionId: string, postData: { packageId: string, paymentMethodId: string }) {
+    return this.http.put(environment.baseAPIDomain + `/api/v1/payment/companies/${companyId}/subscriptions/${subscriptionId}`, postData)
+  }
+
+  cancelLeadPackageSubscription(companyId: string, subscriptionId: string) {
+    return this.http.delete(environment.baseAPIDomain + `/api/v1/payment/companies/${companyId}/subscriptions/${subscriptionId}`)
   }
 
 }

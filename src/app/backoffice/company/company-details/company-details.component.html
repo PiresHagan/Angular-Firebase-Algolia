@@ -7,17 +7,20 @@
             <nz-tab nzTitle="{{'CompanyDetails'| translate}}">
                 <app-add-company class="m-10"></app-add-company>
             </nz-tab>
-            <nz-tab nzTitle="{{'CompanyFollowers'| translate}}">
+            <nz-tab *ngIf="companyId" nzTitle="{{'CompanyFollowers'| translate}}">
                 <app-company-followers></app-company-followers>
             </nz-tab>
-            <nz-tab nzTitle="{{'CompanyLeads'| translate}}">
+            <nz-tab *ngIf="companyId" nzTitle="{{'CompanyLeads'| translate}}">
                 <app-company-leads></app-company-leads>
             </nz-tab>
-            <nz-tab nzTitle="{{'CompanyArticle'| translate}}">
+            <nz-tab *ngIf="companyId" nzTitle="{{'CompanyArticle'| translate}}">
                 <app-company-article></app-company-article>
             </nz-tab>
-            <nz-tab nzTitle="{{'CompanyFundraisers'| translate}}">
+            <nz-tab *ngIf="companyId" nzTitle="{{'CompanyFundraisers'| translate}}">
                 <app-company-fundraisers></app-company-fundraisers>
+            </nz-tab>
+            <nz-tab *ngIf="companyId" nzTitle="{{'CompanySubscription'| translate}}">
+                <app-company-subscription></app-company-subscription>
             </nz-tab>
         </nz-tabset>
 

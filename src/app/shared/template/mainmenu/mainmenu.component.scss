@@ -10,7 +10,7 @@
         .ant-layout-sider{
             background: transparent;
             .ant-menu-item{
-                padding: 0px 10px;
+                padding: 0px 10px !important;
                 text-transform: capitalize;
                 color: #4c4040;
                 &:hover{
@@ -207,7 +207,7 @@
                             color: #fbca20  !important;
                             background: transparent !important;
                         }
-                        
+
                       }
                       &.creative{
                         h2{
@@ -335,7 +335,7 @@
                             list-style: none;
                             color: #4c4040;
                             font-size: 12px;
-                            padding: 5px 0px;
+                            padding: 5px 0px !important;
                             line-height: normal;
                             cursor: pointer;
                             word-break: break-word;
@@ -379,6 +379,261 @@
         }
     }
 }  
+
+.hidden-on-lg{
+    display: none !important;
+}
+.mobile-mega-menu{
+    display:none !important
+
+}
+@media screen and (max-width:993px){
+    .hidden-on-lg{
+        display: block !important;
+    }
+    .hidden-categories-xs{
+        display: none !important;
+
+    }
+    .mobile-mega-menu{
+        display:block !important;
+        ::ng-deep .ant-menu-submenu-title{
+            .ant-menu-submenu-arrow{
+                opacity: 1;
+            }
+        }
+        .life-and-styles, .vie-et-styles, .vida-y-estilos{
+            &.xs-menu-item{
+                color: #fbca20  !important;
+                background: transparent !important;
+            }
+            ::ng-deep .ant-menu-submenu-title{
+                &:hover{
+                    color:#fbca20;
+                }
+                .ant-menu-submenu-arrow{
+                    &:after{
+                        background: #fbca20;
+                    }
+                    &:before{
+                        background: #fbca20;
+                    }
+                }
+            }
+            
+          }
+          .creative{
+            &.xs-menu-item{
+                color: #faaf44  !important;
+                background: transparent !important;
+            }
+            ::ng-deep .ant-menu-submenu-title{
+                &:hover{
+                    color:#faaf44;
+                }
+                .ant-menu-submenu-arrow{
+                    &:after{
+                        background: #faaf44;
+                    }
+                    &:before{
+                        background: #faaf44;
+                    }
+                }
+            }
+        }
+
+        .news,.nouvelles,.noticias{
+            &.xs-menu-item{
+                color: #faaf44  !important;
+                background: transparent !important;
+            }
+            ::ng-deep .ant-menu-submenu-title{
+                &:hover{
+                    color:#faaf44;
+                }
+                .ant-menu-submenu-arrow{
+                    &:after{
+                        background: #faaf44;
+                    }
+                    &:before{
+                        background: #faaf44;
+                    }
+                }
+            }
+        }
+
+        .entertainment, .divertissement, .entretenimiento{
+            &.xs-menu-item{
+                color: #f64747  !important;
+                background: transparent !important;
+            }
+            ::ng-deep .ant-menu-submenu-title{
+                &:hover{
+                    color:#f64747;
+                }
+                .ant-menu-submenu-arrow{
+                    &:after{
+                        background: #f64747;
+                    }
+                    &:before{
+                        background: #f64747;
+                    }
+                }
+            }
+        }
+
+        .business, .Entreprise, .negocio{
+            &.xs-menu-item{
+                color: #2baad3  !important;
+                background: transparent !important;
+            }
+            ::ng-deep .ant-menu-submenu-title{
+                &:hover{
+                    color:#2baad3;
+                }
+                .ant-menu-submenu-arrow{
+                    &:after{
+                        background: #2baad3;
+                    }
+                    &:before{
+                        background: #2baad3;
+                    }
+                }
+            }
+        }
+
+        .tech-and-science, .technologie-et-science, .tech-y-la-ciencia{
+            &.xs-menu-item{
+                color: #3fbb22  !important;
+                background: transparent !important;
+            }
+            ::ng-deep .ant-menu-submenu-title{
+                &:hover{
+                    color:#3fbb22;
+                }
+                .ant-menu-submenu-arrow{
+                    &:after{
+                        background: #3fbb22;
+                    }
+                    &:before{
+                        background: #3fbb22;
+                    }
+                }
+            }
+        }
+
+        .Opinion, .Opinion, .OPINIÓN{
+            &.xs-menu-item{
+                color: #7122bb  !important;
+                background: transparent !important;
+            }
+            ::ng-deep .ant-menu-submenu-title{
+                &:hover{
+                    color:#7122bb;
+                }
+                .ant-menu-submenu-arrow{
+                    &:after{
+                        background: #7122bb;
+                    }
+                    &:before{
+                        background: #7122bb;
+                    }
+                }
+            }
+        }
+
+        .sport, .sport-fr, .deporte{
+            &.xs-menu-item{
+                color: #2baad3  !important;
+                background: transparent !important;
+            }
+            ::ng-deep .ant-menu-submenu-title{
+                &:hover{
+                    color:#2baad3;
+                }
+                .ant-menu-submenu-arrow{
+                    &:after{
+                        background: #2baad3;
+                    }
+                    &:before{
+                        background: #2baad3;
+                    }
+                }
+            }
+        }
+
+        .viral, .viral-fr, .viral-es{
+            &.xs-menu-item{
+                color: #f64747  !important;
+                background: transparent !important;
+            }
+            ::ng-deep .ant-menu-submenu-title{
+                &:hover{
+                    color:#f64747;
+                }
+                .ant-menu-submenu-arrow{
+                    &:after{
+                        background: #f64747;
+                    }
+                    &:before{
+                        background: #f64747;
+                    }
+                }
+            }
+        }
+
+        .religion, .religion-fr, .religión{
+            &.xs-menu-item{
+                color: #23d7d5  !important;
+                background: transparent !important;
+            }
+            ::ng-deep .ant-menu-submenu-title{
+                &:hover{
+                    color:#23d7d5;
+                }
+                .ant-menu-submenu-arrow{
+                    &:after{
+                        background: #23d7d5;
+                    }
+                    &:before{
+                        background: #23d7d5;
+                    }
+                }
+            }
+        }
+
+        .border-bottom{
+            border-bottom: 1px solid #eee;
+        }
+         .xs-menu-item{
+             border-bottom: 1px solid #eee;
+             >::ng-deep .ant-menu-submenu-title{
+                 padding-left:10px !important;
+             }
+            ::ng-deep .ant-menu-sub{
+                background: #f5f5f5;
+            }
+            .bg-light-on-xs{
+                background: #f5f5f5;
+            }
+           
+        }
+    }
+    .is-login-link{
+        font-size: 14px;
+        padding: 5px;
+        color: #000 !important;
+    }
+    .is-sign-up-btn{
+        border-radius: 30px;
+        font-size: 12px;
+        outline: none;
+        padding:6px 10px;
+        ::ng-deep span{
+            margin-right: 5px;
+        }
+    }
+}
 @media screen and (max-width:992px){
     .megamenu-list{
         padding: 0px !important;
@@ -459,7 +714,6 @@
         margin-left: 10px;
         padding-left: 10px !important;
         .mega-body-sec{
-            top:109px;
             .megamenu-body{
                 .sub-catagories-sec{
                     .sub-catagories-list{
@@ -486,21 +740,33 @@
         
     }
 }
-@media screen and (min-width:1200px) and (max-width:1279px){
+@media screen and (min-width:993px) and (max-width:1199px){
     .megamenu-list{
         .mega-body-sec{
-            top:119px;
+            top:109px;
         }
         
     }
 }
+@media screen and (min-width:1200px) and (max-width:1443px){
+    .mainmenu {
+        .layout{
+            .ant-layout-sider{
+                background: transparent;
+                .ant-menu-item{
+                    padding: 0px 3px !important;
+                    font-size: 12px;
+                }
+            }
+        }
+        
+    }
+}
+
 @media screen and (min-width:1280px) and (max-width:1359px){
     .megamenu-list{
         margin-left: 10px;
         padding-left: 10px !important;
-        .mega-body-sec{
-            top:50px;
-        }
         
     }
 }
@@ -508,24 +774,6 @@
     .megamenu-list{
         margin-left: 10px;
         padding-left: 10px !important;
-     
-        
     }
 }
-@media screen and (min-width:993px) and (max-width:1440px){
-   
-    .mainmenu {
-        .layout{
-            .ant-layout-sider{
-                background: transparent;
-                .ant-menu-item{
-                    padding: 0px 2px;
-                    font-size: 12px;
-                   
-                }
-            }
-        }
-        
-    }
-    
-  }
+

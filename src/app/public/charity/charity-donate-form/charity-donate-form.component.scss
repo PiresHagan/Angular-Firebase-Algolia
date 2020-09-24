@@ -1,0 +1,65 @@
+:host ::ng-deep .ant-alert-icon {
+    top: 7px;
+    font-size: 20px;
+    left: 25px;
+}
+  
+nz-alert {
+    text-align: center;
+}
+  
+.errorBorder {
+    border: 1px solid red !important;
+}
+  
+.err-msg {
+    color: red;
+}
+  
+.mt-20 {
+    margin-top: 20px;
+}
+  
+.card-header {
+    color: #d3d7db;
+}
+
+.charity-form{
+    box-shadow: 0px 0px 9px 10px rgba(0, 0, 0, 0.02);
+    padding: 20px;
+    border: 1px solid #f7f7f7;
+    margin-bottom: 100px;
+    margin-top:20px;
+    >h2{
+        font-family: "josefin_sanssemibold";
+        text-align: center;
+        display: block;
+        font-size: 22px;
+        color: #000;
+        line-height: 35px; 
+    }
+    .form-row{
+        margin-bottom: 10px;
+        .input-box{
+            border: 0px;
+            background: #f4f8f7;
+            outline: none;
+            font-family: "josefin_sanslight";
+            font-size: 16px;
+            color: #000;
+            padding: 5px;
+            line-height: 1.5;
+            width: 100%;
+        }
+        .is-see-more{
+            margin: auto;
+        }
+    }
+    .card-info {
+      border: 1px solid #edf2f9;
+      padding: 15px;
+    }
+    .card-number-col{
+      margin-bottom: 15px;
+    }
+}

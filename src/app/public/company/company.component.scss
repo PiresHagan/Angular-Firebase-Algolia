@@ -168,6 +168,7 @@ img{
               color: #464444;
               line-height: 33px;
               margin-bottom: 0px;
+              word-break: break-all;
               &.big::first-letter {
                 font-size: 100px;
                 color: #fd6147;
@@ -253,39 +254,6 @@ img{
       .is-right-ad-section {
         width: 25%;
         padding:30px 0px 0px 20px;
-        .company-form{
-          box-shadow: 0px 0px 9px 10px rgba(0, 0, 0, 0.02);
-          padding: 20px;
-          border: 1px solid #f7f7f7;
-          margin-bottom: 100px;
-          margin-top:20px;
-          >h2{
-              font-family: "josefin_sanssemibold";
-              text-align: center;
-              display: block;
-              font-size: 22px;
-              color: #000;
-              line-height: 35px; 
-          }
-          .form-row{
-            margin-bottom: 10px;
-            .input-box{
-                border: 0px;
-                background: #f4f8f7;
-                outline: none;
-                font-family: "josefin_sanslight";
-                font-size: 16px;
-                color: #000;
-                padding: 5px;
-                line-height: 1.5;
-                width: 100%;
-            }
-            .is-see-more{
-                margin: auto;
-            }
-          }
-        }
-        
       }
     }
   }
@@ -302,12 +270,14 @@ img{
     }
     }
   }
+  ::ng-deep .company-form{
+    margin-top: 0px;
+  }
   @media screen and (max-width: 580px) {
     .article-full-img img {
       height: 180px;
     }
     .is-article-block {
-      margin-top: 50px;
       .container{
         width:100%;
       }
@@ -384,7 +354,6 @@ img{
       height: 250px;
     }
     .is-article-block {
-      margin-top: 50px;
       .container{
         width:100%;
       }
@@ -444,12 +413,11 @@ img{
     }
   }
   
-  @media screen and (min-width: 768px) and (max-width: 991px) {
+  @media screen and (min-width: 768px) and (max-width: 991px) { 
     .article-full-img img {
       height: 330px;
     }
     .is-article-block {
-      margin-top: 50px;
       .container{
         width:100%;
       }
@@ -510,9 +478,13 @@ img{
       }
     }
   }
-  @media screen and (min-width: 992px) and (max-width: 1279px) {
+  @media screen and (min-width: 992px) and (max-width: 1199px) {
     .is-article-block {
       margin-top: 50px;
+    }
+  }
+  @media screen and (min-width: 992px) and (max-width: 1279px) {
+    .is-article-block {
       .container{
         width:100%;
       }
@@ -680,9 +652,6 @@ img{
   }
 
   @media screen and (min-width:1200px) and (max-width:1359px){
-    .is-article-block{
-      margin-top: 65px;
-    }
     .is-article-block .is-article-sec .is-left-profile .sticky-box {
       top: 190px;
   }

@@ -50,9 +50,7 @@ export function createTranslateLoader(http: HttpClient) {
         ArticleInteractionComponent,
         ArticleAvatarComponent,
         CloudinaryImgComponent,
-        ShareButtonsComponent,
-
-
+        ShareButtonsComponent
     ],
 
     providers: [

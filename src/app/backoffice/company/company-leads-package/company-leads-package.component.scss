@@ -1,0 +1,96 @@
+.container {
+    margin-bottom: 20px;
+}
+
+.is-comman-title{
+    color: #000;
+    padding: 30px 0px 10px 0px;
+    font-weight: bold;
+    font-size: 28px;
+    width: 100%;
+    text-align: center;
+    font-family: "josefin_sanssemibold";
+    position: relative;
+    margin-bottom: 30px;
+    &::before{
+      content: "";
+      position: absolute;
+      bottom: 0px;
+      width: 60px;
+      height: 1px;
+      background: #000;
+      margin: auto;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+}
+
+.is-see-more{
+    font-size: 18px;
+    border: 0px;
+    color: #fff;
+    font-family: "josefin_sansregular";
+    border-radius: 55px;
+    line-height: 26px;
+    display: inline-flex;
+    align-items: center;
+    outline: none;
+    justify-content: center;
+    margin: 20px 0px;
+}
+
+.package-box{
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    background: #fff;
+    .package-img{
+        background-size: cover !important;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        position: relative;
+        &:after{
+            content: '';
+            position: absolute;
+            top:0px;
+            left:0px;
+            width:100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+        .package-detail{
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            h2{
+                font-size: 24px;
+                margin: 0px;
+                color: #fff;
+                span{
+                    color: #fff;
+                    font-size: 18px;
+                    display: block;
+                    padding-top: 20px;
+                    position: relative;
+                    &:before{
+                        content: "";
+                        position: absolute;
+                        width: 50px;
+                        height: 2px;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background: #fff;
+                        top: 6px;
+                    }
+                }
+            }
+            p{
+                font-size: 24px;
+                color:#fff;
+            }
+
+        }
+    }
+}

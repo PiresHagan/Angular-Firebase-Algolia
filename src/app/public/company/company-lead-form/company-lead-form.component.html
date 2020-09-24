@@ -1,0 +1,47 @@
+<div class="company-form" *ngIf="companyId">
+    <h2>{{ "addLeadFormTitle" | translate }}</h2>
+
+    <form nz-form [formGroup]="addLeadForm" class="lead-form" (ngSubmit)="submitForm()">
+        <nz-alert class="m-b-10" nzType="error" nzDescription="{{'invalidCaptchaErr' | translate}}" nzShowIcon *ngIf="invalidCaptcha"></nz-alert>
+
+        <nz-alert class="m-b-10" nzType="success" nzMessage="{{'leadAddSuccess' | translate}}" nzShowIcon *ngIf="addLeadSuccess"></nz-alert>
+
+        <nz-form-item>
+            <nz-form-control nzErrorTip="{{'leadFirstNameError' | translate}}">
+                <input type="text" nz-input formControlName="first_name" placeholder="{{'leadInputFirstName' | translate}}" id="firstName">
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control nzErrorTip="{{'leadLastNameError' | translate}}">
+                <input type="text" nz-input formControlName="last_name" placeholder="{{'leadInputLastName' | translate}}" id="lastName">
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control nzErrorTip="{{'leadFirstNameError' | translate}}">
+                <input type="email" nz-input formControlName="email" placeholder="{{'leadInputEmail' | translate}}" id="email">
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control nzErrorTip="{{'leadMobileError' | translate}}">
+                <input type="number" nz-input formControlName="mobile_number" placeholder="{{'leadInputPhoneNumber' | translate}}" id="phoneNumber">
+            </nz-form-control>
+        </nz-form-item>
+    
+        <div>
+            <div #recaptcha class="m-b-10">Loading Captcha...</div>
+
+            <nz-form-item>
+                <nz-form-control>
+                    <div class="text-center">
+                        <button nz-button class="is-login-btn" [nzLoading]="isFormSaving" [nzType]="'primary'">
+                            {{"leadSubmit" | translate}}
+                        </button>
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </form>
+</div>

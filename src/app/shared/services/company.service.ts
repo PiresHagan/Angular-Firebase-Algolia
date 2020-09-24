@@ -110,4 +110,32 @@ export class CompanyService {
     }));
   }
 
+  getFollowers(companyId, limit: number = 10, navigation: string = "first", lastVisible = null) {
+    if (!limit) {
+      limit = 10;
+    }
+    let dataQuery = this.db.collection(this.companiesCollection).doc(companyId).collection(`${this.followersSubCollection}`, ref => ref
+      .limit(limit)
+    )
+    switch (navigation) {
+      case 'next':
+        dataQuery = this.db.collection(this.companiesCollection).doc(companyId).collection(`${this.followersSubCollection}`, ref => ref
+          .limit(limit)
+          .startAfter(lastVisible))
+        break;
+    }
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        followers: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+        lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
+    })
+    );
+  }
+
 }

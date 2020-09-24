@@ -4,79 +4,78 @@ import { CompanyService } from '../../shared/services/company.service';
 import { ActivatedRoute } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd';
 import { TranslateService } from '@ngx-translate/core';
-interface DataItem {
-  id: string
-  first_name: string
-  last_name: string
-  mobile_number: string
-  email: string,
+import { CompanyConstant } from 'src/app/shared/constants/company-constant';
+
+interface Month {
+  id: string,
+  lead_count: number
 }
+
 @Component({
   selector: 'app-company-leads',
   templateUrl: './company-leads.component.html',
-  styleUrls: ['./company-leads.component.css'],
+  styleUrls: ['./company-leads.component.scss'],
   providers: [TableService]
 })
 
 export class CompanyLeadsComponent implements OnInit {
   isLoading: boolean = true;
-  displayData = [];
+  companyId: string;
+  displayData;
   searchInput: string;
-  lastVisibleFollower;
-  loadingMoreFollowers;
   orderColumn = [
     {
-      title: 'First Name',
-      compare: (a: DataItem, b: DataItem) => a.first_name.localeCompare(b.first_name)
-    },
-
-    {
-      title: 'Last Name',
-      compare: (a: DataItem, b: DataItem) => a.last_name.localeCompare(b.last_name)
+      title: 'Month & Year'
     },
     {
-      title: 'Phone',
-      compare: (a: DataItem, b: DataItem) => a.mobile_number.localeCompare(b.mobile_number)
+      title: 'Total Lead Count',
+      align: 'center'
     },
     {
-      title: 'Email',
-      compare: (a: DataItem, b: DataItem) => a.email.localeCompare(b.email)
+      title: 'Lead Count Exceeding Package',
+      align: 'center'
     },
     {
-      title: 'Created At'
-    },
-    // {
-    //   title: ''
-    // }
-  ]
-  originalData: DataItem[];
+      title: 'Actions',
+      align: 'center',
+    }
+  ];
+  selectedMonthData;
+  activeLeadSubscription;
+  defaultLeadLimit = CompanyConstant.FREE_LEAD_COUNT;
 
   constructor(
     private modalService: NzModalService,
     private translate: TranslateService,
-    private tableSvc: TableService, private companyService: CompanyService, private activatedRoute: ActivatedRoute) { }
+    private companyService: CompanyService, 
+    private activatedRoute: ActivatedRoute
+  ) { }
 
 
   ngOnInit(): void {
     this.loadData();
   }
-  loadData() {
 
-    let companyId = this.activatedRoute.snapshot.queryParams["company"];
-    if (!companyId)
+  refresh() {
+    this.isLoading = true;
+    this.loadData();
+  }
+
+  loadData() {
+    this.companyId = this.activatedRoute.snapshot.queryParams["company"];
+    if (!this.companyId)
       return;
-    this.companyService.getLeads(companyId, 5, null, this.lastVisibleFollower).subscribe((data) => {
-      this.loadingMoreFollowers = false;
-      this.isLoading = false;
-      this.originalData = data.leads;
-      this.displayData = data.leads;
-      this.lastVisibleFollower = data.lastVisible;
+
+    this.companyService.getCompanySubscription(this.companyId).subscribe((data) => {
+      this.activeLeadSubscription = data[0];
     });
 
-  }
-  search() {
-    const data = this.originalData
-    this.displayData = this.tableSvc.search(this.searchInput, data);
+    this.companyService.getLeadsMonthly(this.companyId).subscribe((data) => {
+      this.isLoading = false;
+      this.displayData = data;
+    }, err => {
+      this.isLoading = false;
+    });
   }
 
   deleteLead(companyId: string) {
@@ -95,6 +94,30 @@ export class CompanyLeadsComponent implements OnInit {
       },
     });
 
+  }
+
+  viewLeadsByMonth(month: Month) {
+    let data: Month = JSON.parse(JSON.stringify(month));
+    data['lead_over_limit'] = this.getExceedingLeadsCount(data.lead_count);
+    this.selectedMonthData = data;
+  }
+
+  goBack() {
+    this.selectedMonthData = null;
+  }
+
+  getExceedingLeadsCount(lead_count: number) {
+    let lead_limit = CompanyConstant.FREE_LEAD_COUNT;
+
+    if(this.activeLeadSubscription) {
+      lead_limit = this.activeLeadSubscription.limit;
+    } 
+
+    const lead_diff = lead_count - lead_limit;
+    if(lead_diff > 0)
+      return lead_diff;
+    else 
+      return 0;
   }
 
 
