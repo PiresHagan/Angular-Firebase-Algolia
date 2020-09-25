@@ -402,202 +402,148 @@
                 opacity: 1;
             }
         }
+        >::ng-deep .ant-menu-item{
+            line-height: 38px;
+            height: 38px;
+            border-width: 0px 0px 1px 0px;
+            margin: 0px;
+            &:after{
+                border:0px;
+            }
+            &:focus{
+                outline: 0px;
+                border:0px;
+            }
+        }
+        .xs-menu-sub-category{
+            height: 30px;
+            margin: 0px;
+            padding: 0 16px;
+            font-size: 13px;
+            line-height: 30px;
+        }
+        .category-title-xs{
+            font-size: 16px;
+            text-transform: capitalize;
+            font-family: "josefin_sansregular";
+            position: relative;
+            padding-bottom: 8px;
+            white-space: nowrap;
+            margin-left: 10px;
+            margin-top: 15px;
+            &::after{
+                content: "";
+                position: absolute;
+                bottom: 0px;
+                left: 0px;
+                width: 50px;
+                height: 2px;
+            }
+        }
         .life-and-styles, .vie-et-styles, .vida-y-estilos{
-            &.xs-menu-item{
-                color: #fbca20  !important;
-                background: transparent !important;
-            }
-            ::ng-deep .ant-menu-submenu-title{
-                &:hover{
-                    color:#fbca20;
-                }
-                .ant-menu-submenu-arrow{
-                    &:after{
-                        background: #fbca20;
-                    }
-                    &:before{
-                        background: #fbca20;
-                    }
+            .category-title-xs{
+                color: #fbca20;
+                background: transparent;
+                &::after{
+                    background: #fbca20;
                 }
             }
+           
             
           }
           .creative{
-            &.xs-menu-item{
-                color: #faaf44  !important;
-                background: transparent !important;
-            }
-            ::ng-deep .ant-menu-submenu-title{
-                &:hover{
-                    color:#faaf44;
-                }
-                .ant-menu-submenu-arrow{
-                    &:after{
-                        background: #faaf44;
-                    }
-                    &:before{
-                        background: #faaf44;
-                    }
+            .category-title-xs{
+                color: #88827a;
+                background: transparent;
+                &::after{
+                    background: #88827a;
                 }
             }
+            
         }
 
         .news,.nouvelles,.noticias{
-            &.xs-menu-item{
-                color: #faaf44  !important;
-                background: transparent !important;
-            }
-            ::ng-deep .ant-menu-submenu-title{
-                &:hover{
-                    color:#faaf44;
-                }
-                .ant-menu-submenu-arrow{
-                    &:after{
-                        background: #faaf44;
-                    }
-                    &:before{
-                        background: #faaf44;
-                    }
+            .category-title-xs{
+                color: #faaf44;
+                background: transparent;
+                &::after{
+                    background: #faaf44;
                 }
             }
+          
         }
 
         .entertainment, .divertissement, .entretenimiento{
-            &.xs-menu-item{
-                color: #f64747  !important;
-                background: transparent !important;
-            }
-            ::ng-deep .ant-menu-submenu-title{
-                &:hover{
-                    color:#f64747;
-                }
-                .ant-menu-submenu-arrow{
-                    &:after{
-                        background: #f64747;
-                    }
-                    &:before{
-                        background: #f64747;
-                    }
+            .category-title-xs{
+                color: #f64747;
+                background: transparent;
+                &::after{
+                    background: #f64747;
                 }
             }
+            
         }
 
         .business, .Entreprise, .negocio{
-            &.xs-menu-item{
-                color: #2baad3  !important;
-                background: transparent !important;
-            }
-            ::ng-deep .ant-menu-submenu-title{
-                &:hover{
-                    color:#2baad3;
-                }
-                .ant-menu-submenu-arrow{
-                    &:after{
-                        background: #2baad3;
-                    }
-                    &:before{
-                        background: #2baad3;
-                    }
+            .category-title-xs{
+                color: #2baad3;
+                background: transparent;
+                &::after{
+                    background: #2baad3;
                 }
             }
+            
         }
 
         .tech-and-science, .technologie-et-science, .tech-y-la-ciencia{
-            &.xs-menu-item{
-                color: #3fbb22  !important;
-                background: transparent !important;
-            }
-            ::ng-deep .ant-menu-submenu-title{
-                &:hover{
-                    color:#3fbb22;
-                }
-                .ant-menu-submenu-arrow{
-                    &:after{
-                        background: #3fbb22;
-                    }
-                    &:before{
-                        background: #3fbb22;
-                    }
+            .category-title-xs{
+                color: #3fbb22;
+                background: transparent;
+                &::after{
+                    background: #3fbb22;
                 }
             }
+            
         }
 
         .Opinion, .Opinion, .OPINIÓN{
-            &.xs-menu-item{
-                color: #7122bb  !important;
-                background: transparent !important;
-            }
-            ::ng-deep .ant-menu-submenu-title{
-                &:hover{
-                    color:#7122bb;
-                }
-                .ant-menu-submenu-arrow{
-                    &:after{
-                        background: #7122bb;
-                    }
-                    &:before{
-                        background: #7122bb;
-                    }
+            .category-title-xs{
+                color: #7122bb;
+                background: transparent;
+                &::after{
+                    background: #7122bb;
                 }
             }
+            
         }
 
         .sport, .sport-fr, .deporte{
-            &.xs-menu-item{
-                color: #2baad3  !important;
-                background: transparent !important;
-            }
-            ::ng-deep .ant-menu-submenu-title{
-                &:hover{
-                    color:#2baad3;
-                }
-                .ant-menu-submenu-arrow{
-                    &:after{
-                        background: #2baad3;
-                    }
-                    &:before{
-                        background: #2baad3;
-                    }
+            .category-title-xs{
+                color: #2baad3;
+                background: transparent;
+                &::after{
+                    background: #2baad3;
                 }
             }
         }
 
         .viral, .viral-fr, .viral-es{
-            &.xs-menu-item{
-                color: #f64747  !important;
-                background: transparent !important;
-            }
-            ::ng-deep .ant-menu-submenu-title{
-                &:hover{
-                    color:#f64747;
-                }
-                .ant-menu-submenu-arrow{
-                    &:after{
-                        background: #f64747;
-                    }
-                    &:before{
-                        background: #f64747;
-                    }
+            .category-title-xs{
+                color: #f64747;
+                background: transparent;
+                &::after{
+                    background: #f64747;
                 }
             }
+            
         }
 
         .religion, .religion-fr, .religión{
-            &.xs-menu-item{
-                color: #23d7d5  !important;
-                background: transparent !important;
-            }
-            ::ng-deep .ant-menu-submenu-title{
-                &:hover{
-                    color:#23d7d5;
-                }
-                .ant-menu-submenu-arrow{
-                    &:after{
-                        background: #23d7d5;
-                    }
-                    &:before{
-                        background: #23d7d5;
-                    }
+            .category-title-xs{
+                color: #23d7d5;
+                background: transparent ;
+                &::after{
+                    background: #23d7d5;
                 }
             }
         }
@@ -606,9 +552,14 @@
             border-bottom: 1px solid #eee;
         }
          .xs-menu-item{
-             border-bottom: 1px solid #eee;
-             >::ng-deep .ant-menu-submenu-title{
-                 padding-left:10px !important;
+             ::ng-deep .ant-menu-submenu-title{
+                 padding-left: 10px !important;
+                height: 38px;
+                line-height: 38px;
+                margin: 0px;
+                 span{
+                     color:#000;
+                 }
              }
             ::ng-deep .ant-menu-sub{
                 background: #f5f5f5;
@@ -621,17 +572,26 @@
     }
     .is-login-link{
         font-size: 14px;
-        padding: 5px;
         color: #000 !important;
     }
     .is-sign-up-btn{
         border-radius: 30px;
-        font-size: 12px;
+        font-size: 14px;
         outline: none;
         padding:6px 10px;
+        margin: 10px 0px 0px 0px;
         ::ng-deep span{
             margin-right: 5px;
         }
+    }
+    .h-auto{
+        height: auto !important;
+    }
+    .menu-label{
+        font-size: 22px;
+        font-weight: 500;
+        color: #000;
+        padding: 7px 0px 7px 10px;
     }
 }
 @media screen and (max-width:992px){
@@ -777,3 +737,15 @@
     }
 }
 
+@media screen and (min-width:1443px) and (max-width:1519px){
+    .mainmenu {
+        .layout{
+            .ant-layout-sider{
+                .ant-menu-item{
+                    padding: 0px 5px !important;
+                }
+            }
+        }
+        
+    }
+}

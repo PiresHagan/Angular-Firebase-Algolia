@@ -677,5 +677,6 @@
     "LeadSubscriptionCancelMsgConf": "Are you sure you want to cancel active subscription ?",
     "LeadSubscriptionCancelled": "Active subscription cancelled successfully!",
     "ShowMore":"Show More",
-    "ShowLess":"Show Less"
+    "ShowLess":"Show Less",
+    "WrittenBy":"Written by"
 }

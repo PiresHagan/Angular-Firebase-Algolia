@@ -44,11 +44,21 @@
                     <div class="sr-article-sec-item" *ngFor="let hit of hits; let i=index"  [ngStyle]="{'order': OrderIndex + i}">
                              <div [routerLink]="['/companies',hit.slug]"  *ngIf="hit.type==='company'">
                                 <div class="sr-article-img">
-                                   <img src="assets/images/search-engine/company.png" alt="company" />
+                                   <img [src]="hit?.logo?.url" alt="hit?.logo?.alt" 
+                                   *ngIf="!(hit?.logo?.cloudinary_id); else companyLogo"
+                                   />
+                                   <ng-template  #companyLogo>
+                                    <div class="cloudinary-img">
+                                        <cl-image loading="lazy" public-id="{{hit?.logo.cloudinary_id}}" secure="true">
+                                            <cl-transformation width="260" height="220" gravity="face" crop="thumb">
+                                            </cl-transformation>
+                                          </cl-image>
+                                    </div>
+                                </ng-template>
                                 </div>
                                 <div class="sr-article-detail">
                                    <div class="sr-article-txt">
-                                      <h2>{{hit.bio}}</h2>
+                                      <h2>{{hit?.bio}}</h2>
                                       <div class="category-article-readmore">
                                          <div>
                                             <button type="button" class="is-read-more">{{'showNow' | translate }}<img
@@ -65,11 +75,21 @@
                              </div>
                              <div  [routerLink]="['/charities',hit.slug]" *ngIf="hit.type==='charity'">
                                 <div class="sr-article-img">
-                                   <img src="assets/images/search-engine/charity.png" alt="charity" />
+                                   <img [src]="hit?.logo?.url" alt="hit?.logo?.alt" 
+                                   *ngIf="!(hit?.logo?.cloudinary_id); else charityLogo"
+                                   />
+                                   <ng-template  #charityLogo>
+                                    <div class="cloudinary-img">
+                                        <cl-image loading="lazy" public-id="{{hit?.logo?.cloudinary_id}}" secure="true">
+                                            <cl-transformation width="260" height="220" gravity="face" crop="thumb">
+                                            </cl-transformation>
+                                          </cl-image>
+                                    </div>
+                                </ng-template>
                                 </div>
                                 <div class="sr-article-detail">
                                    <div class="sr-article-txt">
-                                      <h2>{{hit.bio}}</h2>
+                                      <h2>{{hit?.bio}}</h2>
                                       <div class="category-article-readmore">
                                          <div>
                                             <button type="button" class="is-read-more">{{'showNow' | translate }} <img
@@ -87,14 +107,14 @@
                              <div [routerLink]="['/',hit.author.slug,hit.slug]" *ngIf="hit.type==='audio'"  [ngClass]="hit.category.slug">
                               <div class="item-card">  
                               <div class="sr-article-img">
-                                   <img [src]="hit.image.url" [alt]="hit.image.alt" />
+                                   <img [src]="hit?.image?.url" [alt]="hit?.image?.alt" />
                                    <div class="article-image-icon">
                                     <i class="fas fa-play"></i>
                                  </div>
                                 </div>
                                 <div class="sr-article-detail">
                                    <div class="sr-article-txt">
-                                      <h2>{{hit.title}}</h2>
+                                      <h2>{{hit?.title}}</h2>
                                       <div class="category-article-readmore">
                                          <div>
                                             <button type="button" class="is-read-more">{{'ListenNow' | translate }}<img
@@ -108,9 +128,9 @@
                                       </div>
                                    </div>
                                    <div class="sr-avtar position-relative">
-                                      <img [src]="hit.author.avatar.url" 
-                                         [alt]="hit.author.avatar.alt" 
-                                         onerror="this.src='assets/images/default-avatar.png'" *ngIf="hit.author.avatar; else defaultBlock"/>
+                                      <img [src]="hit?.author?.avatar?.url" 
+                                         [alt]="hit?.author?.avatar?.alt" 
+                                         onerror="this.src='assets/images/default-avatar.png'" *ngIf="hit?.author?.avatar; else defaultBlock"/>
                                          <ng-template #defaultBlock><img src="assets/images/default-avatar.png" /></ng-template>
                                          <app-article-avatar [article]="hit"></app-article-avatar>
                                    </div>
@@ -120,14 +140,14 @@
                              <div [routerLink]="['/',hit.author.slug,hit.slug]" *ngIf="hit.type==='video'"  [ngClass]="hit.category.slug">
                               <div class="item-card">
                                  <div class="sr-article-img">
-                                    <img [src]="hit.image.url" [alt]="hit.image.alt" />
+                                    <img [src]="hit?.image?.url" [alt]="hit?.image?.alt" />
                                     <div class="article-image-icon">
                                        <i class="fas fa-play"></i>
                                     </div>
                                  </div>
                                  <div class="sr-article-detail">
                                     <div class="sr-article-txt">
-                                       <h2>{{hit.title}}</h2>
+                                       <h2>{{hit?.title}}</h2>
                                        <div class="category-article-readmore">
                                           <div>
                                              <button type="button" class="is-read-more">{{'WatchNow' | translate }} <img
@@ -141,9 +161,9 @@
                                        </div>
                                     </div>
                                     <div class="sr-avtar position-relative">
-                                       <img [src]="hit.author.avatar.url" 
-                                          [alt]="hit.author.avatar.alt" 
-                                          onerror="this.src='assets/images/default-avatar.png'" *ngIf="hit.author.avatar; else defaultBlock"/>
+                                       <img [src]="hit?.author?.avatar?.url" 
+                                          [alt]="hit?.author?.avatar?.alt" 
+                                          onerror="this.src='assets/images/default-avatar.png'" *ngIf="hit?.author?.avatar; else defaultBlock"/>
                                           <ng-template #defaultBlock><img src="assets/images/default-avatar.png" /></ng-template>
                                           <app-article-avatar [article]="hit"></app-article-avatar>
                                     </div>
@@ -154,14 +174,14 @@
                               <div  [routerLink]="['/',hit.author.slug,hit.slug]" *ngIf="hit.type==='text'" [ngClass]="hit.category.slug">
                                  <div class="item-card">
                                     <div class="sr-article-img">
-                                       <img [src]="hit.image.url" [alt]="hit.image.alt" />
+                                       <img [src]="hit?.image?.url" [alt]="hit?.image?.alt" />
                                        <div class="article-image-icon" >
                                           <i class="fas fa-angle-right"></i>
                                        </div>
                                     </div>
                                     <div class="sr-article-detail">
                                        <div class="sr-article-txt">
-                                          <h2>{{hit.title}}</h2>
+                                          <h2>{{hit?.title}}</h2>
                                           <div class="category-article-readmore">
                                              <div>
                                                 <button type="button" class="is-read-more">{{'readMore' | translate }} <img
@@ -175,9 +195,9 @@
                                           </div>
                                        </div>
                                        <div class="sr-avtar position-relative">
-                                          <img [src]="hit.author.avatar.url" 
-                                             [alt]="hit.author.avatar.alt" 
-                                             onerror="this.src='assets/images/default-avatar.png'" *ngIf="hit.author.avatar; else defaultBlock"/>
+                                          <img [src]="hit?.author?.avatar.url" 
+                                             [alt]="hit?.author?.avatar?.alt" 
+                                             onerror="this.src='assets/images/default-avatar.png'" *ngIf="hit?.author?.avatar; else defaultBlock"/>
                                              <ng-template #defaultBlock><img src="assets/images/default-avatar.png" /></ng-template>
                                              <app-article-avatar [article]="hit"></app-article-avatar>
                                        </div>
@@ -187,11 +207,11 @@
                            
                               <div [routerLink]="['/',hit.slug]" *ngIf="hit.type==='author'">
                                  <div class="sr-article-img">
-                                    <img [src]="hit.avatar.url" [alt]="hit.avatar.alt" />
+                                    <img [src]="hit?.avatar?.url" [alt]="hit?.avatar?.alt" />
                                  </div>
                                  <div class="sr-article-detail">
                                     <div class="sr-article-txt">
-                                       <h2>{{hit.fullname}}</h2>
+                                       <h2>{{hit?.fullname}}</h2>
                                        <div class="category-article-readmore">
                                           <div>
                                              <button type="button" class="is-read-more">{{'showNow' | translate }} <img
@@ -205,13 +225,13 @@
                                  </div>
                               </div>
                           
-                           <div [routerLink]="['/fundraisers',hit.slug]"*ngIf="hit.type==='fundraiser'">
+                           <div [routerLink]="['/fundraisers',hit.slug]" *ngIf="hit.type==='fundraiser'">
                                  <div class="sr-article-img">
-                                    <img [src]="hit.image.url" [alt]="hit.image.alt" />
+                                    <img [src]="hit?.image?.url" [alt]="hit?.image?.alt" />
                                  </div>
                                  <div class="sr-article-detail">
                                     <div class="sr-article-txt">
-                                       <h2>{{hit.title}}</h2>
+                                       <h2>{{hit?.title}}</h2>
                                        <div class="category-article-readmore">
                                           <div>
                                              <button type="button" class="is-read-more">{{'showNow' | translate }} <img
@@ -220,7 +240,7 @@
                                        </div>
                                     </div>
                                     <div class="sr-avtar">
-                                       <img [src]="hit.author.avatar.url"  [alt]="hit.author.avatar.alt" 
+                                       <img [src]="hit?.author?.avatar?.url"  [alt]="hit?.author?.avatar?.alt" 
                                        onerror="this.src='assets/images/default-avatar.png'" *ngIf="hit.author.avatar; else defaultBlock"/>
                                        <ng-template #defaultBlock><img src="assets/images/default-avatar.png" /></ng-template>
                                     </div>

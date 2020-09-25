@@ -1,5 +1,41 @@
 <section class="is-article-block">
     <div class="container">
+        <div class="mobile-article-detail">
+            <h2 class="xs-article-title">
+                <span class="xs-article-category"
+                    [ngClass]="article.category.slug">{{article?.category.title}}</span><br>
+                {{article?.title}}
+            </h2>
+            <div class="xs-article-author-detail">
+                <div class="xs-article-name">
+                    {{article?.author?.fullname}}
+                   
+                </div>
+                <div class="comment-section">
+                    <ul>
+                        <li *ngIf="articleVicewCount">
+                            <a class="is-like">
+                                <span class="likes-count">
+                                    <i class="fas fa-eye"></i>{{articleVicewCount}}
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="is-like" *ngIf="!isLike" (click)="like()">
+                                <i class="far fa-thumbs-up"></i>
+                                {{'like' | translate}} <span class="like-count">{{articleLikes}}</span>
+                            </a>
+                            <a class="is-like" *ngIf="isLike" (click)="disLike()">
+                                <i class="fas fa-heart"></i>
+                                {{'liked' | translate}} <span class="like-count">{{articleLikes}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="xs-article-date">{{article?.published_at | date:'medium' }}</div>
+            <div class="addthis_inline_share_toolbox"></div>
+        </div>
         <div class="article-full-img">
             <img src="{{replaceImage(article?.image?.url)}}" alt="{{article.image.alt}}"
                 *ngIf="!(article.image.cloudinary_id); else articleFullimg" />
@@ -11,7 +47,7 @@
             </ng-template>
         </div>
         <div class="is-article-sec">
-            <div class="is-left-profile">
+            <div class="is-left-profile hidden-on-xs">
                 <div class="sticky-box">
                     <div class="is-profile">
                         <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
@@ -101,7 +137,7 @@
             </div>
             <div class="is-main-article-content">
                 <div class="is-content">
-                    <div class="is-head">
+                    <div class="is-head hidden-on-xs">
                         <h2>
                             <a itemprop="mainEntityOfPage" [routerLink]="['/',article?.slug]" *ngIf="article">
                                 <span itemprop="headline">
@@ -128,8 +164,8 @@
                             </div>
                             <div class="is-date">
                                 {{article?.published_at | date:'medium' }}
-                                <a class="category cat-purple" [routerLink]="['/category/',article?.category?.slug]"
-                                    *ngIf="article">
+                                <a class="category" [routerLink]="['/category/',article?.category?.slug]"
+                                    *ngIf="article" [ngClass]="article.category.slug">
                                     {{article?.category.title}}
                                 </a>
                             </div>
@@ -186,11 +222,47 @@
                         </div>
                         <div *ngIf="articleType === TEXT" class="is-paragraph">
                             <p class="big " innerHTML="{{article?.content}}"></p>
-                            <p>{{'publishedBy' | translate}}<a [routerLink]="['/profile/',article?.author?.slug]"
+                            <p class="hidden-on-xs">
+                                {{'publishedBy' | translate}}
+                                <a [routerLink]="['/profile/',article?.author?.slug]"
                                     target="_blank" title="  {{article?.author.fullname}}" *ngIf="article">
                                     <span class="name" itemprop="name">
-                                        {{article?.author.fullname}}</span></a>
+                                        {{article?.author.fullname}}</span>
+                                </a>
                             </p>
+                            <div class="xs-article-publish">
+                                <div class="xs-article-publisher-img">
+                                    <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url"
+                                        *ngIf="article">
+                                        <img class="avatar" alt="{{article?.author?.avatar?.alt}}"
+                                            src="{{replaceImage(article?.author?.avatar?.url)}}"
+                                            onerror="this.src='assets/images/default-avatar.png'"
+                                            *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg" />
+                                        <ng-template #CateAvatarCloudinoryImg>
+                                            <div class="hide-feature-img d-inline-block">
+                                                <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                                            </div>
+                                        </ng-template>
+                                    </a>
+                                </div>
+                                <div class="xs-articl-publisher-name">
+                                    <!-- {{'publishedBy' | translate}} -->
+                                    {{'WrittenBy' | translate}}
+                                    <a [routerLink]="['/profile/',article?.author?.slug]"
+                                        target="_blank" title="  {{article?.author.fullname}}" *ngIf="article">
+                                        <span class="name" itemprop="name">
+                                            {{article?.author.fullname}}</span>
+                                    </a>
+                                    <div>
+                                        <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                                            {{'followAuthor' | translate}}
+                                        </a>
+                                        <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                                            {{'unfollowAuthor' | translate}}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                             <p class="report-abuse-spin" *ngIf="isLoggedInUser">
                                 <a class="comment-view-replies" (click)="reportAbuseArticle()">
                                     <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseArticleLoading"></nz-spin>
