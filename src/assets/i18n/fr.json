@@ -641,5 +641,8 @@
     "FollowNotAllowed": "Follow",
     "FollowNotAllowedMessage": "Vous ne pouvez pas suivre votre propre profil.",
     "ShowMore": "Montre plus",
-    "ShowLess": "Montrer moins"
+    "ShowLess": "Montrer moins",
+    "DeletMsgSuc": "Enregistrement supprimé avec succès!",
+    "DeletMsgConf": "Voulez-vous supprimer ces enregistrements?",
+    "WrittenBy": "Écrit par"
 }

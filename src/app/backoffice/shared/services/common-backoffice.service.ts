@@ -91,6 +91,9 @@ export class CommonBackofficeService {
     );
   }
 
+  deleteMember(id) {
+    return this.http.delete(environment.baseAPIDomain + '/api/v1/members/' + id);
+  }
 
   getArticle(prop: string, value: string): Observable<Article[]> {
     return this.db.collection<Article>(`${this.articleCollection}`, ref =>

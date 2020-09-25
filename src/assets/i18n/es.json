@@ -640,5 +640,8 @@
     "FollowNotAllowed": "Seguir",
     "FollowNotAllowedMessage": "No puedes seguir tu propio perfil",
     "ShowMore": "Mostrar más",
-    "ShowLess": "Muestra menos"
+    "ShowLess": "Muestra menos",
+    "DeletMsgSuc": "¡Registro eliminado correctamente!",
+    "DeletMsgConf": "¿Desea eliminar estos registros?",
+    "WrittenBy": "Escrito por"
 }

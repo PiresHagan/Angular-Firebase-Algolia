@@ -91,6 +91,11 @@
                             <span class="text-gray">{{item.created_at | date:'mm/dd/yyyy'}}</span>
                         </td> -->
                         <td class="text-right">
+                            <a nz-button nzType="primary" class="" nzGhost (click)="deleteMember(item.id)"
+                                style="margin: 10px;">
+                                <i nz-icon nzType="delete" theme="outline"></i>
+
+                            </a>
                             <a nz-button nzType="primary" class="" nzGhost (click)="editMember(item.id)">
                                 <i nz-icon nzType="edit" theme="outline"></i>
 

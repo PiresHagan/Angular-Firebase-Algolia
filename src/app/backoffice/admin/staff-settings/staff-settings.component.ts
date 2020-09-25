@@ -296,6 +296,29 @@ export class StaffSettingsComponent {
   editMember(id) {
     this.getMemberDetailsById(id);
   }
+
+  deleteMember(id: string) {
+    let memberMessageConf = this.translate.instant("DeletMsgConf");
+    let memberMessageSucc = this.translate.instant("DeletMsgSuc");
+    let memberErrorMsg = this.translate.instant("somethingWrongErr");
+    this.modalService.confirm({
+      nzContent: memberMessageConf,
+      nzOnOk: () =>
+        new Promise((resolve, reject) => {
+          this.commonBackofficeService.deleteMember(id).subscribe(() => {
+            this.modalService.success({
+              nzTitle: "<i>" + memberMessageSucc + "</i>",
+            });
+            resolve();
+          }, (err) => {
+            this.modalService.error({
+              nzTitle: "<i>" + memberErrorMsg + "</i>",
+            });
+            reject();
+          })
+        }).catch(() => console.log('Oops errors!'))
+    });
+  }
   goBack() {
     this.memberEmail = "";
     this.currentUser = null;
