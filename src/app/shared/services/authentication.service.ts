@@ -59,6 +59,7 @@ export class AuthService {
                 password: password,
                 displayName: displayName
             }).subscribe((data) => {
+                firebase.auth().currentUser.sendEmailVerification();
                 resolve(data);
             }, err => reject(err))
         })

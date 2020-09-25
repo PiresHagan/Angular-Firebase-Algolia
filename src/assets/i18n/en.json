@@ -676,6 +676,8 @@
     "UpgradePackage": "Upgrade",
     "LeadSubscriptionCancelMsgConf": "Are you sure you want to cancel active subscription ?",
     "LeadSubscriptionCancelled": "Active subscription cancelled successfully!",
-    "ShowMore":"Show More",
-    "ShowLess":"Show Less"
+    "ShowMore": "Show More",
+    "ShowLess": "Show Less",
+    "DeletMsgSuc": "Record deleted successfully!",
+    "DeletMsgConf": "Do you Want to delete these record?"
 }

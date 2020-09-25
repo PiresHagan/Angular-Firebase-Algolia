@@ -638,6 +638,8 @@
     "toContinue": "continuer",
     "buyingSpotText": "avant d'acheter votre place",
     "ProfileDataMisssing": "Veuillez compléter votre profil avant de créer du contenu sur le site.",
-    "ShowMore":"Montre plus",
-    "ShowLess":"Montrer moins"
+    "ShowMore": "Montre plus",
+    "ShowLess": "Montrer moins",
+    "DeletMsgSuc": "Enregistrement supprimé avec succès!",
+    "DeletMsgConf": "Voulez-vous supprimer ces enregistrements?"
 }

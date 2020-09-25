@@ -637,6 +637,8 @@
     "toContinue": "continuar",
     "buyingSpotText": "antes de comprar tu lugar",
     "ProfileDataMisssing": "Complete su perfil antes de crear contenido en el sitio web",
-    "ShowMore":"Mostrar más",
-    "ShowLess":"Muestra menos"
+    "ShowMore": "Mostrar más",
+    "ShowLess": "Muestra menos",
+    "DeletMsgSuc": "¡Registro eliminado correctamente!",
+    "DeletMsgConf": "¿Desea eliminar estos registros?"
 }
