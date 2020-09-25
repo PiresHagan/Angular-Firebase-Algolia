@@ -34,7 +34,6 @@
                 </div>
             </div>
             <div class="xs-article-date">{{article?.published_at | date:'medium' }}</div>
-            <div class="addthis_inline_share_toolbox"></div>
         </div>
         <div class="article-full-img">
             <img src="{{replaceImage(article?.image?.url)}}" alt="{{article.image.alt}}"
@@ -243,10 +242,10 @@
                                                 <app-cloudinary-img [article]="article"></app-cloudinary-img>
                                             </div>
                                         </ng-template>
+                                        <app-article-avatar [article]="article"></app-article-avatar>
                                     </a>
                                 </div>
                                 <div class="xs-articl-publisher-name">
-                                    <!-- {{'publishedBy' | translate}} -->
                                     {{'WrittenBy' | translate}}
                                     <a [routerLink]="['/profile/',article?.author?.slug]"
                                         target="_blank" title="  {{article?.author.fullname}}" *ngIf="article">
