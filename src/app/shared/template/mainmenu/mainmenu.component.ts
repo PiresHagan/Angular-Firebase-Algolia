@@ -13,6 +13,7 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./mainmenu.component.scss']
 })
 export class MainmenuComponent implements OnInit {
+  isMenuHidden: boolean = true;
   categoryListData = {};
   categories: Category[];
   searchVisible: boolean = false;
@@ -99,14 +100,17 @@ export class MainmenuComponent implements OnInit {
       document.getElementById('mega-menu-section').style.display = 'none';
     }
   }
+
   routeLogin(): void {
+    this.hideMenu();
     this.router.navigate(["/auth/login"]);
+  }
 
-}
-routeSignup(): void {
+  routeSignup(): void {
+    this.hideMenu();
     this.router.navigate(["/auth/signup"]);
+  }
 
-}
 signOut(): void {
     this.authService.signout().then(() => {
         this.isLoggedInUser = false;
@@ -117,4 +121,9 @@ isCollapsed = false;
   toggleCollapsed(): void {
     this.isCollapsed = !this.isCollapsed;
   }
+
+  hideMenu() {
+    this.isMenuHidden = true;
+  }
+
 }
