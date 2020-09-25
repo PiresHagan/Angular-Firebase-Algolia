@@ -440,6 +440,9 @@
                 height: 2px;
             }
         }
+        .city, .ville, .ciudad{
+            display: none !important;
+        }
         .life-and-styles, .vie-et-styles, .vida-y-estilos{
             .category-title-xs{
                 color: #fbca20;
@@ -547,7 +550,7 @@
                 }
             }
         }
-
+       
         .border-bottom{
             border-bottom: 1px solid #eee;
         }
