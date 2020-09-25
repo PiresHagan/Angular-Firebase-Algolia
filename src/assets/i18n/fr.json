@@ -641,5 +641,6 @@
     "ShowMore": "Montre plus",
     "ShowLess": "Montrer moins",
     "DeletMsgSuc": "Enregistrement supprimé avec succès!",
-    "DeletMsgConf": "Voulez-vous supprimer ces enregistrements?"
+    "DeletMsgConf": "Voulez-vous supprimer ces enregistrements?",
+    "WrittenBy": "Écrit par"
 }

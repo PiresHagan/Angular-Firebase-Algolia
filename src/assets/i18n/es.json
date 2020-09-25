@@ -640,5 +640,6 @@
     "ShowMore": "Mostrar más",
     "ShowLess": "Muestra menos",
     "DeletMsgSuc": "¡Registro eliminado correctamente!",
-    "DeletMsgConf": "¿Desea eliminar estos registros?"
+    "DeletMsgConf": "¿Desea eliminar estos registros?",
+    "WrittenBy": "Escrito por"
 }
