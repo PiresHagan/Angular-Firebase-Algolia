@@ -1,3 +1,55 @@
+/* algolia CSS */
+::ng-deep .ais-SearchBox-form {
+    display: block;
+    position: relative;
+}
+::ng-deep .ais-SearchBox-submit {
+    padding: 0;
+    overflow: visible;
+    font: inherit;
+    line-height: normal;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin:0px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: absolute;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    right: 0.3rem;
+    transform: translateY(-50%);
+}
+::ng-deep  .ais-Pagination-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .ais-Pagination-item{
+        list-style: none;
+    }
+}
+::ng-deep .ais-Pagination-link {
+    padding: 0.3rem 0.6rem;
+    display: block;
+    border: 1px solid #C4C8D8;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-out;
+    list-style: none;
+}
+::ng-deep .ais-Pagination-item + .ais-Pagination-item {
+    margin-left: 0.3rem;
+}
+
+/* algolia CSS */
+
 .sr-engine-sec {
 	padding-bottom: 40px;
     .mb-35{
