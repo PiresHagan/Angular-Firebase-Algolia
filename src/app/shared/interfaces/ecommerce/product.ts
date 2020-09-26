@@ -1,7 +1,11 @@
 import { ProductCategory } from './category';
 import { ImageItem, ItemLog } from './common';
 
-export type ProductStatusTypes = 'published';
+export enum ProductStatusTypes {
+  INSTOCK = 1,
+  OUT_OF_STOCK,
+  PENDING,
+};
 
 export interface ProductVariant {
   type: string; // Example, color, size etc
@@ -10,15 +14,11 @@ export interface ProductVariant {
   quantity: number;
 }
 
-export interface ProductStoreInfo {
-  uid: string;
-  storeId: string;
-  storeName: string;
-}
-
 export interface ProductStats {
   view_count: number;
   purchase_count: number;
+  rating: number; // Example, 4.5
+  review_count: number;
 }
 
 export interface ProductPrice {
@@ -32,8 +32,10 @@ export interface Product {
   title: string;
   slug: string;
   summary: string;
-  categories: ProductCategory[];
-  storeInfo: ProductStoreInfo;
+  category: ProductCategory;
+  subcategories: ProductCategory[];
+  storeId: string;
+  storeName: string;
   description: string;
   tags: string[];
   images: ImageItem[];

@@ -1,16 +1,14 @@
-::ng-deep .single-product{
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+.single-product{
+    background: #fff;
     &:hover{
         box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.05);
-        background: #fff;
     }
-
     .product-img{
         height: 250px;
-    position: relative;
-    overflow: hidden;
-    border-radius:5px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 5px;
+
         img{
             width: 100%;
             height: 250px;
@@ -26,12 +24,6 @@
             top: 0;
             left: 0;
         }
-    }
-    &:hover .product-img{
-        box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.05);
-        background: #fff;
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 0px;
     }
     .product-body{
         padding: 15px;
@@ -74,13 +66,26 @@
         }
         
     }
-   ::ng-deep &.store{
+   &.store{
         .product-item{
             position: relative;
             .product-body{
                 position: absolute;
-                top:0px;
-                left: 0px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+                text-align: center;
+                h2{
+                    position: relative;
+                    z-index: 1;
+                    color: #fff;
+                    margin-bottom: 10px;
+                }
+                p{
+                    position: relative;
+                    z-index: 1;
+                }
             }
         }
     }

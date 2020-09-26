@@ -8,14 +8,12 @@ export enum StoreStatusTypes {
   SUSPENDED,
 }
 
-export interface StoreOwner {
-  uid: string;
-}
-
 export interface Store {
   id: string;
   name: string;
   owner: any;
+  ownerId: string;
+  ownerType: string;
   image: ImageItem;
   status: StoreStatusTypes;
   description: string;
