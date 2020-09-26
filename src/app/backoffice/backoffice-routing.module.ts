@@ -46,6 +46,10 @@ const routes: Routes = [
   {
     path: 'social-sharing',
     loadChildren: () => import('./social-sharing/social-sharing.module').then(m => m.SocialSharingModule),
+  },
+  {
+    path: 'shop',
+    loadChildren: () => import('./ecommerce/ecommerce.module').then(m => m.EcommerceModule),
   }
 ];
 

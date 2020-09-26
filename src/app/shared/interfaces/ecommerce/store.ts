@@ -15,9 +15,14 @@ export interface StoreOwner {
 export interface Store {
   id: string;
   name: string;
-  owner: StoreOwner;
+  owner: any;
   image: ImageItem;
   status: StoreStatusTypes;
   description: string;
   log: ItemLog;
+  phone?: number;
+  email: string;
+
+
+
 }

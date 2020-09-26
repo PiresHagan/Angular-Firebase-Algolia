@@ -162,5 +162,33 @@ export const ROUTES: SideNavInterface[] = [
         icon: 'notification',
         staff_only: false,
         submenu: []
+    },
+    {
+        path: '',
+        title: 'Store',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'shopping-cart',
+        staff_only: false,
+        submenu: [
+            {
+                path: '/app/shop/sellproducts/product-list',
+                title: 'Product List',
+                iconType: 'nzIcon',
+                iconTheme: 'outline',
+                icon: 'skin',
+                staff_only: false,
+                submenu: []
+            },
+            {
+                path: '/app/shop/sellproducts/store-settings',
+                title: 'Store Setting',
+                iconType: 'nzIcon',
+                iconTheme: 'outline',
+                icon: 'setting',
+                staff_only: false,
+                submenu: []
+            }
+        ]
     }
 ]
