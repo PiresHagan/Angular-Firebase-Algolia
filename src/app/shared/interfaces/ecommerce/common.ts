@@ -4,3 +4,9 @@ export interface ItemLog {
   createdBy: string;
   lastUpdatedBy?: string;
 }
+
+export interface ImageItem {
+  url?: string,
+  alt?: string,
+  cloudinary_id: string;
+}

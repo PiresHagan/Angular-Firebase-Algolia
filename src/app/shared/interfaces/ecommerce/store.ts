@@ -1,4 +1,4 @@
-import { ItemLog } from './common';
+import { ImageItem, ItemLog } from './common';
 
 export enum StoreStatusTypes {
   PENDING = 1,
@@ -16,7 +16,7 @@ export interface Store {
   id: string;
   name: string;
   owner: StoreOwner;
-  image: string;
+  image: ImageItem;
   status: StoreStatusTypes;
   description: string;
   log: ItemLog;

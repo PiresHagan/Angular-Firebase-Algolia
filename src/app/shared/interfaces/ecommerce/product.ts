@@ -1,5 +1,5 @@
 import { ProductCategory } from './category';
-import { ItemLog } from './common';
+import { ImageItem, ItemLog } from './common';
 
 export type ProductStatusTypes = 'published';
 
@@ -36,7 +36,7 @@ export interface Product {
   storeInfo: ProductStoreInfo;
   description: string;
   tags: string[];
-  images: string[];
+  images: ImageItem[];
   status: ProductStatusTypes;
   stats: ProductStats;
   price: ProductPrice;
