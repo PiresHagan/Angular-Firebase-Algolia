@@ -4,8 +4,10 @@
             <img src="assets/images/shopping/product/product.jpg" alt="product" />
         </div>
         <div class="product-body">
-            <h2>Royalex Watch Center</h2>
-            <button type="button" class="buy-btn">Shop Now</button>
+            <h2>{{ store.name }}</h2>
+            <a [routerLink]="['/shop', store.slug]">
+                <button type="button" class="buy-btn">Shop Now</button>
+            </a>
         </div>
     </div>
 </div>

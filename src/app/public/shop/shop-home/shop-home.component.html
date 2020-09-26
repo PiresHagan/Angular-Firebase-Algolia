@@ -85,21 +85,9 @@
             <span class="line"></span>
         </div>
         <div class="product-list">
-            <div class="product">
-               <shop-product-card></shop-product-card>
+            <div class="product" *ngFor="let topProduct of topProducts">
+               <shop-product-card [product]="topProduct"></shop-product-card>
             </div>
-            <div class="product">
-                <shop-product-card></shop-product-card>
-             </div>
-             <div class="product">
-                <shop-product-card></shop-product-card>
-             </div>
-             <div class="product">
-                <shop-product-card></shop-product-card>
-             </div>
-             <div class="product">
-                <shop-product-card></shop-product-card>
-             </div>
         </div>
     </div>
 </section>
@@ -110,20 +98,8 @@
             <span class="line"></span>
         </div>
         <div class="product-list">
-            <div class="product">
-               <shop-product-card></shop-product-card>
-            </div>
-            <div class="product">
-                <shop-product-card></shop-product-card>
-             </div>
-             <div class="product">
-                <shop-product-card></shop-product-card>
-             </div>
-             <div class="product">
-                <shop-product-card></shop-product-card>
-             </div>
-             <div class="product">
-                <shop-product-card></shop-product-card>
+            <div class="product" *ngFor="let dealProduct of todaysDealProducts">
+                <shop-product-card [product]="dealProduct"></shop-product-card>
              </div>
         </div>
     </div>
@@ -135,20 +111,8 @@
             <span class="line"></span>
         </div>
         <div class="product-list">
-            <div class="product">
-               <shop-product-card></shop-product-card>
-            </div>
-            <div class="product">
-                <shop-product-card></shop-product-card>
-             </div>
-             <div class="product">
-                <shop-product-card></shop-product-card>
-             </div>
-             <div class="product">
-                <shop-product-card></shop-product-card>
-             </div>
-             <div class="product">
-                <shop-product-card></shop-product-card>
+            <div class="product" *ngFor="let fashionProduct of fashionProducts">
+                <shop-product-card [product]="fashionProduct"></shop-product-card>
              </div>
         </div>
     </div>
@@ -160,11 +124,9 @@
             <span class="line"></span>
         </div>
         <div class="product-list">
-           <div class="product"><app-store></app-store></div>
-           <div class="product"><app-store></app-store></div>
-           <div class="product"><app-store></app-store></div>
-           <div class="product"><app-store></app-store></div>
-           <div class="product"><app-store></app-store></div>
+           <div class="product" *ngFor="let store of stores">
+               <app-store [store]="store"></app-store>
+            </div>
         </div>
     </div>
 </section>
