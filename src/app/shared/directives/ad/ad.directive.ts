@@ -43,6 +43,8 @@ export class AdDirective implements OnInit {
   private checkAdScript(cb: Function) {
     const script = window['googletag'];
 
+    console.log('Script ', script);
+
     if (script) {
       cb();
     } else {
