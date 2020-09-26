@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { take } from 'rxjs/operators';
 import { SeoData } from '../../interfaces/seo-data.type';
 import { SeoDataService } from '../seo-data.service';
 
@@ -20,9 +21,9 @@ export class SeoService {
   public updateMetaTags(config: SeoConfig): void {
     // default values
     config = {
-      title: 'My Trending Stories',
-      description: 'trending-test-description-here',
-      summary: 'trending-test-summary-here',
+      title: 'What’s Trending Today | Trending News | Live News | My Trending Stories',
+      description: 'Are you wondering what’s trending today? Find the best trending news on My Trending Stories. Discover our daily live news and never miss anything again.',
+      summary: 'Are you wondering what’s trending today? Find the best trending news on My Trending Stories.',
       image: {},
       keywords: 'news,articles',
       type: 'website',
@@ -31,7 +32,7 @@ export class SeoService {
     };
 
     if (!config.image.url) {
-      config.image.url = 'https://mytrendingstories-preprod.web.app/assets/images/favicon.png';
+      config.image.url = 'https://mytrendingstories.com/assets/images/favicon.png';
     }
 
     this.meta.updateTag({ name: 'twitter:title', content: config.title });
@@ -53,7 +54,7 @@ export class SeoService {
   }
 
   public updateTagsWithData(seoId: string): void {
-    this.seoDataService.getSeoData(seoId).subscribe(doc => {
+    this.seoDataService.getSeoData(seoId).pipe(take(1)).subscribe(doc => {
       if (doc.exists) {
         const data: SeoData = doc.data();
         this.updateMetaTags(data);

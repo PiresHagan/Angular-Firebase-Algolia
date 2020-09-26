@@ -1,4 +1,4 @@
-<section class="is-article-block">
+<section class="is-article-block" *ngIf="article">
     <div class="container">
         <div class="mobile-article-detail">
             <h2 class="xs-article-title">
@@ -9,7 +9,7 @@
             <div class="xs-article-author-detail">
                 <div class="xs-article-name">
                     {{article?.author?.fullname}}
-                   
+
                 </div>
                 <div class="comment-section">
                     <ul>
@@ -223,8 +223,8 @@
                             <p class="big " innerHTML="{{article?.content}}"></p>
                             <p class="hidden-on-xs">
                                 {{'publishedBy' | translate}}
-                                <a [routerLink]="['/profile/',article?.author?.slug]"
-                                    target="_blank" title="  {{article?.author.fullname}}" *ngIf="article">
+                                <a [routerLink]="['/profile/',article?.author?.slug]" target="_blank"
+                                    title="  {{article?.author.fullname}}" *ngIf="article">
                                     <span class="name" itemprop="name">
                                         {{article?.author.fullname}}</span>
                                 </a>
@@ -247,8 +247,8 @@
                                 </div>
                                 <div class="xs-articl-publisher-name">
                                     {{'WrittenBy' | translate}}
-                                    <a [routerLink]="['/profile/',article?.author?.slug]"
-                                        target="_blank" title="  {{article?.author.fullname}}" *ngIf="article">
+                                    <a [routerLink]="['/profile/',article?.author?.slug]" target="_blank"
+                                        title="  {{article?.author.fullname}}" *ngIf="article">
                                         <span class="name" itemprop="name">
                                             {{article?.author.fullname}}</span>
                                     </a>
@@ -287,7 +287,10 @@
                             </div>
 
                             <div class="is-middle-ad-section" style="margin:30px 0px;">
-                                <iframe src="https://api.uprivaladserver.net/v2/a/iframe/?tid=5f3d95adba2e5417307a5d71&pid=5f651857ba2e5419a05898f8&rnd=[CACHE-BUSTING-ID-HERE]&xurl=[ENCODED-URL-HERE]&width=300&height=250" width="300" height="250" marginwidth="0" marginheight="0" scrollbars="0" scrolling="no" frameborder="0" bordercolor="#000000" vspace="0" hspace="0"></iframe>
+                                <iframe
+                                    src="https://api.uprivaladserver.net/v2/a/iframe/?tid=5f3d95adba2e5417307a5d71&pid=5f651857ba2e5419a05898f8&rnd=[CACHE-BUSTING-ID-HERE]&xurl=[ENCODED-URL-HERE]&width=300&height=250"
+                                    width="300" height="250" marginwidth="0" marginheight="0" scrollbars="0"
+                                    scrolling="no" frameborder="0" bordercolor="#000000" vspace="0" hspace="0"></iframe>
                             </div>
 
                             <div class="is-reply-sec">
@@ -429,12 +432,19 @@
                 <!-- // End Ad Tag -->
 
                 <div class="ads-box">
-                    <iframe src="https://api.uprivaladserver.net/v2/a/iframe/?tid=5f3d95adba2e5417307a5d71&pid=5f41682aba2e541aa0a2910b&rnd=[CACHE-BUSTING-ID-HERE]&width=300&height=250" width="300" height="250" marginwidth="0" marginheight="0" scrollbars="0" scrolling="no" frameborder="0" bordercolor="#000000" vspace="0" hspace="0"></iframe>
+                    <!-- <iframe
+                        src="https://api.uprivaladserver.net/v2/a/iframe/?tid=5f3d95adba2e5417307a5d71&pid=5f41682aba2e541aa0a2910b&rnd=[CACHE-BUSTING-ID-HERE]&width=300&height=250"
+                        width="300" height="250" marginwidth="0" marginheight="0" scrollbars="0" scrolling="no"
+                        frameborder="0" bordercolor="#000000" vspace="0" hspace="0"></iframe> -->
+                    <div adItem id='div-gpt-ad-1599554575619-0' slot="/107720708/adxp_mytrendingstories_mRectangle"
+                        style='width: 300px; height: 250px;'></div>
                 </div>
 
-                <app-company-lead-form *ngIf="article?.author?.type == 'company'" [companyId]="article.author.id"></app-company-lead-form>
+                <app-company-lead-form *ngIf="article?.author?.type == 'company'" [companyId]="article.author.id">
+                </app-company-lead-form>
 
-                <app-charity-donate-form  *ngIf="article?.author?.type == 'charity'" [charityId]="article.author.id"></app-charity-donate-form>
+                <app-charity-donate-form *ngIf="article?.author?.type == 'charity'" [charityId]="article.author.id">
+                </app-charity-donate-form>
 
                 <div class="related-article-sec">
                     <h2>{{ "SimilarArticles" | translate }}</h2>
@@ -514,16 +524,16 @@
                     </div>
                 </div>
                 <div class="slide-article">
-                    <button type="button" nz-button class="is-see-more show-more"  [nzType]="'primary'" (click)="slideArticle()" >
-                       {{'ShowMore' | translate}}
+                    <button type="button" nz-button class="is-see-more show-more" [nzType]="'primary'"
+                        (click)="slideArticle()">
+                        {{'ShowMore' | translate}}
                     </button>
-                    <button type="button" nz-button class="is-see-more less-more"  [nzType]="'primary'" (click)="slideArticle()" >
+                    <button type="button" nz-button class="is-see-more less-more" [nzType]="'primary'"
+                        (click)="slideArticle()">
                         {{'ShowLess' | translate}}
-                     </button>
+                    </button>
                 </div>
             </div>
         </div>
-
     </div>
-
 </section>
