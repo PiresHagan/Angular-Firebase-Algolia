@@ -6,17 +6,14 @@ export type ProductStatusTypes = 'published';
 export interface ProductVariant {
   type: string; // Example, color, size etc
   values: string[]; // Example, green, XL etc
-  image: string;
+  sku: string;
+  quantity: number;
 }
 
-export interface ProductSeller {
+export interface ProductStoreInfo {
   uid: string;
-}
-
-export interface DeliveryDate {
-  date: Date;
-  fromTime: string;
-  toTime: string;
+  storeId: string;
+  storeName: string;
 }
 
 export interface ProductStats {
@@ -36,17 +33,15 @@ export interface Product {
   slug: string;
   summary: string;
   categories: ProductCategory[];
-  seller: ProductSeller;
+  storeInfo: ProductStoreInfo;
   description: string;
   tags: string[];
-  cardImage: string;
-  galleryImages: string[];
+  images: string[];
   status: ProductStatusTypes;
   stats: ProductStats;
   price: ProductPrice;
   quantity: number;
   sku: string;
   variants: ProductVariant[];
-  deliveryDates: DeliveryDate[];
   log: ItemLog;
 }

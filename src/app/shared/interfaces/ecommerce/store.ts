@@ -9,13 +9,15 @@ export enum StoreStatusTypes {
 }
 
 export interface StoreOwner {
-  id: string;
+  uid: string;
 }
 
 export interface Store {
   id: string;
   name: string;
   owner: StoreOwner;
+  image: string;
   status: StoreStatusTypes;
+  description: string;
   log: ItemLog;
 }
