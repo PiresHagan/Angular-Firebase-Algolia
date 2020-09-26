@@ -17,6 +17,7 @@ import { CloudinaryImgComponent } from './component/cloudinary-img/cloudinary-im
 import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
 import { Cloudinary } from 'cloudinary-core';
 import { ShopProductCardComponent } from './component/shop-product-card/shop-product-card.component';
+import { StoreComponent } from './component/store/store.component';
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -33,7 +34,8 @@ export function createTranslateLoader(http: HttpClient) {
         ArticleInteractionComponent,
         ArticleAvatarComponent,
         CloudinaryImgComponent,
-        ShopProductCardComponent
+        ShopProductCardComponent,
+        StoreComponent
     ],
     imports: [
         RouterModule,
@@ -50,7 +52,8 @@ export function createTranslateLoader(http: HttpClient) {
         ArticleInteractionComponent,
         ArticleAvatarComponent,
         CloudinaryImgComponent,
-        ShopProductCardComponent
+        ShopProductCardComponent,
+        StoreComponent
     ],
 
     providers: [
