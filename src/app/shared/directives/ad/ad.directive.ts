@@ -28,14 +28,13 @@ export class AdDirective implements OnInit {
       const googletag = window['googletag'];
 
       googletag.cmd.push(() => {
-        const elem = this.element.nativeElement;
-        googletag.display(this.slot, [300, 250], elem);
+        const slt = googletag.defineSlot(this.slot, [300, 250], this.id);
 
-        this.delay(2000).subscribe(() => {
-          googletag.pubads().refresh(null, { changeCorrelator: false });
+        googletag.display(this.slot, [300, 250], this.id);
 
-          console.log('Rendering Ad for ', this.id);
-        });
+        googletag.pubads().refresh([slt], { changeCorrelator: false });
+
+        console.log('Directive...');
       });
     });
   }
@@ -43,10 +42,10 @@ export class AdDirective implements OnInit {
   private checkAdScript(cb: Function) {
     const script = window['googletag'];
 
-    console.log('Script ', script);
-
-    if (script) {
-      cb();
+    if (script && script.apiReady) {
+      this.delay(3000).subscribe(() => {
+        cb();
+      });
     } else {
       this.delay(1000).subscribe(() => {
         this.checkAdScript(cb);
