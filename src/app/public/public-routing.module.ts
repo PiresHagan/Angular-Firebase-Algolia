@@ -35,6 +35,10 @@ const routes: Routes = [
     }
   },
   {
+    path: 'shop',
+    loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)
+  },
+  {
     path: 'category/:slug',
     component: CategoryComponent,
     data: {
@@ -221,10 +225,6 @@ const routes: Routes = [
       title: 'Article',
       headerDisplay: "none"
     }
-  },
-  {
-    path: 'shop',
-    loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)
   },
   {
     path: ':slug',
