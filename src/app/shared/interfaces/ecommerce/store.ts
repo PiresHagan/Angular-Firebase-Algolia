@@ -10,6 +10,7 @@ export enum StoreStatusTypes {
 
 export interface Store {
   id: string;
+  slug: string;
   name: string;
   owner: any;
   ownerId: string;

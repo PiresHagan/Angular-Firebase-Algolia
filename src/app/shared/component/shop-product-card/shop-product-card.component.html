@@ -3,15 +3,17 @@
         <img src="assets/images/shopping/product/product.jpg" alt="product" />
     </div>
     <div class="product-body">
-        <h2>royalex watch for men</h2>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        <h2>{{ product?.title }}</h2>
+        <p>{{ product?.summary }}</p>
     </div>
     <div class="product-footer">
         <div class="price">
-            $80
-            <span class="discount">$100</span>
+            {{ product?.price?.salePrice | currency :'USD':'symbol':'1.0-2' }}
+            <span class="discount">{{ product?.price?.unitPrice | currency :'USD':'symbol':'1.0-2' }}</span>
         </div>
-        <button type="button" class="buy-btn">Buy Now</button>
+        <a [routerLink]="['/shop/products',product.slug]">
+            <button type="button" class="buy-btn">Buy Now</button>
+        </a>
     </div>
 </div>
 

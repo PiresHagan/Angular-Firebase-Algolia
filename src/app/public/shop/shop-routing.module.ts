@@ -8,15 +8,19 @@ import { ShopHomeComponent } from './shop-home/shop-home.component';
 const routes: Routes = [
     {
         path: '',
-        component: ShopHomeComponent,
+        component: ShopHomeComponent
     },
     {
         path: ':sellerSlug',
-        component: SellerHomeComponent,
+        component: SellerHomeComponent
     },
     {
         path: ':sellerSlug/:productSlug',
-        component: ProductDetailsComponent,
+        component: ProductDetailsComponent
+    },
+    {
+        path: 'products/:productSlug',
+        component: ProductDetailsComponent
     }
 ];
 
