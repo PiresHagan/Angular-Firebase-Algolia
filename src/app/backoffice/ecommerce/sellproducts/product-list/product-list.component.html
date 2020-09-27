@@ -44,7 +44,7 @@
             <span class="m-l-10">{{item.name}}</span>
           </div>
         </td>
-        <td>${{item.sell_price | number:'3.2-5'}}</td>
+        <td>${{item?.price?.salePrice | number:'3.2-5'}}</td>
         <td>
           {{item.quantity}}
         </td>

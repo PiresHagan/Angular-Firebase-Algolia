@@ -48,14 +48,14 @@ export class CreateProductComponent {
 
     this.userService.getCurrentUser().then((user) => {
       this.currentUser = user;
-      this.userService.getMember(user.id).subscribe((userDetails) => {
+      this.userService.getMember(user.uid).subscribe((userDetails) => {
         this.memberDetails = userDetails;
       })
       this.setForm();
 
       this.storeservice.getStoreById(user.uid).subscribe((storeDetails: Store) => {
         if (storeDetails && storeDetails[0])
-          this.storeDetails = storeDetails;
+          this.storeDetails = storeDetails[0];
 
       })
     })
@@ -69,7 +69,7 @@ export class CreateProductComponent {
     let price = "^[0-9]+(\.[0-9]*){0,1}$";
     let quantity = "^[0-9]{1,15}$";
     this.productEditForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]],
+      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]],
       sku: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]],
       price: this.fb.group({
         salePrice: [0, [Validators.required, Validators.pattern(price)]],

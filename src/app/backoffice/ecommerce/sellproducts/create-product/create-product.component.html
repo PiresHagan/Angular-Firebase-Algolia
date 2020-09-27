@@ -9,9 +9,9 @@
           <div class="container">
             <nz-card>
               <nz-form-item>
-                <nz-form-label re nzFor="title" nzRequired>{{'ProductName'| translate}}</nz-form-label>
+                <nz-form-label re nzFor="name" nzRequired>{{'ProductName'| translate}}</nz-form-label>
                 <nz-form-control nzErrorTip="{{'PleaseInputField'| translate}}">
-                  <input nz-input formControlName="title" type="text">
+                  <input nz-input formControlName="name" type="text">
                 </nz-form-control>
               </nz-form-item>
 
@@ -27,7 +27,7 @@
 
                 <nz-form-item>
                   <nz-form-label nzFor="salePrice" nzRequired>{{'SalePrice'| translate}}</nz-form-label>
-                  <nz-form-control nzErrorTip="{{'PleaseInputValid'| translate}}">
+                  <nz-form-control nzErrorTip="{{'PleaseInputValidField'| translate}}">
                     <nz-input-group [nzPrefix]="pricePrefix">
                       <input nz-input formControlName="salePrice" type="text" placeholder="1-999999">
                     </nz-input-group>
@@ -40,7 +40,7 @@
 
                 <nz-form-item>
                   <nz-form-label nzFor="compareAmount">{{'CompareAmount'| translate}}</nz-form-label>
-                  <nz-form-control nzErrorTip="{{'PleaseInputValid'| translate}}">
+                  <nz-form-control nzErrorTip="{{'PleaseInputValidField'| translate}}">
                     <nz-input-group [nzPrefix]="pricePrefix">
                       <input nz-input formControlName="compareAmount" type="text " placeholder="1-999999">
                     </nz-input-group>
@@ -52,7 +52,7 @@
 
                 <nz-form-item>
                   <nz-form-label nzFor="unitPrice">{{'UnitPrice'| translate}}</nz-form-label>
-                  <nz-form-control nzErrorTip="{{'PleaseInputValid'| translate}}">
+                  <nz-form-control nzErrorTip="{{'PleaseInputValidField'| translate}}">
                     <nz-input-group [nzPrefix]="pricePrefix">
                       <input nz-input formControlName="unitPrice" type="text" placeholder="1-999999">
                     </nz-input-group>
@@ -64,7 +64,7 @@
               </ng-container>
 
               <nz-form-item>
-                <nz-form-control nzErrorTip="{{'langErr' | translate}}">
+                <nz-form-control nzErrorTip="{{'langErr' | translate}}" nzErrorTip="{{'PleaseInputField'| translate}}">
                   <nz-form-label class="placeholder-label" nzRequired>
                     {{'Language' | translate}}</nz-form-label>
                   <nz-select class="m-r-10" formControlName="lang" nzAllowClear nzPlaceHolder="{{'lang' | translate}}"

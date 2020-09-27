@@ -41,7 +41,6 @@ export class ProductListComponent implements OnInit {
     },
     {
       title: 'Price',
-      compare: (a: DataItem, b: DataItem) => a.price - b.price,
     },
     {
       title: 'Quantity',
