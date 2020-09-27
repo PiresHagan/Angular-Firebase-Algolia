@@ -699,7 +699,9 @@
   "Quantity": "Quantity",
   "Tags": "Tags",
   "Summary": "Summary",
-  "Save": "Save Product Info"
+  "Save": "Save Product Info",
+  "ProductDeletMsgConf": "Are you sure you want to delete this product ?",
+  "ProductDeleted": "Product deleted successfully!"
 
 
 

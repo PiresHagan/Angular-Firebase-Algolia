@@ -77,7 +77,7 @@ export class ProductListComponent implements OnInit {
 
       this.storeservice.getStoreById(user.uid).subscribe((storeDetails: Store) => {
         if (storeDetails && storeDetails[0])
-          this.storeDetails = storeDetails;
+          this.storeDetails = storeDetails[0];
 
       })
     })
@@ -102,14 +102,14 @@ export class ProductListComponent implements OnInit {
   }
 
   deleteProduct(id: string) {
-    let articleMessageConf = this.translate.instant("articleDeletMsgConf");
-    let articleMessageSucc = this.translate.instant("articleDeletMsgSuc");
+    let productMessageConf = this.translate.instant("ProductDeletMsgConf");
+    let productMessageSucc = this.translate.instant("ProductDeleted");
     this.modalService.confirm({
-      nzTitle: "<i>" + articleMessageConf + "</i>",
+      nzTitle: "<i>" + productMessageConf + "</i>",
       nzOnOk: () => {
         this.storeservice.deleteProduct(this.storeDetails.id, id).subscribe(() => {
           this.modalService.success({
-            nzTitle: "<i>" + articleMessageSucc + "</i>",
+            nzTitle: "<i>" + productMessageSucc + "</i>",
           });
 
         }, error => {
