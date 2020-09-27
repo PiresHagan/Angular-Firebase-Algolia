@@ -16,7 +16,6 @@ import { NzModalService } from 'ng-zorro-antd';
 import { TEXT, AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
 import * as moment from 'moment';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
-import { GoogleTagManagerService } from 'angular-google-tag-manager';
 
 @Component({
   selector: 'app-article',
@@ -69,7 +68,6 @@ export class ArticleComponent implements OnInit, AfterViewInit {
     private langService: LanguageService,
     private modal: NzModalService,
     private seoService: SeoService,
-    private gtmService: GoogleTagManagerService,
   ) { }
 
   ngOnInit(): void {
@@ -114,8 +112,6 @@ export class ArticleComponent implements OnInit, AfterViewInit {
 
       this.setLanguageNotification();
     });
-
-    console.log(this);
   }
 
   ngAfterViewChecked(): void {

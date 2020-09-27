@@ -6,8 +6,8 @@
     'assets/lib/hljs/highlight.pack.js',
     'https://api.cloudsponge.com/widget/i8PjRDPE-dGlkLjFchRiog.js',
     '//app.leadfox.co/js/api/leadfox.js',
-    'https://securepubads.g.doubleclick.net/tag/js/gpt.js',
-    'https://adxbid.info/mytrendingstories.js',
+    // 'https://securepubads.g.doubleclick.net/tag/js/gpt.js',
+    // 'https://adxbid.info/mytrendingstories.js',
   ];
 
   window.addEventListener('load', function () {
