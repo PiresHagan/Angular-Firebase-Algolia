@@ -658,5 +658,8 @@
   "Quantité": "Quantité",
   "Tags": "Tags",
   "Résumé": "Résumé",
-  "Enregistrer": "Enregistrer les informations sur le produit"
+  "Enregistrer": "Enregistrer les informations sur le produit",
+  "ProductDeleted": "Produit supprimé avec succès!",
+  "ProductSaved": "Produit enregistré avec succès!",
+  "ValidateAllFields": "Veuillez valider tous les champs avant de soumettre le formulaire!"
 }

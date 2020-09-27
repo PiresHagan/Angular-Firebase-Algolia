@@ -701,7 +701,10 @@
   "Summary": "Summary",
   "Save": "Save Product Info",
   "ProductDeletMsgConf": "Are you sure you want to delete this product ?",
-  "ProductDeleted": "Product deleted successfully!"
+  "ProductDeleted": "Product deleted successfully!",
+  "ProductSaved": "Product saved successfully!",
+  "ValidateAllFields": "Please validate all fields before submitting the form!"
+
 
 
 

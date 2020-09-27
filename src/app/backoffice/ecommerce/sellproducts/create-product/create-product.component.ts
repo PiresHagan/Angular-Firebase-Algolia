@@ -12,6 +12,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Store } from 'src/app/shared/interfaces/ecommerce/store';
 import { UserService } from 'src/app/shared/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -43,6 +44,7 @@ export class CreateProductComponent {
     public translate: TranslateService,
     private userService: UserService,
     private activateRoute: ActivatedRoute,
+    private location: Location,
     private route: Router,
     private fb: FormBuilder, private msg: NzMessageService, private storeservice: StoreSetting) {
   }
@@ -92,7 +94,7 @@ export class CreateProductComponent {
         this.productEditForm.controls['salePrice'].setValue(productDetails.salePrice);
         this.productEditForm.controls['compareAmount'].setValue(productDetails.compareAmount);
         this.productEditForm.controls['unitPrice'].setValue(productDetails.unitPrice);
-
+        this.fileList = productDetails.images ? productDetails.images : [];
         if (this.categoryList && this.categoryList.length == 0) {
           this.categoryService.getAll(productDetails.lang).subscribe((categoryList) => {
             this.categoryList = categoryList ? categoryList : [];
@@ -156,7 +158,7 @@ export class CreateProductComponent {
 
   showSuccess(): void {
 
-    let $message = this.translate.instant("profileSaveMessage");
+    let $message = this.translate.instant("ProductSaved");
     this.modalService.success({
       nzTitle: "<i>" + $message + "</i>",
     });
@@ -164,7 +166,7 @@ export class CreateProductComponent {
 
   showWarning(): void {
 
-    let $message = this.translate.instant("productWarningMessage");
+    let $message = this.translate.instant("artError");
     this.modalService.warning({
       nzTitle: "<i>" + $message + "</i>",
     });
@@ -240,14 +242,7 @@ export class CreateProductComponent {
     ]
   };
 
-  getBase64(file: File): Promise<string | ArrayBuffer | null> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
-    });
-  }
+
   findInvalidControls() {
     const invalid = [];
     const controls = this.productEditForm.controls;
@@ -258,5 +253,52 @@ export class CreateProductComponent {
     }
     return invalid;
   }
+  handleChange(info: { file: UploadFile }): void {
+    try {
+
+      this.getBase64(info.file.originFileObj, (img: string) => {
+        this.saveImageOnServer(img, info.file.name).then((imageObject) => {
+          imageObject['id'] = Math.random().toString(36).substr(2, 9);
+          this.fileList.push(imageObject);
+        })
+      })
+    } catch (error) {
+      this.showErrorMessage('artImageGeneralErr')
+    }
+  }
+  showErrorMessage(message) {
+    let $message = this.translate.instant(message);
+    this.modalService.error({
+      nzTitle: $message,
+    });
+  }
+
+  beforeUpload = (file: UploadFile, _fileList: UploadFile[]) => {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+      this.showErrorMessage("artImageTypeErr");
+      return false;
+    }
+    const isLt2M = file.size! / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      this.showErrorMessage("artImageSizeErr");
+      return false;
+    }
+    return true;
+  };
+
+  saveImageOnServer(base64, name) {
+
+    return this.storeservice.addImage(base64, name)
+  }
+  private getBase64(img: File, callback: (img: {}) => void): void {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => callback(reader.result));
+    reader.readAsDataURL(img);
+  }
+  goBack() {
+    this.location.back();
+  }
+
 
 }

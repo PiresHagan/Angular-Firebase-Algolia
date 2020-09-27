@@ -657,5 +657,8 @@
   "Cantidad": "Cantidad",
   "Etiquetas": "Etiquetas",
   "Resumen": "Resumen",
-  "Guardar": "Guardar información del producto"
+  "Guardar": "Guardar información del producto",
+  "ProductDeleted": "¡Producto eliminado correctamente!",
+  "ProductSaved": "¡Producto guardado correctamente!",
+  "ValidateAllFields": "¡Valide todos los campos antes de enviar el formulario!"
 }
