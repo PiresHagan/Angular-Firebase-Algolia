@@ -71,22 +71,39 @@ export class ShopHomeComponent implements OnInit {
     {
       id: "1212-121221",
       name: "Royalex Watch Center",
-      slug: "12-121-2121"
+      slug: "12-121-2121",
+      image:{
+        url:'assets/images/shopping/product/product.jpg',
+          alt:'product'
+      }
+
     },{
 
       id: "1212-121221",
       name: "Royalex Watch Center",
-      slug: "12-121-2121"
+      slug: "12-121-2121",
+      image:{
+        url:'assets/images/shopping/product/product.jpg',
+          alt:'product'
+      }
     },
     {
       id: "1212-121221",
       name: "Royalex Watch Center",
-      slug: "12-121-2121"
+      slug: "12-121-2121",
+      image:{
+        url:'assets/images/shopping/product/product.jpg',
+          alt:'product'
+      }
     },
     {
       id: "1212-121221",
       name: "Royalex Watch Center",
-      slug: "12-121-2121"
+      slug: "12-121-2121",
+      image:{
+        url:'assets/images/shopping/product/product.jpg',
+          alt:'product'
+      }
     }
   ];
 
@@ -99,18 +116,22 @@ export class ShopHomeComponent implements OnInit {
 
     this.productService.getTopProducts().subscribe((data: any) => {
       this.topProducts = [...data, ...this.dummyProducts];
+      console.log('topProducts',this.topProducts);
     })
 
     this.productService.getProductForTodaysDeal().subscribe((data: any) => {
       this.todaysDealProducts = [...data, ...this.dummyProducts];
+      console.log('Deal',this.todaysDealProducts);
     })
 
     this.productService.getFashionForEveryoneProducts().subscribe((data: any) => {
       this.fashionProducts = [...data, ...this.dummyProducts];
+      console.log('Fashion',this.fashionProducts);
     })
 
     this.storeService.getAllStores().subscribe((data: any) => {
       this.stores = [...data, ...this.dummyStores];
+      console.log('Store',this.stores);
     })
     
   }

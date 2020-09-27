@@ -85,7 +85,7 @@
             <span class="line"></span>
         </div>
         <div class="product-list">
-            <div class="product" *ngFor="let topProduct of topProducts">
+            <div [routerLink]="['/shop/products',topProduct.slug]" class="product" *ngFor="let topProduct of topProducts">
                <shop-product-card [product]="topProduct"></shop-product-card>
             </div>
         </div>
@@ -98,7 +98,7 @@
             <span class="line"></span>
         </div>
         <div class="product-list">
-            <div class="product" *ngFor="let dealProduct of todaysDealProducts">
+            <div [routerLink]="['/shop/products',dealProduct.slug]"  class="product" *ngFor="let dealProduct of todaysDealProducts">
                 <shop-product-card [product]="dealProduct"></shop-product-card>
              </div>
         </div>
@@ -111,7 +111,7 @@
             <span class="line"></span>
         </div>
         <div class="product-list">
-            <div class="product" *ngFor="let fashionProduct of fashionProducts">
+            <div [routerLink]="['/shop/products',fashionProduct.slug]" class="product" *ngFor="let fashionProduct of fashionProducts">
                 <shop-product-card [product]="fashionProduct"></shop-product-card>
              </div>
         </div>

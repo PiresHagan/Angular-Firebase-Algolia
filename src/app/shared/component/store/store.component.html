@@ -1,7 +1,7 @@
 <div class="single-product store">
     <div class="product-item">
         <div class="product-img">
-            <img src="assets/images/shopping/product/product.jpg" alt="product" />
+            <img [src]="store?.image?.url" [alt]="store?.image?.alt" />
         </div>
         <div class="product-body">
             <h2>{{ store.name }}</h2>

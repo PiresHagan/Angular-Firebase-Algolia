@@ -1,0 +1,13 @@
+<section>
+    <div class="container">
+        <div class="product-title">
+            <h2>Watch</h2>
+            <span class="line"></span>
+        </div>
+        <div class="product-list">
+            <div class="product" *ngFor="let topProduct of topProducts">
+               <shop-product-card [product]="topProduct"></shop-product-card>
+            </div>
+        </div>
+    </div>
+</section>
