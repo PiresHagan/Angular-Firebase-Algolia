@@ -51,7 +51,11 @@
         <td>
           <nz-badge *ngIf="item.status == 'instock'" nzStatus="success"></nz-badge>
           <nz-badge *ngIf="item.status == 'outofstock'" nzStatus="error"></nz-badge>
-          <span class="text-capitalize">{{item.status}}</span>
+          <nz-badge *ngIf="item.status == 'pending'" nzStatus="warning"></nz-badge>
+          <span class="text-capitalize" *ngIf="item.status == 'instock'">In Stock</span>
+          <span class="text-capitalize" *ngIf="item.status == 'outofstock'">Out Of Stock</span>
+          <span class="text-capitalize" *ngIf="item.status == 'pending'">Pending</span>
+
         </td>
         <td class="text-md-right">
 
