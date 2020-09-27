@@ -11,15 +11,7 @@
             <i nz-icon nzType="search" class="opacity-05"></i>
           </ng-template>
         </div>
-        <div class="m-b-10 m-r-20 d-flex align-items-center">
-          <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Category" [(ngModel)]="selectedCategory"
-            (ngModelChange)="categoryChange($event)">
-            <nz-option nzLabel="All" nzValue="All"></nz-option>
-            <nz-option nzLabel="Home Decoration" nzValue="Home Decoration"></nz-option>
-            <nz-option nzLabel="Eletronic" nzValue="Eletronic"></nz-option>
-            <nz-option nzLabel="Jewellery" nzValue="Jewellery"></nz-option>
-          </nz-select>
-        </div>
+
         <div class="m-b-10 m-r-20 d-flex align-items-center">
           <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Status" [(ngModel)]="selectedStatus"
             (ngModelChange)="statusChange($event)">
@@ -33,14 +25,14 @@
     <div class="col-lg-4 text-right">
       <a nz-button nzType="primary" [routerLink]="['/app/shop/sellproducts/create-product']">
         <i nz-icon nzType="plus-circle" theme="outline"></i>
-        <span>Add Product</span>
+        <span>{{ 'AddProduct' | translate }}</span>
       </a>
     </div>
   </div>
   <nz-table #productsListTable [nzData]="displayData">
     <thead>
       <tr>
-        <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare">{{ column.title }}</th>
+        <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare">{{ column.title | translate }}</th>
       </tr>
     </thead>
     <tbody>
@@ -52,21 +44,23 @@
             <span class="m-l-10">{{item.name}}</span>
           </div>
         </td>
-        <td>{{item.category}}</td>
-        <td>${{item.price | number:'3.2-5'}}</td>
+        <td>${{item.sell_price | number:'3.2-5'}}</td>
         <td>
           {{item.quantity}}
         </td>
         <td>
-          <nz-badge *ngIf="item.status == 'in stock'" nzStatus="success"></nz-badge>
-          <nz-badge *ngIf="item.status == 'out of stock'" nzStatus="error"></nz-badge>
+          <nz-badge *ngIf="item.status == 'instock'" nzStatus="success"></nz-badge>
+          <nz-badge *ngIf="item.status == 'outofstock'" nzStatus="error"></nz-badge>
           <span class="text-capitalize">{{item.status}}</span>
         </td>
         <td class="text-md-right">
-          <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit">
+
+          <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit"
+            [routerLink]="['/app/shop/sellproducts/create-product']" [queryParams]="{product: item.id}">
             <i nz-icon nzType="edit" theme="outline"></i>
           </a>
-          <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete">
+          <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete"
+            (click)="deleteProduct(item.id)">
             <i nz-icon nzType="delete" theme="outline"></i>
           </button>
         </td>

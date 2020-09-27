@@ -1,6 +1,11 @@
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TableService } from '../../../shared/services/table.service';
+import { StoreSetting } from 'src/app/backoffice/shared/services/store-setting.service';
+import { TranslateService } from '@ngx-translate/core';
+import { UserService } from 'src/app/shared/services/user.service';
+import { Store } from 'src/app/shared/interfaces/ecommerce/store';
+import { NzModalService } from 'ng-zorro-antd';
 
 interface DataItem {
   id: number;
@@ -15,12 +20,15 @@ interface DataItem {
   templateUrl: './product-list.component.html'
 })
 
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
 
   selectedCategory: string;
   selectedStatus: string;
   searchInput: any;
   displayData = [];
+  currentUser;
+  storeDetails;
+
 
   orderColumn = [
     {
@@ -32,15 +40,11 @@ export class ProductListComponent {
       compare: (a: DataItem, b: DataItem) => a.name.localeCompare(b.name)
     },
     {
-      title: 'Category',
-      compare: (a: DataItem, b: DataItem) => a.category.localeCompare(b.category)
-    },
-    {
       title: 'Price',
       compare: (a: DataItem, b: DataItem) => a.price - b.price,
     },
     {
-      title: 'Stock',
+      title: 'Quantity',
       compare: (a: DataItem, b: DataItem) => a.quantity - b.quantity,
     },
     {
@@ -53,81 +57,35 @@ export class ProductListComponent {
   ]
 
   productsList = [
-    {
-      id: 31,
-      name: 'Gray Sofa',
-      avatar: 'assets/images/others/thumb-9.jpg',
-      category: 'Home Decoration',
-      price: 912,
-      quantity: 23,
-      status: 'in stock',
-      checked: false
-    },
-    {
-      id: 32,
-      name: 'Beat Headphone',
-      avatar: 'assets/images/others/thumb-10.jpg',
-      category: 'Eletronic',
-      price: 137,
-      quantity: 56,
-      status: 'in stock',
-      checked: false
-    },
-    {
-      id: 33,
-      name: 'Wooden Rhino',
-      avatar: 'assets/images/others/thumb-11.jpg',
-      category: 'Home Decoration',
-      price: 912,
-      quantity: 12,
-      status: 'in stock',
-      checked: false
-    },
-    {
-      id: 34,
-      name: 'Red Chair',
-      avatar: 'assets/images/others/thumb-12.jpg',
-      category: 'Home Decoration',
-      price: 128,
-      quantity: 0,
-      status: 'out of stock',
-      checked: false
-    },
-    {
-      id: 35,
-      name: 'Wristband',
-      avatar: 'assets/images/others/thumb-13.jpg',
-      category: 'Eletronic',
-      price: 776,
-      quantity: 0,
-      status: 'out of stock',
-      checked: false
-    },
-    {
-      id: 36,
-      name: 'Charging Cable',
-      avatar: 'assets/images/others/thumb-14.jpg',
-      category: 'Eletronic',
-      price: 119,
-      quantity: 37,
-      status: 'in stock',
-      checked: false
-    },
-    {
-      id: 37,
-      name: 'Three Legs',
-      avatar: 'assets/images/others/thumb-15.jpg',
-      category: 'Home Decoration',
-      price: 199,
-      quantity: 17,
-      status: 'in stock',
-      checked: false
-    },
+
   ]
 
-  constructor(private tableSvc: TableService) {
+  constructor(private tableSvc: TableService, private storeservice: StoreSetting, public translate: TranslateService, private modalService: NzModalService,
+    private userService: UserService) {
     this.displayData = this.productsList
   }
+
+  ngOnInit(): void {
+    this.userService.getCurrentUser().then((user) => {
+      this.currentUser = user;
+      this.storeservice.getProducts(user.uid).subscribe((productsList) => {
+
+        this.displayData = productsList;
+        this.productsList = productsList;
+      })
+
+
+
+      this.storeservice.getStoreById(user.uid).subscribe((storeDetails: Store) => {
+        if (storeDetails && storeDetails[0])
+          this.storeDetails = storeDetails;
+
+      })
+    })
+
+
+  }
+
 
   search(): void {
     const data = this.productsList
@@ -143,4 +101,31 @@ export class ProductListComponent {
     const data = this.productsList
     value !== 'All' ? this.displayData = data.filter(elm => elm.status === value) : this.displayData = data
   }
-}    
+
+  deleteProduct(id: string) {
+    let articleMessageConf = this.translate.instant("articleDeletMsgConf");
+    let articleMessageSucc = this.translate.instant("articleDeletMsgSuc");
+    this.modalService.confirm({
+      nzTitle: "<i>" + articleMessageConf + "</i>",
+      nzOnOk: () => {
+        this.storeservice.deleteProduct(this.storeDetails.id, id).subscribe(() => {
+          this.modalService.success({
+            nzTitle: "<i>" + articleMessageSucc + "</i>",
+          });
+
+        }, error => {
+
+          this.modalService.error({
+            nzTitle: "<i>" + this.translate.instant("SomethingWrong") + "</i>",
+          });
+        }
+        )
+      }
+
+    });
+
+
+
+
+  }
+}  

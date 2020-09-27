@@ -326,24 +326,8 @@ export class BackofficeArticleService {
     );
   }
 
-  getAllArticles(authorId: string) {
 
-    let dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-      .where("author.id", "==", authorId)
-      .where('status', "==", ACTIVE)
-      .orderBy('published_at', 'desc')
-    )
-    return dataQuery.snapshotChanges().pipe(map(actions => {
-      return actions.map(a => {
 
-        const data: any = a.payload.doc.data();
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      })
-
-    })
-    );
-  }
 
 
 

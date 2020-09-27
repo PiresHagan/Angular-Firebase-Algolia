@@ -644,5 +644,19 @@
   "ChangeStoreLogo": "Changer le logo du magasin",
   "Propriétaire": "Propriétaire",
   "PleaseInputField": "Veuillez saisir le champ!",
-  "PleaseInputValidField": "Veuillez saisir un champ valide!"
+  "PleaseInputValidField": "Veuillez saisir un champ valide!",
+  "CreateProduct": "Créer un produit",
+  "BasicInfo": "Informations de base",
+  "Description": "Description",
+  "ProductImages": "Product Images",
+  "ProductName": "Product Name",
+  "SalePrice": "Sale Price",
+  "CompareAmount": "Compare Amount",
+  "UnitPrice": "Prix unitaire",
+  "Marque": "Marque",
+  "Statut": "Statut",
+  "Quantité": "Quantité",
+  "Tags": "Tags",
+  "Résumé": "Résumé",
+  "Enregistrer": "Enregistrer les informations sur le produit"
 }

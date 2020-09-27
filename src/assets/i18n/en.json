@@ -685,6 +685,24 @@
   "ChangeStoreLogo": "Change Store Logo",
   "Owner": "Owner",
   "PleaseInputField": "Please input field!",
-  "PleaseInputValidField": "Please input valid field!"
+  "PleaseInputValidField": "Please input valid field!",
+  "CreateProduct": "Create Product",
+  "BasicInfo": "Basic Info",
+  "Description": "Description",
+  "ProductImages": "Product Images",
+  "ProductName": "Product Name",
+  "SalePrice": "Sale Price",
+  "CompareAmount": "Compare Amount",
+  "UnitPrice": "Unit Price",
+  "Brand": "Brand",
+  "Status": "Status",
+  "Quantity": "Quantity",
+  "Tags": "Tags",
+  "Summary": "Summary",
+  "Save": "Save Product Info"
+
+
+
+
 
 }

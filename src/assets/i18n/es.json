@@ -643,5 +643,19 @@
   "ChangeStoreLogo": "Cambiar el logotipo de la tienda",
   "Propietario": "Propietario",
   "PleaseInputField": "¡Ingrese el campo!",
-  "PleaseInputValidField": "¡Introduzca un campo válido!"
+  "PleaseInputValidField": "¡Introduzca un campo válido!",
+  "CreateProduct": "Crear producto",
+  "BasicInfo": "Información básica",
+  "Descripción": "Descripción",
+  "ProductImages": "Imágenes del producto",
+  "ProductName": "Nombre del producto",
+  "SalePrice": "Precio de oferta",
+  "CompareAmount": "Compare Importe",
+  "UnitPrice": "Precio unitario",
+  "Marca": "Marca",
+  "Estado": "Estado",
+  "Cantidad": "Cantidad",
+  "Etiquetas": "Etiquetas",
+  "Resumen": "Resumen",
+  "Guardar": "Guardar información del producto"
 }

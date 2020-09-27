@@ -5,9 +5,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { UploadFile } from 'ng-zorro-antd/upload';
 import { StoreSetting } from 'src/app/backoffice/shared/services/store-setting.service';
+import { LanguageService } from 'src/app/shared/services/language.service';
+import { CategoryService } from 'src/app/shared/services/category.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+
+import { Store } from 'src/app/shared/interfaces/ecommerce/store';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   templateUrl: './create-product.component.html',
+  styleUrls: ['./create-product.component.scss']
 })
 
 export class CreateProductComponent {
@@ -17,56 +24,73 @@ export class CreateProductComponent {
   previewImage: string = '';
   previewVisible: boolean = false;
   categoryList = [];
+  languageList = [];
+  storeDetails: Store = null;
+  currentUser;
+  memberDetails;
 
   fileList = [
-    {
-      uid: -1,
-      name: 'product-1.jpg',
-      status: 'done',
-      url: 'assets/images/others/product-1.jpg'
-    },
-    {
-      uid: 0,
-      name: 'product-2.jpg',
-      status: 'done',
-      url: 'assets/images/others/product-2.jpg'
-    },
-    {
-      uid: 1,
-      name: 'product-3.jpg',
-      status: 'done',
-      url: 'assets/images/others/product-3.jpg'
-    }
+
   ];
 
 
-  constructor(private modalService: NzModalService, private fb: FormBuilder, private msg: NzMessageService, private storeservice: StoreSetting) {
+  constructor(private modalService: NzModalService,
+    private languageService: LanguageService,
+    private categoryService: CategoryService,
+    public translate: TranslateService,
+    private userService: UserService,
+    private fb: FormBuilder, private msg: NzMessageService, private storeservice: StoreSetting) {
   }
 
   ngOnInit(): void {
+
+    this.languageList = this.languageService.geLanguageList();
+
+    this.userService.getCurrentUser().then((user) => {
+      this.currentUser = user;
+      this.userService.getMember(user.id).subscribe((userDetails) => {
+        this.memberDetails = userDetails;
+      })
+      this.setForm();
+
+      this.storeservice.getStoreById(user.uid).subscribe((storeDetails: Store) => {
+        if (storeDetails && storeDetails[0])
+          this.storeDetails = storeDetails;
+
+      })
+    })
+
+
+
+
+  }
+
+  setForm() {
     let price = "^[0-9]+(\.[0-9]*){0,1}$";
     let quantity = "^[0-9]{1,15}$";
     this.productEditForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(70)]],
+      title: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]],
       sku: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]],
       price: this.fb.group({
         salePrice: [0, [Validators.required, Validators.pattern(price)]],
         compareAmount: [0, [Validators.required, Validators.pattern(price)]],
         unitPrice: [0, [Validators.required, Validators.pattern(price)]],
       }),
-      category: ['', [Validators.required]],
+      categories: [null, [Validators.required]],
       brand: ['', [Validators.required]],
       status: ['', [Validators.required]],
-      size: [],
-      colors: [],
-      material: [],
+      // size: [],
+      // colors: [],
+      // material: [],
       description: ['', [Validators.required]],
-      quantity: [0, [Validators.required, Validators.pattern(quantity)]],
+      quantity: [1, [Validators.required, Validators.pattern(quantity)]],
       tags: [],
-      summary: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(160)]],
+      summary: ['', [Validators.required, Validators.maxLength(160)]],
+      lang: ['', [Validators.required]]
 
     });
   }
+
   numberOnly(event): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -75,6 +99,25 @@ export class CreateProductComponent {
     return true;
 
   }
+  languageSelected(language: string) {
+    if (!language)
+      return
+
+    this.categoryService.getAll(language).subscribe((categoryList) => {
+      this.productEditForm.controls['categories'].setValue(null);
+      this.categoryList = categoryList ? categoryList : [];
+
+    })
+  }
+
+  showSuccess(): void {
+
+    let $message = this.translate.instant("profileSaveMessage");
+    this.modalService.success({
+      nzTitle: "<i>" + $message + "</i>",
+    });
+  }
+
 
   submitForm(): void {
     for (const i in this.productEditForm.controls) {
@@ -82,10 +125,16 @@ export class CreateProductComponent {
       this.productEditForm.controls[i].updateValueAndValidity();
     }
     let finalObhject = this.productEditForm.getRawValue(); // {name: '', description: ''}
-    this.storeservice.addProduct(finalObhject).subscribe((productData) => {
-      this.modalService.success({
-        nzTitle: '<i>Product Added Successfully </i>',
-      });
+    finalObhject['images'] = this.fileList;
+    finalObhject['created_by'] = {
+      avatar: this.memberDetails.avatar ? this.memberDetails.avatar : '',
+      slug: this.memberDetails.slug,
+      name: this.memberDetails.fullname,
+      id: this.memberDetails.id,
+
+    }
+    this.storeservice.addProduct(this.storeDetails.id, finalObhject).subscribe((productData) => {
+      this.showSuccess();
     })
 
   }
@@ -99,10 +148,7 @@ export class CreateProductComponent {
   }
 
   save() {
-    this.modalService.confirm({
-      nzTitle: '<i>Do you want your changes?</i>',
-      nzOnOk: () => this.submitForm()
-    });
+    this.submitForm()
   }
 
   handlePreview = (file: UploadFile) => {
