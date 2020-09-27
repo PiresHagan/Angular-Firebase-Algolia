@@ -61,7 +61,7 @@ export class StoresComponent {
 
     this.profileForm = this.fb.group({
       email: ['', [Validators.required, Validators.pattern("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$")]],
-      phone: [null, [Validators.required]],
+      phone: [null, [Validators.required, Validators.pattern("^[0-9]{10}$")]],
       description: [null],
       name: [null, [Validators.required]],
       owner: [null, [Validators.required]],
@@ -84,14 +84,16 @@ export class StoresComponent {
       this.currentUser = user;
 
       this.storeService.getStoreById(user.uid).subscribe((storeDetails: Store) => {
-        this.storeDetails = storeDetails;
-        this.getCompanyAndCharity(storeDetails ? storeDetails.owner : this.userDetails, storeDetails?.owner?.id);
-        if (!storeDetails)
+        this.storeDetails = storeDetails && storeDetails[0];
+        this.getCompanyAndCharity(this.storeDetails ? this.storeDetails.owner : this.userDetails, this.storeDetails?.owner?.id);
+        if (!this.storeDetails)
           return;
-        this.profileForm.controls['email'].setValue(storeDetails.email);
-        this.profileForm.controls['phone'].setValue(storeDetails.phone);
-        this.profileForm.controls['description'].setValue(storeDetails.description);
-        this.profileForm.controls['name'].setValue(storeDetails.name);
+        this.profileForm.controls['email'].setValue(this.storeDetails.email);
+        this.profileForm.controls['phone'].setValue(this.storeDetails.phone);
+        this.profileForm.controls['description'].setValue(this.storeDetails.description);
+        this.profileForm.controls['name'].setValue(this.storeDetails.name);
+        this.uplodedImage = this.storeDetails.image;
+        this.photoURL = this.storeDetails.image ? this.storeDetails.image.url : '';
 
 
 
@@ -136,6 +138,12 @@ export class StoresComponent {
       });
     })
   }
+  showWarningMessage(message) {
+    let $message = this.translate.instant(message);
+    this.modalService.warning({
+      nzTitle: $message,
+    });
+  }
 
   async saveBasicDetails() {
     if (!this.currentUser)
@@ -144,11 +152,21 @@ export class StoresComponent {
       this.profileForm.controls[i].markAsDirty();
       this.profileForm.controls[i].updateValueAndValidity();
     }
+
+    if (!this.uplodedImage) {
+      this.showWarningMessage("LogoImageRequired");
+      return
+    }
+
     if (this.findInvalidControls().length == 0) {
       let finalObhject = this.profileForm.getRawValue();
       const loggedInUser = this.authService.getLoginDetails();
-      if (this.uplodedImage) {
-        finalObhject['image'] = this.uplodedImage;
+      finalObhject['image'] = this.uplodedImage;
+      finalObhject['created_by'] = {
+        avatar: this.authorList.currentUser.avatar ? this.authorList.currentUser.avatar : '',
+        slug: this.authorList.currentUser.slug,
+        name: this.authorList.currentUser.fullname,
+        id: this.authorList.currentUser.id,
 
       }
       finalObhject['ownerId'] = finalObhject['owner'].id;
@@ -159,7 +177,7 @@ export class StoresComponent {
       try {
         this.isLoading = true;
         if (this.storeDetails)
-          this.storeService.updateStore(this.currentUser.uid, finalObhject).subscribe(() => {
+          this.storeService.updateStore(this.storeDetails.id, finalObhject).subscribe(() => {
             this.isLoading = false;
             this.showSuccess();
           })

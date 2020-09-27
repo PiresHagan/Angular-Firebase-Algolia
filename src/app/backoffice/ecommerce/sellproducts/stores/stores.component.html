@@ -1,7 +1,7 @@
 <div class="container">
   <div class="profile-setting-main">
     <div class="page-header has-tab">
-      <h2 class="font-weight-normal"> {{ 'Store Settings' | translate }}</h2>
+      <h2 class="font-weight-normal"> {{ 'StoreSettings' | translate }}</h2>
     </div>
     <nz-tabset class="page-header-tab">
       <nz-tab nzTitle="{{'StoreDetails'| translate}}">
@@ -17,7 +17,7 @@
                     <span>{{'upload'| translate}}</span>
                   </button>
                 </nz-upload>
-                <h5>{{'changeAvatar'| translate}}</h5>
+                <h5>{{'ChangeStoreLogo'| translate}}</h5>
                 <p>
                   {{'recommendedDim'| translate}}:
                   120x120 {{'maxfile'| translate}}: 5MB
@@ -32,7 +32,7 @@
                 <div class="col-md-3">
                   <nz-form-item>
                     <nz-form-label nzRequired>{{'name'| translate}}</nz-form-label>
-                    <nz-form-control>
+                    <nz-form-control nzErrorTip="{{'PleaseInputField'| translate}}">
                       <input nz-input placeholder="{{'name'| translate}}" formControlName="name" type="text" value="" />
                     </nz-form-control>
                   </nz-form-item>
@@ -40,23 +40,27 @@
                 <div class="col-md-3">
                   <nz-form-item>
                     <nz-form-label nzRequired>{{'email'| translate}}</nz-form-label>
-                    <nz-form-control>
+                    <nz-form-control nzErrorTip="{{'PleaseInputValidField'| translate}}">
                       <input disabled nz-input placeholder="{{'email'| translate}}" type="email"
-                        formControlName="email" />
+                        placeholder="abc@company.com" formControlName="email" />
                     </nz-form-control>
                   </nz-form-item>
                 </div>
                 <div class="col-md-2">
                   <nz-form-item>
                     <nz-form-label nzRequired>{{'phoneNumber'| translate}}</nz-form-label>
-                    <nz-form-control>
+                    <nz-form-control nzErrorTip="{{'PleaseInputValidField'| translate}}">
                       <input nz-input placeholder="{{'phoneNumber'| translate}}" formControlName="phone"
-                        mask="(000) 000-0000" />
+                        placeholder="9999999999" mask="(000) 000-0000" />
                     </nz-form-control>
                   </nz-form-item>
 
-                  <div class="col-md-2">
-                    <nz-form-control nzErrorTip="{{'Select Author' | translate}}" class="m-5">
+
+                </div>
+                <div class="col-md-2">
+                  <nz-form-item>
+                    <nz-form-label nzRequired>{{'Owner'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'PleaseInputField'| translate}}" class="m-5">
                       <nz-select class="m-r-10" formControlName="owner" nzAllowClear
                         nzPlaceHolder="{{'Select Author' | translate}}">
 
@@ -77,9 +81,10 @@
 
                       </nz-select>
                     </nz-form-control>
-                  </div>
-                </div>
+                  </nz-form-item>
 
+
+                </div>
 
               </div>
               <div class="row">

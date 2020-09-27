@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Charity } from 'src/app/shared/interfaces/charity.type';
 import { take, map } from 'rxjs/operators';
+import { Store } from 'src/app/shared/interfaces/ecommerce/store';
 
 @Injectable({
     providedIn: 'root'
@@ -40,15 +41,31 @@ export class StoreSetting {
         return this.http.post(apicall, postData)
 
     }
-    updateStore(postData, storeId) {
+    updateStore(storeId, postData) {
         const apicall = environment.baseAPIDomain + '/api/v1/stores/' + storeId;
         return this.http.put(apicall, postData)
 
     }
 
-    getStoreById(storeId: string): Observable<any> {
-        return this.db.doc(`${this.storeCollection}/${storeId}`).valueChanges();
+    getStoreById(userId: string): Observable<any> {
+        //return this.db.doc(`${this.storeCollection}/${storeId}`).valueChanges();
+
+        let dataQuery = this.db.collection<Store[]>(`${this.storeCollection}`, ref => ref
+            .where("created_by.id", "==", userId)
+        )
+        return dataQuery.snapshotChanges().pipe(map(actions => {
+            return actions.map(a => {
+
+                const data: any = a.payload.doc.data();
+                const id = a.payload.doc.id;
+                return { id, ...data };
+            })
+
+        })
+        );
+
     }
+
     addProduct(postData) {
         const apicall = environment.baseAPIDomain + '/api/v1/stores/OSDiD711Xvkyd2SjVr8I/products';
         return this.http.post(apicall, postData)
