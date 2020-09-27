@@ -23,7 +23,7 @@
               </nz-form-item>
 
 
-              <ng-container formGroupName="price">
+              <div>
 
                 <nz-form-item>
                   <nz-form-label nzFor="salePrice" nzRequired>{{'SalePrice'| translate}}</nz-form-label>
@@ -61,7 +61,7 @@
                     </ng-template>
                   </nz-form-control>
                 </nz-form-item>
-              </ng-container>
+              </div>
 
               <nz-form-item>
                 <nz-form-control nzErrorTip="{{'langErr' | translate}}" nzErrorTip="{{'PleaseInputField'| translate}}">
@@ -80,7 +80,7 @@
                 <nz-form-control nzErrorTip="{{'PleaseInputField'| translate}}">
                   <nz-form-label class="placeholder-label" nzRequired>
                     {{'Category' | translate}}</nz-form-label>
-                  <nz-select class="m-r-10" formControlName="categories" nzAllowClear nzMode="multiple"
+                  <nz-select class="m-r-10" formControlName="categories" nzAllowClear
                     nzPlaceHolder="{{'Category' | translate}}">
                     <nz-option *ngFor="let category of categoryList" [nzValue]="category" nzLabel="{{category.title}}">
                     </nz-option>

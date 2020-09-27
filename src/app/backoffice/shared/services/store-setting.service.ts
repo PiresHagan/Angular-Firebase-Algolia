@@ -67,9 +67,15 @@ export class StoreSetting {
 
     }
 
-    addProduct(storeId, postData) {
-        const apicall = environment.baseAPIDomain + '/api/v1/stores/' + storeId + '/products';
-        return this.http.post(apicall, postData)
+    addOrUpdateProduct(storeId, postData, productId) {
+        if (productId) {
+            const apicall = environment.baseAPIDomain + '/api/v1/stores/' + storeId + '/products';
+            return this.http.post(apicall, postData)
+        } else {
+            const apicall = environment.baseAPIDomain + '/api/v1/stores/' + storeId + '/products/' + productId;
+            return this.http.put(apicall, postData)
+        }
+
 
     }
     updateProduct(storeId, productId, postData) {
@@ -99,6 +105,9 @@ export class StoreSetting {
     deleteProduct(storeId, productId) {
         const apicall = environment.baseAPIDomain + '/api/v1/stores/' + storeId + '/products/' + productId;
         return this.http.delete(apicall);
+    }
+    getProduct(storeId, productId) {
+        return this.db.collection(this.productCollection).doc(productId).valueChanges()
     }
 
 
