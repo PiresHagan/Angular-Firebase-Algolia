@@ -22,6 +22,10 @@ const routes: Routes = [
         component: CartComponent
     },
     {
+        path: 'checkout',
+        component: ProductCheckoutComponent
+    },
+    {
         path: ':sellerSlug',
         component: SellerHomeComponent
     },

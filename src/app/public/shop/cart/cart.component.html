@@ -1,7 +1,9 @@
-<div class="col-md-12">
-    <button nz-button nzType="primary" (click)="goBack()">Go Back</button>
-</div>
 <div class="container" *ngIf="cartProducts.length > 0">
+    <div class="m-l-20">
+        <a [routerLink]="['/shop']">
+          <button nz-button nzType="primary">Continue Shopping</button>
+        </a>
+      </div>
     <div class="row">
       <!-- List of Products -->
       <div class="col-8">
@@ -45,8 +47,24 @@
     </div>
   </div>
   <div class="container" *ngIf="cartProducts.length === 0">
-    <app-no-products-found
-      [title]="messageTitle"
-      [description]="messageDescription"
-    ></app-no-products-found>
+    <div class="row">
+        <div class="col-md-12">
+          <div class="error-template">
+            <h1>
+              Oops!</h1>
+            <h2>
+              {{messageTitle}}</h2>
+            <div class="error-details">
+              {{messageDescription}}
+            </div>
+            <div class="error-actions">
+              <a [routerLink]="[ '/' ]" class="btn btn-primary btn-lg">
+                <span class="glyphicon glyphicon-home"></span>
+                Take Me Home </a>
+              <a [routerLink]="[ '/shop' ]" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-envelope"></span>Continue Shopping</a>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
