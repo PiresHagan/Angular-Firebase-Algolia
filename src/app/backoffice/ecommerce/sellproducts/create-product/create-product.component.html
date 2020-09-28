@@ -39,17 +39,17 @@
 
 
                 <nz-form-item>
-                  <nz-form-label nzFor="compareAmount">{{'CompareAmount'| translate}}</nz-form-label>
+                  <nz-form-label nzFor="discountedPrice">{{'DiscountedPrice'| translate}}</nz-form-label>
                   <nz-form-control nzErrorTip="{{'PleaseInputValidField'| translate}}">
                     <nz-input-group [nzPrefix]="pricePrefix">
-                      <input nz-input formControlName="compareAmount" type="text " placeholder="1-999999">
+                      <input nz-input formControlName="discountedPrice" type="text " placeholder="1-999999">
                     </nz-input-group>
                     <ng-template #pricePrefix>
                       <span>$</span>
                     </ng-template>
                   </nz-form-control>
                 </nz-form-item>
-
+                <!-- 
                 <nz-form-item>
                   <nz-form-label nzFor="unitPrice">{{'UnitPrice'| translate}}</nz-form-label>
                   <nz-form-control nzErrorTip="{{'PleaseInputValidField'| translate}}">
@@ -60,7 +60,7 @@
                       <span>$</span>
                     </ng-template>
                   </nz-form-control>
-                </nz-form-item>
+                </nz-form-item> -->
               </div>
 
               <nz-form-item>
@@ -192,7 +192,7 @@
           <div class="container">
             <nz-card>
               <nz-upload [nzAction]="imageUploadURL" nzListType="picture-card" [(nzFileList)]="fileList"
-                [nzShowButton]="fileList.length < 15" [nzPreview]="handlePreview" >
+                [nzShowButton]="fileList.length < 15" [nzPreview]="handlePreview">
                 <i nz-icon nzType="plus"></i>
                 <div class="ant-upload-text">Upload</div>
               </nz-upload>

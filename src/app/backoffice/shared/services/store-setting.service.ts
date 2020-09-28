@@ -52,7 +52,7 @@ export class StoreSetting {
         //return this.db.doc(`${this.storeCollection}/${storeId}`).valueChanges();
 
         let dataQuery = this.db.collection<Store[]>(`${this.storeCollection}`, ref => ref
-            .where("created_by.id", "==", userId)
+            .where("ownerId", "==", userId)
         )
         return dataQuery.snapshotChanges().pipe(map(actions => {
             return actions.map(a => {
@@ -68,7 +68,7 @@ export class StoreSetting {
     }
 
     addOrUpdateProduct(storeId, postData, productId) {
-        if (productId) {
+        if (!productId) {
             const apicall = environment.baseAPIDomain + '/api/v1/stores/' + storeId + '/products';
             return this.http.post(apicall, postData)
         } else {
@@ -83,11 +83,11 @@ export class StoreSetting {
         return this.http.post(apicall, postData)
 
     }
-    getProducts(userId: string): Observable<any> {
+    getProducts(storeId: string): Observable<any> {
         //return this.db.doc(`${this.storeCollection}/${storeId}`).valueChanges();
 
         let dataQuery = this.db.collection(`${this.productCollection}`, ref => ref
-            .where("created_by.id", "==", userId)
+            .where("storeId", "==", storeId)
         )
         return dataQuery.snapshotChanges().pipe(map(actions => {
             return actions.map(a => {

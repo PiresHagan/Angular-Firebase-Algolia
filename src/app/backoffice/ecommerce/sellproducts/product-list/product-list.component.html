@@ -40,7 +40,8 @@
         <td>#{{item.id}}</td>
         <td>
           <div class="d-flex align-items-center">
-            <nz-avatar nzShape="square" [nzSize]="60" nzIcon="picture" [nzSrc]="item.avatar"></nz-avatar>
+            <nz-avatar nzShape="square" [nzSize]="60" nzIcon="picture" [nzSrc]="item?.images? item?.images[0].url:''">
+            </nz-avatar>
             <span class="m-l-10">{{item.name}}</span>
           </div>
         </td>

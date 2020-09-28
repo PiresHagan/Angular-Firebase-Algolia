@@ -39,7 +39,7 @@ export class CreateProductComponent {
   fileList = [
 
   ];
-  imageUploadURL = environment.baseAPIDomain + '/api/v1/settings/upload-file';
+  imageUploadURL = environment.baseAPIDomain + '/api/v1/settings/upload-files';
 
 
   constructor(private modalService: NzModalService,
@@ -80,7 +80,7 @@ export class CreateProductComponent {
   setfomFields() {
     let productId = this.activateRoute.snapshot.queryParams['product'];
     if (productId)
-      this.storeservice.getProduct('', productId).subscribe((productDetails: any) => {
+      this.storeservice.getProduct(this.storeDetails.id, productId).subscribe((productDetails: any) => {
         if (!productDetails)
           return;
         this.productDetails = productDetails;
@@ -97,8 +97,7 @@ export class CreateProductComponent {
         this.productEditForm.controls['summary'].setValue(productDetails.summary);
         this.productEditForm.controls['tags'].setValue(productDetails.tags);
         this.productEditForm.controls['salePrice'].setValue(productDetails.salePrice);
-        this.productEditForm.controls['compareAmount'].setValue(productDetails.compareAmount);
-        this.productEditForm.controls['unitPrice'].setValue(productDetails.unitPrice);
+        this.productEditForm.controls['discountedPrice'].setValue(productDetails.discountedPrice);
         this.fileList = productDetails.images ? productDetails.images : [];
         if (this.categoryList && this.categoryList.length == 0) {
           this.categoryService.getAll(productDetails.lang).subscribe((categoryList) => {
@@ -125,14 +124,10 @@ export class CreateProductComponent {
       name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]],
       sku: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]],
       salePrice: [0, [Validators.required, Validators.pattern(price)]],
-      compareAmount: [0, [Validators.required, Validators.pattern(price)]],
-      unitPrice: [0, [Validators.required, Validators.pattern(price)]],
+      discountedPrice: [0, [Validators.required, Validators.pattern(price)]],
       categories: [null, [Validators.required]],
       brand: ['', [Validators.required]],
       status: ['', [Validators.required]],
-      // size: [],
-      // colors: [],
-      // material: [],
       description: ['', [Validators.required]],
       quantity: [1, [Validators.required, Validators.pattern(quantity)]],
       tags: [],
@@ -191,14 +186,8 @@ export class CreateProductComponent {
       this.productEditForm.controls[i].updateValueAndValidity();
     }
     let finalObhject = this.productEditForm.getRawValue(); // {name: '', description: ''}
-    finalObhject['images'] = this.fileList;
-    finalObhject['created_by'] = {
-      avatar: this.memberDetails.avatar ? this.memberDetails.avatar : '',
-      slug: this.memberDetails.slug,
-      name: this.memberDetails.fullname,
-      id: this.memberDetails.id,
-
-    }
+    finalObhject['images'] = this.getFileLists();
+    finalObhject['storeId'] = this.storeDetails.id;
     if (this.findInvalidControls().length) {
       this.showWarning();
       return;
@@ -299,6 +288,15 @@ export class CreateProductComponent {
     }
 
   }
+  getFileLists() {
+    let finalListOfFiles = []
+    this.fileList.forEach(file => {
+      if (file && file.response && file.response[0])
+        finalListOfFiles.push(file.response[0])
+    });
+    return finalListOfFiles;
+  }
+
 
 
 

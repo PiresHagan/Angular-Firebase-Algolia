@@ -692,7 +692,7 @@
   "ProductImages": "Product Images",
   "ProductName": "Product Name",
   "SalePrice": "Sale Price",
-  "CompareAmount": "Compare Amount",
+  "DiscountedPrice": "Discounted Price",
   "UnitPrice": "Unit Price",
   "Brand": "Brand",
   "Status": "Status",
@@ -710,7 +710,11 @@
   "InvoiceTo:": "Invoice To:",
   "ShippingAddress": "Shipping Address",
   "InvoiceNo": "Invoice No",
-  "eCommerceTitle": "E-commerce"
+  "eCommerceTitle": "E-commerce",
+  "ProductList": "Product List",
+  "OrderList": "Order List",
+  "Invoice": "Invoice"
+
 
 
 

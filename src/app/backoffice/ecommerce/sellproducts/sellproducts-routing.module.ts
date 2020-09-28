@@ -16,35 +16,35 @@ const routes: Routes = [
         path: 'store-settings',
         component: StoresComponent,
         data: {
-          title: "create-store"
+          title: "StoreSettings"
         }
       },
       {
         path: 'product-list',
         component: ProductListComponent,
         data: {
-          title: 'product-list'
+          title: 'ProductList'
         }
       },
       {
         path: 'create-product',
         component: CreateProductComponent,
         data: {
-          title: 'create-product'
+          title: 'CreateProduct'
         }
       },
       {
         path: 'order-list',
         component: OrderListComponent,
         data: {
-          title: "oder-list"
+          title: "OrderList"
         }
       },
       {
         path: 'invoice',
         component: InvoiceComponent,
         data: {
-          title: "invoice"
+          title: "Invoice"
         }
       }
     ]

@@ -64,7 +64,7 @@ export class StoresComponent {
       phone: [null, [Validators.required, Validators.pattern("^[0-9]{10}$")]],
       description: [null],
       name: [null, [Validators.required]],
-      owner: [null, [Validators.required]],
+      // owner: [null, [Validators.required]],
     });
 
     /**
@@ -162,15 +162,15 @@ export class StoresComponent {
       let finalObhject = this.profileForm.getRawValue();
       const loggedInUser = this.authService.getLoginDetails();
       finalObhject['image'] = this.uplodedImage;
-      finalObhject['created_by'] = {
-        avatar: this.authorList.currentUser.avatar ? this.authorList.currentUser.avatar : '',
-        slug: this.authorList.currentUser.slug,
-        name: this.authorList.currentUser.fullname,
-        id: this.authorList.currentUser.id,
+      // finalObhject['created_by'] = {
+      //   avatar: this.authorList.currentUser.avatar ? this.authorList.currentUser.avatar : '',
+      //   slug: this.authorList.currentUser.slug,
+      //   name: this.authorList.currentUser.fullname,
+      //   id: this.authorList.currentUser.id,
 
-      }
-      finalObhject['ownerId'] = finalObhject['owner'].id;
-      finalObhject['ownerType'] = finalObhject['owner'].type;
+      // }
+      finalObhject['ownerId'] = this.authorList.currentUser.id;
+      finalObhject['ownerType'] = this.authorList.currentUser.type;
 
       if (!loggedInUser)
         return;
@@ -266,6 +266,7 @@ export class StoresComponent {
 
   }
   setAuthorDropdown() {
+    return
     let selectedUser = null;;
     if (this.storeDetails && this.storeDetails.owner) {
       if (this.authorList.currentUser && this.authorList.currentUser.id === this.storeDetails.owner.id) {

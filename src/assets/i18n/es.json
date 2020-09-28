@@ -650,7 +650,7 @@
   "ProductImages": "Imágenes del producto",
   "ProductName": "Nombre del producto",
   "SalePrice": "Precio de oferta",
-  "CompareAmount": "Compare Importe",
+  "DiscountedPrice": "Precio con descuento",
   "UnitPrice": "Precio unitario",
   "Marca": "Marca",
   "Estado": "Estado",
@@ -667,5 +667,8 @@
   "Factura a:": "Factura a:",
   "ShippingAddress": "Dirección de envío",
   "InvoiceNo": "Invoice No",
-  "eCommerceTitle": "Comercio electrónico"
+  "eCommerceTitle": "Comercio electrónico",
+  "ProductList": "Lista de productos",
+  "OrderList": "Lista de pedidos",
+  "Invoice": "Factura"
 }

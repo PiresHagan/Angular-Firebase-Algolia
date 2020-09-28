@@ -36,11 +36,11 @@ export class ProductListComponent implements OnInit {
       compare: (a: DataItem, b: DataItem) => a.id - b.id,
     },
     {
-      title: 'Product',
+      title: 'ProductName',
       compare: (a: DataItem, b: DataItem) => a.name.localeCompare(b.name)
     },
     {
-      title: 'Price',
+      title: 'SalePrice',
     },
     {
       title: 'Quantity',
@@ -67,17 +67,18 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getCurrentUser().then((user) => {
       this.currentUser = user;
-      this.storeservice.getProducts(user.uid).subscribe((productsList) => {
 
-        this.displayData = productsList;
-        this.productsList = productsList;
-      })
 
 
 
       this.storeservice.getStoreById(user.uid).subscribe((storeDetails: Store) => {
         if (storeDetails && storeDetails[0])
           this.storeDetails = storeDetails[0];
+        this.storeservice.getProducts(this.storeDetails.id).subscribe((productsList) => {
+
+          this.displayData = productsList;
+          this.productsList = productsList;
+        })
 
       })
     })
