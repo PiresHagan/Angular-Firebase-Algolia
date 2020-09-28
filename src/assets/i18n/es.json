@@ -660,5 +660,6 @@
   "Guardar": "Guardar información del producto",
   "ProductDeleted": "¡Producto eliminado correctamente!",
   "ProductSaved": "¡Producto guardado correctamente!",
-  "ValidateAllFields": "¡Valide todos los campos antes de enviar el formulario!"
+  "ValidateAllFields": "¡Valide todos los campos antes de enviar el formulario!",
+  "eCommerceTitle":"Comercio electrónico"
 }
