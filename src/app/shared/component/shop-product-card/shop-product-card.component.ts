@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '../../interfaces/ecommerce/product';
+import { CartService } from '../../services/shop/cart.service';
 
 @Component({
   selector: 'shop-product-card',
@@ -9,10 +10,21 @@ import { Product } from '../../interfaces/ecommerce/product';
 export class ShopProductCardComponent implements OnInit {
 
   @Input() product: Product;
+  isAdding: boolean = false;
 
-  constructor() { }
+  constructor(
+    private cartService: CartService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  addToCart() {
+    this.isAdding = true;
+    this.cartService.addToCart(this.product);
+    setTimeout(()=> {
+      this.isAdding = false;
+    }, 1000)
   }
 
 }

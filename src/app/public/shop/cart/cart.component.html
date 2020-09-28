@@ -1,0 +1,52 @@
+<div class="col-md-12">
+    <button nz-button nzType="primary" (click)="goBack()">Go Back</button>
+</div>
+<div class="container" *ngIf="cartProducts.length > 0">
+    <div class="row">
+      <!-- List of Products -->
+      <div class="col-8">
+        <section class="product-sec">
+            <div class="container"> 
+                <div class="product-title">
+                    <h2>Cart Products</h2>
+                    <span class="line"></span>
+                </div>
+                <div class="product-list">
+                    <div class="product" *ngFor="let product of cartProducts">
+                        <div class="single-product">
+                            <a [routerLink]="['/shop/products',product.slug]">
+                                <div class="product-img">
+                                    <img src="assets/images/shopping/product/product.jpg" alt="product" />
+                                </div>
+                                <div class="product-body">
+                                    <h2>{{ product?.title }}</h2>
+                                    <p>{{ product?.summary }}</p>
+                                </div>
+                            </a>
+                            <div class="product-footer">
+                                <div class="price">
+                                    {{ product?.price?.salePrice | currency :'USD':'symbol':'1.0-2' }}
+                                    <span class="discount">{{ product?.price?.unitPrice | currency :'USD':'symbol':'1.0-2' }}</span>
+                                </div>
+                                <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete"
+                                    (click)="removeCartProduct(product)">
+                                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+      </div>
+      <div class="col-4">
+        <app-cart-calculator [products]="cartProducts"></app-cart-calculator>
+      </div>
+    </div>
+  </div>
+  <div class="container" *ngIf="cartProducts.length === 0">
+    <app-no-products-found
+      [title]="messageTitle"
+      [description]="messageDescription"
+    ></app-no-products-found>
+  </div>
