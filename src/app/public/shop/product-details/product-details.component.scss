@@ -69,6 +69,7 @@
     .product-detail-main{
         display: flex;
         flex-wrap: wrap;
+        padding-top:20px;
         .product-img{
             width:40%;
             .gallary-box{
@@ -133,7 +134,7 @@
         }
         .product-detail{
             flex: 1;
-            padding: 30px;
+            padding: 0px 30px 30px 30px;
             .p-name{
                 margin: 0px;
                 font-size: 20px;
