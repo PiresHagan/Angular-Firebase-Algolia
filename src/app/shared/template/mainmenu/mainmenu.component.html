@@ -79,7 +79,7 @@
                         </div>
                     </ng-container>
                 </li>
-                <li nz-menu-item *ngIf="!isLoggedInUser">
+                <li nz-menu-item *ngIf="!isLoggedInUser" class="h-auto line-height-normal">
                     <a class="is-login-link" (click)="routeLogin()">
                         {{'login' | translate }}
                     </a>

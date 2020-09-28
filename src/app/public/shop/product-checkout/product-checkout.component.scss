@@ -1,0 +1,31 @@
+.container{
+    margin: 0 auto;
+    max-width: 1366px;
+    width: 100%;
+    padding: 0px 15px;
+}
+.checkout-section{
+    .checkout-box{
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        .step-checkout-detail{
+            width:calc(100% - 470px);
+            margin-right: 20px;
+            border: 0px;
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 15px;
+
+        }
+        .checkout{
+            width:450px;
+            border: 0px;
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 15px;
+
+        }
+    }
+}
