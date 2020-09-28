@@ -666,5 +666,6 @@
   "FACTURA": "FACTURA",
   "Factura a:": "Factura a:",
   "ShippingAddress": "Dirección de envío",
-  "InvoiceNo": "Invoice No"
+  "InvoiceNo": "Invoice No",
+  "eCommerceTitle": "Comercio electrónico"
 }

@@ -1,0 +1,115 @@
+.product-title{
+    display: flex;
+    align-items: center;
+    padding: 30px 5px 30px;
+    font-family: josefin_sanssemibold;
+    h2{
+        font-size: 22px;
+        color: #140c40;
+        margin: 0px;
+    }
+    .line{
+        flex: 1;
+        margin-left: 15px;
+        width: 100%;
+        height: 1px;
+        background: #c7d2d8;
+    }
+}
+.product-sec{
+    .product-list{
+        display: flex;
+        flex-wrap: wrap;
+        .product{
+            width: 20%;
+            margin-bottom: 20px;
+            padding: 0px 10px;
+            box-sizing: border-box;
+        }
+    }
+}
+
+@media screen and (max-width:580px){
+    .product-sec{
+        .product-list{
+            .product{
+                width: 100%;
+            }
+        }
+    }
+    .mega-menu-header{
+        .shopping-header{
+            .category-dropdown{
+                order: 1;
+                padding-right: 15px;
+                width: auto;
+                flex: 1;
+            }
+            .mega-search{
+                flex: unset;
+                order: 0;
+                padding: 0px;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            .mega-cart{
+              order:2;
+            }
+        }
+    }
+}
+
+@media screen and (min-width:581px) and (max-width:768px){
+    .product-sec{
+        .product-list{
+            .product{
+                width: 50%;
+            }
+        }
+    }
+    .mega-menu-header{
+        .shopping-header{
+            .category-dropdown{
+                order: 1;
+                padding-right: 15px;
+                width: auto;
+                flex: 1;
+            }
+            .mega-search{
+                flex: unset;
+                order: 0;
+                padding: 0px;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            .mega-cart{
+                order: 2;
+                margin-left: 20px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width:769px) and (max-width:992px){
+    .product-sec{
+        .product-list{
+            .product{
+                width: 33.3333%;
+            }
+        }
+    }
+}
+@media screen and (min-width:993px) and (max-width:1199px){
+    .mega-menu-header{
+        margin-top:40px;
+    }
+}
+@media screen and (min-width:993px) and (max-width:1370px){
+    .product-sec{
+        .product-list{
+            .product{
+                width: 25%;
+            }
+        }
+    }
+}

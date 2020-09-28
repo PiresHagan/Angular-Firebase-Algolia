@@ -1,0 +1,26 @@
+<h4 class="d-flex justify-content-between align-items-center mb-3">
+    <span class="text-muted">Your cart</span>
+    <span class="badge badge-primary badge-pill">{{ products.length }} Products</span>
+  </h4>
+  <ul class="list-group mb-3">
+    <li
+      class="list-group-item d-flex justify-content-between lh-condensed"
+      *ngFor="let product of products"
+    >
+      <div>
+        <h6 class="my-0">{{ product.title }}</h6>
+      </div>
+      <span class="text-muted">{{ product?.price?.salePrice | currency :'USD':'symbol':'1.0-2' }}</span>
+    </li>
+    <hr />
+    <li class="list-group-item d-flex justify-content-between">
+      <span>Total</span>
+      <strong>{{ totalValue | currency :'USD':'symbol':'1.0-2' }}</strong>
+    </li>
+    <a class="btn btn-primary" [routerLink]="['/shop']">
+        <p>Continue Shopping</p>
+    </a>
+    <a class="btn btn-default" [routerLink]="['/shop/checkout']">
+        <p>Checkout</p>
+    </a>
+  </ul>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/shared/interfaces/ecommerce/product';
 import { Store } from 'src/app/shared/interfaces/ecommerce/store';
+import { CartService } from 'src/app/shared/services/shop/cart.service';
 import { ProductService } from 'src/app/shared/services/shop/product.service';
 import { StoreService } from 'src/app/shared/services/shop/store.service';
 
@@ -71,26 +72,44 @@ export class ShopHomeComponent implements OnInit {
     {
       id: "1212-121221",
       name: "Royalex Watch Center",
-      slug: "12-121-2121"
+      slug: "12-121-2121",
+      image:{
+        url:'assets/images/shopping/product/product.jpg',
+          alt:'product'
+      }
+
     },{
 
       id: "1212-121221",
       name: "Royalex Watch Center",
-      slug: "12-121-2121"
+      slug: "12-121-2121",
+      image:{
+        url:'assets/images/shopping/product/product.jpg',
+          alt:'product'
+      }
     },
     {
       id: "1212-121221",
       name: "Royalex Watch Center",
-      slug: "12-121-2121"
+      slug: "12-121-2121",
+      image:{
+        url:'assets/images/shopping/product/product.jpg',
+          alt:'product'
+      }
     },
     {
       id: "1212-121221",
       name: "Royalex Watch Center",
-      slug: "12-121-2121"
+      slug: "12-121-2121",
+      image:{
+        url:'assets/images/shopping/product/product.jpg',
+          alt:'product'
+      }
     }
   ];
 
   constructor(
+    public cartService: CartService,
     private productService: ProductService,
     private storeService: StoreService
   ) { }

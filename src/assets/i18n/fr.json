@@ -667,5 +667,6 @@
   "FACTURE": "FACTURE",
   "InvoiceTo:": "Facture à:",
   "ShippingAddress": "Adresse de livraison",
-  "InvoiceNo": "Facture No"
+  "InvoiceNo": "Facture No",
+  "eCommerceTitle": "Commerce électronique"
 }

@@ -1,19 +1,19 @@
 <div class="single-product">
-    <div class="product-img">
-        <img src="assets/images/shopping/product/product.jpg" alt="product" />
-    </div>
-    <div class="product-body">
-        <h2>{{ product?.title }}</h2>
-        <p>{{ product?.summary }}</p>
-    </div>
+    <a [routerLink]="['/shop/products',product.slug]">
+        <div class="product-img">
+            <img src="assets/images/shopping/product/product.jpg" alt="product" />
+        </div>
+        <div class="product-body">
+            <h2>{{ product?.title }}</h2>
+            <p>{{ product?.summary }}</p>
+        </div>
+    </a>
     <div class="product-footer">
         <div class="price">
             {{ product?.price?.salePrice | currency :'USD':'symbol':'1.0-2' }}
             <span class="discount">{{ product?.price?.unitPrice | currency :'USD':'symbol':'1.0-2' }}</span>
         </div>
-        <a [routerLink]="['/shop/products',product.slug]">
-            <button type="button" class="buy-btn">Buy Now</button>
-        </a>
+        <button nz-button class="buy-btn" (click)="addToCart()" [nzLoading]="isAdding">Add to Cart</button>
     </div>
 </div>
 

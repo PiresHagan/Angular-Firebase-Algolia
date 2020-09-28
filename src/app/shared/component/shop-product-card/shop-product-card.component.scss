@@ -1,6 +1,20 @@
+.buy-btn {
+    background-color: #ff4020;
+    border: 0px;
+    color: #fff;
+    padding: 0.65rem 1.25rem;
+    line-height: 1.25;
+    height: auto;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+}
 ::ng-deep .single-product{
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+    outline: none;
+    cursor: pointer;
     &:hover{
         box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.05);
         background: #fff;

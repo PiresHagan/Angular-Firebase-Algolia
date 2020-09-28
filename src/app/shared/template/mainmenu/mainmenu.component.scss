@@ -555,6 +555,9 @@
         .border-bottom{
             border-bottom: 1px solid #eee;
         }
+        .line-height-normal{
+            line-height: normal !important;
+        }
          .xs-menu-item{
              ::ng-deep .ant-menu-submenu-title{
                  padding-left: 10px !important;
@@ -575,8 +578,14 @@
         }
     }
     .is-login-link{
+        color: #fff !important;
+        background: #0079d0;
+        display: inline-block !important;
+        border-radius: 30px;
         font-size: 14px;
-        color: #000 !important;
+        outline: none;
+        padding: 6px 19px;
+        margin: 20px 0px 0px 0px;
     }
     .is-sign-up-btn{
         border-radius: 30px;

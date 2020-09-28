@@ -1,17 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
 import { Product } from 'src/app/shared/interfaces/ecommerce/product';
 import { ProductService } from 'src/app/shared/services/shop/product.service';
-
 @Component({
-  selector: 'app-product-details',
-  templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.scss']
+  selector: 'app-product-category',
+  templateUrl: './product-category.component.html',
+  styleUrls: ['./product-category.component.scss']
 })
-export class ProductDetailsComponent implements OnInit {
-
-  product: Product;
-  fashionProducts: Array<Product>;
+export class ProductCategoryComponent implements OnInit {
+  @Input() product:Product;
+  topProducts: Array<Product>;
   dummyProducts = [
     {
         id: "122121212",
@@ -64,23 +61,11 @@ export class ProductDetailsComponent implements OnInit {
       }
     }
   ];
-  constructor(
-    private route: ActivatedRoute,
-    private productService: ProductService
-  ) { }
+  constructor(private productService: ProductService,) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-
-      const slug = params.get('productSlug');
-
-      this.productService.getProductBySlug(slug).subscribe(data => {
-        this.product = data[0];
-      });
-
-    });
-    this.productService.getFashionForEveryoneProducts().subscribe((data: any) => {
-      this.fashionProducts = [...data, ...this.dummyProducts];
+    this.productService.getTopProducts().subscribe((data: any) => {
+      this.topProducts = [...data, ...this.dummyProducts];
     })
   }
 

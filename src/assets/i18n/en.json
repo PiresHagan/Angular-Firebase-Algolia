@@ -709,7 +709,8 @@
   "INVOICE": "INVOICE",
   "InvoiceTo:": "Invoice To:",
   "ShippingAddress": "Shipping Address",
-  "InvoiceNo": "Invoice No"
+  "InvoiceNo": "Invoice No",
+  "eCommerceTitle": "E-commerce"
 
 
 

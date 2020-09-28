@@ -135,6 +135,10 @@
             margin-bottom: 20px;
             padding: 0px 10px;
             box-sizing: border-box;
+            outline: none;
+            &:focus{
+                outline: none;
+            }
         }
     }
 }
