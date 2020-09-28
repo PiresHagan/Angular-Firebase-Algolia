@@ -19,6 +19,15 @@ export class ProductService {
     return this.db.collection(this.storeProductsCollection).valueChanges()
   }
 
+  getProductsByStoreId(storeId: string): Observable<any> {
+    return this.db.collection<Product>(this.storeProductsCollection, ref => ref
+      .where('storeId', '==', storeId)
+    ).snapshotChanges().pipe(map(actions => {
+        return actions.map(a => a.payload.doc.data());
+      })
+    );
+  }
+
   getProductBySlug(slug: string) {
     return this.db.collection<Product>(this.storeProductsCollection, ref => ref
       .where('slug', '==', slug)

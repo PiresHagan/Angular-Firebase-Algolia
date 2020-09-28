@@ -72,7 +72,7 @@ export class ProductDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
 
-      const slug = params.get('slug');
+      const slug = params.get('productSlug');
 
       this.productService.getProductBySlug(slug).subscribe(data => {
         this.product = data[0];
