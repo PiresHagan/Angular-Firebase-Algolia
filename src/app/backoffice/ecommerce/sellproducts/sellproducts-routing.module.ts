@@ -4,6 +4,8 @@ import { CreateStoreComponent } from './create-store/create-store.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { StoresComponent } from './stores/stores.component';
+import { OrderListComponent } from './order-list/order-list.component';
+import { InvoiceComponent } from './invoice/invoice.component';
 
 
 const routes: Routes = [
@@ -29,6 +31,20 @@ const routes: Routes = [
         component: CreateProductComponent,
         data: {
           title: 'create-product'
+        }
+      },
+      {
+        path: 'order-list',
+        component: OrderListComponent,
+        data: {
+          title: "oder-list"
+        }
+      },
+      {
+        path: 'invoice',
+        component: InvoiceComponent,
+        data: {
+          title: "invoice"
         }
       }
     ]

@@ -13,6 +13,9 @@ import { Store } from 'src/app/shared/interfaces/ecommerce/store';
 import { UserService } from 'src/app/shared/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { environment } from 'src/environments/environment';
+import { HttpRequest } from '@angular/common/http';
+import { AuthService } from 'src/app/shared/services/authentication.service';
 
 
 @Component({
@@ -36,6 +39,7 @@ export class CreateProductComponent {
   fileList = [
 
   ];
+  imageUploadURL = environment.baseAPIDomain + '/api/v1/settings/upload-file';
 
 
   constructor(private modalService: NzModalService,
@@ -45,6 +49,7 @@ export class CreateProductComponent {
     private userService: UserService,
     private activateRoute: ActivatedRoute,
     private location: Location,
+    private authService: AuthService,
     private route: Router,
     private fb: FormBuilder, private msg: NzMessageService, private storeservice: StoreSetting) {
   }
@@ -253,19 +258,7 @@ export class CreateProductComponent {
     }
     return invalid;
   }
-  handleChange(info: { file: UploadFile }): void {
-    try {
 
-      this.getBase64(info.file.originFileObj, (img: string) => {
-        this.saveImageOnServer(img, info.file.name).then((imageObject) => {
-          imageObject['id'] = Math.random().toString(36).substr(2, 9);
-          this.fileList.push(imageObject);
-        })
-      })
-    } catch (error) {
-      this.showErrorMessage('artImageGeneralErr')
-    }
-  }
   showErrorMessage(message) {
     let $message = this.translate.instant(message);
     this.modalService.error({
@@ -299,6 +292,14 @@ export class CreateProductComponent {
   goBack() {
     this.location.back();
   }
+  sendToken = async (a) => {
+
+    return {
+      'Authorization': 'Bearer ' + await this.authService.getUserToken()
+    }
+
+  }
+
 
 
 }

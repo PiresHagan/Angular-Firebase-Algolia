@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -13,10 +14,12 @@ import { QuillModule } from 'ngx-quill';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TableService } from 'src/app/shared/services/table.service';
+import { OrderListComponent } from './order-list/order-list.component';
+import { InvoiceComponent } from './invoice/invoice.component';
 
 
 @NgModule({
-  declarations: [StoresComponent, ProductListComponent, ProductReviewComponent, CreateProductComponent, CreateStoreComponent],
+  declarations: [StoresComponent, ProductListComponent, ProductReviewComponent, CreateProductComponent, CreateStoreComponent, OrderListComponent, InvoiceComponent],
   imports: [
     CommonModule,
     SellproductsRoutingModule,

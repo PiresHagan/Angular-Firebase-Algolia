@@ -188,6 +188,16 @@ export const ROUTES: SideNavInterface[] = [
                 icon: 'setting',
                 staff_only: false,
                 submenu: []
+            },
+            {
+
+                path: '/app/shop/sellproducts/order-list',
+                title: 'Order List',
+                iconType: 'nzIcon',
+                iconTheme: 'outline',
+                icon: 'down-square',
+                staff_only: false,
+                submenu: []
             }
         ]
     }

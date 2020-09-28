@@ -660,5 +660,11 @@
   "Guardar": "Guardar información del producto",
   "ProductDeleted": "¡Producto eliminado correctamente!",
   "ProductSaved": "¡Producto guardado correctamente!",
-  "ValidateAllFields": "¡Valide todos los campos antes de enviar el formulario!"
+  "ValidateAllFields": "¡Valide todos los campos antes de enviar el formulario!",
+  "Marcar como cumplido": "Marcar como cumplido",
+  "MarkPaid": "Marcar como pagado",
+  "FACTURA": "FACTURA",
+  "Factura a:": "Factura a:",
+  "ShippingAddress": "Dirección de envío",
+  "InvoiceNo": "Invoice No"
 }

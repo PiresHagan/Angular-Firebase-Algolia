@@ -191,9 +191,8 @@
         <nz-tab nzTitle="{{ 'ProductImages' | translate }}">
           <div class="container">
             <nz-card>
-              <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" nzListType="picture-card"
-                [(nzFileList)]="fileList" [nzShowButton]="fileList.length < 15" [nzPreview]="handlePreview"
-                [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event)">
+              <nz-upload [nzAction]="imageUploadURL" nzListType="picture-card" [(nzFileList)]="fileList"
+                [nzShowButton]="fileList.length < 15" [nzPreview]="handlePreview" [nzHeaders]="sendToken">
                 <i nz-icon nzType="plus"></i>
                 <div class="ant-upload-text">Upload</div>
               </nz-upload>
