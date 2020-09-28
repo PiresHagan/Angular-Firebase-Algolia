@@ -9,7 +9,6 @@ declare const $: any;
 })
 export class AdDirective implements OnInit, AfterViewInit {
   @Input() id: string;
-  @Input() slot: string;
 
   constructor(
     private element: ElementRef,
@@ -18,10 +17,6 @@ export class AdDirective implements OnInit, AfterViewInit {
   ngOnInit(): void {
     if (!this.id) {
       throw Error('Ad item ID must be specified');
-    }
-
-    if (!this.slot) {
-      throw Error('Ad slot path must be specified');
     }
   }
 

@@ -1,18 +1,18 @@
 (function () {
   const jquerySrc = 'assets/lib/scripts/jquery.js';
 
-  // asynchronously loads other scripts to prevent page slowing down
-  const scripts = [
-    'assets/lib/hljs/highlight.pack.js',
-    'https://api.cloudsponge.com/widget/i8PjRDPE-dGlkLjFchRiog.js',
-    '//app.leadfox.co/js/api/leadfox.js',
-    'https://securepubads.g.doubleclick.net/tag/js/gpt.js',
-    'https://adxbid.info/mytrendingstories.js',
-  ];
-
   window.addEventListener('load', function () {
     fetch(jquerySrc).then(res => res.text()).then(res => {
       eval(res);
+
+      // asynchronously loads other scripts to prevent page slowing down
+      const scripts = [
+        'assets/lib/hljs/highlight.pack.js',
+        'https://api.cloudsponge.com/widget/i8PjRDPE-dGlkLjFchRiog.js',
+        '//app.leadfox.co/js/api/leadfox.js',
+        'https://securepubads.g.doubleclick.net/tag/js/gpt.js',
+        'https://adxbid.info/mytrendingstories.js',
+      ];
 
       setTimeout(() => {
         scripts.forEach(src => {
@@ -45,8 +45,6 @@ function initiateAds() {
       googletag.defineSlot('/107720708/adxp_mytrendingstories_skyscraper', [160, 600], 'div-gpt-ad-1599554619443-0').addService(googletag.pubads());
       googletag.defineSlot('/107720708/adxp_mytrendingstories_SmartphoneBanner', [320, 50], 'div-gpt-ad-1599554668927-0').addService(googletag.pubads());
       googletag.defineSlot('/107720708/adxp_mytrendingstories_smartphoneBanner_1', [320, 50], 'div-gpt-ad-1599554708106-0').addService(googletag.pubads());
-
-      googletag.defineSlot('/6355419/Travel/Europe/France/Paris', [300, 250], 'banner-ad-test').addService(googletag.pubads());
 
       // googletag.pubads().disableInitialLoad();
       // googletag.pubads().enableSingleRequest();
