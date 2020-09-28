@@ -112,8 +112,8 @@ export class ArticleComponent implements OnInit, AfterViewInit {
 
       this.setLanguageNotification();
     });
-
   }
+
   ngAfterViewChecked(): void {
     if (!this.isLoaded) {
       delete window['addthis']
@@ -472,8 +472,8 @@ export class ArticleComponent implements OnInit, AfterViewInit {
     this.isVisible = false;
   }
   SlideRelatedArticle: boolean = false;
-  slideArticle(){
-    this.SlideRelatedArticle = !this.SlideRelatedArticle;   
+  slideArticle() {
+    this.SlideRelatedArticle = !this.SlideRelatedArticle;
   }
 }
 

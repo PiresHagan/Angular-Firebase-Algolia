@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
 
@@ -7,7 +7,7 @@ declare const $: any;
 @Directive({
   selector: '[adItem]'
 })
-export class AdDirective implements OnInit {
+export class AdDirective implements OnInit, AfterViewInit {
   @Input() id: string;
   @Input() slot: string;
 
@@ -23,18 +23,16 @@ export class AdDirective implements OnInit {
     if (!this.slot) {
       throw Error('Ad slot path must be specified');
     }
+  }
 
+  ngAfterViewInit() {
     this.checkAdScript(() => {
       const googletag = window['googletag'];
 
       googletag.cmd.push(() => {
-        const slt = googletag.defineSlot(this.slot, [300, 250], this.id);
+        googletag.display(this.id);
 
-        googletag.display(this.slot, [300, 250], this.id);
-
-        googletag.pubads().refresh([slt], { changeCorrelator: false });
-
-        console.log('Directive...');
+        googletag.pubads().refresh();
       });
     });
   }

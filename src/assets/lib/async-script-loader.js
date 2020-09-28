@@ -34,6 +34,8 @@ function initiateAds() {
   const gtag = window.googletag;
 
   if (gtag && gtag.apiReady) {
+    console.log('Executing adds list...');
+
     googletag.cmd.push(function () {
       googletag.defineSlot('/107720708/adxp_mytrendingstories_billboard', [970, 250], 'div-gpt-ad-1599554495707-0').addService(googletag.pubads());
       googletag.defineSlot('/107720708/adxp_mytrendingstories_superLeaderboard', [970, 90], 'div-gpt-ad-1599554517756-0').addService(googletag.pubads());
@@ -44,12 +46,14 @@ function initiateAds() {
       googletag.defineSlot('/107720708/adxp_mytrendingstories_SmartphoneBanner', [320, 50], 'div-gpt-ad-1599554668927-0').addService(googletag.pubads());
       googletag.defineSlot('/107720708/adxp_mytrendingstories_smartphoneBanner_1', [320, 50], 'div-gpt-ad-1599554708106-0').addService(googletag.pubads());
 
-      googletag.pubads().disableInitialLoad();
+      googletag.defineSlot('/6355419/Travel/Europe/France/Paris', [300, 250], 'banner-ad-test').addService(googletag.pubads());
+
+      // googletag.pubads().disableInitialLoad();
       // googletag.pubads().enableSingleRequest();
-      googletag.pubads().collapseEmptyDivs();
+      // googletag.pubads().collapseEmptyDivs();
       googletag.enableServices();
 
-      console.log('Enabled...');
+      console.log('Enabled ads services...');
     });
   } else {
     setTimeout(() => {

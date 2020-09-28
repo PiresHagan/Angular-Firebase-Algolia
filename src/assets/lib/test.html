@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Testing Ads</title>
+
+  <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+  <!-- <script async src="https://adxbid.info/mytrendingstories.js"></script> -->
+
+  <script>
+    window.googletag = window.googletag || { cmd: [] };
+    googletag.cmd.push(function () {
+      googletag
+        .defineSlot(
+          '/107720708/adxp_mytrendingstories_mRectangle', [300, 250], 'banner-ad')
+        .addService(googletag.pubads());
+
+      googletag
+        .defineSlot(
+          '/6355419/Travel/Europe/France/Paris', [300, 250], 'banner-ad-test')
+        .addService(googletag.pubads());
+
+      // googletag.pubads().disableInitialLoad();
+      googletag.enableServices();
+    });
+  </script>
+</head>
+
+<body>
+  <h4>This is real</h4>
+  <div id="banner-ad" style="width: 300px; height: 250px;">
+    <script>
+      googletag.cmd.push(function () {
+        googletag.display('banner-ad');
+      });
+    </script>
+  </div>
+
+  <div style="height: 100px;"></div>
+
+  <h4>This is test</h4>
+  <div id="banner-ad-test" style="width: 300px; height: 250px;">
+    <script>
+      googletag.cmd.push(function () {
+        googletag.display('banner-ad-test');
+      });
+    </script>
+  </div>
+
+  <button onclick="googletag.cmd.push(function() { googletag.pubads().refresh(); });">
+    Show/Refresh Ad
+  </button>
+</body>
+
+</html>
