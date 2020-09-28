@@ -28,14 +28,16 @@ export class AdDirective implements OnInit {
       const googletag = window['googletag'];
 
       googletag.cmd.push(() => {
-        const slt = googletag.defineSlot(this.slot, [300, 250], this.id);
-
-        googletag.display(this.slot, [300, 250], this.id);
-
-        googletag.pubads().refresh([slt], { changeCorrelator: false });
-
-        console.log('Directive...');
+        googletag.display(this.id);
       });
+    });
+
+    $(this.element.nativeElement).click(() => {
+      const googletag = window['googletag'];
+
+      if (googletag) {
+        googletag.pubads().refresh();
+      }
     });
   }
 
