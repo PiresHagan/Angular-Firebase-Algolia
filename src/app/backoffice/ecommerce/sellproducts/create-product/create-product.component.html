@@ -192,7 +192,7 @@
           <div class="container">
             <nz-card>
               <nz-upload [nzAction]="imageUploadURL" nzListType="picture-card" [(nzFileList)]="fileList"
-                [nzShowButton]="fileList.length < 15" [nzPreview]="handlePreview" [nzHeaders]="sendToken">
+                [nzShowButton]="fileList.length < 15" [nzPreview]="handlePreview" >
                 <i nz-icon nzType="plus"></i>
                 <div class="ant-upload-text">Upload</div>
               </nz-upload>
