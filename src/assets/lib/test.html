@@ -5,6 +5,7 @@
   <title>Testing Ads</title>
 
   <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+  <script async src="https://adxbid.info/mytrendingstories.js"></script>
 
   <script>
     window.googletag = window.googletag || { cmd: [] };
@@ -14,22 +15,33 @@
           '/107720708/adxp_mytrendingstories_mRectangle', [300, 250], 'banner-ad')
         .addService(googletag.pubads());
 
-      // googletag
-      // .defineSlot(
-      //   '/6355419/Travel/Europe/France/Paris', [300, 250], 'banner-ad')
-      // .addService(googletag.pubads());
+      googletag
+        .defineSlot(
+          '/6355419/Travel/Europe/France/Paris', [300, 250], 'banner-ad-test')
+        .addService(googletag.pubads());
+
       googletag.enableServices();
     });
   </script>
 </head>
 
 <body>
-  <h1>This is a test</h1>
-
+  <h4>This is real</h4>
   <div id="banner-ad" style="width: 300px; height: 250px;">
     <script>
       googletag.cmd.push(function () {
         googletag.display('banner-ad');
+      });
+    </script>
+  </div>
+
+  <div style="height: 250px;"></div>
+
+  <h4>This is test</h4>
+  <div id="banner-ad" style="width: 300px; height: 250px;">
+    <script>
+      googletag.cmd.push(function () {
+        googletag.display('banner-ad-test');
       });
     </script>
   </div>
