@@ -1,4 +1,4 @@
-import { ProductCategory } from './category';
+import { ProductCategory, ProductSubCategory } from './category';
 import { ImageItem, ItemLog } from './common';
 
 export enum ProductStatusTypes {
@@ -29,7 +29,7 @@ export interface Product {
   summary: string;
   lang: string;
   categories: ProductCategory;
-  subcategories: ProductCategory[];
+  subcategories: ProductSubCategory[];
   storeId: string;
   storeName: string;
   description: string;

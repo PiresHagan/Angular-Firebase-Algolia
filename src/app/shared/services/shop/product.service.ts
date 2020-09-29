@@ -10,6 +10,7 @@ import { Product, ProductStatusTypes } from '../../interfaces/ecommerce/product'
 export class ProductService {
 
   storeProductsCollection = 'store-products';
+  productCategoriesCollection = 'store-product-categories';
 
   constructor(
     public db: AngularFirestore
@@ -80,5 +81,18 @@ export class ProductService {
     }));
   } 
 
-  
+  getAllProductCategories(): Observable<any> {
+    return this.db.collection(this.productCategoriesCollection).valueChanges()
+  }
+
+  getProductByCategory(categoryId: string) {
+    let dataQuery = this.db.collection<Product[]>(`${this.storeProductsCollection}`, ref => ref
+      .where('status', '==', ProductStatusTypes.INSTOCK)
+      .where('categories.id', '==', categoryId));
+
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => a.payload.doc.data())
+    }));
+  }
+
 }

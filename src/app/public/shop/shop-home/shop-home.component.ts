@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductCategory } from 'src/app/shared/interfaces/ecommerce/category';
 import { Product } from 'src/app/shared/interfaces/ecommerce/product';
 import { Store } from 'src/app/shared/interfaces/ecommerce/store';
 import { CartService } from 'src/app/shared/services/shop/cart.service';
@@ -16,6 +17,7 @@ export class ShopHomeComponent implements OnInit {
   todaysDealProducts: Array<Product>;
   fashionProducts: Array<Product>;
   stores: Array<Store>;
+  categories: Array<ProductCategory>;
 
   constructor(
     public cartService: CartService,
@@ -39,6 +41,10 @@ export class ShopHomeComponent implements OnInit {
 
     this.storeService.getAllStores().subscribe((data: any) => {
       this.stores = data;
+    })
+
+    this.productService.getAllProductCategories().subscribe((data: any) => {
+      this.categories = data;
     })
     
   }
