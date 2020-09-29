@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { ShopRoutingModule } from './shop-routing.module';
 import { ShopHomeComponent } from './shop-home/shop-home.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
@@ -22,6 +24,8 @@ import { CartCalculatorComponent } from './cart/cart-calculator/cart-calculator.
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     ShopRoutingModule,
     SharedModule
   ]

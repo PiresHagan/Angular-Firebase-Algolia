@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-checkout',
@@ -7,26 +8,60 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductCheckoutComponent implements OnInit {
   current = 0;
+  userAddressForm: FormGroup;
 
+  constructor(
+    private fb: FormBuilder
+  ) { }
+
+  ngOnInit(): void {
+    this.userAddressForm = this.fb.group({
+      name: [null, [Validators.required]],
+      mobile_number: [null, [Validators.required]],
+      area_code: [null, [Validators.required]],
+      locality: [null, [Validators.required]],
+      address: [null, [Validators.required]],
+      city: [null, [Validators.required]],
+      state: [null, [Validators.required]],
+      landmark: [null, [Validators.required]],
+      alternate_mobile_number: [null]
+    });
+  }
 
   pre(): void {
     this.current -= 1;
   }
 
   next(): void {
-    this.current += 1;
+    if(this.current == 0) {
+      for (const i in this.userAddressForm.controls) {
+        this.userAddressForm.controls[i].markAsDirty();
+        this.userAddressForm.controls[i].updateValueAndValidity();
+      }
+  
+      if (this.findInvalidControls().length == 0) {
+        this.current += 1;
+      }
+    } else {
+      this.current += 1;
+    }
   }
 
   done(): void {
-    console.log('done');
+    console.log('done'); 
   }
 
-  
-  constructor() { }
+  public findInvalidControls() {
+    const invalid = [];
+    const controls = this.userAddressForm.controls;
 
-  ngOnInit(): void {
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        invalid.push(name);
+      }
+    }
 
+    return invalid;
   }
 
-  
 }

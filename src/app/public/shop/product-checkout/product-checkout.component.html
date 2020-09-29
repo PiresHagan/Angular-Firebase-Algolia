@@ -15,46 +15,46 @@
               </nz-steps>
               <div class="checkout-content">
                   <div class="checkout-step-1"  *ngIf="current === 0" [ngClass]="current">
-                    <form nz-form class="ant-advanced-search-form mt-4">
+                    <form nz-form [formGroup]="userAddressForm" class="ant-advanced-search-form mt-4">
                         <h2>Add New Address</h2>
                         <div nz-row [nzGutter]="24">
                           <div nz-col [nzSpan]="12" >
                             <nz-form-item>
                               <nz-form-label>Name </nz-form-label>
-                              <nz-form-control>
-                                <input nz-input placeholder="enter name"  />
+                              <nz-form-control nzErrorTip="Please input your name">
+                                <input type="text" nz-input formControlName="name" placeholder="enter name"  />
                               </nz-form-control>
                             </nz-form-item>
                           </div>
                           <div nz-col [nzSpan]="12" >
                             <nz-form-item>
                               <nz-form-label>Mobile </nz-form-label>
-                              <nz-form-control>
-                                <input nz-input placeholder="enter mobile"  />
+                              <nz-form-control nzErrorTip="Please input your mobile number">
+                                <input type="number" nz-input formControlName="mobile_number" placeholder="enter mobile"  />
                               </nz-form-control>
                             </nz-form-item>
                           </div>
                           <div nz-col [nzSpan]="12" >
                             <nz-form-item>
                               <nz-form-label>Area Code </nz-form-label>
-                              <nz-form-control>
-                                <input nz-input placeholder="enter area code"  />
+                              <nz-form-control nzErrorTip="Please input your area code">
+                                <input type="text" nz-input formControlName="area_code" placeholder="enter area code"  />
                               </nz-form-control>
                             </nz-form-item>
                           </div>
                           <div nz-col [nzSpan]="12" >
                             <nz-form-item>
                               <nz-form-label>Locality </nz-form-label>
-                              <nz-form-control>
-                                <input nz-input placeholder="enter locality"  />
+                              <nz-form-control nzErrorTip="Please input your locality">
+                                <input type="text" nz-input formControlName="locality" placeholder="enter locality"  />
                               </nz-form-control>
                             </nz-form-item>
                           </div>
                           <div nz-col [nzSpan]="24" >
                             <nz-form-item>
                               <nz-form-label>Address </nz-form-label>
-                              <nz-form-control>
-                                <textarea  nz-input  placeholder="enter address"  [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+                              <nz-form-control nzErrorTip="Please input your address">
+                                <textarea  type="text" nz-input formControlName="address"  placeholder="enter address"  [nzAutosize]="{ minRows: 2, maxRows: 6 }"
                               ></textarea>
                               </nz-form-control>
                             </nz-form-item>
@@ -62,24 +62,24 @@
                           <div nz-col [nzSpan]="12" >
                             <nz-form-item>
                               <nz-form-label>City </nz-form-label>
-                              <nz-form-control>
-                                <input nz-input placeholder="enter city"  />
+                              <nz-form-control nzErrorTip="Please input your city name">
+                                <input type="text" nz-input formControlName="city" placeholder="enter city"  />
                               </nz-form-control>
                             </nz-form-item>
                           </div>
                           <div nz-col [nzSpan]="12" >
                             <nz-form-item>
                               <nz-form-label>State </nz-form-label>
-                              <nz-form-control>
-                                <input nz-input placeholder="enter state"  />
+                              <nz-form-control nzErrorTip="Please input your state name">
+                                <input type="text" nz-input formControlName="state" placeholder="enter state"  />
                               </nz-form-control>
                             </nz-form-item>
                           </div>
                           <div nz-col [nzSpan]="12" >
                             <nz-form-item>
                               <nz-form-label>Landmark </nz-form-label>
-                              <nz-form-control>
-                                <input nz-input placeholder="enter landmark"  />
+                              <nz-form-control nzErrorTip="Please input your landmark">
+                                <input type="text" nz-input formControlName="landmark" placeholder="enter landmark"  />
                               </nz-form-control>
                             </nz-form-item>
                           </div>
@@ -87,7 +87,7 @@
                             <nz-form-item>
                               <nz-form-label>Alternate Phone (Optional) </nz-form-label>
                               <nz-form-control>
-                                <input nz-input placeholder="enter alternate phone"  />
+                                <input type="number" nz-input formControlName="alternate_mobile_number" placeholder="enter alternate phone"  />
                               </nz-form-control>
                             </nz-form-item>
                           </div>
@@ -135,7 +135,7 @@
                         <div nz-col [nzSpan]="24" >
                           <nz-form-item>
                             <nz-form-label>Name </nz-form-label>
-                            <nz-form-control>
+                            <nz-form-control nzErrorTip="Please input your ">
                               <input nz-input placeholder="enter name"  />
                             </nz-form-control>
                           </nz-form-item>
@@ -143,7 +143,7 @@
                         <div nz-col [nzSpan]="24" >
                           <nz-form-item>
                             <nz-form-label>Card Number </nz-form-label>
-                            <nz-form-control>
+                            <nz-form-control nzErrorTip="Please input your ">
                               <input nz-input placeholder="enter name"  />
                             </nz-form-control>
                           </nz-form-item>
@@ -151,7 +151,7 @@
                         <div nz-col [nzSpan]="12" >
                           <nz-form-item>
                             <nz-form-label>Valid Number </nz-form-label>
-                            <nz-form-control>
+                            <nz-form-control nzErrorTip="Please input your ">
                               <input nz-input placeholder="enter name"  />
                             </nz-form-control>
                           </nz-form-item>
@@ -159,7 +159,7 @@
                         <div nz-col [nzSpan]="12" >
                           <nz-form-item>
                             <nz-form-label>CVV </nz-form-label>
-                            <nz-form-control>
+                            <nz-form-control nzErrorTip="Please input your ">
                               <input nz-input placeholder="enter name"  />
                             </nz-form-control>
                           </nz-form-item>
