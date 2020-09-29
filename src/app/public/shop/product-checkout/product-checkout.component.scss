@@ -10,6 +10,9 @@
         flex-wrap: wrap;
         margin-top: 20px;
         margin-bottom: 20px;
+        .checkout-content {
+            margin-top: 50px
+        }
         .step-checkout-detail{
             width:calc(100% - 470px);
             margin-right: 20px;
@@ -26,6 +29,10 @@
             border: 1px solid #eee;
             padding: 15px;
 
+        }
+
+        .steps-action {
+            margin-top: 50px;
         }
     }
 }
@@ -112,4 +119,21 @@
 
 .payment-option{
     max-width: 400px;
+}
+
+.card-info {
+    border: 1px solid #edf2f9;
+    padding: 15px;
+}
+
+.card-number-col{
+    margin-bottom: 15px;
+}
+
+.errorBorder {
+    border: 1px solid red !important;
+}
+  
+.err-msg {
+    color: red;
 }

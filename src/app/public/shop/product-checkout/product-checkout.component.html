@@ -6,154 +6,142 @@
       </a>
     </div>
     <div class="checkout-box">
-        <div class="step-checkout-detail">
-            <nz-steps [nzCurrent]="current">
-                <nz-step nzTitle="Delivery Address"></nz-step>
-                <nz-step nzTitle="Order Summary"></nz-step>
-                <nz-step nzTitle="Payment Options"></nz-step>
-                <nz-step nzTitle="Order successfully"></nz-step>
-              </nz-steps>
-              <div class="checkout-content">
-                  <div class="checkout-step-1"  *ngIf="current === 0" [ngClass]="current">
-                    <form nz-form [formGroup]="userAddressForm" class="ant-advanced-search-form mt-4">
-                        <h2>Add New Address</h2>
-                        <div nz-row [nzGutter]="24">
-                          <div nz-col [nzSpan]="12" >
-                            <nz-form-item>
-                              <nz-form-label>Name </nz-form-label>
-                              <nz-form-control nzErrorTip="Please input your name">
-                                <input type="text" nz-input formControlName="name" placeholder="enter name"  />
-                              </nz-form-control>
-                            </nz-form-item>
-                          </div>
-                          <div nz-col [nzSpan]="12" >
-                            <nz-form-item>
-                              <nz-form-label>Mobile </nz-form-label>
-                              <nz-form-control nzErrorTip="Please input your mobile number">
-                                <input type="number" nz-input formControlName="mobile_number" placeholder="enter mobile"  />
-                              </nz-form-control>
-                            </nz-form-item>
-                          </div>
-                          <div nz-col [nzSpan]="12" >
-                            <nz-form-item>
-                              <nz-form-label>Area Code </nz-form-label>
-                              <nz-form-control nzErrorTip="Please input your area code">
-                                <input type="text" nz-input formControlName="area_code" placeholder="enter area code"  />
-                              </nz-form-control>
-                            </nz-form-item>
-                          </div>
-                          <div nz-col [nzSpan]="12" >
-                            <nz-form-item>
-                              <nz-form-label>Locality </nz-form-label>
-                              <nz-form-control nzErrorTip="Please input your locality">
-                                <input type="text" nz-input formControlName="locality" placeholder="enter locality"  />
-                              </nz-form-control>
-                            </nz-form-item>
-                          </div>
-                          <div nz-col [nzSpan]="24" >
-                            <nz-form-item>
-                              <nz-form-label>Address </nz-form-label>
-                              <nz-form-control nzErrorTip="Please input your address">
-                                <textarea  type="text" nz-input formControlName="address"  placeholder="enter address"  [nzAutosize]="{ minRows: 2, maxRows: 6 }"
-                              ></textarea>
-                              </nz-form-control>
-                            </nz-form-item>
-                          </div>
-                          <div nz-col [nzSpan]="12" >
-                            <nz-form-item>
-                              <nz-form-label>City </nz-form-label>
-                              <nz-form-control nzErrorTip="Please input your city name">
-                                <input type="text" nz-input formControlName="city" placeholder="enter city"  />
-                              </nz-form-control>
-                            </nz-form-item>
-                          </div>
-                          <div nz-col [nzSpan]="12" >
-                            <nz-form-item>
-                              <nz-form-label>State </nz-form-label>
-                              <nz-form-control nzErrorTip="Please input your state name">
-                                <input type="text" nz-input formControlName="state" placeholder="enter state"  />
-                              </nz-form-control>
-                            </nz-form-item>
-                          </div>
-                          <div nz-col [nzSpan]="12" >
-                            <nz-form-item>
-                              <nz-form-label>Landmark </nz-form-label>
-                              <nz-form-control nzErrorTip="Please input your landmark">
-                                <input type="text" nz-input formControlName="landmark" placeholder="enter landmark"  />
-                              </nz-form-control>
-                            </nz-form-item>
-                          </div>
-                          <div nz-col [nzSpan]="12" >
-                            <nz-form-item>
-                              <nz-form-label>Alternate Phone (Optional) </nz-form-label>
-                              <nz-form-control>
-                                <input type="number" nz-input formControlName="alternate_mobile_number" placeholder="enter alternate phone"  />
-                              </nz-form-control>
-                            </nz-form-item>
-                          </div>
-                        </div>
-                      </form>
-                  </div>
-                  <div class="checkout-step-2"  *ngIf="current === 1">
-                    <app-cart-calculator [products]="products" [config]="config"></app-cart-calculator>
-                  </div>
-                  <div class="checkout-step-3"  *ngIf="current === 2">
-                    <div class="payment-option">
-                      <div nz-row [nzGutter]="24">
-                        <div nz-col [nzSpan]="24" >
-                          <nz-form-item>
-                            <nz-form-label>Name </nz-form-label>
-                            <nz-form-control nzErrorTip="Please input your ">
-                              <input nz-input placeholder="enter name"  />
-                            </nz-form-control>
-                          </nz-form-item>
-                        </div>
-                        <div nz-col [nzSpan]="24" >
-                          <nz-form-item>
-                            <nz-form-label>Card Number </nz-form-label>
-                            <nz-form-control nzErrorTip="Please input your ">
-                              <input nz-input placeholder="enter name"  />
-                            </nz-form-control>
-                          </nz-form-item>
-                        </div>
-                        <div nz-col [nzSpan]="12" >
-                          <nz-form-item>
-                            <nz-form-label>Valid Number </nz-form-label>
-                            <nz-form-control nzErrorTip="Please input your ">
-                              <input nz-input placeholder="enter name"  />
-                            </nz-form-control>
-                          </nz-form-item>
-                        </div>
-                        <div nz-col [nzSpan]="12" >
-                          <nz-form-item>
-                            <nz-form-label>CVV </nz-form-label>
-                            <nz-form-control nzErrorTip="Please input your ">
-                              <input nz-input placeholder="enter name"  />
-                            </nz-form-control>
-                          </nz-form-item>
-                        </div>
+      <div class="step-checkout-detail">
+          <nz-steps [nzCurrent]="current">
+              <nz-step nzTitle="Delivery Address"></nz-step>
+              <nz-step nzTitle="Order Summary"></nz-step>
+              <nz-step nzTitle="Payment Options"></nz-step>
+              <nz-step nzTitle="Order successfully"></nz-step>
+            </nz-steps>
+            <div class="checkout-content">
+              <div class="checkout-step-1"  *ngIf="current === 0" [ngClass]="current">
+                <form nz-form [formGroup]="userAddressForm" class="ant-advanced-search-form mt-4">
+                    <h2>Add New Address</h2>
+                    <div nz-row [nzGutter]="24">
+                      <div nz-col [nzSpan]="12" >
+                        <nz-form-item>
+                          <nz-form-label>Name </nz-form-label>
+                          <nz-form-control nzErrorTip="Please input your name">
+                            <input type="text" nz-input formControlName="name" placeholder="enter name"  />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="12" >
+                        <nz-form-item>
+                          <nz-form-label>Mobile </nz-form-label>
+                          <nz-form-control nzErrorTip="Please input your mobile number">
+                            <input type="number" nz-input formControlName="mobile_number" placeholder="enter mobile"  />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="12" >
+                        <nz-form-item>
+                          <nz-form-label>Area Code </nz-form-label>
+                          <nz-form-control nzErrorTip="Please input your area code">
+                            <input type="text" nz-input formControlName="area_code" placeholder="enter area code"  />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="12" >
+                        <nz-form-item>
+                          <nz-form-label>Locality </nz-form-label>
+                          <nz-form-control nzErrorTip="Please input your locality">
+                            <input type="text" nz-input formControlName="locality" placeholder="enter locality"  />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="24" >
+                        <nz-form-item>
+                          <nz-form-label>Address </nz-form-label>
+                          <nz-form-control nzErrorTip="Please input your address">
+                            <textarea  type="text" nz-input formControlName="address"  placeholder="enter address"  [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+                          ></textarea>
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="12" >
+                        <nz-form-item>
+                          <nz-form-label>City </nz-form-label>
+                          <nz-form-control nzErrorTip="Please input your city name">
+                            <input type="text" nz-input formControlName="city" placeholder="enter city"  />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="12" >
+                        <nz-form-item>
+                          <nz-form-label>State </nz-form-label>
+                          <nz-form-control nzErrorTip="Please input your state name">
+                            <input type="text" nz-input formControlName="state" placeholder="enter state"  />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="12" >
+                        <nz-form-item>
+                          <nz-form-label>Landmark </nz-form-label>
+                          <nz-form-control nzErrorTip="Please input your landmark">
+                            <input type="text" nz-input formControlName="landmark" placeholder="enter landmark"  />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="12" >
+                        <nz-form-item>
+                          <nz-form-label>Alternate Phone (Optional) </nz-form-label>
+                          <nz-form-control>
+                            <input type="number" nz-input formControlName="alternate_mobile_number" placeholder="enter alternate phone"  />
+                          </nz-form-control>
+                        </nz-form-item>
                       </div>
                     </div>
-                  </div>
-                  <div class="checkout-step-4"  *ngIf="current === 3">
-                      <h1>You have ordered successfully</h1>
-                  </div>
+                  </form>
               </div>
-                <div class="steps-action">
-                <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
-                    <span>Previous</span>
-                </button>
-                <button nz-button nzType="default" (click)="next()" *ngIf="current < 3">
-                    <span>Next</span>
-                </button>
-                <button nz-button nzType="primary" (click)="done()" *ngIf="current === 3">
-                    <span>Done</span>
-                </button>
+
+              <div class="checkout-step-2"  *ngIf="current === 1">
+                <app-cart-calculator [products]="products" [config]="config"></app-cart-calculator>
+              </div>
+
+              <div class="checkout-step-3"  *ngIf="current === 2">
+                <div class="payment-option" ngxStripeCardGroup [elementsOptions]="elementsOptions">
+                  <div nz-row class="card-info" [ngClass]="{'errorBorder' : showInvalidCardError}">
+                    <p class="card-header">{{ "paymentDetails" | translate }}</p>
+                    <div nz-col nzSpan="24" class="card-number-col">
+                        <ngx-stripe-card-number [options]="cardOptions"></ngx-stripe-card-number>
+                    </div>
+                    <div nz-col nzSpan="11" class="card-expiry-col">
+                        <ngx-stripe-card-expiry [options]="cardOptions"></ngx-stripe-card-expiry>
+                    </div>
+                    <div nz-col nzSpan="12" class="card-cvc-col">
+                        <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
+                    </div>
+                    <div nz-col nzSpan="24" class="m-t-10 card-number-col">
+                      <input nz-input type="text" required placeholder="CARD HOLDER NAME" [(ngModel)]="cardHolderName" />
+                    </div>
+                  </div>
+                  <p *ngIf="showInvalidCardError" class="err-msg">{{ "invalidCardErrorMessage" | translate }}</p>
                 </div>
-        </div>
-        <div class="checkout">
-          <!-- <app-cart-calculator [products]="cartProducts"></app-cart-calculator> -->
-        </div>
+              </div>
+
+              <div class="checkout-step-4"  *ngIf="current === 3">
+                  <h1>You have ordered successfully</h1>
+              </div>
+            </div>
+            <div class="steps-action">
+              <button nz-button nzType="default" class="m-r-10" (click)="pre()" *ngIf="current > 0" [disabled]="!isLoggedInUser">
+                  <span>Previous</span>
+              </button>
+              <button nz-button nzType="default" (click)="next()" *ngIf="current < 2"  [disabled]="!isLoggedInUser">
+                  <span>Next</span>
+              </button>
+              <button nz-button nzType="primary" (click)="placeOrder()" *ngIf="current === 2" [disabled]="!isLoggedInUser">
+                  <span>Place Order</span>
+              </button>
+              <button nz-button nzType="primary" class="m-l-10" (click)="done()" *ngIf="current === 3" [disabled]="!isLoggedInUser">
+                  <span>Done</span>
+              </button>
+            </div>
+      </div>
+      <div class="checkout">
+        <app-cart-calculator [products]="products" [config]="config"></app-cart-calculator>
+      </div>
     </div>
   </div>
 </section>

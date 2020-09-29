@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { StripeService, StripeCardNumberComponent } from 'ngx-stripe';
+import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
+import { TranslateService } from "@ngx-translate/core";
 
 import { CartService } from 'src/app/shared/services/shop/cart.service';
 import { Product } from 'src/app/shared/interfaces/ecommerce/product';
+import { AuthService } from 'src/app/shared/services/authentication.service';
 
 @Component({
   selector: 'app-product-checkout',
@@ -11,30 +15,81 @@ import { Product } from 'src/app/shared/interfaces/ecommerce/product';
 })
 export class ProductCheckoutComponent implements OnInit {
   current = 0;
+  isLoggedInUser: boolean;
   
+  // step1
   userAddressForm: FormGroup;
   buyer;
 
+  // step2
   products: Product[];
   config = {
     isCheckout: true
   }
 
+  // step3
+  cardHolderName: string;
+  showInvalidCardError: boolean = false;
+
+  @ViewChild(StripeCardNumberComponent) card: StripeCardNumberComponent;
+
+  cardOptions: StripeCardElementOptions = {
+    style: {
+      base: {
+        iconColor: '#666EE8',
+        color: '#31325F',
+        fontWeight: '300',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSize: '18px',
+        '::placeholder': {
+          color: '#CFD7E0'
+        }
+      }
+    }
+  };
+
+  elementsOptions: StripeElementsOptions = {
+    locale: 'en'
+  };
+
   constructor(
     private fb: FormBuilder,
-    private cartService: CartService
+    public authService: AuthService,
+    private cartService: CartService,
+    public translate: TranslateService,
   ) { }
 
   ngOnInit(): void {
+
+    this.authService.getAuthState().subscribe(user => {
+      if (user && !user.isAnonymous) {
+        this.isLoggedInUser = true;
+      } else {
+        this.isLoggedInUser = false;
+      }
+    });
+
+    // this.userAddressForm = this.fb.group({
+    //   name: [null, [Validators.required]],
+    //   mobile_number: [null, [Validators.required]],
+    //   area_code: [null, [Validators.required]],
+    //   locality: [null, [Validators.required]],
+    //   address: [null, [Validators.required]],
+    //   city: [null, [Validators.required]],
+    //   state: [null, [Validators.required]],
+    //   landmark: [null, [Validators.required]],
+    //   alternate_mobile_number: [null]
+    // });
+
     this.userAddressForm = this.fb.group({
-      name: [null, [Validators.required]],
-      mobile_number: [null, [Validators.required]],
-      area_code: [null, [Validators.required]],
-      locality: [null, [Validators.required]],
-      address: [null, [Validators.required]],
-      city: [null, [Validators.required]],
-      state: [null, [Validators.required]],
-      landmark: [null, [Validators.required]],
+      name: [null],
+      mobile_number: [null],
+      area_code: [null],
+      locality: [null],
+      address: [null],
+      city: [null],
+      state: [null],
+      landmark: [null],
       alternate_mobile_number: [null]
     });
 
@@ -95,6 +150,31 @@ export class ProductCheckoutComponent implements OnInit {
 
   /*
   * cart related functions ends here
+  */
+
+  /*
+  * place order related functions starts here
+  */
+
+  placeOrder() {
+    const cardElement: any = this.card.element;
+    if (this.cardHolderName && !cardElement._empty && !cardElement._invalid) {
+      
+    } else {
+      this.showInvalidCardErr();
+    }
+  }
+
+  showInvalidCardErr() {
+    this.showInvalidCardError = true;
+
+    setTimeout(()=> {
+      this.showInvalidCardError = false;
+    }, 3000);
+  }
+
+  /*
+  * place order related functions ends here
   */
 
 }
