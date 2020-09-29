@@ -131,7 +131,7 @@
               <button nz-button nzType="default" (click)="next()" *ngIf="current < 2"  [disabled]="!isLoggedInUser">
                   <span>Next</span>
               </button>
-              <button nz-button nzType="primary" (click)="placeOrder()" *ngIf="current === 2" [disabled]="!isLoggedInUser">
+              <button nz-button nzType="primary" (click)="placeOrder()" *ngIf="current === 2" [disabled]="!isLoggedInUser" [nzLoading]="isPlacingOrder">
                   <span>Place Order</span>
               </button>
               <button nz-button nzType="primary" class="m-l-10" (click)="done()" *ngIf="current === 3" [disabled]="!isLoggedInUser">

@@ -713,12 +713,6 @@
   "eCommerceTitle": "E-commerce",
   "ProductList": "Product List",
   "OrderList": "Order List",
-  "Invoice": "Invoice"
-
-
-
-
-
-
-
+  "Invoice": "Invoice",
+  "PlaceOrderError": "Something went wrong. Please connect with support team."
 }

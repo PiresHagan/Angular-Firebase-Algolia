@@ -57,4 +57,15 @@ export class CartService {
   updateCartDataInFirestore(products: Product[]) {
     this.http.put(environment.baseAPIDomain + `/api/v1/carts`, { products });
   }
+
+  placeOrder(orderData) {
+    return new Promise((resolve, reject) => {
+      this.http.post(environment.baseAPIDomain + `/api/v1/store-orders`, orderData).subscribe((result) => {
+        resolve(result) 
+      }, (error) => {
+        reject(error)
+      })
+    })
+  }
+
 }
