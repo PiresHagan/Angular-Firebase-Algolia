@@ -29,3 +29,87 @@
         }
     }
 }
+
+.product-list{
+    .product{
+        padding-bottom: 10px;
+        margin-bottom:10px;
+        border-bottom: 1px solid #eee;
+       
+        &:last-child{
+            border-bottom: 0px;
+        }
+        .single-product{
+            &:hover{
+                box-shadow: unset !important;
+            }
+            a{
+                display: flex;
+                .product-img{
+                    width:100px;
+                    height: 100px;
+                    img{
+                        width:100px;
+                        height: 100px;
+                        object-fit: cover;
+                    }
+                }
+                .product-body{
+                    padding:0px 15px;
+                    h2{
+                        font-family: open_sansregular;
+                        font-size: 16px;
+                        color: #000;
+                        line-height: 26px;
+                        word-break: break-all;
+                        margin: 5px 0px 5px  0px;
+                        font-weight: 600;
+                        outline: none;
+                        &:hover{
+                            color: #ff4020;
+                        }
+                    }
+                    p{
+                        font-family: open_sansregular;
+                        font-size: 14px;
+                        font-weight: 400;
+                        color: #464444;
+                        word-break: break-all;
+                        margin: 0px;
+                    }
+                    .price{
+                        font-family: "josefin_sansregular";
+                        font-size: 16px;
+                        color: #000;
+                        display: flex;
+                        align-items: center;
+                        .discount{
+                            font-size: 15px;
+                            color: #ababab;
+                            text-decoration: line-through;
+                            font-family: "josefin_sanslight";
+                            display: inline-block;
+                            padding-left: 10px;
+                            padding-right: 10px;
+                        }
+                        .delete-btn{
+                            border:0px;
+                            box-shadow: unset;
+                            line-height: 26px;
+                            position: relative;
+                            z-index: 2;
+                            &:hover{
+                                background: #ff4020;
+                                color:#fff;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.payment-option{
+    max-width: 400px;
+}
