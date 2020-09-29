@@ -20,7 +20,7 @@ export class CartService {
 
     setTimeout(() => {
       localStorage.setItem("avct_item", JSON.stringify(a));
-      this.message.success(`${data.title} added to cart successfully`);
+      this.message.success(`${data.name} added to cart successfully`);
     }, 1000);
   }
 
@@ -36,7 +36,7 @@ export class CartService {
     }
     // ReAdding the products after remove
     localStorage.setItem("avct_item", JSON.stringify(products));
-    this.message.success(`${product.title} removed from cart successfully`);
+    this.message.success(`${product.name} removed from cart successfully`);
   }
 
   // Fetching Locat CartsProducts

@@ -9,63 +9,11 @@ import { ProductService } from 'src/app/shared/services/shop/product.service';
 export class ProductCategoryComponent implements OnInit {
   @Input() product:Product;
   topProducts: Array<Product>;
-  dummyProducts = [
-    {
-        id: "122121212",
-        title: "royalex watch for men",
-        slug: "reree",
-        summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        price: {
-            salePrice: 80,
-            unitPrice: 100
-        }
-    },
-    {
-      id: "122121212",
-      title: "royalex watch for men",
-      slug: "reree",
-      summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      price: {
-          salePrice: 80,
-          unitPrice: 100
-      }
-    },
-    {
-      id: "122121212",
-      title: "royalex watch for men",
-      slug: "reree",
-      summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      price: {
-          salePrice: 80,
-          unitPrice: 100
-      }
-    },
-    {
-      id: "122121212",
-      title: "royalex watch for men",
-      slug: "reree",
-      summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      price: {
-          salePrice: 80,
-          unitPrice: 100
-      }
-    },
-    {
-      id: "122121212",
-      title: "royalex watch for men",
-      slug: "reree",
-      summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      price: {
-          salePrice: 80,
-          unitPrice: 100
-      }
-    }
-  ];
   constructor(private productService: ProductService,) { }
 
   ngOnInit(): void {
     this.productService.getTopProducts().subscribe((data: any) => {
-      this.topProducts = [...data, ...this.dummyProducts];
+      this.topProducts = data;
     })
   }
 

@@ -3,13 +3,13 @@
 <section class="product-sec">
     <div class="container">
         <div class="product-title">
-            <h2>Royalex Watch Center</h2>
+            <h2>{{ store?.name }}</h2>
             <span class="line"></span>
         </div>
         <div class="product-list">
             <nz-skeleton [nzActive]="true" *ngIf="!storeProducts"> </nz-skeleton>
-           <div class="product" *ngFor="let store of storeProducts">
-               <app-store [store]="store"></app-store>
+            <div class="product" *ngFor="let product of storeProducts">
+                <shop-product-card [product]="product"></shop-product-card>
             </div>
         </div>
     </div>

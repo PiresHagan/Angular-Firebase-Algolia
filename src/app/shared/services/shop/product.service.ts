@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { take, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Product } from '../../interfaces/ecommerce/product';
+import { Product, ProductStatusTypes } from '../../interfaces/ecommerce/product';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +42,7 @@ export class ProductService {
   getProductsByCategoryId(categoryId: string) {
     let dataQuery = this.db.collection<Product[]>(`${this.storeProductsCollection}`, ref => ref
       .where("category.id", "==", categoryId)
-      .where('status', '==', 1));
+      .where('status', '==', ProductStatusTypes.INSTOCK));
 
     return dataQuery.snapshotChanges().pipe(map(actions => {
       return actions.map(a => a.payload.doc.data())
@@ -51,7 +51,7 @@ export class ProductService {
 
   getTopProducts() {
     let dataQuery = this.db.collection<Product[]>(`${this.storeProductsCollection}`, ref => ref
-      .where('status', '==', 1)
+      .where('status', '==', ProductStatusTypes.INSTOCK)
       .limit(5));
 
     return dataQuery.snapshotChanges().pipe(map(actions => {
@@ -61,7 +61,7 @@ export class ProductService {
 
   getFashionForEveryoneProducts() {
     let dataQuery = this.db.collection<Product[]>(`${this.storeProductsCollection}`, ref => ref
-      .where('status', '==', 1)
+      .where('status', '==', ProductStatusTypes.INSTOCK)
       .limit(5));
 
     return dataQuery.snapshotChanges().pipe(map(actions => {
@@ -71,7 +71,7 @@ export class ProductService {
 
   getProductForTodaysDeal() {
     let dataQuery = this.db.collection<Product[]>(`${this.storeProductsCollection}`, ref => ref
-      .where('status', '==', 1)
+      .where('status', '==', ProductStatusTypes.INSTOCK)
       .limit(5));
 
     return dataQuery.snapshotChanges().pipe(map(actions => {

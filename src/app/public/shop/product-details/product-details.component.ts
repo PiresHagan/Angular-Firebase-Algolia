@@ -12,58 +12,6 @@ export class ProductDetailsComponent implements OnInit {
 
   product: Product;
   fashionProducts: Array<Product>;
-  dummyProducts = [
-    {
-        id: "122121212",
-        title: "royalex watch for men",
-        slug: "reree",
-        summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        price: {
-            salePrice: 80,
-            unitPrice: 100
-        }
-    },
-    {
-      id: "122121212",
-      title: "royalex watch for men",
-      slug: "reree",
-      summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      price: {
-          salePrice: 80,
-          unitPrice: 100
-      }
-    },
-    {
-      id: "122121212",
-      title: "royalex watch for men",
-      slug: "reree",
-      summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      price: {
-          salePrice: 80,
-          unitPrice: 100
-      }
-    },
-    {
-      id: "122121212",
-      title: "royalex watch for men",
-      slug: "reree",
-      summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      price: {
-          salePrice: 80,
-          unitPrice: 100
-      }
-    },
-    {
-      id: "122121212",
-      title: "royalex watch for men",
-      slug: "reree",
-      summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      price: {
-          salePrice: 80,
-          unitPrice: 100
-      }
-    }
-  ];
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService
@@ -80,7 +28,7 @@ export class ProductDetailsComponent implements OnInit {
 
     });
     this.productService.getFashionForEveryoneProducts().subscribe((data: any) => {
-      this.fashionProducts = [...data, ...this.dummyProducts];
+      this.fashionProducts = data;
     })
   }
 

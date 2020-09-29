@@ -4,8 +4,8 @@
             <img [src]="store?.image?.url" [alt]="store?.image?.alt" />
         </div>
         <div class="product-body">
-            <h2>{{ store.name }}</h2>
-            <a [routerLink]="['/shop', store.owner.slug]">
+            <h2>{{ store?.name }}</h2>
+            <a [routerLink]="['/shop', store?.slug]">
                 <button type="button" class="buy-btn">Visit Store</button>
             </a>
         </div>
