@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { environment } from 'src/environments/environment';
 
 import { Product } from '../../interfaces/ecommerce/product';
 
@@ -9,6 +11,7 @@ import { Product } from '../../interfaces/ecommerce/product';
 export class CartService {
 
   constructor(
+    private http: HttpClient,
     private message: NzMessageService,
   ) { }
 
@@ -17,6 +20,8 @@ export class CartService {
 
     const a: Product[] = JSON.parse(localStorage.getItem("avct_item")) || [];
     a.push(data);
+
+    this.updateCartDataInFirestore(a);
 
     setTimeout(() => {
       localStorage.setItem("avct_item", JSON.stringify(a));
@@ -34,6 +39,8 @@ export class CartService {
         break;
       }
     }
+
+    this.updateCartDataInFirestore(products);
     // ReAdding the products after remove
     localStorage.setItem("avct_item", JSON.stringify(products));
     this.message.success(`${product.name} removed from cart successfully`);
@@ -45,5 +52,9 @@ export class CartService {
       JSON.parse(localStorage.getItem("avct_item")) || [];
 
     return products;
+  }
+
+  updateCartDataInFirestore(products: Product[]) {
+    this.http.put(environment.baseAPIDomain + `/api/v1/carts`, { products });
   }
 }
