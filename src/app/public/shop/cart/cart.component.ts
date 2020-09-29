@@ -13,6 +13,9 @@ export class CartComponent implements OnInit {
 
   cartProducts: Product[];
   showDataNotFound = true;
+  config: {
+    isCheckout: false;
+  }
 
   // Not Found Message
   messageTitle = "No Products Found in Cart";

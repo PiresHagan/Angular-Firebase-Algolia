@@ -17,14 +17,21 @@
                       <div class="product-body">
                           <h2  [routerLink]="['/shop/products',product.slug]">{{ product?.name }}</h2>
                           <p>{{ product?.summary }}</p>
-                          <div class="price">
+                          <div class="price" *ngIf="product?.discountedPrice">
                             {{ product?.discountedPrice | currency :'USD':'symbol':'1.0-2' }}
                             <span class="discount">{{ product?.salePrice | currency :'USD':'symbol':'1.0-2' }}</span>
                             <button class="delete-btn" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete"
                               (click)="removeCartProduct(product)">
                               <i nz-icon nzType="delete" nzTheme="outline"></i>
-                          </button>
-                        </div>
+                            </button>
+                          </div>
+                          <div class="price" *ngIf="!product?.discountedPrice">
+                            {{ product?.salePrice | currency :'USD':'symbol':'1.0-2' }}
+                            <button class="delete-btn" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete"
+                              (click)="removeCartProduct(product)">
+                              <i nz-icon nzType="delete" nzTheme="outline"></i>
+                            </button>
+                          </div>
                       </div>
                   </a>
               </div>
@@ -32,7 +39,7 @@
       </div>
       </div>
       <div class="cart-product-detail">
-        <app-cart-calculator [products]="cartProducts"></app-cart-calculator>
+        <app-cart-calculator [products]="cartProducts" [config]="config"></app-cart-calculator>
       </div>
     </div>
   </div>

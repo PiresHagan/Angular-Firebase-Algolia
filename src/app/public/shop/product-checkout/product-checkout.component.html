@@ -95,39 +95,7 @@
                       </form>
                   </div>
                   <div class="checkout-step-2"  *ngIf="current === 1">
-                    <div class="product-list mb-2 mt-2">
-                      <div class="product">
-                          <div class="single-product">
-                              <a>
-                                  <div class="product-img">
-                                      <!-- <img [src]="product?.images[0]?.url" [alt]="product?.images[0]?.alt" /> -->
-                                      <img src="assets/images/shopping/product/product.jpg" >
-                                  </div>
-                                  <div class="product-body">
-                                    <!-- <h2  [routerLink]="['/shop/products',product.slug]">{{ product?.name }}</h2> -->
-                                    <h2>Watch</h2>
-                                      <p>Watch description</p>
-                                      <!-- <div class="price">
-                                        {{ product?.discountedPrice | currency :'USD':'symbol':'1.0-2' }}
-                                        <span class="discount">{{ product?.salePrice | currency :'USD':'symbol':'1.0-2' }}</span>
-                                        <button class="delete-btn" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete"
-                                          (click)="removeCartProduct(product)">
-                                          <i nz-icon nzType="delete" nzTheme="outline"></i>
-                                      </button>
-                                    </div> -->
-                                     <div class="price">
-                                        $102
-                                        <span class="discount">120</span>
-                                        <button class="delete-btn" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete"
-                                          >
-                                          <i nz-icon nzType="delete" nzTheme="outline"></i>
-                                      </button>
-                                    </div>
-                                  </div>
-                              </a>
-                          </div>
-                      </div>
-                  </div>
+                    <app-cart-calculator [products]="products" [config]="config"></app-cart-calculator>
                   </div>
                   <div class="checkout-step-3"  *ngIf="current === 2">
                     <div class="payment-option">

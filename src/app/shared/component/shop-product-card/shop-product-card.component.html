@@ -9,9 +9,12 @@
         </div>
     </a>
     <div class="product-footer">
-        <div class="price">
+        <div class="price" *ngIf="product?.discountedPrice">
             {{ product?.discountedPrice | currency :'USD':'symbol':'1.0-2' }}
             <span class="discount">{{ product?.salePrice | currency :'USD':'symbol':'1.0-2' }}</span>
+        </div>
+        <div class="price" *ngIf="!product?.discountedPrice">
+            {{ product?.salePrice | currency :'USD':'symbol':'1.0-2' }}
         </div>
         <button nz-button class="buy-btn" (click)="addToCart()" [nzLoading]="isAdding">Add to Cart</button>
     </div>

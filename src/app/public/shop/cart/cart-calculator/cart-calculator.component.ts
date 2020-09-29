@@ -21,6 +21,9 @@ export class CartCalculatorComponent implements OnInit, OnChanges {
   userDetails: User;
   isLoggedInUser: boolean = false;
   @Input() products: Product[];
+  @Input() config: {
+    isCheckout: boolean;
+  }
 
   totalValue = 0;
   constructor(
@@ -35,7 +38,11 @@ export class CartCalculatorComponent implements OnInit, OnChanges {
     const products: Product[] = dataChanges.currentValue;
     this.totalValue = 0;
     products.forEach((product) => {
-      this.totalValue += product.discountedPrice;
+      if(product.discountedPrice) {
+        this.totalValue += product.discountedPrice;
+      } else {
+        this.totalValue += product.salePrice;
+      }
     });
   }
 

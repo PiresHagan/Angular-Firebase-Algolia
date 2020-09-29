@@ -74,7 +74,8 @@
             <div class="product-detail">
                 <h2 class="p-name">{{ product.name }}</h2>
                 <div class="div-description" innerHTML='{{ product.description }}'></div>
-                <h3 class="p-price">{{ product?.discountedPrice | currency :'USD':'symbol':'1.0-2' }}</h3>
+                <h3 *ngIf="product?.discountedPrice" class="p-price">{{ product?.discountedPrice | currency :'USD':'symbol':'1.0-2' }}</h3>
+                <h3 *ngIf="!product?.discountedPrice" class="p-price">{{ product?.salePrice | currency :'USD':'symbol':'1.0-2' }}</h3>
                 <ul class="rating-list">
                     <li><i class="fas fa-star"></i></li>
                     <li><i class="fas fa-star"></i></li>
@@ -215,7 +216,7 @@
                         <span>Delivery by 29 Sep, Tuesday<a>T&C</a></span>
                     </div>
                 </div>
-                <div class="feature-sec">
+                <!-- <div class="feature-sec">
                     <h3>Specifications</h3>
                     <div class="feature-txt">
                         <div class="txt">Size</div>
@@ -235,7 +236,7 @@
                             <div></div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="p-rating-sec">
                     <h3>Rating & Review</h3>
                     <div class="overall-rating">

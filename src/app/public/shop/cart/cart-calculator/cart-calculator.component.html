@@ -1,17 +1,23 @@
 <div class="order-summary-section">
-  <h4>Order Summary</h4>
+  <h4 *ngIf="!config?.isCheckout">Order Summary</h4>
 
   <ul class="order-list">
     <li class="order" *ngFor="let product of products">
+      <div *ngIf="config?.isCheckout" class="product-img">
+        <img [src]="product?.images[0]?.url" [alt]="product?.images[0]?.alt" />
+      </div>
       <span>{{ product.name }}</span>
-      <strong>{{ product?.discountedPrice | currency :'USD':'symbol':'1.0-2' }}</strong>
+      <strong *ngIf="product?.discountedPrice; else productSalePrice">{{ product?.discountedPrice | currency :'USD':'symbol':'1.0-2' }}</strong>
+      <ng-template #productSalePrice>
+        <strong>{{ product?.salePrice | currency :'USD':'symbol':'1.0-2' }}</strong>
+      </ng-template>
     </li>
     <li class="total-value">
       <span>Total</span>
       <strong>{{ totalValue | currency :'USD':'symbol':'1.0-2' }}</strong>
     </li>
   </ul>
-  <div class="cart-btn">
+  <div class="cart-btn" *ngIf="!config?.isCheckout">
     <a [routerLink]="['/shop']">
       Continue Shopping
     </a>

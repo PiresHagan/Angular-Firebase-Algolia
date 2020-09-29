@@ -11,9 +11,14 @@ import { Product } from 'src/app/shared/interfaces/ecommerce/product';
 })
 export class ProductCheckoutComponent implements OnInit {
   current = 0;
+  
   userAddressForm: FormGroup;
   buyer;
+
   products: Product[];
+  config = {
+    isCheckout: true
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -49,7 +54,6 @@ export class ProductCheckoutComponent implements OnInit {
   
       if (this.findInvalidControls().length == 0) {
         this.buyer = this.userAddressForm.value;
-        console.log(this.buyer);
         this.current += 1;
       }
     } else {
