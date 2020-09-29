@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { CartService } from 'src/app/shared/services/shop/cart.service';
+import { Product } from 'src/app/shared/interfaces/ecommerce/product';
+
 @Component({
   selector: 'app-product-checkout',
   templateUrl: './product-checkout.component.html',
@@ -9,9 +12,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class ProductCheckoutComponent implements OnInit {
   current = 0;
   userAddressForm: FormGroup;
+  buyer;
+  products: Product[];
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
@@ -26,6 +32,8 @@ export class ProductCheckoutComponent implements OnInit {
       landmark: [null, [Validators.required]],
       alternate_mobile_number: [null]
     });
+
+    this.getCartProduct();
   }
 
   pre(): void {
@@ -40,6 +48,8 @@ export class ProductCheckoutComponent implements OnInit {
       }
   
       if (this.findInvalidControls().length == 0) {
+        this.buyer = this.userAddressForm.value;
+        console.log(this.buyer);
         this.current += 1;
       }
     } else {
@@ -63,5 +73,24 @@ export class ProductCheckoutComponent implements OnInit {
 
     return invalid;
   }
+
+  /*
+  * cart related functions ends here
+  */
+
+  removeCartProduct(product: Product) {
+    this.cartService.removeLocalCartProduct(product);
+
+    // Recalling
+    this.getCartProduct();
+  }
+
+  getCartProduct() {
+    this.products = this.cartService.getLocalCartProducts();
+  }
+
+  /*
+  * cart related functions ends here
+  */
 
 }
