@@ -22,6 +22,7 @@ export class ProductService {
   getProductsByStoreId(storeId: string): Observable<any> {
     return this.db.collection<Product>(this.storeProductsCollection, ref => ref
       .where('storeId', '==', storeId)
+      .where('status', '==', ProductStatusTypes.INSTOCK)
     ).snapshotChanges().pipe(map(actions => {
         return actions.map(a => a.payload.doc.data());
       })

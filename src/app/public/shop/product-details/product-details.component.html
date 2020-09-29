@@ -3,7 +3,8 @@
         <div class="product-detail-main">
             <div class="product-img">
                 <div class="sticky-box">
-                    <div class="gallary-box">
+                    <nz-skeleton [nzActive]="true" *ngIf="!product"> </nz-skeleton>
+                    <div class="gallary-box" *ngIf="product"> 
                         <div class="thumbnal-image">
                             <div class="thumbnail"><img src="assets/images/shopping/product/p.jpg" alt=""></div>
                             <div class="thumbnail"><img src="assets/images/shopping/product/p.jpg" alt=""></div>
@@ -66,16 +67,14 @@
                                 </svg>
                             </div>
                         </div>
-                        <img src="assets/images/shopping/product/p.jpg" alt="">
+                        <img [src]="product?.images[0]?.url" [alt]="product?.images[0]?.alt" />
                     </div>
                 </div>
             </div>
             <div class="product-detail">
-                <h2 class="p-name">Men T-shirt Hoody Neck Multicolor T-shirt</h2>
-                <p class="p-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has
-                    been the industry's standard dummy text </p>
-                <h3 class="p-price">$100</h3>
+                <h2 class="p-name">{{ product.name }}</h2>
+                <div class="div-description" innerHTML='{{ product.description }}'></div>
+                <h3 class="p-price">{{ product?.discountedPrice | currency :'USD':'symbol':'1.0-2' }}</h3>
                 <ul class="rating-list">
                     <li><i class="fas fa-star"></i></li>
                     <li><i class="fas fa-star"></i></li>
@@ -85,7 +84,7 @@
                     <li class="rating-value">4.8</li>
                 </ul>
                 <div class="p-buy-btn">
-                    <button type="button" class="b-btn">Buy Now</button>
+                    <button nz-button type="button" class="b-btn" [nzLoading]="isAdding" (click)="addToCart()">Buy Now</button>
                     <button type="button" class="b-btn s-btn">Save for later</button>
                 </div>
                 <div class="feature-sec">
