@@ -8,9 +8,9 @@
       *ngFor="let product of products"
     >
       <div>
-        <h6 class="my-0">{{ product.title }}</h6>
+        <h6 class="my-0">{{ product.name }}</h6>
       </div>
-      <span class="text-muted">{{ product?.price?.salePrice | currency :'USD':'symbol':'1.0-2' }}</span>
+      <span class="text-muted">{{ product?.discountedPrice | currency :'USD':'symbol':'1.0-2' }}</span>
     </li>
     <hr />
     <li class="list-group-item d-flex justify-content-between">
