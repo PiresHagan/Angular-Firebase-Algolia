@@ -46,6 +46,15 @@ export class CartService {
     this.message.success(`${product.name} removed from cart successfully`);
   }
 
+  // Clear all cart items 
+  clearCart() {
+    const products: Product[] = [];
+    
+    this.updateCartDataInFirestore(products);
+    
+    localStorage.setItem("avct_item", JSON.stringify(products));
+  }
+
   // Fetching Locat CartsProducts
   getLocalCartProducts(): Product[] {
     const products: Product[] =

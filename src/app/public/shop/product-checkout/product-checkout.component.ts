@@ -17,18 +17,18 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 export class ProductCheckoutComponent implements OnInit {
   current = 0;
   isLoggedInUser: boolean;
+
+  // order summary
+  products: Product[];
+  config = {
+    isCheckout: true
+  }
   
   // step1
   userAddressForm: FormGroup;
   buyer;
 
   // step2
-  products: Product[];
-  config = {
-    isCheckout: true
-  }
-
-  // step3
   cardHolderName: string;
   showInvalidCardError: boolean = false;
   isPlacingOrder: boolean = false;
@@ -108,10 +108,6 @@ export class ProductCheckoutComponent implements OnInit {
     }
   }
 
-  done(): void {
-    console.log('done'); 
-  }
-
   public findInvalidControls() {
     const invalid = [];
     const controls = this.userAddressForm.controls;
@@ -161,11 +157,12 @@ export class ProductCheckoutComponent implements OnInit {
             let orderData = {};
             orderData['buyer'] = this.buyer;
             orderData['products'] = this.products;
-            orderData['card_token'] = result.token.id;
+            orderData['cardToken'] = result.token.id;
 
             this.cartService.placeOrder(orderData).then(result => {
               this.userAddressForm.reset();
               this.card.element.clear();
+              this.cartService.clearCart();
               this.isPlacingOrder = false;
               this.current += 1;
             }).catch(err => {
