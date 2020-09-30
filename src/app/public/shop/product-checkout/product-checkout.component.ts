@@ -76,13 +76,11 @@ export class ProductCheckoutComponent implements OnInit {
     this.userAddressForm = this.fb.group({
       name: [null, [Validators.required]],
       mobile_number: [null, [Validators.required]],
-      area_code: [null, [Validators.required]],
-      locality: [null, [Validators.required]],
+      alternate_mobile_number: [null],
       address: [null, [Validators.required]],
       city: [null, [Validators.required]],
       state: [null, [Validators.required]],
-      landmark: [null, [Validators.required]],
-      alternate_mobile_number: [null]
+      postal_code: [null, [Validators.required]]
     });
 
     this.getCartProduct();

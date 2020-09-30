@@ -1,0 +1,47 @@
+<form nz-form [formGroup]="reviewForm" class="ant-advanced-search-form mt-4">
+    <h2>Add Review</h2>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24" >
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your rating">
+            <nz-rate 
+              nz-input 
+              formControlName="rating" 
+              [nzTooltips]="tooltips" 
+              nzAllowHalf
+              [nzAllowClear]="false">
+            </nz-rate>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" >
+        <nz-form-item>
+          <nz-form-label>Add a title</nz-form-label>
+          <nz-form-control nzErrorTip="Please input a headline for your review">
+            <input type="text" nz-input formControlName="title" placeholder="Headline for your review"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" >
+        <nz-form-item>
+          <nz-form-label>Add a written review</nz-form-label>
+          <nz-form-control nzErrorTip="Please input your review">
+            <textarea type="text" nz-input formControlName="remark" [nzAutosize]="{ minRows: 3, maxRows: 6 }" 
+                placeholder="Tell us what you like or dislike about this product">
+            </textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div>
+        <nz-form-item>
+            <nz-form-control>
+                <div class="text-center">
+                    <button nz-button type="button" (click)="checkReviewForm()" class="is-login-btn mt-20" [nzLoading]="isFormSaving" nzType="primary">{{"Submit" | translate}}</button>
+                </div>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+</form>

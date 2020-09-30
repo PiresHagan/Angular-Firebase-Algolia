@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/shared/interfaces/ecommerce/product';
+import { ProductReview } from 'src/app/shared/interfaces/ecommerce/review';
+import { AuthService } from 'src/app/shared/services/authentication.service';
 import { CartService } from 'src/app/shared/services/shop/cart.service';
 import { ProductService } from 'src/app/shared/services/shop/product.service';
 
@@ -11,11 +13,17 @@ import { ProductService } from 'src/app/shared/services/shop/product.service';
 })
 export class ProductDetailsComponent implements OnInit {
 
+  isLoggedInUser: boolean;
   isAdding: boolean = false;
   product: Product;
   fashionProducts: Array<Product>;
 
+  productReviews: Array<ProductReview>;
+  lastVisibleReviews;
+  loadingMoreReviews: boolean = false;
+
   constructor(
+    public authService: AuthService,
     private route: ActivatedRoute,
     public cartService: CartService,
     private productService: ProductService
@@ -28,9 +36,20 @@ export class ProductDetailsComponent implements OnInit {
 
       this.productService.getProductBySlug(slug).subscribe(data => {
         this.product = data[0];
+
+        this.getFirstReviews();
       });
 
     });
+
+    this.authService.getAuthState().subscribe(user => {
+      if (user && !user.isAnonymous) {
+        this.isLoggedInUser = true;
+      } else {
+        this.isLoggedInUser = false;
+      }
+    });
+
     this.productService.getFashionForEveryoneProducts().subscribe((data: any) => {
       this.fashionProducts = data;
     })
@@ -42,6 +61,38 @@ export class ProductDetailsComponent implements OnInit {
     setTimeout(()=> {
       this.isAdding = false;
     }, 1000)
+  }
+
+  getFirstReviews() {
+    this.productService.getProductReviews(this.product.id, 2, null, this.lastVisibleReviews).subscribe((data) => {
+      this.loadingMoreReviews = false;
+
+      this.productReviews = data.reviews;
+
+      this.lastVisibleReviews = data.lastVisible;
+    });
+  }
+
+  loadMoreReviews(action = "next") {
+    this.loadingMoreReviews = true;
+    this.productService.getProductReviews(this.product.id, 5, action, this.lastVisibleReviews).subscribe((data) => {
+      this.loadingMoreReviews = false;
+      let mergedData: any = [...this.productReviews, ...data.reviews];
+      this.productReviews = this.getDistinctArray(mergedData);
+      this.lastVisibleReviews = data.lastVisible;
+    });
+  }
+
+  getDistinctArray(data) {
+    var resArr = [];
+    data.filter(function (item) {
+      var i = resArr.findIndex(x => x.id == item.id);
+      if (i <= -1) {
+        resArr.push(item);
+      }
+      return null;
+    });
+    return resArr;
   }
 
 }

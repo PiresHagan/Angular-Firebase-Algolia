@@ -73,7 +73,7 @@
             </div>
             <div class="product-detail">
                 <div class="p-top-name">
-                    <h2 class="p-name">{{ product.name }}</h2>
+                    <h2 class="p-name">{{ product?.name }}</h2>
                     <a [routerLink]="['/shop/cart']">
                         <div class="cart-btn">
                             <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
@@ -135,16 +135,12 @@
                         </div>
                     </a>
                 </div>
-                <div class="div-description" innerHTML='{{ product.description }}'></div>
+                <div class="div-description" innerHTML='{{ product?.description }}'></div>
                 <h3 *ngIf="product?.discountedPrice" class="p-price">{{ product?.discountedPrice | currency :'USD':'symbol':'1.0-2' }}</h3>
                 <h3 *ngIf="!product?.discountedPrice" class="p-price">{{ product?.salePrice | currency :'USD':'symbol':'1.0-2' }}</h3>
-                <ul class="rating-list">
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li class="rating-value">4.8</li>
+                <ul *ngIf="product?.stats?.rating" class="rating-list">
+                    <app-product-star-rating [rating]="product?.stats?.rating"></app-product-star-rating>
+                    <li class="rating-value">{{ product?.stats?.rating }}</li>
                 </ul>
                 <div class="p-buy-btn">
                     <button nz-button type="button" class="b-btn" [nzLoading]="isAdding" (click)="addToCart()">Buy Now</button>
@@ -302,64 +298,36 @@
                 <div class="p-rating-sec">
                     <h3>Rating & Review</h3>
                     <div class="overall-rating">
-                        <div class="p-rating">4.5</div>
-                        <div class="p-rating-list">
+                        <div *ngIf="product?.stats?.rating" class="p-rating">{{ product?.stats?.rating }}</div>
+                        <div *ngIf="product?.stats?.rating" class="p-rating-list">
                             <ul class="rating-list">
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
+                                <app-product-star-rating [rating]="product?.stats?.rating"></app-product-star-rating>
                             </ul>
-                            <h4>Excellent</h4>
                         </div>
                         <div class="rating-btn">
                             <button type="button" class="b-btn">Rate Product</button>
                         </div>
                     </div>
-                    <div>
-                        <div class="user-rating-sec">
+                    <app-shop-product-add-review *ngIf="product && isLoggedInUser" [product]="product"></app-shop-product-add-review>
+                    <nz-skeleton [nzActive]="true" *ngIf="!productReviews"> </nz-skeleton>
+                    <div *ngIf="productReviews">
+                        <div class="user-rating-sec" *ngFor="let review of productReviews">
                             <div class="p-user-img"><img src="assets/images/avatars/thumb-1.jpg" /></div>
                             <div class="p-user-name">
                                 <span>one day ago</span>
                                 James William
                             </div>
                             <div class="p-user-comment">
-                                <ul class="rating-list">
-                                    <li><i class="fas fa-star"></i></li>
-                                    <li><i class="fas fa-star"></i></li>
-                                    <li><i class="fas fa-star"></i></li>
-                                    <li><i class="fas fa-star"></i></li>
-                                    <li><i class="fas fa-star"></i></li>
-                                </ul>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum
-                                    has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                    printer took a galley of type and scrambled it</p>
+                                <app-product-star-rating [rating]="review?.rating"></app-product-star-rating>
+                                <h3>{{ review?.title }}</h3>
+                                <p>{{ review?.remark }}</p>
                             </div>
                         </div>
-                        <div class="user-rating-sec border-0">
-                            <div class="p-user-img"><img src="assets/images/avatars/thumb-1.jpg" /></div>
-                            <div class="p-user-name">
-                                <span>one day ago</span>
-                                James William
-                            </div>
-                            <div class="p-user-comment">
-                                <ul class="rating-list">
-                                    <li><i class="fas fa-star"></i></li>
-                                    <li><i class="fas fa-star"></i></li>
-                                    <li><i class="fas fa-star"></i></li>
-                                    <li><i class="fas fa-star"></i></li>
-                                    <li><i class="fas fa-star"></i></li>
-                                </ul>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum
-                                    has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                    printer took a galley of type and scrambled it</p>
-                            </div>
-                        </div>
-                        <div class="show-more">
-                            <span>Show More</span>
+                        <div *ngIf="lastVisibleReviews" class="show-more"> 
+                            <a (click)="loadMoreReviews()" class="load-more-btn">
+                                <span>{{'loadMore' | translate}}</span>
+                            </a>
+                            <nz-spin nzSimple *ngIf="loadingMoreReviews"></nz-spin>
                         </div>
                     </div>
                 </div>
