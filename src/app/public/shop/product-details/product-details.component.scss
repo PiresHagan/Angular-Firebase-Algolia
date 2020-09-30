@@ -135,11 +135,45 @@
         .product-detail{
             flex: 1;
             padding: 0px 30px 30px 30px;
-            .p-name{
-                margin: 0px;
-                font-size: 20px;
-                font-family: "josefin_sanssemibold";
-                color:#000;
+            .p-top-name{
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                .p-name{
+                    margin: 0px;
+                    font-size: 20px;
+                    font-family: "josefin_sanssemibold";
+                    color:#000;
+                }
+                .cart-btn{
+                    display: flex;
+                    align-items: center;
+                    margin: 0px 20px 0px 0px;
+                    position: relative;
+                    svg{
+                        width:25px;
+                        margin-right: 5px;
+                    }
+                    span{
+                        margin-left: 5px;
+                        display: inline-block;
+                        min-width: 25px;
+                        height: 25px;
+                        line-height: 25px;
+                        border-radius: 40px;
+                        background: #ff4020;
+                        font-size: 13px;
+                        color: #fff;
+                        text-align: center;
+                        padding: 0px 5px;
+                        font-family: "open_sansregular";
+                        font-weight: 500;
+                        position: absolute;
+                        top: -15px;
+                        right: -15px;
+                    }
+                    
+                }
             }
             .p-description{
                 margin: 10px 0px 20px 0px;

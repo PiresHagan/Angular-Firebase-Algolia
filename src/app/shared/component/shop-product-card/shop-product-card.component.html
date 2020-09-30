@@ -1,17 +1,20 @@
 <div class="single-product">
     <a [routerLink]="['/shop/products',product.slug]">
         <div class="product-img">
-            <img src="assets/images/shopping/product/product.jpg" alt="product" />
+            <img [src]="product?.images[0]?.url" [alt]="product?.images[0]?.alt" />
         </div>
         <div class="product-body">
-            <h2>{{ product?.title }}</h2>
+            <h2>{{ product?.name }}</h2>
             <p>{{ product?.summary }}</p>
         </div>
     </a>
     <div class="product-footer">
-        <div class="price">
-            {{ product?.price?.salePrice | currency :'USD':'symbol':'1.0-2' }}
-            <span class="discount">{{ product?.price?.unitPrice | currency :'USD':'symbol':'1.0-2' }}</span>
+        <div class="price" *ngIf="product?.discountedPrice">
+            {{ product?.discountedPrice | currency :'USD':'symbol':'1.0-2' }}
+            <span class="discount">{{ product?.salePrice | currency :'USD':'symbol':'1.0-2' }}</span>
+        </div>
+        <div class="price" *ngIf="!product?.discountedPrice">
+            {{ product?.salePrice | currency :'USD':'symbol':'1.0-2' }}
         </div>
         <button nz-button class="buy-btn" (click)="addToCart()" [nzLoading]="isAdding">Add to Cart</button>
     </div>

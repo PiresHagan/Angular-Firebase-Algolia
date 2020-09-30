@@ -66,6 +66,11 @@
             color: #464444;
             line-height: 24px;
             word-break: break-all;
+            -webkit-box-orient: vertical;
+            height: 50px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
         }
     }
     .product-footer{
@@ -73,6 +78,7 @@
         justify-content: space-between;
         padding: 15px;
         border-top: 1px solid #eee;
+        align-items: flex-start;
         .price{
             font-family: "josefin_sansregular";
             font-size: 22px;
@@ -82,8 +88,7 @@
                 color: #ababab;
                 text-decoration: line-through;
                 font-family: "josefin_sanslight";
-                display: inline-block;
-                padding-left: 10px;
+                display: block;
             }
         }
         

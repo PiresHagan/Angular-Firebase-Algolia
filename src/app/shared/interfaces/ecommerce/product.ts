@@ -1,10 +1,10 @@
-import { ProductCategory } from './category';
+import { ProductCategory, ProductSubCategory } from './category';
 import { ImageItem, ItemLog } from './common';
 
 export enum ProductStatusTypes {
-  INSTOCK = 1,
-  OUT_OF_STOCK,
-  PENDING,
+  INSTOCK = "instock",
+  OUT_OF_STOCK = "outofstock",
+  PENDING = "pending",
 };
 
 export interface ProductVariant {
@@ -21,19 +21,15 @@ export interface ProductStats {
   review_count: number;
 }
 
-export interface ProductPrice {
-  salePrice: number;
-  compareAmount: number;
-  unitPrice: number;
-}
-
 export interface Product {
+  brand: string;
   id: string;
-  title: string;
+  name: string;
   slug: string;
   summary: string;
-  category: ProductCategory;
-  subcategories: ProductCategory[];
+  lang: string;
+  categories: ProductCategory;
+  subcategories: ProductSubCategory[];
   storeId: string;
   storeName: string;
   description: string;
@@ -41,8 +37,9 @@ export interface Product {
   images: ImageItem[];
   status: ProductStatusTypes;
   stats: ProductStats;
-  price: ProductPrice;
-  quantity: number;
+  discountedPrice: number;
+  salePrice: number;
+  quantity: string;
   sku: string;
   variants: ProductVariant[];
   log: ItemLog;

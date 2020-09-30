@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/shared/interfaces/ecommerce/product';
+import { CartService } from 'src/app/shared/services/shop/cart.service';
 import { ProductService } from 'src/app/shared/services/shop/product.service';
 
 @Component({
@@ -10,62 +11,13 @@ import { ProductService } from 'src/app/shared/services/shop/product.service';
 })
 export class ProductDetailsComponent implements OnInit {
 
+  isAdding: boolean = false;
   product: Product;
   fashionProducts: Array<Product>;
-  dummyProducts = [
-    {
-        id: "122121212",
-        title: "royalex watch for men",
-        slug: "reree",
-        summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        price: {
-            salePrice: 80,
-            unitPrice: 100
-        }
-    },
-    {
-      id: "122121212",
-      title: "royalex watch for men",
-      slug: "reree",
-      summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      price: {
-          salePrice: 80,
-          unitPrice: 100
-      }
-    },
-    {
-      id: "122121212",
-      title: "royalex watch for men",
-      slug: "reree",
-      summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      price: {
-          salePrice: 80,
-          unitPrice: 100
-      }
-    },
-    {
-      id: "122121212",
-      title: "royalex watch for men",
-      slug: "reree",
-      summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      price: {
-          salePrice: 80,
-          unitPrice: 100
-      }
-    },
-    {
-      id: "122121212",
-      title: "royalex watch for men",
-      slug: "reree",
-      summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      price: {
-          salePrice: 80,
-          unitPrice: 100
-      }
-    }
-  ];
+
   constructor(
     private route: ActivatedRoute,
+    public cartService: CartService,
     private productService: ProductService
   ) { }
 
@@ -80,8 +32,16 @@ export class ProductDetailsComponent implements OnInit {
 
     });
     this.productService.getFashionForEveryoneProducts().subscribe((data: any) => {
-      this.fashionProducts = [...data, ...this.dummyProducts];
+      this.fashionProducts = data;
     })
+  }
+
+  addToCart() {
+    this.isAdding = true;
+    this.cartService.addToCart(this.product);
+    setTimeout(()=> {
+      this.isAdding = false;
+    }, 1000)
   }
 
 }

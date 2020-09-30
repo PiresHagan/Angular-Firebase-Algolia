@@ -17,7 +17,11 @@ export class StoreService {
   ) { }
 
   getAllStores(): Observable<any> {
-    return this.db.collection(this.storeCollection).valueChanges()
+    return this.db.collection<Store>(this.storeCollection, ref => ref.where('stripe_status', '==', 'active')).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => a.payload.doc.data());
+      })
+    );
   }
 
   getStoreBySlug(slug: string) {

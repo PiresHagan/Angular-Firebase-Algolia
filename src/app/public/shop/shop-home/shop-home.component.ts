@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductCategory } from 'src/app/shared/interfaces/ecommerce/category';
 import { Product } from 'src/app/shared/interfaces/ecommerce/product';
 import { Store } from 'src/app/shared/interfaces/ecommerce/store';
 import { CartService } from 'src/app/shared/services/shop/cart.service';
@@ -16,97 +17,7 @@ export class ShopHomeComponent implements OnInit {
   todaysDealProducts: Array<Product>;
   fashionProducts: Array<Product>;
   stores: Array<Store>;
-  dummyProducts = [
-    {
-        id: "122121212",
-        title: "royalex watch for men",
-        slug: "reree",
-        summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        price: {
-            salePrice: 80,
-            unitPrice: 100
-        }
-    },
-    {
-      id: "122121212",
-      title: "royalex watch for men",
-      slug: "reree",
-      summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      price: {
-          salePrice: 80,
-          unitPrice: 100
-      }
-    },
-    {
-      id: "122121212",
-      title: "royalex watch for men",
-      slug: "reree",
-      summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      price: {
-          salePrice: 80,
-          unitPrice: 100
-      }
-    },
-    {
-      id: "122121212",
-      title: "royalex watch for men",
-      slug: "reree",
-      summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      price: {
-          salePrice: 80,
-          unitPrice: 100
-      }
-    },
-    {
-      id: "122121212",
-      title: "royalex watch for men",
-      slug: "reree",
-      summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      price: {
-          salePrice: 80,
-          unitPrice: 100
-      }
-    }
-  ];
-  dummyStores = [
-    {
-      id: "1212-121221",
-      name: "Royalex Watch Center",
-      slug: "12-121-2121",
-      image:{
-        url:'assets/images/shopping/product/product.jpg',
-          alt:'product'
-      }
-
-    },{
-
-      id: "1212-121221",
-      name: "Royalex Watch Center",
-      slug: "12-121-2121",
-      image:{
-        url:'assets/images/shopping/product/product.jpg',
-          alt:'product'
-      }
-    },
-    {
-      id: "1212-121221",
-      name: "Royalex Watch Center",
-      slug: "12-121-2121",
-      image:{
-        url:'assets/images/shopping/product/product.jpg',
-          alt:'product'
-      }
-    },
-    {
-      id: "1212-121221",
-      name: "Royalex Watch Center",
-      slug: "12-121-2121",
-      image:{
-        url:'assets/images/shopping/product/product.jpg',
-          alt:'product'
-      }
-    }
-  ];
+  categories: Array<ProductCategory>;
 
   constructor(
     public cartService: CartService,
@@ -117,19 +28,23 @@ export class ShopHomeComponent implements OnInit {
   ngOnInit(): void {
 
     this.productService.getTopProducts().subscribe((data: any) => {
-      this.topProducts = [...data, ...this.dummyProducts];
+      this.topProducts = data;
     })
 
     this.productService.getProductForTodaysDeal().subscribe((data: any) => {
-      this.todaysDealProducts = [...data, ...this.dummyProducts];
+      this.todaysDealProducts = data;
     })
 
     this.productService.getFashionForEveryoneProducts().subscribe((data: any) => {
-      this.fashionProducts = [...data, ...this.dummyProducts];
+      this.fashionProducts = data;
     })
 
     this.storeService.getAllStores().subscribe((data: any) => {
-      this.stores = [...data, ...this.dummyStores];
+      this.stores = data;
+    })
+
+    this.productService.getAllProductCategories().subscribe((data: any) => {
+      this.categories = data;
     })
     
   }
