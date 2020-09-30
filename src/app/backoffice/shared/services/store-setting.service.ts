@@ -118,10 +118,11 @@ export class StoreSetting {
         })
 
     }
-    getPaymentMethod() {
-        return this.http.get(environment.baseAPIDomain + '/api/v1/payment/methods')
-
+    getCustomerOrder() {
+        const apicall = environment.baseAPIDomain + '/api/v1/store-orders';
+        return this.http.get(apicall);
     }
+
 
 
 
