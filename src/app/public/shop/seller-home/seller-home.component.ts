@@ -4,6 +4,7 @@ import { Product } from 'src/app/shared/interfaces/ecommerce/product';
 import { Store } from 'src/app/shared/interfaces/ecommerce/store';
 import { ProductService } from 'src/app/shared/services/shop/product.service';
 import { StoreService } from 'src/app/shared/services/shop/store.service';
+import { CartService } from 'src/app/shared/services/shop/cart.service';
 
 @Component({
   selector: 'app-seller-home',
@@ -18,7 +19,8 @@ export class SellerHomeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private storeService: StoreService
+    private storeService: StoreService,
+    public cartService: CartService,
   ) { }
 
   ngOnInit(): void {
