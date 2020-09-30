@@ -123,6 +123,11 @@ export class StoreSetting {
         return this.http.get(apicall);
     }
 
+    getStoreOrders(storeId) {
+        const apicall = environment.baseAPIDomain + '/api/v1/stores/' + storeId + '/orders';
+        return this.http.get(apicall);
+
+    }
 
 
 

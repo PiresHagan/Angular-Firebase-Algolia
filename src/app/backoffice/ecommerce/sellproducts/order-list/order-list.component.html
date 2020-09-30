@@ -25,7 +25,7 @@
 
     </div>
   </div>
-  <nz-table #ordersListTable [nzData]="displayData">
+  <nz-table #ordersListTable [nzData]="displayData" [nzLoading]="isDataLoading">
     <thead>
       <tr>
         <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare">{{ column.title | translate }}</th>
