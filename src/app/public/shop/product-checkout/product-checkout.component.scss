@@ -234,3 +234,64 @@
 .err-msg {
     color: red;
 }
+
+@media screen and (max-width:768px){
+    .container{
+        padding: 0px;
+      }
+      
+    .checkout-section{ 
+        .checkout-box{
+            .step-checkout-detail{
+                width:100%;
+                margin: 0px 0px 20px 0px;
+                padding: 10px;
+               
+                .placed-order{
+                    padding: 10px 0px;
+                    svg{
+                        width:128px;
+                        height: 128px;
+                    }
+                }
+            }
+            .checkout{
+                width:100%;
+            }
+        }
+    }
+}
+
+@media screen and (min-width:768px) and (max-width:993px){
+    .checkout-section{ 
+        .checkout-box{
+            .step-checkout-detail{
+                width:100%;
+                margin: 0px 0px 20px 0px;
+                padding: 10px;
+               
+            }
+            .checkout{
+                width:100%;
+            }
+        }
+    }
+}
+
+@media screen and (min-width:994px) and (max-width:1279px){
+    .product-title{
+        padding-top: 60px;
+    }
+    .checkout-section{ 
+        .checkout-box{
+            .step-checkout-detail{
+                width:calc(100% - 370px);
+                padding: 10px;
+              
+            }
+            .checkout{
+                width:350px;
+            }
+        }
+    }
+}
