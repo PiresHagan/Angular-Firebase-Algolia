@@ -671,5 +671,15 @@
   "eCommerceTitle": "Commerce électronique",
   "ProductList": "Liste de produits",
   "OrderList": "Order List",
-  "Invoice": "Facture"
+  "Invoice": "Facture",
+  "StoreShippingAddress": "Adresse de livraison du magasin",
+  "ShippingInfoRequired": "Informations d'expédition requises!",
+  "TrackingNumber": "Numéro de suivi",
+  "ShippingCarrier": "Transporteur",
+  "EnterShippingDetails": "Entrez les détails de livraison",
+  "Items": "Items",
+  "Price": "Prix",
+  "Total": "Total",
+  "DATE": "DATE",
+  "SubTotalAmount": "Sous - Montant total"
 }

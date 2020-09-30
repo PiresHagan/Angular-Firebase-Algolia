@@ -34,6 +34,9 @@ export class StoresComponent {
   languageList;
   uplodedImage
   authorList;
+  loading = false;
+  paymentError = true;
+  Cards;
   notificationConfigList = [
 
   ];
@@ -49,7 +52,8 @@ export class StoresComponent {
     public languageService: LanguageService,
     private authService: AuthService,
     private companyService: CompanyService,
-    private charityService: CharityService
+    private charityService: CharityService,
+    private modelService: NzModalService
   ) { }
 
   ngOnInit(): void {
@@ -67,16 +71,14 @@ export class StoresComponent {
       // owner: [null, [Validators.required]],
     });
 
-    /**
-     * Intrest List Form
-     */
+
     this.authService.getAuthState().subscribe(async (user) => {
       if (!user)
         return;
       this.userDetails = await this.authService.getLoggedInUserDetails();
       this.setFormsData();
     })
-
+    this.displayPaymentMethod();
 
   }
   setFormsData() {
@@ -267,20 +269,20 @@ export class StoresComponent {
   }
   setAuthorDropdown() {
     return
-    let selectedUser = null;;
-    if (this.storeDetails && this.storeDetails.owner) {
-      if (this.authorList.currentUser && this.authorList.currentUser.id === this.storeDetails.owner.id) {
-        selectedUser = this.authorList.currentUser;
-      }
-      if (this.authorList.charities && this.authorList.charities.length) {
-        selectedUser = this.getRecordFromId(this.authorList.charities, this.storeDetails.owner.id) || null;
-      }
-      if (this.authorList.companies && this.authorList.companies.length) {
-        selectedUser = this.getRecordFromId(this.authorList.companies, this.storeDetails.owner.id) || null;
-      }
-      if (selectedUser)
-        this.profileForm.controls['owner'].setValue(selectedUser);
-    }
+    // let selectedUser = null;;
+    // if (this.storeDetails && this.storeDetails.owner) {
+    //   if (this.authorList.currentUser && this.authorList.currentUser.id === this.storeDetails.owner.id) {
+    //     selectedUser = this.authorList.currentUser;
+    //   }
+    //   if (this.authorList.charities && this.authorList.charities.length) {
+    //     selectedUser = this.getRecordFromId(this.authorList.charities, this.storeDetails.owner.id) || null;
+    //   }
+    //   if (this.authorList.companies && this.authorList.companies.length) {
+    //     selectedUser = this.getRecordFromId(this.authorList.companies, this.storeDetails.owner.id) || null;
+    //   }
+    //   if (selectedUser)
+    //     this.profileForm.controls['owner'].setValue(selectedUser);
+    // }
   }
   getRecordFromId(list, id) {
     for (let index = 0; index < list.length; index++) {
@@ -292,5 +294,39 @@ export class StoresComponent {
     }
     return null;
   }
+  updateBilling() {
+    this.loading = true;
+    this.storeService.updateBilling().subscribe((response: any) => {
+      this.loading = false;
+
+      if (response.url) {
+        window && window.open(response.url, '_self')
+      } else {
+        this.showError();
+      }
+    }, (errror) => {
+      this.loading = false;
+      this.showError();
+    })
+
+
+  }
+  showError() {
+    const msg = this.translate.instant("CampError");
+    this.modelService.warning({
+      nzTitle: "<i>" + msg + "</i>",
+    });
+  }
+  displayPaymentMethod() {
+    this.storeService.getPaymentMethod().subscribe((data) => {
+      this.Cards = data;
+      this.paymentError = false;
+    }, (error) => {
+      this.paymentError = true;
+      this.Cards = [];
+
+    })
+  }
+
 
 }

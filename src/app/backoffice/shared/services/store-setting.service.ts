@@ -109,6 +109,18 @@ export class StoreSetting {
     getProduct(storeId, productId) {
         return this.db.collection(this.productCollection).doc(productId).valueChanges()
     }
+    updateBilling() {
+
+        return this.http.post(environment.baseAPIDomain + '/api/v1/payment/sessions/customer', {
+            redirectUrl: window && window.location && window.location.href || '',
+        })
+
+    }
+    getPaymentMethod() {
+        return this.http.get(environment.baseAPIDomain + '/api/v1/payment/methods')
+
+    }
+
 
 
 

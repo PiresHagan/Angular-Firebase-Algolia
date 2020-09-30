@@ -200,5 +200,17 @@ export const ROUTES: SideNavInterface[] = [
                 submenu: []
             }
         ]
+    },
+    {
+        path: '/app/shop/myorders/my-order-list',
+        title: 'My Orders',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'skin',
+        staff_only: false,
+        submenu: [
+
+
+        ]
     }
 ]

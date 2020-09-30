@@ -1,10 +1,12 @@
+
+
 import { Component } from '@angular/core'
 
 @Component({
-  templateUrl: './invoice.component.html'
+  templateUrl: './order-details.component.html'
 })
 
-export class InvoiceComponent {
+export class OrderDetailsComponent {
   isVisible = false;
   isConfirmLoading = false;
   markPaidStatus = false;
