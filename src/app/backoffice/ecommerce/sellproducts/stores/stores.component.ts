@@ -68,6 +68,7 @@ export class StoresComponent {
       phone: [null, [Validators.required, Validators.pattern("^[0-9]{10}$")]],
       description: [null],
       name: [null, [Validators.required]],
+      address: [null, [Validators.required]]
       // owner: [null, [Validators.required]],
     });
 
@@ -94,6 +95,7 @@ export class StoresComponent {
         this.profileForm.controls['phone'].setValue(this.storeDetails.phone);
         this.profileForm.controls['description'].setValue(this.storeDetails.description);
         this.profileForm.controls['name'].setValue(this.storeDetails.name);
+        this.profileForm.controls['address'].setValue(this.storeDetails.address);
         this.uplodedImage = this.storeDetails.image;
         this.photoURL = this.storeDetails.image ? this.storeDetails.image.url : '';
 

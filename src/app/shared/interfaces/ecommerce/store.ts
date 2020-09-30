@@ -21,6 +21,7 @@ export interface Store {
   log: ItemLog;
   phone?: number;
   email: string;
+  address?: string;
 
 
 
