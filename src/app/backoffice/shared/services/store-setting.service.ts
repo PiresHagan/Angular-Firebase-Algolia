@@ -109,10 +109,12 @@ export class StoreSetting {
     getProduct(storeId, productId) {
         return this.db.collection(this.productCollection).doc(productId).valueChanges()
     }
-    updateBilling() {
+    updateBilling(storeId) {
 
-        return this.http.post(environment.baseAPIDomain + '/api/v1/payment/sessions/customer', {
+        return this.http.post(environment.baseAPIDomain + '/api/v1/payment/sessions/stores/' + storeId + '/connectedAccount', {
+
             redirectUrl: window && window.location && window.location.href || '',
+            refreshUrl: window && window.location && window.location.href || ''
         })
 
     }

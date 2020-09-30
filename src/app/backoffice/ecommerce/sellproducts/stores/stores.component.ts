@@ -78,7 +78,7 @@ export class StoresComponent {
       this.userDetails = await this.authService.getLoggedInUserDetails();
       this.setFormsData();
     })
-    this.displayPaymentMethod();
+
 
   }
   setFormsData() {
@@ -296,7 +296,7 @@ export class StoresComponent {
   }
   updateBilling() {
     this.loading = true;
-    this.storeService.updateBilling().subscribe((response: any) => {
+    this.storeService.updateBilling(this.storeDetails.id).subscribe((response: any) => {
       this.loading = false;
 
       if (response.url) {
@@ -317,16 +317,7 @@ export class StoresComponent {
       nzTitle: "<i>" + msg + "</i>",
     });
   }
-  displayPaymentMethod() {
-    this.storeService.getPaymentMethod().subscribe((data) => {
-      this.Cards = data;
-      this.paymentError = false;
-    }, (error) => {
-      this.paymentError = true;
-      this.Cards = [];
 
-    })
-  }
 
 
 }

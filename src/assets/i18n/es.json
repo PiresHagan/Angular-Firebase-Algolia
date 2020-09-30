@@ -680,5 +680,6 @@
   "Price": "Precio",
   "Total": "Total",
   "DATE": "FECHA",
-  "SubTotalAmount": "Sub - Importe total"
+  "SubTotalAmount": "Sub - Importe total",
+  "AcceptBilling": "Puede actualizar su información de facturación o agregar un método de pago para aceptar el pago haciendo clic en el botón Actualizar facturación a continuación. Si hay un problema con la dirección de facturación o la fecha de vencimiento, toque o haga clic en Actualizar facturación , luego actualice la información de pago. Si cambia su método de pago, use un método de pago válido en su país o región con dinero disponible. No vamos a cobrar nada mientras actualiza la información de pago "
 }
