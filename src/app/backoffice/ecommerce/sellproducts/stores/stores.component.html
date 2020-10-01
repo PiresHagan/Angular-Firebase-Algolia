@@ -3,7 +3,8 @@
     <div class="page-header has-tab">
       <h2 class="font-weight-normal"> {{ 'StoreSettings' | translate }}</h2>
     </div>
-    <nz-tabset class="page-header-tab">
+    <nz-skeleton *ngIf="!storeDetails"></nz-skeleton>
+    <nz-tabset class="page-header-tab" *ngIf="storeDetails">
       <nz-tab nzTitle="{{'StoreDetails'| translate}}">
         <div class="container">
           <nz-card>

@@ -129,6 +129,12 @@ export class StoreSetting {
 
     }
 
+    getStoreOrderDetails(storeId, orderId) {
+        const apicall = environment.baseAPIDomain + '/api/v1/stores/' + storeId + '/orders/' + orderId;
+        return this.http.get(apicall);
+
+    }
+
 
 
 

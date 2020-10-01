@@ -36,7 +36,11 @@ export class MyOrderListComponent {
       compare: (a: DataItem, b: DataItem) => a.totalPrice - b.totalPrice,
     },
     {
-      title: ''
+      title: 'Status',
+
+    },
+    {
+      title: 'Preview'
     }
   ]
 

@@ -7,9 +7,9 @@ import { Store } from 'src/app/shared/interfaces/ecommerce/store';
 
 interface DataItem {
   id: number;
-  name: string;
-  date: string;
-  amount: number;
+  fullname: string;
+  created_at: string;
+  tatalAmount: number;
   status: string;
 }
 
@@ -33,19 +33,19 @@ export class OrderListComponent {
     },
     {
       title: 'Customer',
-      compare: (a: DataItem, b: DataItem) => a.name.localeCompare(b.name)
+      compare: (a: DataItem, b: DataItem) => a.fullname.localeCompare(b.fullname)
     },
     {
       title: 'Date',
-      compare: (a: DataItem, b: DataItem) => a.name.localeCompare(b.name)
+      compare: (a: DataItem, b: DataItem) => a.created_at.localeCompare(b.created_at)
     },
     {
       title: 'Amount',
-      compare: (a: DataItem, b: DataItem) => a.amount - b.amount,
+      compare: (a: DataItem, b: DataItem) => a.tatalAmount - b.tatalAmount,
     },
     {
       title: 'Status',
-      compare: (a: DataItem, b: DataItem) => a.name.localeCompare(b.name)
+
     },
     {
       title: ''

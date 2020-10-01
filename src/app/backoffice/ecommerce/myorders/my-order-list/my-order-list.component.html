@@ -2,15 +2,7 @@
   <div class="row m-b-30">
     <div class="col-lg-8">
       <div class="d-md-flex">
-        <div class="m-b-10 m-r-20">
-          <nz-input-group [nzPrefix]="prefixTemplate">
-            <input type="text" nz-input placeholder="Search Project" [(ngModel)]="searchInput"
-              (ngModelChange)="search()">
-          </nz-input-group>
-          <ng-template #prefixTemplate>
-            <i nz-icon nzType="search" class="opacity-05"></i>
-          </ng-template>
-        </div>
+
         <!-- <div class="m-b-10 m-r-20 d-flex align-items-center">
           <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Status">
             <nz-option nzLabel="All" nzValue="all"></nz-option>
@@ -42,17 +34,17 @@
         </td> -->
         <td>{{item.created_at | date : 'short'}}</td>
         <td>${{item.totalPrice | number:'3.2-5'}}</td>
-        <!-- <td>
-          <nz-badge *ngIf="item.status == 'approved'" nzStatus="success"></nz-badge>
-          <nz-badge *ngIf="item.status == 'rejected'" nzStatus="error"></nz-badge>
-          <nz-badge *ngIf="item.status == 'pending'" nzStatus="processing"></nz-badge>
-          <span class="text-capitalize">{{item.status}}</span>
-        </td> -->
+        <td>
+          <nz-badge nzStatus="success"></nz-badge>
+          <!-- <nz-badge *ngIf="item.status == 'rejected'" nzStatus="error"></nz-badge>
+          <nz-badge *ngIf="item.status == 'pending'" nzStatus="processing"></nz-badge> -->
+          <span class="text-capitalize">{{'Placed' | translate}}</span>
+        </td>
         <td class="text-md-right">
 
-          <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit"
+          <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Preview"
             [routerLink]="['/app/shop/myorders/order-details']" [queryParams]="{invoice: item.id}">
-            <i nz-icon nzType="edit" theme="outline"></i>
+            <i nz-icon nzType="eye" theme="outline"></i>
           </a>
           <!-- <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete">
               <i nz-icon nzType="delete" theme="outline"></i>

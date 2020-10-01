@@ -11,14 +11,14 @@
             <i nz-icon nzType="search" class="opacity-05"></i>
           </ng-template>
         </div>
-        <div class="m-b-10 m-r-20 d-flex align-items-center">
+        <!-- <div class="m-b-10 m-r-20 d-flex align-items-center">
           <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Status">
             <nz-option nzLabel="All" nzValue="all"></nz-option>
             <nz-option nzLabel="Approved" nzValue="approved"></nz-option>
             <nz-option nzLabel="Pending" nzValue="pending"></nz-option>
             <nz-option nzLabel="Rejected" nzValue="rejected"></nz-option>
           </nz-select>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="col-lg-4 text-right">
@@ -36,17 +36,17 @@
         <td>#{{item.id}}</td>
         <td>
           <div class="d-flex align-items-center">
-            <nz-avatar [nzSize]="30" nzIcon="user" [nzSrc]="item.avatar"></nz-avatar>
-            <h6 class="m-l-10 m-b-0">{{item.name}}</h6>
+            <nz-avatar [nzSize]="30" nzIcon="user" [nzSrc]="item.customer?.avatar?.url"></nz-avatar>
+            <h6 class="m-l-10 m-b-0">{{item.customer?.fullname}}</h6>
           </div>
         </td>
-        <td>{{item.date}}</td>
-        <td>${{item.amount | number:'3.2-5'}}</td>
+        <td>{{item.created_at | date :'short'}}</td>
+        <td>${{item.totalPrice | number:'3.2-5'}}</td>
         <td>
-          <nz-badge *ngIf="item.status == 'approved'" nzStatus="success"></nz-badge>
+          <nz-badge nzStatus="success"></nz-badge>
           <nz-badge *ngIf="item.status == 'rejected'" nzStatus="error"></nz-badge>
           <nz-badge *ngIf="item.status == 'pending'" nzStatus="processing"></nz-badge>
-          <span class="text-capitalize">{{item.status}}</span>
+          <span class="text-capitalize">{{'Placed' | translate}}</span>
         </td>
         <td class="text-md-right">
 

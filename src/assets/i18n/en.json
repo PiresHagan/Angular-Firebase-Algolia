@@ -725,5 +725,6 @@
   "DATE": "DATE",
   "SubTotalAmount": "Sub - Total amount",
   "AcceptBilling": "You can update your billing information or add a payment method to accept payment on click of below 'Update Billing Button'. If there's an issue with the billing address or expiration date, tap or click the 'Update Billing', then update the payment information. If you change your payment method, use a valid payment method in your country or region with money available on it. We are not going to charge anything while updating the Payment Info.",
-  "PlaceOrderError": "Something went wrong. Please connect with support team."
+  "PlaceOrderError": "Something went wrong. Please connect with support team.",
+  "InvoiceNote": "In exceptional circumstances, Financial Services can provide an urgent manually processed special cheque. Note, however, that urgent special cheques should be requested only on an emergency basis as manually produced cheques involve duplication of effort and considerable staff resources. Requests need to be supported by a letter explaining the circumstances to justify the special cheque payment."
 }
