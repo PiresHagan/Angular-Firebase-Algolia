@@ -56,7 +56,7 @@ export class ProductDetailsComponent implements OnInit {
 
         this.getFirstReviews();
 
-        this.productService.updateProductViewCount(this.product);
+        // this.productService.updateProductViewCount(this.product);
       });
 
     });
