@@ -40,7 +40,11 @@ export class ProductService {
     return this.db.collection<Product>(this.storeProductsCollection, ref => ref
       .where('slug', '==', slug)
       .limit(1)
-    ).valueChanges()
+    ).snapshotChanges().pipe(take(1),
+      map(actions => {
+        return actions.map(a => a.payload.doc.data());
+      })
+    );
   }
 
   getProductsByCategoryId(categoryId: string) {
@@ -136,6 +140,14 @@ export class ProductService {
         lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
       }
     }));
+  }
+
+  updateProductViewCount(product: Product) {
+    this.http.post(`${environment.baseAPIDomain}/api/v1/stores/${product.storeId}/products/${product.id}/view`, {}).subscribe(data => {
+      console.log(data);
+    }, err => {
+      console.log(err);
+    })
   }
 
 }

@@ -55,6 +55,8 @@ export class ProductDetailsComponent implements OnInit {
         this.product = data[0];
 
         this.getFirstReviews();
+
+        this.productService.updateProductViewCount(this.product);
       });
 
     });
