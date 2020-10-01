@@ -178,6 +178,10 @@
                                     color: #464444;
                                     word-break: break-all;
                                     margin: 0px;
+                                    overflow: hidden;
+                                    display: -webkit-box;
+                                    -webkit-line-clamp: 2;
+                                    -webkit-box-orient: vertical;
                                 }
                                 .price{
                                     font-family: "josefin_sansregular";
@@ -259,6 +263,7 @@
                                     p{
                                         line-height: normal;
                                         margin-bottom: 10px;
+                                        height: 40px;
                                     }
                                 }
                             }

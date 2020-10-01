@@ -304,7 +304,7 @@
                                 <app-product-star-rating [rating]="product?.stats?.rating"></app-product-star-rating>
                             </ul>
                         </div>
-                        <div *ngIf="!(product?.stats?.review_count)" class="no-review">
+                        <div *ngIf="!(product?.stats?.rating)" class="no-review">
                            No reviews available
                         </div>
                         <div class="rating-btn" (click)="showRating()">
