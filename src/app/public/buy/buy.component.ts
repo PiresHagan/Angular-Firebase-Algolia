@@ -3,10 +3,7 @@ import { Router } from '@angular/router';
 import { ThemeConstantService } from 'src/app/shared/services/theme-constant.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/authentication.service';
-<<<<<<< HEAD
-=======
 import { User } from 'src/app/shared/interfaces/user.type';
->>>>>>> dev
 @Component({
   selector: 'app-buy',
   templateUrl: './buy.component.html',
@@ -41,7 +38,7 @@ export class BuyComponent implements OnInit {
   handleCancel(): void {
     this.isVisible = false;
   }
-  checkLogin(){
+  checkLogin() {
     this.authService.getAuthState().subscribe(async (user) => {
       if (!user.isAnonymous) {
         this.router.navigate(["/app/campaign/buy-search-engine"]);

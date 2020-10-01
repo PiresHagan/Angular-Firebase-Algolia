@@ -7,11 +7,8 @@ import { User } from 'src/app/shared/interfaces/user.type';
 import { Company } from 'src/app/shared/interfaces/company.type';
 import { CompanyService } from 'src/app/shared/services/company.service';
 import { Title, Meta } from '@angular/platform-browser';
-import {  Router } from '@angular/router';
-<<<<<<< HEAD
+import { Router } from '@angular/router';
 
-=======
->>>>>>> dev
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
@@ -133,31 +130,30 @@ export class CompanyComponent implements OnInit {
 
   async follow() {
     await this.setUserDetails();
-    if(this.isLoggedInUser) {
+    if (this.isLoggedInUser) {
       this.isUpdatingFollow = true;
       await this.companyService.followCompany(this.companyId).then(data => {
         this.setFollowOrNot();
       });
-    }else{
+    } else {
       this.showModal()
     }
   }
 
   async unfollow() {
     await this.setUserDetails();
-    if(this.isLoggedInUser) {
+    if (this.isLoggedInUser) {
       this.isUpdatingFollow = true;
       await this.companyService.unfollowCompany(this.companyId).then(data => {
         this.setFollowOrNot();
       });
-    }else{
+    } else {
       this.showModal()
     }
   }
 
   showModal(): void {
     this.isVisible = true;
-<<<<<<< HEAD
   }
 
   handleOk(): void {
@@ -171,19 +167,4 @@ export class CompanyComponent implements OnInit {
   handleCancel(): void {
     this.isVisible = false;
   }
-=======
-  }
-
-  handleOk(): void {
-    this.isOkLoading = true;
-    setTimeout(() => {
-      this.router.navigate(["auth/login"]);
-      this.isOkLoading = false;
-    }, 2000);
-  }
-
-  handleCancel(): void {
-    this.isVisible = false;
-  }
->>>>>>> dev
 }

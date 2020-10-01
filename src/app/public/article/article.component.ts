@@ -314,32 +314,6 @@ export class ArticleComponent implements OnInit {
 
   follow() {
     if (this.isLoggedInUser) {
-<<<<<<< HEAD
-    this.authorService.follow(this.article.author.id, this.article.author.type);
-    const userDetails = this.getUserDetails();
-    const analytics = firebase.analytics();
-    analytics.logEvent("unfollow_author", {
-      author_id: this.article.author.id,
-      author_name: this.article.author.fullname,
-      user_uid: userDetails.id,
-      user_name: userDetails.fullname,
-    });
-  }else{
-    this.showModal();
-  }
-  }
-  unfollow() {
-    if (this.isLoggedInUser) {
-    this.authorService.unfollow(this.article.author.id, this.article.author.type);
-    const userDetails = this.getUserDetails();
-    const analytics = firebase.analytics();
-    analytics.logEvent("unfollow_author", {
-      author_id: this.article.author.id,
-      author_name: this.article.author.fullname,
-      user_uid: userDetails.id,
-      user_name: userDetails.fullname,
-    });
-=======
       this.authorService.follow(this.article.author.id, this.article.author.type);
       const userDetails = this.getUserDetails();
       const analytics = firebase.analytics();
@@ -349,7 +323,7 @@ export class ArticleComponent implements OnInit {
         user_uid: userDetails.id,
         user_name: userDetails.fullname,
       });
-    }else{
+    } else {
       this.showModal();
     }
   }
@@ -364,8 +338,7 @@ export class ArticleComponent implements OnInit {
         user_uid: userDetails.id,
         user_name: userDetails.fullname,
       });
->>>>>>> dev
-    }else{
+    } else {
       this.showModal();
     }
   }
@@ -380,24 +353,7 @@ export class ArticleComponent implements OnInit {
     });
   }
   like() {
-<<<<<<< HEAD
-    if (this.isLoggedInUser) {
-    this.articleService.like(this.article.id, this.getUserDetails());
-    const analytics = firebase.analytics();
-    const article = this.article;
-    analytics.logEvent('liked_article', {
-      article_id: article.id,
-      article_title: article.title,
-      article_language: article.lang,
-      article_author_name: article.author.fullname,
-      article_author_id: article.author.id,
-      article_category_title: article.category.title,
-      article_category_id: article.category.id,
-      liked_by_user_name: this.getUserDetails().fullname,
-      liked_by_user_id: this.getUserDetails().id,
-    });
-=======
-    
+
     if (this.isLoggedInUser) {
       this.articleService.like(this.article.id, this.getUserDetails());
       const analytics = firebase.analytics();
@@ -413,30 +369,12 @@ export class ArticleComponent implements OnInit {
         liked_by_user_name: this.getUserDetails().fullname,
         liked_by_user_id: this.getUserDetails().id,
       });
->>>>>>> dev
-    }else{
+    } else {
       this.showModal();
     }
   }
   disLike() {
     if (this.isLoggedInUser) {
-<<<<<<< HEAD
-    this.articleService.disLike(this.article.id, this.getUserDetails().id);
-    const analytics = firebase.analytics();
-    const article = this.article;
-    analytics.logEvent('unliked_article', {
-      article_id: article.id,
-      article_title: article.title,
-      article_language: article.lang,
-      article_author_name: article.author.fullname,
-      article_author_id: article.author.id,
-      article_category_title: article.category.title,
-      article_category_id: article.category.id,
-      unliked_by_user_name: this.getUserDetails().fullname,
-      unliked_by_user_id: this.getUserDetails().id,
-    });
-  }else{
-=======
       this.articleService.disLike(this.article.id, this.getUserDetails().id);
       const analytics = firebase.analytics();
       const article = this.article;
@@ -451,8 +389,7 @@ export class ArticleComponent implements OnInit {
         unliked_by_user_name: this.getUserDetails().fullname,
         unliked_by_user_id: this.getUserDetails().id,
       });
-    }else{
->>>>>>> dev
+    } else {
       this.showModal();
     }
   }
@@ -529,8 +466,8 @@ export class ArticleComponent implements OnInit {
     this.isVisible = false;
   }
   SlideRelatedArticle: boolean = false;
-  slideArticle(){
-    this.SlideRelatedArticle = !this.SlideRelatedArticle;   
+  slideArticle() {
+    this.SlideRelatedArticle = !this.SlideRelatedArticle;
   }
 }
 

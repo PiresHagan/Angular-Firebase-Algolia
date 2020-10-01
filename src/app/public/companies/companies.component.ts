@@ -3,10 +3,7 @@ import { CompanyService } from 'src/app/shared/services/company.service';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/authentication.service';
-<<<<<<< HEAD
-=======
 import { User } from 'src/app/shared/interfaces/user.type';
->>>>>>> dev
 @Component({
   selector: 'app-companies',
   templateUrl: './companies.component.html',
@@ -24,10 +21,7 @@ export class CompaniesComponent implements OnInit {
   constructor(
     private companyService: CompanyService,
     private langService: LanguageService,
-<<<<<<< HEAD
-=======
     private route: ActivatedRoute,
->>>>>>> dev
     private router: Router,
     public authService: AuthService,
   ) { }
@@ -64,10 +58,7 @@ export class CompaniesComponent implements OnInit {
     }
   }
 
-<<<<<<< HEAD
-=======
- 
->>>>>>> dev
+
   isVisible = false;
   isOkLoading = false;
   showModal(): void {
@@ -83,7 +74,7 @@ export class CompaniesComponent implements OnInit {
   handleCancel(): void {
     this.isVisible = false;
   }
-  checkLogin(){
+  checkLogin() {
     this.authService.getAuthState().subscribe(async (user) => {
       if (!user.isAnonymous) {
         this.router.navigate(["/app/company/company-list"]);
@@ -92,8 +83,5 @@ export class CompaniesComponent implements OnInit {
       }
     });
   }
-<<<<<<< HEAD
-=======
 
->>>>>>> dev
 }

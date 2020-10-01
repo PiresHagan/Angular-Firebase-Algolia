@@ -8,15 +8,10 @@
             </h2>
             <div class="xs-article-author-detail">
                 <div class="xs-article-name">
-<<<<<<< HEAD
-                    {{article?.author?.fullname}}
-                   
-=======
                     <a  [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url"
                     *ngIf="article">
                     {{article?.author?.fullname}}
                 </a>
->>>>>>> dev
                 </div>
                 <div class="comment-section">
                     <ul>

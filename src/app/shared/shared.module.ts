@@ -13,11 +13,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ArticleInteractionComponent } from './component/article-interaction/article-interaction.component';
 import { ArticleAvatarComponent } from './component/article-avatar/article-avatar.component';
 import { CloudinaryImgComponent } from './component/cloudinary-img/cloudinary-img.component';
-<<<<<<< HEAD
-import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
-import { Cloudinary } from 'cloudinary-core';
 import { ShareButtonsComponent } from './component/share-buttons/share-buttons.component';
-=======
 import { ImgSizePipe } from './pipes/img-size.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 import { ShopProductAddReviewComponent } from './component/shop-product-add-review/shop-product-add-review.component';
@@ -27,7 +23,6 @@ import { StripTagsPipe } from './pipes/striptags.pipe';
 import { ThemeConstantService } from './services/theme-constant.service';
 import { ProductStarRatingComponent } from './component/product-star-rating/product-star-rating.component';
 
->>>>>>> dev
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -44,14 +39,11 @@ export function createTranslateLoader(http: HttpClient) {
         ArticleInteractionComponent,
         ArticleAvatarComponent,
         CloudinaryImgComponent,
-<<<<<<< HEAD
-        ShareButtonsComponent
-=======
+        ShareButtonsComponent,
         ShopProductCardComponent,
         StoreComponent,
         ShopProductAddReviewComponent,
         ProductStarRatingComponent
->>>>>>> dev
     ],
     imports: [
         RouterModule,
@@ -70,14 +62,11 @@ export function createTranslateLoader(http: HttpClient) {
         ArticleInteractionComponent,
         ArticleAvatarComponent,
         CloudinaryImgComponent,
-<<<<<<< HEAD
-        ShareButtonsComponent
-=======
+        ShareButtonsComponent,
         ShopProductCardComponent,
         StoreComponent,
         ShopProductAddReviewComponent,
         ProductStarRatingComponent
->>>>>>> dev
     ],
 
     providers: [
