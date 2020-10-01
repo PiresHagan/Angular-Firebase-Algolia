@@ -96,6 +96,7 @@ export class CreateProductComponent {
         this.productEditForm.controls['lang'].setValue(productDetails.lang);
         this.productEditForm.controls['summary'].setValue(productDetails.summary);
         this.productEditForm.controls['tags'].setValue(productDetails.tags);
+        this.productEditForm.controls['weight'].setValue(productDetails.weight);
         this.productEditForm.controls['salePrice'].setValue(productDetails.salePrice);
         this.productEditForm.controls['discountedPrice'].setValue(productDetails.discountedPrice);
         this.fileList = productDetails.images ? productDetails.images : [];
@@ -129,6 +130,7 @@ export class CreateProductComponent {
       brand: ['', [Validators.required]],
       status: ['', [Validators.required]],
       description: ['', [Validators.required]],
+      weight: ['', [Validators.required, Validators.pattern(price)]],
       quantity: [1, [Validators.required, Validators.pattern(quantity)]],
       tags: [],
       summary: ['', [Validators.required, Validators.maxLength(160)]],
@@ -281,13 +283,7 @@ export class CreateProductComponent {
   goBack() {
     this.location.back();
   }
-  sendToken = async (a) => {
 
-    return {
-      'Authorization': 'Bearer ' + await this.authService.getUserToken()
-    }
-
-  }
   getFileLists() {
     let finalListOfFiles = []
     this.fileList.forEach(file => {

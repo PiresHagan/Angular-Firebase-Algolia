@@ -49,6 +49,17 @@
                     </ng-template>
                   </nz-form-control>
                 </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label nzFor="weight" nzRequired>{{'Weight'| translate}}</nz-form-label>
+                  <nz-form-control nzErrorTip="{{'PleaseInputValidField'| translate}}">
+                    <nz-input-group [nzPrefix]="weightPrefix">
+                      <input nz-input formControlName="weight" type="text" placeholder="1-999999">
+                    </nz-input-group>
+                    <ng-template #weightPrefix>
+                      <span>lbs</span>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
                 <!-- 
                 <nz-form-item>
                   <nz-form-label nzFor="unitPrice">{{'UnitPrice'| translate}}</nz-form-label>
