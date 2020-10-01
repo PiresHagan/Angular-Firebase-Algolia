@@ -18,7 +18,7 @@ export class ShopProductAddReviewComponent implements OnInit {
 
   isFormSaving: boolean = false;
   reviewForm: FormGroup;
-
+  
   constructor(
     private productService: ProductService,
     private fb: FormBuilder
@@ -41,6 +41,7 @@ export class ShopProductAddReviewComponent implements OnInit {
     if(this.reviewForm.valid) {
       this.isFormSaving = true;
       this.submitReview(this.reviewForm.value);
+      document.getElementById('rating-box').style.display = 'none';
     }
   }
 
@@ -52,5 +53,5 @@ export class ShopProductAddReviewComponent implements OnInit {
       this.isFormSaving = false;
     });
   }
-
+  
 }

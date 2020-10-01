@@ -1,4 +1,4 @@
-<form nz-form [formGroup]="reviewForm" class="ant-advanced-search-form mt-4">
+<form nz-form [formGroup]="reviewForm" class="ant-advanced-search-form">
     <h2>Add Review</h2>
     <div nz-row [nzGutter]="24">
       <div nz-col [nzSpan]="24" >
@@ -9,7 +9,7 @@
               formControlName="rating" 
               [nzTooltips]="tooltips" 
               nzAllowHalf
-              [nzAllowClear]="false">
+              [nzAllowClear]="false" class="nz-rating-sec">
             </nz-rate>
           </nz-form-control>
         </nz-form-item>
@@ -38,8 +38,8 @@
     <div>
         <nz-form-item>
             <nz-form-control>
-                <div class="text-center">
-                    <button nz-button type="button" (click)="checkReviewForm()" class="is-login-btn mt-20" [nzLoading]="isFormSaving" nzType="primary">{{"Submit" | translate}}</button>
+                <div class="rating-btn">
+                    <button nz-button type="button" (click)="checkReviewForm()" class="b-btn" [nzLoading]="isFormSaving" nzType="primary">{{"Submit" | translate}}</button>
                 </div>
             </nz-form-control>
         </nz-form-item>

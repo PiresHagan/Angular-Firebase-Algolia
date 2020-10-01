@@ -48,5 +48,10 @@ export class ShopHomeComponent implements OnInit {
     })
     
   }
-
+  hideMegaMenu() {
+    document.getElementById('mega-menu-body').style.display = 'none';
+  }
+  showMegaMenu() {
+    document.getElementById('mega-menu-body').style.display = 'block';
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/shared/interfaces/ecommerce/product';
 import { ProductReview } from 'src/app/shared/interfaces/ecommerce/review';
 import { AuthService } from 'src/app/shared/services/authentication.service';
@@ -26,9 +26,26 @@ export class ProductDetailsComponent implements OnInit {
     public authService: AuthService,
     private route: ActivatedRoute,
     public cartService: CartService,
-    private productService: ProductService
+    private productService: ProductService,
+    private router: Router
   ) { }
+  isVisible = false;
+  isOkLoading = false;
+  showModal(): void {
+    this.isVisible = true;
+  }
 
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.router.navigate(["auth/login"]);
+      this.isOkLoading = false;
+    }, 2000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
 
@@ -94,5 +111,17 @@ export class ProductDetailsComponent implements OnInit {
     });
     return resArr;
   }
-
+  showRating(){
+    this.authService.getAuthState().subscribe(user => {
+      if (user && !user.isAnonymous) {
+        this.isLoggedInUser = true;
+        document.getElementById('rating-box').style.display = 'block';
+      } else {
+        this.isLoggedInUser = false;
+        this.isVisible = true;
+      }
+    });
+    
+  }
+  
 }

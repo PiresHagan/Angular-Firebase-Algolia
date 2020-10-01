@@ -139,7 +139,7 @@
                 <h3 *ngIf="product?.discountedPrice" class="p-price">{{ product?.discountedPrice | currency :'USD':'symbol':'1.0-2' }}</h3>
                 <h3 *ngIf="!product?.discountedPrice" class="p-price">{{ product?.salePrice | currency :'USD':'symbol':'1.0-2' }}</h3>
                 <ul *ngIf="product?.stats?.rating" class="rating-list">
-                    <app-product-star-rating [rating]="product?.stats?.rating"></app-product-star-rating>
+                    <app-product-star-rating [rating]="product?.stats?.rating" class="nz-rating-sec"></app-product-star-rating>
                     <li class="rating-value">{{ product?.stats?.rating }}</li>
                 </ul>
                 <div class="p-buy-btn">
@@ -304,11 +304,35 @@
                                 <app-product-star-rating [rating]="product?.stats?.rating"></app-product-star-rating>
                             </ul>
                         </div>
-                        <div class="rating-btn">
+                        <div *ngIf="!(product?.stats?.review_count)" class="no-review">
+                           No reviews available
+                        </div>
+                        <div class="rating-btn" (click)="showRating()">
                             <button type="button" class="b-btn">Rate Product</button>
+                            <div class="login-popup"  *ngIf="!isLoggedInUser">
+                                <nz-modal
+                                    [(nzVisible)]="isVisible"
+                                    nzTitle="My Trending Stories"
+                                    (nzOnCancel)="handleCancel()"
+                                    (nzOnOk)="handleOk()"
+                                    [nzOkLoading]="isOkLoading"
+                                    >
+                                    <div class="popup-content">
+                                        <div>
+                                            <a [routerLink]="['/']" class="bg-logo">
+                                                <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                                            </a>
+                                        </div>
+                                        <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' | translate}}</a> {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a> {{'toContinue' | translate}}.</p>
+                                       
+                                    </div>
+                                    </nz-modal>
+                            </div>
                         </div>
                     </div>
-                    <app-shop-product-add-review *ngIf="product && isLoggedInUser" [product]="product"></app-shop-product-add-review>
+                    <div id="rating-box">
+                        <app-shop-product-add-review *ngIf="product && isLoggedInUser" [product]="product"></app-shop-product-add-review>
+                    </div>
                     <nz-skeleton [nzActive]="true" *ngIf="!productReviews"> </nz-skeleton>
                     <div *ngIf="productReviews">
                         <div class="user-rating-sec" *ngFor="let review of productReviews">
@@ -318,7 +342,7 @@
                                 James William
                             </div>
                             <div class="p-user-comment">
-                                <app-product-star-rating [rating]="review?.rating"></app-product-star-rating>
+                                <app-product-star-rating [rating]="review?.rating" id="rating-box"></app-product-star-rating>
                                 <h3>{{ review?.title }}</h3>
                                 <p>{{ review?.remark }}</p>
                             </div>
