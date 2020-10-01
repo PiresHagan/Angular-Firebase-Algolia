@@ -140,7 +140,7 @@
                 <h3 *ngIf="!product?.discountedPrice" class="p-price">{{ product?.salePrice | currency :'USD':'symbol':'1.0-2' }}</h3>
                 <ul *ngIf="product?.stats?.rating" class="rating-list">
                     <app-product-star-rating [rating]="product?.stats?.rating" class="nz-rating-sec"></app-product-star-rating>
-                    <li class="rating-value">{{ product?.stats?.rating }}</li>
+                    <li class="rating-value">{{ product?.stats?.rating | number :'1.0-1' }}</li>
                 </ul>
                 <div class="p-buy-btn">
                     <button nz-button type="button" class="b-btn" [nzLoading]="isAdding" (click)="addToCart()">Buy Now</button>
@@ -298,7 +298,7 @@
                 <div class="p-rating-sec">
                     <h3>Rating & Review</h3>
                     <div class="overall-rating">
-                        <div *ngIf="product?.stats?.rating" class="p-rating">{{ product?.stats?.rating }}</div>
+                        <div *ngIf="product?.stats?.rating" class="p-rating">{{ product?.stats?.rating | number :'1.0-1' }}</div>
                         <div *ngIf="product?.stats?.rating" class="p-rating-list">
                             <ul class="rating-list">
                                 <app-product-star-rating [rating]="product?.stats?.rating"></app-product-star-rating>
@@ -334,15 +334,15 @@
                         <app-shop-product-add-review *ngIf="product && isLoggedInUser" [product]="product"></app-shop-product-add-review>
                     </div>
                     <nz-skeleton [nzActive]="true" *ngIf="!productReviews"> </nz-skeleton>
-                    <div *ngIf="productReviews">
+                    <div class="m-t-20" *ngIf="productReviews">
                         <div class="user-rating-sec" *ngFor="let review of productReviews">
-                            <div class="p-user-img"><img src="assets/images/avatars/thumb-1.jpg" /></div>
+                            <div class="p-user-img"><img [src]="review?.user?.avatar?.url" [alt]="review?.user?.avatar?.alt" /></div>
                             <div class="p-user-name">
-                                <span>one day ago</span>
-                                James William
+                                <span>{{ review?.created_at | date: 'medium' }}</span>
+                                {{ review?.user?.fullname}}
                             </div>
                             <div class="p-user-comment">
-                                <app-product-star-rating [rating]="review?.rating" id="rating-box"></app-product-star-rating>
+                                <app-product-star-rating [rating]="review.rating" id="rating-box"></app-product-star-rating>
                                 <h3>{{ review?.title }}</h3>
                                 <p>{{ review?.remark }}</p>
                             </div>
