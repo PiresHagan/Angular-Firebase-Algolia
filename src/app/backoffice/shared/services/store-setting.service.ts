@@ -134,6 +134,17 @@ export class StoreSetting {
         return this.http.get(apicall);
 
     }
+    getCustomerOrderDetails(orderId) {
+        const apicall = environment.baseAPIDomain + '/api/v1/store-orders/' + orderId;
+        return this.http.get(apicall);
+
+    }
+    updateTrackingInfo(storeId, orderId, data) {
+        const apicall = environment.baseAPIDomain + '/api/v1/stores/' + storeId + '/orders/' + orderId;
+        return this.http.put(apicall, data);
+
+    }
+
 
 
 

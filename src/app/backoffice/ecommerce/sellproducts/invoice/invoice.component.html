@@ -133,8 +133,12 @@
 <nz-modal [(nzVisible)]="isVisible" nzTitle="{{'EnterShippingDetails' | translate}}" (nzOnCancel)="handleCancel()">
   <div>
     <div nz-form>
-
-      <nz-alert nzBanner nzMessage="{{'ShippingInfoRequired' | translate}}" class="m-b-10"></nz-alert>
+      <nz-alert nzBanner nzType="success" *ngIf="shippingSuccess" nzMessage="{{'ShippingDataUpdated' | translate}}"
+        class="m-b-10"></nz-alert>
+      <nz-alert nzBanner nzType="error" *ngIf="shippingError" nzMessage="{{'ShippingDataNotUpdated' | translate}}"
+        class="m-b-10"></nz-alert>
+      <nz-alert nzBanner *ngIf="!shippingCarrier || !trackingNumber" nzMessage="{{'ShippingInfoRequired' | translate}}"
+        class="m-b-10"></nz-alert>
       <nz-form-item>
         <nz-form-label [nzSpan]="7" nzRequired>{{'TrackingNumber' | translate}}</nz-form-label>
         <nz-form-control [nzSpan]="12">

@@ -15,6 +15,8 @@ export class InvoiceComponent {
   markPaidStatus = false;
   shippingCarrier: '';
   trackingNumber: '';
+  shippingSuccess = false;
+  shippingError = false;
 
   itemData = [
 
@@ -35,10 +37,12 @@ export class InvoiceComponent {
           let orderId = params['invoice'];
           if (!orderId)
             this.goBack();
-          this.storeService.getStoreOrderDetails(this.storeDetails.id, orderId).subscribe((data) => {
+          this.storeService.getStoreOrderDetails(this.storeDetails.id, orderId).subscribe((data: any) => {
             if (!data)
               this.goBack();
             this.orderDetails = data;
+            this.shippingCarrier = data.shippingCarrier;
+            this.trackingNumber = data.trackingNumber;
             this.itemData = this.orderDetails.products;
 
             this.isDataLoading = false;
@@ -58,12 +62,27 @@ export class InvoiceComponent {
   handleOk(): void {
     if (this.shippingCarrier && this.trackingNumber) {
       this.isConfirmLoading = true;
-      setTimeout(() => {
-        this.isVisible = false;
-        this.isConfirmLoading = false;
-      }, 3000);
+      this.shippingSuccess = false;
+      this.shippingError = false;
+      this.storeService.updateTrackingInfo(this.storeDetails.id, this.orderDetails.id, { trackingNumber: this.trackingNumber, shippingCarrier: this.shippingCarrier }).subscribe(() => {
+        this.shippingSuccess = true;
+        this.hidePopup()
+
+      }, error => {
+        this.shippingError = true;
+        this.hidePopup()
+      })
+
     }
 
+  }
+  hidePopup() {
+    setTimeout(() => {
+      this.shippingSuccess = false;
+      this.shippingError = false;
+      this.isVisible = false;
+      this.isConfirmLoading = false;
+    }, 1000);
   }
 
   handleCancel(): void {
