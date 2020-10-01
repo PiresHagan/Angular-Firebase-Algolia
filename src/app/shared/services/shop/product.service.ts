@@ -115,13 +115,13 @@ export class ProductService {
       limit = 5;
     }
     let dataQuery = this.db.collection(this.storeProductsCollection).doc(productId).collection(`${this.reviewsCollection}`, ref => ref
-      //  .orderBy('created_at', 'desc')
+      .orderBy('created_at', 'desc')
       .limit(limit)
     )
     switch (navigation) {
       case 'next':
         dataQuery = this.db.collection(this.storeProductsCollection).doc(productId).collection(`${this.reviewsCollection}`, ref => ref
-          //  .orderBy('created_at', 'desc')
+          .orderBy('created_at', 'desc')
           .limit(limit)
           .startAfter(lastVisible))
         break;
