@@ -24,7 +24,7 @@
       Checkout
     </a>
   </div>
-  <div class="login-popup-modal">
+  <!-- <div class="login-popup-modal">
     <nz-modal [nzStyle]="{ width: '70%' }" class="sign-up-modal" [(nzVisible)]="isVisible" nzTitle="My Trending Stories E-commerce" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
     [nzOkLoading]="isOkLoading" *ngIf="!isLoggedInUser"
     >
@@ -32,5 +32,19 @@
       <app-shop-login></app-shop-login>
     </div>
   </nz-modal>
+  </div> -->
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading" *ngIf="!isLoggedInUser">
+  <div class="popup-content">
+    <div>
+      <a [routerLink]="['/']" class="bg-logo">
+        <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+      </a>
+    </div>
+    <p class="text-black">Please, <a routerLink="/auth/login">Log in</a> or <a routerLink="/auth/signup">Sign up</a>
+      to continue.</p>
+
   </div>
+</nz-modal>
+ 
 </div>
