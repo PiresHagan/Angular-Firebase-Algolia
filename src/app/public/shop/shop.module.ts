@@ -15,6 +15,7 @@ import { ProductCheckoutComponent } from './product-checkout/product-checkout.co
 import { CartComponent } from './cart/cart.component';
 import { CartCalculatorComponent } from './cart/cart-calculator/cart-calculator.component';
 import { environment } from 'src/environments/environment';
+import { ShopLoginComponent } from './shop-login/shop-login.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { environment } from 'src/environments/environment';
     ProductCategoryComponent, 
     CartComponent, 
     CartCalculatorComponent,
-    ProductCheckoutComponent
+    ProductCheckoutComponent,
+    ShopLoginComponent
   ],
   imports: [
     CommonModule,
