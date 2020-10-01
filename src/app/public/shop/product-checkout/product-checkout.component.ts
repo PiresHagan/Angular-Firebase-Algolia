@@ -153,7 +153,7 @@ export class ProductCheckoutComponent implements OnInit {
         this.stripeService.createToken(cardElement, { name }).subscribe((result) => {
           if (result.token) {
             let orderData = {};
-            orderData['buyer'] = this.buyer;
+            orderData['shippingInfo'] = this.buyer;
             orderData['products'] = this.products;
             orderData['cardToken'] = result.token.id;
 
