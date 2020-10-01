@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { CharityService } from 'src/app/shared/services/charity.service';
+<<<<<<< HEAD
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
+=======
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/authentication.service';
+import { User } from 'src/app/shared/interfaces/user.type';
+>>>>>>> dev
 @Component({
   selector: 'app-charity-list',
   templateUrl: './charity-list.component.html',
@@ -20,8 +26,14 @@ export class CharityListComponent implements OnInit {
   constructor(
     private charityService: CharityService,
     private langService: LanguageService,
+<<<<<<< HEAD
     public authService: AuthService,
     private router: Router,
+=======
+    private route: ActivatedRoute,
+    private router: Router,
+    public authService: AuthService,
+>>>>>>> dev
   ) { }
 
   ngOnInit(): void {
@@ -55,7 +67,11 @@ export class CharityListComponent implements OnInit {
       }
     }
   }
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> dev
   isVisible = false;
   isOkLoading = false;
   showModal(): void {

@@ -172,5 +172,19 @@ export class CharityService {
     })
   }
 
+  getCharitiesByOwner(ownerId: string) {
+    let dataQuery = this.db.collection(`${this.charityCollection}`, ref => ref
+      .where("owner.id", "==", ownerId)
+      .orderBy('created_at', 'desc')
+    )
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data: any = a.payload.doc.data();
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      })
+    }));
+  }
+
 }
 

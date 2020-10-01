@@ -1,0 +1,297 @@
+.container{
+    margin: 0 auto;
+    max-width: 1366px;
+    width: 100%;
+    padding: 0px 15px;
+}
+.custom-btn{
+    padding:7px 14px;
+    font-size:13px;
+    background: #129f01 !important;
+    color: #fff;
+    border:0px !important;
+    &.black-btn{
+        background-color: #000 !important;
+        color: #fff;
+    }
+    &.gray-btn{
+        background-color: #ccc !important;
+        color: #fff;
+    }
+    &.btn-red{
+        background:#ff4020 !important;
+    }
+    &.copy-btn {
+        border: 1px solid #129f01 !important;
+        background: white !important;
+        color: #129f01 !important;
+    }
+    &:focus{
+        border: 0px !important;
+    }
+}
+.checkout-section{
+    .checkout-box{
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        .checkout-content {
+            margin-top: 50px
+        }
+        .step-checkout-detail{
+            width:calc(100% - 470px);
+            margin-right: 20px;
+            border: 0px;
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 30px;
+            .checkout-content{
+                .ant-advanced-search-form{
+                    h2{
+                        font-size: 18px;
+                        font-weight: 600;
+                        padding-bottom: 10px;
+                        margin-bottom: 20px;
+                        border-bottom: 1px solid #eee;
+                    }
+                    ::ng-deep .ant-col{
+                        .ant-form-item-control-input-content{
+                            .ant-input{
+                                border:1px solid #ccc;
+                            }
+                        }
+                    }
+                }
+            }
+            ::ng-deep .ant-steps-horizontal{
+                .ant-steps-item{
+                    &.ant-steps-item-finish{
+                        .ant-steps-item-icon{
+                            border-color: #129f01;
+                            svg{
+                                fill:#129f01
+                            }
+                        }
+                        .ant-steps-item-content{
+                            .ant-steps-item-title{
+                                color:#129f01;
+                            }
+                        }
+                    }
+                }
+            }
+            .placed-order{
+                text-align: center;
+                padding: 50px 0px;
+                svg{
+                    width:256px;
+                    height: 256px;
+                }
+                h2{
+                    font-size: 22px;
+                    color:#000;
+                    margin-top: 50px;
+                }
+                .cart-btn{
+                    display: flex;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    a{
+                        margin: 10px;
+                        color: #fff;
+                        display: block;
+                        background: #ff4020;
+                        padding: 5px 10px;
+                        border-radius: 3px;
+                        font-size: 14px;
+                        font-family: open_sansregular;
+                        &:nth-child(2){
+                            background: #20a739;
+                        }
+                    }
+                }
+            }
+        }
+        .checkout{
+            width:450px;
+
+        }
+
+        .steps-action {
+            margin-top: 50px;
+        }
+    }
+}
+
+.product-list{
+    .product{
+        padding-bottom: 10px;
+        margin-bottom:10px;
+        border-bottom: 1px solid #eee;
+       
+        &:last-child{
+            border-bottom: 0px;
+        }
+        .single-product{
+            &:hover{
+                box-shadow: unset !important;
+            }
+            a{
+                display: flex;
+                .product-img{
+                    width:100px;
+                    height: 100px;
+                    img{
+                        width:100px;
+                        height: 100px;
+                        object-fit: cover;
+                    }
+                }
+                .product-body{
+                    padding:0px 15px;
+                    h2{
+                        font-family: open_sansregular;
+                        font-size: 16px;
+                        color: #000;
+                        line-height: 26px;
+                        word-break: break-all;
+                        margin: 5px 0px 5px  0px;
+                        font-weight: 600;
+                        outline: none;
+                        &:hover{
+                            color: #ff4020;
+                        }
+                    }
+                    p{
+                        font-family: open_sansregular;
+                        font-size: 14px;
+                        font-weight: 400;
+                        color: #464444;
+                        word-break: break-all;
+                        margin: 0px;
+                    }
+                    .price{
+                        font-family: "josefin_sansregular";
+                        font-size: 16px;
+                        color: #000;
+                        display: flex;
+                        align-items: center;
+                        .discount{
+                            font-size: 15px;
+                            color: #ababab;
+                            text-decoration: line-through;
+                            font-family: "josefin_sanslight";
+                            display: inline-block;
+                            padding-left: 10px;
+                            padding-right: 10px;
+                        }
+                        .delete-btn{
+                            border:0px;
+                            box-shadow: unset;
+                            line-height: 26px;
+                            position: relative;
+                            z-index: 2;
+                            &:hover{
+                                background: #ff4020;
+                                color:#fff;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.payment-option{
+    max-width: 400px;
+    background: #eee;
+    border-radius: 5px;
+    .card-info{
+        .card-header{
+            color:#000;
+        }
+        .CardNumberField-input-wrapper{
+            color:#000;
+        }
+    }
+}
+
+.card-info {
+    border: 1px solid #edf2f9;
+    padding: 15px;
+}
+
+.card-number-col{
+    margin-bottom: 15px;
+}
+
+.errorBorder {
+    border: 1px solid red !important;
+}
+  
+.err-msg {
+    color: red;
+}
+
+@media screen and (max-width:768px){
+    .container{
+        padding: 0px;
+      }
+      
+    .checkout-section{ 
+        .checkout-box{
+            .step-checkout-detail{
+                width:100%;
+                margin: 0px 0px 20px 0px;
+                padding: 10px;
+               
+                .placed-order{
+                    padding: 10px 0px;
+                    svg{
+                        width:128px;
+                        height: 128px;
+                    }
+                }
+            }
+            .checkout{
+                width:100%;
+            }
+        }
+    }
+}
+
+@media screen and (min-width:768px) and (max-width:993px){
+    .checkout-section{ 
+        .checkout-box{
+            .step-checkout-detail{
+                width:100%;
+                margin: 0px 0px 20px 0px;
+                padding: 10px;
+               
+            }
+            .checkout{
+                width:100%;
+            }
+        }
+    }
+}
+
+@media screen and (min-width:994px) and (max-width:1279px){
+    .product-title{
+        padding-top: 60px;
+    }
+    .checkout-section{ 
+        .checkout-box{
+            .step-checkout-detail{
+                width:calc(100% - 370px);
+                padding: 10px;
+              
+            }
+            .checkout{
+                width:350px;
+            }
+        }
+    }
+}

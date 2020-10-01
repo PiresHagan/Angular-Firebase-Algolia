@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import { ThemeConstantService } from 'src/app/shared/services/theme-constant.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/authentication.service';
+<<<<<<< HEAD
+=======
+import { User } from 'src/app/shared/interfaces/user.type';
+>>>>>>> dev
 @Component({
   selector: 'app-buy',
   templateUrl: './buy.component.html',

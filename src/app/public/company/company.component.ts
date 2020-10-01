@@ -8,7 +8,10 @@ import { Company } from 'src/app/shared/interfaces/company.type';
 import { CompanyService } from 'src/app/shared/services/company.service';
 import { Title, Meta } from '@angular/platform-browser';
 import {  Router } from '@angular/router';
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
@@ -154,6 +157,7 @@ export class CompanyComponent implements OnInit {
 
   showModal(): void {
     this.isVisible = true;
+<<<<<<< HEAD
   }
 
   handleOk(): void {
@@ -167,4 +171,19 @@ export class CompanyComponent implements OnInit {
   handleCancel(): void {
     this.isVisible = false;
   }
+=======
+  }
+
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.router.navigate(["auth/login"]);
+      this.isOkLoading = false;
+    }, 2000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+>>>>>>> dev
 }

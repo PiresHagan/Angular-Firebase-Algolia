@@ -1,0 +1,164 @@
+<div class="container">
+  <div class="profile-setting-main">
+    <div class="page-header has-tab">
+      <h2 class="font-weight-normal"> {{ 'StoreSettings' | translate }}</h2>
+    </div>
+    <nz-skeleton *ngIf="!storeDetails"></nz-skeleton>
+    <nz-tabset class="page-header-tab" *ngIf="storeDetails">
+      <nz-tab nzTitle="{{'StoreDetails'| translate}}">
+        <div class="container">
+          <nz-card>
+
+            <div class="media">
+              <nz-avatar [nzSize]="150" nzIcon="user" [nzSrc]="photoURL"></nz-avatar>
+              <div class="profile-upload-txt">
+                <nz-upload nzName="avatar" [nzShowUploadList]="false" (nzChange)="handleChange($event)">
+                  <button nz-button nzType="primary" [nzLoading]="isPhotoChangeLoading">
+                    <i nz-icon nzType="upload"></i>
+                    <span>{{'upload'| translate}}</span>
+                  </button>
+                </nz-upload>
+                <h5>{{'ChangeStoreLogo'| translate}}</h5>
+                <p>
+                  {{'recommendedDim'| translate}}:
+                  120x120 {{'maxfile'| translate}}: 5MB
+                </p>
+
+              </div>
+
+            </div>
+            <hr class="m-v-25" />
+            <form nz-form [formGroup]="profileForm" class="login-form" (ngSubmit)="saveBasicDetails()">
+              <div class="row">
+                <div class="col-md-3">
+                  <nz-form-item>
+                    <nz-form-label nzRequired>{{'name'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'PleaseInputField'| translate}}">
+                      <input nz-input placeholder="{{'name'| translate}}" formControlName="name" type="text" value="" />
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div class="col-md-3">
+                  <nz-form-item>
+                    <nz-form-label nzRequired>{{'email'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'PleaseInputValidField'| translate}}">
+                      <input disabled nz-input placeholder="{{'email'| translate}}" type="email"
+                        placeholder="abc@company.com" formControlName="email" />
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div class="col-md-2">
+                  <nz-form-item>
+                    <nz-form-label nzRequired>{{'phoneNumber'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'PleaseInputValidField'| translate}}">
+                      <input nz-input placeholder="{{'phoneNumber'| translate}}" formControlName="phone"
+                        placeholder="9999999999" mask="(000) 000-0000" />
+                    </nz-form-control>
+                  </nz-form-item>
+
+
+                </div>
+                <div class="col-md-2" style="display: none;">
+                  <!-- <nz-form-item>
+                    <nz-form-label nzRequired>{{'Owner'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'PleaseInputField'| translate}}" class="m-5">
+                      <nz-select class="m-r-10" formControlName="owner" nzAllowClear
+                        nzPlaceHolder="{{'Select Author' | translate}}">
+
+                        <nz-option-group nzLabel="Author" *ngIf="authorList?.currentUser">
+                          <nz-option [nzValue]="authorList?.currentUser" [nzLabel]="authorList?.currentUser.fullname">
+                          </nz-option>
+                        </nz-option-group>
+
+                        <nz-option-group nzLabel="Companies" *ngIf="authorList?.companies">
+                          <nz-option [nzValue]="company" [nzLabel]="company.name"
+                            *ngFor="let company of authorList?.companies"></nz-option>
+                        </nz-option-group>
+
+                        <nz-option-group nzLabel="Charities" *ngIf="authorList?.charities">
+                          <nz-option [nzValue]="charity" [nzLabel]="charity.name"
+                            *ngFor="let charity of authorList?.charities"></nz-option>
+                        </nz-option-group>
+
+                      </nz-select>
+                    </nz-form-control>
+                  </nz-form-item> -->
+
+
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <nz-form-item>
+                    <nz-form-label>{{'Description'| translate}}</nz-form-label>
+                    <nz-form-control>
+                      <textarea rows="4" nz-input name="content" formControlName="description"></textarea>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <nz-form-item>
+                    <nz-form-label nzRequired>{{'StoreAddress'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'PleaseInputValidField'| translate}}">
+                      <textarea rows="4" nz-input name="content" formControlName="address"></textarea>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <nz-form-item>
+                  <nz-form-control>
+                    <div>
+                      <button nz-button [nzLoading]="isLoading" class="login-form-button" [nzType]="'primary'">
+                        {{'saveDetails'| translate}}
+                      </button>
+                    </div>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </form>
+          </nz-card>
+
+
+        </div>
+      </nz-tab>
+
+      <nz-tab nzTitle="{{'BillingInfo' | translate}}">
+        <div class="container">
+          <div class="profile-article-list">
+
+            <nz-card>
+              <p>{{ 'CampBillingNote' | translate }}
+              </p>
+
+              <!-- <nz-alert nzType="info" nzMessage="{{'PaymentCardMsg' | translate}}" class="m-b-10" nzShowIcon
+                *ngIf="paymentError"></nz-alert> -->
+
+
+              <!-- <div class="credit-card  selectable" *ngFor="let card of Cards"
+                [class.selected]="card.isDefault === true">
+
+                <div class="credit-card-last4">
+                  {{card.last4}}
+                </div>
+                <div class="credit-card-expiry">
+                  {{card.exp_month}}/{{card.exp_year}}
+                </div>
+              </div> -->
+              <button type="button" (click)="updateBilling()" [nzLoading]="loading"
+                [disabled]="!storeDetails || !storeDetails.id" nz-button
+                nzType="primary">{{'CampBillingBtn' | translate}}</button>
+
+            </nz-card>
+
+          </div>
+        </div>
+      </nz-tab>
+
+
+    </nz-tabset>
+  </div>
+</div>

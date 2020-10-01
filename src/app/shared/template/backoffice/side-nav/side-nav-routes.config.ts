@@ -135,6 +135,7 @@ export const ROUTES: SideNavInterface[] = [
         staff_only: false,
         submenu: []
     },
+<<<<<<< HEAD
     // {
     //     path: 'app/ad-network',
     //     title: 'Ad Network',
@@ -154,4 +155,84 @@ export const ROUTES: SideNavInterface[] = [
     //         }
     //     ]
     // }
+=======
+    {
+        path: 'app/ad-network',
+        title: 'Ad Network',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'notification',
+        staff_only: false,
+        submenu: [
+            {
+                path: 'ad-network/sites',
+                title: 'My Sites',
+                iconType: 'nzIcon',
+                iconTheme: 'outline',
+                icon: 'crown',
+                staff_only: false,
+                submenu: []
+            }
+        ]
+    },
+    {
+        path: '/app/social-sharing/post-list',
+        title: 'Social Sharing',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'notification',
+        staff_only: false,
+        submenu: []
+    },
+    {
+        path: '',
+        title: 'Store',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'shopping-cart',
+        staff_only: false,
+        submenu: [
+            {
+                path: '/app/shop/sellproducts/product-list',
+                title: 'Product List',
+                iconType: 'nzIcon',
+                iconTheme: 'outline',
+                icon: 'skin',
+                staff_only: false,
+                submenu: []
+            },
+            {
+                path: '/app/shop/sellproducts/store-settings',
+                title: 'Store Setting',
+                iconType: 'nzIcon',
+                iconTheme: 'outline',
+                icon: 'setting',
+                staff_only: false,
+                submenu: []
+            },
+            {
+
+                path: '/app/shop/sellproducts/order-list',
+                title: 'Order List',
+                iconType: 'nzIcon',
+                iconTheme: 'outline',
+                icon: 'down-square',
+                staff_only: false,
+                submenu: []
+            }
+        ]
+    },
+    {
+        path: '/app/shop/myorders/my-order-list',
+        title: 'My Orders',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'skin',
+        staff_only: false,
+        submenu: [
+
+
+        ]
+    }
+>>>>>>> dev
 ]

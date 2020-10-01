@@ -1,0 +1,106 @@
+.buy-btn {
+    background-color: #ff4020;
+    border: 0px;
+    color: #fff;
+    padding: 0.65rem 1.25rem;
+    line-height: 1.25;
+    height: auto;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+}
+::ng-deep .single-product{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    &:hover{
+        box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.05);
+        background: #fff;
+    }
+
+    .product-img{
+        height: 250px;
+    position: relative;
+    overflow: hidden;
+    border-radius:5px;
+        img{
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        &:after{
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+    &:hover .product-img{
+        box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.05);
+        background: #fff;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+    .product-body{
+        padding: 15px;
+        h2{
+            font-family: josefin_sansregular;
+            font-size: 18px;
+            color: #000;
+            line-height: 26px;
+            margin-top: 20px;
+            font-weight: 600;
+            word-break: break-all;
+            margin: 0px;
+        }
+        p{
+            font-family: open_sansregular;
+            font-size: 15px;
+            font-weight: 400;
+            color: #464444;
+            line-height: 24px;
+            word-break: break-all;
+            -webkit-box-orient: vertical;
+            height: 50px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+        }
+    }
+    .product-footer{
+        display: flex;
+        justify-content: space-between;
+        padding: 15px;
+        border-top: 1px solid #eee;
+        align-items: flex-start;
+        .price{
+            font-family: "josefin_sansregular";
+            font-size: 22px;
+            color: #000;
+            .discount{
+                font-size: 20px;
+                color: #ababab;
+                text-decoration: line-through;
+                font-family: "josefin_sanslight";
+                display: block;
+            }
+        }
+        
+    }
+   ::ng-deep &.store{
+        .product-item{
+            position: relative;
+            .product-body{
+                position: absolute;
+                top:0px;
+                left: 0px;
+            }
+        }
+    }
+}

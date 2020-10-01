@@ -1,0 +1,38 @@
+::ng-deep .nz-rating-sec{
+    .ant-rate-star-full{
+        .ant-rate-star-second{
+            svg{
+                fill:#20a739;
+            }
+        }
+        .ant-rate-star-first{
+            svg{
+                fill:#20a739;
+            }
+        }
+    }
+}
+
+::ng-deep .nz-rating-sec{
+    .ant-rate-star-half{
+        .ant-rate-star-first{
+            svg{
+                fill:#20a739;
+            }
+        }
+    }
+}
+::ng-deep .rating-btn{
+    margin: 10px 0px 0px;
+    .b-btn{
+        padding: 6px 12px;
+        font-size: 13px;
+        background:#20a739;
+        border:0px;
+    }
+}
+.ant-advanced-search-form{
+    h2{
+        margin-top: 0px;
+    }
+}

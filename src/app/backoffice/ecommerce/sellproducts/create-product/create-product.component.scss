@@ -1,0 +1,204 @@
+.profile-setting-main {
+  .page-header {
+    background: #fff;
+    padding: 10px 20px 7px 20px;
+    margin-top: 20px;
+    border: 1px solid #eee;
+
+    h2 {
+      font-family: "josefin_sanssemibold";
+      margin: 0px;
+      padding: 0px;
+      color: #000;
+    }
+  }
+
+  ::ng-deep .ant-tabs-bar {
+    padding: 0px;
+    margin-top: 0px;
+    border-color: #ff563a;
+
+    .ant-tabs-tab {
+      font-family: "josefin_sansregular";
+      color: #000;
+      font-size: 16px;
+      margin: 0px;
+      border: 1px solid transparent;
+
+      &.ant-tabs-tab-active {
+        background: #ff563a;
+        border: 1px solid #ff563a;
+        color: #fff;
+      }
+
+      &:hover {
+        background: #ff563a;
+        border: 1px solid #ff563a;
+        color: #fff;
+      }
+    }
+
+    .ant-tabs-ink-bar-animated {
+      display: none !important;
+    }
+
+  }
+
+  ::ng-deep .page-header-tab {
+    background: #fff;
+    border: 1px solid #eee;
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+
+    .ant-tabs-tabpane {
+      padding: 0px !important;
+
+      .ant-card {
+        border: 1px solid #ccc;
+        border-width: 0px 0px 1px 0px;
+        border-radius: 0px;
+
+        &:last-child {
+          border-bottom: 0px;
+        }
+      }
+
+      .ant-card-head {
+        padding: 0px;
+        border: 0px;
+        position: relative;
+        font-family: "josefin_sanssemibold";
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0px;
+          left: 0px;
+          width: 50px;
+          height: 2px;
+          background: #ff563a;
+        }
+      }
+
+      .ant-card-body {
+        padding: 25px 0px;
+
+        .ant-input {
+          border: 1px solid #ccc;
+          font-family: "josefin_sansregular";
+        }
+
+        .ant-form-item-label {
+          label {
+            font-family: "josefin_sansregular";
+            color: #000;
+          }
+        }
+
+        .ant-form-item {
+          .ant-picker {
+            border-color: #ccc;
+          }
+        }
+
+        .login-form {
+          ::ng-deep .ant-list-item-meta {
+            .ant-list-item-meta-content {
+              .ant-list-item-meta-title {
+                h5 {
+                  font-family: "josefin_sansregular";
+                }
+
+                p {
+                  font-family: "open_sansregular";
+                  color: #868686;
+                  font-size: 13px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .media {
+      align-items: center;
+
+      .profile-upload-txt {
+        padding-left: 30px;
+
+        .ant-btn {
+          .anticon {
+            svg {
+              font-size: 18px;
+            }
+          }
+        }
+
+        h5 {
+          font-size: 14px;
+          margin-bottom: 0px;
+          margin-top: 15px;
+        }
+
+        p {
+          font-size: 12px;
+          font-weight: normal;
+          font-family: "open_sansregular";
+          color: #000;
+          line-height: 18px;
+          margin: 0px;
+        }
+
+      }
+    }
+  }
+}
+
+::ng-deep .ant-modal-confirm-body {
+  .ant-modal-confirm-title {
+    font-family: "josefin_sansregular";
+  }
+}
+
+::ng-deep .ant-btn {
+  font-family: "josefin_sansregular" !important;
+}
+
+@media screen and (max-width:580px) {
+  .profile-setting-main {
+    ::ng-deep .page-header-tab {
+      margin: 0px;
+
+      .media {
+        justify-content: center;
+        flex-wrap: wrap;
+        text-align: center;
+
+        .profile-upload-txt {
+          padding-left: 0px;
+        }
+
+        .ant-avatar {
+          margin: 0px auto 20px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width:581px) and (max-width:767px) {
+  .profile-setting-main {
+    ::ng-deep .page-header-tab {
+      margin: 0px;
+    }
+  }
+}
+
+[nz-input-group] {
+  padding: 5px;
+}
+
+.profile-setting-main .page-header-tab .ant-tabs-tabpane .ant-card-body .ant-input {
+  border: none !important;
+}

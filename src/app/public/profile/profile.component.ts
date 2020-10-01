@@ -12,7 +12,7 @@ import * as firebase from 'firebase/app';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { AUTHOR } from 'src/app/shared/constants/member-constant';
 import { NzModalService } from 'ng-zorro-antd';
-
+import {  Router } from '@angular/router';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -49,7 +49,8 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     public userService: UserService,
     public langService: LanguageService,
-    private modal: NzModalService
+    private modal: NzModalService,
+    private router: Router
   ) {
 
   }
@@ -192,6 +193,7 @@ export class ProfileComponent implements OnInit {
     }
   }
   async follow(authorId) {
+    if(this.authorDetails.id){
     const userDetails = this.getUserDetails();
     const authorDetails = this.getAuthorDetails();
     await this.authorService.follow(authorId, userDetails.type);
@@ -203,9 +205,13 @@ export class ProfileComponent implements OnInit {
       user_uid: userDetails.id,
       user_name: userDetails.fullname,
     });
+  }else{
+    this.showModal();
+  }
   }
 
   async unfollow(authorId) {
+    if(this.authorDetails.id){
     const userDetails = this.getUserDetails();
     const authorDetails = this.getAuthorDetails();
     await this.authorService.unfollow(authorId, userDetails.type);
@@ -217,6 +223,9 @@ export class ProfileComponent implements OnInit {
       user_uid: userDetails.id,
       user_name: userDetails.fullname,
     });
+  }else{
+    this.showModal();
+  }
   }
   setFollowOrNot() {
 
@@ -316,6 +325,24 @@ export class ProfileComponent implements OnInit {
       this.videoArticles = this.getDistinctArray(mergedData)
       this.lastArticleIndexOfVideo = articleData.lastVisible;
     })
+  }
+
+  isVisible = false;
+  isOkLoading = false;
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.router.navigate(["auth/login"]);
+      this.isOkLoading = false;
+    }, 2000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
   }
 
 }

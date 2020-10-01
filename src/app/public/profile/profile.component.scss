@@ -565,6 +565,19 @@
 
 }
 }
+.popup-content{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .bg-logo{
+    display: inline-block;
+    max-width: 90px;
+    margin-right: 20px;
+    img{
+      max-width: 100%;
+  }
+  }
+}
 @media screen and (max-width: 580px) {
   .is-author-profile-sec {
     padding: 20px 0px 0px 0px;

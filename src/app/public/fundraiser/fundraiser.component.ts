@@ -21,7 +21,7 @@ import { AuthorService } from 'src/app/shared/services/author.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { CompanyService } from 'src/app/shared/services/company.service';
 import { CharityService } from 'src/app/shared/services/charity.service';
-
+import {  Router } from '@angular/router';
 @Component({
   selector: 'app-fundraiser',
   templateUrl: './fundraiser.component.html',
@@ -83,7 +83,8 @@ export class FundraiserComponent implements OnInit {
     public translate: TranslateService,
     public userService: UserService,
     public companyService: CompanyService,
-    public charityService: CharityService
+    public charityService: CharityService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {

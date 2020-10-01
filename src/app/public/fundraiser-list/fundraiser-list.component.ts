@@ -3,6 +3,10 @@ import { LanguageService } from 'src/app/shared/services/language.service';
 import { FundraiserService } from 'src/app/shared/services/fundraiser.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/authentication.service';
+<<<<<<< HEAD
+=======
+import { User } from 'src/app/shared/interfaces/user.type';
+>>>>>>> dev
 @Component({
   selector: 'app-fundraiser-list',
   templateUrl: './fundraiser-list.component.html',
@@ -15,10 +19,15 @@ export class FundraiserListComponent implements OnInit {
   loadingMore: boolean = false;
   selectedLanguage: string = "";
   fundraiserListLimit = 20;
+  isLoggedInUser: any;
 
   constructor(
     private fundraiserService: FundraiserService,
     private langService: LanguageService,
+<<<<<<< HEAD
+=======
+    private route: ActivatedRoute,
+>>>>>>> dev
     private router: Router,
     public authService: AuthService,
   ) { }
@@ -84,4 +93,8 @@ export class FundraiserListComponent implements OnInit {
 
   
   }
+<<<<<<< HEAD
+=======
+  
+>>>>>>> dev
 }

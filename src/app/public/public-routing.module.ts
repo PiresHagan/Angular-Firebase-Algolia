@@ -35,6 +35,10 @@ const routes: Routes = [
     }
   },
   {
+    path: 'shop',
+    loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)
+  },
+  {
     path: 'category/:slug',
     component: CategoryComponent,
     data: {
@@ -214,15 +218,6 @@ const routes: Routes = [
       headerDisplay: "none"
     }
   },
-  // {
-  //   path: '**',
-  //   component: HomeComponent,
-  //   data: {
-  //     title: 'Home',
-  //     headerDisplay: "none"
-  //   }
-
-  // },
   {
     path: ':userSlug/:slug',
     component: ArticleComponent,
@@ -238,9 +233,7 @@ const routes: Routes = [
       title: 'Profile',
       headerDisplay: "none"
     }
-  },
-  
-
+  }
 ];
 
 @NgModule({

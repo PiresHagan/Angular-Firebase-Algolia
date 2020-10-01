@@ -1,0 +1,75 @@
+<nz-card>
+  <div class="row m-b-30">
+    <div class="col-lg-8">
+      <div class="d-md-flex">
+        <div class="m-b-10 m-r-20">
+          <nz-input-group [nzPrefix]="prefixTemplate">
+            <input type="text" nz-input placeholder="Search Project" [(ngModel)]="searchInput"
+              (ngModelChange)="search()">
+          </nz-input-group>
+          <ng-template #prefixTemplate>
+            <i nz-icon nzType="search" class="opacity-05"></i>
+          </ng-template>
+        </div>
+
+        <div class="m-b-10 m-r-20 d-flex align-items-center">
+          <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Status" [(ngModel)]="selectedStatus"
+            (ngModelChange)="statusChange($event)">
+            <nz-option nzLabel="All" nzValue="All"></nz-option>
+            <nz-option nzLabel="In Stock" nzValue="in stock"></nz-option>
+            <nz-option nzLabel="Out Of Stock" nzValue="out of stock"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 text-right">
+      <a nz-button nzType="primary" [routerLink]="['/app/shop/sellproducts/create-product']" style="padding-top: 10px;">
+        <i nz-icon nzType="plus-circle" theme="outline"></i>
+        <span>{{ 'AddProduct' | translate }}</span>
+      </a>
+    </div>
+  </div>
+  <nz-table #productsListTable [nzData]="displayData">
+    <thead>
+      <tr>
+        <th *ngFor="let column of orderColumn" [nzSortFn]="column.compare">{{ column.title | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of productsListTable.data;  let i=index">
+        <td>#{{item.id}}</td>
+        <td>
+          <div class="d-flex align-items-center">
+            <nz-avatar nzShape="square" [nzSize]="60" nzIcon="picture" [nzSrc]="item?.images? item?.images[0].url:''">
+            </nz-avatar>
+            <span class="m-l-10">{{item.name}}</span>
+          </div>
+        </td>
+        <td>${{item?.salePrice | number:'3.2-5'}}</td>
+        <td>
+          {{item.quantity}}
+        </td>
+        <td>
+          <nz-badge *ngIf="item.status == 'instock'" nzStatus="success"></nz-badge>
+          <nz-badge *ngIf="item.status == 'outofstock'" nzStatus="error"></nz-badge>
+          <nz-badge *ngIf="item.status == 'pending'" nzStatus="warning"></nz-badge>
+          <span class="text-capitalize" *ngIf="item.status == 'instock'">In Stock</span>
+          <span class="text-capitalize" *ngIf="item.status == 'outofstock'">Out Of Stock</span>
+          <span class="text-capitalize" *ngIf="item.status == 'pending'">Pending</span>
+
+        </td>
+        <td class="text-md-right">
+
+          <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Edit"
+            [routerLink]="['/app/shop/sellproducts/create-product']" [queryParams]="{product: item.id}">
+            <i nz-icon nzType="edit" theme="outline"></i>
+          </a>
+          <button nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Delete"
+            (click)="deleteProduct(item.id)">
+            <i nz-icon nzType="delete" theme="outline"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

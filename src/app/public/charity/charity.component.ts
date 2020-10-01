@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 import { ActivatedRoute, Router} from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+=======
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+>>>>>>> dev
 import { Title, Meta } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { CharityService } from 'src/app/shared/services/charity.service';
@@ -10,13 +15,7 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 import { Charity } from 'src/app/shared/interfaces/charity.type';
 import { User } from 'src/app/shared/interfaces/user.type';
 
-import { StripeService, StripeCardNumberComponent } from 'ngx-stripe';
-import {
-  StripeCardElementOptions,
-  StripeElementsOptions,
-  PaymentIntent,
-} from '@stripe/stripe-js';
-
+import {  Router } from '@angular/router';
 @Component({
   selector: 'app-charity',
   templateUrl: './charity.component.html',

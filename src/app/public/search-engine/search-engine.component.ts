@@ -37,6 +37,10 @@ export class SearchEngineComponent implements OnInit {
     { "brandName": ""},
     { "brandName": ""}
   ];
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
   constructor(
     public translate: TranslateService,
     private languageService: LanguageService,
@@ -72,6 +76,10 @@ export class SearchEngineComponent implements OnInit {
         this.articleBrand1[m] = this.articleBrand1[i];
         this.articleBrand1[i] = t;
       }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> dev
     });
   }
   ShowBtn(n: number): any[] {

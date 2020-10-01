@@ -8,7 +8,7 @@
 
                 </ng-container>
 
-               
+
 
                 <!-- <li nz-menu-item [routerLink]="['/category']">Business</li>
         <li nz-menu-item [routerLink]="['/category']">News</li>
@@ -79,9 +79,16 @@
                         </div>
                     </ng-container>
                 </li>
+<<<<<<< HEAD
                 <li nz-menu-item *ngIf="!isLoggedInUser">
                     <a class="is-login-link" (click)="routeLogin()">
                         {{'login' | translate }}
+=======
+                <li nz-menu-item *ngIf="!isLoggedInUser" class="h-auto line-height-normal">
+                    <a class="is-login-link" (click)="routeLogin()">
+                        {{'login' | translate }}
+                        <img src="assets/images/sign-up.png" alt="sign up icon">
+>>>>>>> dev
                     </a>
                 </li>
                 <li nz-menu-item *ngIf="!isLoggedInUser" class="h-auto">

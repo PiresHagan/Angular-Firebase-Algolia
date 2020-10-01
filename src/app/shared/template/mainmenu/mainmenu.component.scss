@@ -444,9 +444,12 @@
                 height: 2px;
             }
         }
+<<<<<<< HEAD
         .city, .ville, .ciudad{
             display: none !important;
         }
+=======
+>>>>>>> dev
         .life-and-styles, .vie-et-styles, .vida-y-estilos{
             .category-title-xs{
                 color: #fbca20;
@@ -554,10 +557,20 @@
                 }
             }
         }
+<<<<<<< HEAD
        
         .border-bottom{
             border-bottom: 1px solid #eee;
         }
+=======
+
+        .border-bottom{
+            border-bottom: 1px solid #eee;
+        }
+        .line-height-normal{
+            line-height: normal !important;
+        }
+>>>>>>> dev
          .xs-menu-item{
              ::ng-deep .ant-menu-submenu-title{
                  padding-left: 10px !important;
@@ -578,8 +591,19 @@
         }
     }
     .is-login-link{
+<<<<<<< HEAD
         font-size: 14px;
         color: #000 !important;
+=======
+        color: #fff !important;
+        background: #0079d0;
+        display: inline-block !important;
+        border-radius: 30px;
+        font-size: 14px;
+        outline: none;
+        padding: 6px 19px;
+        margin: 20px 0px 0px 0px;
+>>>>>>> dev
     }
     .is-sign-up-btn{
         border-radius: 30px;

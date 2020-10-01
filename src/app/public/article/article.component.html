@@ -8,8 +8,15 @@
             </h2>
             <div class="xs-article-author-detail">
                 <div class="xs-article-name">
+<<<<<<< HEAD
                     {{article?.author?.fullname}}
                    
+=======
+                    <a  [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url"
+                    *ngIf="article">
+                    {{article?.author?.fullname}}
+                </a>
+>>>>>>> dev
                 </div>
                 <div class="comment-section">
                     <ul>
@@ -100,6 +107,25 @@
                                 </nz-modal>
                             </div>
                         </span>
+                        <div class="login-popup"  *ngIf="!isLoggedInUser">
+                            <nz-modal
+                                [(nzVisible)]="isVisible"
+                                nzTitle="My Trending Stories"
+                                (nzOnCancel)="handleCancel()"
+                                (nzOnOk)="handleOk()"
+                                [nzOkLoading]="isOkLoading"
+                                >
+                                <div class="popup-content">
+                                    <div>
+                                        <a [routerLink]="['/']" class="bg-logo">
+                                            <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                                        </a>
+                                    </div>
+                                    <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' | translate}}</a> {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a> {{'toContinue' | translate}}.</p>
+                                   
+                                </div>
+                                </nz-modal>
+                        </div>
                     </div>
                     <!--<div class="is-like-sec is-divider" *ngIf="isLoggedInUser">-->
                     <div class="is-like-sec is-divider">

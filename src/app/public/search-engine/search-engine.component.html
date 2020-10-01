@@ -2,6 +2,7 @@
     <ais-instantsearch [config]="config">
       <div class="container">
          <div class="position-relative">
+<<<<<<< HEAD
             <!--visible spot on large Device-->
             <div class="sr-brand" *ngIf="articleBrand1.length != 0">
                 <div class="sr-brand-item" *ngFor="let brand of articleBrand1 | slice:0:12; let i=index;" [ngClass]="'sr-brand-item'+(i)">
@@ -32,6 +33,37 @@
               </div>
            </div>
           
+=======
+          <!--visible spot on large Device-->
+          <div class="sr-brand" *ngIf="articleBrand1.length != 0">
+              <div class="sr-brand-item" *ngFor="let brand of articleBrand1 | slice:0:12; let i=index;" [ngClass]="'sr-brand-item'+(i)">
+                 <div *ngIf="!(brand.brandName === ''); else buySpot">
+                  <a href="{{brand.brandUrl}}">
+                    <div class="sr-brand-logo">
+                       <img [src]="brand?.brandImage?.url" [alt]="brand?.brandImage?.alt" />
+                     </div>
+                    <div class="sr-brand-name">{{brand.brandName}}</div>
+                  </a>
+                  </div>
+              </div>
+               <ng-template  #buySpot>
+                  <div class="sr-brand-item btn">
+                     <a routerLink="/buy">{{'searchBuyNow' | translate}}</a>
+               </div>
+              </ng-template>
+          </div>
+           <!--End visible spot on large Device-->
+
+         
+          <div class="sr-bar-with-ads">
+               <div class="sr-bar">
+                     <div class="sr-box">
+                     <ais-search-box></ais-search-box> 
+                     </div>
+               </div>
+            </div>
+         </div>
+>>>>>>> dev
             <ais-refinement-list attribute="brand"></ais-refinement-list>
             <ais-configure [searchParameters]="{ hitsPerPage: 16 }"></ais-configure>
             <ais-hits>

@@ -57,7 +57,29 @@
                                 <img src="assets/images/article/icon/un-follow.png" />
                                 <span>{{'unFollow' | translate}}</span>
                             </a>
+<<<<<<< HEAD
 
+=======
+                            <div class="login-popup"  *ngIf="!this.authorDetails.id">
+                                <nz-modal
+                                    [(nzVisible)]="isVisible"
+                                    nzTitle="My Trending Stories"
+                                    (nzOnCancel)="handleCancel()"
+                                    (nzOnOk)="handleOk()"
+                                    [nzOkLoading]="isOkLoading"
+                                    >
+                                    <div class="popup-content">
+                                        <div>
+                                            <a [routerLink]="['/']" class="bg-logo">
+                                                <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                                            </a>
+                                        </div>
+                                        <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' | translate}}</a> {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a> {{'toContinue' | translate}}.</p>
+                                       
+                                    </div>
+                                    </nz-modal>
+                            </div>
+>>>>>>> dev
                         </li>
 
 

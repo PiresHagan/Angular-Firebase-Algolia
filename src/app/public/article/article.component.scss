@@ -278,6 +278,7 @@ hr{
               font-size: 22px;
               margin-top: 30px;
               display: block;
+              word-break: break-all;
             }
             strong {
               color: #000;
@@ -285,6 +286,7 @@ hr{
               font-size: 22px;
               margin-top: 30px;
               display: block;
+              word-break: break-all;
             }
             &.para-bg {
               background: #f5f5f5;
@@ -1027,6 +1029,64 @@ hr{
 }
 }
 
+<<<<<<< HEAD
+=======
+.popup-content{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .bg-logo{
+    display: inline-block;
+    max-width: 90px;
+    margin-right: 20px;
+    img{
+      max-width: 100%;
+  }
+  }
+}
+.mobile-article-detail{
+  display: none;
+}
+.xs-article-publish{
+  display: none;
+}
+.life-and-styles, .vie-et-styles, .vida-y-estilos{
+  &.xs-article-category{
+      background: #fbca20 !important;
+  }
+  &.category{
+    color: #fbca20 !important;
+}
+  
+}
+.creative{
+  &.xs-article-category{
+    background: #88827a !important;
+  }
+  &.category{
+    color: #88827a !important;
+}
+}
+
+.news,.nouvelles,.noticias{
+  &.xs-article-category{
+    background: #faaf44 !important;
+  }
+  &.category{
+    color: #faaf44 !important;
+}
+}
+
+.entertainment, .divertissement, .entretenimiento{
+  &.xs-article-category{
+    background: #f64747 !important;
+  }
+  &.category{
+    color: #f64747 !important;
+}
+}
+
+>>>>>>> dev
 .business, .Entreprise, .negocio{
   &.xs-article-category{
     background: #2baad3 !important;
@@ -1206,6 +1266,12 @@ hr{
           color: #000;
           font-weight: 600;
           flex:1;
+<<<<<<< HEAD
+=======
+          a{
+            color:#000;
+          }
+>>>>>>> dev
         }
         .comment-section{
           width:130px;

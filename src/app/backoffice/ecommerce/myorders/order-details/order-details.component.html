@@ -1,0 +1,128 @@
+<div class="container">
+  <nz-skeleton *ngIf="!orderDetails"></nz-skeleton>
+
+
+  <nz-card *ngIf="orderDetails">
+    <div class="row m-b-30">
+      <div class="col-lg-4">
+      </div>
+      <div class="col-lg-8 text-right">
+
+
+        <a nz-button nzType="primary" class="p-t-10 m-2" (click)="goBack()" [nzLoading]="markPaidStatus">
+          <i nz-icon theme="outline"></i>
+          <span>{{ 'Back' | translate}}</span>
+        </a>
+
+      </div>
+    </div>
+    <div id="invoice" class="p-h-30">
+
+      <div class="m-t-15 lh-2 row">
+        <div class="inline-block col-sm-9">
+          <img class="img-fluid" [src]="orderDetails?.customer?.avatar?.url" alt="">
+          <address class="p-l-10">
+            <span class="font-weight-semibold text-dark">{{orderDetails?.customer?.fullname}}</span><br>
+            <span> {{orderDetails?.customer?.email}}</span>
+            <!-- <span>9498 Harvard Street</span><br>
+              <span>Fairfield, Chicago Town 06824</span><br>
+              <abbr class="text-dark" title="Phone">Phone:</abbr>
+              <span>(123) 456-7890</span> -->
+          </address>
+        </div>
+        <div class="col-sm-3">
+          <h3 class="p-l-10 m-t-10">{{ 'ShippingAddress' | translate}}</h3>
+          <address class="p-l-10 m-t-10">
+            <span class="font-weight-semibold text-dark">{{orderDetails.shippingInfo.name}}</span><br>
+            <span>{{orderDetails.shippingInfo.address}}</span><br>
+            <span>{{orderDetails.shippingInfo.city}}, <br> {{orderDetails.shippingInfo.state}}
+              {{orderDetails.shippingInfo.postal_code}}</span><br>
+            <span>M: {{orderDetails.shippingInfo.mobile_number}}</span><br>
+            <span *ngIf="orderDetails.shippingInfo.alternate_mobile_number">M:
+              {{orderDetails.shippingInfo.alternate_mobile_number}}</span>
+          </address>
+        </div>
+      </div>
+      <div class="row m-t-20 lh-2">
+        <div class="col-sm-9">
+          <!-- <h3 class="p-l-10 m-t-10">{{ 'InvoiceTo' | translate}}</h3>
+            <address class="p-l-10 m-t-10">
+              <span class="font-weight-semibold text-dark">Genting Holdings.</span><br>
+              <span>8626 Maiden Dr. </span><br>
+              <span>Niagara Falls, New York 14304</span>
+            </address> -->
+        </div>
+        <div class="col-sm-3">
+          <div class="m-t-80">
+            <div class="text-dark text-uppercase d-inline-block">
+              <span class="font-weight-semibold text-dark">{{ 'InvoiceNo' | translate}} :</span>
+            </div>
+            <div class="float-right">#{{orderDetails.invoiceId}}</div>
+          </div>
+          <div class="text-dark text-uppercase d-inline-block">
+
+            <span class="font-weight-semibold text-dark">{{'Date' | translate}} :</span>
+          </div>
+          <div class="float-right">{{orderDetails.created_at | date :'short'}}</div>
+        </div>
+      </div>
+      <div class="row m-t-20">
+        <div class="col-sm-12">
+          <nz-table #orderTable [nzData]="itemData" [nzShowPagination]="false">
+            <thead>
+              <tr>
+                <th>{{'No' | translate}}</th>
+                <th>{{'Items' | translate}}</th>
+                <th>{{'Quantity' | translate}}</th>
+                <th>{{'Price' | translate}}</th>
+                <th>{{'Total' | translate}}</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of orderTable.data; let i = index;">
+                <td>{{i + 1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.quantity}}</td>
+                <td>${{getSinglePrice(item) | number:'2.2-5'}}</td>
+                <td>
+                  ${{getPrice(item) | number:'2.2-5'}}
+
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+          <div class="row m-t-30 lh-1-8">
+            <div class="col-sm-12">
+              <div class="float-right text-right">
+                <p>{{'SubTotalAmount' | translate}}: ${{orderDetails.totalPrice}}</p>
+
+                <hr>
+                <h3><span class="font-weight-semibold text-dark">{{'Total' | translate}} :</span>
+                  ${{orderDetails.totalPrice}}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="row m-t-30 lh-2">
+            <div class="col-sm-12">
+              <div class="border top bottom p-v-20">
+                <p class="text-opacity"><small>{{'InvoiceNote' | translate}}</small></p>
+              </div>
+            </div>
+          </div>
+          <div class="row m-v-20">
+            <div class="col-sm-6">
+              <img class="img-fluid text-opacity m-t-5" width="100" src="assets/images/logo/logo.png" alt="">
+            </div>
+            <div class="col-sm-6 text-right">
+              <small><span class="font-weight-semibold text-dark">{{'Phone' | translate}}:</span> (123)
+                456-7890</small>
+              <br>
+              <small>support@themenate.com</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nz-card>
+</div>
