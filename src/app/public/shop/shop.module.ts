@@ -16,6 +16,7 @@ import { CartComponent } from './cart/cart.component';
 import { CartCalculatorComponent } from './cart/cart-calculator/cart-calculator.component';
 import { environment } from 'src/environments/environment';
 import { ShopLoginComponent } from './shop-login/shop-login.component';
+import { MegaMenuComponent } from './mega-menu/mega-menu.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ShopLoginComponent } from './shop-login/shop-login.component';
     CartComponent, 
     CartCalculatorComponent,
     ProductCheckoutComponent,
-    ShopLoginComponent
+    ShopLoginComponent,
+    MegaMenuComponent
   ],
   imports: [
     CommonModule,

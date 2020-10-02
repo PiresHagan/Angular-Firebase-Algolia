@@ -2,26 +2,7 @@
     <div class="container">
         <div class="shopping-header">
             <div class="category-dropdown">
-                <div class="mega-dropdown"  (mouseenter)="showMegaMenu()"
-                (mouseleave)="hideMegaMenu()">
-                    <a class="mega-dropdown-btn">Shop by category</a>
-                    <div class="mega-menu-body-sec" id="mega-menu-body">
-                        <div class="megamenu-menu-body">
-                            <div class="sub-catagories-sec">
-                                <div class="sub-catagories-list" *ngFor="let catgory of categories">
-                                    <h2>{{catgory.title}}</h2>
-                                    <ul>
-                                        <li [routerLink]="['/shop/category', 'subCatgoryList.slug']" (click)="hideMegaMenu()" class="mega-menu-list-item"  *ngFor="let subCatgoryList of catgory.sub_categories">
-                                            {{subCatgoryList.title}}
-                                        </li>
-                                    </ul>
-                                </div>
-                               
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
+                <app-mega-menu></app-mega-menu>
             </div>
             <div class="mega-search">
                 <nz-input-group [nzSuffix]="suffixIconSearch">
