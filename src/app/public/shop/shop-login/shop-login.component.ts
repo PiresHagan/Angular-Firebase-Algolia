@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { environment } from 'src/environments/environment';
@@ -28,12 +28,18 @@ export class ShopLoginComponent implements OnInit {
   }
 
   showSignIn: boolean = true;
+  errorLogin: boolean = false;
   invalidPassErr: string = "";
   somethingWentWrongErr: string = "";
   errorMessage: string;
+  errorSignup: boolean = false;
+  errorPasswordWeak: boolean = false;
+  errorAgree: boolean = false;
+  generalError: boolean = false;
+  errorDetails;
+
   signInForm: FormGroup;
   signUpForm: FormGroup;
-  errorLogin: boolean = false;
   isFormSaving: boolean = false;
 
   constructor(
@@ -52,6 +58,14 @@ export class ShopLoginComponent implements OnInit {
     this.signInForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
+    });
+
+    this.signUpForm = this.fb.group({
+      fullname: [null, [Validators.required]],
+      email: [null, [Validators.email, Validators.required]],
+      password: [null, [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,30}$/)]],
+      checkPassword: [null, [Validators.required, this.confirmationValidator]],
+      agree: [null, [Validators.required]]
     });
   }
 
@@ -108,7 +122,9 @@ export class ShopLoginComponent implements OnInit {
         this.invalidCaptcha = false;
         this.authService.validateCaptcha(this.captchaToken).subscribe((success) => {
           if(this.showSignIn) {
-            this.onSignIn();
+            const email = this.signInForm.get('email').value;
+            const password = this.signInForm.get('password').value;
+            this.onSignIn(email, password);
           } else {
             this.onSignUp();
           }
@@ -139,13 +155,9 @@ export class ShopLoginComponent implements OnInit {
     this.validateCaptcha();
   }
 
-  onSignIn() {
+  onSignIn(email: string, password: string) {
     this.isFormSaving = true;
-    const userData = {
-        email: this.signInForm.get('email').value,
-        password: this.signInForm.get('password').value
-    }
-    this.authService.doLogin(userData.email, userData.password).then((loginDetails) => {
+    this.authService.doLogin(email, password).then((loginDetails) => {
         this.isFormSaving = false;
     }).catch((err) => {
       this.resetCaptcha();
@@ -162,7 +174,85 @@ export class ShopLoginComponent implements OnInit {
     });
   }
 
-  onSignUp() {
+  async onSignUp() {
+    for (const i in this.signUpForm.controls) {
+      this.signUpForm.controls[i].markAsDirty();
+      this.signUpForm.controls[i].updateValueAndValidity();
+    }
 
+    this.errorSignup = false;
+    this.errorPasswordWeak = false;
+    this.errorAgree = false;
+
+    if (this.findInvalidControls().length == 0) {
+      try {
+        const email = this.signUpForm.get('email').value;
+        const password = this.signUpForm.get('password').value;
+        const fullname = this.signUpForm.get('fullname').value;
+        if (this.captchaToken) {
+          this.isFormSaving = true;
+          this.invalidCaptcha = false;
+          this.authService.validateCaptcha(this.captchaToken).subscribe((success) => {
+            this.saveDataOnServer(email, password, fullname)
+          }, (error) => {
+            window['grecaptcha'].reset(this.capchaObject);
+            this.isFormSaving = false;
+            this.invalidCaptcha = true;
+          })
+        } else {
+          this.invalidCaptcha = true;
+        }
+      } catch (err) {
+        this.isFormSaving = false;
+        console.log("err...", err);
+      }
+    }
+    else {
+      this.isFormSaving = false;
+      if (this.findInvalidControls().indexOf('agree') > -1) {
+        this.errorAgree = true;
+      }
+    }
   }
+
+  saveDataOnServer(email, password, fullname) {
+    this.authService.doRegister(email, password, fullname).then(user => {
+        this.onSignIn(email, password);
+    }).catch((error) => {
+      this.isFormSaving = false;
+      if (error.error && error.error.code == "auth/email-already-exists") {
+        this.errorSignup = true;
+      }
+      else if (error.error && error.error.code == "auth/weak-password") {
+        this.errorPasswordWeak = true;
+      } else {
+        this.errorDetails = error && error.error && error.error.message;
+      }
+      setTimeout(() => {
+        this.errorDetails = "";
+        this.errorSignup = false;
+        this.errorPasswordWeak = false;
+      }, 6000);
+    })
+}
+
+  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+    if (!control.value) {
+        return { required: true };
+    } else if (control.value !== this.signUpForm.controls.password.value) {
+        return { confirm: true, error: true };
+    }
+  }
+
+  public findInvalidControls() {
+    const invalid = [];
+    const controls = this.signUpForm.controls;
+    for (const name in controls) {
+        if (controls[name].invalid) {
+            invalid.push(name);
+        }
+    }
+    return invalid;
+  }
+
 }
