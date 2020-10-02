@@ -102,13 +102,81 @@
             .mega-dropdown-btn{
                 height: 40px;
                 width: 40px;
-                display: inline-block;
-                border-radius: 3px;
-                line-height: 40px;
+                display: flex;
                 padding: 0px;
                 text-align: center;
+                border-radius: 100%;
+                background: #156297;
                 &:after{
                     display: none;
+                }
+                ::ng-deep i{
+                    margin: auto;
+                    svg{
+                        fill: #fff;
+                        width:18px;
+                        height: 18px;
+                    }
+                }
+            }
+            .mega-menu-body-sec{
+                position: fixed;
+                top: 68px;
+                right: -100%;
+                width: 100%;
+                padding: 0px;
+                z-index: 1;
+                height: calc(100vh - 68px);
+                display: none;
+                left: auto;
+                transition: 0.5s all ease;
+                display: block;
+                opacity: 0;
+                .megamenu-menu-body{
+                    height: 100%;
+                    .close-side-bar{
+                        padding: 10px;
+                        border-bottom: 1px solid #ccc;
+                        background: #fff;
+                        display: flex;
+                        align-items: center;
+                        ::ng-deep i{
+                            svg{
+                                fill: #000;
+                                width: 30px;
+                                height: 30px;
+                            }
+                        }
+                    }
+                    .sub-catagories-sec{
+                        display: block;
+                        .sub-catagories-list{
+                            width:100%;
+                            padding:0px;
+                            border-bottom: 1px solid #ccc;
+                            &:nth-child(even){
+                                background: #fff;
+                            }
+                            ul{
+                                li{
+                                    margin-bottom: 0px;
+                                }
+                            }
+                            ::ng-deep .slide-list-item{
+                                .ant-menu-submenu{
+                                    .ant-menu-submenu-title{
+                                        padding-left: 10px !important;
+                                        &:focus{
+                                            outline: none;
+                                        }
+                                        &:active{
+                                            background: transparent;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -119,4 +187,19 @@
             display: block;
         }
     }
+    ::ng-deep .slide-bar{
+        overflow: hidden;
+        .mega-dropdown{
+            &.on-mobile-mega-menu{
+                &.hide-on-lg{
+                    .mega-menu-body-sec{
+                        display: block;
+                        transition: 0.5s all ease;
+                        right:0px;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
     }
+}
