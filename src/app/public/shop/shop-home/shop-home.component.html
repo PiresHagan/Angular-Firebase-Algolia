@@ -11,7 +11,7 @@
                                 <div class="sub-catagories-list" *ngFor="let catgory of categories">
                                     <h2>{{catgory.title}}</h2>
                                     <ul>
-                                        <li routerLink="subCatgoryList.slug" (click)="hideMegaMenu()" class="mega-menu-list-item"  *ngFor="let subCatgoryList of catgory.sub_categories">
+                                        <li [routerLink]="['/shop/category', 'subCatgoryList.slug']" (click)="hideMegaMenu()" class="mega-menu-list-item"  *ngFor="let subCatgoryList of catgory.sub_categories">
                                             {{subCatgoryList.title}}
                                         </li>
                                     </ul>
