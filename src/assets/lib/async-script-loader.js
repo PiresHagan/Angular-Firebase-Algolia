@@ -46,7 +46,7 @@ function initiateAds() {
       googletag.defineSlot('/107720708/adxp_mytrendingstories_SmartphoneBanner', [320, 50], 'div-gpt-ad-1599554668927-0').addService(googletag.pubads());
       googletag.defineSlot('/107720708/adxp_mytrendingstories_smartphoneBanner_1', [320, 50], 'div-gpt-ad-1599554708106-0').addService(googletag.pubads());
 
-      // googletag.pubads().disableInitialLoad();
+      googletag.pubads().disableInitialLoad();
       // googletag.pubads().enableSingleRequest();
       // googletag.pubads().collapseEmptyDivs();
       googletag.enableServices();
