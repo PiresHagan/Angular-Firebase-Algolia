@@ -21,8 +21,8 @@
           <div class="checkout-step-1"  *ngIf="current === deliveryAddressStep" [ngClass]="current">
             <form nz-form [formGroup]="userAddressForm" class="ant-advanced-search-form mt-4">
               <h2>Add Address</h2>
-              <div nz-row [nzGutter]="24">
-                <div nz-col [nzSpan]="8" >
+              <div class="row">
+                <div class="col-md-4 col-sm-6">
                   <nz-form-item>
                     <nz-form-label>Name </nz-form-label>
                     <nz-form-control nzErrorTip="Please input your name">
@@ -30,7 +30,7 @@
                     </nz-form-control>
                   </nz-form-item>
                 </div>
-                <div nz-col [nzSpan]="8" >
+                <div  class="col-md-4 col-sm-6">
                   <nz-form-item>
                     <nz-form-label>Mobile </nz-form-label>
                     <nz-form-control nzErrorTip="Please input your mobile number">
@@ -38,7 +38,7 @@
                     </nz-form-control>
                   </nz-form-item>
                 </div>
-                <div nz-col [nzSpan]="8" >
+                <div  class="col-md-4 col-sm-6">
                   <nz-form-item>
                     <nz-form-label>Alternate Phone (Optional) </nz-form-label>
                     <nz-form-control>
@@ -46,7 +46,7 @@
                     </nz-form-control>
                   </nz-form-item>
                 </div>
-                <div nz-col [nzSpan]="24" >
+                <div  class="col-md-4 col-sm-6">
                   <nz-form-item>
                     <nz-form-label>Address </nz-form-label>
                     <nz-form-control nzErrorTip="Please input your address">
@@ -55,7 +55,7 @@
                     </nz-form-control>
                   </nz-form-item>
                 </div>
-                <div nz-col [nzSpan]="8" >
+                <div  class="col-md-4 col-sm-6">
                   <nz-form-item>
                     <nz-form-label>City </nz-form-label>
                     <nz-form-control nzErrorTip="Please input your city name">
@@ -63,7 +63,7 @@
                     </nz-form-control>
                   </nz-form-item>
                 </div>
-                <div nz-col [nzSpan]="8" >
+                <div  class="col-md-4 col-sm-6">
                   <nz-form-item>
                     <nz-form-label>State </nz-form-label>
                     <nz-form-control nzErrorTip="Please input your state name">
@@ -71,7 +71,7 @@
                     </nz-form-control>
                   </nz-form-item>
                 </div>
-                <div nz-col [nzSpan]="8" >
+                <div  class="col-md-4 col-sm-6">
                   <nz-form-item>
                     <nz-form-label>Postal Code </nz-form-label>
                     <nz-form-control nzErrorTip="Please input your postal code">
