@@ -15,7 +15,12 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
   styleUrls: ['./product-checkout.component.scss']
 })
 export class ProductCheckoutComponent implements OnInit, OnDestroy {
-  current = 0;
+  loginStatusStep = 0;
+  deliveryAddressStep = 1;
+  paymentOptionsStep = 2;
+  orderStatusStep = 3;
+
+  current = this.loginStatusStep;
   isLoggedInUser: boolean;
 
   // order summary
@@ -68,8 +73,10 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
     this.authService.getAuthState().subscribe(user => {
       if (user && !user.isAnonymous) {
         this.isLoggedInUser = true;
+        this.current = this.deliveryAddressStep;
       } else {
         this.isLoggedInUser = false;
+        this.current = this.loginStatusStep;
       }
     });
 
@@ -96,7 +103,7 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
   }
 
   next(): void {
-    if(this.current == 0) {
+    if(this.current == this.deliveryAddressStep) {
       for (const i in this.userAddressForm.controls) {
         this.userAddressForm.controls[i].markAsDirty();
         this.userAddressForm.controls[i].updateValueAndValidity();

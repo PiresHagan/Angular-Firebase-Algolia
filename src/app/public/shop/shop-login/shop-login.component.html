@@ -4,10 +4,11 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="signup-left-area">
-                        <h2 class="title">Sign Up</h2>
+                        <h2 class="title" *ngIf="showSignIn">Sign In</h2>
+                        <h2 class="title" *ngIf="!showSignIn">Sign Up</h2>
                         <div class="sign-up-form-area">
-                            <form class="signup-form">
-                                <div class="row" id="hide-signup">
+                            <form class="signup-form" *ngIf="!showSignIn">
+                                <div class="row">
                                     <div class="col-lg-12 form-group">
                                         <input type="text" name="text" class="input-box" placeholder="Full Name">
                                     </div>
@@ -25,29 +26,63 @@
                                         <label nz-checkbox >I have read the <a href="" routerLink="/terms">Terms</a></label>
                                     </div>
                                     <div class="col-lg-12 form-group text-left">
-                                        <span class="control">Already registered? <a (click)="ShowSignIn()"> sign in</a></span>
+                                        <span class="control">Already registered? <a (click)="ShowSignIn()"> Sign In</a></span>
                                     </div>
-                                    <div class="col-lg-12 form-group">
-                                        <button type="button" class="login-btn" >Sign Up</button>
-                                    </div>
-                                    
-                                </div>
-                                <div class="row" id="hide-signin">
-                                    <div class="col-lg-12 form-group">
-                                        <input type="email" name="email" class="input-box" placeholder="Email">
-                                    </div>
-                                    <div class="col-lg-12 form-group">
-                                        <input type="password" id="myInput" name="password" class="input-box" placeholder="Password">
-                                    </div>
-                                    <div class="col-lg-12 form-group text-left">
-                                        <span class="control">Already registered? <a (click)="ShowSignUp()"> sign Up</a></span>
-                                    </div>
-                                    <div class="col-lg-12 form-group">
-                                        <button type="button" class="login-btn" >Sign In</button>
-                                    </div>
-                                    
                                 </div>
                             </form>
+                           
+                            <form *ngIf="showSignIn" nz-form [formGroup]="signInForm" class="login-form">
+                                <nz-alert class="m-b-10" nzType="error"
+                                    nzDescription="You have entered an invalid username or password" nzShowIcon
+                                    *ngIf="errorLogin"></nz-alert> 
+                                <nz-alert class="m-b-10" nzType="error"
+                                    nzDescription="{{'invalidCaptchaErr' | translate}}" nzShowIcon
+                                    *ngIf="invalidCaptcha"></nz-alert>
+                                <nz-form-item class="m-b-15">
+                                    <nz-form-control nzErrorTip="{{'loginEmailError' | translate}}" class="is-icon">
+                                        <nz-input-group>
+                                            <input type="text" nz-input formControlName="email"
+                                                placeholder="{{'loginInputEmail' | translate}}">
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item class="m-b-5">
+                                    <nz-form-control nzErrorTip="{{'loginPasswordError' | translate}}" class="is-icon">
+                                        <nz-input-group>
+                                            <input type="password" nz-input formControlName="password"
+                                                placeholder="{{'loginInputPassword' | translate}}">
+                                        </nz-input-group>
+                                    </nz-form-control>
+
+
+                                </nz-form-item>
+                            
+                                <div nz-row class="login-form-margin">
+                                    <div nz-col [nzSpan]="12">
+                                        <span class="font-size-13 text-muted">{{'signInTerms' | translate}}
+                                            <a class="small" (click)="ShowSignUp()"> {{'loginSignUp' | translate}} </a>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                            </form>
+
+                            <div #recaptcha>Loading Captcha...</div>
+
+                            <div *ngIf="!showSignIn" class="col-lg-12 form-group">
+                                <button type="button" class="login-btn" >Sign Up</button>
+                            </div>
+
+                            <div *ngIf="showSignIn" class="text-center mt-4">
+                                <button nz-button class="login-form-button is-login-btn" 
+                                    [nzType]="'primary'"
+                                    [nzLoading]="isFormSaving"
+                                    type="button"
+                                    (click)="submitSignInForm()"
+                                >
+                                    {{'loginSignInBtn' | translate}}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
