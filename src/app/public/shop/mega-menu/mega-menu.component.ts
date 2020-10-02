@@ -26,4 +26,12 @@ export class MegaMenuComponent implements OnInit {
   showMegaMenu() {
     document.getElementById('mega-menu-body').style.display = 'block';
   }
+  showSideBar(){
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.add('slide-bar');
+  }
+  hideSideBar(){
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.remove('slide-bar');
+  }
 }
