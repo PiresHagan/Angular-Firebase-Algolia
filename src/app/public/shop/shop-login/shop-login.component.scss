@@ -131,7 +131,7 @@
 
 @media only screen and (max-width:991px) {
 	.signup-area {
-		padding: 30px;
+		padding: 0px;
 		&::after {
 			display: none;
 		}
@@ -141,6 +141,11 @@
 	}
 	.signup-right-area {
 		display: none;
+	}
+	::ng-deep .hide-modal-footer{
+		.ant-modal{
+			width:90% !important;
+		}
 	}
 }
 @media only screen and (max-width:1199px) {
