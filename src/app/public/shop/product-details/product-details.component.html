@@ -309,7 +309,7 @@
                         </div>
                         <div class="rating-btn" (click)="showRating()">
                             <button type="button" class="b-btn">Rate Product</button>
-                            <div class="login-popup"  *ngIf="!isLoggedInUser">
+                            <!-- <div class="login-popup"  *ngIf="!isLoggedInUser">
                                 <nz-modal
                                     [(nzVisible)]="isVisible"
                                     nzTitle="My Trending Stories"
@@ -327,7 +327,18 @@
                                        
                                     </div>
                                     </nz-modal>
-                            </div>
+                            </div> -->
+                            <div class="login-popup-modal">
+                                <nz-modal [nzStyle]="{ width: '70%' }" class="sign-up-modal" [(nzVisible)]="isVisible" nzTitle="My Trending Stories E-commerce" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+                                [nzOkLoading]="isOkLoading" *ngIf="!isLoggedInUser"
+                                [nzFooter]="false"
+                                [nzFooter]="modalFooter"
+                                >
+                                <div class="popup-content">
+                                  <app-shop-login></app-shop-login>
+                                </div>
+                              </nz-modal>
+                              </div>
                         </div>
                     </div>
                     <div id="rating-box">

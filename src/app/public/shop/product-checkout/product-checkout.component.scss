@@ -295,3 +295,21 @@
         }
     }
 }
+::ng-deep .remove-header-footer{
+    .header{
+        display: none;
+    }
+    .footer{
+        display: none;
+    }
+    .main-content{
+        padding-top:10px !important
+    }
+}
+.logo{
+    max-width: 150px;
+    a{
+        background: #ff4020;
+        display: inline-block;
+    }
+}

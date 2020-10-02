@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzModalService } from "ng-zorro-antd";
 import { StripeService, StripeCardNumberComponent } from 'ngx-stripe';
@@ -14,7 +14,7 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
   templateUrl: './product-checkout.component.html',
   styleUrls: ['./product-checkout.component.scss']
 })
-export class ProductCheckoutComponent implements OnInit {
+export class ProductCheckoutComponent implements OnInit, OnDestroy {
   current = 0;
   isLoggedInUser: boolean;
 
@@ -84,8 +84,13 @@ export class ProductCheckoutComponent implements OnInit {
     });
 
     this.getCartProduct();
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.add('remove-header-footer');
   }
-
+  ngOnDestroy(){
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.remove('remove-header-footer');
+  }
   pre(): void {
     this.current -= 1;
   }

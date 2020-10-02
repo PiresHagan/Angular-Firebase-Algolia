@@ -5,6 +5,7 @@ import {
   OnChanges,
   SimpleChange,
   SimpleChanges,
+  OnDestroy
 } from "@angular/core";
 import { Product } from "src/app/shared/interfaces/ecommerce/product";
 import { Router } from '@angular/router';
@@ -17,7 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './cart-calculator.component.html',
   styleUrls: ['./cart-calculator.component.scss']
 })
-export class CartCalculatorComponent implements OnInit, OnChanges {
+export class CartCalculatorComponent implements OnInit, OnChanges, OnDestroy {
   userDetails: User;
   isLoggedInUser: boolean = false;
   @Input() products: Product[];
@@ -63,6 +64,13 @@ export class CartCalculatorComponent implements OnInit, OnChanges {
   
   
     });
+
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.add('hide-modal-footer');
+  }
+  ngOnDestroy(){
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.remove('hide-modal-footer');
   }
   isVisible = false;
   isOkLoading = false;
