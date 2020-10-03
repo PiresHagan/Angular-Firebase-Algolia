@@ -1,10 +1,12 @@
 
-import { Component } from '@angular/core'
+import { Component, ViewContainerRef } from '@angular/core'
 import { UserService } from 'src/app/shared/services/user.service';
 import { StoreSetting } from 'src/app/backoffice/shared/services/store-setting.service';
 import { Store } from 'src/app/shared/interfaces/ecommerce/store';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { ShopProductAddReviewComponent } from 'src/app/shared/component/shop-product-add-review/shop-product-add-review.component';
+import { NzModalService } from 'ng-zorro-antd';
 
 @Component({
   templateUrl: './order-details.component.html'
@@ -25,7 +27,13 @@ export class OrderDetailsComponent {
   isDataLoading = true;
   orderDetails;
 
-  constructor(private userService: UserService, private storeService: StoreSetting, private activatedRoute: ActivatedRoute, private location: Location) {
+  constructor(private userService: UserService,
+    private storeService: StoreSetting,
+    private activatedRoute: ActivatedRoute,
+    private location: Location,
+    private modal: NzModalService, private viewContainerRef: ViewContainerRef
+
+  ) {
     this.userService.getCurrentUser().then((user) => {
       this.currentUser = user;
       this.activatedRoute.queryParams.subscribe(params => {
@@ -67,5 +75,33 @@ export class OrderDetailsComponent {
       return parseInt(item.discountedPrice)
     else
       return parseInt(item.salePrice)
+  }
+  addReview(product): void {
+    const modal = this.modal.create({
+      nzTitle: 'Add Review',
+      nzContent: ShopProductAddReviewComponent,
+      nzViewContainerRef: this.viewContainerRef,
+      nzComponentParams: {
+        product: product
+      },
+      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      nzFooter: [
+        {
+          label: 'Save Review',
+          onClick: componentInstance => {
+            instance.checkReviewForm();
+          }
+        }
+      ]
+    });
+    const instance = modal.getContentComponent();
+    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // // Return a result when closed
+    // modal.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
+
+    // delay until modal instance created
+    // setTimeout(() => {
+    //   instance.subtitle = 'sub title is changed';
+    // }, 2000);
   }
 }    
