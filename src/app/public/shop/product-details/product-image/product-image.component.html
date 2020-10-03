@@ -1,0 +1,13 @@
+<div class="thumbnail-container" *ngIf="images.length">
+    <div *ngFor="let image of images" [class.active]="image == activeImage" (click)="activateImage(image)">
+        <img [src]="image?.url"/>
+    </div>
+</div>
+<div class="image-container" *ngIf="images.length">
+    <div class="image-view" #imageScrollContainer (mousemove)="onMouseMove($event)">
+        <img [src]="activeImage?.url" [alt]="activeImage?.alt">
+    </div>
+
+    <div class="left arrow" [class.banned]="activeImageIndex == 0" (click)="imageChange(false)">Prev</div>
+    <div class="right arrow" [class.banned]="activeImageIndex == (images.length - 1)" (click)="imageChange(true)">Next</div>
+</div>
