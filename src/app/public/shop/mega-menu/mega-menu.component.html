@@ -1,0 +1,48 @@
+<div class="mega-dropdown hide-on-mobile"  (mouseenter)="showMegaMenu()"
+    (mouseleave)="hideMegaMenu()"
+    [ngClass]="rotateArrow"
+    (mouseover)="rotateArrow='rotate-arrow-down'"
+    (mouseout)="rotateArrow=''">
+    <a class="mega-dropdown-btn">Shop by category</a>
+    <div class="mega-menu-body-sec" id="mega-menu-body">
+        <div class="megamenu-menu-body">
+            <div class="sub-catagories-sec">
+                <div class="sub-catagories-list" *ngFor="let catgory of categories">
+                    <h2>{{catgory.title}}</h2>
+                    <ul>
+                        <li [routerLink]="['/shop/category', 'subCatgoryList.slug']" (click)="hideMegaMenu()" class="mega-menu-list-item"  *ngFor="let subCatgoryList of catgory.sub_categories">
+                            {{subCatgoryList.title}}
+                        </li>
+                    </ul>
+                </div>
+     
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="mega-dropdown on-mobile-mega-menu hide-on-lg">
+    <a class="mega-dropdown-btn" (click)="showSideBar()"><i nz-icon nzType="menu" nzTheme="outline"></i></a>
+    <div class="mega-menu-body-sec" id="mega-menu-body">
+        <div class="megamenu-menu-body">
+            <a class="close-side-bar" (click)="hideSideBar()"><i nz-icon nzType="close-square" nzTheme="outline"></i></a>
+            <div class="sub-catagories-sec">
+                <div class="sub-catagories-list" *ngFor="let catgory of categories">
+                    <ul nz-menu nzMode="inline" class="slide-list-item">
+                        <li nz-submenu nzTitle="{{catgory.title}}">
+                            <ul>
+                                <li nz-menu-item  [routerLink]="['/shop/category', 'subCatgoryList.slug']" (click)="hideMegaMenu()" class="mega-menu-list-item"  *ngFor="let subCatgoryList of catgory.sub_categories">
+                                    {{subCatgoryList.title}}
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

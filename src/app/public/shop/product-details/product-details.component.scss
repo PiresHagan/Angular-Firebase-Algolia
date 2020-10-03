@@ -75,7 +75,7 @@
             .gallary-box{
                 display: flex;
                 flex-wrap: wrap;
-                max-height: 500px;
+                min-height: 500px;
                 .thumbnal-image{
                     padding-right: 10px;
                     .thumbnail{
@@ -176,12 +176,16 @@
                     
                 }
             }
-            .p-description{
+            .div-description{
                 margin: 10px 0px 20px 0px;
                 font-family: "open_sansregular";
                 font-size: 15px;
                 line-height: 25px;
                 color:#000;
+                word-break: break-all;
+                p{
+                    word-break: break-all;
+                }
             }
             .p-price{
                 font-size: 40px;
@@ -484,6 +488,7 @@
                 width:100%;
                 .gallary-box{
                     flex-direction: column;
+                    min-height: unset;
                     .thumbnal-image{
                         display: flex;
                         order:1;
@@ -619,6 +624,7 @@
                 width:100%;
                 .gallary-box{
                     flex-direction: column;
+                    min-height: unset;
                     .thumbnal-image{
                         display: flex;
                         order:1;

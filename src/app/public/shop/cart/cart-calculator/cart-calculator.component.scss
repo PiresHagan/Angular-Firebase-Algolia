@@ -99,3 +99,8 @@
     }
 
 }
+::ng-deep .hide-modal-footer{
+    .ant-modal-footer{
+        display: none;
+    }
+}

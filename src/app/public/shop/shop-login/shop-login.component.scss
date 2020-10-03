@@ -1,153 +1,78 @@
-
-.input-box {
-	padding: 6px 10px;
-	width: 100%;
-	text-transform: capitalize;
-	border: none;
-	vertical-align: baseline;
-	font-size: 100%;
-	-webkit-transition: all .25s ease;
-    transition: all .25s ease;
-    outline: none;
-}
-
-
-.signup-area {
-	position: relative;
-	z-index: 2;
-	background-color: #fff;
-    padding:40px;
-	.title {
-		margin-bottom: 25px;
-        font-size: 2.4em;
-        color:#ff4020;
-        text-align: center;
-	}
-	p {
-		margin-bottom: 40px;
-	}
-
-}
-
-.signup-form {
-	.formmm-group {
-		position: relative;
-	}
-	.input-box {
-        border:1px solid #ccc;
-        color: #777;
-        margin-bottom: 20px;
-		&::placeholder {
-			color: #777;
+.signup-section{
+	.signup-left-area{
+		.title {
+			margin-bottom: 25px;
+			font-size: 22px;
+			color: #000000;
+			text-align: left;
+			border-bottom: 1px solid #ccc;
+			padding-bottom: 10px;
+			margin-top: 30px;
 		}
-	}
-	.form-group {
-		.login-btn {
-			padding: 7px 20px;
-            color: #fff;
-            background: #ff4020;
-            border-radius: 25px;
-            font-family: "josefin_sanssemibold";
-            font-size: 20px;
-            border:0px;
-            outline: none;
-            margin-top: 10px;
-            &:focus{
-                outline: none;
-            }
+		.signup-form{
+			::ng-deep .ant-form-item-control-input-content{
+				position: relative;
+				.ant-input{
+					padding-left: 45px;
+					border-color: #ccc;
+				}
+				img{
+					position: absolute;
+					top:5px;
+					left: 10px;
+				}
+			}
+			
 		}
-	}
-}
-.signup-right-area {
-    background:url(../../../../assets/images/shopping/login.jpg) center bottom  no-repeat;
-    width:100%;
-    height: 100%;
-    background-size: cover;
-    text-align: center;
-    position: relative;
-    padding: 20px;
-    min-height: 500px;
-    &:after{
-        content: '';
-        position: absolute;
-        top:0px;
-        left: 0px;
-        width:100%;
-        height: 100%;
-        background: rgba(0,0,0,0.5);
-    }
-	.title {
-        color: #fff;
-        position: relative;
-        z-index: 1;
-        padding-top: 70px;
-	}
-	
-}
-.signup-right-area-two {
-	margin-left: 0;
-}
-.control {
-	a {
-		color: #af1400;
-	}
-}
-
-.control-two {
-	color: #af1400;
-}
-.sign-up-option {
-	display: flex;
-	flex-wrap: wrap;
-	margin: -5px;
-	margin-bottom: -5px;
-	margin-bottom: 45px;
-	margin-top: 20px;
-	li {
-		padding: 5px;
-		display: inline;
-		a {
-			display: flex;
-			align-items: center;
-			-webkit-border-radius: 4px;
-			-moz-border-radius: 4px;
-			border-radius: 4px;
-			text-transform: uppercase;
-			color: #fff;
-			background: #2a7bff;
-			font-size: 14px;
-			font-weight: 600;
-			padding: 8px 20px;
-			i {
-				margin-right: 5px;
+		.login-form{
+			max-width: 450px;
+			::ng-deep .ant-form-item-control-input-content{
+				.ant-input{
+					border-color: #ccc;
+				}
+			}
+			.login-form-margin{
+				margin-bottom: 15px;
 			}
 		}
-	
+		.is-login-btn {
+			padding: 7px 20px;
+			color: #fff;
+			background: #ff4020;
+			border-radius: 25px;
+			font-family: "josefin_sanssemibold";
+			font-size: 20px;
+			border:0px;
+			outline: none;
+			margin-top: 10px;
+			&:focus{
+				outline: none;
+			}
+		}
+		.footer-btn{
+			margin-top: 20px;
+			padding-top: 10px;
+			border-top: 1px solid #ccc;
+			text-align: center;
+		}
 	}
 }
+
 #hide-signup{
     display: none;
 }
 
+
+
 @media only screen and (max-width:991px) {
-	.signup-area {
-		padding: 30px;
-		&::after {
-			display: none;
+	::ng-deep .hide-modal-footer{
+		.ant-modal{
+			width:90% !important;
 		}
-	}
-	.signup-left-area {
-		width: 100%;
-	}
-	.signup-right-area {
-		display: none;
 	}
 }
-@media only screen and (max-width:1199px) {
-	.signup-area {
-		.signup-element {
-			display: none;
-		}
-	}
+
+:host ::ng-deep .ant-alert-icon {
+    top: 6px;
 }
 
