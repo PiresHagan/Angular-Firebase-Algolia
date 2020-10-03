@@ -4,7 +4,8 @@
             <div class="product-img">
                 <div class="sticky-box">
                     <nz-skeleton [nzActive]="true" *ngIf="!product"> </nz-skeleton>
-                    <div class="gallary-box" *ngIf="product"> 
+                    <app-product-image *ngIf="product" [images]="product?.images"></app-product-image>
+                    <!-- <div class="gallary-box" *ngIf="product"> 
                         <div class="thumbnal-image">
                             <div class="thumbnail"><img src="assets/images/shopping/product/p.jpg" alt=""></div>
                             <div class="thumbnail"><img src="assets/images/shopping/product/p.jpg" alt=""></div>
@@ -68,7 +69,7 @@
                             </div>
                         </div>
                         <img [src]="product?.images[0]?.url" [alt]="product?.images[0]?.alt" />
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="product-detail">
