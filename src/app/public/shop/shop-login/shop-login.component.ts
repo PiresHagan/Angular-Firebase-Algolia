@@ -15,6 +15,7 @@ export class ShopLoginComponent implements OnInit {
   isCaptchaElementReady: boolean = false;
   invalidCaptcha: boolean = false;
   invalidCaptchaErr: string = "";
+  enableEmailVerificationScreen: boolean = false;
   isCapchaScriptLoaded: boolean = false;
   capchaObject;
   captchaToken: string;
@@ -217,7 +218,15 @@ export class ShopLoginComponent implements OnInit {
 
   saveDataOnServer(email, password, fullname) {
     this.authService.doRegister(email, password, fullname).then(user => {
-        this.onSignIn(email, password);
+        this.enableEmailVerificationScreen = true;
+        this.signInForm.reset();
+        this.resetCaptcha();
+        this.showSignIn = true;
+        this.isFormSaving = false;
+        this.signUpForm.reset();
+        setTimeout(()=> {
+          this.enableEmailVerificationScreen = false;
+        }, 60000);
     }).catch((error) => {
       this.isFormSaving = false;
       if (error.error && error.error.code == "auth/email-already-exists") {
