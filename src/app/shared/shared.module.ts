@@ -18,6 +18,7 @@ import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5
 import { Cloudinary } from 'cloudinary-core';
 import { ShareButtonsComponent } from './component/share-buttons/share-buttons.component';
 import { AdDirective } from './directives/ad/ad.directive';
+import { AnalyticsService } from './services/analytics/analytics.service';
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -43,7 +44,15 @@ export function createTranslateLoader(http: HttpClient) {
         NgZorroAntdModule,
         PerfectScrollbarModule,
         CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
-        TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })
+        TranslateModule.forChild({
+            useDefaultLang: true,
+            isolate: false,
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [HttpClient]
+            }
+        })
     ],
     declarations: [
         SearchPipe,
@@ -55,9 +64,9 @@ export function createTranslateLoader(http: HttpClient) {
         ShareButtonsComponent,
         AdDirective
     ],
-
     providers: [
         ThemeConstantService,
+        AnalyticsService,
     ]
 })
 

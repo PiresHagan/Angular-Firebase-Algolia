@@ -14,7 +14,7 @@ import { CategoryService } from "src/app/shared/services/category.service";
 import { LanguageService } from "src/app/shared/services/language.service";
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { ActivatedRoute } from "@angular/router";
-
+import { AnalyticsService } from "src/app/shared/services/analytics/analytics.service";
 
 @Component({
   templateUrl: "./profile-settings.component.html",
@@ -51,7 +51,8 @@ export class ProfileSettingsComponent {
     public categoryService: CategoryService,
     public languageService: LanguageService,
     private authService: AuthService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private analyticsService: AnalyticsService,
   ) { }
 
   ngOnInit(): void {
@@ -323,16 +324,15 @@ export class ProfileSettingsComponent {
       .then(() => {
         this.isNotificationLoading = false;
         this.showSuccess();
-        const analytics = firebase.analytics();
 
-        interests.forEach(interest => {
-          analytics.logEvent("interest_opt_in", {
+        this.analyticsService.logEvents('interest_opt_in', interests.map(interest => {
+          return {
             category_title: interest.title,
             category_id: interest.id,
             user_uid: this.currentUser.uid,
             user_name: this.currentUser.displayName
-          });
-        });
+          };
+        }));
       });
   }
 

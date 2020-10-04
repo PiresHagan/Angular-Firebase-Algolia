@@ -1,15 +1,14 @@
 import { Injectable } from "@angular/core";
 import { AngularFireAuth } from '@angular/fire/auth';
-import { first, tap, catchError } from "rxjs/operators";
+import { first } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import * as firebase from 'firebase/app';
 import { STAFF, MEMBER } from "../constants/member-constant";
 import { MessagingService } from "./messaging.service";
-import { UserService } from "./user.service";
-
+import { AnalyticsService } from "./analytics/analytics.service";
 
 @Injectable({
     providedIn: 'root'
@@ -17,11 +16,18 @@ import { UserService } from "./user.service";
 export class AuthService {
     loggedInUser;
     loggedInUserDetails;
-    constructor(public afAuth: AngularFireAuth, public db: AngularFirestore, private http: HttpClient, private messagingService: MessagingService, private userService: UserService) {
+
+    constructor(
+        public afAuth: AngularFireAuth,
+        public db: AngularFirestore,
+        private http: HttpClient,
+        private messagingService: MessagingService,
+        private analyticsService: AnalyticsService,
+    ) {
         this.afAuth.authState.subscribe((user) => {
             if (!user || !user.emailVerified) {
                 if (environment && environment.isAnonymousUserEnabled) {
-                    this.afAuth.signInAnonymously().catch(function (error) {
+                    this.afAuth.signInAnonymously().catch(function () {
                         console.log('anonymusly login');
                     });
                 }
@@ -31,7 +37,7 @@ export class AuthService {
         });
     }
     getLoggedInUserDetails(uid: string = '') {
-        return new Promise<any>((resolve, reject) => {
+        return new Promise<any>((resolve) => {
             if (!uid && this.loggedInUser) {
                 uid = this.loggedInUser.uid
             }
@@ -69,15 +75,13 @@ export class AuthService {
         return new Promise<any>((resolve, reject) => {
             this.afAuth.signInWithEmailAndPassword(email, password)
                 .then(res => {
-                    const analytics = firebase.analytics();
-
                     if (res && !res.user.emailVerified)
                         firebase.auth().currentUser.sendEmailVerification();
 
                     if (res && !res.user.emailVerified)
                         firebase.auth().currentUser.sendEmailVerification();
 
-                    analytics.logEvent("login", {
+                    this.analyticsService.logEvent("login", {
                         user_uid: res.user.uid,
                         user_email: res.user.email,
                         user_name: res.user.displayName,
@@ -97,10 +101,7 @@ export class AuthService {
                 const user = firebase.auth().currentUser;
 
                 this.afAuth.signOut().then(() => {
-                    const analytics = firebase.analytics();
-
-
-                    analytics.logEvent("logout", {
+                    this.analyticsService.logEvent("logout", {
                         user_uid: user.uid,
                         user_email: user.email,
                         user_name: user.displayName,
@@ -108,8 +109,7 @@ export class AuthService {
                     });
 
                     resolve();
-                })
-
+                });
             }
             else {
                 reject();

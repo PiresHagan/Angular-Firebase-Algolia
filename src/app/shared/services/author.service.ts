@@ -17,21 +17,20 @@ export class AuthorService {
   charitiesCollection: string = 'charities';
   companiesColection: string = 'companies';
   private followersCollection: string = 'followers';
-  private followingsCollection: string = "followings";
+  private followingsCollection: string = 'followings';
 
   constructor(private afs: AngularFirestore, private http: HttpClient) { }
 
   getUserBySlug(slug: string) {
     return this.afs.collection(this.authorsCollection, ref =>
-      ref.where("slug", "==", slug)
+      ref.where('slug', '==', slug)
     ).snapshotChanges().pipe(map(actions => {
       return actions ? actions[0].payload.doc.data() : null;
-    })
-    );
+    }));
   }
   getAuthorsById(authoIdArray: []) {
     return this.afs.collection(this.authorsCollection, ref =>
-      ref.where("id", "in", authoIdArray.slice(0, 9))
+      ref.where('id', 'in', authoIdArray.slice(0, 9))
     ).snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data();
@@ -83,7 +82,7 @@ export class AuthorService {
     return this.afs.collection(this.authorsCollection).doc(authorId).collection(this.followingsCollection).valueChanges()
   }
 
-  getFollowings_new(authorId, limit: number = 10, navigation: string = "first", lastVisible = null) {
+  getFollowings_new(authorId, limit: number = 10, navigation: string = 'first', lastVisible = null) {
     if (!limit) {
       limit = 10;
     }
@@ -115,8 +114,8 @@ export class AuthorService {
   getAuthors(lang: string = 'en', limit: number = 10) {
     return this.afs.collection(this.authorsCollection, ref =>
       ref.limit(limit)
-        .where('type', "==", 'author')
-        .where('lang', "==", lang)
+        .where('type', '==', 'author')
+        .where('lang', '==', lang)
         .orderBy('followers_count', 'desc')
     ).snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
@@ -129,7 +128,7 @@ export class AuthorService {
   }
 
 
-  getFollowers_new(authorId, limit: number = 10, navigation: string = "first", lastVisible = null) {
+  getFollowers_new(authorId, limit: number = 10, navigation: string = 'first', lastVisible = null) {
     if (!limit) {
       limit = 10;
     }

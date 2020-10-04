@@ -8,6 +8,7 @@ import { LanguageService } from 'src/app/shared/services/language.service';
 import { Category } from 'src/app/shared/interfaces/category.type';
 import * as firebase from 'firebase/app';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
+import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.service';
 
 @Component({
   selector: 'app-category',
@@ -36,6 +37,7 @@ export class CategoryComponent implements OnInit {
     public translate: TranslateService,
     private languageService: LanguageService,
     private seoService: SeoService,
+    private analyticsService: AnalyticsService,
   ) { }
 
   ngOnInit(): void {
@@ -99,9 +101,7 @@ export class CategoryComponent implements OnInit {
   submit() {
     if (this.newsLetterForm.valid) {
       this.categoryService.addSubscription(this.category, this.newsLetterForm.value.email).then(() => {
-        const analytics = firebase.analytics();
-
-        analytics.logEvent("newsletter_subscription", {
+        this.analyticsService.logEvent("newsletter_subscription", {
           category_title: this.category.title,
           category_id: this.category.id,
           user_email: this.newsLetterForm.value.email

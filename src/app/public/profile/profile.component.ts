@@ -13,6 +13,7 @@ import { Article } from 'src/app/shared/interfaces/article.type';
 import { AUTHOR } from 'src/app/shared/constants/member-constant';
 import { NzModalService } from 'ng-zorro-antd';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
+import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.service';
 
 @Component({
   selector: 'app-profile',
@@ -53,6 +54,7 @@ export class ProfileComponent implements OnInit {
     public langService: LanguageService,
     private modal: NzModalService,
     private seoService: SeoService,
+    private analyticsService: AnalyticsService,
   ) { }
 
   ngOnInit(): void {
@@ -110,12 +112,8 @@ export class ProfileComponent implements OnInit {
         this.setFollowOrNot();
         this.isLoggedInUser = true;
       }
-
-
-
     })
   }
-
 
   getFollowersDetails() {
     // this.authorService.getFollowers(this.authorDetails.id).subscribe((followers) => {
@@ -194,10 +192,10 @@ export class ProfileComponent implements OnInit {
       this.showSameFollowerMessage();
       return;
     }
-    await this.authorService.follow(authorId, userDetails.type);
-    const analytics = firebase.analytics();
 
-    analytics.logEvent("follow_author", {
+    await this.authorService.follow(authorId, userDetails.type);
+
+    this.analyticsService.logEvent("follow_author", {
       author_id: authorDetails.id,
       author_name: authorDetails.fullname,
       user_uid: userDetails.id,
@@ -215,9 +213,8 @@ export class ProfileComponent implements OnInit {
     const userDetails = this.getUserDetails();
     const authorDetails = this.getAuthorDetails();
     await this.authorService.unfollow(authorId, userDetails.type);
-    const analytics = firebase.analytics();
 
-    analytics.logEvent("unfollow_author", {
+    this.analyticsService.logEvent("unfollow_author", {
       author_id: authorDetails.id,
       author_name: authorDetails.fullname,
       user_uid: userDetails.id,

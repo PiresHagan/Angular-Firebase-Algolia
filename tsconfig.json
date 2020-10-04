@@ -10,6 +10,8 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "paths": {
       "core-js/es7/reflect": [
         "node_modules/core-js/proposals/reflect-metadata"

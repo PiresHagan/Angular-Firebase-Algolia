@@ -1,6 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { CharityService } from 'src/app/shared/services/charity.service';
 import { LanguageService } from 'src/app/shared/services/language.service';

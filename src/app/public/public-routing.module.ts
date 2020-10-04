@@ -156,7 +156,6 @@ const routes: Routes = [
       title: 'influencer version 2',
       headerDisplay: 'none'
     }
-
   },
   {
     path: 'today',
@@ -221,7 +220,6 @@ const routes: Routes = [
   //     title: 'Home',
   //     headerDisplay: 'none'
   //   }
-
   // },
   {
     path: ':userSlug/:slug',
@@ -239,8 +237,6 @@ const routes: Routes = [
       headerDisplay: 'none'
     }
   },
-
-
 ];
 
 @NgModule({

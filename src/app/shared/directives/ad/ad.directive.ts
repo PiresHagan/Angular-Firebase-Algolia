@@ -26,7 +26,6 @@ export class AdDirective implements OnInit, AfterViewInit {
 
       googletag.cmd.push(() => {
         googletag.display(this.id);
-
         googletag.pubads().refresh();
       });
     });
@@ -36,11 +35,11 @@ export class AdDirective implements OnInit, AfterViewInit {
     const script = window['googletag'];
 
     if (script && script.apiReady) {
-      this.delay(3000).subscribe(() => {
+      this.delay(100).subscribe(() => {
         cb();
       });
     } else {
-      this.delay(1000).subscribe(() => {
+      this.delay(500).subscribe(() => {
         this.checkAdScript(cb);
       });
     }

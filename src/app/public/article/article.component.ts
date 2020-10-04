@@ -11,11 +11,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { environment } from 'src/environments/environment';
 import { LanguageService } from 'src/app/shared/services/language.service';
-import * as firebase from 'firebase/app';
 import { NzModalService } from 'ng-zorro-antd';
 import { TEXT, AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
 import * as moment from 'moment';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
+import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.service';
 
 @Component({
   selector: 'app-article',
@@ -68,6 +68,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
     private langService: LanguageService,
     private modal: NzModalService,
     private seoService: SeoService,
+    private analyticsService: AnalyticsService,
   ) { }
 
   ngOnInit(): void {
@@ -83,8 +84,9 @@ export class ArticleComponent implements OnInit, AfterViewInit {
           this.modal.error({
             nzTitle: this.translate.instant('URL404'),
             nzContent: this.translate.instant('URLNotFound'),
-            nzOnOk: () => { this.router.navigate(['/']) }
-          })
+            nzOnOk: () => this.router.navigate(['/'])
+          });
+
           return
         }
         const articleId = this.article.id;
@@ -183,9 +185,8 @@ export class ArticleComponent implements OnInit, AfterViewInit {
         this.saveCommentOnServer(commentData);
       }
 
-      const analytics = firebase.analytics();
       const article = this.article;
-      analytics.logEvent('article_comment', {
+      this.analyticsService.logEvent('article_comment', {
         article_id: article.id,
         article_title: article.title,
         article_language: article.lang,
@@ -317,8 +318,8 @@ export class ArticleComponent implements OnInit, AfterViewInit {
         return;
       }
       this.authorService.follow(this.article.author.id, this.article.author.type);
-      const analytics = firebase.analytics();
-      analytics.logEvent("unfollow_author", {
+
+      this.analyticsService.logEvent("follow_author", {
         author_id: this.article.author.id,
         author_name: this.article.author.fullname,
         user_uid: userDetails.id,
@@ -332,8 +333,8 @@ export class ArticleComponent implements OnInit, AfterViewInit {
     if (this.isLoggedInUser) {
       this.authorService.unfollow(this.article.author.id, this.article.author.type);
       const userDetails = this.getUserDetails();
-      const analytics = firebase.analytics();
-      analytics.logEvent("unfollow_author", {
+
+      this.analyticsService.logEvent("unfollow_author", {
         author_id: this.article.author.id,
         author_name: this.article.author.fullname,
         user_uid: userDetails.id,
@@ -356,9 +357,9 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   like() {
     if (this.isLoggedInUser) {
       this.articleService.like(this.article.id, this.getUserDetails());
-      const analytics = firebase.analytics();
+
       const article = this.article;
-      analytics.logEvent('liked_article', {
+      this.analyticsService.logEvent('liked_article', {
         article_id: article.id,
         article_title: article.title,
         article_language: article.lang,
@@ -376,9 +377,9 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   disLike() {
     if (this.isLoggedInUser) {
       this.articleService.disLike(this.article.id, this.getUserDetails().id);
-      const analytics = firebase.analytics();
+
       const article = this.article;
-      analytics.logEvent('unliked_article', {
+      this.analyticsService.logEvent('unliked_article', {
         article_id: article.id,
         article_title: article.title,
         article_language: article.lang,

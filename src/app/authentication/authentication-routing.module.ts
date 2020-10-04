@@ -8,7 +8,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { AgreementComponent } from './agreement/agreement.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AuthGuard } from '../shared/guard/auth.guard';
-import { MaintenanceComponent } from './maintenance/maintenance.component';
 import { ImportContactComponent } from './import-contact/import-contact.component';
 
 const routes: Routes = [
