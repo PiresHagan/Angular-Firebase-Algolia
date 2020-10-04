@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { environment } from 'src/environments/environment';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-shop-login',
@@ -15,7 +16,6 @@ export class ShopLoginComponent implements OnInit {
   isCaptchaElementReady: boolean = false;
   invalidCaptcha: boolean = false;
   invalidCaptchaErr: string = "";
-  enableEmailVerificationScreen: boolean = false;
   isCapchaScriptLoaded: boolean = false;
   capchaObject;
   captchaToken: string;
@@ -46,7 +46,8 @@ export class ShopLoginComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private fb: FormBuilder,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -218,15 +219,13 @@ export class ShopLoginComponent implements OnInit {
 
   saveDataOnServer(email, password, fullname) {
     this.authService.doRegister(email, password, fullname).then(user => {
-        this.enableEmailVerificationScreen = true;
-        this.signInForm.reset();
-        this.resetCaptcha();
-        this.showSignIn = true;
-        this.isFormSaving = false;
-        this.signUpForm.reset();
-        setTimeout(()=> {
-          this.enableEmailVerificationScreen = false;
-        }, 60000);
+      this.notification.create(
+        'warning',
+        'Email Verification Required',
+        'Please click on the link that has been sent to your email account to verify your email and continue the checkout process by login',
+        { nzDuration: 0 }
+      );
+      this.onSignIn(email, password);
     }).catch((error) => {
       this.isFormSaving = false;
       if (error.error && error.error.code == "auth/email-already-exists") {
