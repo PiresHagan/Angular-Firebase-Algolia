@@ -137,3 +137,14 @@
 		}
 	}
 }
+
+@media screen and (max-width:1200px){
+	.thumbnail-container{
+		display: flex;
+		top:auto !important;
+		bottom: 0px !important;
+		>div{
+			margin-right:7px;
+		}
+	}
+}
