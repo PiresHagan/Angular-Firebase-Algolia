@@ -10,14 +10,8 @@
                     <nz-alert class="m-b-10" nzType="error" nzDescription=" {{'invalidCaptchaErr' | translate}}"
                         nzShowIcon *ngIf="invalidCaptcha"></nz-alert>
 
-
                     <nz-alert class="m-b-10" nzType="error" nzDescription="{{'artError' | translate}}"
                         nzShowIcon *ngIf="errorDetails"></nz-alert>
-
-
-                    <nz-alert class="m-b-10" *ngIf="enableEmailVerificationScreen" nzType="info"
-                        nzMessage="{{'verifyEmailTitle' | translate}}"
-                        nzDescription="{{'verifySignUpEmailDesc' | translate}}" nzShowIcon></nz-alert>
 
                     <nz-alert nzType="error" [nzDescription]="errorSignup" *ngIf="errorSignup">
                         <ng-template #errorSignup>
@@ -100,6 +94,10 @@
                 </form>
 
                 <form *ngIf="showSignIn" nz-form [formGroup]="signInForm" class="login-form">
+                    <nz-alert class="m-b-10" *ngIf="enableEmailVerificationScreen" nzType="info"
+                        nzMessage="{{'verifyEmailTitle' | translate}}"
+                        nzDescription="{{'checkoutVerifySignUpEmail' | translate}}" nzShowIcon></nz-alert>
+
                     <nz-alert class="m-b-10" nzType="error"
                         nzDescription="You have entered an invalid username or password" nzShowIcon
                         *ngIf="errorLogin"></nz-alert> 

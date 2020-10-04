@@ -728,6 +728,6 @@
   "PlaceOrderError": "Something went wrong. Please connect with support team.",
   "InvoiceNote": "In exceptional circumstances, Financial Services can provide an urgent manually processed special cheque. Note, however, that urgent special cheques should be requested only on an emergency basis as manually produced cheques involve duplication of effort and considerable staff resources. Requests need to be supported by a letter explaining the circumstances to justify the special cheque payment.",
   "ShippingDataUpdated": "Order tracking details saved",
-  "ShippingDataError": "Something went wrong. Please connect with support team."
-
+  "ShippingDataError": "Something went wrong. Please connect with support team.",
+  "checkoutVerifySignUpEmail": "Please click on the link that has been sent to your email account to verify your email and continue the checkout process by login"
 }
