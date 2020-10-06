@@ -22,12 +22,14 @@ export class AnalyticsService {
           console.log(user);
 
           this.afAuth.signOut().then(() => {
-            this.logEvent('page_view', {
-              user_uid: user.uid,
-              user_email: user.email,
-              user_name: user.displayName,
-              provider_id: user.providerData.length > 0 ? user.providerData[0].providerId : user.providerId
-            });
+            if(user) {
+              this.logEvent('page_view', {
+                user_uid: user.uid,
+                user_email: user.email,
+                user_name: user.displayName,
+                provider_id: user.providerData.length > 0 ? user.providerData[0].providerId : user.providerId
+              });
+            }
           });
         } else {
           // viewing page as anonymous
