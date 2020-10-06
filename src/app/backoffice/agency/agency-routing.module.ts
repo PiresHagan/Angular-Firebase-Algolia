@@ -5,7 +5,7 @@ import { AgencyComponent } from './agency.component';
 
 const routes: Routes = [
   {
-    path: 'campaign-manager',
+    path: '',
     component: AgencyComponent,
     data: {
       title: "Agency",
