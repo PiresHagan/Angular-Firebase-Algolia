@@ -212,5 +212,17 @@ export const ROUTES: SideNavInterface[] = [
 
 
         ]
+    },
+    {
+        path: '/app/agency',
+        title: 'Agency',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'skin',
+        staff_only: false,
+        submenu: [
+
+
+        ]
     }
 ]
