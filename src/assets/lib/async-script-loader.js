@@ -25,7 +25,7 @@
         });
 
         initiateAds();
-      }, 1000); // @TODO: Instead of timeout, when is it best to load this?
+      }, 10000);
     });
   });
 })();
@@ -34,8 +34,6 @@ function initiateAds() {
   const gtag = window.googletag;
 
   if (gtag && gtag.apiReady) {
-    console.log('Executing adds list...');
-
     googletag.cmd.push(function () {
       googletag.defineSlot('/107720708/adxp_mytrendingstories_billboard', [970, 250], 'div-gpt-ad-1599554495707-0').addService(googletag.pubads());
       googletag.defineSlot('/107720708/adxp_mytrendingstories_superLeaderboard', [970, 90], 'div-gpt-ad-1599554517756-0').addService(googletag.pubads());

@@ -87,11 +87,16 @@ export class ArticleComponent implements OnInit, AfterViewInit {
             nzOnOk: () => this.router.navigate(['/'])
           });
 
-          return
+          return;
         }
         const articleId = this.article.id;
 
-        this.similarArticleList = this.articleService.getCategoryRow(this.article.category.slug, this.selectedLanguage, 7);
+        this.similarArticleList = this.articleService.getCategoryRow(
+          this.article.category.slug,
+          this.selectedLanguage,
+          7,
+          this.article.slug,
+        );
 
         this.articleType = this.article.type ? this.article.type : TEXT;
         this.articleLikes = this.article.likes_count;

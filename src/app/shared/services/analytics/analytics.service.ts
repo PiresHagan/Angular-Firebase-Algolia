@@ -17,13 +17,14 @@ export class AnalyticsService {
   private handleAnalyticsPageView() {
     this.router.events.subscribe(evt => {
       if (evt instanceof NavigationEnd) {
-        if (this.afAuth.currentUser) {
-          const user = firebase.auth().currentUser;
-          console.log(user);
-
-        } else {
-          // viewing page as anonymous
-          console.log('Here viering...');
+        const user = firebase.auth().currentUser;
+        if (user) {
+          this.logEvent('page_view', {
+            user_uid: user.uid,
+            user_email: user.email,
+            user_name: user.displayName,
+            provider_id: user.providerData.length > 0 ? user.providerData[0].providerId : user.providerId
+          });
         }
       }
     });

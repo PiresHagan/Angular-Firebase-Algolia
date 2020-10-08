@@ -3,8 +3,6 @@ import { ArticleService } from 'src/app/shared/services/article.service';
 import { TranslateService } from '@ngx-translate/core';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { LanguageService } from 'src/app/shared/services/language.service';
-import { SeoDataService } from 'src/app/shared/services/seo-data.service';
-import { SeoData } from 'src/app/shared/interfaces/seo-data.type';
 import { CacheService } from 'src/app/shared/services/cache.service';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
 @Component({
@@ -39,7 +37,6 @@ export class HomeComponent implements OnInit {
     public translate: TranslateService,
     private categoryService: CategoryService,
     private languageService: LanguageService,
-    private seoDataService: SeoDataService,
     private seoService: SeoService
   ) { }
 
@@ -71,7 +68,6 @@ export class HomeComponent implements OnInit {
     this.getAuthors();
     this.categories = this.categoryService.getAll(this.selectedLanguage);
     this.setArticleData();
-
 
     this.translate.onLangChange.subscribe(() => {
       this.selectedLanguage = this.languageService.getSelectedLanguage()
