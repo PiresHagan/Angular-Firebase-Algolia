@@ -24,7 +24,6 @@ const appRoutes: Routes = [
         component: CommonLayoutComponent,
         children: CommonLayout_ROUTES
     }
-
 ];
 
 @NgModule({

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map, take } from 'rxjs/operators';
+import { map, mergeAll, take } from 'rxjs/operators';
 import { Article } from '../interfaces/article.type';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { ACTIVE } from '../constants/status-constants';
@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import { STAFF } from '../constants/member-constant';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class ArticleService {
     );
   }
 
-  getArtical(slug: string) {
+  getArtical(slug: string, addRef?: boolean) {
     return this.db.collection<Article>(this.articleCollection, ref => ref
       .where('slug', '==', slug)
       .where('status', "==", ACTIVE)
@@ -47,7 +48,7 @@ export class ArticleService {
           const img = data.image?.url ? data.image?.url : "";
           if (img)
             data.image.url = img.replace('https://mytrendingstories.com', 'https://assets.mytrendingstories.com');
-          return { id, ...data };
+          return { id, ...data, __doc: addRef ? a.payload.doc : undefined };
         });
       })
     );
@@ -60,7 +61,6 @@ export class ArticleService {
       return actions.length;
     })
     );
-
   }
   /**
    * Get comments according article id 
@@ -188,21 +188,35 @@ export class ArticleService {
     );
   }
 
+  getCategoryRow(slug: string, lang: string = 'en', limit: number, afterId?: string) {
+    const startAfter = afterId
+      ? this.getArtical(afterId, true).pipe(map(a => a[0].__doc))
+      : of(null);
 
-  getCategoryRow(slug: string, lang: string = 'en', limit: number) {
-    return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('category.slug', '==', slug)
-      .where('lang', "==", lang)
-      .where('status', "==", ACTIVE)
-      .orderBy('published_at', 'desc')
-      .limit(limit)
-    ).snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
+    return startAfter.pipe(
+      map(__doc => {
+        return this.db.collection<Article[]>(this.articleCollection, refV => {
+          let ref = refV
+            .where('category.slug', '==', slug)
+            .where('lang', '==', lang)
+            .where('status', '==', ACTIVE)
+            .orderBy('published_at', 'desc')
+            .limit(limit);
+
+          if (__doc) ref = ref.startAfter(__doc);
+          return ref;
+        }
+        ).snapshotChanges();
+      }),
+      mergeAll(),
+      map((actions) => {
+        const res = actions.map(a => {
           const data = a.payload.doc.data();
           const id = a.payload.doc.id;
           return { id, ...data };
         });
+
+        return res;
       })
     );
   }
