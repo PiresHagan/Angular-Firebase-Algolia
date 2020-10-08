@@ -9,24 +9,20 @@ import { BackofficeLayout_ROUTES } from './shared/routes/backoffice-layout.route
 import { AuthService } from './shared/services/authentication.service';
 
 const appRoutes: Routes = [
-    // {
-    //     path: 'auth',
-    //     component: FullLayoutComponent,
-    //     children: FullLayout_ROUTES
-    // },
-    // {
-    //     path: 'app',
-    //     component: BackofficeLayoutComponent,
-    //     children: BackofficeLayout_ROUTES
-    // },
-    // {
-    //     path: '',
-    //     component: CommonLayoutComponent,
-    //     children: CommonLayout_ROUTES
-    // },
+    {
+        path: 'auth',
+        component: FullLayoutComponent,
+        children: FullLayout_ROUTES
+    },
+    {
+        path: 'app',
+        component: BackofficeLayoutComponent,
+        children: BackofficeLayout_ROUTES
+    },
     {
         path: '',
-        loadChildren: () => import('./public/public.module').then(m => m.PublicModule)
+        component: CommonLayoutComponent,
+        children: CommonLayout_ROUTES
     }
 ];
 

@@ -23,226 +23,220 @@ import { CharityListComponent } from './charity-list/charity-list.component';
 import { NewHomeComponent } from './new-home/new-home.component';
 import { FundraiserComponent } from './fundraiser/fundraiser.component';
 import { FundraiserListComponent } from './fundraiser-list/fundraiser-list.component';
-import { CommonLayoutComponent } from '../layouts/common-layout/common-layout.component';
+
 
 const routes: Routes = [
   {
     path: '',
-    component: CommonLayoutComponent,
-    children: [
-      {
-        path: '',
-        component: HomeComponent,
-        data: {
-          title: 'Home ',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'category/:slug',
-        component: CategoryComponent,
-        data: {
-          title: 'Category ',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'article/:slug',
-        component: ArticleComponent,
-        data: {
-          title: 'Article',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'profile/:slug',
-        component: ProfileComponent,
-        data: {
-          title: 'Profile',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'copywriter1',
-        component: Copywriter1Component,
-        data: {
-          title: 'Copywriter version 1',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'copywriter2',
-        component: Copywriter2Component,
-        data: {
-          title: 'Copywriter version 2',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'new-home',
-        component: NewHomeComponent,
-        data: {
-          title: 'New home',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'fundraisers/:slug',
-        component: FundraiserComponent,
-        data: {
-          title: 'fundraiser',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'fundraisers',
-        component: FundraiserListComponent,
-        data: {
-          title: 'fundraisers',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'contact',
-        component: ContactComponent,
-        data: {
-          title: 'contact version 2',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'terms',
-        component: TermsComponent,
-        data: {
-          title: 'terms version 2',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'privacy',
-        component: PrivacyComponent,
-        data: {
-          title: 'privacy policies',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'faq',
-        component: FaqComponent,
-        data: {
-          title: 'faq version 2',
-          headerDisplay: 'none'
-        }
+    component: HomeComponent,
+    data: {
+      title: 'Home ',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'category/:slug',
+    component: CategoryComponent,
+    data: {
+      title: 'Category ',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'article/:slug',
+    component: ArticleComponent,
+    data: {
+      title: 'Article',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'profile/:slug',
+    component: ProfileComponent,
+    data: {
+      title: 'Profile',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'copywriter1',
+    component: Copywriter1Component,
+    data: {
+      title: 'Copywriter version 1',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'copywriter2',
+    component: Copywriter2Component,
+    data: {
+      title: 'Copywriter version 2',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'new-home',
+    component: NewHomeComponent,
+    data: {
+      title: 'New home',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'fundraisers/:slug',
+    component: FundraiserComponent,
+    data: {
+      title: 'fundraiser',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'fundraisers',
+    component: FundraiserListComponent,
+    data: {
+      title: 'fundraisers',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'contact',
+    component: ContactComponent,
+    data: {
+      title: 'contact version 2',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'terms',
+    component: TermsComponent,
+    data: {
+      title: 'terms version 2',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'privacy',
+    component: PrivacyComponent,
+    data: {
+      title: 'privacy policies',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'faq',
+    component: FaqComponent,
+    data: {
+      title: 'faq version 2',
+      headerDisplay: 'none'
+    }
 
-      },
-      {
-        path: 'search',
-        component: SearchEngineComponent,
-        data: {
-          title: 'faq version 2',
-          headerDisplay: 'none'
-        }
+  },
+  {
+    path: 'search',
+    component: SearchEngineComponent,
+    data: {
+      title: 'faq version 2',
+      headerDisplay: 'none'
+    }
 
-      },
-      {
-        path: 'buy',
-        component: BuyComponent,
-        data: {
-          title: 'faq version 2',
-          headerDisplay: 'none'
-        }
+  },
+  {
+    path: 'buy',
+    component: BuyComponent,
+    data: {
+      title: 'faq version 2',
+      headerDisplay: 'none'
+    }
 
-      },
-      {
-        path: 'influencer',
-        component: InfluencerComponent,
-        data: {
-          title: 'influencer version 2',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'today',
-        component: TodayComponent,
-        data: {
-          title: 'today version 2',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'video',
-        component: VideoComponent,
-        data: {
-          title: 'video',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'audio',
-        component: AudioComponent,
-        data: {
-          title: 'audio',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'companies',
-        component: CompaniesComponent,
-        data: {
-          title: 'companies',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'companies/:slug',
-        component: CompanyComponent,
-        data: {
-          title: 'company',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'charities',
-        component: CharityListComponent,
-        data: {
-          title: 'charities',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: 'charities/:slug',
-        component: CharityComponent,
-        data: {
-          title: 'charity',
-          headerDisplay: 'none'
-        }
-      },
-      // {
-      //   path: '**',
-      //   component: HomeComponent,
-      //   data: {
-      //     title: 'Home',
-      //     headerDisplay: 'none'
-      //   }
-      // },
-      {
-        path: ':userSlug/:slug',
-        component: ArticleComponent,
-        data: {
-          title: 'Article',
-          headerDisplay: 'none'
-        }
-      },
-      {
-        path: ':slug',
-        component: ProfileComponent,
-        data: {
-          title: 'Profile',
-          headerDisplay: 'none'
-        }
-      },
-    ]
-  }
+  },
+  {
+    path: 'influencer',
+    component: InfluencerComponent,
+    data: {
+      title: 'influencer version 2',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'today',
+    component: TodayComponent,
+    data: {
+      title: 'today version 2',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'video',
+    component: VideoComponent,
+    data: {
+      title: 'video',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'audio',
+    component: AudioComponent,
+    data: {
+      title: 'audio',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'companies',
+    component: CompaniesComponent,
+    data: {
+      title: 'companies',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'companies/:slug',
+    component: CompanyComponent,
+    data: {
+      title: 'company',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'charities',
+    component: CharityListComponent,
+    data: {
+      title: 'charities',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: 'charities/:slug',
+    component: CharityComponent,
+    data: {
+      title: 'charity',
+      headerDisplay: 'none'
+    }
+  },
+  // {
+  //   path: '**',
+  //   component: HomeComponent,
+  //   data: {
+  //     title: 'Home',
+  //     headerDisplay: 'none'
+  //   }
+  // },
+  {
+    path: ':userSlug/:slug',
+    component: ArticleComponent,
+    data: {
+      title: 'Article',
+      headerDisplay: 'none'
+    }
+  },
+  {
+    path: ':slug',
+    component: ProfileComponent,
+    data: {
+      title: 'Profile',
+      headerDisplay: 'none'
+    }
+  },
 ];
 
 @NgModule({
