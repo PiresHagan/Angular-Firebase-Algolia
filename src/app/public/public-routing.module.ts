@@ -25,7 +25,6 @@ import { FundraiserComponent } from './fundraiser/fundraiser.component';
 import { FundraiserListComponent } from './fundraiser-list/fundraiser-list.component';
 import { CommonLayoutComponent } from '../layouts/common-layout/common-layout.component';
 
-
 const routes: Routes = [
   {
     path: '',
