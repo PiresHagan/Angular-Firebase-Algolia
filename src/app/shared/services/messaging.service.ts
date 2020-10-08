@@ -33,7 +33,7 @@ export class MessagingService {
   }
 
   requestPermission() {
-    // @TODO this should be handled another way
+    // todo this should be handled another way
     console.log('Notifications permission suspended for now.')
     // this.angularFireMessaging.requestPermission.subscribe(data => {
     //   this.getToken()

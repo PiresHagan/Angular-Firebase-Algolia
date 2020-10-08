@@ -77,8 +77,8 @@ export class ArticleComponent implements OnInit, AfterViewInit {
       this.selectedLanguage = this.langService.getSelectedLanguage();
 
       const slug = params.get('slug');
-      this.articleService.getArtical(slug).subscribe(artical => {
 
+      this.articleService.getArtical(slug).subscribe(artical => {
         this.article = artical[0];
         if (!this.article) {
           this.modal.error({

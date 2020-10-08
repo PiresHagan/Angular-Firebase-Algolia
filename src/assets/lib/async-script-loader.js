@@ -48,8 +48,6 @@ function initiateAds() {
       // googletag.pubads().enableSingleRequest();
       // googletag.pubads().collapseEmptyDivs();
       googletag.enableServices();
-
-      console.log('Enabled ads services...');
     });
   } else {
     setTimeout(() => {
