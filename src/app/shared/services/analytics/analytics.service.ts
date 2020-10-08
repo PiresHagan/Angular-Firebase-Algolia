@@ -17,9 +17,8 @@ export class AnalyticsService {
   private handleAnalyticsPageView() {
     this.router.events.subscribe(evt => {
       if (evt instanceof NavigationEnd) {
-        if (this.afAuth.currentUser) {
-          const user = firebase.auth().currentUser;
-
+        const user = firebase.auth().currentUser;
+        if (user) {
           this.logEvent('page_view', {
             user_uid: user.uid,
             user_email: user.email,

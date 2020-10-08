@@ -19,10 +19,14 @@ const appRoutes: Routes = [
         component: BackofficeLayoutComponent,
         children: BackofficeLayout_ROUTES
     },
+    // {
+    //     path: '',
+    //     component: CommonLayoutComponent,
+    //     children: CommonLayout_ROUTES
+    // },
     {
         path: '',
-        component: CommonLayoutComponent,
-        children: CommonLayout_ROUTES
+        loadChildren: () => import('./public/public.module').then(m => m.PublicModule)
     }
 ];
 
