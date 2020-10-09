@@ -4,7 +4,8 @@
             <div class="product-img">
                 <div class="sticky-box">
                     <nz-skeleton [nzActive]="true" *ngIf="!product"> </nz-skeleton>
-                    <div class="gallary-box" *ngIf="product"> 
+                    <app-product-image *ngIf="product" [images]="product?.images"></app-product-image>
+                    <!-- <div class="gallary-box" *ngIf="product"> 
                         <div class="thumbnal-image">
                             <div class="thumbnail"><img src="assets/images/shopping/product/p.jpg" alt=""></div>
                             <div class="thumbnail"><img src="assets/images/shopping/product/p.jpg" alt=""></div>
@@ -68,7 +69,7 @@
                             </div>
                         </div>
                         <img [src]="product?.images[0]?.url" [alt]="product?.images[0]?.alt" />
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="product-detail">
@@ -307,31 +308,6 @@
                         <div *ngIf="!(product?.stats?.rating)" class="no-review">
                            No reviews available
                         </div>
-                        <div class="rating-btn" (click)="showRating()">
-                            <button type="button" class="b-btn">Rate Product</button>
-                            <div class="login-popup"  *ngIf="!isLoggedInUser">
-                                <nz-modal
-                                    [(nzVisible)]="isVisible"
-                                    nzTitle="My Trending Stories"
-                                    (nzOnCancel)="handleCancel()"
-                                    (nzOnOk)="handleOk()"
-                                    [nzOkLoading]="isOkLoading"
-                                    >
-                                    <div class="popup-content">
-                                        <div>
-                                            <a [routerLink]="['/']" class="bg-logo">
-                                                <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
-                                            </a>
-                                        </div>
-                                        <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' | translate}}</a> {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a> {{'toContinue' | translate}}.</p>
-                                       
-                                    </div>
-                                    </nz-modal>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="rating-box">
-                        <app-shop-product-add-review *ngIf="product && isLoggedInUser" [product]="product"></app-shop-product-add-review>
                     </div>
                     <nz-skeleton [nzActive]="true" *ngIf="!productReviews"> </nz-skeleton>
                     <div class="m-t-20" *ngIf="productReviews">

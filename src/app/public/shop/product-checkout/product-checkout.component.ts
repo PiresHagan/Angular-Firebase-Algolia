@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzModalService } from "ng-zorro-antd";
 import { StripeService, StripeCardNumberComponent } from 'ngx-stripe';
@@ -14,8 +14,13 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
   templateUrl: './product-checkout.component.html',
   styleUrls: ['./product-checkout.component.scss']
 })
-export class ProductCheckoutComponent implements OnInit {
-  current = 0;
+export class ProductCheckoutComponent implements OnInit, OnDestroy {
+  loginStatusStep = 0;
+  deliveryAddressStep = 1;
+  paymentOptionsStep = 2;
+  orderStatusStep = 3;
+
+  current = this.loginStatusStep;
   isLoggedInUser: boolean;
 
   // order summary
@@ -68,8 +73,10 @@ export class ProductCheckoutComponent implements OnInit {
     this.authService.getAuthState().subscribe(user => {
       if (user && !user.isAnonymous) {
         this.isLoggedInUser = true;
+        this.current = this.deliveryAddressStep;
       } else {
         this.isLoggedInUser = false;
+        this.current = this.loginStatusStep;
       }
     });
 
@@ -84,14 +91,19 @@ export class ProductCheckoutComponent implements OnInit {
     });
 
     this.getCartProduct();
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.add('remove-header-footer');
   }
-
+  ngOnDestroy(){
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.remove('remove-header-footer');
+  }
   pre(): void {
     this.current -= 1;
   }
 
   next(): void {
-    if(this.current == 0) {
+    if(this.current == this.deliveryAddressStep) {
       for (const i in this.userAddressForm.controls) {
         this.userAddressForm.controls[i].markAsDirty();
         this.userAddressForm.controls[i].updateValueAndValidity();

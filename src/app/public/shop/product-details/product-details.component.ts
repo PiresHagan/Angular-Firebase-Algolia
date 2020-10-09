@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/shared/interfaces/ecommerce/product';
 import { ProductReview } from 'src/app/shared/interfaces/ecommerce/review';
-import { AuthService } from 'src/app/shared/services/authentication.service';
 import { CartService } from 'src/app/shared/services/shop/cart.service';
 import { ProductService } from 'src/app/shared/services/shop/product.service';
 
@@ -13,7 +12,6 @@ import { ProductService } from 'src/app/shared/services/shop/product.service';
 })
 export class ProductDetailsComponent implements OnInit {
 
-  isLoggedInUser: boolean;
   isAdding: boolean = false;
   product: Product;
   fashionProducts: Array<Product>;
@@ -23,29 +21,11 @@ export class ProductDetailsComponent implements OnInit {
   loadingMoreReviews: boolean = false;
 
   constructor(
-    public authService: AuthService,
     private route: ActivatedRoute,
     public cartService: CartService,
-    private productService: ProductService,
-    private router: Router
+    private productService: ProductService
   ) { }
-  isVisible = false;
-  isOkLoading = false;
-  showModal(): void {
-    this.isVisible = true;
-  }
 
-  handleOk(): void {
-    this.isOkLoading = true;
-    setTimeout(() => {
-      this.router.navigate(["auth/login"]);
-      this.isOkLoading = false;
-    }, 2000);
-  }
-
-  handleCancel(): void {
-    this.isVisible = false;
-  }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
 
@@ -56,17 +36,9 @@ export class ProductDetailsComponent implements OnInit {
 
         this.getFirstReviews();
 
-        // this.productService.updateProductViewCount(this.product);
+        this.productService.updateProductViewCount(this.product);
       });
 
-    });
-
-    this.authService.getAuthState().subscribe(user => {
-      if (user && !user.isAnonymous) {
-        this.isLoggedInUser = true;
-      } else {
-        this.isLoggedInUser = false;
-      }
     });
 
     this.productService.getFashionForEveryoneProducts().subscribe((data: any) => {
@@ -112,18 +84,6 @@ export class ProductDetailsComponent implements OnInit {
       return null;
     });
     return resArr;
-  }
-  showRating(){
-    this.authService.getAuthState().subscribe(user => {
-      if (user && !user.isAnonymous) {
-        this.isLoggedInUser = true;
-        document.getElementById('rating-box').style.display = 'block';
-      } else {
-        this.isLoggedInUser = false;
-        this.isVisible = true;
-      }
-    });
-    
   }
   
 }

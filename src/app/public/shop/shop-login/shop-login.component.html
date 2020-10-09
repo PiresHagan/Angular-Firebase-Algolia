@@ -1,60 +1,157 @@
 <section>
     <section class="signup-section">
-        <div class="signup-area">
-            <div class="row">
-                <div class="col-lg-5">
-                    <div class="signup-left-area">
-                        <h2 class="title">Sign Up</h2>
-                        <div class="sign-up-form-area">
-                            <form class="signup-form">
-                                <div class="row" id="hide-signup">
-                                    <div class="col-lg-12 form-group">
-                                        <input type="text" name="text" class="input-box" placeholder="Full Name">
-                                    </div>
-                                    <div class="col-lg-12 form-group">
-                                        <input type="email" name="email" class="input-box" placeholder="Email">
-                                    </div>
-                                    <div class="col-lg-12 form-group">
-                                        <input type="password" id="myInput" name="password" class="input-box" placeholder="Password">
-                                    </div>
-                                    <div class="col-lg-12 form-group">
-                                        <input type="password" id="myInputTwo" class="input-box" name="password" placeholder="Confirm Password">
-                                    </div>
-                                    
-                                    <div class="col-lg-12 form-group text-left mb-3">
-                                        <label nz-checkbox >I have read the <a href="" routerLink="/terms">Terms</a></label>
-                                    </div>
-                                    <div class="col-lg-12 form-group text-left">
-                                        <span class="control">Already registered? <a (click)="ShowSignIn()"> sign in</a></span>
-                                    </div>
-                                    <div class="col-lg-12 form-group">
-                                        <button type="button" class="login-btn" >Sign Up</button>
-                                    </div>
-                                    
-                                </div>
-                                <div class="row" id="hide-signin">
-                                    <div class="col-lg-12 form-group">
-                                        <input type="email" name="email" class="input-box" placeholder="Email">
-                                    </div>
-                                    <div class="col-lg-12 form-group">
-                                        <input type="password" id="myInput" name="password" class="input-box" placeholder="Password">
-                                    </div>
-                                    <div class="col-lg-12 form-group text-left">
-                                        <span class="control">Already registered? <a (click)="ShowSignUp()"> sign Up</a></span>
-                                    </div>
-                                    <div class="col-lg-12 form-group">
-                                        <button type="button" class="login-btn" >Sign In</button>
-                                    </div>
-                                    
-                                </div>
-                            </form>
-                        </div>
+        <div class="signup-left-area">
+            <h2 class="title" *ngIf="showSignIn">{{'loginSignIn' | translate}}</h2>
+            <h2 class="title" *ngIf="!showSignIn">{{'signUp' | translate}}</h2>
+            <div class="sign-up-form-area">
+                           
+                <form *ngIf="!showSignIn" nz-form [formGroup]="signUpForm" class="signup-form" (ngSubmit)="signUpForm()">
+
+                    <nz-alert class="m-b-10" nzType="error" nzDescription=" {{'invalidCaptchaErr' | translate}}"
+                        nzShowIcon *ngIf="invalidCaptcha"></nz-alert>
+
+                    <nz-alert class="m-b-10" nzType="error" nzDescription="{{'artError' | translate}}"
+                        nzShowIcon *ngIf="errorDetails"></nz-alert>
+
+                    <nz-alert nzType="error" [nzDescription]="errorSignup" *ngIf="errorSignup">
+                        <ng-template #errorSignup>
+                            <ng-container>
+                                {{'alreadyEmailError' | translate}} <a
+                                (click)="ShowSignIn()">{{'logIn' | translate}}</a>.
+                            </ng-container>
+                        </ng-template>
+                    </nz-alert>
+                    <nz-alert nzType="error" [nzDescription]="errorPasswordWeak" *ngIf="errorPasswordWeak">
+                        <ng-template #errorPasswordWeak>
+                            <ng-container>
+                                {{'passwordError' | translate}}
+
+
+                            </ng-container>
+                        </ng-template>
+                    </nz-alert>
+                    <nz-alert nzType="error" [nzDescription]="errorAgree" *ngIf="errorAgree" class="mb-2">
+                        <ng-template #errorAgree>
+                            <ng-container>
+                                {{'signUpAgreement' | translate}}
+                            </ng-container>
+                        </ng-template>
+                    </nz-alert>
+                    <div class="row">
+                    <nz-form-item class="col-md-6">
+                        <!-- <nz-form-label nzRequired nzFor="fullname">Fullname</nz-form-label> -->
+                        <nz-form-control nzErrorTip="{{'fullNameError' | translate}}" class="is-icon">
+                            <input type="text" nz-input formControlName="fullname"
+                                placeholder="{{'signUpFullName' | translate}}" id="fullname">
+                            <img src="assets/images/sign-up/user.png" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item class="col-md-6">
+                        <!-- <nz-form-label nzRequired nzFor="email">Email</nz-form-label> -->
+                        <nz-form-control nzErrorTip="{{'loginEmailError' | translate}}" class="is-icon">
+                            <input type="text" nz-input formControlName="email"
+                                placeholder="{{'loginInputEmail' | translate}}" id="email">
+                            <img src="assets/images/sign-up/email.png" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item class="col-md-6">
+                        <!-- <nz-form-label nzRequired nzFor="password">Password</nz-form-label> -->
+                        <nz-form-control nzErrorTip="{{'passwordError' | translate}}" class="is-icon">
+                            <input type="password" nz-input formControlName="password"
+                                placeholder="{{'loginInputPassword' | translate}}" id="password">
+                            <img src="assets/images/sign-up/password.png" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item class="col-md-6">
+                        <!-- <nz-form-label nzFor="checkPassword" nzRequired>Confirm Password</nz-form-label> -->
+                        <nz-form-control [nzErrorTip]="errorTpl" class="is-icon">
+                            <input nz-input type="password" formControlName="checkPassword"
+                                placeholder="{{'signUpConfirmPassword' | translate}}" id="checkPassword">
+                            <img src="assets/images/sign-up/password.png" />
+                            <ng-template #errorTpl let-control>
+                                <ng-container *ngIf="control.hasError('required')">
+                                    {{'confirmPasswordError' | translate}}
+                                </ng-container>
+                                <ng-container *ngIf="control.hasError('confirm')">
+                                    {{'twoPasswodError' | translate}}
+                                </ng-container>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <div class="col-md-12">
+                        <nz-form-item>
+                            <nz-form-control>
+                                <label nz-checkbox class="agree-check" formControlName="agree" nzRequired
+                                    style="margin-right:0px"><span>{{'signUpTermRead' | translate}}</span></label><a
+                                    routerLink="/terms">{{'loginTerms' | translate}}</a>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="col-lg-12 form-group text-left mb-4">
+                        <span class="control">Already registered? <a (click)="ShowSignIn()"> Sign In</a></span>
                     </div>
                 </div>
-                <div class="col-lg-7">
-                    <div class="signup-right-area">
-                        <h2 class="title">Welcome To My Trending Stories E-commerce </h2>
+                </form>
+
+                <form *ngIf="showSignIn" nz-form [formGroup]="signInForm" class="login-form">
+
+                    <nz-alert class="m-b-10" nzType="error"
+                        nzDescription="You have entered an invalid username or password" nzShowIcon
+                        *ngIf="errorLogin"></nz-alert> 
+                    <nz-alert class="m-b-10" nzType="error"
+                        nzDescription="{{'invalidCaptchaErr' | translate}}" nzShowIcon
+                        *ngIf="invalidCaptcha"></nz-alert>
+                    <nz-form-item class="m-b-15">
+                        <nz-form-control nzErrorTip="{{'loginEmailError' | translate}}" class="is-icon">
+                            <nz-input-group>
+                                <input type="text" nz-input formControlName="email"
+                                    placeholder="{{'loginInputEmail' | translate}}">
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item class="m-b-5">
+                        <nz-form-control nzErrorTip="{{'loginPasswordError' | translate}}" class="is-icon">
+                            <nz-input-group>
+                                <input type="password" nz-input formControlName="password"
+                                    placeholder="{{'loginInputPassword' | translate}}">
+                            </nz-input-group>
+                        </nz-form-control>
+
+
+                    </nz-form-item>
+                
+                    <div nz-row class="login-form-margin">
+                        <div nz-col [nzSpan]="24">
+                            <span class="font-size-13 text-muted">{{'signInTerms' | translate}}
+                                <a class="small" (click)="ShowSignUp()"> {{'loginSignUp' | translate}} </a>
+                            </span>
+                        </div>
                     </div>
+                    
+                </form>
+
+                <div #recaptcha>Loading Captcha...</div>
+
+                <div *ngIf="showSignIn" class="footer-btn">
+                    <button nz-button class="login-form-button is-login-btn" 
+                        [nzType]="'primary'"
+                        [nzLoading]="isFormSaving"
+                        type="button"
+                        (click)="submitSignInForm()"
+                    >
+                        {{'loginSignInBtn' | translate}}
+                    </button>
+                </div>
+
+                <div *ngIf="!showSignIn" class="footer-btn">
+                    <button nz-button class="is-login-btn" 
+                        [nzLoading]="isFormSaving"
+                        [nzType]="'primary'"
+                        type="button"
+                        (click)="onSignUp()"
+                    >
+                        {{'signUp' | translate}}
+                    </button>
                 </div>
             </div>
         </div>

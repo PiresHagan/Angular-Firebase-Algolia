@@ -76,6 +76,7 @@
                 <th>{{'Quantity' | translate}}</th>
                 <th>{{'Price' | translate}}</th>
                 <th>{{'Total' | translate}}</th>
+                <th>{{'Review' | translate}}</th>
 
               </tr>
             </thead>
@@ -88,6 +89,11 @@
                 <td>
                   ${{getPrice(item) | number:'2.2-5'}}
 
+                </td>
+                <td>
+                  <button nz-button nzType="primary" (click)="addReview(item)">
+                    <span>Add Review</span>
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -124,5 +130,7 @@
         </div>
       </div>
     </div>
+
+
   </nz-card>
 </div>

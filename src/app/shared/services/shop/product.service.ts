@@ -40,12 +40,11 @@ export class ProductService {
     return this.db.collection<Product>(this.storeProductsCollection, ref => ref
       .where('slug', '==', slug)
       .limit(1)
-    ).valueChanges();
-    // .snapshotChanges().pipe(take(1),
-    //   map(actions => {
-    //     return actions.map(a => a.payload.doc.data());
-    //   })
-    // );
+    ).snapshotChanges().pipe(take(1),
+      map(actions => {
+        return actions.map(a => a.payload.doc.data());
+      })
+    );
   }
 
   getProductsByCategoryId(categoryId: string) {

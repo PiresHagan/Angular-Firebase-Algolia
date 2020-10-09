@@ -37,7 +37,7 @@
         margin-top: 20px;
         margin-bottom: 20px;
         .checkout-content {
-            margin-top: 50px
+            margin-top: 20px
         }
         .step-checkout-detail{
             width:calc(100% - 470px);
@@ -45,7 +45,7 @@
             border: 0px;
             background: #fff;
             border: 1px solid #eee;
-            padding: 30px;
+            padding: 25px;
             .checkout-content{
                 .ant-advanced-search-form{
                     h2{
@@ -293,5 +293,23 @@
                 width:350px;
             }
         }
+    }
+}
+::ng-deep .remove-header-footer{
+    .header{
+        display: none;
+    }
+    .footer{
+        display: none;
+    }
+    .main-content{
+        padding-top:10px !important
+    }
+}
+.logo{
+    max-width: 150px;
+    a{
+        background: #ff4020;
+        display: inline-block;
     }
 }

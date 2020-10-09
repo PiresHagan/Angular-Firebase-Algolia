@@ -5,11 +5,9 @@ import {
   OnChanges,
   SimpleChange,
   SimpleChanges,
+  OnDestroy
 } from "@angular/core";
 import { Product } from "src/app/shared/interfaces/ecommerce/product";
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/shared/services/authentication.service';
-import { User } from 'src/app/shared/interfaces/user.type';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -17,18 +15,16 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './cart-calculator.component.html',
   styleUrls: ['./cart-calculator.component.scss']
 })
-export class CartCalculatorComponent implements OnInit, OnChanges {
-  userDetails: User;
-  isLoggedInUser: boolean = false;
+export class CartCalculatorComponent implements OnInit, OnChanges, OnDestroy {
+  
   @Input() products: Product[];
+
   @Input() config: {
     isCheckout: boolean;
   }
 
   totalValue = 0;
   constructor(
-    private router: Router,
-    public authService: AuthService,
     public translate: TranslateService,
   ) {}
 
@@ -47,49 +43,13 @@ export class CartCalculatorComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.authService.getAuthState().subscribe(async (user) => {
-      if (!user) {
-        this.userDetails = null;
-        this.isLoggedInUser = false;
-        return;
-      }
-      if (this.userDetails) {
-        this.isLoggedInUser = true;
-      } else {
-        this.isLoggedInUser = false;
-     
-      }
-  
-  
-  
-    });
-  }
-  isVisible = false;
-  isOkLoading = false;
-
-  showModal(): void {
-    this.isVisible = true;
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.add('hide-modal-footer');
   }
 
-  handleOk(): void {
-    this.isOkLoading = true;
-    setTimeout(() => {
-      this.router.navigate(["auth/login"]);
-      this.isOkLoading = false;
-    }, 2000);
+  ngOnDestroy(){
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.remove('hide-modal-footer');
   }
 
-  handleCancel(): void {
-    this.isVisible = false;
-  }
-
-  checkLoginCheckout(){
-    this.authService.getAuthState().subscribe(async (user) => {
-      if (!user.isAnonymous) {
-        this.router.navigate(["/shop/checkout"]);
-      } else {
-        this.showModal()
-      }
-    });
-  }
 }

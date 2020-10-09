@@ -14,10 +14,6 @@ const routes: Routes = [
         component: ShopHomeComponent
     },
     {
-        path: 'category',
-        component: ProductCategoryComponent
-    },
-    {
         path: 'cart',
         component: CartComponent
     },
@@ -28,6 +24,10 @@ const routes: Routes = [
     {
         path: ':sellerSlug',
         component: SellerHomeComponent
+    },
+    {
+        path: 'category/:categorySlug',
+        component: ProductCategoryComponent
     },
     {
         path: 'products/:productSlug',
