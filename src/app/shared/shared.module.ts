@@ -19,10 +19,11 @@ import { Cloudinary } from 'cloudinary-core';
 import { ShareButtonsComponent } from './component/share-buttons/share-buttons.component';
 import { AdDirective } from './directives/ad/ad.directive';
 import { AnalyticsService } from './services/analytics/analytics.service';
+import { SeoService } from './services/seo/seo.service';
+
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
-
 
 @NgModule({
     exports: [
@@ -67,6 +68,7 @@ export function createTranslateLoader(http: HttpClient) {
     providers: [
         ThemeConstantService,
         AnalyticsService,
+        SeoService,
     ]
 })
 

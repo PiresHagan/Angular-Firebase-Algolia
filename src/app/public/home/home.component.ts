@@ -51,17 +51,24 @@ export class HomeComponent implements OnInit {
 
     this.selectedLanguage = this.languageService.getSelectedLanguage();
 
+    console.log(new Date());
     this.cacheService.getSponsoredArticles(this.selectedLanguage).subscribe(articles => {
+      // todo this line is taking almost 5+ seconds
       this.heroArticles = articles;
       this.loading = false;
+      console.log(new Date());
     });
 
     this.cacheService.getTrendingStories(this.selectedLanguage).subscribe(articles => {
+      // todo this line is taking almost 5+ seconds
       this.trendingArticles = articles;
+      console.log(new Date());
     });
 
     this.cacheService.getLatestStories(this.selectedLanguage).subscribe(articles => {
+      // todo this line is taking almost 5+ seconds
       this.latestArticles = articles;
+      console.log(new Date());
       //this.heroArticles = articles;
     });
 
@@ -86,6 +93,7 @@ export class HomeComponent implements OnInit {
 
       this.cacheService.getLatestStories(this.selectedLanguage).subscribe(articles => {
         this.latestArticles = articles;
+        console.log(new Date());
         //this.heroArticles = articles;
       });
     });
