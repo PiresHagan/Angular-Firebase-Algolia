@@ -43,39 +43,39 @@
                         class="mega-menu-list-item">
                         {{topic.title}}
                       </li>
+                      <li nz-submenu nzTitle="More" class="xs-menu-item">
+                          <ng-container *ngFor="let item of (categories)">
+                              <div  [ngClass]="item.slug">
+                                  <h2 class="category-title-xs">{{item.title}}</h2>
+                                  <ul>
+                                      <li *ngFor="let topic of (categoryListData[item.uid].child | async )" nz-menu-item
+                                          [routerLink]="['/category', item.slug]" [queryParams]="{topic:topic.slug}"
+                                          class="xs-menu-sub-category"
+                                          (click)="hideMenu()">
+                                          {{topic.title}}
+                                      </li>
+                                  </ul>
+                              </div>
+                          </ng-container>
+                      </li>
+                      <li class="h-auto line-height-normal" nz-menu-item *ngIf="!isLoggedInUser">
+                          <a class="is-login-link" (click)="routeLogin()">
+                              {{'login' | translate }}
+                              <img src="assets/images/sign-up.png" alt="sign up icon">
+                          </a>
+                      </li>
+                      <li nz-menu-item *ngIf="!isLoggedInUser" class="h-auto">
+                          <button (click)="routeSignup()" nz-button nzType="primary" class="is-sign-up-btn">
+                              {{'signUp' | translate }}
+                              <img src="assets/images/sign-up.png" alt="sign up icon">
+                          </button>
+                      </li>
                     </ul>
                   </div>
                 </ng-container>
-                <li nz-submenu nzTitle="More" class="xs-menu-item">
-                    <ng-container *ngFor="let item of (categories)">
-                        <div  [ngClass]="item.slug">
-                            <h2 class="category-title-xs">{{item.title}}</h2>
-                            <ul>
-                                <li *ngFor="let topic of (categoryListData[item.uid].child | async )" nz-menu-item
-                                    [routerLink]="['/category', item.slug]" [queryParams]="{topic:topic.slug}"
-                                    class="xs-menu-sub-category"
-                                    (click)="hideMenu()">
-                                    {{topic.title}}
-                                </li>
-                            </ul>
-                        </div>
-                    </ng-container>
-                </li>
-                <li class="h-auto line-height-normal" nz-menu-item *ngIf="!isLoggedInUser">
-                    <a class="is-login-link" (click)="routeLogin()">
-                        {{'login' | translate }}
-                        <img src="assets/images/sign-up.png" alt="sign up icon">
-                    </a>
-                </li>
-                <li nz-menu-item *ngIf="!isLoggedInUser" class="h-auto">
-                    <button (click)="routeSignup()" nz-button nzType="primary" class="is-sign-up-btn">
-                        {{'signUp' | translate }}
-                        <img src="assets/images/sign-up.png" alt="sign up icon">
-                    </button>
-                </li>
-              </ul>
+              </div>
             </div>
-          </ng-container>
+          </div>
         </li>
         <li nz-menu-item *ngIf="!isLoggedInUser" class="h-auto line-height-normal">
           <a class="is-login-link" (click)="routeLogin()">
