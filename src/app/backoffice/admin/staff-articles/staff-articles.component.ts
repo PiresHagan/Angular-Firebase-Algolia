@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -20,8 +20,8 @@ export class StaffArticlesComponent implements OnInit {
   articles: Article[];
   lastVisible: any = null;
   userDetails;
-  searchSlug: string = "";
-  articleTitle: string = "";
+  searchSlug: string = '';
+  articleTitle: string = '';
   notFound = false;
   oldArtilceList: Article[];
 
@@ -74,25 +74,24 @@ export class StaffArticlesComponent implements OnInit {
   replaceImage(url) {
     let latestURL = url
     if (url) {
-      latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
-        .replace('https://cdn.mytrendingstories.com/', "https://assets.mytrendingstories.com/")
-        .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
+      latestURL = latestURL.replace('https://mytrendingstories.com/', 'https://assets.mytrendingstories.com/')
+        .replace('http://cdn.mytrendingstories.com/', 'https://cdn.mytrendingstories.com/')
+        .replace('https://abc2020new.com/', 'https://assets.mytrendingstories.com/');
     }
     return latestURL;
   }
   getArticle() {
-
     let searchKey;
     let searchValue;
     if (this.searchSlug) {
-      this.articleTitle = "";
-      searchKey = "slug";
+      this.articleTitle = '';
+      searchKey = 'slug';
       searchValue = decodeURIComponent(this.searchSlug);
 
     }
     if (this.articleTitle) {
-      this.searchSlug = "";
-      searchKey = "title";
+      this.searchSlug = '';
+      searchKey = 'title';
       searchValue = this.articleTitle;
     }
 
@@ -107,14 +106,14 @@ export class StaffArticlesComponent implements OnInit {
     })
   }
   deleteArticle(articleId: string) {
-    let articleMessageConf = this.translate.instant("articleDeletMsgConf");
-    let articleMessageSucc = this.translate.instant("articleDeletMsgSuc");
+    let articleMessageConf = this.translate.instant('articleDeletMsgConf');
+    let articleMessageSucc = this.translate.instant('articleDeletMsgSuc');
     this.modalService.confirm({
-      nzTitle: "<i>" + articleMessageConf + "</i>",
+      nzTitle: '<i>' + articleMessageConf + '</i>',
       nzOnOk: () => {
         this.articleService.deleteArticle(articleId).subscribe(() => {
           this.modalService.success({
-            nzTitle: "<i>" + articleMessageSucc + "</i>",
+            nzTitle: '<i>' + articleMessageSucc + '</i>',
           });
         })
       },

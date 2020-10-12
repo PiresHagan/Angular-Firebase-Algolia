@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { Company } from 'src/app/shared/interfaces/company.type';
 import { CompanyService } from 'src/app/shared/services/company.service';
-import { Title, Meta } from '@angular/platform-browser';
+import { SeoService } from 'src/app/shared/services/seo/seo.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -32,8 +32,7 @@ export class CompanyComponent implements OnInit {
     private authService: AuthService,
     private langService: LanguageService,
     private companyService: CompanyService,
-    private titleService: Title,
-    private metaTagService: Meta,
+    private seoService: SeoService,
     private router: Router
   ) { }
 
@@ -50,18 +49,14 @@ export class CompanyComponent implements OnInit {
 
         this.setUserDetails();
 
-        this.titleService.setTitle(`${this.company.name.substring(0, 69)}`);
-
-        this.metaTagService.addTags([
-          { name: "description", content: `${this.company.bio.substring(0, 154)}` },
-          { name: "keywords", content: `${this.company.name}` },
-          { name: "twitter:card", content: `${this.company.bio.substring(0, 154)}` },
-          { name: "og:title", content: `${this.company.name}` },
-          { name: "og:type", content: `company` },
-          { name: "og:url", content: `${window.location.href}` },
-          { name: "og:image", content: `${this.company.logo.url}` },
-          { name: "og:description", content: `${this.company.bio.substring(0, 154)}` }
-        ]);
+        this.seoService.updateMetaTags({
+          title: this.company.name,
+          tabTitle: this.company.name.substring(0, 69),
+          description: this.company.bio.substring(0, 154),
+          keywords: this.company.name,
+          type: 'company',
+          image: { url: this.company.logo.url }
+        });
       });
 
       this.setUserDetails();

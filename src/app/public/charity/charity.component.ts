@@ -1,6 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Title, Meta } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { CharityService } from 'src/app/shared/services/charity.service';
 import { LanguageService } from 'src/app/shared/services/language.service';
@@ -8,8 +7,9 @@ import { TranslateService } from "@ngx-translate/core";
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { Charity } from 'src/app/shared/interfaces/charity.type';
 import { User } from 'src/app/shared/interfaces/user.type';
-
 import { Router } from '@angular/router';
+import { SeoService } from 'src/app/shared/services/seo/seo.service';
+
 @Component({
   selector: 'app-charity',
   templateUrl: './charity.component.html',
@@ -33,9 +33,8 @@ export class CharityComponent implements OnInit {
     private authService: AuthService,
     private langService: LanguageService,
     private charityService: CharityService,
-    private titleService: Title,
-    private metaTagService: Meta,
     public translate: TranslateService,
+    private seoService: SeoService,
     private router: Router
   ) { }
 
@@ -52,18 +51,14 @@ export class CharityComponent implements OnInit {
 
         this.setUserDetails();
 
-        this.titleService.setTitle(`${this.charity.name.substring(0, 69)}`);
-
-        this.metaTagService.addTags([
-          { name: "description", content: `${this.charity.bio.substring(0, 154)}` },
-          { name: "keywords", content: `${this.charity.name}` },
-          { name: "twitter:card", content: `${this.charity.bio.substring(0, 154)}` },
-          { name: "og:title", content: `${this.charity.name}` },
-          { name: "og:type", content: `charity` },
-          { name: "og:url", content: `${window.location.href}` },
-          { name: "og:image", content: `${this.charity.logo.url}` },
-          { name: "og:description", content: `${this.charity.bio.substring(0, 154)}` }
-        ]);
+        this.seoService.updateMetaTags({
+          title: this.charity.name,
+          tabTitle: this.charity.name.substring(0, 69),
+          description: this.charity.bio.substring(0, 154),
+          keywords: this.charity.name,
+          type: 'charity',
+          image: { url: this.charity.logo.url }
+        });
       });
 
       this.setUserDetails();

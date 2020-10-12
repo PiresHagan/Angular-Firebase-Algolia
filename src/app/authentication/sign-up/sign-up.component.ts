@@ -2,7 +2,6 @@ import { Component, NgZone, ViewChild } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-
 import { UserService } from '../../shared/services/user.service';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { AuthService } from 'src/app/shared/services/authentication.service';
@@ -11,12 +10,12 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { environment } from "src/environments/environment";
 import * as firebase from 'firebase/app';
+import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.service';
 
 @Component({
     templateUrl: './sign-up.component.html',
     styleUrls: ['./sign-up.component.scss']
 })
-
 export class SignUpComponent {
     recaptchaElement;
     isCaptchaElementReady: boolean = false;
@@ -40,7 +39,6 @@ export class SignUpComponent {
     generalError: boolean = false;
     enableEmailVerificationScreen: boolean = false;
 
-
     constructor(
         private fb: FormBuilder,
         public afAuth: AngularFireAuth,
@@ -50,10 +48,9 @@ export class SignUpComponent {
         public ngZone: NgZone, // NgZone service to remove outside scope warning
         public previousRoute: PreviousRouteService,
         public translate: TranslateService,
-        private language: LanguageService
-
-    ) {
-    }
+        private language: LanguageService,
+        private analyticsService: AnalyticsService,
+    ) { }
 
     ngOnInit(): void {
         this.afAuth.onAuthStateChanged(user => {
@@ -125,11 +122,11 @@ export class SignUpComponent {
         }
 
     }
+
     addUser(userDetails, memberData) {
         this.generalError = false;
         this.userService.createUser(userDetails, memberData).then(() => {
-            const analytics = firebase.analytics();
-            analytics.logEvent("sign_up", {
+            this.analyticsService.logEvent("sign_up", {
                 user_uid: memberData.id,
                 user_name: memberData.fullname,
                 language: memberData.lang,

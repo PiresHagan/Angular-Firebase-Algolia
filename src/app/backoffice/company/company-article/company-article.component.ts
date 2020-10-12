@@ -66,7 +66,7 @@ export class CompanyArticleComponent implements OnInit {
     let latestURL = url
     if (url) {
       latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
-        .replace('https://cdn.mytrendingstories.com/', "https://assets.mytrendingstories.com/")
+        .replace('http://cdn.mytrendingstories.com/', "https://cdn.mytrendingstories.com/")
         .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
     }
     return latestURL;

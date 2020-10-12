@@ -3,13 +3,12 @@ import { ArticleService } from 'src/app/shared/services/article.service';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { ThemeConstantService } from '../../shared/services/theme-constant.service';
-import { Title, Meta } from '@angular/platform-browser';
 import { FormControl, FormGroup } from '@angular/forms';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { Category } from 'src/app/shared/interfaces/category.type';
 import * as firebase from 'firebase/app';
-
+import { SeoService } from 'src/app/shared/services/seo/seo.service';
+import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.service';
 
 @Component({
   selector: 'app-category',
@@ -36,23 +35,19 @@ export class CategoryComponent implements OnInit {
     private articleService: ArticleService,
     private route: ActivatedRoute,
     public translate: TranslateService,
-    private themeService: ThemeConstantService,
-    private titleService: Title,
-    private metaTagService: Meta,
-    private languageService: LanguageService
-  ) {
-
-  }
+    private languageService: LanguageService,
+    private seoService: SeoService,
+    private analyticsService: AnalyticsService,
+  ) { }
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.scrollEvent, true);
     this.selectedLanguage = this.languageService.getSelectedLanguage();
 
-    this.route.queryParams.subscribe(queryParams => {
+    this.route.queryParams.subscribe(() => {
       this.topic = this.route.snapshot.queryParamMap.get('topic');
       this.getPageDetails();
     });
-
 
     this.route.paramMap.subscribe(params => {
       console.log('Category Slug', params.get('slug'));
@@ -64,42 +59,25 @@ export class CategoryComponent implements OnInit {
         this.getTopicDetails(this.topic);
       }
 
-
       this.categoryService.getCategoryBySlug(slug).subscribe(category => {
         this.category = category;
         if (!this.topic) {
           this.pageHeader = this.category?.title;
         }
 
-        this.titleService.setTitle(this.category.title);
-
-        if(this.category.meta) {
-          let data = this.category.meta;
-
-          this.metaTagService.addTags([
-            { name: "description", content: data.description.substring(0, 154) },
-            { name: "keywords", content: data?.keywords },
-            { name: "twitter:card", content: data.description },
-            { name: "og:title", content: data?.title },
-            { name: "og:type", content: data.type },
-            { name: "og:url", content: data.url },
-            { name: "og:image", content: data.image.url? data.image.url : data.image.alt},
-            { name: "og:description", content: data.description }
-          ]);
-        }
-
+        this.seoService.updateMetaTags(this.category.meta || {});
       });
 
       this.getPageDetails();
-
     });
   }
 
   scrollEvent = (event: any): void => {
-    if (event.target && event.target.documentElement) {
-      const top = event.target.documentElement.scrollTop
-      const height = event.target.documentElement.scrollHeight
-      const offset = event.target.documentElement.offsetHeight
+    let documentElement = event.target.documentElement ? event.target.documentElement : event.target;
+    if (documentElement) {
+      const top = documentElement.scrollTop
+      const height = documentElement.scrollHeight
+      const offset = documentElement.offsetHeight
       if (top > height - offset - 1 - 100 && this.lastVisible && !this.loadingMore) {
         this.loadingMore = true;
         this.articleService.getArticlesBySlug(20, 'next', this.lastVisible, this.slug, this.topic, this.selectedLanguage).subscribe((data) => {
@@ -115,7 +93,7 @@ export class CategoryComponent implements OnInit {
     let latestURL = url
     if (url) {
       latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
-        .replace('https://cdn.mytrendingstories.com/', "https://assets.mytrendingstories.com/")
+        .replace('http://cdn.mytrendingstories.com/', "https://cdn.mytrendingstories.com/")
         .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
     }
     return latestURL;
@@ -124,14 +102,12 @@ export class CategoryComponent implements OnInit {
   submit() {
     if (this.newsLetterForm.valid) {
       this.categoryService.addSubscription(this.category, this.newsLetterForm.value.email).then(() => {
-        const analytics = firebase.analytics();
-      
-        analytics.logEvent("newsletter_subscription", {
+        this.analyticsService.logEvent("newsletter_subscription", {
           category_title: this.category.title,
           category_id: this.category.id,
           user_email: this.newsLetterForm.value.email
         });
- 
+
         this.newsLetterForm.reset();
       }).catch(err => {
         console.error('Error while subscribing', err);

@@ -19,6 +19,9 @@
       "hosting": {
         "prod": [
           "mytrendingstories"
+        ],
+        "preprod": [
+          "mytrendingstories-preprod"
         ]
       }
     }

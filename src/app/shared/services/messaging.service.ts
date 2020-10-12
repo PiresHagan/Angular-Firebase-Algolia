@@ -17,8 +17,8 @@ export class MessagingService {
 
   constructor(private userService: UserService, private angularFireMessaging: AngularFireMessaging, private notification: NzNotificationService) {
     angularFireMessaging.onMessage((payload) => {
-      console.log('Got foreground push',payload);
-      if(payload.notification && payload.notification.title && payload.notification.body) {
+      console.log('Got foreground push', payload);
+      if (payload.notification && payload.notification.title && payload.notification.body) {
         notification.blank(
           payload.notification.title,
           payload.notification.body,
@@ -33,11 +33,13 @@ export class MessagingService {
   }
 
   requestPermission() {
-    this.angularFireMessaging.requestPermission.subscribe(data => {
-      this.getToken()
-    }, err => {
-      console.log('Unable to get permission to notify.', err);
-    });
+    // todo this should be handled another way
+    console.log('Notifications permission suspended for now.')
+    // this.angularFireMessaging.requestPermission.subscribe(data => {
+    //   this.getToken()
+    // }, err => {
+    //   console.log('Unable to get permission to notify.', err);
+    // });
   }
 
   getToken() {
@@ -57,7 +59,7 @@ export class MessagingService {
   sendTokenToServer(token: string) {
     this.userService.getCurrentUser().then((user) => {
       this.currentUser = { id: user.uid, email: user.email, avatar: user.photoURL, fullname: user.displayName };
-      if(this.currentUser.id) {
+      if (this.currentUser.id) {
         console.log('Sending Token To Server', token);
         this.userService.updateUser(this.currentUser.id, {
           notification_token: token

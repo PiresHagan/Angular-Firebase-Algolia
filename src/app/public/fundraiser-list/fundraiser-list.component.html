@@ -1,53 +1,85 @@
 <section class="is-cat-box-card-main">
-  <div class="cat-box bg-white">
-    <div class="container">
-      <div class="cat-box-title">
-        <div class="is-comman-title">
-          {{ 'fundraisers' | translate }}
-        </div>
-      </div>
-      <div class="cat-box-gallery">
-        <div class="row article-row">
-          <div *ngFor="let fundraiser of fundraisers" class="col-lg-3 col-md-4 col-sm-6 col-12 box_shadow">
-            <div class="item-card item-card-life-and-styles">
-              <a [routerLink]="['/fundraisers',fundraiser.slug]">
-                <div class="item-card-image">
-                  <img [src]="fundraiser?.image.url" [alt]="fundraiser?.image?.alt"
-                    *ngIf="!(fundraiser.image.cloudinary_id); else fundraiserFeatureCloudinaryImg" />
-                  <ng-template #fundraiserFeatureCloudinaryImg>
-                    <cl-image loading="lazy" public-id="{{fundraiser.image.cloudinary_id}}" secure="true">
-                      <cl-transformation width="260" height="180" gravity="face" crop="thumb">
-                      </cl-transformation>
-                    </cl-image>
-                  </ng-template>
+    <div class="cat-box bg-white">
+        <div class="container">
+            <div class="cat-box-title">
+                <div class="is-comman-title">
+                    {{ 'fundraisers' | translate }}
                 </div>
-                <div class="item-card-content">
-                  <div class="item-card-category cat-yellow">
-                    <div class="is-avatar-dv">
-                      <img class="avatar" [src]="fundraiser?.logo.url" [alt]="fundraiser?.logo?.alt"
-                        onerror="this.src='assets/images/default-avatar.png'"
-                        *ngIf="!(fundraiser.logo.cloudinary_id); else fundraiserCloudinaryImg" />
-                      <ng-template #fundraiserCloudinaryImg>
-                        <cl-image loading="lazy" public-id="{{fundraiser.logo.cloudinary_id}}" secure="true">
-                          <cl-transformation width="50" height="50" gravity="face" crop="thumb">
-                          </cl-transformation>
-                        </cl-image>
-                      </ng-template>
-                      <span class="item-card-author">{{ fundraiser?.title }}</span>
-                    </div>
-                  </div>
-                  <!-- <div class="item-card-title">
+            </div>
+            <div class="cat-box-gallery">
+                <div class="row article-row">
+                    <div *ngFor="let fundraiser of fundraisers" class="col-lg-3 col-md-4 col-sm-6 col-12 box_shadow">
+                        <div class="item-card item-card-life-and-styles">
+                            <a [routerLink]="['/fundraisers',fundraiser.slug]">
+                                <div class="item-card-image">
+                                    <img [src]="fundraiser?.image.url" [alt]="fundraiser?.image?.alt"
+                                        *ngIf="!(fundraiser.image.cloudinary_id); else fundraiserFeatureCloudinaryImg" />
+                                    <ng-template #fundraiserFeatureCloudinaryImg>
+                                        <cl-image loading="lazy" public-id="{{fundraiser.image.cloudinary_id}}"
+                                            secure="true">
+                                            <cl-transformation width="260" height="180" gravity="face" crop="thumb">
+                                            </cl-transformation>
+                                        </cl-image>
+                                    </ng-template>
+                                </div>
+                                <div class="item-card-content">
+                                    <div class="item-card-category cat-yellow">
+                                        <div class="is-avatar-dv">
+                                            <img class="avatar" [src]="fundraiser?.logo.url"
+                                                [alt]="fundraiser?.logo?.alt"
+                                                onerror="this.src='assets/images/default-avatar.png'"
+                                                *ngIf="!(fundraiser.logo.cloudinary_id); else fundraiserCloudinaryImg" />
+                                            <ng-template #fundraiserCloudinaryImg>
+                                                <cl-image loading="lazy" public-id="{{fundraiser.logo.cloudinary_id}}"
+                                                    secure="true">
+                                                    <cl-transformation width="50" height="50" gravity="face"
+                                                        crop="thumb">
+                                                    </cl-transformation>
+                                                </cl-image>
+                                            </ng-template>
+                                            <span class="item-card-author">{{ fundraiser?.title }}</span>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="item-card-title">
                                         <h4 class="item-long-title">{{ fundraiser?.title }}</h4>
                                     </div> -->
-                  <div class="item-card-texte">
-                    <p>{{ fundraiser?.excerpt }}</p>
-                    <div class="fund-detail-main">
-                      <div class="fund-detail">
-                        <div class="fund-box">
-                          <h3>
-                            {{ 'Raised' | translate }}:
-                            <span>{{ fundraiser?.amount | currency :'USD':'symbol':'1.0-2' }}</span>
-                          </h3>
+                                    <div class="item-card-texte">
+                                        <p>{{ fundraiser?.excerpt }}</p>
+                                        <div class="fund-detail-main">
+                                            <div class="fund-detail">
+                                                <div class="fund-box">
+                                                    <h3>
+                                                        {{ 'Raised' | translate }}:
+                                                        <span>{{ fundraiser?.amount | currency :'USD':'symbol':'1.0-2' }}</span>
+                                                    </h3>
+                                                </div>
+                                                <div class="fund-box">
+                                                    <h3>
+                                                        {{ 'Goal' | translate }}:
+                                                        <span>{{ fundraiser?.goal_amount | currency :'USD':'symbol':'1.0-2' }}</span>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-detail-main mt-4">
+                                            <div class="fund-detail">
+                                                <div class="fund-box">
+                                                    <button type="button"
+                                                        class="is-read-more">{{ 'donateFundraiserTitle' | translate }}
+                                                        <i class="fas fa-heart"></i></button>
+                                                </div>
+                                                <div class="fund-box">
+                                                    <h3>
+                                                        <span><img src="assets/images/donor-icon.png"
+                                                                alt="" />{{ fundraiser?.donor_count | number:'1.0-0' }}</span>
+                                                        {{ 'fundraiserDonors' | translate }}
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                         <div class="fund-box">
                           <h3>
@@ -76,28 +108,30 @@
                 </div>
               </a>
             </div>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="!fundraisers?.length" class="box-center">
-        <nz-result [nzIcon]="'crown'" [nzTitle]="'CreateFundraiser' | translate">
-          <div nz-result-extra>
-            <button nz-button nzType="primary" (click)="checkLogin()">{{'CreateFundraiserBtn' | translate}}</button>
-            <div class="login-popup">
-              <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()"
-                (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
-                <div class="popup-content">
-                  <div>
-                    <a [routerLink]="['/']" class="bg-logo">
-                      <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
-                    </a>
-                  </div>
-                  <p class="text-black">{{'Please' | translate}}, <a
-                      routerLink="/auth/login">{{'logInTitle' | translate}}</a> {{'or' | translate}} <a
-                      routerLink="/auth/signup">{{'signUp' | translate}}</a> {{'toContinue' | translate}}.</p>
+            <div *ngIf="!fundraisers?.length" class="box-center">
+                <nz-result [nzIcon]="'crown'" [nzTitle]="'CreateFundraiser' | translate">
+                    <div nz-result-extra>
+                        <button nz-button nzType="primary"
+                            (click)="checkLogin()">{{'CreateFundraiserBtn' | translate}}</button>
+                        <div class="login-popup">
+                            <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories"
+                                (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
+                                <div class="popup-content">
+                                    <div>
+                                        <a [routerLink]="['/']" class="bg-logo">
+                                            <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                                        </a>
+                                    </div>
+                                    <p class="text-black">{{'Please' | translate}}, <a
+                                            routerLink="/auth/login">{{'logInTitle' | translate}}</a>
+                                        {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
+                                        {{'toContinue' | translate}}.</p>
 
-                </div>
-              </nz-modal>
+                                </div>
+                            </nz-modal>
+                        </div>
+                    </div>
+                </nz-result>
             </div>
 
           </div>

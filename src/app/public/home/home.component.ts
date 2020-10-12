@@ -1,18 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from 'src/app/shared/services/article.service';
-import { ThemeConstantService } from 'src/app/shared/services/theme-constant.service';
-import { Article } from 'src/app/shared/interfaces/article.type';
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Title, Meta } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { LanguageService } from 'src/app/shared/services/language.service';
-import { Category } from 'src/app/shared/interfaces/category.type';
-import { AuthorService } from 'src/app/shared/services/author.service';
-import { Author } from 'src/app/shared/interfaces/authors.type';
-import { Observable } from 'rxjs';
-import { SeoDataService } from 'src/app/shared/services/seo-data.service';
-import { SeoData } from 'src/app/shared/interfaces/seo-data.type';
 import { CacheService } from 'src/app/shared/services/cache.service';
+import { SeoService } from 'src/app/shared/services/seo/seo.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -30,29 +22,25 @@ export class HomeComponent implements OnInit {
   entertainment: any;
   life: any;
   showTooltip: string = '';
-  selectedLanguage: string = "";
+  selectedLanguage: string = '';
   slugWiseData = {};
   categories: any;
   authorList: any;
   latestArticles: any;
   trendingArticles: any;
+  editorArticles: any;
   loading: boolean = true;
-  private homeDocument = "home";
+  private homeDocument = 'home';
 
   constructor(
     private articleService: ArticleService,
-    private authorService: AuthorService,
     private cacheService: CacheService,
     public translate: TranslateService,
-    private themeService: ThemeConstantService,
-    private titleService: Title,
-    private metaTagService: Meta,
     private categoryService: CategoryService,
     private languageService: LanguageService,
-    private seoDataService: SeoDataService
-  ) {
+    private seoService: SeoService
+  ) { }
 
-  }
   switchLang(lang: string) {
     this.translate.use(lang);
   }
@@ -60,48 +48,37 @@ export class HomeComponent implements OnInit {
   DefaultAvatar: string = 'assets/images/default-avatar.png';
 
   ngOnInit(): void {
-    this.seoDataService.getSeoData(this.homeDocument).subscribe(homeDocRef => {
-      if (homeDocRef.exists) {
-        const data: SeoData = homeDocRef.data();
-
-        this.titleService.setTitle(data.title);
-        this.metaTagService.addTags([
-          { name: "description", content: data.description },
-          { name: "keywords", content: data.keywords },
-          { name: "twitter:card", content: data.description },
-          { name: "og:title", content: data.title },
-          { name: "og:type", content: data.type },
-          { name: "og:url", content: `${window.location.href}` },
-          { name: "og:image", content: data.image.url ? data.image.url : data.image.alt },
-          { name: "og:description", content: data.description }
-        ]);
-      }
-    }, err => {
-      console.log('Error getting home seo data', err);
-    });
+    this.seoService.updateTagsWithData(this.homeDocument);
 
     this.selectedLanguage = this.languageService.getSelectedLanguage();
 
+    console.log(new Date());
     this.cacheService.getSponsoredArticles(this.selectedLanguage).subscribe(articles => {
+      // todo this line is taking almost 5+ seconds
       this.heroArticles = articles;
       this.loading = false;
     });
 
     this.cacheService.getTrendingStories(this.selectedLanguage).subscribe(articles => {
+      // todo this line is taking almost 5+ seconds
       this.trendingArticles = articles;
     });
 
     this.cacheService.getLatestStories(this.selectedLanguage).subscribe(articles => {
+      // todo this line is taking almost 5+ seconds
       this.latestArticles = articles;
-      console.log('latest articles', this.latestArticles);
+    });
+
+    this.cacheService.getEditorStories(this.selectedLanguage).subscribe(articles => {
+      // todo this line is taking almost 5+ seconds
+      this.editorArticles = articles;
     });
 
     this.getAuthors();
     this.categories = this.categoryService.getAll(this.selectedLanguage);
     this.setArticleData();
 
-
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+    this.translate.onLangChange.subscribe(() => {
       this.selectedLanguage = this.languageService.getSelectedLanguage()
       this.categories = this.categoryService.getAll(this.selectedLanguage);
       this.setArticleData();
@@ -120,16 +97,16 @@ export class HomeComponent implements OnInit {
         this.latestArticles = articles;
       });
 
+      this.cacheService.getEditorStories(this.selectedLanguage).subscribe(articles => {
+        this.editorArticles = articles;
+      });
     });
-
-
-
-
-    return;
   }
+
   getArticle(slug) {
     return this.articleService.getCategoryRow(slug, this.selectedLanguage, 5)
   }
+
   setArticleData() {
     this.categories.subscribe((categoryData) => {
       categoryData.forEach(element => {
@@ -146,9 +123,9 @@ export class HomeComponent implements OnInit {
   replaceImage(url) {
     let latestURL = url
     if (url) {
-      latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
-        .replace('https://cdn.mytrendingstories.com/', "https://assets.mytrendingstories.com/")
-        .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
+      latestURL = latestURL.replace('https://mytrendingstories.com/', 'https://assets.mytrendingstories.com/')
+        .replace('http://cdn.mytrendingstories.com/', 'https://cdn.mytrendingstories.com/')
+        .replace('https://abc2020new.com/', 'https://assets.mytrendingstories.com/');
     }
     return latestURL;
   }

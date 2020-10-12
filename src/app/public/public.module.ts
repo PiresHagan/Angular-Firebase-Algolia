@@ -78,7 +78,6 @@ import { CompanyFollowersComponent } from './company/company-followers/company-f
     CompanyLeadFormComponent,
     CharityFollowersComponent,
     CompanyFollowersComponent
-
   ],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),

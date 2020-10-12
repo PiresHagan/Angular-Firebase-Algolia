@@ -13,6 +13,9 @@ import { Article } from 'src/app/shared/interfaces/article.type';
 import { AUTHOR } from 'src/app/shared/constants/member-constant';
 import { NzModalService } from 'ng-zorro-antd';
 import {  Router } from '@angular/router';
+import { SeoService } from 'src/app/shared/services/seo/seo.service';
+import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.service';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -39,6 +42,7 @@ export class ProfileComponent implements OnInit {
   lastArticleIndexOfVideo;
   audioArticles: Article[] = [];
   videoArticles: Article[] = [];
+
   constructor(
     private titleService: Title,
     private metaTagService: Meta,
@@ -50,10 +54,10 @@ export class ProfileComponent implements OnInit {
     public userService: UserService,
     public langService: LanguageService,
     private modal: NzModalService,
-    private router: Router
-  ) {
-
-  }
+    private router: Router,
+    private seoService: SeoService,
+    private analyticsService: AnalyticsService,
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -71,34 +75,29 @@ export class ProfileComponent implements OnInit {
         this.getArticleList(author['id']);
         this.setUserDetails();
 
-        this.titleService.setTitle(`${this.authorDetails.fullname}`);
-
-        this.setLanguageNotification();
-        this.metaTagService.addTags([
-          { name: "description", content: `${this.authorDetails[`biography_${this.authorDetails?.lang}`]?.substring(0, 154)}` },
-          { name: "keywords", content: `${this.authorDetails?.fullname}` },
-          { name: "twitter:card", content: `${this.authorDetails[`biography_${this.authorDetails?.lang}`]}` },
-          { name: "og:title", content: `${this.authorDetails.fullname}` },
-          { name: "og:type", content: `${this.authorDetails?.type}` },
-          { name: "og:url", content: `${window.location?.href}` },
-          { name: "og:image", content: `${this.authorDetails?.avatar?.url}` },
-          { name: "og:description", content: `${this.authorDetails[`biography_${this.authorDetails?.lang}`]}` }
-        ]);
+        this.seoService.updateMetaTags({
+          title: this.authorDetails.fullname,
+          description: this.authorDetails[`biography_${this.authorDetails?.lang}`]?.substring(0, 154),
+          keywords: this.authorDetails.fullname,
+          summary: this.authorDetails[`biography_${this.authorDetails?.lang}`],
+          type: this.authorDetails?.type,
+          image: { url: this.authorDetails?.avatar?.url }
+        });
       });
     });
   }
+
   ngAfterViewChecked(): void {
     if (!this.isLoaded) {
       delete window['addthis']
       setTimeout(() => { this.loadScript(); }, 100);
       this.isLoaded = true;
     }
-
   }
 
   /**
- * Set user params 
- */
+   * Set user params 
+   */
   async setUserDetails() {
 
     this.authService.getAuthState().subscribe(async (user) => {
@@ -115,12 +114,8 @@ export class ProfileComponent implements OnInit {
         this.setFollowOrNot();
         this.isLoggedInUser = true;
       }
-
-
-
     })
   }
-
 
   getFollowersDetails() {
     // this.authorService.getFollowers(this.authorDetails.id).subscribe((followers) => {
@@ -196,10 +191,14 @@ export class ProfileComponent implements OnInit {
     if(this.authorDetails.id){
     const userDetails = this.getUserDetails();
     const authorDetails = this.getAuthorDetails();
-    await this.authorService.follow(authorId, userDetails.type);
-    const analytics = firebase.analytics();
+    if (userDetails.id == authorId) {
+      this.showSameFollowerMessage();
+      return;
+    }
 
-    analytics.logEvent("follow_author", {
+    await this.authorService.follow(authorId, userDetails.type);
+
+    this.analyticsService.logEvent("follow_author", {
       author_id: authorDetails.id,
       author_name: authorDetails.fullname,
       user_uid: userDetails.id,
@@ -209,15 +208,20 @@ export class ProfileComponent implements OnInit {
     this.showModal();
   }
   }
+  showSameFollowerMessage() {
+    this.modal.warning({
+      nzTitle: this.translate.instant('FollowNotAllowed'),
+      nzContent: this.translate.instant('FollowNotAllowedMessage')
+    });
+  }
 
   async unfollow(authorId) {
     if(this.authorDetails.id){
     const userDetails = this.getUserDetails();
     const authorDetails = this.getAuthorDetails();
     await this.authorService.unfollow(authorId, userDetails.type);
-    const analytics = firebase.analytics();
 
-    analytics.logEvent("unfollow_author", {
+    this.analyticsService.logEvent("unfollow_author", {
       author_id: authorDetails.id,
       author_name: authorDetails.fullname,
       user_uid: userDetails.id,
@@ -275,7 +279,7 @@ export class ProfileComponent implements OnInit {
     let latestURL = url
     if (url) {
       latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
-        .replace('https://cdn.mytrendingstories.com/', "https://assets.mytrendingstories.com/")
+        .replace('http://cdn.mytrendingstories.com/', "https://cdn.mytrendingstories.com/")
         .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
     }
     return latestURL;

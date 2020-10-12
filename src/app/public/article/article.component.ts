@@ -1,21 +1,21 @@
-import { Component, OnInit, ElementRef, ViewChild, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
-import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
-import { ThemeConstantService } from 'src/app/shared/services/theme-constant.service';
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { FormGroup, NgForm } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { User } from 'src/app/shared/interfaces/user.type';
-import { DomSanitizer, Title, Meta } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { environment } from 'src/environments/environment';
 import { LanguageService } from 'src/app/shared/services/language.service';
-import * as firebase from 'firebase/app';
 import { NzModalService } from 'ng-zorro-antd';
 import { TEXT, AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
 import * as moment from 'moment';
+import { SeoService } from 'src/app/shared/services/seo/seo.service';
+import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.service';
 
 @Component({
   selector: 'app-article',
@@ -23,8 +23,7 @@ import * as moment from 'moment';
   styleUrls: ['./article.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ArticleComponent implements OnInit {
-
+export class ArticleComponent implements OnInit, AfterViewInit {
   article: Article;
   articleType: string;
   articleLikes: number = 0;
@@ -66,33 +65,38 @@ export class ArticleComponent implements OnInit {
     public authorService: AuthorService,
     public userService: UserService,
     private sanitizer: DomSanitizer,
-    private titleService: Title,
-    private metaTagService: Meta,
     private langService: LanguageService,
-    private modal: NzModalService
-  ) {
+    private modal: NzModalService,
+    private seoService: SeoService,
+    private analyticsService: AnalyticsService,
+  ) { }
 
-  }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
 
       this.selectedLanguage = this.langService.getSelectedLanguage();
 
       const slug = params.get('slug');
-      this.articleService.getArtical(slug).subscribe(artical => {
 
+      this.articleService.getArtical(slug).subscribe(artical => {
         this.article = artical[0];
         if (!this.article) {
           this.modal.error({
             nzTitle: this.translate.instant('URL404'),
             nzContent: this.translate.instant('URLNotFound'),
-            nzOnOk: () => { this.router.navigate(['/']) }
-          })
-          return
+            nzOnOk: () => this.router.navigate(['/'])
+          });
+
+          return;
         }
         const articleId = this.article.id;
 
-        this.similarArticleList = this.articleService.getCategoryRow(this.article.category.slug, this.selectedLanguage, 7);
+        this.similarArticleList = this.articleService.getCategoryRow(
+          this.article.category.slug,
+          this.selectedLanguage,
+          7,
+          this.article.slug,
+        );
 
         this.articleType = this.article.type ? this.article.type : TEXT;
         this.articleLikes = this.article.likes_count;
@@ -100,25 +104,23 @@ export class ArticleComponent implements OnInit {
         this.setUserDetails();
         this.getArticleComments(this.article.id);
 
-        this.titleService.setTitle(`${this.article.title.substring(0, 69)}`);
+        this.seoService.updateMetaTags({
+          keywords: this.article.meta.keyword,
+          title: this.article.title,
+          tabTitle: this.article.title.substring(0, 69),
+          description: this.article.meta.description.substring(0, 154),
+          image: { url: this.article.image.url },
+          type: 'article',
+          summary: this.article.summary,
+        });
 
-        this.metaTagService.addTags([
-          { name: "description", content: `${this.article.meta.description.substring(0, 154)}` },
-          { name: "keywords", content: `${this.article.meta.keyword}` },
-          { name: "twitter:card", content: `${this.article.summary}` },
-          { name: "og:title", content: `${this.article.title}` },
-          { name: "og:type", content: `article` },
-          { name: "og:url", content: `${window.location.href}` },
-          { name: "og:image", content: `${this.article.image.url}` },
-          { name: "og:description", content: `${this.article.meta.description}` }
-        ]);
         this.articleService.updateViewCount(articleId);
       });
+
       this.setLanguageNotification();
-
     });
-
   }
+
   ngAfterViewChecked(): void {
     if (!this.isLoaded) {
       delete window['addthis']
@@ -126,6 +128,8 @@ export class ArticleComponent implements OnInit {
       this.isLoaded = true;
     }
   }
+
+  ngAfterViewInit() { }
 
   /**
    * Get Article comments using Article Id
@@ -186,9 +190,8 @@ export class ArticleComponent implements OnInit {
         this.saveCommentOnServer(commentData);
       }
 
-      const analytics = firebase.analytics();
       const article = this.article;
-      analytics.logEvent('article_comment', {
+      this.analyticsService.logEvent('article_comment', {
         article_id: article.id,
         article_title: article.title,
         article_language: article.lang,
@@ -226,7 +229,7 @@ export class ArticleComponent implements OnInit {
       this.messageDetails = '';
       this.showCommentSavedMessage();
       this.newComment();
-    }, err => {
+    }, () => {
 
       this.isFormSaving = false;
     })
@@ -280,7 +283,7 @@ export class ArticleComponent implements OnInit {
     }, 500)
   }
 
-  replyComment(commentid: string, commentData) {
+  replyComment(commentData) {
     this.replyMessage = commentData.message;
     this.scrollToEditCommentSection();
   }
@@ -314,10 +317,14 @@ export class ArticleComponent implements OnInit {
 
   follow() {
     if (this.isLoggedInUser) {
-      this.authorService.follow(this.article.author.id, this.article.author.type);
       const userDetails = this.getUserDetails();
-      const analytics = firebase.analytics();
-      analytics.logEvent("unfollow_author", {
+      if (userDetails.id == this.article.author.id) {
+        this.showSameFollowerMessage();
+        return;
+      }
+      this.authorService.follow(this.article.author.id, this.article.author.type);
+
+      this.analyticsService.logEvent("follow_author", {
         author_id: this.article.author.id,
         author_name: this.article.author.fullname,
         user_uid: userDetails.id,
@@ -331,8 +338,8 @@ export class ArticleComponent implements OnInit {
     if (this.isLoggedInUser) {
       this.authorService.unfollow(this.article.author.id, this.article.author.type);
       const userDetails = this.getUserDetails();
-      const analytics = firebase.analytics();
-      analytics.logEvent("unfollow_author", {
+
+      this.analyticsService.logEvent("unfollow_author", {
         author_id: this.article.author.id,
         author_name: this.article.author.fullname,
         user_uid: userDetails.id,
@@ -356,9 +363,9 @@ export class ArticleComponent implements OnInit {
 
     if (this.isLoggedInUser) {
       this.articleService.like(this.article.id, this.getUserDetails());
-      const analytics = firebase.analytics();
+
       const article = this.article;
-      analytics.logEvent('liked_article', {
+      this.analyticsService.logEvent('liked_article', {
         article_id: article.id,
         article_title: article.title,
         article_language: article.lang,
@@ -376,9 +383,9 @@ export class ArticleComponent implements OnInit {
   disLike() {
     if (this.isLoggedInUser) {
       this.articleService.disLike(this.article.id, this.getUserDetails().id);
-      const analytics = firebase.analytics();
+
       const article = this.article;
-      analytics.logEvent('unliked_article', {
+      this.analyticsService.logEvent('unliked_article', {
         article_id: article.id,
         article_title: article.title,
         article_language: article.lang,
@@ -413,7 +420,7 @@ export class ArticleComponent implements OnInit {
   }
   setLanguageNotification() {
     this.selectedLang = this.langService.getSelectedLanguage();
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+    this.translate.onLangChange.subscribe(() => {
       this.selectedLang = this.langService.getSelectedLanguage();
     })
   }
@@ -421,7 +428,7 @@ export class ArticleComponent implements OnInit {
     let latestURL = url
     if (url) {
       latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
-        .replace('https://cdn.mytrendingstories.com/', "https://assets.mytrendingstories.com/")
+        .replace('http://cdn.mytrendingstories.com/', "https://cdn.mytrendingstories.com/")
         .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
     }
     return latestURL;
@@ -445,6 +452,12 @@ export class ArticleComponent implements OnInit {
     this.modal.success({
       nzTitle: this.translate.instant('Report'),
       nzContent: this.translate.instant('ReportMessage')
+    });
+  }
+  showSameFollowerMessage() {
+    this.modal.warning({
+      nzTitle: this.translate.instant('FollowNotAllowed'),
+      nzContent: this.translate.instant('FollowNotAllowedMessage')
     });
   }
 

@@ -637,32 +637,48 @@
         &::after {
           background: #2baad3;
         }
-      }
-    }
-
-    .viral,
-    .viral-fr,
-    .viral-es {
-      .category-title-xs {
-        color: #f64747;
-        background: transparent;
-
-        &::after {
-          background: #f64747;
+        .line-height-normal{
+            line-height: normal !important;
+        }
+         .xs-menu-item{
+             ::ng-deep .ant-menu-submenu-title{
+                 padding-left: 10px !important;
+                height: 38px;
+                line-height: 38px;
+                margin: 0px;
+                 span{
+                     color:#000;
+                 }
+             }
+            ::ng-deep .ant-menu-sub{
+                background: #f5f5f5;
+            }
+            .bg-light-on-xs{
+                background: #f5f5f5;
+            }
+           
         }
       }
 
     }
-
-    .religion,
-    .religion-fr,
-    .religión {
-      .category-title-xs {
-        color: #23d7d5;
-        background: transparent;
-
-        &::after {
-          background: #23d7d5;
+    .is-login-link{
+        color: #fff !important;
+        background: #0079d0;
+        display: inline-block !important;
+        border-radius: 30px;
+        font-size: 14px;
+        outline: none;
+        padding: 6px 19px;
+        margin: 20px 0px 0px 0px;
+    }
+    .is-sign-up-btn{
+        border-radius: 30px;
+        font-size: 14px;
+        outline: none;
+        padding:6px 10px;
+        margin: 10px 0px 0px 0px;
+        ::ng-deep span{
+            margin-right: 5px;
         }
       }
     }
@@ -696,7 +712,6 @@
       }
 
     }
-  }
 
   .is-login-link {
     color: #fff !important;

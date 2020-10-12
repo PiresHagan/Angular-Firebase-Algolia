@@ -14,6 +14,7 @@ export class CacheService {
   searchEngineDoc: string = 'search-engines';
   latestStoriesDoc: string = 'latest-stories';
   topTrendingDoc: string = 'top-trending-stories';
+  editorPickStoriesDoc: string = 'editor-pick-stories';
 
   constructor(private db: AngularFirestore) { }
 
@@ -61,6 +62,16 @@ export class CacheService {
   }
   getLatestStories(lang: string) {
     return this.db.collection(`${this.cacheCollection}/${this.latestStoriesDoc}/${lang}`, ref => ref).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          return data;
+        });
+      })
+    );
+  }
+  getEditorStories(lang: string) {
+    return this.db.collection(`${this.cacheCollection}/${this.editorPickStoriesDoc}/${lang}`, ref => ref).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
