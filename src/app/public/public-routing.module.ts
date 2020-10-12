@@ -14,7 +14,6 @@ import { BuyComponent } from './buy/buy.component';
 import { InfluencerComponent } from './influencer/influencer.component';
 import { TodayComponent } from './today/today.component';
 import { PrivacyComponent } from './privacy/privacy.component';
-import { AudioComponent } from './audio/audio.component';
 import { CompanyComponent } from './company/company.component';
 import { CompaniesComponent } from './companies/companies.component';
 import { CharityComponent } from './charity/charity.component';
@@ -152,14 +151,6 @@ const routes: Routes = [
     component: TodayComponent,
     data: {
       title: 'today version 2',
-      headerDisplay: 'none'
-    }
-  },
-  {
-    path: 'audio',
-    component: AudioComponent,
-    data: {
-      title: 'audio',
       headerDisplay: 'none'
     }
   },
