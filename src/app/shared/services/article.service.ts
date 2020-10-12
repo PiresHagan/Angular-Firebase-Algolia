@@ -315,7 +315,7 @@ export class ArticleService {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('lang', "==", lang)
       .where('status', "==", ACTIVE)
-      .where('editors_pick', "==", true)
+      .where('editor_pick', "==", true)
       .orderBy('published_at', 'desc')
       .limit(15)
     ).snapshotChanges().pipe(

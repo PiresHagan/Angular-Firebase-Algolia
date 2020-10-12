@@ -36,6 +36,9 @@ function initiateAds() {
   if (gtag && gtag.apiReady) {
     googletag.cmd.push(function () {
       googletag.defineSlot('/107720708/adxp_mytrendingstories_billboard', [970, 250], 'div-gpt-ad-1599554495707-0').addService(googletag.pubads());
+      googletag.defineSlot('/107720708/adxp_mytrendingstories_billboard', [970, 250], 'div-gpt-ad-home-0').addService(googletag.pubads());
+      googletag.defineSlot('/107720708/adxp_mytrendingstories_billboard', [970, 250], 'div-gpt-ad-home-1').addService(googletag.pubads());
+      googletag.defineSlot('/107720708/adxp_mytrendingstories_billboard', [970, 250], 'div-gpt-ad-home-2').addService(googletag.pubads());
       googletag.defineSlot('/107720708/adxp_mytrendingstories_superLeaderboard', [970, 90], 'div-gpt-ad-1599554517756-0').addService(googletag.pubads());
       googletag.defineSlot('/107720708/adxp_mytrendingstories_Leaderboard', [728, 90], 'div-gpt-ad-1599554538840-0').addService(googletag.pubads());
       googletag.defineSlot('/107720708/adxp_mytrendingstories_mRectangle', [300, 250], 'div-gpt-ad-1599554575619-0').addService(googletag.pubads());

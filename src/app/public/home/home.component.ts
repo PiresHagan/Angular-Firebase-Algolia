@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
   authorList: any;
   latestArticles: any;
   trendingArticles: any;
+  editorArticles: any;
   loading: boolean = true;
   private homeDocument = 'home';
 
@@ -56,20 +57,21 @@ export class HomeComponent implements OnInit {
       // todo this line is taking almost 5+ seconds
       this.heroArticles = articles;
       this.loading = false;
-      console.log(new Date());
     });
 
     this.cacheService.getTrendingStories(this.selectedLanguage).subscribe(articles => {
       // todo this line is taking almost 5+ seconds
       this.trendingArticles = articles;
-      console.log(new Date());
     });
 
     this.cacheService.getLatestStories(this.selectedLanguage).subscribe(articles => {
       // todo this line is taking almost 5+ seconds
       this.latestArticles = articles;
-      console.log(new Date());
-      //this.heroArticles = articles;
+    });
+
+    this.cacheService.getEditorStories(this.selectedLanguage).subscribe(articles => {
+      // todo this line is taking almost 5+ seconds
+      this.editorArticles = articles;
     });
 
     this.getAuthors();
@@ -93,8 +95,10 @@ export class HomeComponent implements OnInit {
 
       this.cacheService.getLatestStories(this.selectedLanguage).subscribe(articles => {
         this.latestArticles = articles;
-        console.log(new Date());
-        //this.heroArticles = articles;
+      });
+
+      this.cacheService.getEditorStories(this.selectedLanguage).subscribe(articles => {
+        this.editorArticles = articles;
       });
     });
   }
