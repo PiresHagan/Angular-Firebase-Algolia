@@ -20,7 +20,6 @@ import { CompanyComponent } from './company/company.component';
 import { CompaniesComponent } from './companies/companies.component';
 import { CharityComponent } from './charity/charity.component';
 import { CharityListComponent } from './charity-list/charity-list.component';
-import { NewHomeComponent } from './new-home/new-home.component';
 import { FundraiserComponent } from './fundraiser/fundraiser.component';
 import { FundraiserListComponent } from './fundraiser-list/fundraiser-list.component';
 
@@ -71,14 +70,6 @@ const routes: Routes = [
     component: Copywriter2Component,
     data: {
       title: 'Copywriter version 2',
-      headerDisplay: 'none'
-    }
-  },
-  {
-    path: 'new-home',
-    component: NewHomeComponent,
-    data: {
-      title: 'New home',
       headerDisplay: 'none'
     }
   },

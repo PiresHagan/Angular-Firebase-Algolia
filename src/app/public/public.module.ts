@@ -40,7 +40,6 @@ import { CharityComponent } from './charity/charity.component';
 import { CharityListComponent } from './charity-list/charity-list.component';
 import { environment } from 'src/environments/environment';
 import { NzModalModule } from 'ng-zorro-antd/modal';
-import { NewHomeComponent } from './new-home/new-home.component';
 import { FundraiserComponent } from './fundraiser/fundraiser.component';
 import { FundraiserListComponent } from './fundraiser-list/fundraiser-list.component';
 import { CharityDonateFormComponent } from './charity/charity-donate-form/charity-donate-form.component';
@@ -73,7 +72,6 @@ import { CompanyFollowersComponent } from './company/company-followers/company-f
     CompaniesComponent,
     CharityComponent,
     CharityListComponent,
-    NewHomeComponent,
     FundraiserComponent,
     FundraiserListComponent,
     CharityDonateFormComponent,
