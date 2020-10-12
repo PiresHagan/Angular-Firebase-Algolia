@@ -270,9 +270,8 @@
               </div>
 
               <div class="is-middle-ad-section" style="margin:30px 0px;">
-                <div class="bottom-ad-container">
-                  <div adItem id="div-gpt-ad-1599554538840-0" style="width: 728px; height: 90px;">
-                  </div>
+                <div class="ads-box" style="margin:0 auto;">
+                  <div adItem id="div-gpt-ad-1599554575619-0" style="width: 300px; height: 250px;"></div>
                 </div>
 
                 <div class="is-reply-sec">
@@ -402,9 +401,6 @@
 
       </div>
       <div class="is-right-ad-section" [ngClass]="SlideRelatedArticle ? 'removeSlide' : 'openSlideArticle'">
-        <div class="ads-box">
-          <div adItem id="div-gpt-ad-1599554575619-0" style="width: 300px; height: 250px;"></div>
-        </div>
 
         <app-company-lead-form *ngIf="article?.author?.type == 'company'" [companyId]="article.author.id">
         </app-company-lead-form>
@@ -496,7 +492,12 @@
             {{'ShowLess' | translate}}
           </button>
         </div>
+
+        <div class="ads-box">
+          <div adItem id="div-gpt-ad-1599554597929-0" style="width: 300px; height: 600px;"></div>
+        </div>
       </div>
     </div>
+
   </div>
 </section>
