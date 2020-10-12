@@ -28,7 +28,6 @@ import { InfluencerComponent } from './influencer/influencer.component';
 import { TodayComponent } from './today/today.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { PrivacyEnComponent } from './privacy/privacy-en/privacy-en.component';
-import { AudioComponent } from './audio/audio.component';
 import { PrivacyFrComponent } from './privacy/privacy-fr/privacy-fr.component';
 import { PrivacyEsComponent } from './privacy/privacy-es/privacy-es.component';
 import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
@@ -63,7 +62,6 @@ import { CompanyFollowersComponent } from './company/company-followers/company-f
     TodayComponent,
     PrivacyComponent,
     PrivacyEnComponent,
-    AudioComponent,
     PrivacyFrComponent,
     PrivacyEsComponent,
     CompanyComponent,
