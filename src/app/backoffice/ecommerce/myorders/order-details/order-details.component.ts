@@ -9,7 +9,8 @@ import { ShopProductAddReviewComponent } from 'src/app/shared/component/shop-pro
 import { NzModalService } from 'ng-zorro-antd';
 
 @Component({
-  templateUrl: './order-details.component.html'
+  templateUrl: './order-details.component.html',
+  styleUrls: ['./order-details.component.scss']
 })
 
 export class OrderDetailsComponent {

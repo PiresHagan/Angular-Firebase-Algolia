@@ -2,27 +2,21 @@
   <nz-skeleton *ngIf="!orderDetails"></nz-skeleton>
 
 
-  <nz-card *ngIf="orderDetails">
-    <div class="row m-b-30">
-      <div class="col-lg-4">
-      </div>
-      <div class="col-lg-8 text-right">
-
-
+  <nz-card *ngIf="orderDetails" class="order-details">
+    <div class="row">
+      <div class="top-back-btn">
         <a nz-button nzType="primary" class="p-t-10 m-2" (click)="goBack()" [nzLoading]="markPaidStatus">
-          <i nz-icon theme="outline"></i>
+          <i nz-icon nzType="left" nzTheme="outline"></i>
           <span>{{ 'Back' | translate}}</span>
         </a>
-
       </div>
     </div>
-    <div id="invoice" class="p-h-30">
-
-      <div class="m-t-15 lh-2 row">
-        <div class="inline-block col-sm-9">
+    <div id="invoice" class="invoice-content">
+      <div class="row">
+        <div class="customer-detail">
           <img class="img-fluid" [src]="orderDetails?.customer?.avatar?.url" alt="">
-          <address class="p-l-10">
-            <span class="font-weight-semibold text-dark">{{orderDetails?.customer?.fullname}}</span><br>
+          <address class="customer-name">
+            <span class="name__">{{orderDetails?.customer?.fullname}}</span><br>
             <span> {{orderDetails?.customer?.email}}</span>
             <!-- <span>9498 Harvard Street</span><br>
               <span>Fairfield, Chicago Town 06824</span><br>
@@ -30,9 +24,19 @@
               <span>(123) 456-7890</span> -->
           </address>
         </div>
-        <div class="col-sm-3">
-          <h3 class="p-l-10 m-t-10">{{ 'ShippingAddress' | translate}}</h3>
-          <address class="p-l-10 m-t-10">
+      </div>
+      <div class="invoice-detail-sec">
+        <!--<div class="col-sm-9">
+           <h3 class="p-l-10 m-t-10">{{ 'InvoiceTo' | translate}}</h3>
+            <address class="p-l-10 m-t-10">
+              <span class="font-weight-semibold text-dark">Genting Holdings.</span><br>
+              <span>8626 Maiden Dr. </span><br>
+              <span>Niagara Falls, New York 14304</span>
+            </address> 
+        </div>-->
+        <div class="col-sm-6">
+          <h3>{{ 'ShippingAddress' | translate}}</h3>
+          <address class="address-detail">
             <span class="font-weight-semibold text-dark">{{orderDetails.shippingInfo.name}}</span><br>
             <span>{{orderDetails.shippingInfo.address}}</span><br>
             <span>{{orderDetails.shippingInfo.city}}, <br> {{orderDetails.shippingInfo.state}}
@@ -42,28 +46,18 @@
               {{orderDetails.shippingInfo.alternate_mobile_number}}</span>
           </address>
         </div>
-      </div>
-      <div class="row m-t-20 lh-2">
-        <div class="col-sm-9">
-          <!-- <h3 class="p-l-10 m-t-10">{{ 'InvoiceTo' | translate}}</h3>
-            <address class="p-l-10 m-t-10">
-              <span class="font-weight-semibold text-dark">Genting Holdings.</span><br>
-              <span>8626 Maiden Dr. </span><br>
-              <span>Niagara Falls, New York 14304</span>
-            </address> -->
-        </div>
-        <div class="col-sm-3">
-          <div class="m-t-80">
-            <div class="text-dark text-uppercase d-inline-block">
-              <span class="font-weight-semibold text-dark">{{ 'InvoiceNo' | translate}} :</span>
+        <div class="col-sm-6 d-flex col-content-end">
+          <div>
+            <div class="invoice-row d-block">
+              <h3 class="font-weight-semibold text-dark">{{ 'InvoiceNo' | translate}} :</h3>
+              <div>#{{orderDetails.invoiceId}}</div>
             </div>
-            <div class="float-right">#{{orderDetails.invoiceId}}</div>
+            <div class="invoice-row">
+              <span class="font-weight-semibold text-dark">{{'Date' | translate}} :</span>
+              <div>{{orderDetails.created_at | date :'short'}}</div>
+            </div>
           </div>
-          <div class="text-dark text-uppercase d-inline-block">
 
-            <span class="font-weight-semibold text-dark">{{'Date' | translate}} :</span>
-          </div>
-          <div class="float-right">{{orderDetails.created_at | date :'short'}}</div>
         </div>
       </div>
       <div class="row m-t-20">
