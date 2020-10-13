@@ -6,7 +6,6 @@ import { ArticleComponent } from './article/article.component';
 import { Copywriter1Component } from './copywriter1/copywriter1.component';
 import { Copywriter2Component } from './copywriter2/copywriter2.component';
 import { ContactComponent } from './contact/contact.component';
-import { FaqComponent } from './faq/faq.component';
 import { SearchEngineComponent } from './search-engine/search-engine.component';
 import { BuyComponent } from './buy/buy.component';
 import { InfluencerComponent } from './influencer/influencer.component';
@@ -98,12 +97,7 @@ const routes: Routes = [
   },
   {
     path: 'faq',
-    component: FaqComponent,
-    data: {
-      title: 'faq version 2',
-      headerDisplay: 'none'
-    }
-
+    loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule)
   },
   {
     path: 'search',
