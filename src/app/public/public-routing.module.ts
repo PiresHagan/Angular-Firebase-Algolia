@@ -11,7 +11,6 @@ import { SearchEngineComponent } from './search-engine/search-engine.component';
 import { BuyComponent } from './buy/buy.component';
 import { InfluencerComponent } from './influencer/influencer.component';
 import { TodayComponent } from './today/today.component';
-import { PrivacyComponent } from './privacy/privacy.component';
 import { CompanyComponent } from './company/company.component';
 import { CompaniesComponent } from './companies/companies.component';
 import { CharityComponent } from './charity/charity.component';
@@ -99,11 +98,7 @@ const routes: Routes = [
   },
   {
     path: 'privacy',
-    component: PrivacyComponent,
-    data: {
-      title: 'privacy policies',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./privacy/privacy.module').then(m => m.PrivacyModule)
   },
   {
     path: 'faq',
