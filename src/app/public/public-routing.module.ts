@@ -7,7 +7,6 @@ import { Copywriter1Component } from './copywriter1/copywriter1.component';
 import { Copywriter2Component } from './copywriter2/copywriter2.component';
 import { BuyComponent } from './buy/buy.component';
 import { InfluencerComponent } from './influencer/influencer.component';
-import { TodayComponent } from './today/today.component';
 import { CompanyComponent } from './company/company.component';
 import { CompaniesComponent } from './companies/companies.component';
 import { CharityComponent } from './charity/charity.component';
@@ -120,11 +119,7 @@ const routes: Routes = [
   },
   {
     path: 'today',
-    component: TodayComponent,
-    data: {
-      title: 'today version 2',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./today/today.module').then(m => m.TodayModule)
   },
   {
     path: 'companies',

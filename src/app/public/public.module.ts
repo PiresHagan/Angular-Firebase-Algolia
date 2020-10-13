@@ -18,7 +18,6 @@ import { BuyComponent } from './buy/buy.component';
 import { QuillModule } from 'ngx-quill';
 import { createTranslateLoader, SharedModule } from '../shared/shared.module';
 import { InfluencerComponent } from './influencer/influencer.component';
-import { TodayComponent } from './today/today.component';
 import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
 import { Cloudinary } from 'cloudinary-core';
 import { CompanyComponent } from './company/company.component';
@@ -43,7 +42,6 @@ import { CompanyFollowersComponent } from './company/company-followers/company-f
     Copywriter2Component,
     BuyComponent,
     InfluencerComponent,
-    TodayComponent,
     CompanyComponent,
     CompaniesComponent,
     CharityComponent,
