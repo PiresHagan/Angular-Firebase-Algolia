@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { CategoryComponent } from './category/category.component';
 import { ArticleComponent } from './article/article.component';
-import { ProfileComponent } from './profile/profile.component';
 import { Copywriter1Component } from './copywriter1/copywriter1.component';
 import { Copywriter2Component } from './copywriter2/copywriter2.component';
 import { ContactComponent } from './contact/contact.component';
@@ -53,11 +52,7 @@ const routes: Routes = [
   },
   {
     path: 'profile/:slug',
-    component: ProfileComponent,
-    data: {
-      title: 'Profile',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
   },
   {
     path: 'copywriter1',
@@ -200,11 +195,7 @@ const routes: Routes = [
   },
   {
     path: ':slug',
-    component: ProfileComponent,
-    data: {
-      title: 'Profile',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
   }
 ];
 
