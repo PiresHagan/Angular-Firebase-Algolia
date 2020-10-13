@@ -7,7 +7,6 @@ import { CategoryComponent } from './category/category.component';
 import { ArticleComponent } from './article/article.component';
 import { Copywriter1Component } from './copywriter1/copywriter1.component';
 import { Copywriter2Component } from './copywriter2/copywriter2.component';
-import { ContactComponent } from './contact/contact.component';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -44,7 +43,6 @@ import { CompanyFollowersComponent } from './company/company-followers/company-f
     ArticleComponent,
     Copywriter1Component,
     Copywriter2Component,
-    ContactComponent,
     SearchEngineComponent,
     BuyComponent,
     InfluencerComponent,
