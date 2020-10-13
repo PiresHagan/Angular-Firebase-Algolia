@@ -5,7 +5,6 @@ import { CategoryComponent } from './category/category.component';
 import { ArticleComponent } from './article/article.component';
 import { Copywriter1Component } from './copywriter1/copywriter1.component';
 import { Copywriter2Component } from './copywriter2/copywriter2.component';
-import { ContactComponent } from './contact/contact.component';
 import { SearchEngineComponent } from './search-engine/search-engine.component';
 import { BuyComponent } from './buy/buy.component';
 import { InfluencerComponent } from './influencer/influencer.component';
@@ -81,11 +80,7 @@ const routes: Routes = [
   },
   {
     path: 'contact',
-    component: ContactComponent,
-    data: {
-      title: 'contact version 2',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)
   },
   {
     path: 'terms',
