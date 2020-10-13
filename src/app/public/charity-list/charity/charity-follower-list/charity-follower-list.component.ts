@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CharityService } from 'src/app/shared/services/charity.service';
 
 @Component({
-  selector: 'app-charity-followers',
-  templateUrl: './charity-followers.component.html',
-  styleUrls: ['./charity-followers.component.scss']
+  selector: 'app-charity-follower-list',
+  templateUrl: './charity-follower-list.component.html',
+  styleUrls: ['./charity-follower-list.component.scss']
 })
-export class CharityFollowersComponent implements OnInit {
+export class CharityFollowerListComponent implements OnInit {
 
   @Input() charityId: string;
 
