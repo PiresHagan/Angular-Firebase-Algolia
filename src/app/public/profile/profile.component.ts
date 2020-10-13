@@ -6,9 +6,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { environment } from 'src/environments/environment';
-import { Meta, Title } from '@angular/platform-browser';
 import { LanguageService } from 'src/app/shared/services/language.service';
-import * as firebase from 'firebase/app';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { AUTHOR } from 'src/app/shared/constants/member-constant';
 import { NzModalService } from 'ng-zorro-antd';
@@ -43,8 +41,6 @@ export class ProfileComponent implements OnInit {
   videoArticles: Article[] = [];
 
   constructor(
-    private titleService: Title,
-    private metaTagService: Meta,
     private route: ActivatedRoute,
     private authorService: AuthorService,
     private articleService: ArticleService,
