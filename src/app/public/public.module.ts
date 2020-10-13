@@ -8,11 +8,9 @@ import { ArticleComponent } from './article/article.component';
 import { Copywriter1Component } from './copywriter1/copywriter1.component';
 import { Copywriter2Component } from './copywriter2/copywriter2.component';
 import { ContactComponent } from './contact/contact.component';
-import { FaqComponent } from './faq/faq.component';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { SearchEngineComponent } from './search-engine/search-engine.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -47,7 +45,6 @@ import { CompanyFollowersComponent } from './company/company-followers/company-f
     Copywriter1Component,
     Copywriter2Component,
     ContactComponent,
-    FaqComponent,
     SearchEngineComponent,
     BuyComponent,
     InfluencerComponent,
@@ -73,7 +70,6 @@ import { CompanyFollowersComponent } from './company/company-followers/company-f
     NgZorroAntdModule,
     QuillModule.forRoot(),
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } }),
-    NzCollapseModule,
     NgAisModule.forRoot(),
     SharedModule,
     NgxStripeModule.forRoot(environment.stripePublishableKey),
