@@ -5,7 +5,6 @@ import { CategoryComponent } from './category/category.component';
 import { ArticleComponent } from './article/article.component';
 import { Copywriter1Component } from './copywriter1/copywriter1.component';
 import { Copywriter2Component } from './copywriter2/copywriter2.component';
-import { SearchEngineComponent } from './search-engine/search-engine.component';
 import { BuyComponent } from './buy/buy.component';
 import { InfluencerComponent } from './influencer/influencer.component';
 import { TodayComponent } from './today/today.component';
@@ -96,12 +95,7 @@ const routes: Routes = [
   },
   {
     path: 'search',
-    component: SearchEngineComponent,
-    data: {
-      title: 'faq version 2',
-      headerDisplay: 'none'
-    }
-
+    loadChildren: () => import('./search-engine/search-engine.module').then(m => m.SearchEngineModule)
   },
   {
     path: 'buy',

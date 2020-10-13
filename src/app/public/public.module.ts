@@ -10,12 +10,10 @@ import { Copywriter2Component } from './copywriter2/copywriter2.component';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { SearchEngineComponent } from './search-engine/search-engine.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxStripeModule } from 'ngx-stripe';
 
-import { NgAisModule } from 'angular-instantsearch';
 import { BuyComponent } from './buy/buy.component';
 import { QuillModule } from 'ngx-quill';
 import { createTranslateLoader, SharedModule } from '../shared/shared.module';
@@ -43,7 +41,6 @@ import { CompanyFollowersComponent } from './company/company-followers/company-f
     ArticleComponent,
     Copywriter1Component,
     Copywriter2Component,
-    SearchEngineComponent,
     BuyComponent,
     InfluencerComponent,
     TodayComponent,
@@ -68,7 +65,6 @@ import { CompanyFollowersComponent } from './company/company-followers/company-f
     NgZorroAntdModule,
     QuillModule.forRoot(),
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } }),
-    NgAisModule.forRoot(),
     SharedModule,
     NgxStripeModule.forRoot(environment.stripePublishableKey),
     NzModalModule
