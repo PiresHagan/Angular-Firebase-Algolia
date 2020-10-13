@@ -31,11 +31,13 @@ export class CreateProductComponent {
   previewVisible: boolean = false;
   categoryList = [];
   languageList = [];
+  isSaving: boolean = false;
   storeDetails: Store = null;
   currentUser;
   memberDetails;
   productDetails;
   isLoading = false;
+  digitalProduct = false;
   fileList = [
 
   ];
@@ -68,6 +70,10 @@ export class CreateProductComponent {
       this.storeservice.getStoreById(user.uid).subscribe((storeDetails: Store) => {
         if (storeDetails && storeDetails[0])
           this.storeDetails = storeDetails[0];
+        else {
+          this.showStoreMessage();
+        }
+
         this.setfomFields();
 
       })
@@ -180,6 +186,16 @@ export class CreateProductComponent {
       nzTitle: "<i>" + $message + "</i>",
     });
   }
+  showStoreMessage(): void {
+    this.modalService.confirm({
+      nzTitle: this.translate.instant("StoreNotAvailable"),
+      nzContent: this.translate.instant("PleaseCreateStore"),
+      nzOnOk: () => {
+        this.route.navigate(["app/shop/sellproducts/store-settings"]);
+      }
+    });
+  }
+
 
 
   submitForm(): void {

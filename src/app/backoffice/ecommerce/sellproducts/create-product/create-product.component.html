@@ -199,6 +199,30 @@
             </nz-card>
           </div>
         </nz-tab>
+        <!-- <nz-tab nzTitle="{{ 'DigitalProductDetails' | translate }}">
+
+          <div class="container">
+            <nz-card>
+              <nz-form-item>
+                <label nz-checkbox [(ngModel)]="digitalProduct">{{'IsDigitalProduct'| translate}}</label>
+              </nz-form-item>
+
+              <nz-upload [nzAction]="imageUploadURL" nzListType="picture-card" [(nzFileList)]="fileList"
+                [nzShowButton]="fileList.length < 15" [nzPreview]="handlePreview">
+                <i nz-icon nzType="plus"></i>
+                <div class="ant-upload-text">Upload</div>
+              </nz-upload>
+              <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+                (nzOnCancel)="previewVisible=false">
+                <ng-template #modalContent>
+                  <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+                </ng-template>
+              </nz-modal>
+
+
+            </nz-card>
+          </div>
+        </nz-tab> -->
         <nz-tab nzTitle="{{ 'ProductImages' | translate }}">
           <div class="container">
             <nz-card>
@@ -221,7 +245,7 @@
       <div class="d-md-flex m-b-15 align-items-center justify-content-between end">
         <div class="m-b-15">
 
-          <button nz-button nzType="primary" (click)="save()" class="end">
+          <button nz-button nzType="primary" (click)="save()" class="end" [nzLoading]="isLoading">
             <i nz-icon nzType="save" theme="outline"></i>
             <span>{{'Save'| translate}}</span>
           </button>

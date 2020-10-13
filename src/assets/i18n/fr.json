@@ -691,5 +691,9 @@
   "SubTotalAmount": "Sous - Montant total",
   "AcceptBilling": "Vous pouvez mettre à jour vos informations de facturation ou ajouter un mode de paiement pour accepter le paiement en cliquant sur ci-dessous Mettre à jour le bouton de facturation . En cas de problème avec l'adresse de facturation ou la date d'expiration, appuyez ou cliquez sur Mettre à jour la facturation , puis mettez à jour les informations de paiement. Si vous modifiez votre mode de paiement, utilisez un mode de paiement valide dans votre pays ou région avec de l'argent disponible. Nous ne facturerons rien lors de la mise à jour des informations de paiement. ",
   "ShippingDataUpdated": "Détails de suivi de commande enregistrés",
-  "ShippingDataError": "Une erreur s'est produite. Veuillez contacter l'équipe d'assistance."
+  "ShippingDataError": "Une erreur s'est produite. Veuillez contacter l'équipe d'assistance.",
+  "IsDigitalProduct": "Est un produit numérique",
+  "DigitalProductDetails": "Détails du produit numérique",
+  "StoreNotAvailable": "Magasin non disponible",
+  "PleaseCreateStore": "Veuillez configurer le magasin avant de créer le produit."
 }

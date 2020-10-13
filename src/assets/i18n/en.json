@@ -349,7 +349,7 @@
   "GotoHome": "Go to Home",
   "URL404": "URL not found",
   "URLNotFound": "The requested URL was not found on this server.",
-  "CampBilling": "Update Billing",
+  "CampBilling": "actualizar facturación",
   "CampError": "Something went wrong. Please connect with support team.",
   "CampBillingBtn": "Update Billing",
   "CampBillingNote": "You can update your billing information or add a payment method on click of below 'Update Billing Button'. If there's an issue with the billing address or expiration date, tap or click the 'Update Billing', then update the payment information. If you change your payment method, use a valid payment method in your country or region with money available on it. We are not going to charge anything while updating the Payment Info.",
@@ -682,7 +682,7 @@
   "ShowLess": "Show Less",
   "DeletMsgSuc": "Record deleted successfully!",
   "DeletMsgConf": "Do you Want to delete these record?",
-  "WrittenBy": "Written by",  
+  "WrittenBy": "Written by",
   "StoreSettings": "Store Settings",
   "StoreDetails": "Store Details",
   "BillingInfo": "Billing Info",
@@ -733,5 +733,9 @@
   "InvoiceNote": "In exceptional circumstances, Financial Services can provide an urgent manually processed special cheque. Note, however, that urgent special cheques should be requested only on an emergency basis as manually produced cheques involve duplication of effort and considerable staff resources. Requests need to be supported by a letter explaining the circumstances to justify the special cheque payment.",
   "ShippingDataUpdated": "Order tracking details saved",
   "ShippingDataError": "Something went wrong. Please connect with support team.",
-  "checkoutVerifySignUpEmail": "Please click on the link that has been sent to your email account to verify your email and continue the checkout process by login"
+  "checkoutVerifySignUpEmail": "Please click on the link that has been sent to your email account to verify your email and continue the checkout process by login",
+  "IsDigitalProduct": "Is Digital Product",
+  "DigitalProductDetails": "Digital Product Details",
+  "StoreNotAvailable": "Store Not Available",
+  "PleaseCreateStore": "Please setup store before creating the product."
 }
