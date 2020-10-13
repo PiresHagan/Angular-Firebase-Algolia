@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { environment } from "src/environments/environment";
 import { combineLatest, Subscription } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
     templateUrl: './login.component.html',
@@ -57,7 +58,8 @@ export class LoginComponent {
         public afAuth: AngularFireAuth,
         public authService: AuthService,
         public previousRoute: PreviousRouteService,
-        public translate: TranslateService
+        public translate: TranslateService,
+        public location: Location
     ) { }
 
     async ngOnInit(): Promise<void> {
@@ -182,7 +184,7 @@ export class LoginComponent {
     private navigateToUserProfile() {
         this.ngZone.run(() => {
             this.previousUrl = this.previousRoute.getPreviousUrl();
-            this.router.navigate([this.previousUrl ? this.previousUrl : "app/settings/profile-settings"]);
+            this.router.navigate([this.previousUrl ? this.location.back() : "app/settings/profile-settings"]);
         });
 
     }
