@@ -2,11 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CompanyService } from 'src/app/shared/services/company.service';
 
 @Component({
-  selector: 'app-company-followers',
-  templateUrl: './company-followers.component.html',
-  styleUrls: ['./company-followers.component.scss']
+  selector: 'app-company-follower-list',
+  templateUrl: './company-follower-list.component.html',
+  styleUrls: ['./company-follower-list.component.scss']
 })
-export class CompanyFollowersComponent implements OnInit {
+export class CompanyFollowerListComponent implements OnInit {
 
   @Input() companyId: string;
 
