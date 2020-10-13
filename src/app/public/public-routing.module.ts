@@ -6,7 +6,6 @@ import { ArticleComponent } from './article/article.component';
 import { Copywriter1Component } from './copywriter1/copywriter1.component';
 import { Copywriter2Component } from './copywriter2/copywriter2.component';
 import { ContactComponent } from './contact/contact.component';
-import { TermsComponent } from './terms/terms.component';
 import { FaqComponent } from './faq/faq.component';
 import { SearchEngineComponent } from './search-engine/search-engine.component';
 import { BuyComponent } from './buy/buy.component';
@@ -96,11 +95,7 @@ const routes: Routes = [
   },
   {
     path: 'terms',
-    component: TermsComponent,
-    data: {
-      title: 'terms version 2',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./terms/terms.module').then(m => m.TermsModule)
   },
   {
     path: 'privacy',
