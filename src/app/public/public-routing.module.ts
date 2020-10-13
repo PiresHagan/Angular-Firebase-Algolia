@@ -7,8 +7,6 @@ import { Copywriter1Component } from './copywriter1/copywriter1.component';
 import { Copywriter2Component } from './copywriter2/copywriter2.component';
 import { BuyComponent } from './buy/buy.component';
 import { InfluencerComponent } from './influencer/influencer.component';
-import { CompanyComponent } from './company/company.component';
-import { CompaniesComponent } from './companies/companies.component';
 import { CharityComponent } from './charity/charity.component';
 import { CharityListComponent } from './charity-list/charity-list.component';
 import { FundraiserComponent } from './fundraiser/fundraiser.component';
@@ -123,19 +121,7 @@ const routes: Routes = [
   },
   {
     path: 'companies',
-    component: CompaniesComponent,
-    data: {
-      title: 'companies',
-      headerDisplay: 'none'
-    }
-  },
-  {
-    path: 'companies/:slug',
-    component: CompanyComponent,
-    data: {
-      title: 'company',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./companies/companies.module').then(m => m.CompaniesModule)
   },
   {
     path: 'charities',

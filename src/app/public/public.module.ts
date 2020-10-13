@@ -20,8 +20,6 @@ import { createTranslateLoader, SharedModule } from '../shared/shared.module';
 import { InfluencerComponent } from './influencer/influencer.component';
 import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
 import { Cloudinary } from 'cloudinary-core';
-import { CompanyComponent } from './company/company.component';
-import { CompaniesComponent } from './companies/companies.component';
 import { CharityComponent } from './charity/charity.component';
 import { CharityListComponent } from './charity-list/charity-list.component';
 import { environment } from 'src/environments/environment';
@@ -29,9 +27,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { FundraiserComponent } from './fundraiser/fundraiser.component';
 import { FundraiserListComponent } from './fundraiser-list/fundraiser-list.component';
 import { CharityDonateFormComponent } from './charity/charity-donate-form/charity-donate-form.component';
-import { CompanyLeadFormComponent } from './company/company-lead-form/company-lead-form.component';
 import { CharityFollowersComponent } from './charity/charity-followers/charity-followers.component';
-import { CompanyFollowersComponent } from './company/company-followers/company-followers.component';
 
 @NgModule({
   declarations: [
@@ -42,16 +38,12 @@ import { CompanyFollowersComponent } from './company/company-followers/company-f
     Copywriter2Component,
     BuyComponent,
     InfluencerComponent,
-    CompanyComponent,
-    CompaniesComponent,
     CharityComponent,
     CharityListComponent,
     FundraiserComponent,
     FundraiserListComponent,
     CharityDonateFormComponent,
-    CompanyLeadFormComponent,
-    CharityFollowersComponent,
-    CompanyFollowersComponent
+    CharityFollowersComponent
   ],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
