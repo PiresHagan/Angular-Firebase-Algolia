@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { ArticleComponent } from './article/article.component';
 import { Copywriter1Component } from './copywriter1/copywriter1.component';
 import { Copywriter2Component } from './copywriter2/copywriter2.component';
 import { BuyComponent } from './buy/buy.component';
@@ -22,11 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'article/:slug',
-    component: ArticleComponent,
-    data: {
-      title: 'Article',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)
   },
   {
     path: 'profile/:slug',
@@ -111,11 +106,7 @@ const routes: Routes = [
   // },
   {
     path: ':userSlug/:slug',
-    component: ArticleComponent,
-    data: {
-      title: 'Article',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)
   },
   {
     path: ':slug',
