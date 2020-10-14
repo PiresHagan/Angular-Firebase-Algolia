@@ -3,7 +3,41 @@
 <section class="border-box-sec">
     <div class="container">
         <div class="border-box">
-            <h1>Bit Coin Store</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul nz-list  nzBordered nzSize="large" class="invite-box">
+                        <nz-list-header>Invite Anyone to Paxful</nz-list-header>
+                        <li nz-list-item nzNoFlex>
+                            <div class="form-group">
+                                <label>Your Affiliate Link</label>
+                                <nz-alert nzType="success" nzMessage="copied successfully" *ngIf="successCopyTxt" style="margin-bottom: 5px;"></nz-alert>
+                                <div class="position-relative">
+                                    <input type="text" value="https://paxful.com/?r=xLY6X4jX3Qy" class="form-control" #userinput/>
+                                    <button type="button" class="btn" (click)="copyInputMessage(userinput)" value="https://paxful.com/?r=xLY6X4jX3Qy">
+                                        <i nz-icon nzType="copy" nzTheme="outline"></i>Copy
+                                    </button>
+                                </div>
+                              </div>
+                        </li>
+                      </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul nz-list  nzBordered nzSize="large" class="invite-box">
+                        <nz-list-header>Invite others by sharing your QR code</nz-list-header>
+                        <li nz-list-item nzNoFlex>
+                            <div class="qr-code-sec">
+                                <div class="qr-code-img">
+                                    <img  src="https://paxful.com/qr/r/xLY6X4jX3Qy" />
+                                </div>
+                                <div class="qr-code-txt">
+                                    The person you invite will need to scan this QR code in order to access your invitation link
+    
+                                </div>
+                            </div>
+                        </li>
+                      </ul>
+                </div>
+            </div>
         </div>
     </div>
-</section>
+    </section>
