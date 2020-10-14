@@ -691,5 +691,16 @@
   "SubTotalAmount": "Sous - Montant total",
   "AcceptBilling": "Vous pouvez mettre à jour vos informations de facturation ou ajouter un mode de paiement pour accepter le paiement en cliquant sur ci-dessous Mettre à jour le bouton de facturation . En cas de problème avec l'adresse de facturation ou la date d'expiration, appuyez ou cliquez sur Mettre à jour la facturation , puis mettez à jour les informations de paiement. Si vous modifiez votre mode de paiement, utilisez un mode de paiement valide dans votre pays ou région avec de l'argent disponible. Nous ne facturerons rien lors de la mise à jour des informations de paiement. ",
   "ShippingDataUpdated": "Détails de suivi de commande enregistrés",
-  "ShippingDataError": "Une erreur s'est produite. Veuillez contacter l'équipe d'assistance."
+  "ShippingDataError": "Une erreur s'est produite. Veuillez contacter l'équipe d'assistance.",
+  "newsletterLink":"https://www.leadfox.co/fr/?tap_a=17476-3ea0b5&tap_s=1160933-18c97c",
+  "newsletterImage":"https://static.tapfiliate.com/58b5a1948c008.jpg?a=17476-3ea0b5&s=1160933-18c97c",
+  "newsletterh2":"Générez automatiquement de nouveaux contacts et clients",
+  "newsletterp1":"Le logiciel de marketing automatisé tout-en-un pour faire croître rapidement et simplement votre petite entreprise en ligne, dès aujourd’hui.",
+  "newsletterp2":"De puissants outils bâtis pour accélérer votre croissance",
+  "newsletterp3":"Générez des contacts et des prospects",
+  "newsletterli1":"Bâtisseur de pages de destination (landing pages)",
+  "newsletterli2":"Bâtisseur de formulaires (glisser et déposer)",
+  "newsletterli3":"Bâtisseur de pop-up (glisser et déposer)",
+  "newsletterli4":"Nombreux gabarits professionnels inclus",
+  "newsletterli5":"Design adapté à tous les écrans ( mobile, tablette, ordinateur)"
 }

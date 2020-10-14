@@ -8,6 +8,11 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { EcommerceModule } from './ecommerce/ecommerce.module';
+import { NewsletterComponent } from './newsletter/newsletter.component';
+import { BusinessFundingComponent } from './business-funding/business-funding.component';
+import { ECommerceFundingComponent } from './e-commerce-funding/e-commerce-funding.component';
+import { MerchantProcessingComponent } from './merchant-processing/merchant-processing.component';
+import { BitcoinStoreComponent } from './bitcoin-store/bitcoin-store.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -16,7 +21,7 @@ export function createTranslateLoader(http: HttpClient) {
 
 
 @NgModule({
-  declarations: [],
+  declarations: [NewsletterComponent, BusinessFundingComponent, ECommerceFundingComponent, MerchantProcessingComponent, BitcoinStoreComponent],
   imports: [
     CommonModule,
     SharedModule,

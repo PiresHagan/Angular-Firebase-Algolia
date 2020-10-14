@@ -203,8 +203,27 @@ export const ROUTES: SideNavInterface[] = [
         ]
     },
     {
-        path: '/app/shop/myorders/my-order-list',
-        title: 'My Orders',
+        path: 'app/ad-network/sites',
+        title: 'Ad Network',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'notification',
+        staff_only: false,
+        submenu: [
+            // {
+            //     path: 'ad-network/sites',
+            //     title: 'My Sites',
+            //     iconType: 'nzIcon',
+            //     iconTheme: 'outline',
+            //     icon: 'crown',
+            //     staff_only: false,
+            //     submenu: []
+            // }
+        ]
+    },
+    {
+        path: '/app/agency',
+        title: 'Agency',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'skin',
@@ -215,8 +234,68 @@ export const ROUTES: SideNavInterface[] = [
         ]
     },
     {
-        path: '/app/agency',
-        title: 'Agency',
+        path: '/app/newsletter',
+        title: 'Newsletter',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'mail',
+        staff_only: false,
+        submenu: [
+
+
+        ]
+    },
+    {
+        path: '/app/business-funding',
+        title: 'Business Funding',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'dollar',
+        staff_only: false,
+        submenu: [
+
+
+        ]
+    },
+    {
+        path: '/app/e-commerce-funding',
+        title: 'E-commerce Funding',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'shopping-cart',
+        staff_only: false,
+        submenu: [
+
+
+        ]
+    },
+    {
+        path: '/app/merchant-processing',
+        title: 'Merchant Processing',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'credit-card',
+        staff_only: false,
+        submenu: [
+
+
+        ]
+    },
+    {
+        path: '/app/bitcoin-store',
+        title: 'Bitcoin Store',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'bold',
+        staff_only: false,
+        submenu: [
+
+
+        ]
+    },
+    {
+        path: '/app/shop/myorders/my-order-list',
+        title: 'My Orders',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'skin',

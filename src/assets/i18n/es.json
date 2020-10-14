@@ -690,5 +690,16 @@
   "SubTotalAmount": "Sub - Importe total",
   "AcceptBilling": "Puede actualizar su información de facturación o agregar un método de pago para aceptar el pago haciendo clic en el botón Actualizar facturación a continuación. Si hay un problema con la dirección de facturación o la fecha de vencimiento, toque o haga clic en Actualizar facturación , luego actualice la información de pago. Si cambia su método de pago, use un método de pago válido en su país o región con dinero disponible. No vamos a cobrar nada mientras actualiza la información de pago ",
   "ShippingDataUpdated": "Detalles de seguimiento del pedido guardados",
-  "ShippingDataError": "Se produjo un error. Conéctese con el equipo de asistencia"
+  "ShippingDataError": "Se produjo un error. Conéctese con el equipo de asistencia",
+  "newsletterLink":"https://www.leadfox.co/?tap_a=9573-d4ce25&tap_s=1160933-18c97c",
+  "newsletterImage":"https://static.tapfiliate.com/58ade12fe8255.jpg?a=17357-a77352&s=1160933-18c97c",
+  "newsletterh2":"Automatically Generate New Leads and Customers",
+  "newsletterp1":"The all-in-one marketing automation software designed to help your small business grow quickly and easily online, starting today.",
+  "newsletterp2":"Powerful tools designed to accelerate your growth",
+  "newsletterp3":"Capture more contacts and leads",
+  "newsletterli1":"Landing page builder",
+  "newsletterli2":"Form builder (drag and drop)",
+  "newsletterli3":"Pop-up builder (drag and drop)",
+  "newsletterli4":"Several professional templates included",
+  "newsletterli5":"Responsive design on all screens (mobile device, tablet, computer)"
 }

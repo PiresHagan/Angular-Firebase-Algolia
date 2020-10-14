@@ -733,5 +733,16 @@
   "InvoiceNote": "In exceptional circumstances, Financial Services can provide an urgent manually processed special cheque. Note, however, that urgent special cheques should be requested only on an emergency basis as manually produced cheques involve duplication of effort and considerable staff resources. Requests need to be supported by a letter explaining the circumstances to justify the special cheque payment.",
   "ShippingDataUpdated": "Order tracking details saved",
   "ShippingDataError": "Something went wrong. Please connect with support team.",
-  "checkoutVerifySignUpEmail": "Please click on the link that has been sent to your email account to verify your email and continue the checkout process by login"
+  "checkoutVerifySignUpEmail": "Please click on the link that has been sent to your email account to verify your email and continue the checkout process by login",
+  "newsletterLink":"https://www.leadfox.co/?tap_a=9573-d4ce25&tap_s=1160933-18c97c",
+  "newsletterImage":"https://static.tapfiliate.com/58ade12fe8255.jpg?a=17357-a77352&s=1160933-18c97c",
+  "newsletterh2":"Automatically Generate New Leads and Customers",
+  "newsletterp1":"The all-in-one marketing automation software designed to help your small business grow quickly and easily online, starting today.",
+  "newsletterp2":"Powerful tools designed to accelerate your growth",
+  "newsletterp3":"Capture more contacts and leads",
+  "newsletterli1":"Landing page builder",
+  "newsletterli2":"Form builder (drag and drop)",
+  "newsletterli3":"Pop-up builder (drag and drop)",
+  "newsletterli4":"Several professional templates included",
+  "newsletterli5":"Responsive design on all screens (mobile device, tablet, computer)"
 }
