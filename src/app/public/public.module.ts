@@ -8,16 +8,13 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { BuyComponent } from './buy/buy.component';
 import { createTranslateLoader, SharedModule } from '../shared/shared.module';
 import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
 import { Cloudinary } from 'cloudinary-core';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 
 @NgModule({
-  declarations: [
-    BuyComponent
-  ],
+  declarations: [],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
     CommonModule,
