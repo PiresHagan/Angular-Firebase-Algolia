@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { Copywriter1Component } from './copywriter1/copywriter1.component';
-import { Copywriter2Component } from './copywriter2/copywriter2.component';
 import { BuyComponent } from './buy/buy.component';
-import { InfluencerComponent } from './influencer/influencer.component';
 
 const routes: Routes = [
   {
@@ -25,22 +22,6 @@ const routes: Routes = [
   {
     path: 'profile/:slug',
     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
-  },
-  {
-    path: 'copywriter1',
-    component: Copywriter1Component,
-    data: {
-      title: 'Copywriter version 1',
-      headerDisplay: 'none'
-    }
-  },
-  {
-    path: 'copywriter2',
-    component: Copywriter2Component,
-    data: {
-      title: 'Copywriter version 2',
-      headerDisplay: 'none'
-    }
   },
   {
     path: 'fundraisers',
@@ -74,14 +55,6 @@ const routes: Routes = [
       headerDisplay: 'none'
     }
 
-  },
-  {
-    path: 'influencer',
-    component: InfluencerComponent,
-    data: {
-      title: 'influencer version 2',
-      headerDisplay: 'none'
-    }
   },
   {
     path: 'today',
