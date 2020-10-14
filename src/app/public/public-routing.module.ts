@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BuyComponent } from './buy/buy.component';
 
 const routes: Routes = [
   {
@@ -45,12 +44,7 @@ const routes: Routes = [
   },
   {
     path: 'buy',
-    component: BuyComponent,
-    data: {
-      title: 'faq version 2',
-      headerDisplay: 'none'
-    }
-
+    loadChildren: () => import('./buy/buy.module').then(m => m.BuyModule)
   },
   {
     path: 'today',
