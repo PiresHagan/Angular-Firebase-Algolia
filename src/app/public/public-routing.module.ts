@@ -7,9 +7,6 @@ import { Copywriter1Component } from './copywriter1/copywriter1.component';
 import { Copywriter2Component } from './copywriter2/copywriter2.component';
 import { BuyComponent } from './buy/buy.component';
 import { InfluencerComponent } from './influencer/influencer.component';
-import { FundraiserComponent } from './fundraiser/fundraiser.component';
-import { FundraiserListComponent } from './fundraiser-list/fundraiser-list.component';
-
 
 const routes: Routes = [
   {
@@ -57,20 +54,8 @@ const routes: Routes = [
     }
   },
   {
-    path: 'fundraisers/:slug',
-    component: FundraiserComponent,
-    data: {
-      title: 'fundraiser',
-      headerDisplay: 'none'
-    }
-  },
-  {
     path: 'fundraisers',
-    component: FundraiserListComponent,
-    data: {
-      title: 'fundraisers',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./fundraiser-list/fundraiser-list.module').then(m => m.FundraiserListModule)
   },
   {
     path: 'contact',
