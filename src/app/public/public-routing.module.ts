@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 import { Copywriter1Component } from './copywriter1/copywriter1.component';
 import { Copywriter2Component } from './copywriter2/copywriter2.component';
 import { BuyComponent } from './buy/buy.component';
@@ -9,11 +8,7 @@ import { InfluencerComponent } from './influencer/influencer.component';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-    data: {
-      title: 'Home ',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
   {
     path: 'category/:slug',
