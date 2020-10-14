@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { CategoryComponent } from './category/category.component';
 import { ArticleComponent } from './article/article.component';
 import { Copywriter1Component } from './copywriter1/copywriter1.component';
 import { Copywriter2Component } from './copywriter2/copywriter2.component';
@@ -19,11 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'category/:slug',
-    component: CategoryComponent,
-    data: {
-      title: 'Category ',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./category/category.module').then(m => m.CategoryModule)
   },
   {
     path: 'article/:slug',
