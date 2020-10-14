@@ -2,7 +2,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PublicRoutingModule } from './public-routing.module';
-import { HomeComponent } from './home/home.component';
 import { Copywriter1Component } from './copywriter1/copywriter1.component';
 import { Copywriter2Component } from './copywriter2/copywriter2.component';
 
@@ -20,7 +19,6 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 
 @NgModule({
   declarations: [
-    HomeComponent,
     Copywriter1Component,
     Copywriter2Component,
     BuyComponent,
