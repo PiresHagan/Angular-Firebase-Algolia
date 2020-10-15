@@ -54,6 +54,31 @@ export class BackofficeLayoutComponent implements OnInit {
     this.themeService.isSideNavDarkChanges.subscribe(isDark => this.isSideNavDark = isDark);
     this.themeService.selectedHeaderColor.subscribe(color => this.selectedHeaderColor = color);
     this.themeService.isExpandChanges.pipe(skip(1)).subscribe(isExpand => this.isExpand = isExpand);
+
+    this.loadHelpData();
+  }
+
+  private loadHelpData() {
+    window['fwSettings'] = {
+      'widget_id': 65000000278
+    };
+
+    if ("function" != typeof window['FreshworksWidget']) {
+      var n: any = function () {
+        n.q.push(arguments);
+      };
+
+      n.q = [];
+      window['FreshworksWidget'] = n
+    }
+
+    // fetch script
+    const script = document.createElement('script');
+    script.src = 'https://widget.freshworks.com/widgets/65000000278.js';
+    script.type = 'text/javascript';
+    script.async = true;
+
+    document.body.appendChild(script);
   }
 
   setBreadCrump() {
