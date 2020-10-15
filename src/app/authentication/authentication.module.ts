@@ -17,7 +17,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 
-import { NgxMaskModule, IConfig } from 'ngx-mask';
+
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -27,7 +27,7 @@ import { LanguageService } from '../shared/services/language.service';
 
 
 
-export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
+
 
 @NgModule({
     imports: [
@@ -35,7 +35,6 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         SharedModule,
         ReactiveFormsModule,
         AuthenticationRoutingModule,
-        NgxMaskModule.forChild(),
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
         AngularFirestoreModule,
