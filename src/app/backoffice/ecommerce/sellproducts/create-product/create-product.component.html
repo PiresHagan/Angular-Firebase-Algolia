@@ -204,7 +204,7 @@
           <div class="container">
             <nz-card>
               <nz-form-item>
-                <label nz-checkbox [(ngModel)]="digitalProduct">{{'IsDigitalProduct'| translate}}</label>
+                <label nz-checkbox formControlName="isDigitalProduct">{{'IsDigitalProduct'| translate}}</label>
               </nz-form-item>
 
               <nz-upload [nzAction]="imageUploadURL" nzListType="picture-card" [(nzFileList)]="fileList"

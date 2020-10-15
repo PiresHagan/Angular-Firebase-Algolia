@@ -37,7 +37,7 @@ export class CreateProductComponent {
   memberDetails;
   productDetails;
   isLoading = false;
-  digitalProduct = false;
+
   fileList = [
 
   ];
@@ -105,6 +105,8 @@ export class CreateProductComponent {
         this.productEditForm.controls['weight'].setValue(productDetails.weight);
         this.productEditForm.controls['salePrice'].setValue(productDetails.salePrice);
         this.productEditForm.controls['discountedPrice'].setValue(productDetails.discountedPrice);
+        this.productEditForm.controls['isDigitalProduct'].setValue(productDetails.isDigitalProduct);
+        
         this.fileList = productDetails.images ? productDetails.images : [];
         if (this.categoryList && this.categoryList.length == 0) {
           this.categoryService.getAll(productDetails.lang).subscribe((categoryList) => {
@@ -140,7 +142,8 @@ export class CreateProductComponent {
       quantity: [1, [Validators.required, Validators.pattern(quantity)]],
       tags: [],
       summary: ['', [Validators.required, Validators.maxLength(160)]],
-      lang: ['', [Validators.required]]
+      lang: ['', [Validators.required]],
+      isDigitalProduct: [false]
 
     });
   }
