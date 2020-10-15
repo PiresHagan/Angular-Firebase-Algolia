@@ -258,14 +258,31 @@ export const ROUTES: SideNavInterface[] = [
         ]
     },
     {
-        path: '/app/e-commerce-funding',
-        title: 'E-commerce Funding',
+        path: '',
+        title: ' E-Commerce Funding and Advertising',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'shopping-cart',
         staff_only: false,
         submenu: [
-
+            {
+                path: '/app/e-commerce-funding',
+                title: 'E-Commerce Funding and Advertising',
+                iconType: 'nzIcon',
+                iconTheme: 'outline',
+                icon: 'shopping-cart',
+                staff_only: false,
+                submenu: []
+            },
+            {
+                path: '',
+                title: ' E-commerce Advertising',
+                iconType: 'nzIcon',
+                iconTheme: 'outline',
+                icon: 'shopping-cart',
+                staff_only: false,
+                submenu: []
+            },
 
         ]
     },
