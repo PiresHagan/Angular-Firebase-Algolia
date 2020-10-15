@@ -35,7 +35,7 @@ export class AdDirective implements OnInit, AfterViewInit {
     const script = window['googletag'];
 
     if (script && script.apiReady) {
-      this.delay(100).subscribe(() => {
+      this.delay(1000).subscribe(() => {
         cb();
       });
     } else {
