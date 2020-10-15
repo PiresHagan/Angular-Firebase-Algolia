@@ -132,7 +132,7 @@ export class ArticleContentComponent implements OnInit {
       return false;
     }
 
-    let validSize = this.articleType == AUDIO ? this.isValidSize(file.size, 110, 65) : this.isValidSize(file.size, 110, 65);
+    let validSize = this.articleType == AUDIO ? this.isValidSize(file.size, 250, 20) : this.isValidSize(file.size, 250, 20);
     //validSize = this.articleType == AUDIO ? this.isValidSize(file.size, 100) : this.isValidSize(file.size, 100);
 
     if (!validSize) {
