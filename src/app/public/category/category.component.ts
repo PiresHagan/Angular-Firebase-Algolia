@@ -54,6 +54,7 @@ export class CategoryComponent implements OnInit {
       this.topic = this.route.snapshot.queryParamMap.get('topic');
       const slug = params.get('slug');
       this.slug = slug;
+      this.category = null;
 
       if (this.topic) {
         this.getTopicDetails(this.topic);
