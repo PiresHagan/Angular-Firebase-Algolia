@@ -695,5 +695,16 @@
   "IsDigitalProduct": "Est un produit numérique",
   "DigitalProductDetails": "Détails du produit numérique",
   "StoreNotAvailable": "Magasin non disponible",
-  "PleaseCreateStore": "Veuillez configurer le magasin avant de créer le produit."
+  "PleaseCreateStore": "Veuillez configurer le magasin avant de créer le produit.",
+  "newsletterLink":"https://www.leadfox.co/fr/?tap_a=17476-3ea0b5&tap_s=1160933-18c97c",
+  "newsletterImage":"https://static.tapfiliate.com/58b5a1948c008.jpg?a=17476-3ea0b5&s=1160933-18c97c",
+  "newsletterh2":"Générez automatiquement de nouveaux contacts et clients",
+  "newsletterp1":"Le logiciel de marketing automatisé tout-en-un pour faire croître rapidement et simplement votre petite entreprise en ligne, dès aujourd’hui.",
+  "newsletterp2":"De puissants outils bâtis pour accélérer votre croissance",
+  "newsletterp3":"Générez des contacts et des prospects",
+  "newsletterli1":"Bâtisseur de pages de destination (landing pages)",
+  "newsletterli2":"Bâtisseur de formulaires (glisser et déposer)",
+  "newsletterli3":"Bâtisseur de pop-up (glisser et déposer)",
+  "newsletterli4":"Nombreux gabarits professionnels inclus",
+  "newsletterli5":"Design adapté à tous les écrans ( mobile, tablette, ordinateur)"
 }

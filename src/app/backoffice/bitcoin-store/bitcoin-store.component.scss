@@ -1,0 +1,79 @@
+.invite-box{
+    font-family: "open_sansregular";
+    ::ng-deep .ant-list-header{
+        font-size: 20px;
+        font-weight: 600;
+        color: #000;
+    }
+    .form-group{
+        width: 100%;
+        label{
+            font-size: 14px;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 3px;
+            display: block;
+        }
+        .form-control{
+            height: 45px;
+            width:100%;
+            border:1px solid #ccc;
+            padding-left: 10px;
+        }
+        .btn{
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #00a5ef;
+            color: #fff;
+            padding: 4px 10px;
+            border: 0px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            i{
+                margin-right:5px;
+            }
+        }
+    }
+    .qr-code-sec{
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        .qr-code-img{
+            padding: 5px;
+            border:2px solid #000;
+            border-radius: 2px;
+            width: 114px;
+            text-align: center;
+            img{
+                width:100px;
+            }
+        }
+        .qr-code-txt{
+            margin-left: 20px;
+            width: calc(100% - 135px);
+            font-size: 16px;
+            font-weight: 600;
+            color: #000;
+        }
+    }
+}
+
+@media screen and (max-width:580px){
+    .invite-box{
+        .form-group{
+            .btn{
+                position: unset;
+                margin-top: 10px;
+            }
+        }
+        .qr-code-sec{
+            .qr-code-txt{
+                margin-left: 0px;
+                width: 100%;
+                margin-top: 20px;
+            }
+        }
+    }
+}

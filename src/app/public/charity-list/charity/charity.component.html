@@ -1,0 +1,123 @@
+
+<section class="is-article-block">
+    <div class="container">
+        <div class="mobile-article-detail">
+            <h2 class="xs-article-title">
+                <img class="avatar" src="assets/images/charity/fundraiser.png" alt="company logo"/>
+            </h2>
+            <div class="xs-article-author-detail">
+                <div class="xs-article-name">
+                    {{ charity?.name }}
+                    </div>
+                <div class="comment-section">
+                    <ul>
+                        <li>
+                            <div class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "followCharity" | translate }}</a>
+                            </div>
+                            <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowCharity" | translate }}</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+           
+        </div>
+        <div class="article-full-img">
+            <img *ngIf="charity" [src]='charity?.cover?.url' [alt]='charity?.cover?.alt'/>
+        </div>
+        <div class="is-article-sec">
+            <div class="is-left-profile  hidden-on-xs">
+                <div class="sticky-box">
+                    <div class="is-profile">
+                        <a>
+                            <img class="avatar" src="assets/images/charity/fundraiser.png" alt="charity logo"/>
+                        </a>
+                    </div>
+                    <div class="share-sec text-center">
+                        <div class="addthis_inline_share_toolbox"></div>
+                    </div>
+
+                    <app-charity-follower-list *ngIf="charityId" [charityId]="charityId"></app-charity-follower-list>
+                </div>
+            </div>
+            <div class="is-main-article-content">
+                <div class="company-img  hidden-on-xs">
+                    <img *ngIf="charity" [src]='charity?.logo?.url' [alt]='charity?.logo?.alt' 
+                    onerror="this.src='assets/images/default-avatar.png'"
+                    />
+                    <div class="special-icon" *ngIf="charity">
+                        <img src="assets/images/charity-icon.png" />
+                    </div>
+                </div>
+                <div class="is-content">
+                    <div class="is-head">
+                        <div class="company-name  hidden-on-xs">
+                            <h1>
+                                <a [ngStyle]="{'color': charity?.color_code}">
+                                    {{ charity?.name }}
+                                </a>
+                            </h1>
+                        </div>
+                        <div class="media-section">
+                            <div class="follow-btn  hidden-on-xs" *ngIf="!isFollowing" (click)="follow()">
+                                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "followCharity" | translate }}</a>
+                            </div>
+                            <div class="follow-btn  hidden-on-xs" *ngIf="isFollowing" (click)="unfollow()">
+                                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowCharity" | translate }}</a>
+                            </div>
+                            <div class="login-popup"  *ngIf="!isLoggedInUser">
+                                <nz-modal
+                                    [(nzVisible)]="isVisible"
+                                    nzTitle="My Trending Stories"
+                                    (nzOnCancel)="handleCancel()"
+                                    (nzOnOk)="handleOk()"
+                                    [nzOkLoading]="isOkLoading"
+                                    >
+                                    <div class="popup-content">
+                                        <div>
+                                            <a [routerLink]="['/']" class="bg-logo">
+                                                <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                                            </a>
+                                        </div>
+                                        <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' | translate}}</a> {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a> {{'toContinue' | translate}}.</p>
+                                       
+                                    </div>
+                                    </nz-modal>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="is-body">
+                        <div class="fundraiser-content">
+                            <p class="big">{{ charity?.bio }}</p>
+                            <br>
+                            <p innerHTML={{charity?.presentation}}></p>
+                        </div>
+                        <div class="xs-article-publish">
+                            <div class="xs-article-publisher-img">
+                                <div class="company-img">
+                                    <img *ngIf="charity" [src]='charity?.logo?.url' [alt]='charity?.logo?.alt' 
+                                    onerror="this.src='assets/images/default-avatar.png'"
+                                    />
+                                    <div class="special-icon" *ngIf="charity">
+                                        <img src="assets/images/company-icon.png" style="max-width:28px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="xs-articl-publisher-name"> {{ charity?.name }}</div>
+                        </div>
+                        <app-charity-followers *ngIf="charityId" [charityId]="charityId" class="hidden-on-desktop"></app-charity-followers>
+                    </div>
+                </div>
+
+            </div>
+            <div class="is-right-ad-section">
+                <app-charity-donate-form *ngIf="charity" [charity]="charity" [charityId]="charityId"></app-charity-donate-form>
+            </div>
+        </div>
+
+    </div>
+
+</section>
