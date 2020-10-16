@@ -8,9 +8,46 @@
             margin: 20px 0px;
             .banner-sec{
                 a{
-                    display:inline-block;
+                    display:block;
+                    position: relative;
                     img{
                         width:100%;
+                    }
+                    .banner-content{
+                        position: absolute;
+                        top: 50%;
+                        left: 0px;
+                        transform: translate(40px, -50%);
+                        h2{
+                            font-size: 38px;
+                            color: #fff;
+                            font-family: "open_sansregular";
+                            font-weight: 600;
+                            max-width: 430px;
+                            line-height: 46px;
+                            margin: 0px 0px 20px 0px;
+                        }
+                        .banner-btn{
+                            background: #f2861a;
+                            border: 0px;
+                            color: #fff;
+                            padding: 7px 20px;
+                            font-size: 22px;
+                            font-family: "open_sansregular";
+                            cursor: pointer;
+                            outline: none;
+                            &:hover{
+                                background: #cf6d0b;
+                            }
+                        }
+                    }
+                    &.ecommerce-header{
+                        .banner-content{
+                            h2{
+                                max-width: 700px;
+                                font-size: 32px;
+                            }
+                        }
                     }
                 }
             }
@@ -49,24 +86,72 @@
                         }
                     }
                 }
-                .buy-btn{
-                    padding: 13px 35px;
-                    background: #ff4020;
-                    color: #fff;
-                    display: inline-block;
-                    font-family: "josefin_sansregular";
-                    font-size: 22px;
-                    border-radius: 30px;
-                    line-height: 22px;
-                    border: 0px;
-                    margin-top:20px;
-                }
             }
         }
     }
 }
 
-
+@media screen and (max-width:768px){
+    .border-box-sec{
+        .container{
+            .border-box{
+                .banner-sec{
+                    a{
+                        .banner-content{
+                            position: unset;
+                            top: 100%;
+                            left: 0px;
+                            transform: unset;
+                            h2{
+                                font-size: 20px !important;
+                                color: #000;
+                                margin-bottom: 10px;
+                                line-height: normal;
+                            }
+                            .banner-btn{
+                                padding: 6px 15px;
+                                font-size: 16px;
+                            }
+                        }
+                    }
+                }
+                .border-box-content{
+                    h2{
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width:769px) and (max-width:992px){
+    .border-box-sec{
+        .container{
+            .border-box{
+                .banner-sec{
+                    a{
+                        .banner-content{
+                            h2{
+                                font-size: 24px !important;
+                                max-width: 560px !important;
+                                line-height: normal;
+                            }
+                            .banner-btn{
+                                padding: 6px 15px;
+                                font-size: 16px;
+                            }
+                        }
+                    }
+                }
+                .border-box-content{
+                    h2{
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+}
 ///Credit Card
 
 .credit-card {
