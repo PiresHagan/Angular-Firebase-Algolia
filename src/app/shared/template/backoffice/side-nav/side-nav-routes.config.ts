@@ -203,6 +203,18 @@ export const ROUTES: SideNavInterface[] = [
         ]
     },
     {
+        path: '/app/shop/myorders/my-order-list',
+        title: 'My Orders',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'skin',
+        staff_only: false,
+        submenu: [
+
+
+        ]
+    },
+    {
         path: 'app/ad-network/sites',
         title: 'Ad Network',
         iconType: 'nzIcon',
@@ -247,7 +259,7 @@ export const ROUTES: SideNavInterface[] = [
     },
     {
         path: '/app/business-funding',
-        title: 'Business Funding',
+        title: 'BusinessFunding',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'dollar',
@@ -259,7 +271,7 @@ export const ROUTES: SideNavInterface[] = [
     },
     {
         path: '',
-        title: ' E-Commerce Funding and Advertising',
+        title: 'ECommerceFundingandAdvertising',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'shopping-cart',
@@ -267,7 +279,7 @@ export const ROUTES: SideNavInterface[] = [
         submenu: [
             {
                 path: '/app/e-commerce-funding',
-                title: 'E-Commerce Funding and Advertising',
+                title: 'ECommerceFundingandAdvertising',
                 iconType: 'nzIcon',
                 iconTheme: 'outline',
                 icon: 'shopping-cart',
@@ -276,7 +288,7 @@ export const ROUTES: SideNavInterface[] = [
             },
             {
                 path: '',
-                title: ' E-commerce Advertising',
+                title: 'EcommerceAdvertising',
                 iconType: 'nzIcon',
                 iconTheme: 'outline',
                 icon: 'shopping-cart',
@@ -288,7 +300,7 @@ export const ROUTES: SideNavInterface[] = [
     },
     {
         path: '/app/merchant-processing',
-        title: 'Merchant Processing',
+        title: 'MerchantProcessing',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'credit-card',
@@ -300,22 +312,10 @@ export const ROUTES: SideNavInterface[] = [
     },
     {
         path: '/app/bitcoin-store',
-        title: 'Bitcoin Store',
+        title: 'BitcoinStore',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'bold',
-        staff_only: false,
-        submenu: [
-
-
-        ]
-    },
-    {
-        path: '/app/shop/myorders/my-order-list',
-        title: 'My Orders',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'skin',
         staff_only: false,
         submenu: [
 

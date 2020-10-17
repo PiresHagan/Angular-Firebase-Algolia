@@ -770,7 +770,13 @@
   "bitcoinLink":"https://paxful.com/?r=xLY6X4jX3Qy",
   "bitcoinBannerTitle":"Buy and Sell Bitcoin",
   "bitcoinBannerBtn":"Log in",
-  "bitcoinp1":"Buy and Sell Bitcoin via our Store.We partner with Paxfull to Give Access to Everyone in the World to Join our Network and Buy or Sell Bitcoin Online"
+  "bitcoinp1":"Buy and Sell Bitcoin via our Store.We partner with Paxfull to Give Access to Everyone in the World to Join our Network and Buy or Sell Bitcoin Online",
+  "Newsletter":"Newsletter",
+  "BusinessFunding":"Business Funding",
+  "ECommerceFundingandAdvertising":"E-Commerce Funding and Advertising",
+  "EcommerceAdvertising":"EcommerceAdvertising",
+  "MerchantProcessing":"Merchant Processing",
+  "BitcoinStore":"Bitcoin Store"
   
   
 }
