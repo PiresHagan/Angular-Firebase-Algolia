@@ -20,6 +20,7 @@ import { ShareButtonsComponent } from './component/share-buttons/share-buttons.c
 import { AdDirective } from './directives/ad/ad.directive';
 import { AnalyticsService } from './services/analytics/analytics.service';
 import { SeoService } from './services/seo/seo.service';
+import { QuicklinkModule } from 'ngx-quicklink';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -38,12 +39,14 @@ export function createTranslateLoader(http: HttpClient) {
         CloudinaryImgComponent,
         ShareButtonsComponent,
         AdDirective,
+        QuicklinkModule,
     ],
     imports: [
         RouterModule,
         CommonModule,
         NgZorroAntdModule,
         PerfectScrollbarModule,
+        QuicklinkModule,
         CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
         TranslateModule.forChild({
             useDefaultLang: true,
