@@ -73,13 +73,14 @@ export class ArticleComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-
       this.selectedLanguage = this.langService.getSelectedLanguage();
 
       const slug = params.get('slug');
+      this.article = null;
 
       this.articleService.getArtical(slug).subscribe(artical => {
         this.article = artical[0];
+
         if (!this.article) {
           this.modal.error({
             nzTitle: this.translate.instant('URL404'),

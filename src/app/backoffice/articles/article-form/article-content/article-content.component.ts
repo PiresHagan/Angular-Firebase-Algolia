@@ -99,9 +99,10 @@ export class ArticleContentComponent implements OnInit {
   isValidAudio(mimeType) {
     return this.allowedArticleAudio.indexOf(mimeType) > -1;
   }
-  isValidSize(fileSize, requiredSize) {
-    return fileSize! / 1024 / 1024 < requiredSize
+  isValidSize(fileSize, requiredSize, lessSize = 0) {
+    return fileSize! / 1024 / 1024 < requiredSize && fileSize! / 1024 / 1024 > lessSize
   }
+
   showMessage(msg, type, extras = '') {
     if (type == 'error') {
       this.modalService.error({
@@ -131,9 +132,11 @@ export class ArticleContentComponent implements OnInit {
       return false;
     }
 
-    const validSize = this.articleType == AUDIO ? this.isValidSize(file.size, 100) : this.isValidSize(file.size, 100);
+    let validSize = this.articleType == AUDIO ? this.isValidSize(file.size, 250, 20) : this.isValidSize(file.size, 250, 20);
+    //validSize = this.articleType == AUDIO ? this.isValidSize(file.size, 100) : this.isValidSize(file.size, 100);
+
     if (!validSize) {
-      this.showMessage('InvalidSize', 'error', this.articleType == AUDIO ? '100MB' : '100MB');
+      this.showMessage('InvalidSize', 'error');
       return false;
     }
     this.articleFile = file;

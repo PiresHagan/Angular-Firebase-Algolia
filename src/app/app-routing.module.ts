@@ -7,6 +7,7 @@ import { FullLayout_ROUTES } from "./shared/routes/full-layout.routes";
 import { CommonLayout_ROUTES } from "./shared/routes/common-layout.routes";
 import { BackofficeLayout_ROUTES } from './shared/routes/backoffice-layout.routes';
 import { AuthService } from './shared/services/authentication.service';
+import { QuicklinkModule, QuicklinkStrategy } from 'ngx-quicklink';
 
 const appRoutes: Routes = [
     {
@@ -28,8 +29,9 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [
+        QuicklinkModule,
         RouterModule.forRoot(appRoutes, {
-            preloadingStrategy: PreloadAllModules,
+            preloadingStrategy: QuicklinkStrategy,
             useHash: false,
             scrollPositionRestoration: 'enabled'
         })
