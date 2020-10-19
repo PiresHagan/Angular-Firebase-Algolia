@@ -1,7 +1,7 @@
 <section class="is-hero">
     <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-7 pl-18 article-height">
-            <!-- <nz-skeleton-element *ngIf="!heroArticles" [nzLoading]="loading" nzType="avatar" [nzSize]="1000" [nzShape]="square" [nzActive]="true"></nz-skeleton-element> -->
+            <nz-skeleton-element *ngIf="!heroArticles" [nzLoading]="loading" nzType="avatar" class="custom-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
             <a class="is-hero-card" *ngFor="let article of heroArticles | slice:0:1"
                 [routerLink]="['/',article.author.slug,article.slug]">
                 <div class="is-card-bg"
@@ -100,7 +100,7 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-6 col-lg-5 pr-18 article-height">
-            <!-- <nz-skeleton-element *ngIf="!heroArticles" [nzLoading]="loading" nzType="avatar" [nzSize]="1000" [nzShape]="square" [nzActive]="true"></nz-skeleton-element> -->
+            <nz-skeleton-element *ngIf="!heroArticles" [nzLoading]="loading" nzType="avatar" class="custom-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
             <a class="is-hero-card" *ngFor="let article of heroArticles | slice:1:2"
                 [routerLink]="['/',article.author.slug,article.slug]">
                 <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + replaceImage(article.image.url)+ ')'}">
@@ -200,15 +200,15 @@
     <div class="row">
         <div class="is-bottom-hero">
             <div class="row is-row-height pt-18">
-                <!-- <div class="article-height col-12 col-sm-12 col-md-12 col-lg-4" *ngIf="!heroArticles">
-                    <nz-skeleton-element nzType="avatar" [nzLoading]="loading" [nzSize]="1000" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+                <div class="article-height col-12 col-sm-12 col-md-12 col-lg-4" *ngIf="!heroArticles">
+                    <nz-skeleton-element nzType="avatar" [nzLoading]="loading" class="custom-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
                 </div>
                 <div class="article-height col-12 col-sm-12 col-md-12 col-lg-4" *ngIf="!heroArticles">
-                    <nz-skeleton-element nzType="avatar" [nzLoading]="loading" [nzSize]="1000" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+                    <nz-skeleton-element nzType="avatar" [nzLoading]="loading" class="custom-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
                 </div>
                 <div class="article-height col-12 col-sm-12 col-md-12 col-lg-4" *ngIf="!heroArticles">
-                    <nz-skeleton-element nzType="avatar" [nzLoading]="loading" [nzSize]="1000" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
-                </div> -->
+                    <nz-skeleton-element nzType="avatar" [nzLoading]="loading" class="custom-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+                </div>
                 <div *ngFor="let article of heroArticles | slice:2:5"
                     [routerLink]="['/',article.author.slug,article.slug]" class="article-height col-12 col-sm-12 col-md-12 col-lg-4">
                     <a class="is-hero-card is-small-card"> 
