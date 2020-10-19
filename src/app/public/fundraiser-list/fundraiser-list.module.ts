@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { FundraiserListComponent } from './fundraiser-list.component';
 import { FundraiserComponent } from './fundraiser/fundraiser.component';
+import { FundraiserDonateFormComponent } from './fundraiser/fundraiser-donate-form/fundraiser-donate-form.component';
 
 import { FundraiserListRoutingModule } from './fundraiser-list-routing.module';
 import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
@@ -18,7 +19,8 @@ import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [
     FundraiserListComponent,
-    FundraiserComponent
+    FundraiserComponent,
+    FundraiserDonateFormComponent
   ],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
