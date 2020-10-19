@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { FundraiserListComponent } from './fundraiser-list.component';
 import { FundraiserComponent } from './fundraiser/fundraiser.component';
 import { FundraiserDonateFormComponent } from './fundraiser/fundraiser-donate-form/fundraiser-donate-form.component';
+import { FundraiserAuthorComponent } from './fundraiser/fundraiser-author/fundraiser-author.component';
 
 import { FundraiserListRoutingModule } from './fundraiser-list-routing.module';
 import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
 import { Cloudinary } from 'cloudinary-core';
-import { createTranslateLoader } from 'src/app/shared/shared.module';
+import { createTranslateLoader, SharedModule } from 'src/app/shared/shared.module';
 import { HttpClient } from '@angular/common/http';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgxStripeModule } from 'ngx-stripe';
@@ -20,7 +21,8 @@ import { environment } from 'src/environments/environment';
   declarations: [
     FundraiserListComponent,
     FundraiserComponent,
-    FundraiserDonateFormComponent
+    FundraiserDonateFormComponent,
+    FundraiserAuthorComponent
   ],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
@@ -29,6 +31,7 @@ import { environment } from 'src/environments/environment';
     ReactiveFormsModule,
     NgZorroAntdModule,
     NgxStripeModule.forRoot(environment.stripePublishableKey),
+    SharedModule,
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })
   ]
 })
