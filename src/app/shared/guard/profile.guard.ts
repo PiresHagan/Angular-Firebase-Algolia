@@ -15,7 +15,6 @@ export class ProfileGuard implements CanActivate {
         return new Observable<boolean>((observer) => {
             this.afAuth.authState.subscribe((userData) => {
                 this.authService.getLoggedInUserDetails().then((profileImageData) => {
-                    debugger;
                     if (this.isOnboardingProcessDone(profileImageData))
                         observer.next(true);
                     else {

@@ -90,6 +90,12 @@ export class ArticleComponent implements OnInit, AfterViewInit {
 
           return;
         }
+
+        if (!params.get('userSlug')) { 
+          this.router.navigate(['/', this.article?.author?.slug, this.article?.slug]);
+          return;
+        }
+        
         const articleId = this.article.id;
 
         this.similarArticleList = this.articleService.getCategoryRow(

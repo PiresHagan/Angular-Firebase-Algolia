@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -51,11 +51,16 @@ export class ProfileComponent implements OnInit {
     private modal: NzModalService,
     private seoService: SeoService,
     private analyticsService: AnalyticsService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-
+      if (params.get('authorSlug')) { 
+        this.router.navigate(['/', params.get('authorSlug')]);
+        return;
+      }
+      
       const slug = params.get('slug');
       if (slug == 'undefined')
         return;
