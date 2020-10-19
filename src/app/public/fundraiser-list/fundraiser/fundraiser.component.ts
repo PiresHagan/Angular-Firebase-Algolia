@@ -4,7 +4,6 @@ import { environment } from 'src/environments/environment';
 import { FundraiserService } from 'src/app/shared/services/fundraiser.service';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { TranslateService } from "@ngx-translate/core";
-import { AuthService } from 'src/app/shared/services/authentication.service';
 import { Fundraiser } from 'src/app/shared/interfaces/fundraiser.type';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { AuthorService } from 'src/app/shared/services/author.service';
@@ -24,12 +23,8 @@ export class FundraiserComponent implements OnInit {
   fundraiser: Fundraiser;
   fundraiserAuthor;
   fundraiserId: string;
-  isUpdatingFollow: boolean = false;
-  isFollowing: boolean = false;
   isLoaded: boolean = false;
-  isLoggedInUser: boolean = false;
   selectedLanguage: string = "";
-  userDetails: User;
   donationPercentage: string = "0";
   authorFollowersCount: number = 0;
   // TEXT = TEXT;
@@ -38,7 +33,6 @@ export class FundraiserComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private authService: AuthService,
     private langService: LanguageService,
     private fundraiserService: FundraiserService,
     private authorService: AuthorService,
@@ -82,8 +76,6 @@ export class FundraiserComponent implements OnInit {
           });
         }
 
-        this.setUserDetails();
-
         this.seoService.updateMetaTags({
           tabTitle: this.fundraiser.title?.substring(0, 69),
           description: this.fundraiser.meta?.description?.substring(0, 154),
@@ -113,78 +105,6 @@ export class FundraiserComponent implements OnInit {
     document.getElementsByTagName('head')[0].appendChild(node);
   }
 
-  async setUserDetails() {
-    this.authService.getAuthState().subscribe(async (user) => {
-      if (!user) {
-        this.userDetails = null;
-        this.isLoggedInUser = false;
-        return;
-      }
-
-      this.userDetails = await this.authService.getLoggedInUserDetails();
-
-      if (this.userDetails) {
-        this.isLoggedInUser = true;
-        this.setFollowOrNot();
-      } else {
-        this.userDetails = null;
-        this.isLoggedInUser = false;
-      }
-    })
-  }
-
-  setFollowOrNot() {
-    this.authorService.isUserFollowing(this.fundraiser.author.id, this.getUserDetails().id, this.fundraiser.author.type).subscribe((data) => {
-      setTimeout(() => {
-        if (data) {
-          this.isFollowing = true;
-          this.isUpdatingFollow = false;
-        } else {
-          this.isFollowing = false;
-          this.isUpdatingFollow = false;
-        }
-      }, 1500);
-    });
-  }
-
-  getUserDetails() {
-    return {
-      fullname: this.userDetails.fullname,
-      slug: this.userDetails.slug ? this.userDetails.slug : '',
-      avatar: this.userDetails.avatar ? this.userDetails.avatar : '',
-      id: this.userDetails.id,
-    }
-  }
-
-  async follow() {
-    await this.setUserDetails();
-    if (this.isLoggedInUser) {
-      this.isUpdatingFollow = true;
-      await this.authorService.follow(this.fundraiser.author.id, this.fundraiser.author.type);
-    }else{
-      this.showModal()
-    }
-  }
-
-  async unfollow() {
-    await this.setUserDetails();
-    if (this.isLoggedInUser) {
-      this.isUpdatingFollow = true;
-      await this.authorService.unfollow(this.fundraiser.author.id, this.fundraiser.author.type);
-    }else{
-      this.showModal()
-    }
-  }
-
-  getAuthorUrl(fundraiser) {
-    if (fundraiser.author.type == 'charity') {
-      return '/charities/';
-    } else if (fundraiser.author.type == 'company') {
-      return '/companies/';
-    } else {
-      return '/'
-    }
-  }
   isVisible = false;
   isOkLoading = false;
 
