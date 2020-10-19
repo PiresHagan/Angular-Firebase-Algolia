@@ -56,130 +56,6 @@ hr {
 		}
 		.is-left-profile {
 			width: calc(100% - (700px + 25%));
-			.is-profile {
-				text-align: center;
-				a {
-					display: block;
-					img {
-						width: 140px;
-						height: 140px;
-						border-radius: 100%;
-						margin: auto;
-						object-fit: cover;
-						padding: 0px;
-					}
-				}
-			}
-			.is-divider {
-				position: relative;
-				padding-bottom: 7px;
-				margin-bottom: 10px;
-				&:before {
-					content: "";
-					position: absolute;
-					bottom: 0px;
-					left: 50%;
-					transform: translate(-50%, -50%);
-					width: 80px;
-					height: 1px;
-					background: #e3e3e3;
-				}
-			}
-			.is-author-name-sec {
-				text-align: center;
-				 ::ng-deep .special-icon {
-					position: absolute;
-					top: -10px;
-					right: -10px;
-					width: 40px;
-					height: 40px;
-					background: #000;
-					border: 1px solid #fff;
-					display: flex;
-					border-radius: 100%;
-					img {
-						max-width: 25px !important;
-						margin: auto;
-					}
-				}
-				.logo {
-					position: relative;
-					width: 100px;
-					margin: 20px auto 0px;
-					img.avatar {
-						width: 80px;
-						height: 80px;
-						border-radius: 100%;
-						object-fit: cover;
-					}
-				}
-				.is-author-name {
-					a {
-						display: block;
-						font-family: "josefin_sanssemibold";
-						img {
-							max-width: 24px;
-							vertical-align: sub;
-							margin-right: 5px;
-						}
-						.name {
-							display: inline-block;
-							font-size: 24px;
-							color: #fd6147;
-							padding-top: 15px;
-						}
-					}
-				}
-				.follow-btn-sec {
-					display: block;
-					padding-top: 5px;
-					.follow-btn {
-						 ::ng-deep .ant-btn {
-							color: #042c99;
-							font-size: 20px;
-							border: 0px;
-							box-shadow: unset;
-							font-family: "josefin_sanssemibold";
-							&:hover {
-								background: transparent;
-							}
-							img {
-								max-width: 16px;
-								vertical-align: text-top;
-								margin-right: 5px;
-							}
-						}
-					}
-				}
-			}
-			.is-like-sec {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				a {
-					font-size: 20px;
-					color: #042c99;
-					font-family: "josefin_sanssemibold";
-					margin: 0px 4px;
-					&.is-like {
-						min-width: 85px;
-						.far {
-							font-size: 17px;
-						}
-						.likes-count {
-							.fas {
-								font-size: 19px;
-								margin: 0px 10px 0px 10px;
-							}
-						}
-					}
-					img {
-						max-width: 16px;
-						margin-right: 7px;
-						vertical-align: text-top;
-					}
-				}
-			}
 		}
 		.is-main-article-content {
 			width: 700px;
@@ -528,19 +404,7 @@ hr {
 		margin-right: 7px;
 	}
 }
-.popup-content{
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	.bg-logo{
-	  display: inline-block;
-	  max-width: 90px;
-	  margin-right: 20px;
-	  img{
-		max-width: 100%;
-	}
-	}
-  }
+
 @media screen and (max-width: 580px) {
 	.article-full-img img {
 		height: 180px;
@@ -552,14 +416,6 @@ hr {
 		.is-article-sec {
 			.is-left-profile {
 				width: 100%;
-				.sticky-box {
-					padding: 20px 0px;
-					.is-profile {
-						a {
-							margin-top: -90px;
-						}
-					}
-				}
 			}
 			.is-main-article-content {
 				width: 100%;
@@ -636,11 +492,6 @@ hr {
 		.is-article-sec {
 			.is-left-profile {
 				width: 100%;
-				.is-profile {
-					a {
-						margin-top: -90px;
-					}
-				}
 			}
 			.is-main-article-content {
 				width: 100%;
@@ -698,14 +549,6 @@ hr {
 		.is-article-sec {
 			.is-left-profile {
 				width: 100%;
-				.is-profile {
-					a {
-						margin-top: -90px;
-					}
-				}
-				.sticky-box {
-					top: 170px;
-				}
 			}
 			.is-main-article-content {
 				width: 100%;
@@ -764,16 +607,8 @@ hr {
 		.is-article-sec {
 			.is-left-profile {
 				width: 100%;
-        border-bottom:1px solid #eee;
-        margin-bottom: 25px;
-				.is-profile {
-					a {
-						margin-top: -90px;
-					}
-				}
-				.sticky-box {
-					top: 170px;
-				}
+				border-bottom:1px solid #eee;
+				margin-bottom: 25px;
 			}
 			.is-main-article-content {
 				width: 60%;
@@ -844,15 +679,6 @@ hr {
           border-bottom:1px solid #eee;
           margin-bottom: 25px;
 		  width: calc(100% - (650px + 25%));
-		  .sticky-box{
-            top:70px !important
-          }
-          .is-profile {
-            .special-icon{
-              position: absolute;
-              top: -60px;
-            }
-          }
         }
         .is-main-article-content {
           padding: 15px;
@@ -928,12 +754,5 @@ hr {
 		width: 1520px;
 		max-width: 100%;
 		margin: auto;
-	}
-}
-
-@media screen and (min-width:1200px) and (max-width:1359px) {
-
-	.is-article-block .is-article-sec .is-left-profile .sticky-box {
-		top: 190px;
 	}
 }
