@@ -1,6 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
 
+import { Article } from 'src/app/shared/interfaces/article.type';
+import { ArticleService } from 'src/app/shared/services/article.service';
+import { LanguageService } from 'src/app/shared/services/language.service';
+
 @Component({
   selector: 'app-similar-articles',
   templateUrl: './similar-articles.component.html',
@@ -8,11 +12,24 @@ import * as moment from 'moment';
 })
 export class SimilarArticlesComponent implements OnInit {
 
-  @Input() similarArticleList;
+  @Input() article: Article
+  similarArticleList;
+  selectedLanguage: string = "";
 
-  constructor() { }
+  constructor(
+    private articleService: ArticleService,
+    private langService: LanguageService
+  ) { }
 
   ngOnInit(): void {
+    this.selectedLanguage = this.langService.getSelectedLanguage();
+
+    this.similarArticleList = this.articleService.getCategoryRow(
+      this.article.category.slug,
+      this.selectedLanguage,
+      7,
+      this.article.slug,
+    );
   }
 
   replaceImage(url) {

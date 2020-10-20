@@ -2,7 +2,6 @@ import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation, AfterViewI
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
-import { FormGroup, NgForm } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
@@ -29,32 +28,18 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   articleLikes: number = 0;
   articleVicewCount: number = 0;
   slug: string;
-  articleComments: any = [];
-  commentForm: FormGroup;
-  isFormSaving: boolean = false;
-  isCommentSavedSuccessfully: boolean = false;
   isLoggedInUser: boolean = false;
-  isCommentsLoading: boolean = false;
   isReportAbuseArticleLoading: boolean = false;
-  editedCommentId: string;
-  lastCommentDoc: any;
   userDetails: User;
-  messageDetails: string;
   status: boolean;
-  replyMessage: string;
-  activeComment: Comment;
   isFollowing: boolean = false;
   isLike: boolean = false;
   isLoaded: boolean = false;
-  isReportAbuseLoading: boolean = false;
   selectedLang: string = '';
-  similarArticleList;
   selectedLanguage: string = "";
   TEXT = TEXT;
   AUDIO = AUDIO;
   VIDEO = VIDEO;
-  @ViewChild('commentSection') private myScrollContainer: ElementRef;
-  @ViewChild('commentReplySection') private commentReplyContainer: ElementRef;
 
   constructor(
     private articleService: ArticleService,
@@ -91,18 +76,10 @@ export class ArticleComponent implements OnInit, AfterViewInit {
         }
         const articleId = this.article.id;
 
-        this.similarArticleList = this.articleService.getCategoryRow(
-          this.article.category.slug,
-          this.selectedLanguage,
-          7,
-          this.article.slug,
-        );
-
         this.articleType = this.article.type ? this.article.type : TEXT;
         this.articleLikes = this.article.likes_count;
         this.articleVicewCount = this.article.view_count;
         this.setUserDetails();
-        this.getArticleComments(this.article.id);
 
         this.seoService.updateMetaTags({
           keywords: this.article.meta.keyword,
@@ -132,17 +109,6 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() { }
 
   /**
-   * Get Article comments using Article Id
-   * @param articleId 
-   */
-  getArticleComments(articleId) {
-    this.articleService.getArticaleComments(articleId).subscribe(({ commentList, lastCommentDoc }) => {
-      this.articleComments = commentList
-      this.lastCommentDoc = lastCommentDoc
-    })
-  }
-
-  /**
    * Set user params 
    */
   async setUserDetails() {
@@ -168,125 +134,6 @@ export class ArticleComponent implements OnInit, AfterViewInit {
     })
   }
 
-
-
-  /**
-   * Save comment
-   * @param form 
-   */
-  saveComments(form: NgForm) {
-    if (form.valid) {
-      this.isFormSaving = true;
-      const commentData = {
-        published_on: this.activeComment ? this.activeComment['published_on'] : new Date().toISOString(),
-        replied_on: this.activeComment ? this.activeComment['replied_on'] : (this.replyMessage ? this.replyMessage : ''),
-        message: this.messageDetails,
-        author: this.getUserDetails()
-
-      };
-      if (this.editedCommentId) {
-        this.updateCommentOnServer(this.editedCommentId, commentData);
-      } else {
-        this.saveCommentOnServer(commentData);
-      }
-
-      const article = this.article;
-      this.analyticsService.logEvent('article_comment', {
-        article_id: article.id,
-        article_title: article.title,
-        article_language: article.lang,
-        article_author_name: article.author.fullname,
-        article_author_id: article.author.id,
-        article_category_title: article.category.title,
-        article_category_id: article.category.id,
-        commented_by_user_name: this.getUserDetails().fullname,
-        commented_by_user_id: this.getUserDetails().id,
-      });
-
-    }
-  }
-
-  /**
-   * Scrolling to comment section.
-   */
-  scrollToCommentSection(): void {
-    try {
-      this.myScrollContainer.nativeElement.scrollIntoView({ behavior: 'smooth' })
-    } catch (err) { console.log(err); }
-  }
-
-
-  scrollToEditCommentSection(): void {
-    try {
-      this.commentReplyContainer.nativeElement.scrollIntoView({ behavior: 'smooth' })
-    } catch (err) { console.log(err); }
-  }
-
-
-  saveCommentOnServer(commentData) {
-    this.articleService.createComment(this.article.id, commentData).subscribe(() => {
-      this.isFormSaving = false;
-      this.messageDetails = '';
-      this.showCommentSavedMessage();
-      this.newComment();
-    }, () => {
-
-      this.isFormSaving = false;
-    })
-  }
-
-  editComment(commentid: string, commentData) {
-    this.activeComment = commentData;
-    this.editedCommentId = commentid;
-    this.messageDetails = commentData.message;
-    this.replyMessage = '';
-    this.scrollToEditCommentSection();
-  }
-
-  updateCommentOnServer(editedCommentId, commentData) {
-    this.editedCommentId = '';
-
-    this.articleService.updateComment(this.article.id, editedCommentId, commentData).subscribe(() => {
-      this.isFormSaving = false;
-      this.messageDetails = '';
-      this.showCommentSavedMessage();
-      this.newComment();
-
-    }, () => {
-
-      this.isFormSaving = false;
-    })
-  }
-
-  newComment() {
-    this.editedCommentId = '';
-    this.messageDetails = '';
-    this.replyMessage = '';
-    this.activeComment = null;
-  }
-
-  loadMoreComments() {
-    this.isCommentsLoading = true;
-    this.articleService.getArticleCommentNextPage(this.article.id, 5, this.lastCommentDoc).subscribe(({ commentList, lastCommentDoc }) => {
-      this.lastCommentDoc = lastCommentDoc
-      this.articleComments = [...this.articleComments, ...commentList];
-      this.isCommentsLoading = false;
-
-    })
-  }
-
-  showCommentSavedMessage() {
-    this.isCommentSavedSuccessfully = true;
-    setTimeout(() => {
-      this.scrollToCommentSection();
-      this.isCommentSavedSuccessfully = false;
-    }, 500)
-  }
-
-  replyComment(commentData) {
-    this.replyMessage = commentData.message;
-    this.scrollToEditCommentSection();
-  }
   transformHtml(htmlTextWithStyle) {
     return this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle);
   }
@@ -298,14 +145,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
       console.log('Your suggestion saved successfully.')
     })
   }
-  reportAbuseComment(commentid) {
-    this.isReportAbuseLoading = true;
-    this.articleService.updateArticleCommentAbuse(this.article.id, commentid).then(() => {
-      this.isReportAbuseLoading = false;
-      this.showAbuseSuccessMessage();
-      console.log('Your suggestion saved successfully.')
-    })
-  }
+  
   getUserDetails() {
     return {
       fullname: this.userDetails.fullname,
