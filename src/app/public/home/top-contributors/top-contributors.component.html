@@ -5,6 +5,11 @@
             <!-- You might also like : -->
             {{'secTitle' | translate }}
         </div>
+        <div class="is-member margin-minus"  *ngIf="!(authorList | async)">
+            <div class="is-member-item" *ngFor="let repeatSkeleton of skeletonData">
+                <nz-skeleton-element *ngIf="!(authorList | async)" [nzLoading]="loading" nzType="avatar" class="custom-skeleton circle-box-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+            </div>
+        </div>
         <div class="is-member">
             <div class="is-member-item" *ngFor="let author of (authorList | async)" [ngClass]="showTooltip"
                 (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
