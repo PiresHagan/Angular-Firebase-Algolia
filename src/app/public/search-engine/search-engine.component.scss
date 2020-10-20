@@ -242,6 +242,14 @@
 					 color: #fff;
 					}
 				  }
+				  .cloudinary-img{
+					::ng-deep cl-image{
+					  img{
+						  width:100%;
+					  }
+					}
+				}
+
 			}
 			.is-read-more{
 				background: transparent;
@@ -434,8 +442,12 @@
 		}
 	}
 	.ais-SearchBox-reset{
-		right:50px;
+		right: 50px;
 		outline: none;
+		position: absolute;
+		top: 21px;
+		border: 0px;
+		background: transparent;
 		.ais-SearchBox-resetIcon {
 			width: 14px;
 			height: 14px;

@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { environment } from 'src/environments/environment';
-import { Meta, Title } from '@angular/platform-browser';
 import { LanguageService } from 'src/app/shared/services/language.service';
-import * as firebase from 'firebase/app';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { AUTHOR } from 'src/app/shared/constants/member-constant';
 import { NzModalService } from 'ng-zorro-antd';
@@ -43,8 +41,6 @@ export class ProfileComponent implements OnInit {
   videoArticles: Article[] = [];
 
   constructor(
-    private titleService: Title,
-    private metaTagService: Meta,
     private route: ActivatedRoute,
     private authorService: AuthorService,
     private articleService: ArticleService,
@@ -55,11 +51,16 @@ export class ProfileComponent implements OnInit {
     private modal: NzModalService,
     private seoService: SeoService,
     private analyticsService: AnalyticsService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-
+      if (params.get('authorSlug')) { 
+        this.router.navigate(['/', params.get('authorSlug')]);
+        return;
+      }
+      
       const slug = params.get('slug');
       if (slug == 'undefined')
         return;

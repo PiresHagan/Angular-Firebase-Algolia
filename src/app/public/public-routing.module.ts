@@ -1,217 +1,62 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { CategoryComponent } from './category/category.component';
-import { ArticleComponent } from './article/article.component';
-import { ProfileComponent } from './profile/profile.component';
-import { Copywriter1Component } from './copywriter1/copywriter1.component';
-import { Copywriter2Component } from './copywriter2/copywriter2.component';
-import { ContactComponent } from './contact/contact.component';
-import { TermsComponent } from './terms/terms.component';
-import { FaqComponent } from './faq/faq.component';
-import { SearchEngineComponent } from './search-engine/search-engine.component';
-import { BuyComponent } from './buy/buy.component';
-import { InfluencerComponent } from './influencer/influencer.component';
-import { TodayComponent } from './today/today.component';
-import { PrivacyComponent } from './privacy/privacy.component';
-import { VideoComponent } from './video/video.component';
-import { AudioComponent } from './audio/audio.component';
-import { CompanyComponent } from './company/company.component';
-import { CompaniesComponent } from './companies/companies.component';
-import { CharityComponent } from './charity/charity.component';
-import { CharityListComponent } from './charity-list/charity-list.component';
-import { NewHomeComponent } from './new-home/new-home.component';
-import { FundraiserComponent } from './fundraiser/fundraiser.component';
-import { FundraiserListComponent } from './fundraiser-list/fundraiser-list.component';
-
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-    data: {
-      title: 'Home ',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
   {
     path: 'category/:slug',
-    component: CategoryComponent,
-    data: {
-      title: 'Category ',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./category/category.module').then(m => m.CategoryModule)
   },
   {
     path: 'article/:slug',
-    component: ArticleComponent,
-    data: {
-      title: 'Article',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)
   },
   {
-    path: 'profile/:slug',
-    component: ProfileComponent,
-    data: {
-      title: 'Profile',
-      headerDisplay: 'none'
-    }
-  },
-  {
-    path: 'copywriter1',
-    component: Copywriter1Component,
-    data: {
-      title: 'Copywriter version 1',
-      headerDisplay: 'none'
-    }
-  },
-  {
-    path: 'copywriter2',
-    component: Copywriter2Component,
-    data: {
-      title: 'Copywriter version 2',
-      headerDisplay: 'none'
-    }
-  },
-  {
-    path: 'new-home',
-    component: NewHomeComponent,
-    data: {
-      title: 'New home',
-      headerDisplay: 'none'
-    }
-  },
-  {
-    path: 'fundraisers/:slug',
-    component: FundraiserComponent,
-    data: {
-      title: 'fundraiser',
-      headerDisplay: 'none'
-    }
+    path: 'profile/:authorSlug',
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
   },
   {
     path: 'fundraisers',
-    component: FundraiserListComponent,
-    data: {
-      title: 'fundraisers',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./fundraiser-list/fundraiser-list.module').then(m => m.FundraiserListModule)
   },
   {
     path: 'contact',
-    component: ContactComponent,
-    data: {
-      title: 'contact version 2',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)
   },
   {
     path: 'terms',
-    component: TermsComponent,
-    data: {
-      title: 'terms version 2',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./terms/terms.module').then(m => m.TermsModule)
   },
   {
     path: 'privacy',
-    component: PrivacyComponent,
-    data: {
-      title: 'privacy policies',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./privacy/privacy.module').then(m => m.PrivacyModule)
   },
   {
     path: 'faq',
-    component: FaqComponent,
-    data: {
-      title: 'faq version 2',
-      headerDisplay: 'none'
-    }
-
+    loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule)
   },
   {
     path: 'search',
-    component: SearchEngineComponent,
-    data: {
-      title: 'faq version 2',
-      headerDisplay: 'none'
-    }
-
+    loadChildren: () => import('./search-engine/search-engine.module').then(m => m.SearchEngineModule)
   },
   {
     path: 'buy',
-    component: BuyComponent,
-    data: {
-      title: 'faq version 2',
-      headerDisplay: 'none'
-    }
-
-  },
-  {
-    path: 'influencer',
-    component: InfluencerComponent,
-    data: {
-      title: 'influencer version 2',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./buy/buy.module').then(m => m.BuyModule)
   },
   {
     path: 'today',
-    component: TodayComponent,
-    data: {
-      title: 'today version 2',
-      headerDisplay: 'none'
-    }
-  },
-  {
-    path: 'video',
-    component: VideoComponent,
-    data: {
-      title: 'video',
-      headerDisplay: 'none'
-    }
-  },
-  {
-    path: 'audio',
-    component: AudioComponent,
-    data: {
-      title: 'audio',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./today/today.module').then(m => m.TodayModule)
   },
   {
     path: 'companies',
-    component: CompaniesComponent,
-    data: {
-      title: 'companies',
-      headerDisplay: 'none'
-    }
-  },
-  {
-    path: 'companies/:slug',
-    component: CompanyComponent,
-    data: {
-      title: 'company',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./companies/companies.module').then(m => m.CompaniesModule)
   },
   {
     path: 'charities',
-    component: CharityListComponent,
-    data: {
-      title: 'charities',
-      headerDisplay: 'none'
-    }
-  },
-  {
-    path: 'charities/:slug',
-    component: CharityComponent,
-    data: {
-      title: 'charity',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./charity-list/charity-list.module').then(m => m.CharityListModule)
   },
   // {
   //   path: '**',
@@ -223,20 +68,12 @@ const routes: Routes = [
   // },
   {
     path: ':userSlug/:slug',
-    component: ArticleComponent,
-    data: {
-      title: 'Article',
-      headerDisplay: 'none'
-    }
+    loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)
   },
   {
     path: ':slug',
-    component: ProfileComponent,
-    data: {
-      title: 'Profile',
-      headerDisplay: 'none'
-    }
-  },
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+  }
 ];
 
 @NgModule({
