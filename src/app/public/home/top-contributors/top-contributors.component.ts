@@ -44,5 +44,7 @@ export class TopContributorsComponent implements OnInit {
     }
     return latestURL;
   }
-
+  skeletonData = new Array(10).fill({}).map((_i, index) => {
+    return 
+  });
 }
