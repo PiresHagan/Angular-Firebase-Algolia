@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
+import { Cloudinary } from 'cloudinary-core';
 
 import { SearchEngineComponent } from './search-engine.component';
 
@@ -14,6 +16,7 @@ import { SearchEngineRoutingModule } from './search-engine-routing.module';
     SearchEngineComponent
   ],
   imports: [
+    CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
     CommonModule,
     NgAisModule.forRoot(),
     SearchEngineRoutingModule,
