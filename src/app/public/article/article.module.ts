@@ -12,11 +12,13 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { QuillModule } from 'ngx-quill';
 import { SimilarArticlesComponent } from './similar-articles/similar-articles.component';
+import { ArticleCommentsComponent } from './article-comments/article-comments.component';
 
 @NgModule({
   declarations: [
     ArticleComponent,
-    SimilarArticlesComponent
+    SimilarArticlesComponent,
+    ArticleCommentsComponent
   ],
   imports: [
     ArticleRoutingModule,

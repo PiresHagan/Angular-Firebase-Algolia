@@ -1,0 +1,133 @@
+<div class="is-comment-sec" #commentSection>
+    <div class="is-share is-line">
+        <h2>{{'share' | translate}} - </h2>
+        <app-share-buttons></app-share-buttons>
+    </div>
+
+    <div class="is-middle-ad-section" style="margin:30px 0px;">
+        <div class="ads-box" style="margin:0 auto;">
+        <div adItem id="div-gpt-ad-1599554575619-0" style="width: 300px; height: 250px; margin:0 auto;"></div>
+        </div>
+
+        <div class="is-reply-sec">
+        <a name="comments" href="#comments"></a>
+        <h2>{{'comments' | translate}}</h2>
+        <div>
+            <div class="is-comment is-line" *ngFor="let articleComment of articleComments; let i = index">
+            <div class="is-comment-img">
+                <img class="avatar" src="{{replaceImage(articleComment?.author?.avatar?.url)}}"
+                alt="{{articleComment?.author?.slug}}" />
+            </div>
+            <div class="is-comment-detail">
+                <div class="pull-left">
+                <h4 class="is-comment-user-name">
+                    {{articleComment?.author?.fullname}}
+                    <small class="comment-date"><i>
+                        {{articleComment?.published_on | date:'medium' }}</i></small>
+                </h4>
+                </div>
+                <div class="pull-right">
+                <a class="comment-view-replies" *ngIf="isLoggedInUser"
+                    (click)="replyComment(articleComment.id,articleComment)">
+                    {{'reply' | translate}}</a>
+                <span *ngIf="isLoggedInUser && userDetails?.id===articleComment?.author?.id">
+                    / </span><a class="comment-view-replies"
+                    *ngIf="isLoggedInUser && userDetails?.id===articleComment?.author?.id"
+                    (click)="editComment(articleComment.id,articleComment)">
+                    {{'edit' | translate}}</a> <span
+                    *ngIf="isLoggedInUser  && userDetails?.id!==articleComment?.author?.id">
+                    / </span><a class="comment-view-replies"
+                    *ngIf="isLoggedInUser && userDetails?.id!==articleComment?.author?.id"
+                    (click)="reportAbuseComment(articleComment.id,articleComment)">
+                    <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseLoading">
+                    </nz-spin>
+                    {{'reportAbuse' | translate}}
+                </a>
+                </div>
+                <div class="clearfix"></div>
+                <div class="replied-comment">
+                <blockquote *ngIf="articleComment.replied_on" innerHTML="{{articleComment.replied_on}}">
+                </blockquote>
+                <div innerHTML="{{articleComment.message}}"></div>
+                </div>
+            </div>
+            </div>
+            <div *ngIf="lastCommentDoc"> <a (click)="loadMoreComments()"
+                *ngIf="!isCommentsLoading"><span>{{'moreComments' | translate}}</span></a>
+            <nz-spin nzSimple *ngIf="isCommentsLoading"></nz-spin>
+            </div>
+
+            <div class="comment-reply-form" #commentReplySection>
+            <div class="form-group">
+                <h2>{{'replyHere' | translate}}...</h2>
+            </div>
+            <div [ngClass]="{'replay-container-wrapper':replyMessage}">
+
+                <form #commentForm="ngForm" class="comment_reply" *ngIf="isLoggedInUser"
+                (ngSubmit)="saveComments(commentForm)">
+
+                <div class="form-group">
+
+                    <div class="reply-container">
+                    <blockquote innerHTML="{{replyMessage}}"></blockquote>
+                    </div>
+
+                    <quill-editor [style]="{height: '500px'}" [placeholder]="''" [minLength]="10"
+                    [maxLength]="400" name="message" [(ngModel)]="messageDetails" #messageInput="ngModel">
+                    <div quill-editor-toolbar>
+                        <span class="ql-formats">
+                        <button class="ql-bold"></button>
+                        <button class="ql-italic"></button>
+                        <button class="ql-underline"></button>
+                        <button class=" ql-link"></button>
+                        </span>
+
+                    </div>
+                    </quill-editor>
+                    <div style="color: red;" *ngIf="!messageInput.valid">
+                    {{'comLengthMessage' | translate}}
+
+                    </div>
+                </div>
+
+
+
+
+                <div class="m-t-10">
+                    <button class="m-5" nz-button nzType="primary" [nzLoading]="isFormSaving"
+                    [disabled]="!commentForm.valid || !messageInput.value">{{'send' | translate}}</button>
+                    <button class="m-5" nz-button nzType="primary" *ngIf="editedCommentId || replyMessage"
+                    (click)="newComment()" [nzLoading]="isFormSaving">{{'newCom' | translate}}</button>
+
+                </div>
+
+
+
+                <div class="hidden comment_form_success" *ngIf="isCommentSavedSuccessfully">
+                    <p class="text-success">
+                    <b>{{'successMsg' | translate}}</b>
+                    </p>
+                </div>
+                </form>
+
+
+
+
+
+
+
+            </div>
+
+
+
+            <div *ngIf="!isLoggedInUser"><a
+                [routerLink]="['/auth/login/']"><span>{{'login' | translate}}</span></a>
+                / <a [routerLink]="['/auth/signup/']"><span>{{'signUp' | translate}}</span></a>
+                {{'forAddCom' | translate}}.
+            </div>
+            </div>
+
+        </div>
+        </div>
+    </div>
+</div>
