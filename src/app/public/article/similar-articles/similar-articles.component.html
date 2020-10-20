@@ -1,0 +1,77 @@
+<div class="related-article-sec">
+    <h2>{{ "SimilarArticles" | translate }}</h2>
+
+    <div *ngFor="let similarArticle of similarArticleList | async">
+        <a [routerLink]="['/',similarArticle.author.slug,similarArticle.slug]">
+            <div *ngIf="similarArticle.type === VIDEO" class="related-video">
+                <div class="thumbnail-video">
+                    <img 
+                        [src]="replaceImage(similarArticle.image?.url)" 
+                        [alt]="similarArticle.image.alt"
+                        *ngIf="!(similarArticle.image.cloudinary_id); else similarVideoCloudinary" 
+                    />
+                    <ng-template #similarVideoCloudinary>
+                        <cl-image loading="lazy" public-id="{{similarArticle.image.cloudinary_id}}" secure="true">
+                            <cl-transformation width="120" height="100" gravity="face" crop="thumb">
+                            </cl-transformation>
+                        </cl-image>
+                    </ng-template>
+                    <div class="overlay-detail">
+                        <!-- <span class="time">5:08</span> -->
+                        <div class="play-btn">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="related-video-detail">
+                    <h2>{{ similarArticle.title }}</h2>
+                    <p>{{ similarArticle.excerpt }}</p>
+                    <ul>
+                        <li>
+                            <a>
+                                <article-interaction [article]="similarArticle"></article-interaction>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                            <img src="assets/images/video/icon/point.png" alt="" class="bullet">
+                            {{ getRelativeDate(similarArticle.published_at) }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div *ngIf="similarArticle.type !== VIDEO" class="related-audio">
+                <div class="thumbnail-audio">
+                    <img [src]="replaceImage(similarArticle.image?.url)" [alt]="similarArticle.image.alt"
+                    *ngIf="!(similarArticle.image.cloudinary_id); else similarAudioCloudinary" />
+                    <ng-template #similarAudioCloudinary>
+                    <cl-image loading="lazy" public-id="{{similarArticle.image.cloudinary_id}}" secure="true">
+                        <cl-transformation width="120" height="100" gravity="face" crop="thumb">
+                        </cl-transformation>
+                    </cl-image>
+                    </ng-template>
+                </div>
+                <div class="related-audio-detail">
+                    <h2>{{ similarArticle.title }}</h2>
+                    <p>{{ similarArticle.excerpt }}</p>
+                    <ul>
+                        <li>
+                            <a>
+                                <article-interaction [article]="similarArticle"></article-interaction>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                            <img src="assets/images/video/icon/point.png" alt="" class="bullet">
+                            {{ getRelativeDate(similarArticle.published_at) }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </a>
+    </div>
+</div>
