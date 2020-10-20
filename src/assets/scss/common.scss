@@ -1,0 +1,457 @@
+.border-box-sec{
+    .container{
+        width:calc(100% - 50px);
+        .border-box{
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #eee;
+            margin: 20px 0px;
+            .banner-sec{
+                a{
+                    display:block;
+                    position: relative;
+                    img{
+                        width:100%;
+                    }
+                    .banner-content{
+                        position: absolute;
+                        top: 50%;
+                        left: 0px;
+                        transform: translate(40px, -50%);
+                        h2{
+                            font-size: 38px;
+                            color: #fff;
+                            font-family: "open_sansregular";
+                            font-weight: 600;
+                            max-width: 430px;
+                            line-height: 46px;
+                            margin: 0px 0px 20px 0px;
+                        }
+                        .banner-btn{
+                            background: #f2861a;
+                            border: 0px;
+                            color: #fff;
+                            padding: 7px 20px;
+                            font-size: 22px;
+                            font-family: "open_sansregular";
+                            cursor: pointer;
+                            outline: none;
+                            &:hover{
+                                background: #cf6d0b;
+                            }
+                        }
+                    }
+                    &.ecommerce-header{
+                        .banner-content{
+                            h2{
+                                max-width: 700px;
+                                font-size: 32px;
+                            }
+                        }
+                    }
+                }
+            }
+            .border-box-content{
+                padding: 20px 0px;
+                h2{
+                    font-size: 20px;
+                    font-family: "open_sansregular";
+                    margin: 0px 0px 10px 0px;
+                    font-weight: 600;
+                }
+                p{
+                    font-family: "open_sansregular";
+                    font-size: 15px;
+                    font-weight: normal;
+                    color: #464444;
+                    line-height: 24px;
+                    word-break: break-all;
+                    margin: 0px 0px 7px 0px;
+                }
+                ul{
+                    padding: 20px 0px 0px 0px;
+                    li{
+                        display: block;
+                        position: relative;
+                        padding: 0px 0px 10px 15px;
+                        &::after{
+                            content: "";
+                            position: absolute;
+                            top: 8px;
+                            left: 0px;
+                            width: 6px;
+                            height: 6px;
+                            border-radius: 20px;
+                            background: #000;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:768px){
+    .border-box-sec{
+        .container{
+            .border-box{
+                .banner-sec{
+                    a{
+                        .banner-content{
+                            position: unset;
+                            top: 100%;
+                            left: 0px;
+                            transform: unset;
+                            h2{
+                                font-size: 20px !important;
+                                color: #000;
+                                margin-bottom: 10px;
+                                line-height: normal;
+                            }
+                            .banner-btn{
+                                padding: 6px 15px;
+                                font-size: 16px;
+                            }
+                        }
+                    }
+                }
+                .border-box-content{
+                    h2{
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width:769px) and (max-width:992px){
+    .border-box-sec{
+        .container{
+            .border-box{
+                .banner-sec{
+                    a{
+                        .banner-content{
+                            h2{
+                                font-size: 24px !important;
+                                max-width: 560px !important;
+                                line-height: normal;
+                            }
+                            .banner-btn{
+                                padding: 6px 15px;
+                                font-size: 16px;
+                            }
+                        }
+                    }
+                }
+                .border-box-content{
+                    h2{
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+}
+///Credit Card
+
+.credit-card {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 7px;
+    width: 95%;
+    max-width: 250px;
+    position: relative;
+    transition: all 0.4s ease;
+    box-shadow: 0 2px 4px 0 #cfd7df;
+    min-height: 60px;
+    padding: 13px;
+    background: #1a1b1c;
+    color: #efefef;
+    &:after{
+        content: " ";
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    }
+    .credit-card-last4 {
+        font-family: "PT Mono", Helvetica, sans-serif;
+        font-size: 24px;
+        padding-bottom: 50px;
+        &:before {
+            content: "**** **** **** ";
+            color: #4f4d4d;
+            font-size: 20px;
+        }
+    }
+    .credit-card-expiry{
+        font-family: "PT Mono", Helvetica, sans-serif;
+        font-size: 18px;
+        position: absolute;
+        bottom: 8px;
+        left: 15px;
+    }
+    &.credit-card.selectable{
+        &:hover{
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+        }
+    }
+    &.american-express{
+        .credit-card-last4{
+            &.before{
+                content: "**** ****** *";
+                margin-right: -10px;
+            }
+        }
+    }
+    &.credit-card.diners{
+        .credit-card-last4{
+            &.before{
+                content: "**** ****** *";
+                margin-right: -10px;
+            }
+        }
+    }
+    &.visa {
+        background: #4862e2;
+        color: #eaeef2;
+        &:after{
+            height: 16px;
+            width: 50px;
+            background-image: url("/assets/images/items/visa.png");
+        }
+        .credit-card-last4 {
+            &::before{
+                color: #8999e5;
+            }
+        }
+    }
+    &.mastercard {
+        background: #4f0cd6;
+        color: #e3e8ef;
+        &:after{
+            width: 40px;
+            height: 25px;
+            background-image: url("/assets/images/items/ms.png");
+        }
+        .credit-card-last4{
+            &:before{
+                color: #8a82dd;
+            }
+        }
+    }
+    &.american-express{
+        background: #1cd8b3;
+        color: #f2fcfa;
+        &:after{
+            width: 50px;
+            height: 14px;
+            background-image: url("/assets/images/items/amex.png");
+        }
+        .credit-card-last4{
+            &:before{
+                color: #99efe0;
+            }
+        }
+    }
+    &.amex {
+        background: #1cd8b3;
+        color: #f2fcfa;
+        &:after{
+            width: 50px;
+            height: 14px;
+            background-image: url("/assets/images/items/amex.png");
+        }
+        .credit-card-last4{
+            &:before{
+                color: #99efe0;
+            }
+        }
+    }
+    &.diners{
+        background: #8a38ff;
+        color: #f5efff;
+        &:after{
+            width: 30px;
+            height: 24px;
+            background-image: url("/assets/images/items/item1.png");
+        }
+        .credit-card-last4{
+            &:before{
+                color: #b284f4;
+            }
+        }
+    }
+    &.diners-club {
+        background: #8a38ff;
+        color: #f5efff;
+        &:after{
+            width: 30px;
+            height: 24px;
+            background-image: url("/assets/images/items/item1.png");
+        }
+        .credit-card-last4{
+            &:before{
+                color: #b284f4;
+            }
+        }
+    }
+    &.discover {
+        background: #f16821;
+        color: #fff4ef;
+        &:after{
+            width: 50px;
+            height: 14px;
+            background-image: url("/assets/images/items/discover.png");
+        }
+        .credit-card-last4{
+            &:before{
+                color: #ffae84;
+            }
+        }
+    }
+    &.jcb {
+        background: #cc3737;
+        color: #f7e8e8;
+        &:after{
+            width: 30px;
+            height: 15px;
+            background-image: url("/assets/images/items/jcb.png");
+        }
+        .credit-card-last4{
+            &:before{
+                color: #f28a8a;
+            }
+        }
+    }
+    &.unionpay {
+        background: #47bfff;
+        color: #fafdff;
+        &:after{
+            width: 50px;
+            height: 30px;
+            background-image: url("/assets/images/items/unionpay.png");
+        }
+        .credit-card-last4{
+            &:before{
+                color: #99dcff;
+            }
+        }
+    }
+}
+// Credit Card End..
+.side-nav{
+    .side-nav-menu{
+        &.side-nav-list{
+            margin-bottom: 80px;
+        }
+    }
+}
+
+// Article Mobile 
+.life-and-styles,
+.vie-et-styles,
+.vida-y-estilos {
+  &.xs-article-category {
+    background: #fbca20 !important;
+  }
+  &.category {
+    color: #fbca20 !important;
+  }
+}
+.creative {
+  &.xs-article-category {
+    background: #88827a !important;
+  }
+  &.category {
+    color: #88827a !important;
+  }
+}
+
+.news,
+.nouvelles,
+.noticias {
+  &.xs-article-category {
+    background: #faaf44 !important;
+  }
+  &.category {
+    color: #faaf44 !important;
+  }
+}
+
+.entertainment,
+.divertissement,
+.entretenimiento {
+  &.xs-article-category {
+    background: #f64747 !important;
+  }
+  &.category {
+    color: #f64747 !important;
+  }
+}
+
+.business,
+.Entreprise,
+.negocio {
+  &.xs-article-category {
+    background: #2baad3 !important;
+  }
+  &.category {
+    color: #2baad3 !important;
+  }
+}
+
+.tech-and-science,
+.technologie-et-science,
+.tech-y-la-ciencia {
+  &.xs-article-category {
+    background: #3fbb22 !important;
+  }
+  &.category {
+    color: #3fbb22 !important;
+  }
+}
+
+.Opinion,
+.Opinion,
+.OPINIÓN {
+  &.xs-article-category {
+    background: #7122bb !important;
+  }
+  &.category {
+    color: #7122bb !important;
+  }
+}
+
+.sport,
+.sport-fr,
+.deporte {
+  &.xs-article-category {
+    background: #2baad3 !important;
+  }
+  &.category {
+    color: #2baad3 !important;
+  }
+}
+
+.viral,
+.viral-fr,
+.viral-es {
+  &.xs-article-category {
+    background: #f64747 !important;
+  }
+  &.category {
+    color: #f64747 !important;
+  }
+}
+
+.religion,
+.religion-fr,
+.religión {
+  &.xs-article-category {
+    background: #23d7d5 !important;
+  }
+  &.category {
+    color: #23d7d5 !important;
+  }
+}
