@@ -6,9 +6,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { Category } from 'src/app/shared/interfaces/category.type';
-import * as firebase from 'firebase/app';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
 import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.service';
+import { Article } from 'src/app/shared/interfaces/article.type';
+import { AdItemData } from 'src/app/shared/directives/ad/ad.directive';
 
 @Component({
   selector: 'app-category',
@@ -17,7 +18,7 @@ import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.se
 })
 export class CategoryComponent implements OnInit {
   category: Category;
-  articles: any[];
+  articleGroups: { articles: Article[]; adItem: AdItemData; }[] = [];
   loading: boolean = true;
   loadingMore: boolean = false;
   lastVisible: any = null;
@@ -55,6 +56,7 @@ export class CategoryComponent implements OnInit {
       const slug = params.get('slug');
       this.slug = slug;
       this.category = null;
+      this.articleGroups = [];
 
       if (this.topic) {
         this.getTopicDetails(this.topic);
@@ -83,14 +85,29 @@ export class CategoryComponent implements OnInit {
         this.loadingMore = true;
         this.articleService.getArticlesBySlug(20, 'next', this.lastVisible, this.slug, this.topic, this.selectedLanguage).subscribe((data) => {
           this.loadingMore = false;
-          this.articles = [...this.articles, ...data.articleList];
+          this.groupArticlesWithAd(data.articleList);
           this.lastVisible = data.lastVisible;
+
+          console.log(this.articleGroups);
         });
       }
     }
-
   }
-  replaceImage(url) {
+
+  private groupArticlesWithAd(articles: Article[]): void {
+    if (articles.length > 0) {
+
+      const ad: AdItemData = {
+        id: 'div-gpt-ad-' + Date.now() + '-' + parseInt((Math.random() * 1000000).toString()), // random id
+      };
+
+      const newGroup = { articles: articles, adItem: ad };
+
+      this.articleGroups.push(newGroup);
+    }
+  }
+
+  replaceImage(url: string) {
     let latestURL = url
     if (url) {
       latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
@@ -134,7 +151,7 @@ export class CategoryComponent implements OnInit {
   getPageDetails() {
     this.getTopicDetails(this.topic);
     this.articleService.getArticlesBySlug(20, '', this.lastVisible, this.slug, this.topic, this.selectedLanguage).subscribe((data) => {
-      this.articles = data.articleList;
+      this.groupArticlesWithAd(data.articleList);
       this.lastVisible = data.lastVisible;
       this.loading = false;
     });
