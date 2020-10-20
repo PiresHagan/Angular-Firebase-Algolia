@@ -11,10 +11,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { QuillModule } from 'ngx-quill';
+import { SimilarArticlesComponent } from './similar-articles/similar-articles.component';
 
 @NgModule({
   declarations: [
-    ArticleComponent
+    ArticleComponent,
+    SimilarArticlesComponent
   ],
   imports: [
     ArticleRoutingModule,
