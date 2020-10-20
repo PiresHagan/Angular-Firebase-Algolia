@@ -644,144 +644,8 @@
     }
   }
 }
-.bg-light{
-  background: #f7f7f7 !important;
-}
-.company-section{
-  background: #f7f7f7;
-  padding:0px 15px 40px 15px;
-  .container{
-    width: 1780px;
-    margin: auto;
-    padding: 0px 15px;
-    max-width: 100%;
-    
-  }
-  .company-detail{
-    h2{
-      font-size: 42px;
-      color: #140c40;
-      margin: 30px 0px 20px;
-      font-family: "open_sansregular";
-    }
-    p {
-      font-family: "open_sansregular";
-      font-size: 15px;
-      font-weight: normal;
-      color: #464444;
-      line-height: 24px;
-      padding-bottom: 30px;
-      word-break: break-all;
-    }
-    .is-read-more{
-      color:#000;
-      &::before{
-        background:#000;
-      }
-    }
-  }
-  .company-box-main{
-    display: flex;
-    flex-wrap: wrap;
-    .company-box{
-      box-shadow: 0px 0px 11px 6px rgba(0, 0, 0, 0.03);
-      width: calc(20% - 20px);
-      height: 180px;
-      padding: 30px 20px 40px 20px;
-      text-align: center;
-      margin: 10px;
-      background: #fff;
-      transition: 0.5s all ease;
-      &:hover{
-        transform: translatey(-10px);
-      }
-      .company-logo{
-        display: flex;
-        min-height: 100px;
-        img{
-          max-width: 100px;
-          margin: auto;
-        }
-    }
-      span{
-        font-size: 18px;
-        color: #000;
-        font-family: "open_sansregular";
-        display: block;
-      }
-    }
-  }
 
-}
-.audio-section{
-  padding: 40px 15px;
-  background-size: cover !important;
-  position: relative;
-  min-height: 600px;
-  display: flex;
-  align-items: center;
-  &:after{
-    content: '';
-    position: absolute;
-    top:0px;
-    left: 0px;
-    width:100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-  }
-  .container{
-    width: 1780px;
-    margin: auto;
-    padding: 0px 15px;
-    max-width: 100%;
-  }
-  .audio-detail{
-    position: relative;
-    z-index: 1;
-    max-width: 700px;
-    .category{
-      background: #faaf44;
-      display: inline-block;
-      padding:7px 10px;
-      color:#fff;
-    }
-    h2{
-      font-size: 42px;
-      color: #fff;
-      margin: 0px;
-      font-family: "open_sansregular";
-      
-    }
-    p{
-      font-family: "open_sansregular";
-      font-size: 15px;
-      font-weight: normal;
-      color: #fff;
-      line-height: 24px;
-      word-break: break-all;
-    }
-    a{
-      display: flex;
-      font-size: 18px;
-      align-items: center;
-      color: #fff;
-      font-family: "open_sansregular";
-      .circle{
-        width: 40px;
-        height: 40px;
-        background: #ff4020;
-        border-radius: 100%;
-        display: flex;
-        margin-right: 15px;
-        i{
-          font-size: 20px;
-          margin: auto;
-        }
-      }
-    }
-  }  
-}
-  
+
 @-webkit-keyframes slideUp {
   0% {
       -webkit-transform: translateY(50px);
@@ -866,6 +730,26 @@
     }
   }
 }
+::ng-deep .custom-skeleton{
+  border: 1px solid #efeeee;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  box-shadow: unset;
+    .ant-skeleton-avatar{
+      width: calc(100% - 20px);
+      height: calc(100% - 20px);
+      margin: 10px;
+      background: linear-gradient(90deg,#c5c5c5 25%,#c5c5c5 37%,#d0cfcf 63%);
+    }
+}
+
+@media screen and (max-width:580px){
+::ng-deep .custom-skeleton{
+  height: 353px;
+}
+}
 /*Animation End*/
 @media screen and (max-width:580px) {
   .pl-18 {
@@ -933,42 +817,8 @@
       }
     }
 
-    .company-section{
-      padding:0px 0px 40px 0px;
-      .company-detail{
-        h2{
-          font-size: 26px;
-        }
-    }
-  }
-
-  .company-box-main{
-    margin-top: 40px;
-    .company-box{
-      width:calc(50% - 20px);
-    }
-  }
-  .audio-section{
-    min-height: 430px;
-    .audio-detail{
-      h2{
-        font-size: 26px;
-        line-height: normal;
-        margin-bottom: 10px;
-      }
-    }
-  }
-
-  }
-  @media screen and (max-width:480px){
-
-  .company-section{
-  .company-box-main{
-    .company-box{
-      width:calc(100% - 20px);
-    }
-  }
 }
+
 
 @media screen and (min-width:581px) and (max-width:768px) {
   .pl-18 {
@@ -1026,15 +876,6 @@
       }
     }
   }
-  .company-section{
-    .company-box-main{
-      margin-top: 40px;
-      justify-content: center;
-      .company-box{
-        width:calc(33.3333% - 20px);
-      }
-    }
-  }
 }
 
 @media screen and (min-width:769px) and (max-width:991px) {
@@ -1078,15 +919,6 @@
           }
         }
       }
-      }
-    }
-  }
-  .company-section{
-    .company-box-main{
-      justify-content: center;
-      margin-top: 40px;
-      .company-box{
-        width:calc(25% - 20px);
       }
     }
   }
@@ -1166,7 +998,6 @@
       }
     }
   }
-}
 
 :host ::ng-deep .custom-skeleton{
   border: 1px solid #efeeee;
