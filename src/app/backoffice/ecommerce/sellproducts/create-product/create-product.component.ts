@@ -31,11 +31,13 @@ export class CreateProductComponent {
   previewVisible: boolean = false;
   categoryList = [];
   languageList = [];
+  isSaving: boolean = false;
   storeDetails: Store = null;
   currentUser;
   memberDetails;
   productDetails;
   isLoading = false;
+
   fileList = [
 
   ];
@@ -68,6 +70,10 @@ export class CreateProductComponent {
       this.storeservice.getStoreById(user.uid).subscribe((storeDetails: Store) => {
         if (storeDetails && storeDetails[0])
           this.storeDetails = storeDetails[0];
+        else {
+          this.showStoreMessage();
+        }
+
         this.setfomFields();
 
       })
@@ -99,6 +105,8 @@ export class CreateProductComponent {
         this.productEditForm.controls['weight'].setValue(productDetails.weight);
         this.productEditForm.controls['salePrice'].setValue(productDetails.salePrice);
         this.productEditForm.controls['discountedPrice'].setValue(productDetails.discountedPrice);
+        this.productEditForm.controls['isDigitalProduct'].setValue(productDetails.isDigitalProduct);
+        
         this.fileList = productDetails.images ? productDetails.images : [];
         if (this.categoryList && this.categoryList.length == 0) {
           this.categoryService.getAll(productDetails.lang).subscribe((categoryList) => {
@@ -134,7 +142,8 @@ export class CreateProductComponent {
       quantity: [1, [Validators.required, Validators.pattern(quantity)]],
       tags: [],
       summary: ['', [Validators.required, Validators.maxLength(160)]],
-      lang: ['', [Validators.required]]
+      lang: ['', [Validators.required]],
+      isDigitalProduct: [false]
 
     });
   }
@@ -180,6 +189,16 @@ export class CreateProductComponent {
       nzTitle: "<i>" + $message + "</i>",
     });
   }
+  showStoreMessage(): void {
+    this.modalService.confirm({
+      nzTitle: this.translate.instant("StoreNotAvailable"),
+      nzContent: this.translate.instant("PleaseCreateStore"),
+      nzOnOk: () => {
+        this.route.navigate(["app/shop/sellproducts/store-settings"]);
+      }
+    });
+  }
+
 
 
   submitForm(): void {

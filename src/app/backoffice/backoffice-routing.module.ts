@@ -2,6 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../shared/guard/auth.guard';
 import { STAFF } from '../shared/constants/member-constant';
+import { NewsletterComponent } from './newsletter/newsletter.component';
+import { ECommerceFundingComponent } from './e-commerce-funding/e-commerce-funding.component';
+import { BusinessFundingComponent } from './business-funding/business-funding.component';
+import { MerchantProcessingComponent } from './merchant-processing/merchant-processing.component';
+import { BitcoinStoreComponent } from './bitcoin-store/bitcoin-store.component';
 
 
 const routes: Routes = [
@@ -50,6 +55,45 @@ const routes: Routes = [
   {
     path: 'shop',
     loadChildren: () => import('./ecommerce/ecommerce.module').then(m => m.EcommerceModule),
+  },
+  {
+    path: 'agency',
+    loadChildren: () => import('./agency/agency.module').then(m => m.AgencyModule),
+  },
+  {
+    path: 'newsletter',
+    component: NewsletterComponent,
+    data: {
+      title: "newsletter"
+    }
+  },
+  {
+    path: 'e-commerce-funding',
+    component: ECommerceFundingComponent,
+    data: {
+      title: "E-commerce Funding"
+    }
+  },
+  {
+    path: 'business-funding',
+    component: BusinessFundingComponent,
+    data: {
+      title: "Business Funding"
+    }
+  },
+  {
+    path: 'merchant-processing',
+    component: MerchantProcessingComponent,
+    data: {
+      title: "Merchant Processing"
+    }
+  },
+  {
+    path: 'bitcoin-store',
+    component: BitcoinStoreComponent,
+    data: {
+      title: "Bitcoin Store"
+    }
   }
 ];
 
