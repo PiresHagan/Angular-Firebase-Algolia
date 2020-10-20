@@ -16,7 +16,6 @@ export class HomeComponent implements OnInit {
   // secTitle:any='You might also like';
   heroLarge: any;
   heroSmall: any;
-  heroArticles: any;
   business: any;
   creative: any;
   entertainment: any;
@@ -29,7 +28,6 @@ export class HomeComponent implements OnInit {
   latestArticles: any;
   trendingArticles: any;
   editorArticles: any;
-  loading: boolean = true;
   private homeDocument = 'home';
 
   constructor(
@@ -53,11 +51,6 @@ export class HomeComponent implements OnInit {
     this.selectedLanguage = this.languageService.getSelectedLanguage();
 
     console.log(new Date());
-    this.cacheService.getSponsoredArticles(this.selectedLanguage).subscribe(articles => {
-      // todo this line is taking almost 5+ seconds
-      this.heroArticles = articles;
-      this.loading = false;
-    });
 
     this.cacheService.getTrendingStories(this.selectedLanguage).subscribe(articles => {
       // todo this line is taking almost 5+ seconds
@@ -83,11 +76,6 @@ export class HomeComponent implements OnInit {
       this.categories = this.categoryService.getAll(this.selectedLanguage);
       this.setArticleData();
       this.getAuthors();
-
-      this.cacheService.getSponsoredArticles(this.selectedLanguage).subscribe(articles => {
-        this.heroArticles = articles;
-        this.loading = false;
-      });
 
       this.cacheService.getTrendingStories(this.selectedLanguage).subscribe(articles => {
         this.trendingArticles = articles;

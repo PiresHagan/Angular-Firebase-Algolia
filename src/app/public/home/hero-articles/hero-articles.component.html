@@ -1,0 +1,315 @@
+<section class="is-hero">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-7 pl-18 article-height">
+            <nz-skeleton-element *ngIf="!heroArticles" [nzLoading]="loading" nzType="avatar" class="custom-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+            <a class="is-hero-card" *ngFor="let article of heroArticles | slice:0:1"
+                [routerLink]="['/',article.author.slug,article.slug]">
+                <div class="is-card-bg"
+                    [ngStyle]="{'background-image': 'url(' + replaceImage(article.image.url) + ')'}">
+                </div>
+                <div class="is-profile-main">
+                    <div class="is-card-author-group">
+                        <div class="overlay-icon">
+                            <img class="avatar"
+                            [src]="replaceImage(article?.author?.avatar?.url)!= unknown ? replaceImage(article?.author?.avatar?.url) : DefaultAvatar"
+                            [alt]="article?.author?.avatar?.alt" *ngIf="!(article?.author?.avatar?.cloudinary_id); else heroCloudinoryImg1">
+                            <ng-template  #heroCloudinoryImg1>
+                                <div class="cloudinary-img">
+                                    <cl-image loading="lazy" public-id="{{replaceImage(article?.author?.avatar?.cloudinary_id)}}" secure="true">
+                                        <cl-transformation width="70" height="70" gravity="face" crop="thumb">
+                                        </cl-transformation>
+                                        <cl-transformation radius="100">
+                                        </cl-transformation>
+                                      </cl-image>
+                                </div>
+                            </ng-template>
+                            
+                            <div class="special-icon" *ngIf="article.author.type==='company'">
+                                <img src="assets/images/company-icon.png" style="max-width: 22px;"/>
+                            </div>
+                            <div class="special-icon" *ngIf="article.author.type==='charity'">
+                                <img src="assets/images/charity-icon.png" />
+                            </div>
+                        </div>
+                        <span class="is-card-author">{{article.author.fullname}}
+                        </span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="is-card-btn">
+                        <button nz-button nzType="primary">{{article.category.title}}</button>
+                    </div>
+
+                </div>
+                <div class="is-card-content">
+                    <h2 class="is-small-title">
+                        <span>{{'heroStory' | translate}}</span>
+                        <div>{{article.title}}</div>
+                    </h2>
+                    <p class="is-card-description">{{article.excerpt | slice:0:100 }}</p>
+                    
+                       
+                </div>
+                <div class="article-comment-info">
+                    <div class="article-icon">
+                        <div class="icon-circle"  *ngIf="article.type==='audio'">
+                            <i class="fas fa-volume-down"></i>
+                        </div>
+                        <div class="icon-circle"  *ngIf="article.type==='video'">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="icon-circle"  *ngIf="!(article.type==='audio' || article.type==='video')">
+                            <i class="far fa-file-alt"></i>
+                        </div>
+                        <div  *ngIf="article.type==='audio'">
+                            <button type="button" class="is-read-more">{{'ListenNow' | translate }}<img
+                            src="assets/images/read-more-icon.png" alt="Listen Now" /></button>
+                        </div>
+                        <div  *ngIf="article.type==='video'">
+                            <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                            src="assets/images/read-more-icon.png" alt="Watch Now" /></button>
+                        </div>
+                        <div  *ngIf="!(article.type==='audio' || article.type==='video')">
+                            <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                            src="assets/images/read-more-icon.png" alt="Read More" /></button>
+                        </div>
+                    </div>
+                    <div class="comment-section">
+                        <ul>
+                            <li *ngIf="article.view_count">
+                                <a href="#">
+                                    <i class="fas fa-eye"></i>
+                                    {{article.view_count}}
+                                </a>
+                            </li>
+                            <li *ngIf="article.likes_count">
+                                <a href="#">
+                                    <i class="fas fa-heart"></i>
+                                    {{article.likes_count}}
+                                </a>
+                            </li>
+                            <li *ngIf="article.comments_count">
+                                <a href="#">
+                                    <i class="fa fa-comment"></i>
+                                    {{article.comments_count}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-5 pr-18 article-height">
+            <nz-skeleton-element *ngIf="!heroArticles" [nzLoading]="loading" nzType="avatar"  class="custom-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+            <a class="is-hero-card" *ngFor="let article of heroArticles | slice:1:2"
+                [routerLink]="['/',article.author.slug,article.slug]">
+                <div class="is-card-bg" [ngStyle]="{'background-image': 'url(' + replaceImage(article.image.url)+ ')'}">
+                </div>
+                <div class="is-profile-main">
+                    <div class="is-card-author-group">
+                        <div  class="overlay-icon">
+                            <img class="avatar"
+                            [src]="replaceImage(article.author.avatar?.url)!= unknown ? replaceImage(article.author.avatar?.url) : DefaultAvatar"
+                            [alt]="article.author.avatar?.alt" *ngIf="!(article.author.avatar?.cloudinary_id); else heroCloudinoryImg2">
+                            <ng-template #heroCloudinoryImg2>
+                                <div class="cloudinary-img">
+                                    <cl-image  loading="lazy" public-id="{{replaceImage(article.author.avatar.cloudinary_id)}}" secure="true">
+                                        <cl-transformation width="70" height="70" gravity="face" crop="thumb">
+                                        </cl-transformation>
+                                        <cl-transformation radius="100">
+                                        </cl-transformation>
+                                      </cl-image>
+                                </div>
+                            </ng-template>
+                            <div class="special-icon" *ngIf="article.author.type==='company'">
+                                <img src="assets/images/company-icon.png" style="max-width: 22px;"/>
+                            </div>
+                            <div class="special-icon" *ngIf="article.author.type==='charity'">
+                                <img src="assets/images/charity-icon.png" />
+                            </div>
+                        </div>
+                        <span class="is-card-author">{{article.author.fullname}}
+                        </span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="is-card-btn">
+                        <button nz-button nzType="primary">{{article.category.title}}</button>
+                    </div>
+
+                </div>
+                <div class="is-card-content">
+                    <h2 class="is-small-title">
+                        <span>{{'heroStory' | translate}}</span>
+                        <div>{{article.title}}</div>
+                    </h2>
+                    <p class="is-card-description">{{article.excerpt | slice:0:100 }}</p>
+                    
+                    
+                </div>
+                <div class="article-comment-info">
+                    <div class="article-icon">
+                        <div class="icon-circle"  *ngIf="article.type==='audio'">
+                            <i class="fas fa-volume-down"></i>
+                        </div>
+                        <div class="icon-circle"  *ngIf="article.type==='video'">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="icon-circle"  *ngIf="!(article.type==='audio' || article.type==='video')">
+                            <i class="far fa-file-alt"></i>
+                        </div>
+                        <div  *ngIf="article.type==='audio'">
+                            <button type="button" class="is-read-more">{{'ListenNow' | translate }}<img
+                            src="assets/images/read-more-icon.png" alt="Listen Now" /></button>
+                        </div>
+                        <div  *ngIf="article.type==='video'">
+                            <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                            src="assets/images/read-more-icon.png" alt="Watch Now" /></button>
+                        </div>
+                        <div  *ngIf="!(article.type==='audio' || article.type==='video')">
+                            <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                            src="assets/images/read-more-icon.png" alt="Read More" /></button>
+                        </div>
+                    </div>
+                    <div class="comment-section">
+                        <ul>
+                            <li *ngIf="article.view_count">
+                                <a href="#">
+                                    <i class="fas fa-eye"></i>
+                                    {{article.view_count}}
+                                </a>
+                            </li>
+                            <li *ngIf="article.likes_count">
+                                <a href="#">
+                                    <i class="fas fa-heart"></i>
+                                    {{article.likes_count}}
+                                </a>
+                            </li>
+                            <li *ngIf="article.comments_count">
+                                <a href="#">
+                                    <i class="fa fa-comment"></i>
+                                    {{article.comments_count}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="is-bottom-hero">
+            <div class="row is-row-height pt-18">
+                <div class="article-height col-12 col-sm-12 col-md-12 col-lg-4" *ngIf="!heroArticles">
+                    <nz-skeleton-element nzType="avatar" [nzLoading]="loading" class="custom-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+                </div>
+                <div class="article-height col-12 col-sm-12 col-md-12 col-lg-4" *ngIf="!heroArticles">
+                    <nz-skeleton-element nzType="avatar" [nzLoading]="loading" class="custom-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+                </div>
+                <div class="article-height col-12 col-sm-12 col-md-12 col-lg-4" *ngIf="!heroArticles">
+                    <nz-skeleton-element nzType="avatar" [nzLoading]="loading" class="custom-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+                </div>
+                <div *ngFor="let article of heroArticles | slice:2:5"
+                    [routerLink]="['/',article.author.slug,article.slug]" class="article-height col-12 col-sm-12 col-md-12 col-lg-4">
+                    <a class="is-hero-card is-small-card"> 
+
+                        <div class="is-card-bg"
+                            [ngStyle]="{'background-image': 'url(' + replaceImage(article.image.url)+ ')'}"></div>
+                        <div class="is-profile-main">
+                            <div class="is-card-author-group">
+                                <div  class="overlay-icon">
+                                    <img class="avatar"
+                                        [src]="replaceImage(article.author.avatar?.url)!= unknown ? replaceImage(article.author.avatar?.url) : DefaultAvatar"
+                                        [alt]="article.author.avatar?.alt" *ngIf="!(article.author.avatar?.cloudinary_id); else heroCloudinoryImg3">
+                                        <ng-template #heroCloudinoryImg3>
+                                            <div class="cloudinary-img">
+                                                <cl-image  loading="lazy" public-id="{{replaceImage(article.author.avatar.cloudinary_id)}}" secure="true">
+                                                    <cl-transformation width="70" height="70" gravity="face" crop="thumb">
+                                                    </cl-transformation>
+                                                    <cl-transformation radius="100">
+                                                    </cl-transformation>
+                                                  </cl-image>
+                                            </div>
+                                        </ng-template>
+                                        <div class="special-icon" *ngIf="article.author.type==='company'">
+                                            <img src="assets/images/company-icon.png" style="max-width: 22px;"/>
+                                        </div>
+                                        <div class="special-icon" *ngIf="article.author.type==='charity'">
+                                            <img src="assets/images/charity-icon.png" />
+                                        </div>
+                                </div>
+                                <span class="is-card-author">{{article.author.fullname}}</span>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="is-card-btn">
+                                <button nz-button nzType="primary">{{article.category.title}}</button>
+                            </div>
+
+                        </div>
+                        <div class="is-card-content">
+                            <h2 class="is-small-title">
+                                <span>{{'heroStory' | translate}}</span>
+                                <div>{{article.title}}</div>
+                            </h2>
+                            <p class="is-card-description">{{article.excerpt}}</p>
+                            
+
+                        </div>
+                        <div class="article-comment-info">
+                            <div class="article-icon">
+                                
+                                <div class="icon-circle"  *ngIf="article.type==='video'">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div class="icon-circle"  *ngIf="article.type==='audio'">
+                                    <i class="fas fa-volume-down"></i>
+                                </div>
+                                <div class="icon-circle"  *ngIf="!(article.type==='audio' || article.type==='video')">
+                                    <i class="far fa-file-alt"></i>
+                                </div>
+                                <div  *ngIf="article.type==='audio'">
+                                    <button type="button" class="is-read-more">{{'ListenNow' | translate }}<img
+                                    src="assets/images/read-more-icon.png" alt="Listen Now" /></button>
+                                </div>
+                                <div  *ngIf="article.type==='video'">
+                                    <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                                    src="assets/images/read-more-icon.png" alt="Watch Now" /></button>
+                                </div>
+                                <div  *ngIf="!(article.type==='audio' || article.type==='video')">
+                                    <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                                    src="assets/images/read-more-icon.png" alt="Read More" /></button>
+                                </div>
+                            </div>
+                            <div class="comment-section">
+                                <ul>
+                                    <li *ngIf="article.view_count">
+                                        <a href="#">
+                                            <i class="fas fa-eye"></i>
+                                            {{article.view_count}}
+                                        </a>
+                                    </li>
+                                    <li *ngIf="article.likes_count">
+                                        <a href="#">
+                                            <i class="fas fa-heart"></i>
+                                            {{article.likes_count}}
+                                        </a>
+                                    </li>
+                                    <li *ngIf="article.comments_count">
+                                        <a href="#">
+                                            <i class="fa fa-comment"></i>
+                                            {{article.comments_count}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+</section>
