@@ -347,3 +347,111 @@
         }
     }
 }
+
+// Article Mobile 
+.life-and-styles,
+.vie-et-styles,
+.vida-y-estilos {
+  &.xs-article-category {
+    background: #fbca20 !important;
+  }
+  &.category {
+    color: #fbca20 !important;
+  }
+}
+.creative {
+  &.xs-article-category {
+    background: #88827a !important;
+  }
+  &.category {
+    color: #88827a !important;
+  }
+}
+
+.news,
+.nouvelles,
+.noticias {
+  &.xs-article-category {
+    background: #faaf44 !important;
+  }
+  &.category {
+    color: #faaf44 !important;
+  }
+}
+
+.entertainment,
+.divertissement,
+.entretenimiento {
+  &.xs-article-category {
+    background: #f64747 !important;
+  }
+  &.category {
+    color: #f64747 !important;
+  }
+}
+
+.business,
+.Entreprise,
+.negocio {
+  &.xs-article-category {
+    background: #2baad3 !important;
+  }
+  &.category {
+    color: #2baad3 !important;
+  }
+}
+
+.tech-and-science,
+.technologie-et-science,
+.tech-y-la-ciencia {
+  &.xs-article-category {
+    background: #3fbb22 !important;
+  }
+  &.category {
+    color: #3fbb22 !important;
+  }
+}
+
+.Opinion,
+.Opinion,
+.OPINIÓN {
+  &.xs-article-category {
+    background: #7122bb !important;
+  }
+  &.category {
+    color: #7122bb !important;
+  }
+}
+
+.sport,
+.sport-fr,
+.deporte {
+  &.xs-article-category {
+    background: #2baad3 !important;
+  }
+  &.category {
+    color: #2baad3 !important;
+  }
+}
+
+.viral,
+.viral-fr,
+.viral-es {
+  &.xs-article-category {
+    background: #f64747 !important;
+  }
+  &.category {
+    color: #f64747 !important;
+  }
+}
+
+.religion,
+.religion-fr,
+.religión {
+  &.xs-article-category {
+    background: #23d7d5 !important;
+  }
+  &.category {
+    color: #23d7d5 !important;
+  }
+}
