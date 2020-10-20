@@ -10,11 +10,13 @@ import { createTranslateLoader, SharedModule } from 'src/app/shared/shared.modul
 import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
 import { Cloudinary } from 'cloudinary-core';
 import { HeroArticlesComponent } from './hero-articles/hero-articles.component';
+import { TopContributorsComponent } from './top-contributors/top-contributors.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    HeroArticlesComponent
+    HeroArticlesComponent,
+    TopContributorsComponent
   ],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),

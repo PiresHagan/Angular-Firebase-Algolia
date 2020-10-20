@@ -20,11 +20,9 @@ export class HomeComponent implements OnInit {
   creative: any;
   entertainment: any;
   life: any;
-  showTooltip: string = '';
   selectedLanguage: string = '';
   slugWiseData = {};
   categories: any;
-  authorList: any;
   latestArticles: any;
   trendingArticles: any;
   editorArticles: any;
@@ -67,7 +65,6 @@ export class HomeComponent implements OnInit {
       this.editorArticles = articles;
     });
 
-    this.getAuthors();
     this.categories = this.categoryService.getAll(this.selectedLanguage);
     this.setArticleData();
 
@@ -75,7 +72,6 @@ export class HomeComponent implements OnInit {
       this.selectedLanguage = this.languageService.getSelectedLanguage()
       this.categories = this.categoryService.getAll(this.selectedLanguage);
       this.setArticleData();
-      this.getAuthors();
 
       this.cacheService.getTrendingStories(this.selectedLanguage).subscribe(articles => {
         this.trendingArticles = articles;
@@ -102,10 +98,6 @@ export class HomeComponent implements OnInit {
       });
 
     })
-  }
-
-  getAuthors() {
-    this.authorList = this.cacheService.getTopContributors(this.selectedLanguage);
   }
 
   replaceImage(url) {
