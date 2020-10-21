@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
+import { Cloudinary } from 'cloudinary-core';
 
 import { CompaniesComponent } from './companies.component';
 import { CompanyFollowerListComponent } from './company/company-follower-list/company-follower-list.component';
@@ -21,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CompanyFollowerListComponent
   ],
   imports: [
+    CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
     CommonModule,
     CompaniesRoutingModule,
     ReactiveFormsModule,
