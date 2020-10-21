@@ -31,6 +31,7 @@ export class CategoryComponent implements OnInit {
   });
   errorSubscribe: boolean = false;
   successSubscribe: boolean = false;
+  categoryskeletonData:any;
   constructor(
     private categoryService: CategoryService,
     private articleService: ArticleService,
@@ -73,6 +74,10 @@ export class CategoryComponent implements OnInit {
 
       this.getPageDetails();
     });
+    
+    this.categoryskeletonData = new Array(20).fill({}).map((_i, index) => {
+      return 
+    });
   }
 
   scrollEvent = (event: any): void => {
@@ -96,13 +101,13 @@ export class CategoryComponent implements OnInit {
 
   private groupArticlesWithAd(articles: Article[]): void {
     if (articles.length > 0) {
+      const pos = this.articleGroups.length;
 
       const ad: AdItemData = {
-        id: 'div-gpt-ad-' + Date.now() + '-' + parseInt((Math.random() * 1000000).toString()), // random id
+        id: `div-gpt-ad-infinite-scroll-${pos}`
       };
 
       const newGroup = { articles: articles, adItem: ad };
-
       this.articleGroups.push(newGroup);
     }
   }
