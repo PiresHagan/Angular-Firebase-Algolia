@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
+import { Cloudinary } from 'cloudinary-core';
 
 import { CharityListComponent } from './charity-list.component';
 import { CharityComponent } from './charity/charity.component';
@@ -23,6 +25,7 @@ import { environment } from 'src/environments/environment';
     CharityFollowerListComponent
   ],
   imports: [
+    CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
     CommonModule,
     CharityListRoutingModule,
     ReactiveFormsModule,

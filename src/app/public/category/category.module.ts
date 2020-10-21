@@ -6,7 +6,7 @@ import { Cloudinary } from 'cloudinary-core';
 import { CategoryComponent } from './category.component';
 
 import { CategoryRoutingModule } from './category-routing.module';
-import { createTranslateLoader } from 'src/app/shared/shared.module';
+import { createTranslateLoader, SharedModule } from 'src/app/shared/shared.module';
 import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -22,6 +22,7 @@ import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
     CategoryRoutingModule,
     ReactiveFormsModule,
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } }),
+    SharedModule,
     NzSkeletonModule
   ]
 })
