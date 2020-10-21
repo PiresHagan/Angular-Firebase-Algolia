@@ -37,21 +37,24 @@
       <div adItem id="div-gpt-ad-1599554538840-0" style="width: 728px; height: 90px; margin:0 auto;"></div>
     </div>
 
-    <div class="is-comman-title">
-      {{pageHeader}}
-    </div>
-    <section *ngIf="category" class="is-cat-box-card-main">
-      <div class="cat-box">
-        <div class="container">
-          <div class="cat-box-gallery">
-            <div class="row article-row">
-              <ng-container *ngFor="let grp of articleGroups">
-                <ng-container *ngIf="grp.articles">
-                  <div class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5" *ngFor="let article of grp.articles"
-                    [ngClass]="category.slug">
-                    <div class="item-card item-card-life-and-styles">
-                      <a [routerLink]="['/',article.author.slug,article.slug]">
-                        <div class="item-card-image">
+        <div class="is-comman-title">
+            {{pageHeader}}
+        </div>
+        <section class="is-cat-box-card-main">
+            <div class="cat-box">
+                <div class="container">
+                    <div class="cat-box-gallery">
+                        <div class="row" *ngIf="!articles">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5" *ngFor="let article of categoryskeletonData">
+                                <nz-skeleton *ngIf="!articles" [nzAvatar]="true" [nzParagraph]="{ rows: 6 }" class="custom-skeleton card-skeleton"></nz-skeleton>
+                            </div>
+                        </div>
+                        <div class="row article-row">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5" *ngFor="let article of articles"
+                                [ngClass]="category.slug">
+                                <div class="item-card item-card-life-and-styles">
+                                    <a [routerLink]="['/',article.author.slug,article.slug]">
+                                        <div class="item-card-image">
 
                           <img [src]="replaceImage(article?.image?.url)" [alt]="article?.image?.alt"
                             *ngIf="!(article.image.cloudinary_id); else CateCloudinoryImg">

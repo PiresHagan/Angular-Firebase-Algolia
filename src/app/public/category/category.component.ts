@@ -31,6 +31,7 @@ export class CategoryComponent implements OnInit {
   });
   errorSubscribe: boolean = false;
   successSubscribe: boolean = false;
+  categoryskeletonData:any;
   constructor(
     private categoryService: CategoryService,
     private articleService: ArticleService,
@@ -72,6 +73,10 @@ export class CategoryComponent implements OnInit {
       });
 
       this.getPageDetails();
+    });
+    
+    this.categoryskeletonData = new Array(20).fill({}).map((_i, index) => {
+      return 
     });
   }
 
