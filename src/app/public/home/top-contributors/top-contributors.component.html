@@ -1,0 +1,69 @@
+<section class="is-follower-member">
+
+    <div class="container">
+        <div class="is-comman-title">
+            <!-- You might also like : -->
+            {{'secTitle' | translate }}
+        </div>
+        <div class="is-member margin-minus"  *ngIf="!(authorList | async)">
+            <div class="is-member-item" *ngFor="let repeatSkeleton of skeletonData">
+                <nz-skeleton-element *ngIf="!(authorList | async)" [nzLoading]="loading" nzType="avatar" class="custom-skeleton circle-box-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+            </div>
+        </div>
+        <div class="is-member">
+            <div class="is-member-item" *ngFor="let author of (authorList | async)" [ngClass]="showTooltip"
+                (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
+
+                <a [routerLink]="['/',author.slug]" class="is-profile-img-link">
+                    <img [src]="replaceImage(author?.avatar?.url)!= unknown ? replaceImage(author?.avatar?.url) : DefaultAvatar"
+                        class="is-profile" [alt]="author?.avatar?.alt" *ngIf="!(author.avatar.cloudinary_id); else authorCloudinoryImg">
+                        <ng-template #authorCloudinoryImg>
+                            <div class="cloudinary-img">
+                                <cl-image  loading="lazy" public-id="{{replaceImage(author.avatar.cloudinary_id)}}" secure="true">
+                                    <cl-transformation width="100" height="100" gravity="face" crop="thumb">
+                                    </cl-transformation>
+                                    <cl-transformation radius="100">
+                                    </cl-transformation>
+                                  </cl-image>
+                            </div>
+                        </ng-template>
+
+                </a>
+
+                <div class="is-member-hover">
+                    <div class="is-member-profile-header">
+                        <h3>{{author?.fullname}} </h3>
+                        <img class="is-profile-hover-img"
+                            [src]="replaceImage(author?.avatar?.url)!= unknown ? replaceImage(author?.avatar?.url) : DefaultAvatar"
+                            [alt]="author?.avatar?.alt"  *ngIf="!(author.avatar.cloudinary_id); else authorAvatarCloudinoryImg" />
+                            <ng-template #authorAvatarCloudinoryImg>
+                                <div class="cloudinary-img">
+                                    <cl-image  loading="lazy" public-id="{{replaceImage(author.avatar.cloudinary_id)}}" secure="true">
+                                        <cl-transformation width="60" height="60" gravity="face" crop="thumb">
+                                        </cl-transformation>
+                                        <cl-transformation radius="100">
+                                        </cl-transformation>
+                                      </cl-image>
+                                </div>
+                            </ng-template>
+                    </div>
+                    <div class="is-member-profile-body">
+                        <p innerHTML="{{author?.biography_en || author?.biography_es || author?.biography_fr}}"
+                            class="author-bio">
+                        </p>
+                        <!-- <div class="is-profile-tag">
+                            <span class="is-tag is-red">Entertainment</span>
+                            <span class="is-tag is-purple">Opinion</span>
+                            <span class="is-tag is-yellow">Life and Styles</span>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="is-more-btn">
+            <button nz-button nzType="primary" class="is-see-more" routerLink="/today">
+                {{'ViewAllStory' | translate}}</button>
+        </div>
+    </div>
+</section>
