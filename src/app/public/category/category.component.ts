@@ -96,13 +96,13 @@ export class CategoryComponent implements OnInit {
 
   private groupArticlesWithAd(articles: Article[]): void {
     if (articles.length > 0) {
+      const pos = this.articleGroups.length;
 
       const ad: AdItemData = {
-        id: 'div-gpt-ad-' + Date.now() + '-' + parseInt((Math.random() * 1000000).toString()), // random id
+        id: `div-gpt-ad-infinite-scroll-${pos}`
       };
 
       const newGroup = { articles: articles, adItem: ad };
-
       this.articleGroups.push(newGroup);
     }
   }

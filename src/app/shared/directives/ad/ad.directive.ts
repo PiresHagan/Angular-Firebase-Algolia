@@ -14,7 +14,6 @@ export interface AdItemData {
 })
 export class AdDirective implements OnInit, AfterViewInit {
   @Input() id: string;
-  @Input() slot: string;
 
   constructor(
     private element: ElementRef,
@@ -23,17 +22,6 @@ export class AdDirective implements OnInit, AfterViewInit {
   ngOnInit(): void {
     if (!this.id) {
       throw Error('Ad item ID must be specified');
-    }
-
-    if (this.slot) {
-      this.checkAdScript(() => {
-        const googletag = window['googletag'];
-
-        googletag.cmd.push(function () {
-          googletag.defineSlot(this.slot, [970, 250], this.id)
-            .addService(googletag.pubads());
-        });
-      });
     }
   }
 

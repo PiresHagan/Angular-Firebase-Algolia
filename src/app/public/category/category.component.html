@@ -157,12 +157,10 @@
 
                 <ng-container *ngIf="grp.adItem">
                   <div class="col-12" style="padding: 10px 0;">
-                    <div class="desktop_ad" adItem slot="/107720708/adxp_mytrendingstories_billboard"
-                      [id]="grp.adItem.id">
+                    <div class="desktop_ad" adItem [id]="'desktop_'+grp.adItem.id">
                     </div>
 
-                    <div class="mobile_ad" adItem slot="/107720708/adxp_mytrendingstories_mRectangle"
-                      [id]="grp.adItem.id">
+                    <div class="mobile_ad" adItem [id]="'mobile_'+grp.adItem.id">
                     </div>
                   </div>
                 </ng-container>

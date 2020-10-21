@@ -47,6 +47,18 @@ function initiateAds() {
       googletag.defineSlot('/107720708/adxp_mytrendingstories_SmartphoneBanner', [320, 50], 'div-gpt-ad-1599554668927-0').addService(googletag.pubads());
       googletag.defineSlot('/107720708/adxp_mytrendingstories_smartphoneBanner_1', [320, 50], 'div-gpt-ad-1599554708106-0').addService(googletag.pubads());
 
+      // prgrammatically creates 'x' number of ad slots for categories infinite scroll
+      const size = 50;
+      for (let i = 0; i < size; i++) {
+        // for desktop
+        googletag.defineSlot('/107720708/adxp_mytrendingstories_billboard', [970, 250], `desktop_div-gpt-ad-infinite-scroll-${i}`)
+          .addService(googletag.pubads());
+
+        // for mobile
+        googletag.defineSlot('/107720708/adxp_mytrendingstories_mRectangle', [300, 250], `mobile_div-gpt-ad-infinite-scroll-${i}`)
+          .addService(googletag.pubads());
+      }
+
       googletag.pubads().disableInitialLoad();
       // googletag.pubads().enableSingleRequest();
       // googletag.pubads().collapseEmptyDivs();
