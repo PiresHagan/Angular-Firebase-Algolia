@@ -109,6 +109,11 @@ export class HomeComponent implements OnInit {
     }
     return latestURL;
   }
-
+  skeletonData = new Array(5).fill({}).map((_i, index) => {
+    return 
+  });
+  TrendingskeletonData = new Array(15).fill({}).map((_i, index) => {
+    return 
+  });
 }
 
