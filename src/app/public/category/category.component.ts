@@ -31,7 +31,7 @@ export class CategoryComponent implements OnInit {
   });
   errorSubscribe: boolean = false;
   successSubscribe: boolean = false;
-  categoryskeletonData:any;
+  categoryskeletonData: any;
   constructor(
     private categoryService: CategoryService,
     private articleService: ArticleService,
@@ -74,9 +74,9 @@ export class CategoryComponent implements OnInit {
 
       this.getPageDetails();
     });
-    
+
     this.categoryskeletonData = new Array(20).fill({}).map((_i, index) => {
-      return 
+      return
     });
   }
 
@@ -104,7 +104,7 @@ export class CategoryComponent implements OnInit {
       const pos = this.articleGroups.length;
 
       const ad: AdItemData = {
-        id: `div-gpt-ad-infinite-scroll-${pos}`
+        id: `category_ad-${pos}`
       };
 
       const newGroup = { articles: articles, adItem: ad };
