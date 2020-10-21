@@ -48,8 +48,6 @@ export class HomeComponent implements OnInit {
 
     this.selectedLanguage = this.languageService.getSelectedLanguage();
 
-    console.log(new Date());
-
     this.cacheService.getTrendingStories(this.selectedLanguage).subscribe(articles => {
       // todo this line is taking almost 5+ seconds
       this.trendingArticles = articles;
@@ -110,10 +108,10 @@ export class HomeComponent implements OnInit {
     return latestURL;
   }
   skeletonData = new Array(5).fill({}).map((_i, index) => {
-    return 
+    return
   });
   TrendingskeletonData = new Array(15).fill({}).map((_i, index) => {
-    return 
+    return
   });
 }
 
