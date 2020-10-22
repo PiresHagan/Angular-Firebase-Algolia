@@ -33,6 +33,8 @@ export class AdDirective implements OnInit, AfterViewInit {
         googletag.display(this.id);
         googletag.pubads().refresh();
       });
+
+      console.log(this.id);
     });
   }
 

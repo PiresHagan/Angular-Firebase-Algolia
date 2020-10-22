@@ -104,7 +104,7 @@ export class CategoryComponent implements OnInit {
       const pos = this.articleGroups.length;
 
       const ad: AdItemData = {
-        id: `category_ad-${pos}`
+        id: `category_ad_${pos}`
       };
 
       const newGroup = { articles: articles, adItem: ad };

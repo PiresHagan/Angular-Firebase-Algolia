@@ -51,11 +51,11 @@ function initiateAds() {
       const size = 50;
       for (let i = 0; i < size; i++) {
         // for desktop
-        googletag.defineSlot('/107720708/adxp_mytrendingstories_billboard', [970, 250], `desktop_category_ad-${i}`)
+        googletag.defineSlot('/107720708/adxp_mytrendingstories_billboard', [970, 250], `desktop_category_ad_${i}`)
           .addService(googletag.pubads());
 
         // for mobile
-        googletag.defineSlot('/107720708/adxp_mytrendingstories_mRectangle', [300, 250], `mobile_category_ad-${i}`)
+        googletag.defineSlot('/107720708/adxp_mytrendingstories_mRectangle', [300, 250], `mobile_category_ad_${i}`)
           .addService(googletag.pubads());
       }
 
