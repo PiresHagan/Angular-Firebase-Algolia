@@ -6,7 +6,7 @@
                     {{ 'fundraisers' | translate }}
                 </div>
             </div>
-            <div class="cat-box-gallery">
+            <div class="cat-box-gallery" *ngIf="fundraisers">
                 <div class="row article-row">
                     <div *ngFor="let fundraiser of fundraisers" class="col-lg-3 col-md-4 col-sm-6 col-12 box_shadow">
                         <div class="item-card item-card-life-and-styles">
