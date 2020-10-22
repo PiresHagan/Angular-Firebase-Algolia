@@ -40,14 +40,15 @@
     <div class="is-comman-title">
       {{pageHeader}}
     </div>
-    <section  *ngIf="!category">
+    <section *ngIf="!category">
       <div class="cat-box">
         <div class="container">
           <div class="row">
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5" *ngFor="let article of categoryskeletonData">
-                <nz-skeleton *ngIf="!category" [nzAvatar]="true" [nzParagraph]="{ rows: 6 }" class="custom-skeleton card-skeleton"></nz-skeleton>
+              <nz-skeleton *ngIf="!category" [nzAvatar]="true" [nzParagraph]="{ rows: 6 }"
+                class="custom-skeleton card-skeleton"></nz-skeleton>
             </div>
-        </div>
+          </div>
         </div>
       </div>
     </section>
@@ -168,11 +169,13 @@
 
                 <ng-container *ngIf="grp.adItem">
                   <div class="col-12" style="padding: 10px 0;">
-                    <div class="desktop_ad" adItem [id]="'desktop_'+grp.adItem.id">
+                    <div class="desktop_ad">
+                      <div adItem [id]="'desktop_'+grp.adItem.id"></div>
                     </div>
 
-                    <div class="mobile_ad" adItem [id]="'mobile_'+grp.adItem.id">
-                    </div>
+                    <!-- <div class="mobile_ad">
+                      <div adItem [id]="'mobile_'+grp.adItem.id"></div>
+                    </div> -->
                   </div>
                 </ng-container>
               </ng-container>
