@@ -73,7 +73,6 @@ function initiateAds() {
 
       // initializes ads placeholders after defining slots
       googletag.pubads().disableInitialLoad();
-      // googletag.pubads().enableSingleRequest();
       googletag.pubads().collapseEmptyDivs();
       googletag.enableServices();
 
