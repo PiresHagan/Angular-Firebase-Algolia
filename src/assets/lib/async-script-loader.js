@@ -36,7 +36,7 @@ function initiateAds() {
   if (gtag && gtag.apiReady) {
     googletag.cmd.push(function () {
       // prgrammatically creates 'x' number of ad slots for categories infinite scroll
-      const size = 50;
+      const size = 10;
       for (let i = 0; i < size; i++) {
         // for desktop
         googletag.defineSlot('/107720708/adxp_mytrendingstories_billboard', [970, 250], `desktop_category_ad_${i}`)
@@ -61,7 +61,7 @@ function initiateAds() {
 
       googletag.pubads().disableInitialLoad();
       // googletag.pubads().enableSingleRequest();
-      // googletag.pubads().collapseEmptyDivs();
+      googletag.pubads().collapseEmptyDivs();
       googletag.enableServices();
     });
   } else {
