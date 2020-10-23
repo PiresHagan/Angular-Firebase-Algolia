@@ -57,7 +57,7 @@
         <div class="container">
           <div class="cat-box-gallery">
             <div class="row article-row">
-              <ng-container *ngFor="let grp of articleGroups">
+              <ng-container *ngFor="let grp of articleGroups; let ind = index">
                 <ng-container *ngIf="grp.articles">
                   <div class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5" *ngFor="let article of grp.articles"
                     [ngClass]="category.slug">
@@ -169,12 +169,9 @@
 
                 <ng-container *ngIf="grp.adItem">
                   <div class="col-12" style="padding: 10px 0;">
-                    <div class="desktop_ad">
-                      <div adItem id="{{'desktop_'+grp.adItem.id}}"></div>
-                    </div>
+                    <div class="desktop_ad" adItem [pointer]="'desktop_category_ad_'+ind"></div>
 
-                    <div class="mobile_ad">
-                      <div adItem id="{{'mobile_'+grp.adItem.id}}"></div>
+                    <div class="mobile_ad" adItem id="{{'mobile_'+grp.adItem.id}}">
                     </div>
                   </div>
                 </ng-container>
@@ -187,3 +184,12 @@
 
   </div>
 </section>
+
+<div style="height: 0; width: 0; overflow: hidden;">
+  <div class="desktop_ad" adItem id="desktop_category_ad_0"></div>
+  <div class="desktop_ad" adItem id="desktop_category_ad_1"></div>
+  <div class="desktop_ad" adItem id="desktop_category_ad_2"></div>
+  <div class="desktop_ad" adItem id="desktop_category_ad_3"></div>
+  <div class="desktop_ad" adItem id="desktop_category_ad_4"></div>
+  <div class="desktop_ad" adItem id="desktop_category_ad_5"></div>
+</div>

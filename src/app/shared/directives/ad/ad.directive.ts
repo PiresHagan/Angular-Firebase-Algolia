@@ -14,18 +14,22 @@ export interface AdItemData {
 })
 export class AdDirective implements OnInit, AfterViewInit {
   @Input() id: string;
+  @Input() pointer: string;
 
   constructor(
     private element: ElementRef,
   ) { }
 
   ngOnInit(): void {
-    if (!this.id) {
+    if (!this.id && !this.pointer) {
       throw Error('Ad item ID must be specified');
     }
   }
 
   ngAfterViewInit() {
+    // sets ID attr in case it was escaped
+    this.element.nativeElement.setAttribute('id', this.pointer || this.id);
+
     this.checkAdScript(() => {
       const googletag = window['googletag'];
 
@@ -34,7 +38,9 @@ export class AdDirective implements OnInit, AfterViewInit {
         googletag.pubads().refresh();
       });
 
-      console.log(this.id);
+      if (this.pointer) {
+        console.log(this.element.nativeElement);
+      }
     });
   }
 
