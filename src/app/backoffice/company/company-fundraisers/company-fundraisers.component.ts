@@ -44,10 +44,11 @@ export class CompanyFundraisersComponent implements OnInit {
   }
 
   scrollEvent = (event: any): void => {
-    if (event.target && event.target.documentElement) {
-      const top = event.target.documentElement.scrollTop
-      const height = event.target.documentElement.scrollHeight
-      const offset = event.target.documentElement.offsetHeight
+    let documentElement = event.target.documentElement ? event.target.documentElement : event.target;
+    if (documentElement) {
+      const top = documentElement.scrollTop
+      const height = documentElement.scrollHeight
+      const offset = documentElement.offsetHeight
       if (top > height - offset - 1 - 100 && this.lastVisible && !this.loadingMore) {
         let authorId = this.activatedRoute.snapshot.queryParams["company"];
         if (!authorId)

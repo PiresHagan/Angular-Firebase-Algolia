@@ -2,7 +2,7 @@
 
 <app-top-contributors></app-top-contributors>
 
-<section class="is-cat-box-card-main" *ngIf="latestArticles">
+<section class="is-cat-box-card-main">
     <div class="cat-box bg-white">
        <div class="container">
           <div class="cat-box-title">
@@ -12,6 +12,11 @@
              </div>
           </div>
           <div class="cat-box-gallery">
+             <div class="row" *ngIf="!latestArticles">
+               <div class="col-sm-15" *ngFor="let article of skeletonData">
+                  <nz-skeleton *ngIf="!latestArticles" [nzAvatar]="true" [nzParagraph]="{ rows: 6 }" class="custom-skeleton card-skeleton"></nz-skeleton>
+              </div>
+             </div>
              <div class="row article-row">
                 <div class="col-sm-15 box_shadow"  *ngFor="let article of latestArticles | slice:5:10" [ngClass]="article.category.slug">
                  <div class="item-card item-card-life-and-styles">
@@ -127,7 +132,7 @@
     </div>
     </div>
  </section>
- <section class="is-cat-box-card-main" *ngIf="trendingArticles">
+ <section class="is-cat-box-card-main">
     <div class="cat-box bg-white">
        <div class="container">
           <div class="cat-box-title">
@@ -137,6 +142,11 @@
              </div>
           </div>
           <div class="cat-box-gallery">
+            <div class="row" *ngIf="!trendingArticles">
+               <div class="col-sm-15" *ngFor="let article of TrendingskeletonData">
+                  <nz-skeleton *ngIf="!latestArticles" [nzAvatar]="true" [nzParagraph]="{ rows: 6 }" class="custom-skeleton card-skeleton"></nz-skeleton>
+              </div>
+             </div>
              <div class="row article-row">
                 <div class="col-sm-15 box_shadow"  *ngFor="let article of trendingArticles | slice:0:15"  [ngClass]="article.category.slug">
                 <div class="item-card item-card-life-and-styles">
@@ -252,7 +262,7 @@
     </div>
     </div>
  </section>
- <section class="is-cat-box-card-main" *ngIf="editorArticles">
+ <section class="is-cat-box-card-main">
     <div class="cat-box bg-white">
        <div class="container">
           <div class="cat-box-title">
@@ -262,6 +272,11 @@
              </div>
           </div>
           <div class="cat-box-gallery">
+            <div class="row" *ngIf="!trendingArticles">
+               <div class="col-sm-15" *ngFor="let article of skeletonData">
+                  <nz-skeleton *ngIf="!editorArticles" [nzAvatar]="true" [nzParagraph]="{ rows: 6 }" class="custom-skeleton card-skeleton"></nz-skeleton>
+              </div>
+             </div>
              <div class="row article-row">
                 <div class="col-sm-15 box_shadow"  *ngFor="let article of editorArticles | slice:0:5" [ngClass]="article.category.slug">
                  <div class="item-card item-card-life-and-styles">
