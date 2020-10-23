@@ -32,6 +32,8 @@ export class CategoryComponent implements OnInit {
   errorSubscribe: boolean = false;
   successSubscribe: boolean = false;
   categoryskeletonData: any;
+  public isMobile: boolean;
+
   constructor(
     private categoryService: CategoryService,
     private articleService: ArticleService,
@@ -45,6 +47,9 @@ export class CategoryComponent implements OnInit {
   ngOnInit(): void {
     window.addEventListener('scroll', this.scrollEvent, true);
     this.selectedLanguage = this.languageService.getSelectedLanguage();
+
+    this.isMobile = window.innerWidth < 767;
+    console.log(this.isMobile);
 
     this.route.queryParams.subscribe(() => {
       this.topic = this.route.snapshot.queryParamMap.get('topic');
