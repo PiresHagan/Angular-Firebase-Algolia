@@ -32,12 +32,14 @@ export class AdDirective implements OnInit, AfterViewInit {
 
     this.checkAdScript(() => {
       const googletag = window['googletag'];
-      const allGoogleAdSlots: { ref: any, data: AdItemData }[] = window['allGoogleAdSlots'];
-      const slot = allGoogleAdSlots.find(item => item.data.id === this.pointer);
 
       googletag.cmd.push(() => {
         googletag.display(this.pointer);
-        googletag.pubads().refresh(slot.ref);
+
+        const allGoogleAdSlots: { ref: any, data: AdItemData }[] = window['allGoogleAdSlots'];
+        const slot = allGoogleAdSlots.find(item => item.data.id === this.pointer);
+
+        googletag.pubads().refresh([slot.ref]);
       });
     });
   }
