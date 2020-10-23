@@ -34,7 +34,7 @@
     </div>
 
     <div class="ads-box" *ngIf="category">
-      <div adItem id="div-gpt-ad-1599554538840-0" style="width: 728px; height: 90px; margin:0 auto;"></div>
+      <div adItem pointer="div-gpt-ad-1599554538840-0" style="width: 728px; height: 90px; margin:0 auto;"></div>
     </div>
 
     <div class="is-comman-title">
@@ -169,10 +169,9 @@
 
                 <ng-container *ngIf="grp.adItem">
                   <div class="col-12" style="padding: 10px 0;">
-                    <div class="desktop_ad" adItem [pointer]="'desktop_category_ad_'+ind"></div>
+                    <div class="desktop_ad" *ngIf="!isMobile" adItem [pointer]="'desktop_category_ad_'+ind"></div>
 
-                    <div class="mobile_ad" adItem id="{{'mobile_'+grp.adItem.id}}">
-                    </div>
+                    <div class="mobile_ad" *ngIf="isMobile" adItem [pointer]="'mobile_category_ad_'+ind"></div>
                   </div>
                 </ng-container>
               </ng-container>
@@ -184,12 +183,3 @@
 
   </div>
 </section>
-
-<div style="height: 0; width: 0; overflow: hidden;">
-  <div class="desktop_ad" adItem id="desktop_category_ad_0"></div>
-  <div class="desktop_ad" adItem id="desktop_category_ad_1"></div>
-  <div class="desktop_ad" adItem id="desktop_category_ad_2"></div>
-  <div class="desktop_ad" adItem id="desktop_category_ad_3"></div>
-  <div class="desktop_ad" adItem id="desktop_category_ad_4"></div>
-  <div class="desktop_ad" adItem id="desktop_category_ad_5"></div>
-</div>

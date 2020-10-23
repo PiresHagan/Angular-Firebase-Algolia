@@ -14,9 +14,10 @@
             <div class="cat-box-gallery">
                 <div class="row" *ngIf="!latestArticles">
                     <div class="col-sm-15" *ngFor="let article of skeletonData">
-                       <nz-skeleton *ngIf="!latestArticles" [nzAvatar]="true" [nzParagraph]="{ rows: 6 }" class="custom-skeleton card-skeleton"></nz-skeleton>
-                   </div>
-                  </div>
+                        <nz-skeleton *ngIf="!latestArticles" [nzAvatar]="true" [nzParagraph]="{ rows: 6 }"
+                            class="custom-skeleton card-skeleton"></nz-skeleton>
+                    </div>
+                </div>
                 <div class="row article-row">
                     <div class="col-sm-15 box_shadow" *ngFor="let article of latestArticles | slice:5:10"
                         [ngClass]="article.category.slug">
@@ -129,7 +130,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="ads-box" style="margin:0 auto;">
-                        <div adItem id="div-gpt-ad-home-0" style="width: 970px; height: 250px;"></div>
+                        <div adItem pointer="div-gpt-ad-home-0" style="width: 970px; height: 250px;"></div>
                     </div>
                     <!-- <div class="is-more-btn">
                 <a [routerLink]="['/category/', category.slug]" class="is-see-more">
@@ -153,9 +154,10 @@
             <div class="cat-box-gallery">
                 <div class="row" *ngIf="!trendingArticles">
                     <div class="col-sm-15" *ngFor="let article of TrendingskeletonData">
-                       <nz-skeleton *ngIf="!trendingArticles" [nzAvatar]="true" [nzParagraph]="{ rows: 6 }" class="custom-skeleton card-skeleton"></nz-skeleton>
-                   </div>
-                  </div>
+                        <nz-skeleton *ngIf="!trendingArticles" [nzAvatar]="true" [nzParagraph]="{ rows: 6 }"
+                            class="custom-skeleton card-skeleton"></nz-skeleton>
+                    </div>
+                </div>
                 <div class="row article-row">
                     <div class="col-sm-15 box_shadow" *ngFor="let article of trendingArticles | slice:0:15"
                         [ngClass]="article.category.slug">
@@ -268,7 +270,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="ads-box" style="margin:0 auto;">
-                        <div adItem id="div-gpt-ad-home-1" style="width: 970px; height: 250px;"></div>
+                        <div adItem pointer="div-gpt-ad-home-1" style="width: 970px; height: 250px;"></div>
                     </div>
                     <!-- <div class="is-more-btn">
                 <a [routerLink]="['/category/', category.slug]" class="is-see-more">
@@ -279,8 +281,8 @@
             </div>
         </div>
     </div>
- </section>
- <section class="is-cat-box-card-main">
+</section>
+<section class="is-cat-box-card-main">
     <div class="cat-box bg-white">
         <div class="container">
             <div class="cat-box-title">
@@ -292,9 +294,10 @@
             <div class="cat-box-gallery">
                 <div class="row" *ngIf="!editorArticles">
                     <div class="col-sm-15" *ngFor="let article of skeletonData">
-                       <nz-skeleton *ngIf="!editorArticles" [nzAvatar]="true" [nzParagraph]="{ rows: 6 }" class="custom-skeleton card-skeleton"></nz-skeleton>
-                   </div>
-                  </div>
+                        <nz-skeleton *ngIf="!editorArticles" [nzAvatar]="true" [nzParagraph]="{ rows: 6 }"
+                            class="custom-skeleton card-skeleton"></nz-skeleton>
+                    </div>
+                </div>
                 <div class="row article-row">
                     <div class="col-sm-15 box_shadow" *ngFor="let article of editorArticles | slice:0:5"
                         [ngClass]="article.category.slug">
@@ -407,7 +410,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="ads-box" style="margin:0 auto;">
-                        <div adItem id="div-gpt-ad-home-2" style="width: 970px; height: 250px;"></div>
+                        <div adItem pointer="div-gpt-ad-home-2" style="width: 970px; height: 250px;"></div>
                     </div>
                     <!-- <div class="is-more-btn">
                 <a [routerLink]="['/category/', category.slug]" class="is-see-more">
