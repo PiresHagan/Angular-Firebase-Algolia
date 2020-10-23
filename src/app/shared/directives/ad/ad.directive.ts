@@ -7,6 +7,7 @@ declare const $: any;
 export interface AdItemData {
   id: string;
   slot?: string;
+  size?: number[];
 }
 
 @Directive({
@@ -31,10 +32,12 @@ export class AdDirective implements OnInit, AfterViewInit {
 
     this.checkAdScript(() => {
       const googletag = window['googletag'];
+      const allGoogleAdSlots: { ref: any, data: AdItemData }[] = window['allGoogleAdSlots'];
+      const slot = allGoogleAdSlots.find(item => item.data.id === this.pointer);
 
       googletag.cmd.push(() => {
         googletag.display(this.pointer);
-        googletag.pubads().refresh();
+        googletag.pubads().refresh(slot.ref);
       });
     });
   }
@@ -42,7 +45,7 @@ export class AdDirective implements OnInit, AfterViewInit {
   private checkAdScript(cb: Function) {
     const script = window['googletag'];
 
-    if (script && script.apiReady) {
+    if (script && script.apiReady && window['allGoogleAdSlots']) {
       this.delay(1000).subscribe(() => {
         cb();
       });
