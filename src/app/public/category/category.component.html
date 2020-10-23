@@ -57,7 +57,7 @@
         <div class="container">
           <div class="cat-box-gallery">
             <div class="row article-row">
-              <ng-container *ngFor="let grp of articleGroups; let ind = index">
+              <ng-container *ngFor="let grp of articleGroups; trackBy:trackByArticleGrp; let ind = index">
                 <ng-container *ngIf="grp.articles">
                   <div class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5" *ngFor="let article of grp.articles"
                     [ngClass]="category.slug">

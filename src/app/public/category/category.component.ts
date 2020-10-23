@@ -11,6 +11,11 @@ import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.se
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { AdItemData } from 'src/app/shared/directives/ad/ad.directive';
 
+interface ArticleGroup {
+  articles: Article[];
+  adItem: AdItemData;
+}
+
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -18,7 +23,7 @@ import { AdItemData } from 'src/app/shared/directives/ad/ad.directive';
 })
 export class CategoryComponent implements OnInit {
   category: Category;
-  articleGroups: { articles: Article[]; adItem: AdItemData; }[] = [];
+  articleGroups: ArticleGroup[] = [];
   loading: boolean = true;
   loadingMore: boolean = false;
   lastVisible: any = null;
@@ -49,8 +54,6 @@ export class CategoryComponent implements OnInit {
     this.selectedLanguage = this.languageService.getSelectedLanguage();
 
     this.isMobile = window.innerWidth < 767;
-    console.log(this.isMobile);
-
     this.route.queryParams.subscribe(() => {
       this.topic = this.route.snapshot.queryParamMap.get('topic');
       this.getPageDetails();
@@ -80,12 +83,10 @@ export class CategoryComponent implements OnInit {
       this.getPageDetails();
     });
 
-    this.categoryskeletonData = new Array(20).fill({}).map((_i, index) => {
-      return
-    });
+    this.categoryskeletonData = new Array(20).fill({}).map((_i) => undefined);
   }
 
-  scrollEvent = (event: any): void => {
+  private scrollEvent = (event: any): void => {
     let documentElement = event.target.documentElement ? event.target.documentElement : event.target;
     if (documentElement) {
       const top = documentElement.scrollTop
@@ -104,6 +105,10 @@ export class CategoryComponent implements OnInit {
     }
   }
 
+  public trackByArticleGrp(_index: number, data: ArticleGroup): string {
+    return data.adItem.id;
+  }
+
   private groupArticlesWithAd(articles: Article[]): void {
     if (articles.length > 0) {
       const pos = this.articleGroups.length;
@@ -112,7 +117,7 @@ export class CategoryComponent implements OnInit {
         id: `category_ad_${pos}`
       };
 
-      const newGroup = { articles: articles, adItem: ad };
+      const newGroup: ArticleGroup = { articles: articles, adItem: ad };
       this.articleGroups.push(newGroup);
     }
   }
