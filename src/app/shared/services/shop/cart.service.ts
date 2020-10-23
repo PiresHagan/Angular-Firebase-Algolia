@@ -49,9 +49,9 @@ export class CartService {
   // Clear all cart items 
   clearCart() {
     const products: Product[] = [];
-    
+
     this.updateCartDataInFirestore(products);
-    
+
     localStorage.setItem("avct_item", JSON.stringify(products));
   }
 
@@ -70,11 +70,19 @@ export class CartService {
   placeOrder(orderData) {
     return new Promise((resolve, reject) => {
       this.http.post(environment.baseAPIDomain + `/api/v1/store-orders`, orderData).subscribe((result) => {
-        resolve(result) 
+        resolve(result)
       }, (error) => {
         reject(error)
       })
     })
   }
+  getShippingCarrier(shippingData) {
+    return this.http.post(environment.baseAPIDomain + `/api/v1/stores/7AGTcOSL3WcwRZe40YAJ/shippingRates`, {
+      weight: 10,
+      postal_code: '91521',
+      country_code: 'US'
+    });
+  }
+
 
 }

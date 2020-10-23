@@ -6,14 +6,15 @@
         <img [src]="product?.images[0]?.url" [alt]="product?.images[0]?.alt" />
       </div>
       <span>{{ product.name }}</span>
-      <strong *ngIf="product?.discountedPrice; else productSalePrice">{{ product?.discountedPrice | currency :'USD':'symbol':'1.0-2' }}</strong>
+      <strong
+        *ngIf="product?.discountedPrice; else productSalePrice">{{ product?.discountedPrice | currency :'USD':'symbol':'1.0-2' }}</strong>
       <ng-template #productSalePrice>
         <strong>{{ product?.salePrice | currency :'USD':'symbol':'1.0-2' }}</strong>
       </ng-template>
     </li>
     <li class="total-value">
       <span>Total</span>
-      <strong>{{ totalValue | currency :'USD':'symbol':'1.0-2' }}</strong>
+      <strong>{{ totalWithShipping | currency :'USD':'symbol':'1.0-2' }}</strong>
     </li>
   </ul>
   <div class="cart-btn" *ngIf="!config?.isCheckout">
@@ -24,5 +25,17 @@
       Checkout
     </a>
   </div>
+  <ul class="order-list">
+    <li class="order" *ngFor="let shipper of shipppingOptions">
+      <!-- <div *ngIf="config?.isCheckout" class="product-img">
+        <img [src]="product?.images[0]?.url" [alt]="product?.images[0]?.alt" />
+      </div> -->
+      <span>{{ shipper.service_type }}</span>
+      <strong>{{ shipper.shipping_amount.amount }}</strong>
+      <input type="radio" name="carrier_id " value="{{ shipper.carrier_id }}" [(ngModel)]="selectedShippingOption"
+        (click)="shippingStationChanged(shipper)">
+    </li>
+
+  </ul>
 
 </div>

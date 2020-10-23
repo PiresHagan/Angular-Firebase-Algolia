@@ -28,15 +28,19 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
   config = {
     isCheckout: true
   }
-  
+
   // step1
   userAddressForm: FormGroup;
   buyer;
 
   // step2
   cardHolderName: string;
+  shipppingOptions;
   showInvalidCardError: boolean = false;
   isPlacingOrder: boolean = false;
+
+  selectedShippingOption: string = "";
+
 
   @ViewChild(StripeCardNumberComponent) card: StripeCardNumberComponent;
 
@@ -93,8 +97,10 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
     this.getCartProduct();
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('remove-header-footer');
+
+
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     const body = document.getElementsByTagName('body')[0];
     body.classList.remove('remove-header-footer');
   }
@@ -103,12 +109,13 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
   }
 
   next(): void {
-    if(this.current == this.deliveryAddressStep) {
+    if (this.current == this.deliveryAddressStep) {
+
       for (const i in this.userAddressForm.controls) {
         this.userAddressForm.controls[i].markAsDirty();
         this.userAddressForm.controls[i].updateValueAndValidity();
       }
-  
+
       if (this.findInvalidControls().length == 0) {
         this.buyer = this.userAddressForm.value;
         this.current += 1;
@@ -165,9 +172,17 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
         this.stripeService.createToken(cardElement, { name }).subscribe((result) => {
           if (result.token) {
             let orderData = {};
+
+
+            this.buyer['carrier_id'] = this.selectedShippingOption;
+            this.buyer['country_code'] = 'US';
+
             orderData['shippingInfo'] = this.buyer;
             orderData['products'] = this.products;
             orderData['cardToken'] = result.token.id;
+            // orderData['carrier_id'] = this.selectedShippingOption;
+            //   orderData['country_code'] = 'US';
+
 
             this.cartService.placeOrder(orderData).then(result => {
               this.userAddressForm.reset();
@@ -195,7 +210,7 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
   showInvalidCardErr() {
     this.showInvalidCardError = true;
 
-    setTimeout(()=> {
+    setTimeout(() => {
       this.showInvalidCardError = false;
     }, 3000);
   }
@@ -205,6 +220,9 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
     this.modalService.error({
       nzTitle: "<i>" + msg + "</i>",
     });
+  }
+  onShipOptionSelected(shipperId: string) {
+    this.selectedShippingOption = shipperId;
   }
 
   /*

@@ -22,6 +22,10 @@ export interface Store {
   phone?: number;
   email: string;
   address?: string;
+  city?: string;
+  state?: string;
+  countryCode?: string;
+  code?: string;
 
 
 
