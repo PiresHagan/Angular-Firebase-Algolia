@@ -77,6 +77,7 @@ export class CartService {
     })
   }
   getShippingCarrier(shippingData) {
+    // return this.http.post(environment.baseAPIDomain + `/api/v1/stores/7AGTcOSL3WcwRZe40YAJ/shippingRates`, shippingData);
     return this.http.post(environment.baseAPIDomain + `/api/v1/stores/7AGTcOSL3WcwRZe40YAJ/shippingRates`, {
       weight: 10,
       postal_code: '91521',

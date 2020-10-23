@@ -74,6 +74,18 @@
                 </div>
                 <div class="col-md-4 col-sm-6">
                   <nz-form-item>
+                    <nz-form-label>Country </nz-form-label>
+                    <nz-form-control nzErrorTip="Please input your country">
+                      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Country" formControlName="country_code">
+                        <nz-option [nzLabel]="country.countryName" [nzValue]="country.countryCode"
+                          *ngFor="let country of countries"> </nz-option>
+
+                      </nz-select>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                  <nz-form-item>
                     <nz-form-label>Postal Code </nz-form-label>
                     <nz-form-control nzErrorTip="Please input your postal code">
                       <input type="text" nz-input formControlName="postal_code" placeholder="Enter postal code" />
@@ -155,7 +167,7 @@
       </div>
       <div class="checkout">
         <app-cart-calculator [products]="products" [config]="config"
-          (selectedShippingOptionEvent)="onShipOptionSelected($event)">
+          (selectedShippingOptionEvent)="onShipOptionSelected($event)" [currentStep]="current" [shippingInfo]="buyer">
         </app-cart-calculator>
         <div style="padding-top: 10px;">
           <a [routerLink]="['/shop/cart']">

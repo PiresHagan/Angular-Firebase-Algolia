@@ -4,7 +4,7 @@ import { NzModalService } from "ng-zorro-antd";
 import { StripeService, StripeCardNumberComponent } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 import { TranslateService } from "@ngx-translate/core";
-
+import { CountriesConstant } from 'src/app/shared/constants/countries';
 import { CartService } from 'src/app/shared/services/shop/cart.service';
 import { Product } from 'src/app/shared/interfaces/ecommerce/product';
 import { AuthService } from 'src/app/shared/services/authentication.service';
@@ -40,6 +40,7 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
   isPlacingOrder: boolean = false;
 
   selectedShippingOption: string = "";
+  countries = CountriesConstant.Countries;
 
 
   @ViewChild(StripeCardNumberComponent) card: StripeCardNumberComponent;
@@ -70,6 +71,7 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
     private modalService: NzModalService,
     private stripeService: StripeService,
     public translate: TranslateService,
+    private modal: NzModalService
   ) { }
 
   ngOnInit(): void {
@@ -91,7 +93,8 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
       address: [null, [Validators.required]],
       city: [null, [Validators.required]],
       state: [null, [Validators.required]],
-      postal_code: [null, [Validators.required]]
+      postal_code: [null, [Validators.required]],
+      country_code: [null, [Validators.required]]
     });
 
     this.getCartProduct();
@@ -163,6 +166,10 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
 
   placeOrder() {
     const cardElement: any = this.card.element;
+    if (!this.selectedShippingOption) {
+      this.info();
+      return;
+    }
     if (this.cardHolderName && !cardElement._empty && !cardElement._invalid) {
       try {
         this.isPlacingOrder = true;
@@ -175,8 +182,6 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
 
 
             this.buyer['carrier_id'] = this.selectedShippingOption;
-            this.buyer['country_code'] = 'US';
-
             orderData['shippingInfo'] = this.buyer;
             orderData['products'] = this.products;
             orderData['cardToken'] = result.token.id;
@@ -205,6 +210,14 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
     } else {
       this.showInvalidCardErr();
     }
+  }
+
+  info(): void {
+    this.modal.info({
+      nzTitle: 'Shipping Information Missing',
+      nzContent: '<p>Please select shipping information to proceed further.</p>'
+
+    });
   }
 
   showInvalidCardErr() {
