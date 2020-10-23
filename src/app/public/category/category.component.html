@@ -34,7 +34,7 @@
     </div>
 
     <div class="ads-box" *ngIf="category">
-      <div adItem style="width: 728px; height: 90px; margin:0 auto;"></div>
+      <div adItem id="div-gpt-ad-1599554538840-0" style="width: 728px; height: 90px; margin:0 auto;"></div>
     </div>
 
     <div class="is-comman-title">
@@ -170,14 +170,12 @@
                 <ng-container *ngIf="grp.adItem">
                   <div class="col-12" style="padding: 10px 0;">
                     <div class="desktop_ad">
-                      <!-- <div adItem [id]="'desktop_'+grp.adItem.id" [attr.id]="'desktop_'+grp.adItem.id"></div> -->
-
-                      <div adItem></div>
+                      <div adItem id="{{'desktop_'+grp.adItem.id}}"></div>
                     </div>
 
-                    <!-- <div class="mobile_ad">
-                      <div adItem [id]="'mobile_'+grp.adItem.id"></div>
-                    </div> -->
+                    <div class="mobile_ad">
+                      <div adItem id="{{'mobile_'+grp.adItem.id}}"></div>
+                    </div>
                   </div>
                 </ng-container>
               </ng-container>
