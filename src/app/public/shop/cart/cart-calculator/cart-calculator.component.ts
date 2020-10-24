@@ -32,7 +32,7 @@ export class CartCalculatorComponent implements OnInit, OnChanges, OnDestroy {
   @Output() selectedShippingOptionEvent = new EventEmitter<string>();
 
   shipppingOptions: any = [];
-  totalValue = 0;
+  totalValue: any = 0;
   totalWithShipping = 0;
   currentStepData = 0;
   shippingInfoData;
@@ -88,7 +88,7 @@ export class CartCalculatorComponent implements OnInit, OnChanges, OnDestroy {
     body.classList.remove('hide-modal-footer');
   }
   shippingStationChanged(shipper) {
-    this.totalWithShipping = this.totalValue + parseFloat(shipper?.shipping_amount?.amount);
+    this.totalWithShipping = parseFloat(this.totalValue) + parseFloat(shipper?.shipping_amount?.amount);
     this.selectedShippingOptionEvent.emit(shipper.carrier_id);
   }
   getShippingData() {
