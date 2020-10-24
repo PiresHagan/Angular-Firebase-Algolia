@@ -246,7 +246,11 @@
 
                 <ng-container *ngIf="item.insertAd">
                   <div style="padding: 10px 0;">
-                    <div class="mobile_ad" adItem [pointer]="'mobile_dynamic_ad_'+item.adIndex"></div>
+                    <div class="desktop_ad" *ngIf="!isMobile" adItem [pointer]="'desktop_leaderboard_ad_'+item.adIndex">
+                    </div>
+
+                    <div class="mobile_ad" *ngIf="isMobile" adItem [pointer]="'mobile_mrectangle_ad_'+item.adIndex">
+                    </div>
                   </div>
                 </ng-container>
               </div>

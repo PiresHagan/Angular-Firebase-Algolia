@@ -53,7 +53,6 @@ export class CategoryComponent implements OnInit {
     window.addEventListener('scroll', this.scrollEvent, true);
     this.selectedLanguage = this.languageService.getSelectedLanguage();
 
-    this.isMobile = window.innerWidth < 767;
     this.route.queryParams.subscribe(() => {
       this.topic = this.route.snapshot.queryParamMap.get('topic');
       this.getPageDetails();
@@ -87,6 +86,8 @@ export class CategoryComponent implements OnInit {
   }
 
   private scrollEvent = (event: any): void => {
+    this.isMobile = window.innerWidth < 767;
+
     let documentElement = event.target.documentElement ? event.target.documentElement : event.target;
     if (documentElement) {
       const top = documentElement.scrollTop
