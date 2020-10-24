@@ -40,7 +40,6 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   isLoaded: boolean = false;
   selectedLang: string = '';
   selectedLanguage: string = '';
-  public isMobile: boolean;
   public articleAds: ArticleAdItem[];
   TEXT = TEXT;
   AUDIO = AUDIO;
@@ -67,7 +66,6 @@ export class ArticleComponent implements OnInit, AfterViewInit {
 
       const slug = params.get('slug');
       this.article = null;
-      this.isMobile = window.innerWidth < 767;
 
       this.articleService.getArtical(slug).subscribe(artical => {
         this.articleAds = [{ elem: '<em>Parsing...</em>' }];
