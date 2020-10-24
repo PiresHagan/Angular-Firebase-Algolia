@@ -15,6 +15,7 @@ import { StoreSetting } from "src/app/backoffice/shared/services/store-setting.s
 import { AUTHOR, COMPANY, CHARITY, MEMBER, STAFF } from "src/app/shared/constants/member-constant";
 import { CompanyService } from 'src/app/backoffice/shared/services/company.service';
 import { CharityService } from 'src/app/backoffice/shared/services/charity.service';
+import { CountriesConstant } from "src/app/shared/constants/countries";
 
 
 @Component({
@@ -38,6 +39,7 @@ export class StoresComponent {
   storeLoading = true;
   paymentError = true;
   Cards;
+  countries = CountriesConstant.Countries;
   notificationConfigList = [
 
   ];
@@ -69,7 +71,12 @@ export class StoresComponent {
       phone: [null, [Validators.required, Validators.pattern("^[0-9]{10}$")]],
       description: [null],
       name: [null, [Validators.required]],
-      address: [null, [Validators.required]]
+      address: [null, [Validators.required]],
+      city: [null, [Validators.required]],
+      state: [null, [Validators.required]],
+      postal_code: [null, [Validators.required]],
+      country_code: [null, [Validators.required]]
+
       // owner: [null, [Validators.required]],
     });
 
@@ -98,6 +105,10 @@ export class StoresComponent {
         this.profileForm.controls['description'].setValue(this.storeDetails.description);
         this.profileForm.controls['name'].setValue(this.storeDetails.name);
         this.profileForm.controls['address'].setValue(this.storeDetails.address);
+        this.profileForm.controls['city'].setValue(this.storeDetails.city);
+        this.profileForm.controls['state'].setValue(this.storeDetails.state);
+        this.profileForm.controls['postal_code'].setValue(this.storeDetails.postal_code);
+        this.profileForm.controls['country_code'].setValue(this.storeDetails.country_code);
         this.uplodedImage = this.storeDetails.image;
         this.photoURL = this.storeDetails.image ? this.storeDetails.image.url : '';
 

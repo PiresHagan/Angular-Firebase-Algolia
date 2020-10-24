@@ -36,7 +36,7 @@ export class CartCalculatorComponent implements OnInit, OnChanges, OnDestroy {
   totalWithShipping = 0;
   currentStepData = 0;
   shippingInfoData;
-  weight;
+  weight = 0;
 
   constructor(
     public translate: TranslateService,

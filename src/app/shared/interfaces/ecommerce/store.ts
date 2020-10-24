@@ -21,11 +21,11 @@ export interface Store {
   log: ItemLog;
   phone?: number;
   email: string;
-  address?: string;
-  city?: string;
-  state?: string;
-  countryCode?: string;
-  code?: string;
+  address: string;
+  city: string;
+  state: string;
+  country_code: string;
+  postal_code: string;
 
 
 

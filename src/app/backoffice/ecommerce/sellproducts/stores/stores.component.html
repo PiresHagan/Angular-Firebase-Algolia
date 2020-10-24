@@ -108,6 +108,51 @@
                   </nz-form-item>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <nz-form-item>
+                    <nz-form-label nzRequired>{{'City'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'PleaseInputField'| translate}}">
+                      <input nz-input placeholder="{{'City'| translate}}" formControlName="city" type="text" value="" />
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div class="col-md-3">
+                  <nz-form-item>
+                    <nz-form-label nzRequired>{{'State'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'PleaseInputValidField'| translate}}">
+                      <input disabled nz-input placeholder="{{'State'| translate}}" type="state"
+                        formControlName="state" />
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div class="col-md-3">
+                  <nz-form-item>
+                    <nz-form-label>Country </nz-form-label>
+                    <nz-form-control nzErrorTip="Please input your country">
+                      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Country" formControlName="country_code">
+                        <nz-option [nzLabel]="country.countryName" [nzValue]="country.countryCode"
+                          *ngFor="let country of countries"> </nz-option>
+
+                      </nz-select>
+                    </nz-form-control>
+                  </nz-form-item>
+
+
+                </div>
+                <div class="col-md-3">
+                  <nz-form-item>
+                    <nz-form-label nzRequired>{{'Pin'| translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'PleaseInputValidField'| translate}}">
+                      <input disabled nz-input placeholder="{{'Pin'| translate}}" type="text"
+                        formControlName="postal_code" />
+                    </nz-form-control>
+                  </nz-form-item>
+
+                </div>
+
+              </div>
+
               <div class="d-flex align-items-center justify-content-between">
                 <nz-form-item>
                   <nz-form-control>

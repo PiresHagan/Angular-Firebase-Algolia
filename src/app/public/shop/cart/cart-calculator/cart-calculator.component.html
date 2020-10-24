@@ -30,8 +30,8 @@
       <!-- <div *ngIf="config?.isCheckout" class="product-img">
         <img [src]="product?.images[0]?.url" [alt]="product?.images[0]?.alt" />
       </div> -->
-      <span>{{ shipper?.service_type }}</span>
-      <strong>{{ shipper?.shipping_amount?.amount }}</strong>
+      <span>{{ shipper?.carrier_friendly_name }}</span>
+      <strong>{{ shipper?.shipping_amount?.amount?shipper?.shipping_amount?.amount :0 }}</strong>
       <input type="radio" name="carrier_id " value="{{ shipper?.carrier_id }}" [(ngModel)]="selectedShippingOption"
         (click)="shippingStationChanged(shipper)">
     </li>
