@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
@@ -25,7 +25,7 @@ import { ArticleAdItem } from 'src/app/shared/interfaces/article-meta.type';
   styleUrls: ['./article.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ArticleComponent implements OnInit, AfterViewInit {
+export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked {
   article: Article;
   articleType: string;
   articleLikes: number = 0;
@@ -41,6 +41,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   selectedLang: string = '';
   selectedLanguage: string = '';
   public articleAds: ArticleAdItem[];
+  public isMobile: boolean;
   TEXT = TEXT;
   AUDIO = AUDIO;
   VIDEO = VIDEO;
@@ -112,6 +113,8 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewChecked(): void {
+    this.isMobile = window.innerWidth < 767;
+
     if (!this.isLoaded) {
       delete window['addthis']
       setTimeout(() => { this.loadScript(); }, 100);
@@ -168,14 +171,14 @@ export class ArticleComponent implements OnInit, AfterViewInit {
         const c: HTMLElement = children[ch];
 
         // creates item for partial view
-        const tag = c.tagName.toLowerCase();
+        const tag = (c.tagName || 'span').toLowerCase();
         const item: ArticleAdItem = {
           elem: `<${tag}>${c.innerHTML}</${tag}>`,
           insertAd: false
         };
 
         // if paragraph, then count impact with innerText length
-        if (c.tagName.toLowerCase() === 'p') {
+        if (tag === 'p') {
           impactValue += c.innerText.length;
 
           if (impactValue >= impactPoint) {

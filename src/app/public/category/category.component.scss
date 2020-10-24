@@ -774,25 +774,3 @@
     width: 20%;
   }
 }
-
-.desktop_ad,
-.mobile_ad {
-  display: none !important;
-  margin: auto;
-}
-
-@media screen and (max-width: 767px) {
-  .mobile_ad {
-    display: block !important;
-    width: 300px;
-    height: 250px;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .desktop_ad {
-    display: block !important;
-    width: 970px;
-    height: 250px;
-  }
-}

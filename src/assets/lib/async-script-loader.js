@@ -53,14 +53,19 @@ function initiateAds() {
     // programmatically creates 'x' number of ad slots for re-usability
     const size = 20;
     for (let i = 0; i < size; i++) {
-      // for desktop
+      // for billboard ads
       allGoogleAdSpaces.push(
-        { slot: '/107720708/adxp_mytrendingstories_billboard', size: [970, 250], id: `desktop_dynamic_ad_${i}` }
+        { slot: '/107720708/adxp_mytrendingstories_billboard', size: [970, 250], id: `desktop_billboard_ad_${i}` }
       );
 
-      // for mobile
+      // for billboard ads
       allGoogleAdSpaces.push(
-        { slot: '/107720708/adxp_mytrendingstories_mRectangle', size: [300, 250], id: `mobile_dynamic_ad_${i}` }
+        { slot: '/107720708/adxp_mytrendingstories_Leaderboard', size: [728, 90], id: `desktop_leaderboard_ad_${i}` }
+      );
+
+      // for mRectangle ads
+      allGoogleAdSpaces.push(
+        { slot: '/107720708/adxp_mytrendingstories_mRectangle', size: [300, 250], id: `mobile_mrectangle_ad_${i}` }
       );
     }
 
