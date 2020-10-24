@@ -55,7 +55,7 @@ deploy-preprod:
     - preprod
   script:
     - npm install
-    - ng build --prod
+    - ng build --prod --buildOptimizer=true
     - firebase use my-trending-stories-66f81 --token $FIREBASE_TOKEN_PROD
     - firebase deploy --only hosting:preprod --non-interactive -m "Pipe $CI_PIPELINE_ID Build $CI_BUILD_ID" --token $FIREBASE_TOKEN_PROD
   cache:                  
