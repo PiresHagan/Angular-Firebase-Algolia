@@ -18,7 +18,7 @@ import { ArticleCommentsComponent } from './article-comments/article-comments.co
   declarations: [
     ArticleComponent,
     SimilarArticlesComponent,
-    ArticleCommentsComponent
+    ArticleCommentsComponent,
   ],
   imports: [
     ArticleRoutingModule,

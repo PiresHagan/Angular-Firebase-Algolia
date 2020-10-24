@@ -50,17 +50,17 @@ function initiateAds() {
       { slot: '/107720708/adxp_mytrendingstories_smartphoneBanner_1', size: [320, 50], id: 'div-gpt-ad-1599554708106-0' },
     ];
 
-    // programmatically creates 'x' number of ad slots for categories infinite scroll
+    // programmatically creates 'x' number of ad slots for re-usability
     const size = 20;
     for (let i = 0; i < size; i++) {
       // for desktop
       allGoogleAdSpaces.push(
-        { slot: '/107720708/adxp_mytrendingstories_billboard', size: [970, 250], id: `desktop_category_ad_${i}` }
+        { slot: '/107720708/adxp_mytrendingstories_billboard', size: [970, 250], id: `desktop_dynamic_ad_${i}` }
       );
 
       // for mobile
       allGoogleAdSpaces.push(
-        { slot: '/107720708/adxp_mytrendingstories_mRectangle', size: [300, 250], id: `mobile_category_ad_${i}` }
+        { slot: '/107720708/adxp_mytrendingstories_mRectangle', size: [300, 250], id: `mobile_dynamic_ad_${i}` }
       );
     }
 

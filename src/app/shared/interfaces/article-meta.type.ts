@@ -3,3 +3,9 @@ export interface ArticleMeta {
     keyword?: string,
     description?: string
 }
+
+export interface ArticleAdItem {
+    elem: string;
+    insertAd?: boolean;
+    adIndex?: number;
+}
