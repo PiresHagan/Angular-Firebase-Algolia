@@ -47,6 +47,22 @@
           "function": "sitemap"
         },
         {
+          "source": "/sitemap-article-1.xml",
+          "function": "sitemapArticle1"
+        },
+        {
+          "source": "/sitemap-article-2.xml",
+          "function": "sitemapArticle2"
+        },
+        {
+          "source": "/sitemap-article-3.xml",
+          "function": "sitemapArticle3"
+        },
+        {
+          "source": "/sitemap-article-4.xml",
+          "function": "sitemapArticle4"
+        },
+        {
           "source": "**",
           "function": "ssr"
         }
