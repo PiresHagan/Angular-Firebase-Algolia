@@ -43,6 +43,10 @@
       ],
       "rewrites": [
         {
+          "source": "/sitemap-article.xml",
+          "function": "sitemap"
+        },
+        {
           "source": "**",
           "function": "ssr"
         }
