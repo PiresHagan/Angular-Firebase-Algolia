@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Product } from '../../interfaces/ecommerce/product';
 import { ProductService } from '../../services/shop/product.service';
+import { AuthService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-shop-product-add-review',
@@ -18,17 +19,18 @@ export class ShopProductAddReviewComponent implements OnInit {
 
   isFormSaving: boolean = false;
   reviewForm: FormGroup;
-  
+  reviewId = null;
   constructor(
     private productService: ProductService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
     this.reviewForm = this.fb.group({
       rating: [null, [Validators.required]],
-      title: [null, [Validators.required]],
-      remark: [null, [Validators.required]]
+      title: [null, [Validators.required, Validators.maxLength(50), Validators.minLength(10)]],
+      remark: [null, [Validators.required, Validators.maxLength(100), Validators.minLength(10)]]
     });
   }
 
@@ -38,20 +40,41 @@ export class ShopProductAddReviewComponent implements OnInit {
       this.reviewForm.controls[i].updateValueAndValidity();
     }
 
-    if(this.reviewForm.valid) {
+    if (this.reviewForm.valid) {
       this.isFormSaving = true;
       this.submitReview(this.reviewForm.value);
-      document.getElementById('rating-box').style.display = 'none';
+      //document.getElementById('rating-box').style.display = 'none';
     }
+  }
+  async getuserProductReview() {
+    let userDetails = await this.auth.getLoggedInUserDetails();
+    this.productService.getUserProductReview(this.product.id, userDetails.id).subscribe((data: any) => {
+      if (data && data.reviews[0]) {
+        this.reviewForm.controls['rating'].setValue(data.reviews[0].rating);
+        this.reviewForm.controls['title'].setValue(data.reviews[0].title);
+        this.reviewForm.controls['remark'].setValue(data.reviews[0].remark);
+        this.reviewId = data.reviews[0].id;
+      }
+
+    })
   }
 
   submitReview(reviewData) {
-    this.productService.addProductReview(this.product, reviewData).then( result => {
-      this.reviewForm.reset();
-      this.isFormSaving = false;
-    }).catch( err => {
-      this.isFormSaving = false;
-    });
+    if (!this.reviewId) {
+      this.productService.addProductReview(this.product, reviewData).then(result => {
+        this.reviewForm.reset();
+        this.isFormSaving = false;
+      }).catch(err => {
+        this.isFormSaving = false;
+      });
+    } else {
+      this.productService.updateProdutReview(this.product, reviewData, this.reviewId).then(result => {
+        this.reviewForm.reset();
+        this.isFormSaving = false;
+      }).catch(err => {
+        this.isFormSaving = false;
+      });
+    }
+
   }
-  
 }

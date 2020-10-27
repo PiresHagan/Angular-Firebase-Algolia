@@ -14,7 +14,8 @@
     <div nz-col [nzSpan]="24">
       <nz-form-item>
         <nz-form-label>Add a title</nz-form-label>
-        <nz-form-control nzErrorTip="Please input a headline for your review">
+        <nz-form-control
+          nzErrorTip="Please input a headline for your review. Length of title should not exceed more than 100 character.">
           <input type="text" nz-input formControlName="title" placeholder="Headline for your review" />
         </nz-form-control>
       </nz-form-item>
@@ -23,7 +24,8 @@
     <div nz-col [nzSpan]="24">
       <nz-form-item>
         <nz-form-label>Add a written review</nz-form-label>
-        <nz-form-control nzErrorTip="Please input your review">
+        <nz-form-control
+          nzErrorTip="Please input your review. . Length of title should not exceed more than 150 character.">
           <textarea type="text" nz-input formControlName="remark" [nzAutosize]="{ minRows: 3, maxRows: 6 }"
             placeholder="Tell us what you like or dislike about this product">
             </textarea>

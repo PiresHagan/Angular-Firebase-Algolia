@@ -91,11 +91,13 @@ export class OrderDetailsComponent {
           label: 'Save Review',
           onClick: componentInstance => {
             instance.checkReviewForm();
+            modal.destroy();
           }
         }
       ]
     });
     const instance = modal.getContentComponent();
+    instance.getuserProductReview();
     // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // // Return a result when closed
     // modal.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));

@@ -31,8 +31,8 @@ export class ProductService {
       .where('storeId', '==', storeId)
       .where('status', '==', ProductStatusTypes.INSTOCK)
     ).snapshotChanges().pipe(map(actions => {
-        return actions.map(a => a.payload.doc.data());
-      })
+      return actions.map(a => a.payload.doc.data());
+    })
     );
   }
 
@@ -85,7 +85,7 @@ export class ProductService {
     return dataQuery.snapshotChanges().pipe(map(actions => {
       return actions.map(a => a.payload.doc.data())
     }));
-  } 
+  }
 
   getAllProductCategories(): Observable<any> {
     return this.db.collection(this.productCategoriesCollection).valueChanges()
@@ -104,14 +104,41 @@ export class ProductService {
   addProductReview(product: Product, review) {
     return new Promise((resolve, reject) => {
       this.http.post(`${environment.baseAPIDomain}/api/v1/stores/${product.storeId}/products/${product.id}/reviews`, review)
-      .subscribe((result) => {
-        this.message.success(`Thank you for your review`);
-        resolve(result) 
-      }, (error) => {
-        this.message.error(error.message);
-        reject(error)
-      })
+        .subscribe((result) => {
+          this.message.success(`Thank you for your review`);
+          resolve(result)
+        }, (error) => {
+          this.message.error(error.message);
+          reject(error)
+        })
     })
+  }
+  updateProdutReview(product: Product, review, reviewId) {
+    return new Promise((resolve, reject) => {
+      this.http.put(`${environment.baseAPIDomain}/api/v1/stores/${product.storeId}/products/${product.id}/reviews/${reviewId}`, review)
+        .subscribe((result) => {
+          this.message.success(`Thank you for your review`);
+          resolve(result)
+        }, (error) => {
+          this.message.error(error.message);
+          reject(error)
+        })
+    })
+  }
+  getUserProductReview(productId: string, userId: string) {
+
+    let dataQuery = this.db.collection(this.storeProductsCollection).doc(productId).collection(`${this.reviewsCollection}`, ref => ref
+      .where('user.id', '==', userId));
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        reviews: actions.map(a => {
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      }
+    }));
+
   }
 
   getProductReviews(productId, limit: number = 5, navigation: string = "first", lastVisible = null) {
