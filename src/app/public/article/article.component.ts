@@ -173,13 +173,13 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
         // creates item for partial view
         const tag = (c.tagName || 'span').toLowerCase();
         const item: ArticleAdItem = {
-          elem: `<${tag}>${c.innerHTML}</${tag}>`,
+          elem: `<${tag}>${c.innerHTML || ''}</${tag}>`,
           insertAd: false
         };
 
         // if paragraph, then count impact with innerText length
         if (tag === 'p') {
-          impactValue += c.innerText.length;
+          impactValue += c.innerText.length || 0;
 
           if (impactValue >= impactPoint) {
             impactValue = 0;
@@ -194,6 +194,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
       });
 
       console.log(list);
+      console.log(this);
 
       this.articleAds = list;
     } else {
