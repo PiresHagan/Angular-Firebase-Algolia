@@ -8,6 +8,7 @@ import { CountriesConstant } from 'src/app/shared/constants/countries';
 import { CartService } from 'src/app/shared/services/shop/cart.service';
 import { Product } from 'src/app/shared/interfaces/ecommerce/product';
 import { AuthService } from 'src/app/shared/services/authentication.service';
+import { CartCalculatorComponent } from '../cart/cart-calculator/cart-calculator.component';
 
 @Component({
   selector: 'app-product-checkout',
@@ -17,8 +18,10 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 export class ProductCheckoutComponent implements OnInit, OnDestroy {
   loginStatusStep = 0;
   deliveryAddressStep = 1;
-  paymentOptionsStep = 2;
-  orderStatusStep = 3;
+  shippingPicker = 2
+  paymentOptionsStep = 3;
+  orderStatusStep = 4;
+
 
   current = this.loginStatusStep;
   isLoggedInUser: boolean;
@@ -39,11 +42,17 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
   showInvalidCardError: boolean = false;
   isPlacingOrder: boolean = false;
 
-  selectedShippingOption: string = "";
   countries = CountriesConstant.Countries;
 
 
+  selectedShippingData = {
+
+  }
+  groupedProducts;
+
+
   @ViewChild(StripeCardNumberComponent) card: StripeCardNumberComponent;
+  @ViewChild(CartCalculatorComponent) cartCalculator: CartCalculatorComponent;
 
   cardOptions: StripeCardElementOptions = {
     style: {
@@ -87,17 +96,19 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
     });
 
     this.userAddressForm = this.fb.group({
-      name: [null, [Validators.required]],
-      mobile_number: [null, [Validators.required]],
+      name: ['Umasha', [Validators.required]],
+      mobile_number: ['989988', [Validators.required]],
       alternate_mobile_number: [null],
-      address: [null, [Validators.required]],
-      city: [null, [Validators.required]],
-      state: [null, [Validators.required]],
-      postal_code: [null, [Validators.required]],
-      country_code: [null, [Validators.required]]
+      address: ['Umasha', [Validators.required]],
+      city: ['Umasha', [Validators.required]],
+      state: ['Umasha', [Validators.required]],
+      postal_code: ['53226', [Validators.required]],
+      country_code: ['US', [Validators.required]]
     });
 
     this.getCartProduct();
+    this.groupedProducts = this.getGroupedProducts();
+
     const body = document.getElementsByTagName('body')[0];
     body.classList.add('remove-header-footer');
 
@@ -108,7 +119,11 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
     body.classList.remove('remove-header-footer');
   }
   pre(): void {
+    if (this.current == this.paymentOptionsStep) {
+      this.getShippingData();
+    }
     this.current -= 1;
+
   }
 
   next(): void {
@@ -121,8 +136,18 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
 
       if (this.findInvalidControls().length == 0) {
         this.buyer = this.userAddressForm.value;
+        this.getShippingData();
+        this.current += 1;
+
+      }
+    } else if (this.current == this.shippingPicker) {
+      let missingShippingInfoData = this.checkShippingInfoPickedOrNot();
+      if (missingShippingInfoData) {
+        this.missingShippingInfo(missingShippingInfoData)
+      } else {
         this.current += 1;
       }
+
     } else {
       this.current += 1;
     }
@@ -166,10 +191,7 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
 
   placeOrder() {
     const cardElement: any = this.card.element;
-    if (!this.selectedShippingOption) {
-      this.info();
-      return;
-    }
+    this.removeUnwantedDataFromProductColl();
     if (this.cardHolderName && !cardElement._empty && !cardElement._invalid) {
       try {
         this.isPlacingOrder = true;
@@ -179,15 +201,9 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
         this.stripeService.createToken(cardElement, { name }).subscribe((result) => {
           if (result.token) {
             let orderData = {};
-
-
-            this.buyer['carrier_id'] = this.selectedShippingOption;
             orderData['shippingInfo'] = this.buyer;
-            orderData['products'] = this.products;
+            orderData['orders'] = this.createOrderData();
             orderData['cardToken'] = result.token.id;
-            // orderData['carrier_id'] = this.selectedShippingOption;
-            //   orderData['country_code'] = 'US';
-
 
             this.cartService.placeOrder(orderData).then(result => {
               this.userAddressForm.reset();
@@ -212,10 +228,10 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
     }
   }
 
-  info(): void {
+  missingShippingInfo(products): void {
     this.modal.info({
       nzTitle: 'Shipping Information Missing',
-      nzContent: '<p>Please select shipping information to proceed further.</p>'
+      nzContent: '<p>Please select shipping for ' + products + ' product(s) to proceed further.</p>'
 
     });
   }
@@ -234,10 +250,85 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
       nzTitle: "<i>" + msg + "</i>",
     });
   }
-  onShipOptionSelected(shipperId: string) {
-    this.selectedShippingOption = shipperId;
+
+  getShippingData() {
+    for (const key in this.groupedProducts) {
+      const products = this.groupedProducts[key];
+      const totalWaight = this.getTotalWeight(products);
+      if (this.buyer.postal_code) {
+        this.shipppingOptions = {};
+        this.shipppingOptions[key] = {
+          loading: true
+        }
+        this.cartService.getShippingCarrier(key, { country_code: this.buyer.country_code, postal_code: this.buyer.postal_code, weight: totalWaight }).subscribe((data: any) => {
+          //product['shippingInfo'] = data;
+          this.shipppingOptions[key] = data;
+        })
+      }
+
+    }
+
+
+  }
+  setShippingOptionAndPrice(storeId, carrier_id, shippingPrice) {
+    this.selectedShippingData[storeId] = {};
+    this.selectedShippingData[storeId]['shipping_price'] = shippingPrice;
+    this.selectedShippingData[storeId]['carrier_id'] = carrier_id
+    this.cartCalculator.updatePriceData(this.selectedShippingData);
+  }
+  checkShippingInfoPickedOrNot() {
+    let missingShipingCarrierProductName = '';
+    this.products.forEach((product) => {
+      if (!this.selectedShippingData[product.storeId])
+        if (!missingShipingCarrierProductName) {
+          missingShipingCarrierProductName = product['name'];
+        }
+        else {
+          missingShipingCarrierProductName += ', ' + product['name'];
+        }
+
+    })
+    return missingShipingCarrierProductName;
+  }
+  removeUnwantedDataFromProductColl() {
+    for (let index = 0; index < this.products.length; index++) {
+      delete this.products[index]['shipping_price']
+      delete this.products[index]['shippingInfo']
+
+    }
+  }
+  getGroupedProducts() {
+    return this.products.reduce((r, a) => {
+      r[a.storeId] = [...r[a.storeId] || [], a];
+      return r;
+    }, {});
+  }
+  getTotalWeight(products) {
+    let totalWaightOfThisGroup = 0;
+    for (let index = 0; index < products.length; index++) {
+      const product = products[index];
+      totalWaightOfThisGroup += parseFloat(product.weight ? product.weight : 0);
+
+    }
+    return totalWaightOfThisGroup;
+
   }
 
+  createOrderData() {
+    let orderList = [];
+    for (const key in this.selectedShippingData) {
+      var orderData = {};
+      const shippingDetails = this.selectedShippingData[key];
+      orderData['storeId'] = key;
+      orderData['products'] = this.groupedProducts[key];
+      orderData['carrier_id'] = shippingDetails['carrier_id'];
+
+      orderList.push(orderData);
+
+    }
+
+    return orderList;
+  }
   /*
   * place order related functions ends here
   */

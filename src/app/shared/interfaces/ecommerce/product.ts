@@ -37,8 +37,8 @@ export interface Product {
   images: ImageItem[];
   status: ProductStatusTypes;
   stats: ProductStats;
-  discountedPrice: number;
-  salePrice: number;
+  discountedPrice: any;
+  salePrice: any;
   quantity: string;
   sku: string;
   variants: ProductVariant[];

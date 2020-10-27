@@ -12,9 +12,13 @@
         <strong>{{ product?.salePrice | currency :'USD':'symbol':'1.0-2' }}</strong>
       </ng-template>
     </li>
+    <li class="total-value" *ngIf="totalWithShipping !=0">
+      <span class="text-small">Shipping Cost</span>
+      <strong>{{ totalWithShipping | currency :'USD':'symbol':'1.0-2' }}</strong>
+    </li>
     <li class="total-value">
       <span>Total</span>
-      <strong>{{ totalWithShipping | currency :'USD':'symbol':'1.0-2' }}</strong>
+      <strong>{{ totalValue | currency :'USD':'symbol':'1.0-2' }}</strong>
     </li>
   </ul>
   <div class="cart-btn" *ngIf="!config?.isCheckout">
@@ -25,20 +29,6 @@
       Checkout
     </a>
   </div>
-  <ul class="order-list content-scroll">
-    <li class="order shipingOption" *ngFor="let shipper of shipppingOptions">
-      <!-- <div *ngIf="config?.isCheckout" class="product-img">
-        <img [src]="product?.images[0]?.url" [alt]="product?.images[0]?.alt" />
-      </div> -->
-      <span>{{ shipper?.carrier_friendly_name }}</span>
-      <strong>{{ shipper?.shipping_amount?.amount?shipper?.shipping_amount?.amount :0 }}</strong>
-      <input type="radio" name="carrier_id " value="{{ shipper?.carrier_id }}" [(ngModel)]="selectedShippingOption"
-        (click)="shippingStationChanged(shipper)">
-      <span>{{ shipper?.service_type }}</span>
-      <strong>{{ shipper?.shipping_amount?.amount }}</strong>
 
-    </li>
-
-  </ul>
 
 </div>
