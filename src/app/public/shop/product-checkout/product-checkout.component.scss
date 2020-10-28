@@ -234,7 +234,163 @@
 .err-msg {
     color: red;
 }
+.order-summary-section{
+    background: #fff;
+    border: 1px solid #eee;
+    padding:15px;
+    h4{
+        font-size: 18px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+        font-family: open_sansregular;
+        font-weight: 600;
+        margin: 0px;
+    }
+    .order-list{
+        margin: 0px;
+        padding: 0px;
+        li{
+            list-style: none;
+            padding: 10px;
+            &.order{
+                list-style: none;
+                padding: 10px;
+                display: flex;
+                justify-content: space-between;
+                border-bottom: 1px solid #eee;
+                &.shipingOption{
+                    justify-content: unset;
+                    align-items: center;
+                    span{
+                        flex:1;
+                        padding-left:10px;
+                    }
+                }
+                .product-img {
+                    width: 50px;
+                    height: 50px;
+                   img {
+                        width: 50px;
+                        height: 50px;
+                        object-fit: contain;
+                    }
+                }
+            }
+            &.total-value{
+                text-align: right;
+                font-size: 20px;
+                strong{
+                    display: inline-block;
+                    padding-left: 10px;
+                }
+            }
+        }
+    }
+    .cart-btn{
+        background: #eee;
+        padding: 15px 15px;
+        margin: 0px -15px -15px;
+        display: flex;
+        justify-content: space-between;
+        a{
+            color: #fff;
+            display: block;
+            background: #ff4020;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 14px;
+            font-family: open_sansregular;
+            cursor: pointer;
+            &:nth-child(2){
+                background: #20a739;
+                margin-left: 5px;
+            }
+        }
+    }
+}
 
+.content-scroll{
+    max-height: 180px;
+    overflow: auto;
+}
+.content-scroll::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .content-scroll::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+   
+  .content-scroll::-webkit-scrollbar-thumb {
+    background: #ccc; 
+    border-radius: 10px;
+  }
+
+  ::ng-deep .custom-skeleton{
+    border: 1px solid #efeeee;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    box-shadow: unset;
+      .ant-skeleton-avatar{
+        width: calc(100% - 20px);
+        height: calc(100% - 20px);
+        margin: 10px;
+        background: linear-gradient(90deg,#c5c5c5 25%,#c5c5c5 37%,#d0cfcf 63%);
+      }
+      &.circle-box-skeleton{
+        border-radius: 100% !important;
+        width:105px;
+        height: 105px;
+        .ant-skeleton-avatar{
+          border-radius: 100%;
+        }
+      }
+      &.card-skeleton{
+        // box-shadow: 0px 4px 7px 1px rgba(0, 0, 0, 0.1);
+        .ant-skeleton-header{
+          display: block;
+          padding-right: 0px;
+          margin-bottom: 20px;
+          .ant-skeleton-avatar{
+            border-radius: 0px;
+            width: 100%;
+            height: 150px;
+            margin: 0px;
+            background: linear-gradient(90deg,#f2f2f2 25%,#e6e6e6 37%,#f2f2f2 63%);
+            background-size: 400% 100%;
+            -webkit-animation: ant-skeleton-loading 2s ease infinite;
+            animation: ant-skeleton-loading 2s ease infinite;
+          }
+        }
+        .ant-skeleton-content{
+          display: block;
+          width: calc(100% - 20px);
+          margin: 10px;
+          .ant-skeleton-title{
+            width: 100% !important;
+          }
+          .ant-skeleton-paragraph{
+            margin-top: 15px;
+            li{
+              width: 100% !important;
+              background: linear-gradient(90deg,#f2f2f2 25%,#e6e6e6 37%,#f2f2f2 63%);
+              background-size: 400% 100%;
+              -webkit-animation: ant-skeleton-loading 2s ease infinite;
+              animation: ant-skeleton-loading 2s ease infinite;
+            }
+          }
+        }
+        &.list-skeleton{
+            .ant-skeleton-header{
+                .ant-skeleton-avatar{
+                    display: none;
+                }
+            }
+        }
+      }
+  }
 @media screen and (max-width:768px){
     .container{
         padding: 0px;
