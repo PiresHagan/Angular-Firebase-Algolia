@@ -103,6 +103,10 @@ export class CreateProductComponent {
         this.productEditForm.controls['summary'].setValue(productDetails.summary);
         this.productEditForm.controls['tags'].setValue(productDetails.tags);
         this.productEditForm.controls['weight'].setValue(productDetails.weight);
+        this.productEditForm.controls['width'].setValue(productDetails.width);
+        this.productEditForm.controls['height'].setValue(productDetails.height);
+        this.productEditForm.controls['length'].setValue(productDetails.length);
+
         this.productEditForm.controls['salePrice'].setValue(productDetails.salePrice);
         this.productEditForm.controls['discountedPrice'].setValue(productDetails.discountedPrice);
         this.productEditForm.controls['isDigitalProduct'].setValue(productDetails.isDigitalProduct);
@@ -130,6 +134,7 @@ export class CreateProductComponent {
     let price = "^[0-9]+(\.[0-9]*){0,1}$";
     let quantity = "^[0-9]{1,15}$";
     let weightRegex = "^[0-9]{1,3}$"
+    let dimRegex = "^[0-9]{1,2}$"
     this.productEditForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]],
       sku: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]],
@@ -140,6 +145,9 @@ export class CreateProductComponent {
       status: ['', [Validators.required]],
       description: ['', [Validators.required]],
       weight: ['', [Validators.required, Validators.pattern(weightRegex)]],
+      width: ['', [Validators.required, Validators.pattern(dimRegex)]],
+      height: ['', [Validators.required, Validators.pattern(dimRegex)]],
+      length: ['', [Validators.required, Validators.pattern(dimRegex)]],
       quantity: [1, [Validators.required, Validators.pattern(quantity)]],
       tags: [],
       summary: ['', [Validators.required, Validators.maxLength(160)]],

@@ -44,4 +44,7 @@ export interface Product {
   variants: ProductVariant[];
   log: ItemLog;
   weight?: string;
+  width: number;
+  height: number;
+  length: number;
 }

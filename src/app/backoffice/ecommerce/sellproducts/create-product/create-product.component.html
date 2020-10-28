@@ -53,10 +53,46 @@
                   <nz-form-label nzFor="weight" nzRequired>{{'Weight'| translate}}</nz-form-label>
                   <nz-form-control nzErrorTip="{{'PleaseInputValidField'| translate}}">
                     <nz-input-group [nzPrefix]="weightPrefix">
-                      <input nz-input formControlName="weight" type="number" placeholder="1-999">
+                      <input nz-input formControlName="weight" type="number" placeholder="0-150">
                     </nz-input-group>
                     <ng-template #weightPrefix>
                       <span>lbs</span>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                  <nz-form-label nzFor="width" nzRequired>{{'Width'| translate}}</nz-form-label>
+                  <nz-form-control nzErrorTip="{{'PleaseInputValidField'| translate}}">
+                    <nz-input-group [nzPrefix]="lengthPrefix">
+                      <input nz-input formControlName="width" type="number" placeholder="1-99">
+                    </nz-input-group>
+                    <ng-template #lengthPrefix>
+                      <span>inch</span>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                  <nz-form-label nzFor="height" nzRequired>{{'Height'| translate}}</nz-form-label>
+                  <nz-form-control nzErrorTip="{{'PleaseInputValidField'| translate}}">
+                    <nz-input-group [nzPrefix]="lengthPrefix">
+                      <input nz-input formControlName="height" type="number" placeholder="1-99">
+                    </nz-input-group>
+                    <ng-template #lengthPrefix>
+                      <span>inch</span>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                  <nz-form-label nzFor="length" nzRequired>{{'Length'| translate}}</nz-form-label>
+                  <nz-form-control nzErrorTip="{{'PleaseInputValidField'| translate}}">
+                    <nz-input-group [nzPrefix]="lengthPrefix">
+                      <input nz-input formControlName="length" type="number" placeholder="1-99">
+                    </nz-input-group>
+                    <ng-template #lengthPrefix>
+                      <span>inch</span>
                     </ng-template>
                   </nz-form-control>
                 </nz-form-item>
