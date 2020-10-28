@@ -2,7 +2,6 @@
   "hosting": [
     {
       "target": "dev",
-      "site": "mytrendingstories-dev",
       "public": "dist",
       "ignore": [
         "firebase.json",
@@ -18,7 +17,6 @@
     },
     {
       "target": "test",
-      "site": "mytrendingstories-test",
       "public": "dist",
       "ignore": [
         "firebase.json",
@@ -34,7 +32,6 @@
     },
     {
       "target": "prod",
-      "site": "mytrendingstories",
       "public": "dist",
       "ignore": [
         "firebase.json",
@@ -116,7 +113,6 @@
     },
     {
       "target": "preprod",
-      "site": "mytrendingstories-preprod",
       "public": "dist",
       "ignore": [
         "firebase.json",
