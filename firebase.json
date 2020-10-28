@@ -1,6 +1,5 @@
 {
-  "hosting": [
-    {
+  "hosting": [{
       "target": "dev",
       "site": "mytrendingstories-dev",
       "public": "dist",
@@ -9,15 +8,13 @@
         "**/.*",
         "**/node_modules/**"
       ],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
+      "rewrites": [{
+        "source": "**",
+        "destination": "/index.html"
+      }]
     },
     {
-      "target": "test",
+
       "site": "mytrendingstories-test",
       "public": "dist",
       "ignore": [
@@ -25,12 +22,10 @@
         "**/.*",
         "**/node_modules/**"
       ],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
+      "rewrites": [{
+        "source": "**",
+        "destination": "/index.html"
+      }]
     },
     {
       "target": "prod",
@@ -41,17 +36,13 @@
         "**/.*",
         "**/node_modules/**"
       ],
-      "rewrites": [
-        {
-          "source": "**",
-          "function": "ssr"
-        }
-      ],
-      "headers": [
-        {
+      "rewrites": [{
+        "source": "**",
+        "function": "ssr"
+      }],
+      "headers": [{
           "source": "**/*.@(eot|otf|ttf|ttc|woff|woff2|font.css)",
-          "headers": [
-            {
+          "headers": [{
               "key": "Access-Control-Allow-Origin",
               "value": "*"
             },
@@ -63,30 +54,24 @@
         },
         {
           "source": "**/*@(manifest.json|manifest.webmanifest)",
-          "headers": [
-            {
-              "key": "Access-Control-Allow-Origin",
-              "value": "*"
-            }
-          ]
+          "headers": [{
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          }]
         },
         {
           "source": "**/*.@(jpg|jpeg|gif|png)",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "max-age=31536000"
-            }
-          ]
+          "headers": [{
+            "key": "Cache-Control",
+            "value": "max-age=31536000"
+          }]
         },
         {
           "source": "**/*.@(js|map|css|json)",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "max-age=31536000"
-            }
-          ]
+          "headers": [{
+            "key": "Cache-Control",
+            "value": "max-age=31536000"
+          }]
         }
       ]
     },
@@ -99,17 +84,13 @@
         "**/.*",
         "**/node_modules/**"
       ],
-      "rewrites": [
-        {
-          "source": "**",
-          "function": "ssr"
-        }
-      ],
-      "headers": [
-        {
+      "rewrites": [{
+        "source": "**",
+        "function": "ssr"
+      }],
+      "headers": [{
           "source": "**/*.@(eot|otf|ttf|ttc|woff|woff2|font.css)",
-          "headers": [
-            {
+          "headers": [{
               "key": "Access-Control-Allow-Origin",
               "value": "*"
             },
@@ -121,30 +102,24 @@
         },
         {
           "source": "**/*@(manifest.json|manifest.webmanifest)",
-          "headers": [
-            {
-              "key": "Access-Control-Allow-Origin",
-              "value": "*"
-            }
-          ]
+          "headers": [{
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          }]
         },
         {
           "source": "**/*.@(jpg|jpeg|gif|png)",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "max-age=31536000"
-            }
-          ]
+          "headers": [{
+            "key": "Cache-Control",
+            "value": "max-age=31536000"
+          }]
         },
         {
           "source": "**/*.@(js|map|css|json)",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "max-age=31536000"
-            }
-          ]
+          "headers": [{
+            "key": "Cache-Control",
+            "value": "max-age=31536000"
+          }]
         }
       ]
     }
