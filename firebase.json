@@ -1,6 +1,6 @@
 {
   "hosting": [{
-
+      "target": "dev",
       "site": "mytrendingstories-dev",
       "public": "dist",
       "ignore": [
@@ -14,7 +14,7 @@
       }]
     },
     {
-
+      "target": "test",
       "site": "mytrendingstories-test",
       "public": "dist",
       "ignore": [
