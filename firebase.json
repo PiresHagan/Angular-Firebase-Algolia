@@ -70,12 +70,12 @@
       ],
       "redirects": [
         {
-          "source": "/fr/profil/annie-japaud",
+          "source": "/fr/profil/annie-japaud/",
           "destination": "/annie-japaud",
           "type": 301
         },
         {
-          "source": "/fr/profil/april-soller",
+          "source": "/fr/profil/april-soller/",
           "destination": "/april-soller",
           "type": 301
         },
@@ -85,12 +85,12 @@
           "type": 301
         },
         {
-          "source": "/es/videos/the-persuit-of-happiness",
+          "source": "/es/videos/the-persuit-of-happiness/",
           "destination": "/shawn-engel/the-pursuit-of-happiness",
           "type": 301
         },
         {
-          "source": "/es/videos/strawberry-coconut-balls",
+          "source": "/es/videos/strawberry-coconut-balls/",
           "destination": "/ana-najdovska/strawberry-coconut-bites",
           "type": 301
         },
