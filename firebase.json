@@ -80,7 +80,7 @@
           "type": 301
         },
         {
-          "source": "/en/profile/franki-osegueda/?l=es",
+          "source": "/en/profile/franki-osegueda/",
           "destination": "/franki-osegueda",
           "type": 301
         },
@@ -95,17 +95,17 @@
           "type": 301
         },
         {
-          "source": "/en/profile/stephanie-effendie/?l=fr",
+          "source": "/en/profile/stephanie-effendie/",
           "destination": "/stephanie-effendie",
           "type": 301
         },
         {
-          "source": "/es/perfil/kylee-ellis/?l=es",
+          "source": "/es/perfil/kylee-ellis/",
           "destination": "/kylee-ellis",
           "type": 301
         },
         {
-          "source": "/en/profile/leah-fleurimond/?l=es",
+          "source": "/en/profile/leah-fleurimond/",
           "destination": "/leah-fleurimond",
           "type": 301
         },
@@ -120,12 +120,12 @@
           "type": 301
         },
         {
-          "source": "/en/profile/call-me-bebekoh/?l=es",
+          "source": "/en/profile/call-me-bebekoh/",
           "destination": "/call-me-bebekoh",
           "type": 301
         },
         {
-          "source": "/en/profile/organicisbeautiful-exploring-the-world-going-skin-organic/?l=fr",
+          "source": "/en/profile/organicisbeautiful-exploring-the-world-going-skin-organic/",
           "destination": "/organicisbeautiful-exploring-the-world-going-skin-organic",
           "type": 301
         },
@@ -145,7 +145,7 @@
           "type": 301
         },
         {
-          "source": "/en/profile/khadija-george/?l=en",
+          "source": "/en/profile/khadija-george/",
           "destination": "/khadija-george",
           "type": 301
         },
@@ -160,7 +160,7 @@
           "type": 301
         },
         {
-          "source": "/en/profile/rachel-angeles/?l=fr",
+          "source": "/en/profile/rachel-angeles/",
           "destination": "/rachel-angeles",
           "type": 301
         },
@@ -215,7 +215,7 @@
           "type": 301
         },
         {
-          "source": "/en/profile/amanda-maregente/?l=en",
+          "source": "/en/profile/amanda-maregente/",
           "destination": "/amanda-maregente",
           "type": 301
         },
