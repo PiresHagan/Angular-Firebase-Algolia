@@ -1,6 +1,6 @@
 {
   "hosting": [{
-      "target": "dev",
+
       "site": "mytrendingstories-dev",
       "public": "dist",
       "ignore": [
