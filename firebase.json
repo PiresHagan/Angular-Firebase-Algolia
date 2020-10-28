@@ -63,6 +63,10 @@
           "function": "sitemapArticle4"
         },
         {
+          "source": "/rss",
+          "function": "feedRssAll"
+        },
+        {
           "source": "**",
           "function": "ssr"
         }
