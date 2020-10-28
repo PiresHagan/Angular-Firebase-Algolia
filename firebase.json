@@ -108,6 +108,126 @@
           "source": "/en/profile/leah-fleurimond/?l=es",
           "destination": "/leah-fleurimond",
           "type": 301
+        },
+        {
+          "source": "/en/category/San Juan, Agentina/",
+          "destination": "/category/city",
+          "type": 301
+        },
+        {
+          "source": "/fr/categorie/Hambourg, Allemagne/",
+          "destination": "/category/city",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/call-me-bebekoh/?l=es",
+          "destination": "/call-me-bebekoh",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/organicisbeautiful-exploring-the-world-going-skin-organic/?l=fr",
+          "destination": "/organicisbeautiful-exploring-the-world-going-skin-organic",
+          "type": 301
+        },
+        {
+          "source": "/article/flix-premiere-is-set-to-disrupt-the-motion-picture-industry/",
+          "destination": "/search",
+          "type": 301
+        },
+        {
+          "source": "/en/videos/wisconsin-usa-visual-vibes/",
+          "destination": "/search",
+          "type": 301
+        },
+        {
+          "source": "/en/article/5-questions-to-ask-before-booking-a-wedding-venue-for-your-d-day/",
+          "destination": "/search",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/khadija-george/?l=en",
+          "destination": "/khadija-george",
+          "type": 301
+        },
+        {
+          "source": "/article/a-musical-day-in-lindau-lake-constance-germany/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/article/how-to-do-customer-service-as-an-entrepreneur/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/rachel-angeles/?l=fr",
+          "destination": "/rachel-angeles",
+          "type": 301
+        },
+        {
+          "source": "/article/failure/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/article/the-merchant-of-venice-by-william-shakespeare-book-review/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/article/my-thoughts-on-skins-characters/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/article/melanie-martinez-without-makeup/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/article/star-plus-new-show-ishqbaaz-star-cast-and-characters-real-name/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/en/article/vancouver-fashion-week-ss17-sharleez-show-stoppers/",
+          "destination": "/jennica-b/vancouver-fashion-week-ss17-sharleez-show-stoppers",
+          "type": 301
+        },
+        {
+          "source": "/article/school-shootings-as-portrayed-on-criminal-minds/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/article/dear-god-please-help-my-brother/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/en/category/Edmonton%2C Canada/",
+          "destination": "/city",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/greta-lamfel/",
+          "destination": "/greta-lamfel",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/amanda-maregente/?l=en",
+          "destination": "/amanda-maregente",
+          "type": 301
+        },
+        {
+          "source": "/en/article/cookie-monster/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/en/article/exposing-lives/",
+          "destination": "/",
+          "type": 301
         }
       ],
       "headers": [
