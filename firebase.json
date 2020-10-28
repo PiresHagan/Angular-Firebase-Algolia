@@ -68,6 +68,48 @@
           "function": "ssr"
         }
       ],
+      "redirects": [
+        {
+          "source": "/fr/profil/annie-japaud",
+          "destination": "/annie-japaud",
+          "type": 301
+        },
+        {
+          "source": "/fr/profil/april-soller",
+          "destination": "/april-soller",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/franki-osegueda/?l=es",
+          "destination": "/franki-osegueda",
+          "type": 301
+        },
+        {
+          "source": "/es/videos/the-persuit-of-happiness",
+          "destination": "/shawn-engel/the-pursuit-of-happiness",
+          "type": 301
+        },
+        {
+          "source": "/es/videos/strawberry-coconut-balls",
+          "destination": "/ana-najdovska/strawberry-coconut-bites",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/stephanie-effendie/?l=fr",
+          "destination": "/stephanie-effendie",
+          "type": 301
+        },
+        {
+          "source": "/es/perfil/kylee-ellis/?l=es",
+          "destination": "/kylee-ellis",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/leah-fleurimond/?l=es",
+          "destination": "/leah-fleurimond",
+          "type": 301
+        }
+      ],
       "headers": [
         {
           "source": "**/*.@(eot|otf|ttf|ttc|woff|woff2|font.css)",
