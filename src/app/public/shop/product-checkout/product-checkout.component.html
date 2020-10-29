@@ -124,10 +124,7 @@
               </li>
               <li>
                 <ul class="order-list content-scroll">
-                  <li>
-                    <nz-skeleton *ngIf="!(shipppingOptions[group.key])" [nzAvatar]="true" [nzParagraph]="{ rows: 2 }"
-                      class="custom-skeleton card-skeleton list-skeleton"></nz-skeleton>
-                  </li>
+
                   <li class="order shipingOption" *ngFor="let shipper of shipppingOptions[group.key]">
                     <!-- <div *ngIf="config?.isCheckout" class="product-img">
                       <img [src]="product?.images[0]?.url" [alt]="product?.images[0]?.alt" />
@@ -138,6 +135,10 @@
                     <span>{{ shipper?.carrier_friendly_name }}</span>
                     <strong>{{ shipper?.shipping_amount?.amount?shipper?.shipping_amount?.amount :0 }}</strong>
 
+                  </li>
+                  <li>
+                    <nz-skeleton *ngIf="!(shipppingOptions[group.key])" [nzAvatar]="true" [nzParagraph]="{ rows: 2 }"
+                      class="custom-skeleton card-skeleton list-skeleton"></nz-skeleton>
                   </li>
 
                 </ul>

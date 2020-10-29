@@ -2,7 +2,6 @@
 import { Component, ViewContainerRef } from '@angular/core'
 import { UserService } from 'src/app/shared/services/user.service';
 import { StoreSetting } from 'src/app/backoffice/shared/services/store-setting.service';
-import { Store } from 'src/app/shared/interfaces/ecommerce/store';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ShopProductAddReviewComponent } from 'src/app/shared/component/shop-product-add-review/shop-product-add-review.component';

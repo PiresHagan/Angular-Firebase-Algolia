@@ -52,6 +52,10 @@
               <h3 class="font-weight-semibold text-dark">{{ 'InvoiceNo' | translate}} :</h3>
               <div>#{{orderDetails.invoiceId}}</div>
             </div>
+            <div class="invoice-row d-block">
+              <h3 class="font-weight-semibold text-dark">{{ 'TrackingNumber' | translate}} :</h3>
+              <div>#{{orderDetails.tracking_number}}</div>
+            </div>
             <div class="invoice-row">
               <span class="font-weight-semibold text-dark">{{'Date' | translate}} :</span>
               <div>{{orderDetails.created_at | date :'short'}}</div>
@@ -95,11 +99,18 @@
           <div class="row m-t-30 lh-1-8">
             <div class="col-sm-12">
               <div class="float-right text-right">
-                <p>{{'SubTotalAmount' | translate}}: ${{orderDetails.totalPrice}}</p>
+                <p *ngIf="orderDetails?.shippingRate?.shipping_amount?.amount">{{'Shipping Amount' | translate}}:
+                  ${{orderDetails?.shippingRate?.shipping_amount?.amount}}</p>
 
                 <hr>
-                <h3><span class="font-weight-semibold text-dark">{{'Total' | translate}} :</span>
-                  ${{orderDetails.totalPrice}}</h3>
+                <h3 *ngIf="orderDetails?.shippingRate?.shipping_amount?.amount"><span
+                    class="font-weight-semibold text-dark">{{'Total' | translate}} :</span>
+                  ${{orderDetails.totalPrice +  orderDetails?.shippingRate?.shipping_amount?.amount}}
+                </h3>
+                <h3 *ngIf="!orderDetails?.shippingRate?.shipping_amount?.amount"><span
+                    class="font-weight-semibold text-dark">{{'Total' | translate}} :</span>
+                  ${{orderDetails.totalPrice}}
+                </h3>
               </div>
             </div>
           </div>
