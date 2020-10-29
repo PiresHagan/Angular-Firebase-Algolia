@@ -99,7 +99,7 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
       name: ['Umasha', [Validators.required]],
       mobile_number: ['989988', [Validators.required]],
       alternate_mobile_number: [null],
-      address: ['Umasha', [Validators.required]],
+      address_line: ['Umasha', [Validators.required]],
       city: ['Umasha', [Validators.required]],
       state: ['Umasha', [Validators.required]],
       postal_code: ['53226', [Validators.required]],

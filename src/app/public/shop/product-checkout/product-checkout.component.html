@@ -52,7 +52,7 @@
                   <nz-form-item>
                     <nz-form-label>Address </nz-form-label>
                     <nz-form-control nzErrorTip="Please input your address">
-                      <textarea type="text" nz-input formControlName="address" placeholder="Enter address"
+                      <textarea type="text" nz-input formControlName="address_line" placeholder="Enter address"
                         [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
                     </nz-form-control>
                   </nz-form-item>
@@ -106,16 +106,16 @@
 
 
               <li class="order" *ngFor="let product of group.value;index as productIndex">
-           
-                  <div *ngIf="config?.isCheckout" class="product-img">
-                    <img [src]="product?.images[0]?.url" [alt]="product?.images[0]?.alt" />
-                  </div>
-                  <span>{{ product.name }}</span>
-                  <strong
-                    *ngIf="product?.discountedPrice; else productSalePrice">{{ product?.discountedPrice | currency :'USD':'symbol':'1.0-2' }}</strong>
-                  <ng-template #productSalePrice>
-                    <strong>{{ product?.salePrice | currency :'USD':'symbol':'1.0-2' }}</strong>
-                  </ng-template>
+
+                <div *ngIf="config?.isCheckout" class="product-img">
+                  <img [src]="product?.images[0]?.url" [alt]="product?.images[0]?.alt" />
+                </div>
+                <span>{{ product.name }}</span>
+                <strong
+                  *ngIf="product?.discountedPrice; else productSalePrice">{{ product?.discountedPrice | currency :'USD':'symbol':'1.0-2' }}</strong>
+                <ng-template #productSalePrice>
+                  <strong>{{ product?.salePrice | currency :'USD':'symbol':'1.0-2' }}</strong>
+                </ng-template>
                 <div>
 
 
@@ -125,20 +125,21 @@
               <li>
                 <ul class="order-list content-scroll">
                   <li>
-                    <nz-skeleton  *ngIf="!(shipppingOptions[group.key])" [nzAvatar]="true" [nzParagraph]="{ rows: 2 }" class="custom-skeleton card-skeleton list-skeleton"></nz-skeleton>
+                    <nz-skeleton *ngIf="!(shipppingOptions[group.key])" [nzAvatar]="true" [nzParagraph]="{ rows: 2 }"
+                      class="custom-skeleton card-skeleton list-skeleton"></nz-skeleton>
                   </li>
                   <li class="order shipingOption" *ngFor="let shipper of shipppingOptions[group.key]">
                     <!-- <div *ngIf="config?.isCheckout" class="product-img">
                       <img [src]="product?.images[0]?.url" [alt]="product?.images[0]?.alt" />
                     </div> -->
-                    <input type="radio" name="carrier_id_{{productIndex}}" value="{{ shipper?.carrier_id }}"
+                    <input type="radio" name="carrier_id_{{group.key}}" value="{{ shipper?.carrier_id }}"
                       (click)="setShippingOptionAndPrice(group.key,shipper.carrier_id, shipper?.shipping_amount?.amount?shipper?.shipping_amount?.amount :0)">
-  
-                      <span>{{ shipper?.carrier_friendly_name }}</span>
-                      <strong>{{ shipper?.shipping_amount?.amount?shipper?.shipping_amount?.amount :0 }}</strong>
-  
+
+                    <span>{{ shipper?.carrier_friendly_name }}</span>
+                    <strong>{{ shipper?.shipping_amount?.amount?shipper?.shipping_amount?.amount :0 }}</strong>
+
                   </li>
-  
+
                 </ul>
               </li>
 
