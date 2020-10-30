@@ -144,6 +144,11 @@ export class StoreSetting {
         return this.http.put(apicall, data);
 
     }
+    getTrackingInfo(orderId) {
+        const apicall = environment.baseAPIDomain + '/api/v1/store-orders/' + orderId + '/track';
+        return this.http.get(apicall);
+
+    }
 
 
 

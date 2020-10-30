@@ -8,11 +8,11 @@
     <div class="checkout-box">
       <div class="step-checkout-detail">
         <nz-steps [nzCurrent]="current">
-          <nz-step nzTitle="SignIn"></nz-step>
-          <nz-step nzTitle="Delivery"></nz-step>
-          <nz-step nzTitle="Shipping"></nz-step>
-          <nz-step nzTitle="Payment"></nz-step>
-          <nz-step nzTitle="Order Status"></nz-step>
+          <nz-step nzTitle="{{'SignIn' | translate }}"></nz-step>
+          <nz-step nzTitle="{{'Delivery' | translate }}"></nz-step>
+          <nz-step nzTitle="{{'Shipping' | translate }}"></nz-step>
+          <nz-step nzTitle="{{'Payment' | translate }}"></nz-step>
+          <nz-step nzTitle="{{'OrderStatus' | translate }}"></nz-step>
         </nz-steps>
         <div class="checkout-content checkout-content-scroll">
           <div class="checkout-step-0" *ngIf="current === loginStatusStep">
@@ -21,62 +21,63 @@
 
           <div class="checkout-step-1" *ngIf="current === deliveryAddressStep">
             <form nz-form [formGroup]="userAddressForm" class="ant-advanced-search-form mt-4">
-              <h2>Add Address</h2>
+              <h2>{{'AddAddress' | translate }}</h2>
               <div class="row">
                 <div class="col-md-4 col-sm-6">
                   <nz-form-item>
-                    <nz-form-label>Name </nz-form-label>
-                    <nz-form-control nzErrorTip="Please input your name">
+                    <nz-form-label> {{'Name' | translate }}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'Name' | translate }} {{ 'required' | translate}}">
                       <input type="text" nz-input formControlName="name" placeholder="Enter name" />
                     </nz-form-control>
                   </nz-form-item>
                 </div>
                 <div class="col-md-4 col-sm-6">
                   <nz-form-item>
-                    <nz-form-label>Mobile </nz-form-label>
-                    <nz-form-control nzErrorTip="Please input your mobile number">
-                      <input type="number" nz-input formControlName="mobile_number" placeholder="Enter mobile" />
+                    <nz-form-label> {{'Mobile' | translate }}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'Mobile' | translate }} {{ 'required' | translate}}">
+                      <input type="number" nz-input formControlName="mobile_number"
+                        placeholder=" {{'Mobile' | translate }}" />
                     </nz-form-control>
                   </nz-form-item>
                 </div>
                 <div class="col-md-4 col-sm-6">
                   <nz-form-item>
-                    <nz-form-label>Alternate Phone (Optional) </nz-form-label>
+                    <nz-form-label>{{'AlternatePhone' | translate }} {{ 'required' | translate}}</nz-form-label>
                     <nz-form-control>
                       <input type="number" nz-input formControlName="alternate_mobile_number"
-                        placeholder="Enter alternate phone" />
+                        placeholder="{{'AlternatePhone' | translate }}" />
                     </nz-form-control>
                   </nz-form-item>
                 </div>
                 <div class="col-md-4 col-sm-6">
                   <nz-form-item>
-                    <nz-form-label>Address </nz-form-label>
-                    <nz-form-control nzErrorTip="Please input your address">
-                      <textarea type="text" nz-input formControlName="address_line" placeholder="Enter address"
-                        [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+                    <nz-form-label> {{'Address' | translate }}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'Address' | translate }} {{ 'required' | translate}}">
+                      <textarea type="text" nz-input formControlName="address_line"
+                        placeholder="{{'Address' | translate }}" [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
                     </nz-form-control>
                   </nz-form-item>
                 </div>
                 <div class="col-md-4 col-sm-6">
                   <nz-form-item>
-                    <nz-form-label>City </nz-form-label>
-                    <nz-form-control nzErrorTip="Please input your city name">
-                      <input type="text" nz-input formControlName="city" placeholder="Enter city" />
+                    <nz-form-label> {{'City' | translate }}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'City' | translate }} {{ 'required' | translate}}">
+                      <input type="text" nz-input formControlName="city" placeholder="{{'City' | translate }}" />
                     </nz-form-control>
                   </nz-form-item>
                 </div>
                 <div class="col-md-4 col-sm-6">
                   <nz-form-item>
-                    <nz-form-label>State </nz-form-label>
-                    <nz-form-control nzErrorTip="Please input your state name">
-                      <input type="text" nz-input formControlName="state" placeholder="Enter state" />
+                    <nz-form-label> {{ 'State' | translate}} </nz-form-label>
+                    <nz-form-control nzErrorTip=" {{'City' | translate }} {{ 'required' | translate}}">
+                      <input type="text" nz-input formControlName="state" placeholder=" {{ 'State' | translate}} " />
                     </nz-form-control>
                   </nz-form-item>
                 </div>
                 <div class="col-md-4 col-sm-6">
                   <nz-form-item>
-                    <nz-form-label>Country </nz-form-label>
-                    <nz-form-control nzErrorTip="Please input your country">
+                    <nz-form-label> {{ 'Country' | translate}}</nz-form-label>
+                    <nz-form-control nzErrorTip="{{'Country' | translate }} {{ 'required' | translate}}">
                       <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Country" formControlName="country_code">
                         <nz-option [nzLabel]="country.countryName" [nzValue]="country.countryCode"
                           *ngFor="let country of countries"> </nz-option>
@@ -87,9 +88,10 @@
                 </div>
                 <div class="col-md-4 col-sm-6">
                   <nz-form-item>
-                    <nz-form-label>Postal Code </nz-form-label>
-                    <nz-form-control nzErrorTip="Please input your postal code">
-                      <input type="text" nz-input formControlName="postal_code" placeholder="Enter postal code" />
+                    <nz-form-label> {{ 'PostalCode' | translate}} </nz-form-label>
+                    <nz-form-control nzErrorTip="{{'PostalCode' | translate }} {{ 'required' | translate}}">
+                      <input type="text" nz-input formControlName="postal_code"
+                        placeholder="{{ 'PostalCode' | translate}}" />
                     </nz-form-control>
                   </nz-form-item>
                 </div>
@@ -168,7 +170,8 @@
                   <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
                 </div>
                 <div nz-col nzSpan="24" class="m-t-10 card-number-col">
-                  <input nz-input type="text" required placeholder="CARD HOLDER NAME" [(ngModel)]="cardHolderName" />
+                  <input nz-input type="text" required placeholder="{{ 'CardHolderName' | translate}}"
+                    [(ngModel)]="cardHolderName" />
                 </div>
               </div>
             </div>
@@ -198,13 +201,13 @@
                   </g>
                 </g>
               </svg>
-              <h2>Order placed successfully</h2>
+              <h2>{{ 'Orderplacedsuccessfully' | translate}}</h2>
               <div class="error-actions cart-btn">
                 <a [routerLink]="[ '/' ]" class="btn btn-primary btn-lg">
                   <span class="glyphicon glyphicon-home"></span>
-                  Take Me Home </a>
+                  {{ 'TakeMeHome' | translate}}</a>
                 <a [routerLink]="[ '/shop' ]" class="btn btn-default btn-lg">
-                  <span class="glyphicon glyphicon-envelope"></span>Continue Shopping</a>
+                  <span class="glyphicon glyphicon-envelope"></span> {{ 'ContinueShopping' | translate}}</a>
               </div>
             </div>
           </div>
@@ -212,20 +215,20 @@
         <div class="steps-action">
           <button nz-button nzType="default" class="m-r-10 custom-btn gray-btn" (click)="pre()"
             *ngIf="current > deliveryAddressStep && current < orderStatusStep">
-            <span>Previous</span>
+            <span>{{ 'Previous' | translate}}</span>
           </button>
           <button nz-button nzType="default" class="custom-btn btn-red" (click)="next()"
             *ngIf="current === shippingPicker" [disabled]="products?.length == 0 ">
-            <span>Next</span>
+            <span>{{ 'Next' | translate}}</span>
           </button>
           <button nz-button nzType="default" class="custom-btn btn-red" (click)="next()"
             *ngIf="current === deliveryAddressStep" [disabled]="products?.length == 0 ">
-            <span>Next</span>
+            <span>{{ 'Next' | translate}}</span>
           </button>
 
           <button nz-button nzType="primary" class="custom-btn" (click)="placeOrder()"
             *ngIf="current === paymentOptionsStep" [disabled]="products?.length == 0" [nzLoading]="isPlacingOrder">
-            <span>Place Order</span>
+            <span>{{ 'PlaceOrder' | translate}}</span>
           </button>
         </div>
       </div>
@@ -234,7 +237,7 @@
         </app-cart-calculator>
         <div style="padding-top: 10px;">
           <a [routerLink]="['/shop/cart']">
-            <button nz-button nzType="primary">Back to Cart</button>
+            <button nz-button nzType="primary">{{ 'BackToCart' | translate}}</button>
           </a>
         </div>
       </div>

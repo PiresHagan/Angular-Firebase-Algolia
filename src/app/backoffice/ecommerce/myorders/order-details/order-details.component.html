@@ -55,6 +55,7 @@
             <div class="invoice-row d-block">
               <h3 class="font-weight-semibold text-dark">{{ 'TrackingNumber' | translate}} :</h3>
               <div>#{{orderDetails.tracking_number}}</div>
+              <div><a (click)="checkOrderStatus()">{{ 'GetTrackingDetails' | translate}}</a></div>
             </div>
             <div class="invoice-row">
               <span class="font-weight-semibold text-dark">{{'Date' | translate}} :</span>
@@ -105,7 +106,7 @@
                 <hr>
                 <h3 *ngIf="orderDetails?.shippingRate?.shipping_amount?.amount"><span
                     class="font-weight-semibold text-dark">{{'Total' | translate}} :</span>
-                  ${{orderDetails.totalPrice +  orderDetails?.shippingRate?.shipping_amount?.amount}}
+                  ${{getCalculatedShipping(orderDetails)}}
                 </h3>
                 <h3 *ngIf="!orderDetails?.shippingRate?.shipping_amount?.amount"><span
                     class="font-weight-semibold text-dark">{{'Total' | translate}} :</span>

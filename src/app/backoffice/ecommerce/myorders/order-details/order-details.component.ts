@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ShopProductAddReviewComponent } from 'src/app/shared/component/shop-product-add-review/shop-product-add-review.component';
 import { NzModalService } from 'ng-zorro-antd';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   templateUrl: './order-details.component.html',
@@ -18,6 +19,7 @@ export class OrderDetailsComponent {
   markPaidStatus = false;
   shippingCarrier: '';
   trackingNumber: '';
+  orderId = '';
 
   itemData = [
 
@@ -31,13 +33,15 @@ export class OrderDetailsComponent {
     private storeService: StoreSetting,
     private activatedRoute: ActivatedRoute,
     private location: Location,
-    private modal: NzModalService, private viewContainerRef: ViewContainerRef
+    private modal: NzModalService, private viewContainerRef: ViewContainerRef,
+    private translate: TranslateService
 
   ) {
     this.userService.getCurrentUser().then((user) => {
       this.currentUser = user;
       this.activatedRoute.queryParams.subscribe(params => {
         let orderId = params['invoice'];
+        this.orderId = params['invoice'];
         if (!orderId)
           this.goBack();
         this.storeService.getCustomerOrderDetails(orderId).subscribe((data) => {
@@ -76,6 +80,37 @@ export class OrderDetailsComponent {
     else
       return parseInt(item.salePrice)
   }
+  checkOrderStatus() {
+    this.storeService.getTrackingInfo(this.orderId).subscribe((trackingData) => {
+      console.log(trackingData);
+      let message = this.translate.instant('InOnTheWay')
+      if (trackingData && trackingData['status_code'] == "NY") {
+        message = this.translate.instant('InTransit');
+      } else if (trackingData && trackingData['status_code'] == "AC") {
+        message = this.translate.instant('InOnTheWay');
+      } else if (trackingData && trackingData['status_code'] == "IT") {
+        message = this.translate.instant('InOnTheWay');
+      } else if (trackingData && trackingData['status_code'] == "DE") {
+        message = this.translate.instant('InDelivery');
+      } else if (trackingData && trackingData['status_code'] == "EX") {
+        message = this.translate.instant('InException');
+      } else if (trackingData && trackingData['status_code'] == "UN") {
+        message = this.translate.instant('InOnTheWay');
+      } else if (trackingData && trackingData['status_code'] == "AT") {
+        message = this.translate.instant('DeleveryAttemped');
+      }
+      const modal = this.modal.create({
+        nzTitle: this.translate.instant('ShippingInfo'),
+        nzContent: message
+      })
+    }, () => {
+      const modal = this.modal.create({
+        nzTitle: this.translate.instant('CampERROR'),
+        nzContent: this.translate.instant('somethingWrongErr')
+      })
+
+    })
+  }
   addReview(product): void {
     const modal = this.modal.create({
       nzTitle: 'Add Review',
@@ -105,5 +140,8 @@ export class OrderDetailsComponent {
     // setTimeout(() => {
     //   instance.subtitle = 'sub title is changed';
     // }, 2000);
+  }
+  getCalculatedShipping(orderDetails) {
+    return parseFloat(orderDetails.totalPrice) + orderDetails?.shippingRate?.shipping_amount?.amount ? parseFloat(orderDetails?.shippingRate?.shipping_amount?.amount) : 0;
   }
 }    
