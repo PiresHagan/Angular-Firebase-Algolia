@@ -96,14 +96,14 @@ export class ProductCheckoutComponent implements OnInit, OnDestroy {
     });
 
     this.userAddressForm = this.fb.group({
-      name: ['Umasha', [Validators.required]],
-      mobile_number: ['989988', [Validators.required]],
+      name: ['', [Validators.required]],
+      mobile_number: ['', [Validators.required]],
       alternate_mobile_number: [null],
-      address: ['Umasha', [Validators.required]],
-      city: ['Umasha', [Validators.required]],
-      state: ['Umasha', [Validators.required]],
-      postal_code: ['53226', [Validators.required]],
-      country_code: ['US', [Validators.required]]
+      address: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      state: ['', [Validators.required]],
+      postal_code: ['', [Validators.required]],
+      country_code: ['', [Validators.required]]
     });
 
     this.getCartProduct();
