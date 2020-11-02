@@ -4,6 +4,8 @@ import { StoreSetting } from 'src/app/backoffice/shared/services/store-setting.s
 import { Store } from 'src/app/shared/interfaces/ecommerce/store';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
+import { NzModalService } from 'ng-zorro-antd';
 
 @Component({
   templateUrl: './invoice.component.html'
@@ -25,8 +27,10 @@ export class InvoiceComponent {
   storeDetails;
   isDataLoading = true;
   orderDetails;
+  orderId = '';
 
-  constructor(private userService: UserService, private storeService: StoreSetting, private activatedRoute: ActivatedRoute, private location: Location) {
+
+  constructor(private userService: UserService, private storeService: StoreSetting, private activatedRoute: ActivatedRoute, private location: Location, private translate: TranslateService, private modal: NzModalService) {
     this.userService.getCurrentUser().then((user) => {
       this.currentUser = user;
       this.storeService.getStoreById(user.uid).subscribe((storeDetails: Store) => {
@@ -35,6 +39,8 @@ export class InvoiceComponent {
           this.goBack();
         this.activatedRoute.queryParams.subscribe(params => {
           let orderId = params['invoice'];
+
+          this.orderId = params['invoice'];
           if (!orderId)
             this.goBack();
           this.storeService.getStoreOrderDetails(this.storeDetails.id, orderId).subscribe((data: any) => {
@@ -105,5 +111,36 @@ export class InvoiceComponent {
       return parseInt(item.discountedPrice)
     else
       return parseInt(item.salePrice)
+  }
+  checkOrderStatus() {
+    this.storeService.getTrackingInfo(this.orderId).subscribe((trackingData) => {
+      console.log(trackingData);
+      let message = this.translate.instant('InOnTheWay')
+      if (trackingData && trackingData['status_code'] == "NY") {
+        message = this.translate.instant('InTransit');
+      } else if (trackingData && trackingData['status_code'] == "AC") {
+        message = this.translate.instant('InOnTheWay');
+      } else if (trackingData && trackingData['status_code'] == "IT") {
+        message = this.translate.instant('InOnTheWay');
+      } else if (trackingData && trackingData['status_code'] == "DE") {
+        message = this.translate.instant('InDelivery');
+      } else if (trackingData && trackingData['status_code'] == "EX") {
+        message = this.translate.instant('InException');
+      } else if (trackingData && trackingData['status_code'] == "UN") {
+        message = this.translate.instant('InOnTheWay');
+      } else if (trackingData && trackingData['status_code'] == "AT") {
+        message = this.translate.instant('DeleveryAttemped');
+      }
+      const modal = this.modal.create({
+        nzTitle: this.translate.instant('ShippingInfo'),
+        nzContent: message
+      })
+    }, () => {
+      const modal = this.modal.create({
+        nzTitle: this.translate.instant('CampERROR'),
+        nzContent: this.translate.instant('somethingWrongErr')
+      })
+
+    })
   }
 }    

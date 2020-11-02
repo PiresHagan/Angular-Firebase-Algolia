@@ -62,6 +62,16 @@
             </div>
             <div class="float-right">#{{orderDetails.invoiceId}}</div>
           </div>
+          <div class="invoice-row d-block">
+
+            <div class="text-dark text-uppercase d-inline-block">
+              <span class="font-weight-semibold text-dark">{{ 'TrackingNumber' | translate}} :</span>
+            </div>
+            <div class="float-right">#{{orderDetails.tracking_number}}</div>
+
+
+            <div><a (click)="checkOrderStatus()">{{ 'GetTrackingDetails' | translate}}</a></div>
+          </div>
           <div class="text-dark text-uppercase d-inline-block">
 
             <span class="font-weight-semibold text-dark">{{'Date' | translate}} :</span>

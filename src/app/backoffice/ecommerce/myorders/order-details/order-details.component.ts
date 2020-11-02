@@ -142,6 +142,6 @@ export class OrderDetailsComponent {
     // }, 2000);
   }
   getCalculatedShipping(orderDetails) {
-    return parseFloat(orderDetails.totalPrice) + orderDetails?.shippingRate?.shipping_amount?.amount ? parseFloat(orderDetails?.shippingRate?.shipping_amount?.amount) : 0;
+    return parseFloat(orderDetails.totalPrice) + orderDetails?.shippingRate?.shipping_amount?.amount;
   }
 }    
