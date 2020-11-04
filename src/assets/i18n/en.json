@@ -781,6 +781,8 @@
   "Width": "Width",
   "Length": "Length",
   "Weight": "Weight",
+
+
   "SignIn": "SignIn",
   "OrderStatus": "Order Status",
   "Delivery": "Delivery",
@@ -809,7 +811,18 @@
   "InDelivery": "The package is delivered.",
   "InOnTheWay": "The package is on the way.",
   "InException": "There is some issue with package. Please connect with the store.",
-  "DeleveryAttemped": "We tried to deliver your package."
+  "DeleveryAttemped": "We tried to deliver your package.",
+  "SearchPoduct": "Search Product",
+  "TopProducts": "Top Products",
+  "DealsOfTheDay": "Deals Of The Day",
+  "FashionForEveryone": "Fashion For Everyone",
+  "Stores": "Stores ",
+  "AddToCart": "Add To Cart",
+  "BuyNow": "Buy Now",
+  "RatinAndReview": "Rating & Review",
+  "NoReview": "No reviews available",
+  "SimilarProducts": "Similar Products",
+  "Upload": "Upload"
 
 
 

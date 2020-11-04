@@ -150,7 +150,7 @@
           <button nz-button type="button" class="b-btn" [nzLoading]="isAdding" (click)="addToCart()">Buy Now</button>
           <!-- <button type="button" class="b-btn s-btn">Save for later</button> -->
         </div>
-        <div class="feature-sec">
+        <!-- <div class="feature-sec">
           <h3>Available Offers</h3>
           <div class="feature-txt">
             <svg id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512"
@@ -276,7 +276,7 @@
             </svg>
             <span>Delivery by 29 Sep, Tuesday<a>T&C</a></span>
           </div>
-        </div>
+        </div> -->
         <!-- <div class="feature-sec">
                     <h3>Specifications</h3>
                     <div class="feature-txt">
@@ -299,7 +299,7 @@
                     </div>
                 </div> -->
         <div class="p-rating-sec">
-          <h3>Rating & Review</h3>
+          <h3>{{'RatinAndReview' | translate}}</h3>
           <div class="overall-rating">
             <div *ngIf="product?.stats?.rating" class="p-rating">{{ product?.stats?.rating | number :'1.0-1' }}</div>
             <div *ngIf="product?.stats?.rating" class="p-rating-list">
@@ -308,7 +308,7 @@
               </ul>
             </div>
             <div *ngIf="!(product?.stats?.rating)" class="no-review">
-              No reviews available
+              {{'NoReview' |translate}}
             </div>
           </div>
           <nz-skeleton [nzActive]="true" *ngIf="!productReviews"> </nz-skeleton>
@@ -339,7 +339,7 @@
   <div class="product-sec">
     <div class="container">
       <div class="product-title">
-        <h2>Similar Products</h2>
+        <h2>{{'SimilarProducts' | translate}}</h2>
         <span class="line"></span>
       </div>
       <div class="product-list">

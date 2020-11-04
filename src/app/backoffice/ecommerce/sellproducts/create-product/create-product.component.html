@@ -265,7 +265,7 @@
               <nz-upload [nzAction]="imageUploadURL" nzListType="picture-card" [(nzFileList)]="fileList"
                 [nzShowButton]="fileList.length < 15" [nzPreview]="handlePreview">
                 <i nz-icon nzType="plus"></i>
-                <div class="ant-upload-text">Upload</div>
+                <div class="ant-upload-text">{{'Upload' |translate}}</div>
               </nz-upload>
               <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
                 (nzOnCancel)="previewVisible=false">
