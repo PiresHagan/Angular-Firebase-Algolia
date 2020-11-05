@@ -363,6 +363,11 @@
           "source": "/en/article/exposing-lives/",
           "destination": "/",
           "type": 301
+        },
+        {
+          "source": "/apptomate-digital-gkn1gb/are-you-running-online-ecommerce-store-in-magento-platform?-DmMp7Y",
+          "destination": "/",
+          "type": 301
         }
       ],
       "headers": [
