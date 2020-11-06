@@ -28,8 +28,9 @@
                     justify-content: unset;
                     align-items: center;
                     span{
-                        flex:1;
-                        padding-left:10px;
+                        padding: 0px 10px;
+                        flex: 1;
+                        text-align: left;    
                     }
                 }
             }
@@ -79,19 +80,6 @@
     }
   }
 
-.popup-content{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .bg-logo{
-        display: inline-block;
-        max-width: 90px;
-        margin-right: 20px;
-        img{
-            max-width: 100%;
-        }
-    }
-}
 
 .product-img{
     width:50px;
@@ -99,6 +87,7 @@
     img{
         width:50px;
         height: 50px;
+        object-fit: contain;
     }
 }
 .sign-up-modal{
