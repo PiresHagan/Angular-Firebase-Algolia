@@ -144,7 +144,9 @@ export class UserService {
         }).catch((error) => {
           console.info(error);
           reject(error);
-        });
+        }).catch((error) => {
+          console.error(error)
+        })
 
     })
   }
