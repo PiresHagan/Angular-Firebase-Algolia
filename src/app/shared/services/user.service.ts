@@ -137,10 +137,13 @@ export class UserService {
               alt: fileName
             });
 
-          }).catch(err => reject(err))
+          }).catch(err => {
+            console.info(err);
+            reject(err)
+          })
         }).catch((error) => {
-          console.log(error);
-          reject();
+          console.info(error);
+          reject(error);
         });
 
     })
