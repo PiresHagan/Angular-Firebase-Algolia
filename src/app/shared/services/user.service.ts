@@ -128,7 +128,10 @@ export class UserService {
 
   addProfileImage(uid: string, file: string, fileName: string) {
     return new Promise((resolve, reject) => {
-      firebase.storage().ref(`${this.basePath}/${this.currentUser.email}`).putString(file, "data_url").then(
+
+
+
+      firebase.storage().ref(`${this.basePath}/${this.currentUser.uid}`).putString(file, "data_url").then(
         snapshot => {
           snapshot.ref.getDownloadURL().then((downloadURL) => {
             const imageUrl: string = downloadURL;
