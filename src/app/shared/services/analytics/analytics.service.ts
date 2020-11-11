@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAnalytics } from '@angular/fire/analytics';
 import { NavigationEnd, Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 
@@ -8,7 +8,7 @@ import * as firebase from 'firebase/app';
 })
 export class AnalyticsService {
   constructor(
-    private afAuth: AngularFireAuth,
+    private analytics: AngularFireAnalytics,
     private router: Router,
   ) {
     this.handleAnalyticsPageView();
@@ -23,7 +23,8 @@ export class AnalyticsService {
             user_uid: user.uid,
             user_email: user.email,
             user_name: user.displayName,
-            provider_id: user.providerData.length > 0 ? user.providerData[0].providerId : user.providerId
+            provider_id: user.providerData.length > 0 ? user.providerData[0].providerId : user.providerId,
+            page_view: window.location.href
           });
         }
       }
@@ -31,8 +32,7 @@ export class AnalyticsService {
   }
 
   public logEvent(name: string, payload: { [key: string]: any }): void {
-    const analytics = firebase.analytics();
-    analytics.logEvent(name, payload);
+    this.analytics.logEvent(name, payload);
   }
 
   public logEvents(name: string, payloads: { [key: string]: any }[]): void {
