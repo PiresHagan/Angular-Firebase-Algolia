@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { AngularFirestore, DocumentReference, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
+import 'firebase/storage';
 import { User } from "../interfaces/user.type";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { take, map } from "rxjs/operators";
@@ -130,8 +131,8 @@ export class UserService {
     return new Promise((resolve, reject) => {
 
 
-
-      firebase.storage().ref(`${this.basePath}/${this.currentUser.uid}`).putString(file, "data_url").then(
+      const storageRef = firebase.storage().ref(`${this.basePath}/${this.currentUser.uid}`)
+      storageRef.putString(file, "data_url").then(
         snapshot => {
           console.info('UMASHA snapshot-------------', snapshot)
           snapshot.ref.getDownloadURL().then((downloadURL) => {
