@@ -133,6 +133,7 @@ export class UserService {
 
       firebase.storage().ref(`${this.basePath}/${this.currentUser.uid}`).putString(file, "data_url").then(
         snapshot => {
+          console.info('UMASHA snapshot-------------', snapshot)
           snapshot.ref.getDownloadURL().then((downloadURL) => {
             const imageUrl: string = downloadURL;
             resolve({
@@ -145,10 +146,9 @@ export class UserService {
             reject(err)
           })
         }).catch((error) => {
-          console.info(error);
+          alert(error)
+          console.info('UMASHA-------------', error)
           reject(error);
-        }).catch((error) => {
-          console.error(error)
         })
 
     })
