@@ -18,7 +18,6 @@ import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5
 import { Cloudinary } from 'cloudinary-core';
 import { ShareButtonsComponent } from './component/share-buttons/share-buttons.component';
 import { AdDirective } from './directives/ad/ad.directive';
-import { AnalyticsService } from './services/analytics/analytics.service';
 import { SeoService } from './services/seo/seo.service';
 import { QuicklinkModule } from 'ngx-quicklink';
 
@@ -70,7 +69,6 @@ export function createTranslateLoader(http: HttpClient) {
     ],
     providers: [
         ThemeConstantService,
-        AnalyticsService,
         SeoService,
     ]
 })

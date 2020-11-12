@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Charity } from 'src/app/shared/interfaces/charity.type';
 import { take, map } from 'rxjs/operators';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +17,17 @@ export class CharityService {
   private charityCollection = 'charities';
   private followersCollection = "followers";
   private charityDonation = "donates";
+
   constructor(private http: HttpClient,
-    public db: AngularFirestore) {
+    public db: AngularFirestore,
+    private storage: AngularFireStorage,
+  ) {
 
   }
 
   addImage(file: string, fileName: string) {
     return new Promise((resolve, reject) => {
-      firebase.storage().ref(`${this.basePath}/${fileName}`).putString(file, "data_url").then(
+      this.storage.ref(`${this.basePath}/${fileName}`).putString(file, "data_url").then(
         snapshot => {
           snapshot.ref.getDownloadURL().then((downloadURL) => {
             const imageUrl: string = downloadURL;
