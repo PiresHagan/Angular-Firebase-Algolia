@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { Company } from 'src/app/shared/interfaces/company.type';
 import { take, map } from 'rxjs/operators';
 import { CompanyConstant } from 'src/app/shared/constants/company-constant';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -19,14 +20,17 @@ export class CompanyService {
   private leadsCollection = "leads"
   private leadsPackageCollection = 'lead-packages';
   private subscriptionsCollection = 'subscriptions';
+
   constructor(private http: HttpClient,
-    public db: AngularFirestore) {
+    public db: AngularFirestore,
+    private storage: AngularFireStorage,
+  ) {
 
   }
 
   addImage(file: string, fileName: string) {
     return new Promise((resolve, reject) => {
-      firebase.storage().ref(`${this.basePath}/${fileName}`).putString(file, "data_url").then(
+      this.storage.ref(`${this.basePath}/${fileName}`).putString(file, "data_url").then(
         snapshot => {
           snapshot.ref.getDownloadURL().then((downloadURL) => {
             const imageUrl: string = downloadURL;

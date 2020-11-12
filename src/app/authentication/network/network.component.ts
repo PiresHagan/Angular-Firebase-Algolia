@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
 import * as firebase from 'firebase/app';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 @Component({
   selector: 'app-network',
   templateUrl: './network.component.html',
@@ -19,13 +20,13 @@ export class NetworkComponent implements OnInit {
 
   networkList = [
     {
-        name: 'Google',
-        icon: 'google',
-        avatarColor: '#4267b1',
-        avatarBg: 'rgba(66, 103, 177, 0.1)',
-        status: false,
-        link: 'https://google.com',
-        provider: 'appGoogleSignin'
+      name: 'Google',
+      icon: 'google',
+      avatarColor: '#4267b1',
+      avatarBg: 'rgba(66, 103, 177, 0.1)',
+      status: false,
+      link: 'https://google.com',
+      provider: 'appGoogleSignin'
     },
     /* {
         name: 'Facebook',
@@ -115,41 +116,41 @@ export class NetworkComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     public translate: TranslateService,
-     private language: LanguageService
-
+    private language: LanguageService,
+    private afAuth: AngularFireAuth,
   ) { }
 
   async ngOnInit() {
     this.networkForm = this.fb.group({
-      google  : [ null ],
+      google: [null],
     });
 
-    await firebase.auth().onAuthStateChanged((user) => {
+    this.afAuth.onAuthStateChanged((user) => {
       console.log("currentUser", JSON.stringify(user));
 
       return new Promise(async resolve => {
         if (user != null) {
-            this.currentUser = user;
-            await this.userService.get(this.currentUser.uid).subscribe((data) => {
-              //console.log("data", data.networks);
-              if(data.networks){
-                for (const network in data.networks){
+          this.currentUser = user;
+          await this.userService.get(this.currentUser.uid).subscribe((data) => {
+            //console.log("data", data.networks);
+            if (data.networks) {
+              for (const network in data.networks) {
                 //console.log(network);
-                  this.networkForm.controls[network].setValue(network);
-                }
+                this.networkForm.controls[network].setValue(network);
               }
-              
-            });
-            resolve();
-          } else {
-            this.router.navigate(['/login']);
-          }
-      
+            }
+
+          });
+          resolve();
+        } else {
+          this.router.navigate(['/login']);
+        }
+
       });
 
     });
 
-    
+
   }
 
   submitForm(): void {
@@ -158,7 +159,7 @@ export class NetworkComponent implements OnInit {
         this.networkForm.controls[ i ].updateValueAndValidity();
     } */
 
-      this.router.navigate(['/interest']);
+    this.router.navigate(['/interest']);
   }
 
   /* updateConfirmValidator(): void {
