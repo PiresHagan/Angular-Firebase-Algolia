@@ -18,15 +18,22 @@ export class AnalyticsService {
     this.router.events.subscribe(evt => {
       if (evt instanceof NavigationEnd) {
         const user = firebase.auth().currentUser;
-        if (user) {
-          this.logEvent('page_view', {
-            user_uid: user.uid,
-            user_email: user.email,
-            user_name: user.displayName,
-            provider_id: user.providerData.length > 0 ? user.providerData[0].providerId : user.providerId,
-            page_view: window.location.href
-          });
+
+        const provider = user ? user?.providerData.length > 0
+          ? user?.providerData[0].providerId : user?.providerId : undefined;
+
+        if (user?.email === 'mosesgodson27@gmail.com') {
+          alert('Logging page_view event for Moses');
         }
+
+        this.logEvent('page_view', {
+          user_uid: user?.uid,
+          user_email: user?.email,
+          user_name: user?.displayName || 'Anonymous',
+          provider_id: provider,
+          current_path: window.location.href,
+          origin: window.location.origin
+        });
       }
     });
   }

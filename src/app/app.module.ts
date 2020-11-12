@@ -47,6 +47,7 @@ registerLocaleData(en);
         BackofficeLayoutComponent
     ],
     imports: [
+        AngularFireModule.initializeApp(environment.firebase),
         BrowserModule,
         BrowserAnimationsModule,
         CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
@@ -54,7 +55,6 @@ registerLocaleData(en);
         AppRoutingModule,
         TemplateModule,
         SharedModule,
-        AngularFireModule.initializeApp(environment.firebase),
         AngularFireAnalyticsModule,
         AngularFireMessagingModule,
         AngularFireAuthModule,
