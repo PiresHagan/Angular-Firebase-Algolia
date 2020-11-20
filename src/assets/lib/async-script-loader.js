@@ -37,11 +37,11 @@ function initiateAds() {
     const definedSlots = []; // re-usable references
 
     const allGoogleAdSpaces = [
-      { slot: '/22150420070/adxp_mytrendingstories_billboard', size: [970, 250], id: 'div-gpt-ad-home-0', },
-      { slot: '/22150420070/adxp_mytrendingstories_billboard', size: [970, 250], id: 'div-gpt-ad-home-1', },
-      { slot: '/22150420070/adxp_mytrendingstories_billboard', size: [970, 250], id: 'div-gpt-ad-home-2', },
-      { slot: '/22150420070/adxp_mytrendingstories_billboard', size: [728, 90], id: 'div-gpt-ad-1599554538840-0' },
-      { slot: '/22150420070/adxp_mytrendingstories_rectangle_1', size: [300, 250], id: 'div-gpt-ad-1599554575619-0' },
+      { slot: '/22150420070/adxp_mytrendingstories_billboard', size: [[970, 250], [970, 90], [300, 250], [728, 90], [320, 100], [320, 50]], id: 'div-gpt-ad-home-0', },
+      { slot: '/22150420070/adxp_mytrendingstories_billboard', size: [[970, 250], [970, 90], [300, 250], [728, 90], [320, 100], [320, 50]], id: 'div-gpt-ad-home-1', },
+      { slot: '/22150420070/adxp_mytrendingstories_billboard', size: [[970, 250], [970, 90], [300, 250], [728, 90], [320, 100], [320, 50]], id: 'div-gpt-ad-home-2', },
+      { slot: '/22150420070/adxp_mytrendingstories_billboard', size: [[970, 250], [970, 90], [300, 250], [728, 90], [320, 100], [320, 50]], id: 'div-gpt-ad-1599554538840-0' },
+      { slot: '/22150420070/adxp_mytrendingstories_rectangle_1', size: [[336, 280], [320, 50], [468, 60], [300, 250], [320, 100]], id: 'div-gpt-ad-1599554575619-0' },
       { slot: '/107720708/adxp_mytrendingstories_halfpage', size: [300, 600], id: 'div-gpt-ad-1599554597929-0' }, // slot size dimension is not available in new script
     ];
 
@@ -50,17 +50,17 @@ function initiateAds() {
     for (let i = 0; i < size; i++) {
       // for billboard ads
       allGoogleAdSpaces.push(
-        { slot: '/22150420070/adxp_mytrendingstories_billboard', size: [970, 250], id: `dynamic_billboard_ad_${i}` }
+        { slot: '/22150420070/adxp_mytrendingstories_billboard', size: [[970, 250], [970, 90], [300, 250], [728, 90], [320, 100], [320, 50]], id: `dynamic_billboard_ad_${i}` }
       );
 
       // for billboard ads
       allGoogleAdSpaces.push(
-        { slot: '/22150420070/adxp_mytrendingstories_billboard', size: [728, 90], id: `dynamic_leaderboard_ad_${i}` }
+        { slot: '/22150420070/adxp_mytrendingstories_billboard', size: [[970, 250], [970, 90], [300, 250], [728, 90], [320, 100], [320, 50]], id: `dynamic_leaderboard_ad_${i}` }
       );
 
       // for mRectangle ads
       allGoogleAdSpaces.push(
-        { slot: '/22150420070/adxp_mytrendingstories_rectangle_2', size: [300, 250], id: `dynamic_mrectangle_ad_${i}` }
+        { slot: '/22150420070/adxp_mytrendingstories_rectangle_2', size: [[320, 50], [320, 100], [300, 250], [336, 280], [468, 60]], id: `dynamic_mrectangle_ad_${i}` }
       );
     }
 
