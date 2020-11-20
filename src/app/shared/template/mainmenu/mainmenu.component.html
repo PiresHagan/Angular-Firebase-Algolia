@@ -31,7 +31,7 @@
 
                 <li nz-menu-item class="megamenu-list city-dropdown" id="mega-menu-header" (mouseenter)="showMegaMenu()"
                     (mouseleave)="hideMegaMenu()">
-                    <a class="megamenu-link">city <i nz-icon nzType="down" nzTheme="outline"></i></a>
+                    <a class="megamenu-link">{{'city' | translate}} <i nz-icon nzType="down" nzTheme="outline"></i></a>
                     <div class="mega-body-sec" id="mega-menu-section">
                         <div class="megamenu-body">
                             <div class="sub-catagories-sec">
@@ -90,7 +90,7 @@
                         {{item.title}}</li>
 
                 </ng-container>
-                <li nz-submenu nzTitle="City" class="xs-menu-item">
+                <li nz-submenu nzTitle="{{'city' | translate}}" class="xs-menu-item">
                     <ng-container *ngFor="let item of (categories)">
                         <ul *ngIf="(item?.title) == 'City'">
                             <li (click)="hideMegaMenu()"
@@ -103,7 +103,7 @@
                     </ng-container>
                 </li>
 
-                <li nz-submenu nzTitle="More" class="xs-menu-item">
+                <li nz-submenu nzTitle="{{'More' | translate}}" class="xs-menu-item">
                     <ng-container *ngFor="let item of (categories)">
                         <div [ngClass]="item.slug">
                             <h2 class="category-title-xs">{{item.title}}</h2>
