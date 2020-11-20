@@ -32,8 +32,6 @@ export class AnalyticsService {
     const provider = user ? user?.providerData.length > 0
       ? user?.providerData[0].providerId : user?.providerId : undefined;
 
-    console.warn('Intentional: Logging page_view event...');
-
     this.logEvent('page_view', {
       user_uid: user?.uid,
       user_email: user?.email,
