@@ -373,7 +373,7 @@
         .mega-body-sec{
           .megamenu-body{
             .sub-catagories-sec{
-              height: 100%;
+              height: 90%;
               .sub-catagories-list{
                 h3{
                     font-size: 16px;
@@ -382,7 +382,7 @@
                     font-family: "josefin_sansregular";
                     position: relative;
                     padding-bottom: 8px;
-                    margin-bottom: 10px;
+                    margin-bottom: 25px;
                     white-space: nowrap;
                     &:after {
                         content: "";
@@ -395,12 +395,12 @@
                     }
                 }
                 >ul{
-                  display: flex;
-                  flex-wrap: wrap;
-                  height: 100%;
+                    height: 100%;
+                    clear: both;
                   li{
                     width: calc(16.6666% - 10px);
                     margin-right:10px;
+                    float: left;
                     &:hover{
                       color: #f64747;
                       background: transparent;
@@ -654,6 +654,19 @@
     }
 }
 @media screen and (max-width:992px){
+    .xs-city-menu{
+        ::ng-deep .ant-menu-inline{
+           >ul{
+            margin-top: 20px;
+            .mega-menu-list-item{
+               line-height: 30px !important;
+               height: 30px;
+           }
+           }
+        }
+       
+    }
+   
     .megamenu-list{
         padding: 0px !important;
         .megamenu-link{

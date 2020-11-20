@@ -90,7 +90,7 @@
                         {{item.title}}</li>
 
                 </ng-container>
-                <li nz-submenu nzTitle="{{'city' | translate}}" class="xs-menu-item">
+                <li nz-submenu nzTitle="{{'city' | translate}}" class="xs-menu-item xs-city-menu">
                     <ng-container *ngFor="let item of (categories)">
                         <ul *ngIf="(item?.title) == 'City'">
                             <li (click)="hideMegaMenu()"
