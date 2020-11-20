@@ -644,5 +644,6 @@
   "DeletMsgSuc": "¡Registro eliminado correctamente!",
   "DeletMsgConf": "¿Desea eliminar estos registros?",
   "WrittenBy": "Escrito por",
-  "AdminCenter": "Centro de administración"
+  "AdminCenter": "Centro de administración",
+  "city":"ciudad"
 }
