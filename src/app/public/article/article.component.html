@@ -27,10 +27,10 @@
 <section class="is-article-block" *ngIf="article">
   <div class="container">
     <div class="mobile-article-detail">
-      <h2 class="xs-article-title">
+      <h1 class="xs-article-title">
         <span class="xs-article-category" [ngClass]="article.category.slug">{{article?.category.title}}</span><br>
         {{article?.title}}
-      </h2>
+      </h1>
       <div class="xs-article-author-detail">
         <div class="xs-article-name">
           <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
