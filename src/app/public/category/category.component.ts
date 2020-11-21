@@ -74,6 +74,7 @@ export class CategoryComponent implements OnInit {
 
       this.categoryService.getCategoryBySlug(slug).subscribe(category => {
         this.category = category;
+        this.rss = `?category=${this.category.slug}`;
         if (!this.topic) {
           this.pageHeader = this.category?.title;
         }
@@ -160,10 +161,10 @@ export class CategoryComponent implements OnInit {
   }
   getTopicDetails(topicSlug: string) {
     this.categoryService.getTopicBySlug(topicSlug).subscribe((topicData: Category) => {
-      this.rss = `?topic=${this.topic}`;
-      if (topicData?.title)
+      if (topicData?.title){
+        this.rss = `?topic=${this.topic}`;
         this.pageHeader = topicData?.title;
-      console.log(topicData);
+      }
     })
 
   }
