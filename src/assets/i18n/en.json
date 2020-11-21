@@ -683,5 +683,6 @@
   "DeletMsgSuc": "Record deleted successfully!",
   "DeletMsgConf": "Do you Want to delete these record?",
   "WrittenBy": "Written by",
-  "AdminCenter": "Admin Center"
+  "AdminCenter": "Admin Center",
+  "city":"City"
 }
