@@ -60,8 +60,12 @@
           "function": "sitemapArticle4"
         },
         {
+          "source": "/sitemap-author.xml",
+          "function": "sitemapAuthor"
+        },
+        {
           "source": "/rss",
-          "function": "feedRssAll"
+          "function": "rss"
         },
         {
           "source": "**",
@@ -351,22 +355,27 @@
         },
         {
           "source": "/en/article/weather-or-not/",
-          "destination": "/",
+          "destination": "/ash-douglas/weather-or-not",
           "type": 301
         },
         {
           "source": "/en/article/cookie-monster/",
-          "destination": "/",
+          "destination": "/denise-lee/cookie-monster",
           "type": 301
         },
         {
           "source": "/en/article/exposing-lives/",
-          "destination": "/",
+          "destination": "/rawiya-al-amri/exposing-lives",
           "type": 301
         },
         {
           "source": "/apptomate-digital-gkn1gb/are-you-running-online-ecommerce-store-in-magento-platform?-DmMp7Y",
           "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/fr/profil/april-soller/",
+          "destination": "/april-soller",
           "type": 301
         }
       ],
