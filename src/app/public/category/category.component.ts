@@ -29,6 +29,7 @@ export class CategoryComponent implements OnInit {
   lastVisible: any = null;
   slug = '';
   topic: string = '';
+  rss = '';
   selectedLanguage: string = "";
   pageHeader: string = '';
   newsLetterForm = new FormGroup({
@@ -65,6 +66,7 @@ export class CategoryComponent implements OnInit {
       this.slug = slug;
       this.category = null;
       this.articleGroups = [];
+      this.rss = `?category=${slug}`;
 
       if (this.topic) {
         this.getTopicDetails(this.topic);
@@ -158,6 +160,7 @@ export class CategoryComponent implements OnInit {
   }
   getTopicDetails(topicSlug: string) {
     this.categoryService.getTopicBySlug(topicSlug).subscribe((topicData: Category) => {
+      this.rss = `?topic=${this.topic}`;
       if (topicData?.title)
         this.pageHeader = topicData?.title;
       console.log(topicData);
