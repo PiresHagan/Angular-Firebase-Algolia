@@ -289,7 +289,7 @@
   "FAQRedirectPage": "you will be redirected to your page with your avatar being displayed.",
   "FAQEmail": "If you are still experiencing any difficulties please email us at support@mytrendingstories.com",
   "howAddArticle": "How can I add an article?",
-  "clickOnAvatar": "Click on Avtar Feature ",
+  "clickOnAvatar":  "Click on Avatar Feature ",
   "clickOnProfile": "Click on manage profile:",
   "clickOnNewArticle": "Click on  +New article:",
   "FAQConnectSocialMedia": "How can I connect my social media accounts to my My Trending Stories profile?",
@@ -363,7 +363,8 @@
   "BuyponConCamp": "Buy Sponsored Contributor Campaign",
   "CamPickADate": "Pick A Date",
   "CamChooseLanguage": "Choose Language",
-  "CamShortBio": "Sort Biography",
+  "CamShortBio": "Short Biography",
+
   "CampNext": "Next",
   "CampPhoneNo": "Phone No",
   "CamAvatar": "Avatar Image",
