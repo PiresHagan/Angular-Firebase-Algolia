@@ -439,7 +439,7 @@
   "VideoInfo": "-Prohíbe estrictamente cargar datos de la empresa u otros archivos incorrectos",
   "VideoInfo1": "-El archivo debe tener menos de 100 MB",
   "AudioInfo": "-Prohíbe estrictamente cargar datos de la empresa u otros archivos incorrectos",
-  "AudioInfo1": "-El tamaño del archivo debe estar entre 20 MB y 250 MB",
+  "AudioInfo1": "-El tamaño del archivo debe estar entre 20 MB y 250s MB",
   "SomethingWentWrong1": "<p> <strong> Posible error: </strong></p> <p> -Su contenido no es válido. </p> <p> -Su campaña ya está en estado pendiente o en ejecución . </p> <p>: está intentando crear la misma campaña varias veces el mismo día. </p> ",
   "AllStories": "Todos",
   "VideoStories": "Video",
@@ -644,5 +644,6 @@
   "DeletMsgSuc": "¡Registro eliminado correctamente!",
   "DeletMsgConf": "¿Desea eliminar estos registros?",
   "WrittenBy": "Escrito por",
-  "AdminCenter": "Centro de administración"
+  "AdminCenter": "Centro de administración",
+  "city":"ciudad"
 }

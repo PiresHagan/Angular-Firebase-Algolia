@@ -3,12 +3,14 @@ import { Injectable } from "@angular/core";
 import { AngularFirestore, DocumentReference, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
+import 'firebase/storage';
 import { User } from "../interfaces/user.type";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { take, map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { Member } from "../interfaces/member.type";
 import { HttpClient } from "@angular/common/http";
+import { AngularFireStorage } from "@angular/fire/storage";
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +28,8 @@ export class UserService {
   constructor(
     public db: AngularFirestore,
     public afAuth: AngularFireAuth,
-    private http: HttpClient
+    private http: HttpClient,
+    private storage: AngularFireStorage,
   ) {
     this.afAuth.authState.subscribe((user) => {
       if (user && !user.isAnonymous)
@@ -56,15 +59,16 @@ export class UserService {
   }
 
   updateCurrentUserProfile(value) {
-    return new Promise<any>((resolve, reject) => {
-      var user = firebase.auth().currentUser;
+    return new Promise<any>(async (resolve, reject) => {
+      var user = await this.afAuth.currentUser;
       user.updateProfile(value).then(res => {
         resolve(res)
       }, err => reject(err))
     })
   }
-  updatePassword(password: string) {
-    let user = firebase.auth().currentUser;
+
+  async updatePassword(password: string) {
+    let user = await this.afAuth.currentUser;
     return user.updatePassword(password)
   }
 
@@ -128,8 +132,9 @@ export class UserService {
 
   addProfileImage(uid: string, file: string, fileName: string) {
     return new Promise((resolve, reject) => {
-      firebase.storage().ref(`${this.basePath}/${this.currentUser.email}`).putString(file, "data_url").then(
+      this.storage.ref(`${this.basePath}/${this.currentUser.email}`).putString(file, "data_url").then(
         snapshot => {
+          console.info('UMASHA snapshot-------------', snapshot)
           snapshot.ref.getDownloadURL().then((downloadURL) => {
             const imageUrl: string = downloadURL;
             resolve({
@@ -137,11 +142,15 @@ export class UserService {
               alt: fileName
             });
 
-          }).catch(err => reject(err))
+          }).catch(err => {
+            console.info(err);
+            reject(err)
+          })
         }).catch((error) => {
-          console.log(error);
-          reject();
-        });
+          alert(error)
+          console.info('UMASHA-------------', error)
+          reject(error);
+        })
 
     })
   }

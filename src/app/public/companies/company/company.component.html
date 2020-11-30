@@ -1,4 +1,26 @@
-<section class="is-article-block">
+<section class="is-article-block" *ngIf="!company">
+    <div class="container">
+      <div class="article-full-img no-overlay">
+        <nz-skeleton-element *ngIf="!company"  [nzLoading]="loading" nzType="avatar" class="custom-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+      </div>
+      <div class="is-article-sec">
+        <div class="is-left-profile hidden-on-xs mt-2 p-4">
+          <nz-skeleton *ngIf="!company"   [nzAvatar]="true" [nzParagraph]="{ rows: 4 }" class="custom-skeleton card-skeleton left-skeleton-profile"></nz-skeleton>
+        </div>
+        <div class="is-main-article-content">
+          <div class="is-content">
+            <nz-skeleton-element *ngIf="!company" [nzLoading]="loading" nzType="avatar" class="custom-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+          </div>
+  
+        </div>
+        <div class="is-right-ad-section">
+          <nz-skeleton-element *ngIf="!company" [nzLoading]="loading" nzType="avatar" class="custom-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+        </div>
+      </div>
+  
+    </div>
+  </section>
+<section class="is-article-block"  *ngIf="company">
     <div class="container">
         <div class="mobile-article-detail">
             <h2 class="xs-article-title">

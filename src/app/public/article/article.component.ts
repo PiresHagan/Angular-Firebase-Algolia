@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
@@ -15,6 +15,9 @@ import { TEXT, AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
 import * as moment from 'moment';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
 import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.service';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
+import { ArticleAdItem } from 'src/app/shared/interfaces/article-meta.type';
 
 @Component({
   selector: 'app-article',
@@ -22,7 +25,7 @@ import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.se
   styleUrls: ['./article.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ArticleComponent implements OnInit, AfterViewInit {
+export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked {
   article: Article;
   articleType: string;
   articleLikes: number = 0;
@@ -36,7 +39,9 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   isLike: boolean = false;
   isLoaded: boolean = false;
   selectedLang: string = '';
-  selectedLanguage: string = "";
+  selectedLanguage: string = '';
+  public articleAds: ArticleAdItem[];
+  public isMobile: boolean;
   TEXT = TEXT;
   AUDIO = AUDIO;
   VIDEO = VIDEO;
@@ -64,6 +69,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
       this.article = null;
 
       this.articleService.getArtical(slug).subscribe(artical => {
+        this.articleAds = [{ elem: '<em>Parsing...</em>' }];
         this.article = artical[0];
 
         if (!this.article) {
@@ -76,16 +82,17 @@ export class ArticleComponent implements OnInit, AfterViewInit {
           return;
         }
 
-        if (!params.get('userSlug')) { 
+        if (!params.get('userSlug')) {
           this.router.navigate(['/', this.article?.author?.slug, this.article?.slug]);
           return;
         }
-        
+
         const articleId = this.article.id;
 
         this.articleType = this.article.type ? this.article.type : TEXT;
         this.articleLikes = this.article.likes_count;
         this.articleVicewCount = this.article.view_count;
+        this.insertAdsToArticle();
         this.setUserDetails();
 
         this.seoService.updateMetaTags({
@@ -106,6 +113,8 @@ export class ArticleComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewChecked(): void {
+    this.isMobile = window.innerWidth < 767;
+
     if (!this.isLoaded) {
       delete window['addthis']
       setTimeout(() => { this.loadScript(); }, 100);
@@ -135,15 +144,61 @@ export class ArticleComponent implements OnInit, AfterViewInit {
         this.userDetails = null;
         this.isLoggedInUser = false;
       }
-
-
-
-    })
+    });
   }
 
-  transformHtml(htmlTextWithStyle) {
-    return this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle);
+  public trackByArticleAdFn(index: number, data: ArticleAdItem): string {
+    return index + '_' + data.insertAd;
   }
+
+  private insertAdsToArticle() {
+    // ensures that jQuery is available before parsing
+    if (!window['jQuery']) {
+      of(null).pipe(delay(200)).subscribe(() => this.insertAdsToArticle());
+      return;
+    }
+
+    const $ = window['jQuery'];
+
+    if (this.article.content && this.articleType === this.TEXT) {
+      // grabs all children of element
+      const children = $(this.article.content);
+      const impactPoint = 800; // point after which its reasonable to insert ad
+      let impactValue = 0;
+      let adIndex = 0;
+
+      const list: ArticleAdItem[] = children.map((ch: number) => {
+        const c: HTMLElement = children[ch];
+
+        // creates item for partial view
+        const tag = (c.tagName || 'span').toLowerCase();
+        const item: ArticleAdItem = {
+          elem: `<${tag}>${c.innerHTML || ''}</${tag}>`,
+          insertAd: false
+        };
+
+        // if paragraph, then count impact with innerText length
+        if (tag === 'p') {
+          impactValue += c.innerText.length || 0;
+
+          if (impactValue >= impactPoint) {
+            impactValue = 0;
+            item.insertAd = true;
+            item.adIndex = adIndex;
+
+            adIndex++; // increments index for next ad placement
+          }
+        }
+
+        return item;
+      });
+
+      this.articleAds = list;
+    } else {
+      this.articleAds = [];
+    }
+  }
+
   reportAbuseArticle() {
     this.isReportAbuseArticleLoading = true;
     this.articleService.updateArticleAbuse(this.article.id).then(() => {
@@ -152,7 +207,7 @@ export class ArticleComponent implements OnInit, AfterViewInit {
       console.log('Your suggestion saved successfully.')
     })
   }
-  
+
   getUserDetails() {
     return {
       fullname: this.userDetails.fullname,

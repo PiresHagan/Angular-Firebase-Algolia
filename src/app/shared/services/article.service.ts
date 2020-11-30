@@ -20,8 +20,13 @@ export class ArticleService {
   articleLikesCollection: string = 'likes';
   articleCommentsCollection: string = 'comments';
   articleImagePath: string = '/article';
-  constructor(private afAuth: AngularFireAuth,
-    private db: AngularFirestore, private storage: AngularFireStorage, private http: HttpClient) { }
+
+  constructor(
+    private afAuth: AngularFireAuth,
+    private db: AngularFirestore,
+    private storage: AngularFireStorage,
+    private http: HttpClient,
+  ) { }
 
   getAll() {
     return this.db.collection<Article[]>(this.articleCollection).snapshotChanges().pipe(
@@ -38,14 +43,14 @@ export class ArticleService {
   getArtical(slug: string, addRef?: boolean) {
     return this.db.collection<Article>(this.articleCollection, ref => ref
       .where('slug', '==', slug)
-      .where('status', "==", ACTIVE)
+      .where('status', '==', ACTIVE)
       .limit(1)
     ).snapshotChanges().pipe(take(1),
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
           const id = a.payload.doc.id;
-          const img = data.image?.url ? data.image?.url : "";
+          const img = data.image?.url ? data.image?.url : '';
           if (img)
             data.image.url = img.replace('https://mytrendingstories.com', 'https://assets.mytrendingstories.com');
           return { id, ...data, __doc: addRef ? a.payload.doc : undefined };
@@ -121,7 +126,7 @@ export class ArticleService {
 
   createComment(articleId: string, commentDtails: Comment) {
 
-    return this.http.post(environment.baseAPIDomain + '/api/v1/articles/' + articleId + "/comments", commentDtails);
+    return this.http.post(environment.baseAPIDomain + '/api/v1/articles/' + articleId + '/comments', commentDtails);
   }
 
   /**
@@ -132,15 +137,15 @@ export class ArticleService {
    * @param commentDtails 
    */
   updateComment(articleId: string, commentid: string, commentDtails: Comment) {
-    return this.http.put(environment.baseAPIDomain + '/api/v1/articles/' + articleId + "/comments/" + commentid, commentDtails);
+    return this.http.put(environment.baseAPIDomain + '/api/v1/articles/' + articleId + '/comments/' + commentid, commentDtails);
     // return this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`).doc(commentid).set(commentDtails)
   }
 
 
   getHeroArticles(lang) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('lang', "==", lang)
-      .where('status', "==", ACTIVE)
+      .where('lang', '==', lang)
+      .where('status', '==', ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(6)
     ).snapshotChanges().pipe(
@@ -156,8 +161,8 @@ export class ArticleService {
 
   getHeroLargeArticle(lang) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('lang', "==", lang)
-      .where('status', "==", ACTIVE)
+      .where('lang', '==', lang)
+      .where('status', '==', ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(1)
     ).snapshotChanges().pipe(
@@ -173,8 +178,8 @@ export class ArticleService {
 
   getHeroSmallArticle(lang) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('lang', "==", lang)
-      .where('status', "==", ACTIVE)
+      .where('lang', '==', lang)
+      .where('status', '==', ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(6)
     ).snapshotChanges().pipe(
@@ -224,8 +229,8 @@ export class ArticleService {
   getCategoryFirst(slug: string, lang: string = 'en') {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('category.slug', '==', slug)
-      .where('lang', "==", lang)
-      .where('status', "==", ACTIVE)
+      .where('lang', '==', lang)
+      .where('status', '==', ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(1)
     ).snapshotChanges().pipe(
@@ -242,8 +247,8 @@ export class ArticleService {
   getCategory(slug: string, lang: string = 'en') {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('category.slug', '==', slug)
-      .where('lang', "==", lang)
-      .where('status', "==", ACTIVE)
+      .where('lang', '==', lang)
+      .where('status', '==', ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(30)
     ).snapshotChanges().pipe(
@@ -260,8 +265,8 @@ export class ArticleService {
   getToday(lang: string = 'en') {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('published_at', '>=', moment().subtract(1, 'days').toISOString())
-      .where('lang', "==", lang)
-      .where('status', "==", ACTIVE)
+      .where('lang', '==', lang)
+      .where('status', '==', ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(60)
     ).snapshotChanges().pipe(
@@ -278,8 +283,8 @@ export class ArticleService {
   getTrending(lang: string = 'en') {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('published_at', '>=', moment().subtract(30, 'days').toISOString())
-      .where('lang', "==", lang)
-      .where('status', "==", ACTIVE)
+      .where('lang', '==', lang)
+      .where('status', '==', ACTIVE)
       .orderBy('published_at', 'desc')
       .orderBy('view_count', 'desc')
       .limit(50)
@@ -296,8 +301,8 @@ export class ArticleService {
 
   getLatest(lang: string = 'en') {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('lang', "==", lang)
-      .where('status', "==", ACTIVE)
+      .where('lang', '==', lang)
+      .where('status', '==', ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(20)
     ).snapshotChanges().pipe(
@@ -313,9 +318,9 @@ export class ArticleService {
 
   getEditorsPick(lang: string = 'en') {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
-      .where('lang', "==", lang)
-      .where('status', "==", ACTIVE)
-      .where('editor_pick', "==", true)
+      .where('lang', '==', lang)
+      .where('status', '==', ACTIVE)
+      .where('editor_pick', '==', true)
       .orderBy('published_at', 'desc')
       .limit(15)
     ).snapshotChanges().pipe(
@@ -332,7 +337,7 @@ export class ArticleService {
   getArticlesByAuthor_old(authorId: string, limit: number = 10) {
     return this.db.collection<Article[]>(this.articleCollection, ref => ref
       .where('author.id', '==', authorId)
-      .where('status', "==", ACTIVE)
+      .where('status', '==', ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(limit)
     ).snapshotChanges().pipe(
@@ -348,21 +353,21 @@ export class ArticleService {
   }
 
 
-  getArticlesByAuthor(authorId: string, limit: number = 10, navigation: string = "first", lastVisible = null, type = null) {
+  getArticlesByAuthor(authorId: string, limit: number = 10, navigation: string = 'first', lastVisible = null, type = null) {
     if (!limit) {
       limit = 10;
     }
     let dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-      .where("author.id", "==", authorId)
-      .where('status', "==", ACTIVE)
+      .where('author.id', '==', authorId)
+      .where('status', '==', ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(limit)
     )
     if (type) {
       dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-        .where("author.id", "==", authorId)
-        .where('status', "==", ACTIVE)
-        .where('type', "==", type)
+        .where('author.id', '==', authorId)
+        .where('status', '==', ACTIVE)
+        .where('type', '==', type)
         .orderBy('published_at', 'desc')
 
         .limit(limit)
@@ -371,16 +376,16 @@ export class ArticleService {
     switch (navigation) {
       case 'next':
         dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-          .where("author.id", "==", authorId)
-          .where('status', "==", ACTIVE)
+          .where('author.id', '==', authorId)
+          .where('status', '==', ACTIVE)
           .orderBy('published_at', 'desc')
           .limit(limit)
           .startAfter(lastVisible))
         if (type) {
           dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-            .where("author.id", "==", authorId)
-            .where('status', "==", ACTIVE)
-            .where('type', "==", type)
+            .where('author.id', '==', authorId)
+            .where('status', '==', ACTIVE)
+            .where('type', '==', type)
             .orderBy('published_at', 'desc')
             .limit(limit)
             .startAfter(lastVisible))
@@ -402,21 +407,21 @@ export class ArticleService {
   }
 
 
-  getArticles(authorId, limit: number = 10, navigation: string = "first", lastVisible = null) {
+  getArticles(authorId, limit: number = 10, navigation: string = 'first', lastVisible = null) {
     if (!limit) {
       limit = 10;
     }
     let dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-      .where("author.id", "==", authorId)
-      .where('status', "==", ACTIVE)
+      .where('author.id', '==', authorId)
+      .where('status', '==', ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(limit)
     )
     switch (navigation) {
       case 'next':
         dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-          .where("author.id", "==", authorId)
-          .where('status', "==", ACTIVE)
+          .where('author.id', '==', authorId)
+          .where('status', '==', ACTIVE)
           .limit(limit)
           .startAfter(lastVisible))
         break;
@@ -435,19 +440,19 @@ export class ArticleService {
     );
   }
 
-  getArticlesByUser(authorId, limit: number = 10, navigation: string = "first", lastVisible = null) {
+  getArticlesByUser(authorId, limit: number = 10, navigation: string = 'first', lastVisible = null) {
     if (!limit) {
       limit = 10;
     }
     let dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-      .where("author.id", "==", authorId)
+      .where('author.id', '==', authorId)
       .orderBy('created_at', 'desc')
       .limit(limit)
     )
     switch (navigation) {
       case 'next':
         dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-          .where("author.id", "==", authorId)
+          .where('author.id', '==', authorId)
           .orderBy('created_at', 'desc')
           .limit(limit)
           .startAfter(lastVisible))
@@ -467,22 +472,22 @@ export class ArticleService {
     );
   }
 
-  getArticlesBySlug(limit: number = 10, navigation: string = "first", lastVisible = null, categorySlug: string = null, topicSlug: string = '', lang: string = 'en') {
+  getArticlesBySlug(limit: number = 10, navigation: string = 'first', lastVisible = null, categorySlug: string = null, topicSlug: string = '', lang: string = 'en') {
     if (!limit) {
       limit = 10;
     }
     let dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-      .where("category.slug", "==", categorySlug)
-      .where("lang", "==", lang)
-      .where('status', "==", ACTIVE)
+      .where('category.slug', '==', categorySlug)
+      .where('lang', '==', lang)
+      .where('status', '==', ACTIVE)
       .orderBy('published_at', 'desc')
       .limit(limit))
     if (topicSlug) {
       dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-        .where("category.slug", "==", categorySlug)
-        .where("lang", "==", lang)
-        .where('status', "==", ACTIVE)
-        .where("topic_list", "array-contains-any", [topicSlug])
+        .where('category.slug', '==', categorySlug)
+        .where('lang', '==', lang)
+        .where('status', '==', ACTIVE)
+        .where('topic_list', 'array-contains-any', [topicSlug])
         .orderBy('published_at', 'desc')
         .limit(limit)
       )
@@ -492,18 +497,18 @@ export class ArticleService {
       case 'next':
         if (topicSlug)
           dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-            .where("category.slug", "==", categorySlug)
-            .where("lang", "==", lang)
-            .where('status', "==", ACTIVE)
-            .where("topics_list", "array-contains-any", [topicSlug])
+            .where('category.slug', '==', categorySlug)
+            .where('lang', '==', lang)
+            .where('status', '==', ACTIVE)
+            .where('topics_list', 'array-contains-any', [topicSlug])
             .orderBy('published_at', 'desc')
             .limit(limit)
             .startAfter(lastVisible))
         else
           dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
-            .where("category.slug", "==", categorySlug)
-            .where("lang", "==", lang)
-            .where('status', "==", ACTIVE)
+            .where('category.slug', '==', categorySlug)
+            .where('lang', '==', lang)
+            .where('status', '==', ACTIVE)
             .orderBy('published_at', 'desc')
             .limit(limit)
             .startAfter(lastVisible))
@@ -546,7 +551,7 @@ export class ArticleService {
   like(articleId: string, likerData) {
 
 
-    return this.http.post(environment.baseAPIDomain + '/api/v1/articles/' + articleId + "/like/", likerData).subscribe(() => {
+    return this.http.post(environment.baseAPIDomain + '/api/v1/articles/' + articleId + '/like/', likerData).subscribe(() => {
 
     });
 
@@ -554,7 +559,7 @@ export class ArticleService {
   }
 
   disLike(articleId: string, likerId) {
-    return this.http.post(environment.baseAPIDomain + '/api/v1/articles/' + articleId + "/unlike/", {}).subscribe(() => {
+    return this.http.post(environment.baseAPIDomain + '/api/v1/articles/' + articleId + '/unlike/', {}).subscribe(() => {
 
     });
 
@@ -581,21 +586,18 @@ export class ArticleService {
   }
 
   updateViewCount(articleId: string) {
-    const db = firebase.firestore();
-    const increment = firebase.firestore.FieldValue.increment(1);
-    const articleRef = db.collection(this.articleCollection).doc(articleId);
+    const increment = firebase.default.firestore.FieldValue.increment(1);
+    const articleRef = this.db.collection(this.articleCollection).doc(articleId);
     articleRef.update({ view_count: increment })
   }
   likeCount(articleId: string) {
-    const db = firebase.firestore();
-    const increment = firebase.firestore.FieldValue.increment(1);
-    const articleRef = db.collection(this.articleCollection).doc(articleId);
+    const increment = firebase.default.firestore.FieldValue.increment(1);
+    const articleRef = this.db.collection(this.articleCollection).doc(articleId);
     articleRef.update({ likes_count: increment })
   }
   disLikeCount(articleId: string) {
-    const db = firebase.firestore();
-    const increment = firebase.firestore.FieldValue.increment(-1);
-    const articleRef = db.collection(this.articleCollection).doc(articleId);
+    const increment = firebase.default.firestore.FieldValue.increment(-1);
+    const articleRef = this.db.collection(this.articleCollection).doc(articleId);
     articleRef.update({ likes_count: increment })
   }
   deleteArticle(articleId) {

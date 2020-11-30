@@ -235,7 +235,8 @@ export class ProfileComponent implements OnInit {
           url: uploadedImage.url,
           alt: uploadedImage.alt
         }
-      }).catch(() => {
+      }).catch((e) => {
+        console.info(e)
         this.isPhotoChangeLoading = false;
         console.log('Image not uploaded properly')
       });
