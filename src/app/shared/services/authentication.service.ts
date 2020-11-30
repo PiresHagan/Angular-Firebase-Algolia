@@ -64,8 +64,8 @@ export class AuthService {
                 email: email,
                 password: password,
                 displayName: displayName
-            }).subscribe((data) => {
-                firebase.auth().currentUser.sendEmailVerification();
+            }).subscribe(async (data) => {
+                (await this.afAuth.currentUser).sendEmailVerification();
                 resolve(data);
             }, err => reject(err))
         })
@@ -74,12 +74,12 @@ export class AuthService {
     doLogin(email: string, password: string) {
         return new Promise<any>((resolve, reject) => {
             this.afAuth.signInWithEmailAndPassword(email, password)
-                .then(res => {
+                .then(async (res) => {
                     if (res && !res.user.emailVerified)
-                        firebase.auth().currentUser.sendEmailVerification();
+                        (await this.afAuth.currentUser).sendEmailVerification();
 
                     if (res && !res.user.emailVerified)
-                        firebase.auth().currentUser.sendEmailVerification();
+                        (await this.afAuth.currentUser).sendEmailVerification();
 
                     this.analyticsService.logEvent("login", {
                         user_uid: res.user.uid,
@@ -96,9 +96,9 @@ export class AuthService {
     }
 
     signout() {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             if (this.afAuth.currentUser) {
-                const user = firebase.auth().currentUser;
+                const user = await this.afAuth.currentUser;
 
                 this.afAuth.signOut().then(() => {
                     this.analyticsService.logEvent("logout", {
@@ -130,12 +130,14 @@ export class AuthService {
         return this.afAuth.idToken;
     }
 
-    getUserToken() {
-        return firebase.auth().currentUser.getIdToken(true)
+    async getUserToken() {
+        return this.afAuth.currentUser.then(u => u.getIdToken(true));
     }
+
     async getCustomClaimData() {
         try {
-            const idTokenResult = await firebase.auth().currentUser.getIdTokenResult();
+            const user = await this.afAuth.currentUser;
+            const idTokenResult = await user.getIdTokenResult();
             if (idTokenResult.claims.isAdmin) {
                 return STAFF;
             } else {

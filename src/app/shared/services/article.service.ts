@@ -20,8 +20,13 @@ export class ArticleService {
   articleLikesCollection: string = 'likes';
   articleCommentsCollection: string = 'comments';
   articleImagePath: string = '/article';
-  constructor(private afAuth: AngularFireAuth,
-    private db: AngularFirestore, private storage: AngularFireStorage, private http: HttpClient) { }
+
+  constructor(
+    private afAuth: AngularFireAuth,
+    private db: AngularFirestore,
+    private storage: AngularFireStorage,
+    private http: HttpClient,
+  ) { }
 
   getAll() {
     return this.db.collection<Article[]>(this.articleCollection).snapshotChanges().pipe(
@@ -581,21 +586,18 @@ export class ArticleService {
   }
 
   updateViewCount(articleId: string) {
-    const db = firebase.firestore();
-    const increment = firebase.firestore.FieldValue.increment(1);
-    const articleRef = db.collection(this.articleCollection).doc(articleId);
+    const increment = firebase.default.firestore.FieldValue.increment(1);
+    const articleRef = this.db.collection(this.articleCollection).doc(articleId);
     articleRef.update({ view_count: increment })
   }
   likeCount(articleId: string) {
-    const db = firebase.firestore();
-    const increment = firebase.firestore.FieldValue.increment(1);
-    const articleRef = db.collection(this.articleCollection).doc(articleId);
+    const increment = firebase.default.firestore.FieldValue.increment(1);
+    const articleRef = this.db.collection(this.articleCollection).doc(articleId);
     articleRef.update({ likes_count: increment })
   }
   disLikeCount(articleId: string) {
-    const db = firebase.firestore();
-    const increment = firebase.firestore.FieldValue.increment(-1);
-    const articleRef = db.collection(this.articleCollection).doc(articleId);
+    const increment = firebase.default.firestore.FieldValue.increment(-1);
+    const articleRef = this.db.collection(this.articleCollection).doc(articleId);
     articleRef.update({ likes_count: increment })
   }
   deleteArticle(articleId) {

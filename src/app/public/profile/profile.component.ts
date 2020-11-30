@@ -39,6 +39,7 @@ export class ProfileComponent implements OnInit {
   lastArticleIndexOfVideo;
   audioArticles: Article[] = [];
   videoArticles: Article[] = [];
+  rss = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -64,6 +65,8 @@ export class ProfileComponent implements OnInit {
       const slug = params.get('slug');
       if (slug == 'undefined')
         return;
+
+      this.rss = `?member=${slug}`; 
 
       this.authorService.getUserBySlug(slug).subscribe(author => {
         this.authorDetails = author;

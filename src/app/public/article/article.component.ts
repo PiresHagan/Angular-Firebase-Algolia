@@ -193,9 +193,6 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
         return item;
       });
 
-      console.log(list);
-      console.log(this);
-
       this.articleAds = list;
     } else {
       this.articleAds = [];
