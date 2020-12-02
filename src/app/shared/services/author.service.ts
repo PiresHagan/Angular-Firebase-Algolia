@@ -93,6 +93,7 @@ export class AuthorService {
       case 'next':
         dataQuery = this.afs.collection(this.authorsCollection).doc(authorId).collection(`${this.followingsCollection}`, ref => ref
           //  .orderBy('published_on', 'desc')
+          .orderBy('type', 'asc')
           .limit(limit)
           .startAfter(lastVisible))
         break;
@@ -139,6 +140,7 @@ export class AuthorService {
       case 'next':
         dataQuery = this.afs.collection(this.authorsCollection).doc(authorId).collection(`${this.followersCollection}`, ref => ref
           //  .orderBy('published_on', 'desc')
+          .orderBy('type', 'asc')
           .limit(limit)
           .startAfter(lastVisible))
         break;
