@@ -132,8 +132,9 @@
         </p> -->
         <div class="is-followers-user">
             <div class="is-followers-item" *ngFor="let subscriber of subscribers">
+                {{subscriber?.avatar?.url}}
                 <a [routerLink]="['/',subscriber.slug]">
-                    <img src="{{subscriber?.avatar?.url}}"
+                    <img [src]="subscriber?.avatar?.url"
                         onerror="this.src='assets/images/default-avatar.png'" alt="{{subscriber?.avatar?.alt}}" />
                 </a>
             </div>
