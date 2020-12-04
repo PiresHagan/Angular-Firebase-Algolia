@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BlockedProfileGuard } from '../shared/guard/blocked-profile.guard';
 
 const routes: Routes = [
   {
@@ -72,7 +73,8 @@ const routes: Routes = [
   },
   {
     path: ':slug',
-    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
+    canActivate: [BlockedProfileGuard]
   }
 ];
 
