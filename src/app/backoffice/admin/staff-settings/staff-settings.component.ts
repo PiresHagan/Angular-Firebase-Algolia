@@ -264,7 +264,9 @@ export class StaffSettingsComponent {
           this.notFound = false;
         }, 1000);
       } else {
-        this.setMember(userDetails);
+        this.memberList = [userDetails];
+        this.lastVisible = null;
+        //this.setMember(userDetails);
       }
 
     })
@@ -344,6 +346,33 @@ export class StaffSettingsComponent {
         });
       }
     }
+
+  }
+  unBlockUser(id: string) {
+    let memberMessageSucc = this.translate.instant("RecordUpdated");
+    let memberErrorMsg = this.translate.instant("somethingWrongErr");
+    this.commonBackofficeService.unBlockuser(id).subscribe(() => {
+      this.modalService.success({
+        nzTitle: "<i>" + memberMessageSucc + "</i>",
+      });
+    }, (err) => {
+      this.modalService.error({
+        nzTitle: "<i>" + memberErrorMsg + "</i>",
+      });
+    })
+  }
+  blockUser(id: string) {
+    let memberMessageSucc = this.translate.instant("RecordUpdated");
+    let memberErrorMsg = this.translate.instant("somethingWrongErr");
+    this.commonBackofficeService.blockUser(id).subscribe(() => {
+      this.modalService.success({
+        nzTitle: "<i>" + memberMessageSucc + "</i>",
+      });
+    }, (err) => {
+      this.modalService.error({
+        nzTitle: "<i>" + memberErrorMsg + "</i>",
+      });
+    })
 
   }
 }
