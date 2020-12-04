@@ -152,6 +152,10 @@
 }
 
 .megamenu-list{
+    display: inline-block;
+    padding: 0px 7px !important;
+    text-transform: capitalize;
+    color: #4c4040;
     .megamenu-link{
         color: #000; 
     }
@@ -411,6 +415,11 @@
             }
           }
         }
+      }
+      &.start-hover{
+          &:hover{
+              background: #f64747;
+          }
       }
 }
 
