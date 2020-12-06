@@ -46,7 +46,8 @@ export class AdDirective implements OnInit, AfterViewInit {
       if (slot) {
         if(this.author){
           googletag.pubads().setTargeting("author", this.author);
-          console.log('Author key pair', this.author);
+          console.log('Author key pair', googletag.pubads().getTargeting('author'));
+          
         }
         googletag.display(this.pointer);
         googletag.pubads().refresh([slot.ref]);
