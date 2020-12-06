@@ -15,6 +15,7 @@ export interface AdItemData {
 })
 export class AdDirective implements OnInit, AfterViewInit {
   @Input() pointer: string;
+  @Input() author: string;
 
   constructor(
     private element: ElementRef,
@@ -43,6 +44,10 @@ export class AdDirective implements OnInit, AfterViewInit {
       const slot = allGoogleAdSlots.find(item => item.data.id === this.pointer);
 
       if (slot) {
+        if(this.author){
+          googletag.pubads().setTargeting("author", this.author);
+          console.log('Author key pair', this.author);
+        }
         googletag.display(this.pointer);
         googletag.pubads().refresh([slot.ref]);
       } else {
