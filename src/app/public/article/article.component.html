@@ -27,14 +27,14 @@
 <section class="is-article-block" *ngIf="article">
   <div class="container">
     <div class="mobile-article-detail">
-      <h2 class="xs-article-title">
+      <h1 class="xs-article-title">
         <span class="xs-article-category" [ngClass]="article.category.slug">{{article?.category.title}}</span><br>
         {{article?.title}}
-      </h2>
+      </h1>
       <div class="xs-article-author-detail">
         <div class="xs-article-name">
           <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
-            {{article?.author?.fullname}} test
+            {{article?.author?.fullname}}
           </a>
         </div>
 
@@ -63,30 +63,30 @@
       <div class="xs-article-date">{{article?.published_at | date:'medium' }}</div>
     </div>
     <div class="article-full-img">
-      <img src="{{replaceImage(article?.image?.url)}}" alt="{{article.image.alt}}"
-        *ngIf="!(article.image.cloudinary_id); else articleFullimg" />
-      <ng-template #articleFullimg>
+      <img src="article && {{replaceImage(article?.author?.avatar?.url)}}" alt="{{article.image.alt}}"
+        *ngIf="article && !article.author.avatar.cloudinary_id" />
+      <ng-container *ngIf="article && article.author.avatar.cloudinary_id">
         <cl-image loading="lazy" public-id="{{replaceImage(article.image.cloudinary_id)}}" secure="true">
           <cl-transformation width="1500" height="400" gravity="face" crop="thumb">
           </cl-transformation>
         </cl-image>
-      </ng-template>
+      </ng-container>
     </div>
     <div class="is-article-sec">
       <div class="is-left-profile hidden-on-xs">
         <div class="sticky-box">
           <div class="is-profile">
             <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
-              <img class="avatar" src="{{replaceImage(article?.author?.avatar?.url)}}"
+              <img class="avatar" src="article && {{replaceImage(article?.author?.avatar?.url)}}"
                 alt="{{article?.author?.avatar?.alt}}" onerror="this.src='assets/images/default-avatar.png'"
-                *ngIf="!(article.author.avatar.cloudinary_id); else authorImg" />
-              <ng-template #authorImg>
+                *ngIf="article && !article.author.avatar.cloudinary_id" />
+              <ng-container *ngIf="article && article.author.avatar.cloudinary_id">
                 <cl-image loading="lazy" public-id="{{replaceImage(article.author.avatar.cloudinary_id)}}"
                   secure="true">
                   <cl-transformation width="140" height="140" gravity="face" crop="thumb">
                   </cl-transformation>
                 </cl-image>
-              </ng-template>
+              </ng-container>
             </a>
             <app-article-avatar [article]="article"></app-article-avatar>
           </div>
@@ -128,8 +128,8 @@
           <!--<div class="is-like-sec is-divider" *ngIf="isLoggedInUser">-->
           <div class="is-like-sec is-divider">
             <!-- <a class="is-like" href="" data-toggle="modal" data-target="#modal-login"><img
-                                src="assets/images/article/icon/like.png" />{{'like' | translate}} <span
-                                class="likes-count">{{articleLikes}}</span></a> -->
+                              src="assets/images/article/icon/like.png" />{{'like' | translate}} <span
+                              class="likes-count">{{articleLikes}}</span></a> -->
 
             <a class="is-like" *ngIf="!isLike" (click)="like()">
               <i class="far fa-thumbs-up"></i>
@@ -141,8 +141,8 @@
             </a>
             <a class="is-like"><span class="likes-count"><i class="fas fa-eye"></i>{{articleVicewCount}}</span></a>
             <!-- 
-                        <a class="is-bookmark" href=""><img src="assets/images/article/icon/bookmark.png" /></a>
-                        <a class="is-dot" href=""><img src="assets/images/article/icon/more.png" /></a> -->
+                      <a class="is-bookmark" href=""><img src="assets/images/article/icon/bookmark.png" /></a>
+                      <a class="is-dot" href=""><img src="assets/images/article/icon/more.png" /></a> -->
           </div>
           <div class="left-media is-divider">
             <h3>{{'shareArticle' | translate}}</h3>
@@ -151,10 +151,10 @@
 
           </div>
           <!-- <div class="is-influencer-btn" routerLink="/influencer">
-                        <span>
-                            Messsenger<br /> Influencer
-                        </span>
-                    </div> -->
+                      <span>
+                          Messsenger<br /> Influencer
+                      </span>
+                  </div> -->
         </div>
       </div>
       <div class="is-main-article-content">
@@ -171,14 +171,14 @@
               <div class="is-image">
                 <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
                   <img class="avatar" alt="{{article?.author?.avatar?.alt}}"
-                    src="{{replaceImage(article?.author?.avatar?.url)}}"
+                    src="article && {{replaceImage(article?.author?.avatar?.url)}}"
                     onerror="this.src='assets/images/default-avatar.png'"
-                    *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg" />
-                  <ng-template #CateAvatarCloudinoryImg>
+                    *ngIf="!article && !article.author.avatar.cloudinary_id" />
+                  <ng-container *ngIf="article && article.author.avatar.cloudinary_id">
                     <div class="hide-feature-img d-inline-block">
                       <app-cloudinary-img [article]="article"></app-cloudinary-img>
                     </div>
-                  </ng-template>
+                  </ng-container>
                   <span class="name" itemprop="name">
                     {{article?.author.fullname}}</span>
                 </a>
@@ -211,8 +211,8 @@
                   </li>
                 </ul>
                 <!-- <div class="btn-download">
-                                    <button class="video-download-btn"><img src="assets/images/video/icon/download.png" alt=""> Download</button>
-                                </div> -->
+                                  <button class="video-download-btn"><img src="assets/images/video/icon/download.png" alt=""> Download</button>
+                              </div> -->
               </div>
             </div>
             <div *ngIf="articleType === AUDIO" class="main-audio-sec">
@@ -236,8 +236,8 @@
                   </li>
                 </ul>
                 <!-- <div class="btn-download">
-                                    <button class="video-download-btn"><img src="assets/images/video/icon/download.png" alt=""> Download</button>
-                                </div> -->
+                                  <button class="video-download-btn"><img src="assets/images/video/icon/download.png" alt=""> Download</button>
+                              </div> -->
               </div>
             </div>
             <div *ngIf="articleType === TEXT" class="is-paragraph">
@@ -246,11 +246,13 @@
 
                 <ng-container *ngIf="item.insertAd">
                   <div style="margin: 10px auto;">
-                    <div class="desktop_ad" style="margin: 10px auto;" *ngIf="!isMobile" adItem
-                      [pointer]="'dynamic_mrectangle_ad_'+item.adIndex"></div>
+                    <div class="desktop_ad" style="margin: 10px auto; text-align:center;" *ngIf="!isMobile" adItem
+                      [pointer]="'dynamic_mrectangle_ad_'+item.adIndex">
+                    </div>
 
-                    <div class="mobile_ad" style="margin: 10px auto;" *ngIf="isMobile" adItem
-                      [pointer]="'dynamic_mrectangle_ad_'+item.adIndex"></div>
+                    <div class="mobile_ad" style="margin: 10px auto; text-align:center;" *ngIf="isMobile" adItem
+                      [pointer]="'dynamic_mrectangle_ad_'+item.adIndex">
+                    </div>
                   </div>
                 </ng-container>
               </div>
@@ -267,14 +269,14 @@
                 <div class="xs-article-publisher-img">
                   <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
                     <img class="avatar" alt="{{article?.author?.avatar?.alt}}"
-                      src="{{replaceImage(article?.author?.avatar?.url)}}"
+                      src="article && {{replaceImage(article?.author?.avatar?.url)}}"
                       onerror="this.src='assets/images/default-avatar.png'"
-                      *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg" />
-                    <ng-template #CateAvatarCloudinoryImg>
+                      *ngIf="!article && !article.author.avatar.cloudinary_id" />
+                    <ng-container *ngIf="article && article.author.avatar.cloudinary_id">
                       <div class="hide-feature-img d-inline-block">
                         <app-cloudinary-img [article]="article"></app-cloudinary-img>
                       </div>
-                    </ng-template>
+                    </ng-container>
                     <app-article-avatar [article]="article"></app-article-avatar>
                   </a>
                 </div>
@@ -327,7 +329,8 @@
         </div>
 
         <div class="ads-box">
-          <div adItem pointer="div-gpt-ad-1599554597929-0" style="margin: 10px auto;"></div>
+          <div adItem pointer="div-gpt-ad-1599554597929-0" style="margin: 10px auto; text-align:center;">
+          </div>
         </div>
       </div>
     </div>
