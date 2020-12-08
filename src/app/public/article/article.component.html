@@ -247,100 +247,96 @@
                 <ng-container *ngIf="item.insertAd">
                   <div style="margin: 10px auto;">
                     <div class="desktop_ad" style="margin: 10px auto; text-align:center;" *ngIf="!isMobile" adItem
-                      <<<<<<< HEAD [pointer]="'dynamic_mrectangle_ad_'+item.adIndex" [author]="article?.author?.slug">
+                      [pointer]="'dynamic_mrectangle_ad_'+item.adIndex" [author]="article?.author?.slug">
                     </div>
 
                     <div class="mobile_ad" style="margin: 10px auto; text-align:center;" *ngIf="isMobile" adItem
                       [pointer]="'dynamic_mrectangle_ad_'+item.adIndex" [author]="article?.author?.slug"></div>
-                    =======
-                    [pointer]="'dynamic_mrectangle_ad_'+item.adIndex">
-                  </div>
 
-                  <div class="mobile_ad" style="margin: 10px auto; text-align:center;" *ngIf="isMobile" adItem
-                    [pointer]="'dynamic_mrectangle_ad_'+item.adIndex">
-                  </div>
-                  >>>>>>> preprod
-              </div>
-              </ng-container>
-            </div>
 
-            <p class="hidden-on-xs">
-              {{'publishedBy' | translate}}
-              <a [routerLink]="['/profile/',article?.author?.slug]" target="_blank"
-                title="  {{article?.author.fullname}}" *ngIf="article">
-                <span class="name" itemprop="name">
-                  {{article?.author.fullname}}</span>
-              </a>
-            </p>
-            <div class="xs-article-publish">
-              <div class="xs-article-publisher-img">
-                <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
-                  <img class="avatar" alt="{{article?.author?.avatar?.alt}}"
-                    src="article && {{replaceImage(article?.author?.avatar?.url)}}"
-                    onerror="this.src='assets/images/default-avatar.png'"
-                    *ngIf="!article && !article.author.avatar.cloudinary_id" />
-                  <ng-container *ngIf="article && article.author.avatar.cloudinary_id">
-                    <div class="hide-feature-img d-inline-block">
-                      <app-cloudinary-img [article]="article"></app-cloudinary-img>
-                    </div>
-                  </ng-container>
-                  <app-article-avatar [article]="article"></app-article-avatar>
-                </a>
+
+
+                  </div>
+                </ng-container>
               </div>
-              <div class="xs-articl-publisher-name">
-                {{'WrittenBy' | translate}}
+
+              <p class="hidden-on-xs">
+                {{'publishedBy' | translate}}
                 <a [routerLink]="['/profile/',article?.author?.slug]" target="_blank"
                   title="  {{article?.author.fullname}}" *ngIf="article">
                   <span class="name" itemprop="name">
                     {{article?.author.fullname}}</span>
                 </a>
-                <div>
-                  <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-                    {{'followAuthor' | translate}}
-                  </a>
-                  <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-                    {{'unfollowAuthor' | translate}}
+              </p>
+              <div class="xs-article-publish">
+                <div class="xs-article-publisher-img">
+                  <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
+                    <img class="avatar" alt="{{article?.author?.avatar?.alt}}"
+                      src="article && {{replaceImage(article?.author?.avatar?.url)}}"
+                      onerror="this.src='assets/images/default-avatar.png'"
+                      *ngIf="!article && !article.author.avatar.cloudinary_id" />
+                    <ng-container *ngIf="article && article.author.avatar.cloudinary_id">
+                      <div class="hide-feature-img d-inline-block">
+                        <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                      </div>
+                    </ng-container>
+                    <app-article-avatar [article]="article"></app-article-avatar>
                   </a>
                 </div>
+                <div class="xs-articl-publisher-name">
+                  {{'WrittenBy' | translate}}
+                  <a [routerLink]="['/profile/',article?.author?.slug]" target="_blank"
+                    title="  {{article?.author.fullname}}" *ngIf="article">
+                    <span class="name" itemprop="name">
+                      {{article?.author.fullname}}</span>
+                  </a>
+                  <div>
+                    <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                      {{'followAuthor' | translate}}
+                    </a>
+                    <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                      {{'unfollowAuthor' | translate}}
+                    </a>
+                  </div>
+                </div>
               </div>
+              <p class="report-abuse-spin" *ngIf="isLoggedInUser">
+                <a class="comment-view-replies" (click)="reportAbuseArticle()">
+                  <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseArticleLoading"></nz-spin>
+                  {{'reportAbuseAuth' | translate}}
+                </a>
+              </p>
             </div>
-            <p class="report-abuse-spin" *ngIf="isLoggedInUser">
-              <a class="comment-view-replies" (click)="reportAbuseArticle()">
-                <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseArticleLoading"></nz-spin>
-                {{'reportAbuseAuth' | translate}}
-              </a>
-            </p>
+            <app-article-comments *ngIf="article" [article]="article"></app-article-comments>
           </div>
-          <app-article-comments *ngIf="article" [article]="article"></app-article-comments>
+        </div>
+
+      </div>
+      <div class="is-right-ad-section" [ngClass]="SlideRelatedArticle ? 'removeSlide' : 'openSlideArticle'">
+
+        <app-company-lead-form *ngIf="article?.author?.type == 'company'" [companyId]="article.author.id">
+        </app-company-lead-form>
+
+        <app-charity-donate-form *ngIf="article?.author?.type == 'charity'" [charityId]="article.author.id">
+        </app-charity-donate-form>
+
+        <app-similar-articles *ngIf="article" [article]="article"></app-similar-articles>
+
+        <div class="slide-article">
+          <button type="button" nz-button class="is-see-more show-more" [nzType]="'primary'" (click)="slideArticle()">
+            {{'ShowMore' | translate}}
+          </button>
+          <button type="button" nz-button class="is-see-more less-more" [nzType]="'primary'" (click)="slideArticle()">
+            {{'ShowLess' | translate}}
+          </button>
+        </div>
+
+        <div class="ads-box">
+          <div adItem pointer="div-gpt-ad-1599554597929-0" [author]="article?.author?.slug"
+            style="margin: 10px auto; text-align:center;"></div>
         </div>
       </div>
-
     </div>
-    <div class="is-right-ad-section" [ngClass]="SlideRelatedArticle ? 'removeSlide' : 'openSlideArticle'">
-
-      <app-company-lead-form *ngIf="article?.author?.type == 'company'" [companyId]="article.author.id">
-      </app-company-lead-form>
-
-      <app-charity-donate-form *ngIf="article?.author?.type == 'charity'" [charityId]="article.author.id">
-      </app-charity-donate-form>
-
-      <app-similar-articles *ngIf="article" [article]="article"></app-similar-articles>
-
-      <div class="slide-article">
-        <button type="button" nz-button class="is-see-more show-more" [nzType]="'primary'" (click)="slideArticle()">
-          {{'ShowMore' | translate}}
-        </button>
-        <button type="button" nz-button class="is-see-more less-more" [nzType]="'primary'" (click)="slideArticle()">
-          {{'ShowLess' | translate}}
-        </button>
-      </div>
-
-      <div class="ads-box">
-        <div adItem pointer="div-gpt-ad-1599554597929-0" [author]="article?.author?.slug"
-          style="margin: 10px auto; text-align:center;"></div>
-      </div>
-    </div>
-  </div>
 
   </div>
 </section>
