@@ -1,140 +1,140 @@
 <section class="is-cat-box-card-main">
-    <div class="cat-box">
-        <div class="container">
-            <div class="cat-box-title">
-                <div class="is-comman-title">
-                    {{'todayStories' | translate}}
-                </div>
-            </div>
-            <div class="cat-box-gallery">
-                <div class="row" *ngIf="!todayArticle">
-                    <nz-skeleton [nzAvatar]="true" [nzParagraph]="{ rows: 6 }" class="custom-skeleton card-skeleton"></nz-skeleton>
-                </div>
-                <div class="row article-row" *ngIf="todayArticle"> 
-                    <div class="col-sm-15 box_shadow" *ngFor="let today of todayArticle" [ngClass]="today.category.slug">
-                        <div class="item-card item-card-life-and-styles">
-                            <a [routerLink]="['/article/',today.slug]">
-                                <div class="item-card-image">
-                                    <img [src]="today?.image?.url" [alt]="today?.image?.alt"
-                                    *ngIf="!(today.image.cloudinary_id); else todayCloudinoryImg">
-                                    <ng-template #todayCloudinoryImg>
-                                       <div>
-                                        <cl-image loading="lazy" public-id="{{today.image.cloudinary_id}}" secure="true">
-                                            <cl-transformation width="270" height="160" gravity="face" crop="thumb">
-                                            </cl-transformation>
-                                          </cl-image>
-                                       </div>
-                                   </ng-template>
-                                    <h3 class="is-category-title">{{today.category.slug}}</h3>
-                                    <div class="article-image-icon" *ngIf="today.type==='audio'">
-                                        <i class="fas fa-play"></i>
-                                    </div>
-                                    <div class="article-image-icon" *ngIf="today.type==='video'">
-                                        <i class="fas fa-play"></i>
-                                    </div>
-                                    <div class="article-image-icon" *ngIf="!(today.type==='audio' || today.type==='video')">
-                                        <i class="fas fa-angle-right"></i>
-                                    </div>
-
-                                    <div class="comment-right">
-                                        <div class="article-comment-info">
-                                            <div class="comment-section">
-                                                <ul>
-                                                    <li *ngIf="today.view_count">
-                                                        <a href="#">
-                                                            <i class="fas fa-eye"></i>
-                                                            {{today.view_count}}
-                                                        </a>
-                                                    </li>
-                                                    <li *ngIf="today.likes_count">
-                                                        <a href="#">
-                                                            <i class="fas fa-heart"></i>
-                                                            {{today.likes_count}}
-                                                        </a>
-                                                    </li>
-                                                    <li *ngIf="today.comments_count">
-                                                        <a href="#">
-                                                            <i class="fa fa-comment"></i>
-                                                            {{today.comments_count}}
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                </div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-card-content">
-                                    <div class="item-card-category cat-yellow">
-                                        <div class="is-avatar-dv">
-                                            <div class="overlay-icon">
-                                            <img class="avatar" [src]="today.author.avatar.url"
-                                                [alt]="today.author.avatar.alt"
-                                                onerror="this.src='assets/images/default-avatar.png'"
-                                                *ngIf="!(today.author.avatar.cloudinary_id); else todayAvatarCloudinoryImg">
-                                                <ng-template #todayAvatarCloudinoryImg>
-                                                <div>
-                                                    <cl-image loading="lazy" public-id="{{today.author.avatar.cloudinary_id}}" secure="true">
-                                                        <cl-transformation width="50" height="50" gravity="face" crop="thumb">
-                                                        </cl-transformation>
-                                                        <cl-transformation radius="100">
-                                                        </cl-transformation>
-                                                      </cl-image>
-                                                </div>
-                                            </ng-template>
-                                            <app-article-avatar [article]="article"></app-article-avatar>
-                                        </div>
-                                            <span class="item-card-author">{{today.author.fullname}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="item-card-title">
-                                        <h4 class="item-long-title">{{today.title}}</h4>
-                                    </div>
-                                    <div class="item-card-texte">
-                                        <p>{{today.excerpt}}</p>
-                                        <div class="category-article-readmore">
-                                            <div  *ngIf="today.type==='audio'">
-                                                <button type="button" class="is-read-more">{{'ListenNow' | translate }} <img
-                                                src="assets/images/read-more-icon-black.png" alt="Listen Now" /></button>
-                                            </div>
-                                            <div  *ngIf="today.type==='video'">
-                                                <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
-                                                src="assets/images/read-more-icon-black.png" alt="Watch Now" /></button>
-                                            </div>
-                                            <div  *ngIf="!(today.type==='audio' || today.type==='video')">
-                                                <button type="button" class="is-read-more">{{'readMore' | translate }} <img
-                                                src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
-                                            </div>
-                                            <div class="article-icon-main">
-                                                <div class="article-icon" *ngIf="today.type==='audio'">
-                                                    <i class="fas fa-volume-down"></i>
-                                                </div>
-                                                <div class="article-icon" *ngIf="today.type==='video'">
-                                                    <i class="fas fa-video"></i>
-                                                </div>
-                                                <div class="article-icon" *ngIf="!(today.type==='audio' || today.type==='video')">
-                                                    <i class="far fa-file-alt"></i>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                       
-                    </div>
-                    <div class="clearfix"></div>
-                    <div *ngIf="!todayArticle?.length" class="box-center">
-                        <nz-result [nzIcon]="'crown'" [nzTitle]="'PublishStories' | translate ">
-                            <div nz-result-extra>
-                                <button nz-button nzType="primary" routerLink="/app/article">{{'CreateStory' | translate}}</button>
-                            </div>
-                        </nz-result>
-                    </div>
-                </div>
-            </div>
+  <div class="cat-box">
+    <div class="container">
+      <div class="cat-box-title">
+        <div class="is-comman-title">
+          {{'todayStories' | translate}}
         </div>
+      </div>
+      <div class="cat-box-gallery">
+        <div class="row" *ngIf="!todayArticle">
+          <nz-skeleton [nzAvatar]="true" [nzParagraph]="{ rows: 6 }" class="custom-skeleton card-skeleton">
+          </nz-skeleton>
+        </div>
+        <div class="row article-row" *ngIf="todayArticle">
+          <div class="col-sm-15 box_shadow" *ngFor="let today of todayArticle" [ngClass]="today.category.slug">
+            <div class="item-card item-card-life-and-styles">
+              <a [routerLink]="['/',today.author.slug,today.slug]">
+                <div class="item-card-image">
+                  <img [src]="today?.image?.url" [alt]="today?.image?.alt"
+                    *ngIf="!(today.image.cloudinary_id); else todayCloudinoryImg">
+                  <ng-template #todayCloudinoryImg>
+                    <div>
+                      <cl-image loading="lazy" public-id="{{today.image.cloudinary_id}}" secure="true">
+                        <cl-transformation width="270" height="160" gravity="face" crop="thumb">
+                        </cl-transformation>
+                      </cl-image>
+                    </div>
+                  </ng-template>
+                  <h3 class="is-category-title">{{today.category.slug}}</h3>
+                  <div class="article-image-icon" *ngIf="today.type==='audio'">
+                    <i class="fas fa-play"></i>
+                  </div>
+                  <div class="article-image-icon" *ngIf="today.type==='video'">
+                    <i class="fas fa-play"></i>
+                  </div>
+                  <div class="article-image-icon" *ngIf="!(today.type==='audio' || today.type==='video')">
+                    <i class="fas fa-angle-right"></i>
+                  </div>
+
+                  <div class="comment-right">
+                    <div class="article-comment-info">
+                      <div class="comment-section">
+                        <ul>
+                          <li *ngIf="today.view_count">
+                            <a href="#">
+                              <i class="fas fa-eye"></i>
+                              {{today.view_count}}
+                            </a>
+                          </li>
+                          <li *ngIf="today.likes_count">
+                            <a href="#">
+                              <i class="fas fa-heart"></i>
+                              {{today.likes_count}}
+                            </a>
+                          </li>
+                          <li *ngIf="today.comments_count">
+                            <a href="#">
+                              <i class="fa fa-comment"></i>
+                              {{today.comments_count}}
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item-card-content">
+                  <div class="item-card-category cat-yellow">
+                    <div class="is-avatar-dv">
+                      <div class="overlay-icon">
+                        <img class="avatar" [src]="today.author.avatar.url" [alt]="today.author.avatar.alt"
+                          onerror="this.src='assets/images/default-avatar.png'"
+                          *ngIf="!(today.author.avatar.cloudinary_id); else todayAvatarCloudinoryImg">
+                        <ng-template #todayAvatarCloudinoryImg>
+                          <div>
+                            <cl-image loading="lazy" public-id="{{today.author.avatar.cloudinary_id}}" secure="true">
+                              <cl-transformation width="50" height="50" gravity="face" crop="thumb">
+                              </cl-transformation>
+                              <cl-transformation radius="100">
+                              </cl-transformation>
+                            </cl-image>
+                          </div>
+                        </ng-template>
+                        <app-article-avatar [article]="article"></app-article-avatar>
+                      </div>
+                      <span class="item-card-author">{{today.author.fullname}}</span>
+                    </div>
+                  </div>
+                  <div class="item-card-title">
+                    <h4 class="item-long-title">{{today.title}}</h4>
+                  </div>
+                  <div class="item-card-texte">
+                    <p>{{today.excerpt}}</p>
+                    <div class="category-article-readmore">
+                      <div *ngIf="today.type==='audio'">
+                        <button type="button" class="is-read-more">{{'ListenNow' | translate }} <img
+                            src="assets/images/read-more-icon-black.png" alt="Listen Now" /></button>
+                      </div>
+                      <div *ngIf="today.type==='video'">
+                        <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                            src="assets/images/read-more-icon-black.png" alt="Watch Now" /></button>
+                      </div>
+                      <div *ngIf="!(today.type==='audio' || today.type==='video')">
+                        <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                            src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                      </div>
+                      <div class="article-icon-main">
+                        <div class="article-icon" *ngIf="today.type==='audio'">
+                          <i class="fas fa-volume-down"></i>
+                        </div>
+                        <div class="article-icon" *ngIf="today.type==='video'">
+                          <i class="fas fa-video"></i>
+                        </div>
+                        <div class="article-icon" *ngIf="!(today.type==='audio' || today.type==='video')">
+                          <i class="far fa-file-alt"></i>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+          </div>
+          <div class="clearfix"></div>
+          <div *ngIf="!todayArticle?.length" class="box-center">
+            <nz-result [nzIcon]="'crown'" [nzTitle]="'PublishStories' | translate ">
+              <div nz-result-extra>
+                <button nz-button nzType="primary" routerLink="/app/article">{{'CreateStory' | translate}}</button>
+              </div>
+            </nz-result>
+          </div>
+        </div>
+      </div>
     </div>
-    
+  </div>
+
 </section>
