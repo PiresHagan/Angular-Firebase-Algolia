@@ -37,30 +37,43 @@
             {{article?.author?.fullname}}
           </a>
         </div>
-
-        <div class="comment-section">
-          <ul>
-            <li *ngIf="articleVicewCount">
-              <a class="is-like">
-                <span class="likes-count">
-                  <i class="fas fa-eye"></i>{{articleVicewCount}}
-                </span>
-              </a>
-            </li>
-            <li>
-              <a class="is-like" *ngIf="!isLike" (click)="like()">
-                <i class="far fa-thumbs-up"></i>
-                {{'like' | translate}} <span class="like-count">{{articleLikes}}</span>
-              </a>
-              <a class="is-like" *ngIf="isLike" (click)="disLike()">
-                <i class="fas fa-heart"></i>
-                {{'liked' | translate}} <span class="like-count">{{articleLikes}}</span>
-              </a>
-            </li>
-          </ul>
-        </div>
       </div>
       <div class="xs-article-date">{{article?.published_at | date:'medium' }}</div>
+      <div class="xs-follow-author-detail">
+      <div class="comment-section">
+        <ul>
+          <li *ngIf="articleVicewCount">
+            <a class="is-like">
+              <span class="likes-count">
+                <i class="fas fa-eye"></i>{{articleVicewCount}}
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="is-like" *ngIf="!isLike" (click)="like()">
+              <i class="far fa-thumbs-up"></i>
+              {{'like' | translate}} <span class="like-count">{{articleLikes}}</span>
+            </a>
+            <a class="is-like" *ngIf="isLike" (click)="disLike()">
+              <i class="fas fa-heart"></i>
+              {{'liked' | translate}} <span class="like-count">{{articleLikes}}</span>
+            </a>
+          </li>
+          <li>
+            <div class="xs-follow-author">
+              <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                <img src="assets/images/article/icon/follow.png" class="vertical-align-text-top"/>
+                {{'followAuthor' | translate}}
+              </a>
+              <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                <img src="assets/images/article/icon/un-follow.png" class="vertical-align-text-top" />
+                {{'unfollowAuthor' | translate}}
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
     </div>
     <div class="article-full-img">
       <img src="article && {{replaceImage(article?.author?.avatar?.url)}}" alt="{{article.image.alt}}"

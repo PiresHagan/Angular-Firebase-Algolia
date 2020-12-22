@@ -1006,39 +1006,6 @@ hr {
           }
 
         }
-        .comment-section {
-          width: 130px;
-          text-align: right;
-          position: relative;
-          z-index: 1;
-          ul {
-            margin: 0px;
-            li {
-              display: inline-block;
-              color: #042c99;
-              &:nth-child(2) {
-                padding-left: 10px;
-              }
-              a {
-                font-size: 16px;
-                color: #042c99;
-                display: inline-block;
-                font-family: "open_sansregular";
-                font-weight: 600;
-                img {
-                  max-width: 19px;
-                  height: auto;
-                  object-fit: unset;
-                }
-                i {
-                  font-size: 15px;
-                  color: #042c99;
-                  margin-right: 4px;
-                }
-              }
-            }
-          }
-        }
       }
       .xs-article-date {
         font-size: 13px;
@@ -1048,6 +1015,43 @@ hr {
         font-family: "open_sansregular";
         margin-bottom: 10px;
       }
+      .xs-follow-author-detail{
+        padding-top: 10px;
+        border-top: 1px solid #eee;
+        padding-bottom: 5px;
+      .comment-section {
+        position: relative;
+        z-index: 1;
+        ul {
+          margin: 0px;
+          li {
+            display: inline-block;
+            color: #042c99;
+            padding-right:10px;
+            a {
+              font-size: 16px;
+              color: #042c99;
+              display: inline-block;
+              font-family: "open_sansregular";
+              font-weight: 600;
+              img {
+                max-width: 19px;
+                height: auto;
+                object-fit: unset;
+                &.vertical-align-text-top{
+                  vertical-align: text-top;
+                }
+              }
+              i {
+                font-size: 15px;
+                color: #042c99;
+                margin-right: 4px;
+              }
+            }
+          }
+        }
+      }
+    }
     }
     .xs-article-publish {
       display: flex;
