@@ -17,48 +17,22 @@
 
         <a [routerLink]="['/',author.slug]" class="is-profile-img-link">
           <img [src]="replaceImage(author?.avatar?.url)!= unknown ? replaceImage(author?.avatar?.url) : DefaultAvatar"
-            class="is-profile" [alt]="author?.avatar?.alt" *ngIf="author && !(author?.avatar?.cloudinary_id)">
-
-          <ng-container *ngIf="author && (author?.avatar?.cloudinary_id)">
+            class="is-profile" [alt]="author?.avatar?.alt"
+            *ngIf="!(author.avatar.cloudinary_id); else authorCloudinoryImg">
+          <ng-template #authorCloudinoryImg>
             <div class="cloudinary-img">
-              <cl-image loading="lazy" public-id="{{replaceImage(author?.avatar?.cloudinary_id)}}" secure="true">
+              <cl-image loading="lazy" public-id="{{replaceImage(author.avatar.cloudinary_id)}}" secure="true">
                 <cl-transformation width="100" height="100" gravity="face" crop="thumb">
                 </cl-transformation>
                 <cl-transformation radius="100">
                 </cl-transformation>
               </cl-image>
             </div>
-          </ng-container>
+          </ng-template>
 
         </a>
 
-        <div class="is-member-hover">
-          <div class="is-member-profile-header">
-            <h3>{{author?.fullname}} </h3>
-            <img class="is-profile-hover-img"
-              [src]="replaceImage(author?.avatar?.url)!= unknown ? replaceImage(author?.avatar?.url) : DefaultAvatar"
-              [alt]="author?.avatar?.alt" *ngIf="author && !(author?.avatar?.cloudinary_id)" />
-            <ng-container *ngIf="author && author?.avatar && (author?.avatar?.cloudinary_id)">
-              <div class="cloudinary-img">
-                <cl-image loading="lazy" public-id="{{replaceImage(author.avatar.cloudinary_id)}}" secure="true">
-                  <cl-transformation width="60" height="60" gravity="face" crop="thumb">
-                  </cl-transformation>
-                  <cl-transformation radius="100">
-                  </cl-transformation>
-                </cl-image>
-              </div>
-            </ng-container>
-          </div>
-          <div class="is-member-profile-body">
-            <p innerHTML="{{author?.biography_en || author?.biography_es || author?.biography_fr}}" class="author-bio">
-            </p>
-            <!-- <div class="is-profile-tag">
-                            <span class="is-tag is-red">Entertainment</span>
-                            <span class="is-tag is-purple">Opinion</span>
-                            <span class="is-tag is-yellow">Life and Styles</span>
-                        </div> -->
-          </div>
-        </div>
+
       </div>
 
     </div>

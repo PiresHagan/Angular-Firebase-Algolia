@@ -57,11 +57,11 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      if (params.get('authorSlug')) { 
+      if (params.get('authorSlug')) {
         this.router.navigate(['/', params.get('authorSlug')]);
         return;
       }
-      
+
       const slug = params.get('slug');
       if (slug == 'undefined')
         return;
