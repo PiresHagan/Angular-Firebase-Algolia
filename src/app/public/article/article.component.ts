@@ -362,6 +362,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
     });
   }
 
+
   isVisible = false;
   isOkLoading = false;
   showModal(): void {

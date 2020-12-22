@@ -25,6 +25,8 @@ export class ProfileComponent implements OnInit {
   subscribers: any = [];
   articles: any = [];
   isReportAbuseLoading: boolean = false;
+  isFollowCallLoading: boolean = false;
+  isUnFollowCallLoading: boolean = false;
   isLoggedInUser: boolean = false;
   isFollowing: boolean = false;
   userDetails;
@@ -66,7 +68,7 @@ export class ProfileComponent implements OnInit {
       if (slug == 'undefined')
         return;
 
-      this.rss = `?member=${slug}`; 
+      this.rss = `?member=${slug}`;
 
       this.authorService.getUserBySlug(slug).subscribe(author => {
         this.authorDetails = author;
@@ -157,13 +159,18 @@ export class ProfileComponent implements OnInit {
     })
   }
   reportAbuseAuthor() {
-    this.isReportAbuseLoading = true;
-    this.authorService.reportAbusedUser(this.authorDetails.id).then(() => {
-      this.showAbuseSuccessMessage();
-      this.isReportAbuseLoading = false;
-    }).catch(() => {
-      this.isReportAbuseLoading = false;
-    })
+    if (this.isLoggedInUser) {
+      this.isReportAbuseLoading = true;
+      this.authorService.reportAbusedUser(this.authorDetails.id).then(() => {
+        this.showAbuseSuccessMessage();
+        this.isReportAbuseLoading = false;
+      }).catch(() => {
+        this.isReportAbuseLoading = false;
+      })
+    } else {
+      this.showLoginModel();
+    }
+
   }
   showAbuseSuccessMessage() {
 
@@ -190,21 +197,29 @@ export class ProfileComponent implements OnInit {
     }
   }
   async follow(authorId) {
-    const userDetails = this.getUserDetails();
-    const authorDetails = this.getAuthorDetails();
-    if (userDetails.id == authorId) {
-      this.showSameFollowerMessage();
-      return;
+    if (this.isLoggedInUser) {
+      this.isFollowCallLoading = true;
+      const userDetails = this.getUserDetails();
+      const authorDetails = this.getAuthorDetails();
+      if (userDetails.id == authorId) {
+        this.showSameFollowerMessage();
+        this.isFollowCallLoading = false;
+        return;
+      }
+
+      await this.authorService.follow(authorId, userDetails.type);
+      this.isFollowCallLoading = false;
+
+      this.analyticsService.logEvent("follow_author", {
+        author_id: authorDetails.id,
+        author_name: authorDetails.fullname,
+        user_uid: userDetails.id,
+        user_name: userDetails.fullname,
+      });
+    } else {
+      this.showLoginModel();
     }
 
-    await this.authorService.follow(authorId, userDetails.type);
-
-    this.analyticsService.logEvent("follow_author", {
-      author_id: authorDetails.id,
-      author_name: authorDetails.fullname,
-      user_uid: userDetails.id,
-      user_name: userDetails.fullname,
-    });
   }
   showSameFollowerMessage() {
     this.modal.warning({
@@ -214,16 +229,21 @@ export class ProfileComponent implements OnInit {
   }
 
   async unfollow(authorId) {
-    const userDetails = this.getUserDetails();
-    const authorDetails = this.getAuthorDetails();
-    await this.authorService.unfollow(authorId, userDetails.type);
-
-    this.analyticsService.logEvent("unfollow_author", {
-      author_id: authorDetails.id,
-      author_name: authorDetails.fullname,
-      user_uid: userDetails.id,
-      user_name: userDetails.fullname,
-    });
+    if (this.isLoggedInUser) {
+      this.isUnFollowCallLoading = true;
+      const userDetails = this.getUserDetails();
+      const authorDetails = this.getAuthorDetails();
+      await this.authorService.unfollow(authorId, userDetails.type);
+      this.isUnFollowCallLoading = false;
+      this.analyticsService.logEvent("unfollow_author", {
+        author_id: authorDetails.id,
+        author_name: authorDetails.fullname,
+        user_uid: userDetails.id,
+        user_name: userDetails.fullname,
+      });
+    } else {
+      this.showLoginModel();
+    }
   }
   setFollowOrNot() {
 
@@ -322,6 +342,24 @@ export class ProfileComponent implements OnInit {
       this.videoArticles = this.getDistinctArray(mergedData)
       this.lastArticleIndexOfVideo = articleData.lastVisible;
     })
+  }
+
+  isVisible = false;
+  isOkLoading = false;
+  showLoginModel(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.router.navigate(["auth/login"]);
+      this.isOkLoading = false;
+    }, 2000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
   }
 
 }
