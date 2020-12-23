@@ -992,7 +992,7 @@ hr {
       }
       .xs-article-author-detail {
         display: flex;
-        align-items: flex-start;
+        align-items: baseline;
         .xs-article-name {
           padding-right: 10px;
           font-family: "josefin_sansregular";
@@ -1005,6 +1005,13 @@ hr {
             color:#000;
           }
 
+        }
+        .xs-follow-author{
+          a{
+            background: #0079d0;
+            color:#fff;
+            padding: 5px;
+          }
         }
       }
       .xs-article-date {
@@ -1038,9 +1045,6 @@ hr {
                 max-width: 19px;
                 height: auto;
                 object-fit: unset;
-                &.vertical-align-text-top{
-                  vertical-align: text-top;
-                }
               }
               i {
                 font-size: 15px;

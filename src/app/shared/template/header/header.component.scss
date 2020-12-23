@@ -71,7 +71,26 @@ padding-right: 9px;
         background: transparent !important;
     }
 }
-
+.header {
+    .nav-wrap {
+        .nav-right {
+            li{
+                &.is-search-icon{
+                    > a:active{
+                        background: transparent;
+                        color: #0079d0;
+                    }
+                    a:hover{
+                        color:#0079d0;
+                    }
+                    a:focus{
+                        color: #0079d0;
+                    }
+                }
+            }
+        }
+    }
+}
 @media screen and (max-width:993px){
     .hidden-on-xs{
         display: none !important;

@@ -1,4 +1,4 @@
-<div class="is-comment-sec" #commentSection>
+<div class="is-comment-sec" #commentSection>   
     <div class="is-share is-line">
         <h2>{{'share' | translate}} - </h2>
         <app-share-buttons></app-share-buttons>
@@ -22,7 +22,7 @@
                         <div class="comment-flex-container">
                             <div class="left-flex-box">
                                 <h4 class="is-comment-user-name">
-                                    {{articleComment?.author?.fullname}}
+                                   <a [routerLink]="['/',articleComment?.author?.slug]"> {{articleComment?.author?.fullname}}</a>
                                     <small class="comment-date"><i>
                                             {{articleComment?.published_on | date:'medium' }}</i></small>
                                 </h4>
