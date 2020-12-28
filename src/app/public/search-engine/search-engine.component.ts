@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import * as algoliasearch from 'algoliasearch/lite';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
@@ -16,7 +16,8 @@ const searchClient = algoliasearch(
 export class SearchEngineComponent implements OnInit {
   selectedLanguage: string = "";
   articleBrand: any;
-  buyCount:any;
+  buyCount: any;
+  showResult: boolean = false;
   config = {
     indexName: 'dev_fullsearch',
     searchClient,
@@ -24,18 +25,18 @@ export class SearchEngineComponent implements OnInit {
   };
   //public OrderIndex = 0;
   articleBrand1 = [
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""},
-    { "brandName": ""}
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" },
+    { "brandName": "" }
   ];
   constructor(
     public translate: TranslateService,
@@ -56,16 +57,16 @@ export class SearchEngineComponent implements OnInit {
       this.articleBrand = brands;
       if (this.articleBrand.length < 11) {
         this.buyCount = 12 - this.articleBrand.length;
-      }else{
+      } else {
         this.buyCount = 0;
       }
-    this.articleBrand1.splice(this.buyCount);
-    for (var val of this.articleBrand) { 
-      this.articleBrand1.push(val);
-     
-    }
-    
-    var m = this.articleBrand1.length, t, i;
+      this.articleBrand1.splice(this.buyCount);
+      for (var val of this.articleBrand) {
+        this.articleBrand1.push(val);
+
+      }
+
+      var m = this.articleBrand1.length, t, i;
       while (m) {
         i = Math.floor(Math.random() * m--);
         t = this.articleBrand1[m];
@@ -77,4 +78,23 @@ export class SearchEngineComponent implements OnInit {
   ShowBtn(n: number): any[] {
     return Array(n);
   }
+  onSearchChange(searchValue: string): void {
+    console.log(searchValue);
+    if (searchValue) {
+      this.showResult = true;
+    } else {
+      this.showResult = false;
+    }
+
+  }
+
+  @HostListener('window:click', ['$event.target'])
+  onClick(targetElement: any) {
+    if (targetElement && targetElement.className
+      && (targetElement.className.baseVal
+        && (targetElement.className.baseVal !== 'ais-SearchBox-input') || targetElement.className
+        && (targetElement.className !== 'ais-SearchBox-input')))
+      this.showResult = false;
+  }
+
 }

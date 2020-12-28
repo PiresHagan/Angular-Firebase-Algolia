@@ -157,14 +157,14 @@ export class AuthorService {
     );
   }
 
-  follow(authorId: string, type: string = null) {
+  follow(authorId: string, type: string = null, followerData = { 'newsletter_time': 'alltime' }) {
     if (!type || type == STAFF || type == AUTHOR || type == MEMBER)
-      return this.http.post(environment.baseAPIDomain + `/api/v1/members/${authorId}/follow`, {}).subscribe();
+      return this.http.post(environment.baseAPIDomain + `/api/v1/members/${authorId}/follow`, followerData).subscribe();
     else if (type == COMPANY) {
-      return this.http.post(environment.baseAPIDomain + `/api/v1/companies/${authorId}/follow`, {}).subscribe();
+      return this.http.post(environment.baseAPIDomain + `/api/v1/companies/${authorId}/follow`, followerData).subscribe();
     }
     else if (type == CHARITY) {
-      return this.http.post(environment.baseAPIDomain + `/api/v1/charities/${authorId}/follow`, {}).subscribe();
+      return this.http.post(environment.baseAPIDomain + `/api/v1/charities/${authorId}/follow`, followerData).subscribe();
     }
 
   }

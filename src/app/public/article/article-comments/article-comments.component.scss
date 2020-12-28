@@ -53,7 +53,7 @@
 
         .is-comment-detail {
           flex:1;
-          word-break: break-all;
+          word-break: break-word;
           .is-comment-user-name {
             font-family: "josefin_sansregular";
             color: #000;

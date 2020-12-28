@@ -362,4 +362,29 @@ export class ProfileComponent implements OnInit {
     this.isVisible = false;
   }
 
+  // isVisible = false;
+  // isOkLoading = false;
+  // followerData = "alltime";
+
+  // showFollowOption(): void {
+  //   this.isVisible = true;
+
+  // }
+
+  // async handleOk() {
+  //   this.isOkLoading = true;
+
+  //   await this.follow(this.authorDetails.id, { 'newsletter_time': this.followerData });
+  //   setTimeout(() => {
+  //     this.isVisible = false;
+  //     this.isOkLoading = false;
+  //   }, 1000)
+
+  // }
+
+  // handleCancel(): void {
+  //   this.isVisible = false;
+  // }
+
+
 }
