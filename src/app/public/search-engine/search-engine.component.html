@@ -27,11 +27,11 @@
         <div class="sr-bar-with-ads">
           <div class="sr-bar">
             <div class="sr-box">
-              <ais-search-box (input)="onSearchChange($event.target.value)"></ais-search-box>
-              <ais-hits>
+              <ais-search-box (input)="onSearchChange($event.target.value)"  [ngClass]="showResult? 'Show-autocomplete-box' : 'hide-autocomplete-box'"></ais-search-box>
+              <ais-hits class="autocomplete-box" *ngIf="showResult" id="autocomplete-box">
                 <ng-template let-hits="hits" let-results="results">
                   <div class="sr-article-sec-item" *ngFor="let hit of hits; let i=index"
-                    [ngStyle]="{'order': OrderIndex + i}" style="background-color: ivory;font-size: 12px;">
+                    [ngStyle]="{'order': OrderIndex + i}">
                     <ul *ngIf="showResult">
                       <li><a [routerLink]="['/companies',hit.slug]" *ngIf="hit.type==='company'">{{hit?.title}}</a>
                         <a [routerLink]="['/charities',hit.slug]" *ngIf="hit.type==='charity'">{{hit?.bio}}</a>
