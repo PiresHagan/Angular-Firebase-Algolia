@@ -90,7 +90,10 @@ export class SearchEngineComponent implements OnInit {
 
   @HostListener('window:click', ['$event.target'])
   onClick(targetElement: any) {
-    if (targetElement && targetElement.className && targetElement.className.baseVal && targetElement.className.baseVal === 'ais-SearchBox-resetIcon')
+    if (targetElement && targetElement.className
+      && (targetElement.className.baseVal
+        && (targetElement.className.baseVal !== 'ais-SearchBox-input') || targetElement.className
+        && (targetElement.className !== 'ais-SearchBox-input')))
       this.showResult = false;
   }
 

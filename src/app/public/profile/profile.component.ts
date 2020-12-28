@@ -66,7 +66,7 @@ export class ProfileComponent implements OnInit {
       if (slug == 'undefined')
         return;
 
-      this.rss = `?member=${slug}`; 
+      this.rss = `?member=${slug}`;
 
       this.authorService.getUserBySlug(slug).subscribe(author => {
         this.authorDetails = author;
@@ -197,8 +197,7 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    await this.authorService.follow(authorId, userDetails.type);
-
+    await this.authorService.follow(authorId, AUTHOR);
     this.analyticsService.logEvent("follow_author", {
       author_id: authorDetails.id,
       author_name: authorDetails.fullname,
@@ -323,5 +322,29 @@ export class ProfileComponent implements OnInit {
       this.lastArticleIndexOfVideo = articleData.lastVisible;
     })
   }
+
+  // isVisible = false;
+  // isOkLoading = false;
+  // followerData = "alltime";
+
+  // showFollowOption(): void {
+  //   this.isVisible = true;
+
+  // }
+
+  // async handleOk() {
+  //   this.isOkLoading = true;
+
+  //   await this.follow(this.authorDetails.id, { 'newsletter_time': this.followerData });
+  //   setTimeout(() => {
+  //     this.isVisible = false;
+  //     this.isOkLoading = false;
+  //   }, 1000)
+
+  // }
+
+  // handleCancel(): void {
+  //   this.isVisible = false;
+  // }
 
 }
