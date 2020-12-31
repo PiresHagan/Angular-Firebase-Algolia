@@ -5,11 +5,11 @@ import { Cloudinary } from 'cloudinary-core';
 
 import { CharityListComponent } from './charity-list.component';
 import { CharityComponent } from './charity/charity.component';
-import { CharityDonateFormComponent } from './charity/charity-donate-form/charity-donate-form.component';
+
 import { CharityFollowerListComponent } from './charity/charity-follower-list/charity-follower-list.component';
 
 import { CharityListRoutingModule } from './charity-list-routing.module';
-import { createTranslateLoader } from 'src/app/shared/shared.module';
+import { createTranslateLoader, SharedModule } from 'src/app/shared/shared.module';
 import { HttpClient } from '@angular/common/http';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgxStripeModule } from 'ngx-stripe';
@@ -21,7 +21,6 @@ import { environment } from 'src/environments/environment';
   declarations: [
     CharityListComponent,
     CharityComponent,
-    CharityDonateFormComponent,
     CharityFollowerListComponent
   ],
   imports: [
@@ -30,7 +29,8 @@ import { environment } from 'src/environments/environment';
     CharityListRoutingModule,
     ReactiveFormsModule,
     NgZorroAntdModule,
-    NgxStripeModule.forRoot(environment.stripePublishableKey),
+    SharedModule,
+
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })
   ]
 })

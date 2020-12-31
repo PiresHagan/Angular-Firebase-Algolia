@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule } from "@angular/router";
 import { NgZorroAntdModule } from 'ng-zorro-antd';
@@ -20,6 +20,10 @@ import { ShareButtonsComponent } from './component/share-buttons/share-buttons.c
 import { AdDirective } from './directives/ad/ad.directive';
 import { SeoService } from './services/seo/seo.service';
 import { QuicklinkModule } from 'ngx-quicklink';
+import { CharityDonateFormComponent } from './component/charity-donate-form/charity-donate-form.component';
+import { CompanyLeadFormComponent } from './component/company-lead-form/company-lead-form.component';
+import { NgxStripeModule } from 'ngx-stripe';
+import { environment } from 'src/environments/environment';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -39,14 +43,19 @@ export function createTranslateLoader(http: HttpClient) {
         ShareButtonsComponent,
         AdDirective,
         QuicklinkModule,
+        CharityDonateFormComponent,
+        CompanyLeadFormComponent
     ],
     imports: [
         RouterModule,
         CommonModule,
         NgZorroAntdModule,
+        FormsModule,
+        ReactiveFormsModule,
         PerfectScrollbarModule,
         QuicklinkModule,
         CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
+        NgxStripeModule.forRoot(environment.stripePublishableKey),
         TranslateModule.forChild({
             useDefaultLang: true,
             isolate: false,
@@ -65,7 +74,9 @@ export function createTranslateLoader(http: HttpClient) {
         ArticleAvatarComponent,
         CloudinaryImgComponent,
         ShareButtonsComponent,
-        AdDirective
+        AdDirective,
+        CharityDonateFormComponent,
+        CompanyLeadFormComponent
     ],
     providers: [
         ThemeConstantService,

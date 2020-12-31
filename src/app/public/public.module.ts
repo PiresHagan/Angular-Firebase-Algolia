@@ -13,6 +13,7 @@ import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5
 import { Cloudinary } from 'cloudinary-core';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 
+
 @NgModule({
   declarations: [],
   imports: [
@@ -23,6 +24,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
     FormsModule,
     ReactiveFormsModule,
     NgZorroAntdModule,
+
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } }),
     SharedModule,
     NzModalModule
