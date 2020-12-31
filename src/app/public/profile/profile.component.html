@@ -92,12 +92,14 @@
       {{'profileFollowers' | translate}} {{authorDetails.followers_count}}
     </div>
     <div class="is-followers-user">
-      <div class="is-followers-item" *ngFor="let follower of followers">
-        <a [routerLink]="['/',follower.slug]" *ngIf="!follower.blocked">
-          <img src="{{follower?.avatar?.url}}" onerror="this.src='assets/images/default-avatar.png'"
-            alt="{{follower?.avatar?.alt}}" />
-        </a>
-      </div>
+      <ng-container *ngFor="let follower of followers">
+        <div class="is-followers-item" *ngIf="!follower.blocked">
+          <a [routerLink]="['/',follower.slug]">
+            <img src="{{follower?.avatar?.url}}" onerror="this.src='assets/images/default-avatar.png'"
+              alt="{{follower?.avatar?.alt}}" />
+          </a>
+        </div>
+      </ng-container>
     </div>
     <div *ngIf="lastVisibleFollower">
       <a (click)="loadMoreFollowers()" class="load-more-btn"><span>{{'loadMore' | translate}}</span></a>

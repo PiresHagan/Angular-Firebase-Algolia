@@ -192,10 +192,10 @@ export class ProfileComponent implements OnInit {
   async follow(authorId) {
     const userDetails = this.getUserDetails();
     const authorDetails = this.getAuthorDetails();
-    // if (userDetails.id == authorId) {
-    //   this.showSameFollowerMessage();
-    //   return;
-    // }
+    if (userDetails.id == authorId) {
+      this.showSameFollowerMessage();
+      return;
+    }
 
     await this.authorService.follow(authorId, AUTHOR);
     this.analyticsService.logEvent("follow_author", {
