@@ -93,8 +93,26 @@ export class SearchEngineComponent implements OnInit {
     if (targetElement && targetElement.className
       && (targetElement.className.baseVal
         && (targetElement.className.baseVal !== 'ais-SearchBox-input') || targetElement.className
-        && (targetElement.className !== 'ais-SearchBox-input')))
-      this.showResult = false;
+        && (targetElement.className !== 'ais-SearchBox-input'))){
+           document.getElementsByClassName('ais-SearchBox-submitIcon')[0].querySelectorAll("path")[0]["style"].fill="#cccc"
+           this.showResult = false;
+        }
+      
+  }
+  @HostListener('window:keyup', ['$event.target'])
+  onKeyup(targetElement: any) {
+  if (targetElement && targetElement.className
+    && targetElement.value
+      && (targetElement.className.baseVal
+        && (targetElement.className.baseVal === 'ais-SearchBox-input') || targetElement.className
+        && (targetElement.className === 'ais-SearchBox-input'))){
+        if(document.getElementsByClassName('ais-SearchBox-submitIcon') && document.getElementsByClassName('ais-SearchBox-submitIcon')[0]&& document.getElementsByClassName('ais-SearchBox-submitIcon')[0].querySelectorAll("path"))
+            document.getElementsByClassName('ais-SearchBox-submitIcon')[0].querySelectorAll("path")[0]["style"].fill="#0079d0"
+        }else{
+          if(document.getElementsByClassName('ais-SearchBox-submitIcon') && document.getElementsByClassName('ais-SearchBox-submitIcon')[0]&& document.getElementsByClassName('ais-SearchBox-submitIcon')[0].querySelectorAll("path"))
+            document.getElementsByClassName('ais-SearchBox-submitIcon')[0].querySelectorAll("path")[0]["style"].fill="#cccc"
+        }
+    
   }
 
 }
