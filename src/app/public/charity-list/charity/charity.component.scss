@@ -134,6 +134,7 @@ hr {
         flex-wrap: wrap;
         margin-bottom: 30px;
         .company-name {
+          flex:1;
           h1 {
             margin: 0px;
             a {
@@ -155,7 +156,6 @@ hr {
           }
         }
         .media-section {
-          flex: 1;
           display: flex;
           align-items: center;
           justify-content: flex-end;
@@ -250,6 +250,8 @@ hr {
             color: #464444;
             line-height: 33px;
             margin-bottom: 0px;
+            word-break: break-word;
+            text-align: justify;
           }
           .followers-btn {
             padding: 30px 10px 0px;

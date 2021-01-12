@@ -59,14 +59,25 @@
       background: #fff;
       display: flex;
       justify-content: center;
-      align-items: center;
       min-height: 270px;
       div {
         > img {
-          width: 70px !important;
+          width: 70px;
           height: 70px;
-          width: auto;
-          object-fit: cover;
+          object-fit: contain;
+          border: 1px solid #eee;
+          border-radius: 100%;
+          background: #eee;
+        }
+        ::ng-deep cl-image{
+          img{
+            width: 70px;
+          height: 70px;
+          object-fit: contain;
+          border: 1px solid #eee;
+          border-radius: 100%;
+          background: #eee;
+          }
         }
       }
       h2 {
@@ -75,6 +86,7 @@
         font-family: "open_sansregular";
         margin: 10px 0px 10px 0px;
         font-weight: 600;
+        word-break: break-word;
       }
       p {
         font-family: "open_sansregular";
@@ -82,7 +94,7 @@
         font-weight: normal;
         color: #3f4755;
         line-height: 24px;
-
+        word-break: break-word;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
