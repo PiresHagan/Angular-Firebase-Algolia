@@ -322,6 +322,10 @@ export class ProfileComponent implements OnInit {
       this.lastArticleIndexOfVideo = articleData.lastVisible;
     })
   }
+  getTextArticle() {
+    const authorId = this.authorDetails.id;
+    this.getArticleList(authorId);
+  }
 
   // isVisible = false;
   // isOkLoading = false;
