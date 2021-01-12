@@ -75,6 +75,15 @@ hr {
           }
         }
       }
+      .share-sec{
+        h3{
+          color: #fd6147;
+          font-size: 22px;
+          font-family: "josefin_sanssemibold";
+          text-align: center;
+          text-transform: capitalize;
+        }
+      }
     }
     .is-main-article-content {
       width: 700px;
@@ -466,6 +475,21 @@ hr {
     }
     .mobile-article-detail {
       display: block;
+      padding-top: 20px;
+      .xs-company-img{
+        text-align: center;
+        width: 120px;
+        margin: auto;
+        position: relative;
+       > img{
+          width: 120px;
+          height: 120px;
+          object-fit: cover;
+          border-radius: 100%;
+          margin-bottom: 20px;
+          
+        }
+      }
       .xs-article-title {
         text-align: center;
         border-bottom: 1px solid #eee;
@@ -490,7 +514,7 @@ hr {
           flex: 1;
         }
         .comment-section {
-          width: 115px;
+          width: max-content;
           text-align: right;
           position: relative;
           z-index: 1;
@@ -524,11 +548,42 @@ hr {
       }
     }
     .xs-article-publish {
-      display: flex;
-      align-items: center;
       margin: 10px 0px 0px;
       padding-bottom: 10px;
       border-bottom: 1px solid #eee;
+      display: block;
+      h3{
+        color: #fd6147;
+        font-size: 20px;
+        font-family: josefin_sanssemibold;
+        text-align: left;
+        text-transform: capitalize;
+      }
+      >.d-flex{
+        display: flex;
+        align-items: center;
+      }
+      ::ng-deep .container{
+        padding: 0px; 
+        .is-comman-title{
+          font-size: 20px;
+          text-align: left;
+          &::before{
+            left: 0px;
+            transform: unset;
+          }
+        }
+        .is-followers-user{
+          justify-content: flex-start;
+          .is-followers-item{
+            margin-left: 0px;
+            img{
+              width: 50px !important;
+              height: 50px !important;
+            }
+          }
+        }
+      }
       .xs-article-publisher-img {
         width: 80px;
         position: relative;

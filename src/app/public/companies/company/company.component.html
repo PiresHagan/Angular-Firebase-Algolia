@@ -23,9 +23,12 @@
 <section class="is-article-block"  *ngIf="company">
     <div class="container">
         <div class="mobile-article-detail">
-            <h2 class="xs-article-title">
-                <img class="avatar" src="assets/images/company/company-logo.png" alt="company logo"/>
-            </h2>
+           
+            <div class="xs-company-img">
+                <img *ngIf="company" [src]='company?.logo?.url' [alt]='company?.logo?.alt' 
+                onerror="this.src='assets/images/default-avatar.png'"
+                />
+            </div>
             <div class="xs-article-author-detail">
                 <div class="xs-article-name">
                         {{ company?.name }}
@@ -51,16 +54,13 @@
         <div class="is-article-sec">
             <div class="is-left-profile hidden-on-xs">
                 <div class="sticky-box">
-                    <div class="is-profile">
-                        <a>
-                            <img class="avatar" src="assets/images/company/company-logo.png" alt="company logo"/>
-                        </a>
-                    </div>
+                  <app-company-follower-list *ngIf="companyId" [companyId]="companyId"></app-company-follower-list>
+                  <app-company-following-list  *ngIf="companyId" [companyId]="companyId"></app-company-following-list>
                     <div class="share-sec text-center">
-                        <div class="addthis_inline_share_toolbox"></div>
+                        <h3>{{'shareArticle' | translate}}</h3>
+                        <app-share-buttons></app-share-buttons>
                     </div>
-                        
-                    <app-company-follower-list *ngIf="companyId" [companyId]="companyId"></app-company-follower-list>
+                    
                 </div>
             </div>
             <div class="is-main-article-content">
@@ -118,19 +118,29 @@
                         </div>
                        
                         <div class="xs-article-publish">
-                            <div class="xs-article-publisher-img">
-                                <div class="company-img">
-                                    <img *ngIf="company" [src]='company?.logo?.url' [alt]='company?.logo?.alt' 
-                                    onerror="this.src='assets/images/default-avatar.png'"
-                                    />
-                                    <div class="special-icon" *ngIf="company">
-                                        <img src="assets/images/company-icon.png" style="max-width:28px;" />
+                            <div class="d-flex">
+                                <div class="xs-article-publisher-img">
+                                    <div class="company-img">
+                                        <img *ngIf="company" [src]='company?.logo?.url' [alt]='company?.logo?.alt' 
+                                        onerror="this.src='assets/images/default-avatar.png'"
+                                        />
+                                        <div class="special-icon" *ngIf="company">
+                                            <img src="assets/images/company-icon.png" style="max-width:28px;" />
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="xs-articl-publisher-name">{{ company?.name }}</div>
                             </div>
-                            <div class="xs-articl-publisher-name">{{ company?.name }}</div>
+                            <app-company-follower-list *ngIf="companyId" [companyId]="companyId"></app-company-follower-list>
+                            <app-company-following-list  *ngIf="companyId" [companyId]="companyId"></app-company-following-list>
+                            <div class="share-sec text-left">
+                                <h3>{{'shareArticle' | translate}}</h3>
+                                <app-share-buttons></app-share-buttons>
+                            </div>
                         </div>
-                        <app-company-followers *ngIf="companyId" [companyId]="companyId" class="hidden-on-desktop"></app-company-followers>
+                        <div class="text-left">
+                            <app-company-followers *ngIf="companyId" [companyId]="companyId" class="hidden-on-desktop"></app-company-followers>
+                        </div>
                     </div>
                 </div>
 

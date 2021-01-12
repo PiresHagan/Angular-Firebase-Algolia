@@ -13,12 +13,14 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CompanyFollowingListComponent } from './company/company-following-list/company-following-list.component';
 
 @NgModule({
   declarations: [
     CompaniesComponent,
     CompanyComponent,
-    CompanyFollowerListComponent
+    CompanyFollowerListComponent,
+    CompanyFollowingListComponent
   ],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
