@@ -110,14 +110,13 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="is-body">
-                        <div class="is-paragraph" [class.collapsed]="isCollapsed">
-                            <div class="show-more-data">
+                        <div class="is-paragraph">
+                            <div>
                                 <p class="big">{{ company?.bio }}</p>
                             <br>
                             <p innerHTML={{company?.presentation}}></p>
                             </div>
-                            <div class="read-more" (click)="isCollapsed = !isCollapsed">{{'readMore' | translate}}</div>
-                            <div class="read-less" (click)="isCollapsed = !isCollapsed">{{'ReadLess' | translate}}</div>
+                            
                         </div>
                        
                         <div class="xs-article-publish">
