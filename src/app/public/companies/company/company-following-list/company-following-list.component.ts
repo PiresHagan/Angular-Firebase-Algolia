@@ -30,7 +30,7 @@ export class CompanyFollowingListComponent implements OnInit {
         return;
       }
 
-      const slug = "rahul-rajabhoj";
+      const slug = params.get('slug');
      
 
       this.rss = `?member=${slug}`;

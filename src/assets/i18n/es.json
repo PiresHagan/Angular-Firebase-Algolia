@@ -645,5 +645,8 @@
   "DeletMsgConf": "¿Desea eliminar estos registros?",
   "WrittenBy": "Escrito por",
   "AdminCenter": "Centro de administración",
-  "city":"ciudad"
+  "city":"ciudad",
+  "text":"texto",
+  "ReadLess":"Leer menos",
+  "NoTextArticle":"Sin artículo de texto"
 }

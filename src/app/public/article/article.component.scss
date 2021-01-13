@@ -218,7 +218,8 @@ hr {
             color: #464444;
             line-height: 33px;
             margin-bottom: 0px;
-
+            word-break: break-word;
+            text-align: justify;
             &.big::first-letter {
               font-size: 100px;
               color: #fd6147;
