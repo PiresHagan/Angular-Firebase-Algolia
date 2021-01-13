@@ -101,9 +101,8 @@ export class CompanyComponent implements OnInit {
     if (this.audioArticles.length != 0)
       return;
     const CompanyId = this.companyId;
-    this.articleService.getArticlesByUser(CompanyId, 2, 'first', null, 'audio').subscribe((articleData) => {debugger;
+    this.articleService.getArticlesByUser(CompanyId, 2, 'first', null, 'audio').subscribe((articleData) => {
       this.audioArticles = articleData.articleList;
-      console.log(this.audioArticles);
       this.lastArticleIndexOfAudio = articleData.lastVisible;
     })
   }
