@@ -101,7 +101,7 @@ export class BackofficeArticleService {
     })
   }
 
-  getArticlesByUser(authorId, limit: number = 10, navigation: string = "first", lastVisible = null) {
+  getArticlesByUser(authorId, limit: number = 10, navigation: string = "first", lastVisible = null, type = null) {
     if (!limit) {
       limit = 10;
     }
@@ -110,6 +110,16 @@ export class BackofficeArticleService {
       .orderBy('created_at', 'desc')
       .limit(limit)
     )
+    if (type) {
+      dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
+        .where('author.id', '==', authorId)
+        .where('status', '==', ACTIVE)
+        .where('type', '==', type)
+        .orderBy('published_at', 'desc')
+
+        .limit(limit)
+      )
+    }
     switch (navigation) {
       case 'next':
         dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref

@@ -647,5 +647,8 @@
   "DeletMsgConf": "Voulez-vous supprimer ces enregistrements?",
   "WrittenBy": "Écrit par",
   "AdminCenter": "Centre d'administration",
-  "city":"ville"
+  "city":"ville",
+  "text":"texte",
+  "ReadLess":"Lire moins",
+  "NoTextArticle":"Aucun article de texte"
 }

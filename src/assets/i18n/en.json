@@ -685,5 +685,8 @@
   "DeletMsgConf": "Do you Want to delete these record?",
   "WrittenBy": "Written by",
   "AdminCenter": "Admin Center",
-  "city":"City"
+  "city":"City",
+  "text":"Text",
+  "ReadLess":"Read less",
+  "NoTextArticle":"No text article"
 }
