@@ -60,6 +60,7 @@ export class AddCompanyComponent implements OnInit {
       company_name: ['', [Validators.required, Validators.maxLength(70)]],
       company_email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
       company_phone: ['', [Validators.required, Validators.maxLength(10)]],
+      company_website: [''],
       company_lang: ['', [Validators.required]],
       company_slug: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(70), Validators.pattern('^[a-z0-9-]+$')]],
       company_bio: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]],
@@ -76,6 +77,7 @@ export class AddCompanyComponent implements OnInit {
       company_lang: companyDetails.lang,
       company_slug: companyDetails.slug,
       company_bio: companyDetails.bio,
+      company_website: companyDetails.website ? companyDetails.website : '',
       company_presentation: companyDetails.presentation,
       company_color_code: companyDetails.color_code ? companyDetails.color_code : "",
     });
@@ -137,6 +139,7 @@ export class AddCompanyComponent implements OnInit {
       bio: this.companyForm.value.company_bio,
       presentation: this.companyForm.value.company_presentation,
       color_code: this.companyForm.value.company_color_code,
+      website: this.companyForm.value.company_website,
       logo: this.logoImage,
       type: 'company',
       // author: await this.getUserDetails(),

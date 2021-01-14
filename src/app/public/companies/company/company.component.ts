@@ -11,11 +11,23 @@ import { Router } from '@angular/router';
 import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
 
+interface LeadSubscription { 
+  created_at: string,
+  customer_id: string,
+  external_id: string,
+  id: string,
+  limit: number,
+  package_id: string,
+  status: string,
+  type: string
+}
+
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
   styleUrls: ['./company.component.scss']
 })
+
 export class CompanyComponent implements OnInit {
 
   company: Company;
@@ -33,6 +45,7 @@ export class CompanyComponent implements OnInit {
   lastArticleIndexOfAudio;
   lastArticleIndexOfVideo;
   lastArticleIndexOfText;
+  currentSubscription: LeadSubscription;
   audioArticles: Article[] = [];
   videoArticles: Article[] = [];
   textArticles: Article[] = [];
@@ -56,6 +69,10 @@ export class CompanyComponent implements OnInit {
         this.company = data[0];
 
         this.companyId = this.company.id;
+
+        this.companyService.getCompanySubscription(this.companyId).subscribe((data) => {
+          this.currentSubscription = data[0];
+        });
 
          // Fetching company article
         this.articleService.getArticlesByUser(this.companyId,  2, null, this.lastArticleIndex).subscribe((data) => {

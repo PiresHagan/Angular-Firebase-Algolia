@@ -5,7 +5,8 @@ export interface Company {
     lang?: string,
     phone?: string
     slug?: string,
-    bio?: string
+    bio?: string,
+    website: string,
     presentation?: string,
     color_code?: string
     logo?: {
