@@ -30,6 +30,7 @@ hr {
 }
 .is-article-block {
   background: #fff;
+  text-align: justify;
   .is-article-sec {
     display: flex;
     flex-wrap: wrap;
@@ -218,7 +219,7 @@ hr {
             color: #464444;
             line-height: 33px;
             margin-bottom: 0px;
-            word-break: break-word;
+
             text-align: justify;
             &.big::first-letter {
               font-size: 100px;
