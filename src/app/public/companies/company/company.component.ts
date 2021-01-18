@@ -40,7 +40,7 @@ export class CompanyComponent implements OnInit {
   userDetails: User;
   isVisible = false;
   isOkLoading = false;
-  companyAarticles: Article[];
+  companyArticles: Article[];
   lastArticleIndex;
   lastArticleIndexOfAudio;
   lastArticleIndexOfVideo;
@@ -76,7 +76,7 @@ export class CompanyComponent implements OnInit {
 
          // Fetching company article
         this.articleService.getArticlesByUser(this.companyId,  2, null, this.lastArticleIndex).subscribe((data) => {
-          this.companyAarticles = data.articleList;
+          this.companyArticles = data.articleList;
           this.lastArticleIndex = data.lastVisible;
         });
 
@@ -108,8 +108,8 @@ export class CompanyComponent implements OnInit {
   loadMoreArticle() {
     const CompanyId = this.companyId;
     this.articleService.getArticlesByAuthor(CompanyId, 2, 'next', this.lastArticleIndex).subscribe((articleData) => {
-      let mergedData: any = [...this.companyAarticles, ...articleData.articleList];
-      this.companyAarticles = this.getDistinctArray(mergedData)
+      let mergedData: any = [...this.companyArticles, ...articleData.articleList];
+      this.companyArticles = this.getDistinctArray(mergedData)
       this.lastArticleIndex = articleData.lastVisible;
     })
   }
