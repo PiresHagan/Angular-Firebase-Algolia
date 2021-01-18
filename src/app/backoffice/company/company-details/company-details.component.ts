@@ -9,12 +9,16 @@ import { ActivatedRoute } from '@angular/router';
 export class CompanyDetailsComponent implements OnInit {
 
   companyId: string;
+  showTabIndex = 0;
   constructor(
     private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.companyId = this.activatedRoute.snapshot.queryParams["company"];
+    if(this.activatedRoute.snapshot.queryParams["indexToShow"] != undefined) {
+      this.showTabIndex = this.activatedRoute.snapshot.queryParams["indexToShow"];
+    }
   }
 
 }

@@ -6,7 +6,10 @@ export interface Company {
     phone?: string
     slug?: string,
     bio?: string,
-    website: string,
+    website?: string,
+    owner?: {
+        id: string
+    }
     presentation?: string,
     color_code?: string
     logo?: {

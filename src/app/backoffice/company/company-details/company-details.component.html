@@ -3,7 +3,7 @@
         <div class="page-header has-tab">
             <h2 class="font-weight-normal"> {{ 'CompanyInfo' | translate }}</h2>
         </div>
-        <nz-tabset class="page-header-tab">
+        <nz-tabset class="page-header-tab" [nzSelectedIndex]='showTabIndex'>
             <nz-tab nzTitle="{{'CompanyDetails'| translate}}">
                 <app-add-company class="m-10"></app-add-company>
             </nz-tab>

@@ -197,7 +197,7 @@ export class CompanyComponent implements OnInit {
 
   async setUserDetails() {
     this.authService.getAuthState().subscribe(async (user) => {
-      if (!user) {
+      if (!user.email) {
         this.userDetails = null;
         this.isLoggedInUser = false;
         return;
@@ -257,6 +257,17 @@ export class CompanyComponent implements OnInit {
       await this.companyService.unfollowCompany(this.companyId).then(data => {
         this.setFollowOrNot();
       });
+    } else {
+      this.showModal()
+    }
+  }
+
+  async openCompanySubscription() {
+    await this.setUserDetails();
+    if (this.isLoggedInUser) {
+      if(this.userDetails?.id == this.company?.owner?.id) {
+        this.router.navigate(["app/company/company-details"], { queryParams: { company: this.company.id, indexToShow: 5 } });
+      }
     } else {
       this.showModal()
     }
