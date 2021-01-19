@@ -383,5 +383,31 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   slideArticle() {
     this.SlideRelatedArticle = !this.SlideRelatedArticle;
   }
+  isVisibleMiddle = false;
+  isShareVisibleMiddle = false;
+  openOptionModel() {
+
+    this.isVisibleMiddle = true;
+
+
+  }
+  handleOkMiddle(): void {
+    console.log('click ok');
+    this.isVisibleMiddle = false;
+  }
+
+  handleCancelMiddle(): void {
+    this.isVisibleMiddle = false;
+  }
+  openShareModel() {
+    this.isShareVisibleMiddle = true;
+  }
+  closeSharepopUp() {
+    this.isShareVisibleMiddle = false;
+  }
+  copyLink() {
+
+    console.log(this.router.url);
+  }
 }
 

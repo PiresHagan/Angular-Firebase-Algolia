@@ -38,12 +38,19 @@
           </a>
         </div>
         <div class="xs-follow-author">
-          <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+          <!-- <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
             {{'followAuthor' | translate}}
           </a>
           <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
             {{'unfollowAuthor' | translate}}
-          </a>
+          </a> -->
+          <span style="padding: 8px;" (click)="openOptionModel()"><svg aria-label="More options" class="_8-yf5 "
+              fill="#262626" height="25" viewBox="0 0 50 25" width="25">
+              <circle clip-rule="evenodd" cx="8" cy="24" fill-rule="evenodd" r="4.5"></circle>
+              <circle clip-rule="evenodd" cx="24" cy="24" fill-rule="evenodd" r="4.5"></circle>
+              <circle clip-rule="evenodd" cx="40" cy="24" fill-rule="evenodd" r="4.5"></circle>
+            </svg></span>
+
         </div>
       </div>
       <div class="xs-article-date">{{article?.published_at | date:'medium' }}</div>
@@ -124,8 +131,8 @@
                         <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
                       </a>
                     </div>
-                    <p class="text-black">{{'Please' | translate}}, <a
-                        routerLink="/auth/login">{{'logInTitle' | translate}}</a>
+                    <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' |
+                        translate}}</a>
                       {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
                       {{'toContinue' | translate}}.</p>
 
@@ -350,4 +357,74 @@
     </div>
 
   </div>
+
+
+
+
+  <nz-modal nzWrapClassName=" vertical-center-modal mobile-option-pop-up" nzWidth="70%" nzFooter="null"
+    [(nzVisible)]="isVisibleMiddle">
+    <div class="mt3GC">
+      <button class="aOOlW -Cab_   " tabindex="0">Report</button>
+      <button class="aOOlW -Cab_   " tabindex="0">Unfollow</button>
+      <button class="aOOlW   HoLwm " tabindex="0" (click)="openShareModel()">Share to...</button>
+      <button class="aOOlW   HoLwm " tabindex="0">Copy
+        Link</button><button class="aOOlW   HoLwm " tabindex="0" (click)="handleCancelMiddle()">Cancel</button>
+    </div>
+  </nz-modal>
+
+  <nz-modal nzTitle="Share to..." nzWrapClassName="vertical-center-modal mobile-share-option-pop-up" nzWidth="70%"
+    nzFooter="null" [(nzVisible)]="isShareVisibleMiddle">
+    <div id="atstbx" class="at-resp-share-element at-style-responsive addthis-smartlayers addthis-animated at4-show"
+      role="region">
+      <span id="at-58874b62-35e8-461d-a6c4-83824085693f" class="at4-visually-hidden"></span>
+      <div class="at-share-btn-elements">
+        <nz-list class="addthis_toolbox">
+          <nz-list-item>
+            <span nz-typography class="addthis_button_facebook"><i nz-icon nzType="facebook"
+                nzTheme="outline"></i></span>
+            <span
+              class="addthis_button_facebook at-icon-wrapper at-share-btn at-svc-facebook addthis_button_facebook">Share
+              to Facebook</span>
+          </nz-list-item>
+          <nz-list-item>
+            <span nz-typography><i nz-icon nzType="twitter" nzTheme="outline"></i></span>
+            <span>Share to Twitter</span>
+          </nz-list-item>
+          <nz-list-item>
+            <span nz-typography><i nz-icon nzType="linkedin" nzTheme="outline"></i></span>
+            <span>Share to Linkedin</span>
+          </nz-list-item>
+          <nz-list-item>
+            <span nz-typography><i nz-icon nzType="linkedin" nzTheme="outline"></i></span>
+            <span>Share to Linkedin</span>
+          </nz-list-item>
+          <nz-list-item>
+            <span nz-typography><i nz-icon nzType="aliwangwang" nzTheme="outline"></i></span>
+            <span>Share to Messenger</span>
+          </nz-list-item>
+          <nz-list-item>
+            <span nz-typography><i nz-icon nzType="wechat" nzTheme="outline"></i></span>
+            <span>Share to WhatsApp</span>
+          </nz-list-item>
+          <nz-list-item>
+            <span nz-typography><i nz-icon nzType="mail" nzTheme="outline"></i></span>
+            <span>Share via Email</span>
+          </nz-list-item>
+          <nz-list-item>
+            <span nz-typography (click)="copyLink()"><i nz-icon nzType="link" nzTheme="outline"></i></span>
+            <span (click)="copyLink()">Copy Link</span>
+          </nz-list-item>
+          <nz-list-item>
+            <span nz-typography (click)="closeSharepopUp()"><i nz-icon nzType="close-circle"
+                nzTheme="outline"></i></span>
+            <span (click)="closeSharepopUp()">Close</span>
+          </nz-list-item>
+        </nz-list>
+      </div>
+    </div>
+
+
+  </nz-modal>
+
+
 </section>
