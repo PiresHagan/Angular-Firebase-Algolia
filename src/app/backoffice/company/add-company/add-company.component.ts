@@ -34,7 +34,7 @@ export class AddCompanyComponent implements OnInit {
       [{ 'list': 'ordered' }, { 'list': 'bullet' }],
       [{ 'size': ['small', false, 'large', 'huge'] }],
       [{ 'align': [] }],
-      ['link', 'image', 'video']
+      ['image', 'video']
     ]
   };
   constructor(
