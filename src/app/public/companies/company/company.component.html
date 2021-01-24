@@ -110,7 +110,7 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="is-body">
-                        <div class="is-paragraph">
+                        <div class="is-paragraph not-active">
                             <div>
                                 <p class="big">{{ company?.bio }}</p>
                             <br>
@@ -142,7 +142,7 @@
                         <div class="text-left">
                             <app-company-followers *ngIf="companyId" [companyId]="companyId" class="hidden-on-desktop"></app-company-followers>
                         </div>
-                        <div class="bg-white" *ngIf="companyAarticles.length">
+                        <div class="bg-white" *ngIf="companyArticles">
                             <div class="is-comman-title">
                               {{'CompanyArticle' | translate}}
                             </div>
@@ -153,7 +153,7 @@
                                           <nz-tabset>
                                             <nz-tab nzTitle="{{'All' | translate}}">
                                               <div class="row article-row">
-                                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-20" *ngFor="let article of companyAarticles"
+                                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-20" *ngFor="let article of companyArticles"
                                                   [ngClass]="article?.category?.slug">
                                                   <div class="item-card item-card-life-and-styles">
                                                     <a [routerLink]="['/',article.author.slug,article.slug]">
@@ -256,6 +256,9 @@
                                                 <div *ngIf="lastArticleIndex" class="w-100 mt-2">
                                                   <a (click)="loadMoreArticle()" class="load-more-btn"><span>{{'loadMore' | translate}}</span></a>
                                                   <!-- <nz-spin nzSimple *ngIf="loadingMoreFollowers"></nz-spin> -->
+                                                </div>
+                                                <div *ngIf="!companyArticles.length" class="m-t-10">
+                                                  {{'artNoArt' | translate}}
                                                 </div>
                                               </div>
                                             </nz-tab>
@@ -614,6 +617,20 @@
 
             </div>
             <div class="is-right-ad-section">
+                <div class="cmpy-subs-status" 
+                  *ngIf="!currentSubscription || currentSubscription?.status != 'active'" 
+                  (click)='openCompanySubscription()'
+                >
+                  <h5>{{ 'CompanyWebsite' | translate }} : <span class="txt-primary ptr-cursor">N/A</span></h5>
+                  <h5>{{ 'CompanyPhone' | translate }} : <span class="txt-primary ptr-cursor">N/A</span></h5>
+                </div>
+                <div class="cmpy-subs-status" *ngIf="currentSubscription && currentSubscription.status == 'active'">
+                  <h5 *ngIf="!company.website || company?.website?.length == 0">{{ 'CompanyWebsite' | translate }} : <span class="txt-primary">N/A</span></h5>
+                  <h5 *ngIf="company.website && company?.website?.length != 0">
+                    {{ 'CompanyWebsite' | translate }} : <a href="{{ company.website }}" target="_blank"> Click Here </a>
+                  </h5>
+                  <h5>{{ 'CompanyPhone' | translate }} : <a href="tel:{{ company.phone }}">{{ company.phone }}</a></h5>
+                </div>
                 <app-company-lead-form *ngIf="companyId" [companyId]="companyId"></app-company-lead-form>
             </div>
         </div>

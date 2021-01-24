@@ -11,11 +11,23 @@ import { Router } from '@angular/router';
 import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
 
+interface LeadSubscription { 
+  created_at: string,
+  customer_id: string,
+  external_id: string,
+  id: string,
+  limit: number,
+  package_id: string,
+  status: string,
+  type: string
+}
+
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
   styleUrls: ['./company.component.scss']
 })
+
 export class CompanyComponent implements OnInit {
 
   company: Company;
@@ -28,11 +40,12 @@ export class CompanyComponent implements OnInit {
   userDetails: User;
   isVisible = false;
   isOkLoading = false;
-  companyAarticles: Article[];
+  companyArticles: Article[];
   lastArticleIndex;
   lastArticleIndexOfAudio;
   lastArticleIndexOfVideo;
   lastArticleIndexOfText;
+  currentSubscription: LeadSubscription;
   audioArticles: Article[] = [];
   videoArticles: Article[] = [];
   textArticles: Article[] = [];
@@ -57,9 +70,13 @@ export class CompanyComponent implements OnInit {
 
         this.companyId = this.company.id;
 
+        this.companyService.getCompanySubscription(this.companyId).subscribe((data) => {
+          this.currentSubscription = data[0];
+        });
+
          // Fetching company article
         this.articleService.getArticlesByUser(this.companyId,  2, null, this.lastArticleIndex).subscribe((data) => {
-          this.companyAarticles = data.articleList;
+          this.companyArticles = data.articleList;
           this.lastArticleIndex = data.lastVisible;
         });
 
@@ -91,8 +108,8 @@ export class CompanyComponent implements OnInit {
   loadMoreArticle() {
     const CompanyId = this.companyId;
     this.articleService.getArticlesByAuthor(CompanyId, 2, 'next', this.lastArticleIndex).subscribe((articleData) => {
-      let mergedData: any = [...this.companyAarticles, ...articleData.articleList];
-      this.companyAarticles = this.getDistinctArray(mergedData)
+      let mergedData: any = [...this.companyArticles, ...articleData.articleList];
+      this.companyArticles = this.getDistinctArray(mergedData)
       this.lastArticleIndex = articleData.lastVisible;
     })
   }
@@ -180,7 +197,7 @@ export class CompanyComponent implements OnInit {
 
   async setUserDetails() {
     this.authService.getAuthState().subscribe(async (user) => {
-      if (!user) {
+      if (!user.email) {
         this.userDetails = null;
         this.isLoggedInUser = false;
         return;
@@ -240,6 +257,17 @@ export class CompanyComponent implements OnInit {
       await this.companyService.unfollowCompany(this.companyId).then(data => {
         this.setFollowOrNot();
       });
+    } else {
+      this.showModal()
+    }
+  }
+
+  async openCompanySubscription() {
+    await this.setUserDetails();
+    if (this.isLoggedInUser) {
+      if(this.userDetails?.id == this.company?.owner?.id) {
+        this.router.navigate(["app/company/company-details"], { queryParams: { company: this.company.id, indexToShow: 5 } });
+      }
     } else {
       this.showModal()
     }

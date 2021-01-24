@@ -5,12 +5,14 @@ import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Company } from '../interfaces/company.type';
 import { Observable } from 'rxjs';
+import { CompanyConstant } from '../constants/company-constant';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService {
 
+  private subscriptionsCollection = 'subscriptions';
   private companiesCollection = 'companies';
   private followersSubCollection = 'followers';
 ;
@@ -136,6 +138,20 @@ export class CompanyService {
       }
     })
     );
+  }
+
+  getCompanySubscription(companyId: string) {
+    let dataQuery = this.db.collection(`${this.subscriptionsCollection}`, ref => ref
+      .where("customer_id", "==", companyId)
+      .where("status", "==", CompanyConstant.STATUS_ACTIVE)
+      .where("type", "==", CompanyConstant.LEAD_PACKAGE)
+    );
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data: any = a.payload.doc.data();
+        return data;
+      })
+    }));
   }
 
 }

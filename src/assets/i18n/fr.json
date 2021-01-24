@@ -650,5 +650,6 @@
   "city":"ville",
   "text":"texte",
   "ReadLess":"Lire moins",
-  "NoTextArticle":"Aucun article de texte"
+  "NoTextArticle":"Aucun article de texte",
+  "CompanyWebsite": "Site Web de l'entreprise"
 }

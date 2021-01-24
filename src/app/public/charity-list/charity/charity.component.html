@@ -139,7 +139,7 @@
                             </div>
                         </div>
                         <app-charity-followers *ngIf="charityId" [charityId]="charityId" class="hidden-on-desktop"></app-charity-followers>
-                        <div class="bg-white" *ngIf="charityAarticles.length">
+                        <div class="bg-white" *ngIf="charityArticles">
                             <div class="is-comman-title">
                              {{'CharityArticle' | translate}}
                             </div>
@@ -150,7 +150,7 @@
                                           <nz-tabset>
                                             <nz-tab nzTitle="{{'All' | translate}}">
                                               <div class="row article-row">
-                                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-20" *ngFor="let article of charityAarticles"
+                                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-20" *ngFor="let article of charityArticles"
                                                   [ngClass]="article?.category?.slug">
                                                   <div class="item-card item-card-life-and-styles">
                                                     <a [routerLink]="['/',article.author.slug,article.slug]">
@@ -253,6 +253,9 @@
                                                 <div *ngIf="lastArticleIndex" class="w-100 mt-2">
                                                   <a (click)="loadMoreArticle()" class="load-more-btn"><span>{{'loadMore' | translate}}</span></a>
                                                   <!-- <nz-spin nzSimple *ngIf="loadingMoreFollowers"></nz-spin> -->
+                                                </div>
+                                                <div *ngIf="!charityArticles.length" class="m-t-10">
+                                                  {{'artNoArt' | translate}}
                                                 </div>
                                               </div>
                                             </nz-tab>

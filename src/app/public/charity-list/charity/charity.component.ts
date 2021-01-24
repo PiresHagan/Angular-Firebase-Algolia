@@ -26,7 +26,7 @@ export class CharityComponent implements OnInit {
   selectedLanguage: string = "";
   userDetails: User;
 
-  charityAarticles: Article[];
+  charityArticles: Article[];
   lastArticleIndex;
   lastArticleIndexOfAudio;
   lastArticleIndexOfVideo;
@@ -60,7 +60,7 @@ export class CharityComponent implements OnInit {
 
         // Fetching charity article
         this.articleService.getArticlesByUser(this.charityId,  2, null, this.lastArticleIndex).subscribe((data) => {
-          this.charityAarticles = data.articleList;
+          this.charityArticles = data.articleList;
           this.lastArticleIndex = data.lastVisible;
         });
         this.setUserDetails();
@@ -82,8 +82,8 @@ export class CharityComponent implements OnInit {
   loadMoreArticle() {
     const CharityId = this.charityId;
     this.articleService.getArticlesByAuthor(CharityId, 2, 'next', this.lastArticleIndex).subscribe((articleData) => {
-      let mergedData: any = [...this.charityAarticles, ...articleData.articleList];
-      this.charityAarticles = this.getDistinctArray(mergedData)
+      let mergedData: any = [...this.charityArticles, ...articleData.articleList];
+      this.charityArticles = this.getDistinctArray(mergedData)
       this.lastArticleIndex = articleData.lastVisible;
     })
   }

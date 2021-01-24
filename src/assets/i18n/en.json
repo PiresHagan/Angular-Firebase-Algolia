@@ -688,5 +688,6 @@
   "city":"City",
   "text":"Text",
   "ReadLess":"Read less",
-  "NoTextArticle":"No text article"
+  "NoTextArticle":"No text article",
+  "CompanyWebsite": "Company Website"
 }
