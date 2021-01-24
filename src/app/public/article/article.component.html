@@ -359,13 +359,13 @@
   </div>
 
 
-
-
   <nz-modal nzWrapClassName=" vertical-center-modal mobile-option-pop-up" nzWidth="70%" nzFooter="null"
     [(nzVisible)]="isVisibleMiddle">
     <div class="mt3GC">
-      <button class="aOOlW -Cab_   " tabindex="0">Report</button>
-      <button class="aOOlW -Cab_   " tabindex="0">Unfollow</button>
+      <button class="aOOlW -Cab_   " tabindex="0" (click)="reportAbuseArticle()">{{'reportAbuseAuth' |
+        translate}}</button>
+      <button class="aOOlW -Cab_   " tabindex="0" *ngIf="!isFollowing">{{'followAuthor' | translate}}</button>
+      <button class="aOOlW -Cab_   " tabindex="0" *ngIf="isFollowing">{{'unfollowAuthor' | translate}}</button>
       <button class="aOOlW   HoLwm " tabindex="0" (click)="openShareModel()">Share to...</button>
       <button class="aOOlW   HoLwm " tabindex="0">Copy
         Link</button><button class="aOOlW   HoLwm " tabindex="0" (click)="handleCancelMiddle()">Cancel</button>
