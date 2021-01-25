@@ -4,7 +4,7 @@
 
 export const environment = {
   isAnonymousUserEnabled: true,
-  addThisScript: '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ed48a5fc8315a5b',
+  addThisScript: '//s7.addthis.com/js/300/addthis_widget.js#async=1',
   authService: 'https://us-central1-my-trending-stories-dev.cloudfunctions.net/api/token/migration',
   production: false,
   captchaKey: '6LfMnKoZAAAAALeLCs7H9LL9MhOy3EmcwtchxUf-',

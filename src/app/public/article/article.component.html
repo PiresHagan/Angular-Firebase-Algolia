@@ -38,14 +38,14 @@
           </a>
         </div>
         <div class="xs-follow-author">
-          <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+          <!-- <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
             {{'followAuthor' | translate}}
           </a>
           <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
             {{'unfollowAuthor' | translate}}
-          </a>
-          <span style="padding: 8px;" (click)="openOptionModel()" style="display: none;"><svg aria-label="More options"
-              class="_8-yf5 " fill="#262626" height="25" viewBox="0 0 50 25" width="25">
+          </a> -->
+          <span style="padding: 8px;" (click)="openOptionModel()"><svg aria-label="More options" class="_8-yf5 "
+              fill="#262626" height="25" viewBox="0 0 50 25" width="25">
               <circle clip-rule="evenodd" cx="8" cy="24" fill-rule="evenodd" r="4.5"></circle>
               <circle clip-rule="evenodd" cx="24" cy="24" fill-rule="evenodd" r="4.5"></circle>
               <circle clip-rule="evenodd" cx="40" cy="24" fill-rule="evenodd" r="4.5"></circle>
@@ -364,67 +364,93 @@
     <div class="mt3GC">
       <button class="aOOlW -Cab_   " tabindex="0" (click)="reportAbuseArticle()">{{'reportAbuseAuth' |
         translate}}</button>
-      <button class="aOOlW -Cab_   " tabindex="0" *ngIf="!isFollowing">{{'followAuthor' | translate}}</button>
-      <button class="aOOlW -Cab_   " tabindex="0" *ngIf="isFollowing">{{'unfollowAuthor' | translate}}</button>
+      <button class="aOOlW -Cab_   " tabindex="0" *ngIf="!isFollowing" (click)="follow()">{{'followAuthor' |
+        translate}}</button>
+      <button class="aOOlW -Cab_   " tabindex="0" *ngIf="isFollowing" (click)="unfollow()">{{'unfollowAuthor' |
+        translate}}</button>
       <button class="aOOlW   HoLwm " tabindex="0" (click)="openShareModel()">Share to...</button>
-      <button class="aOOlW   HoLwm " tabindex="0">Copy
-        Link</button><button class="aOOlW   HoLwm " tabindex="0" (click)="handleCancelMiddle()">Cancel</button>
+      <!-- <button class="aOOlW   HoLwm " tabindex="0">Copy
+        Link</button> -->
+      <button class="aOOlW   HoLwm " tabindex="0" (click)="handleCancelMiddle()">Cancel</button>
     </div>
   </nz-modal>
 
-  <nz-modal nzTitle="Share to..." nzWrapClassName="vertical-center-modal mobile-share-option-pop-up" nzWidth="70%"
-    nzFooter="null" [(nzVisible)]="isShareVisibleMiddle">
-    <div id="atstbx" class="at-resp-share-element at-style-responsive addthis-smartlayers addthis-animated at4-show"
-      role="region">
-      <span id="at-58874b62-35e8-461d-a6c4-83824085693f" class="at4-visually-hidden"></span>
-      <div class="at-share-btn-elements">
-        <nz-list class="addthis_toolbox">
-          <nz-list-item>
-            <span nz-typography class="addthis_button_facebook"><i nz-icon nzType="facebook"
-                nzTheme="outline"></i></span>
-            <span
-              class="addthis_button_facebook at-icon-wrapper at-share-btn at-svc-facebook addthis_button_facebook">Share
-              to Facebook</span>
-          </nz-list-item>
-          <nz-list-item>
-            <span nz-typography><i nz-icon nzType="twitter" nzTheme="outline"></i></span>
-            <span>Share to Twitter</span>
-          </nz-list-item>
-          <nz-list-item>
-            <span nz-typography><i nz-icon nzType="linkedin" nzTheme="outline"></i></span>
-            <span>Share to Linkedin</span>
-          </nz-list-item>
-          <nz-list-item>
-            <span nz-typography><i nz-icon nzType="linkedin" nzTheme="outline"></i></span>
-            <span>Share to Linkedin</span>
-          </nz-list-item>
-          <nz-list-item>
-            <span nz-typography><i nz-icon nzType="aliwangwang" nzTheme="outline"></i></span>
-            <span>Share to Messenger</span>
-          </nz-list-item>
-          <nz-list-item>
-            <span nz-typography><i nz-icon nzType="wechat" nzTheme="outline"></i></span>
-            <span>Share to WhatsApp</span>
-          </nz-list-item>
-          <nz-list-item>
-            <span nz-typography><i nz-icon nzType="mail" nzTheme="outline"></i></span>
-            <span>Share via Email</span>
-          </nz-list-item>
-          <nz-list-item>
-            <span nz-typography (click)="copyLink()"><i nz-icon nzType="link" nzTheme="outline"></i></span>
-            <span (click)="copyLink()">Copy Link</span>
-          </nz-list-item>
-          <nz-list-item>
-            <span nz-typography (click)="closeSharepopUp()"><i nz-icon nzType="close-circle"
-                nzTheme="outline"></i></span>
-            <span (click)="closeSharepopUp()">Close</span>
-          </nz-list-item>
-        </nz-list>
-      </div>
+
+  <div id="share-Modal" class="share-modal" [class.hidden-share]="!showShare">
+
+    <!-- Modal content -->
+    <div class="share-modal-content">
+      <nz-list class="addthis_toolbox">
+        <div id="atstbx" class="at-resp-share-element at-style-responsive addthis-smartlayers addthis-animated at4-show"
+          role="region">
+          <span id="at-58874b62-35e8-461d-a6c4-83824085693f" class="at4-visually-hidden"></span>
+          <div class="at-share-btn-elements">
+            <nz-list-item>
+              <span>Share to...</span>
+            </nz-list-item>
+
+            <nz-list-item>
+              <span nz-typography class="addthis_button_facebook"><i nz-icon nzType="facebook"
+                  nzTheme="outline"></i></span>
+              <a class="at-icon-wrapper at-share-btn at-svc-facebook addthis_button_facebook share-icon-hidden"
+                (click)="closeSharepopUp()">Share
+                to Facebook</a>
+            </nz-list-item>
+            <nz-list-item>
+              <span nz-typography><i nz-icon nzType="twitter" nzTheme="outline"></i></span>
+              <a (click)="closeSharepopUp()"
+                class="at-icon-wrapper at-share-btn at-svc-twitter addthis_button_twitter share-icon-hidden">Share to
+                Twitter</a>
+            </nz-list-item>
+            <nz-list-item>
+              <span nz-typography><i nz-icon nzType="pushpin" nzTheme="outline"></i></span>
+              <a (click)="closeSharepopUp()"
+                class="at-icon-wrapper at-share-btn at-svc-pinterest_share addthis_button_pinterest share-icon-hidden">Share
+                to
+                Pinterest</a>
+            </nz-list-item>
+            <nz-list-item>
+              <span nz-typography><i nz-icon nzType="linkedin" nzTheme="outline"></i></span>
+              <a (click)="closeSharepopUp()"
+                class="at-icon-wrapper at-share-btn at-svc-linkedin addthis_button_linkedin share-icon-hidden">Share to
+                Linkedin</a>
+            </nz-list-item>
+            <nz-list-item>
+              <span nz-typography><i nz-icon nzType="aliwangwang" nzTheme="outline"></i></span>
+              <a (click)="closeSharepopUp()"
+                class="at-icon-wrapper at-share-btn at-svc-messenger addthis_button_messenger share-icon-hidden">Share
+                to
+                Messenger</a>
+            </nz-list-item>
+            <nz-list-item>
+              <span nz-typography><i nz-icon nzType="wechat" nzTheme="outline"></i></span>
+              <a (click)="closeSharepopUp()"
+                class="at-icon-wrapper at-share-btn at-svc-whatsapp addthis_button_whatsapp share-icon-hidden">Share to
+                WhatsApp</a>
+            </nz-list-item>
+            <nz-list-item>
+              <span nz-typography><i nz-icon nzType="mail" nzTheme="outline"></i></span>
+              <a (click)="closeSharepopUp()"
+                class="at-icon-wrapper at-share-btn at-svc-email addthis_button_email share-icon-hidden">Share via
+                Email</a>
+            </nz-list-item>
+            <!-- <nz-list-item>
+              <span nz-typography (click)="copyLink()"><i nz-icon nzType="link" nzTheme="outline"></i></span>
+              <a (click)="copyLink()" href="javascript:void(0)">Copy Link</a>
+            </nz-list-item> -->
+            <nz-list-item>
+              <span nz-typography (click)="closeSharepopUp()"><i nz-icon nzType="close-circle"
+                  nzTheme="outline"></i></span>
+              <span (click)="closeSharepopUp()">Close</span>
+            </nz-list-item>
+          </div>
+        </div>
+      </nz-list>
     </div>
 
+  </div>
 
-  </nz-modal>
+
 
 
 </section>

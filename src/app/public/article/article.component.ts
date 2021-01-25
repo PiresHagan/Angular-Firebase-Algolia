@@ -117,7 +117,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
 
     if (!this.isLoaded) {
       delete window['addthis']
-      setTimeout(() => { this.loadScript(); }, 100);
+      setTimeout(() => { this.loadScript(); }, 2000);
       this.isLoaded = true;
     }
   }
@@ -218,6 +218,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   }
 
   follow() {
+    this.handleOkMiddle()
     if (this.isLoggedInUser) {
       const userDetails = this.getUserDetails();
       if (userDetails.id == this.article.author.id) {
@@ -237,6 +238,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
     }
   }
   unfollow() {
+    this.handleOkMiddle()
     if (this.isLoggedInUser) {
       this.authorService.unfollow(this.article.author.id, this.article.author.type);
       const userDetails = this.getUserDetails();
@@ -312,6 +314,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
     });
   }
   loadScript() {
+
     let node = document.createElement('script');
     node.src = environment.addThisScript;
     node.type = 'text/javascript';
@@ -384,15 +387,29 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
     this.SlideRelatedArticle = !this.SlideRelatedArticle;
   }
   isVisibleMiddle = false;
-  isShareVisibleMiddle = false;
+  isShareVisibleMiddle = true;
+  showShare = false;
   openOptionModel() {
 
     this.isVisibleMiddle = true;
+    let addthis = window["addthis"];
+    let config = {
+      "username": "ra-5ed48a5fc8315a5b",
+      "services_exclude": "",
+      "services_exclude_natural": "",
+      "services_compact": "facebook,twitter,mailto,pinterest_share,whatsapp,print,gmail,linkedin,google,messenger,more"
+    }
+
+    addthis.init();
+    addthis.update('share', 'url', 'http://www.sourcen.com');
+    addthis.url = "http://www.sourcen.com";
+    addthis.toolbox(".addthis_toolbox");
+    addthis.toolbox('.addthis_toolbox')
 
 
   }
   handleOkMiddle(): void {
-    console.log('click ok');
+
     this.isVisibleMiddle = false;
   }
 
@@ -400,10 +417,12 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
     this.isVisibleMiddle = false;
   }
   openShareModel() {
-    this.isShareVisibleMiddle = true;
+    this.handleOkMiddle();
+    this.showShare = true;
   }
   closeSharepopUp() {
-    this.isShareVisibleMiddle = false;
+
+    this.showShare = false;
   }
   copyLink() {
 
