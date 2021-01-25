@@ -5,6 +5,9 @@ img {
 .share-icon-hidden .at-icon-wrapper {
   display: none !important;
 }
+.at-resp-share-element {
+  font-size: inherit !important;
+}
 .hidden-share {
   display: none !important;
 }
@@ -1485,7 +1488,7 @@ hr {
 }
 .ant-list-item {
   justify-content: unset;
-  padding: 12px;
+  padding: 10px;
 }
 .anticon {
   font-size: 25px;
@@ -1511,7 +1514,7 @@ hr {
 /* Modal Content/Box */
 .share-modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 22% auto; /* 15% from the top and centered */
   padding: 10px;
   border-radius: 15px;
   width: 70%; /* Could be more or less, depending on screen size */
