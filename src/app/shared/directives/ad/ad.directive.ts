@@ -1,6 +1,7 @@
 import { AfterViewInit, Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 declare const $: any;
 
@@ -28,12 +29,14 @@ export class AdDirective implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // sets ID attr in case it was escaped
-    this.element.nativeElement.setAttribute('id', this.pointer);
-
-    this.checkAdScript(() => {
-      this.insertAd();
-    });
+    if(environment.showAds) {
+      // sets ID attr in case it was escaped
+      this.element.nativeElement.setAttribute('id', this.pointer);
+  
+      this.checkAdScript(() => {
+        this.insertAd();
+      });
+    }
   }
 
   private insertAd(): void {
