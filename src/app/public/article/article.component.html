@@ -323,6 +323,12 @@
                 </a>
               </p>
             </div>
+            <app-company-lead-form *ngIf="article?.author?.type == 'company' && isMobile" [companyId]="article?.author?.id">
+            </app-company-lead-form>
+    
+            <app-charity-donate-form *ngIf="article?.author?.type == 'charity' && isMobile" [charityId]="article.author.id">
+            </app-charity-donate-form>
+
             <app-article-comments *ngIf="article" [article]="article"></app-article-comments>
           </div>
         </div>
@@ -332,10 +338,10 @@
 
       <div class="is-right-ad-section" [ngClass]="SlideRelatedArticle ? 'removeSlide' : 'openSlideArticle'">
 
-        <app-company-lead-form *ngIf="article?.author?.type == 'company'" [companyId]="article?.author?.id">
+        <app-company-lead-form *ngIf="article?.author?.type == 'company' && !isMobile" [companyId]="article?.author?.id">
         </app-company-lead-form>
 
-        <app-charity-donate-form *ngIf="article?.author?.type == 'charity'" [charityId]="article.author.id">
+        <app-charity-donate-form *ngIf="article?.author?.type == 'charity' && !isMobile" [charityId]="article.author.id">
         </app-charity-donate-form>
 
         <app-similar-articles *ngIf="article" [article]="article"></app-similar-articles>
