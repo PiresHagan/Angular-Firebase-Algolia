@@ -21,5 +21,11 @@ export const environment = {
   },
   storeUrl: 'https://store.mytrendingstories.com',
   stripePublishableKey: 'pk_live_5kBdKo0mxCY6HVt08s34GF9Z00hqJXEhDc',
-  showAds: false,
+  showAds: {
+    onCompanyPage: false,
+    onCharityPage: false,
+    onFundraiserPage: false,
+    onArticlePage: true,
+    onCategoryPage: false
+  }
 };

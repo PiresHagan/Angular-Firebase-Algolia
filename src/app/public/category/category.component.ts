@@ -10,6 +10,7 @@ import { SeoService } from 'src/app/shared/services/seo/seo.service';
 import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { AdItemData } from 'src/app/shared/directives/ad/ad.directive';
+import { environment } from 'src/environments/environment';
 
 interface ArticleGroup {
   articles: Article[];
@@ -39,6 +40,7 @@ export class CategoryComponent implements OnInit {
   successSubscribe: boolean = false;
   categoryskeletonData: any;
   public isMobile: boolean;
+  displayAd: boolean;
 
   constructor(
     private categoryService: CategoryService,
@@ -51,6 +53,7 @@ export class CategoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.displayAd = environment.showAds.onCategoryPage;
     window.addEventListener('scroll', this.scrollEvent, true);
     this.selectedLanguage = this.languageService.getSelectedLanguage();
 

@@ -33,7 +33,7 @@
       <div class="clearfix"></div>
     </div>
 
-    <div class="ads-box" *ngIf="category">
+    <div class="ads-box" *ngIf="category && displayAd">
       <div adItem pointer="div-gpt-ad-1599554538840-0" style="margin: 10px auto; text-align:center;"></div>
     </div>
 
@@ -167,7 +167,7 @@
                   </div>
                 </ng-container>
 
-                <ng-container *ngIf="grp.adItem">
+                <ng-container *ngIf="grp.adItem && displayAd">
                   <div class="col-12" style="padding: 10px 0; text-align:center;">
                     <div class="desktop_ad" style="margin: 10px auto; text-align:center;" *ngIf="!isMobile" adItem
                       [pointer]="'dynamic_billboard_ad_'+ind"></div>

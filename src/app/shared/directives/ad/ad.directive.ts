@@ -29,7 +29,15 @@ export class AdDirective implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if(environment.showAds) {
+    let adConfig = environment.showAds;
+    if(
+      adConfig.onArticlePage || 
+      adConfig.onCategoryPage || 
+      adConfig.onCharityPage || 
+      adConfig.onCompanyPage || 
+      adConfig.onFundraiserPage ||
+      adConfig.onHomePage
+    ) {
       // sets ID attr in case it was escaped
       this.element.nativeElement.setAttribute('id', this.pointer);
   

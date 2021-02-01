@@ -45,6 +45,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   TEXT = TEXT;
   AUDIO = AUDIO;
   VIDEO = VIDEO;
+  displayAd: boolean;
 
   constructor(
     private articleService: ArticleService,
@@ -62,6 +63,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   ) { }
 
   ngOnInit(): void {
+    this.displayAd = environment.showAds.onArticlePage;
     this.route.paramMap.subscribe(params => {
       this.selectedLanguage = this.langService.getSelectedLanguage();
 

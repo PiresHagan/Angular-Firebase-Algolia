@@ -8,6 +8,7 @@ import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.se
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { User } from 'src/app/shared/interfaces/user.type';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-article-comments',
@@ -30,6 +31,7 @@ export class ArticleCommentsComponent implements OnInit {
   isCommentsLoading: boolean = false;
   isCommentSavedSuccessfully: boolean = false;
   isReportAbuseLoading: boolean = false;
+  displayAd: boolean;
   
   @ViewChild('commentSection') private myScrollContainer: ElementRef;
   @ViewChild('commentReplySection') private commentReplyContainer: ElementRef;
@@ -43,6 +45,8 @@ export class ArticleCommentsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.displayAd = environment.showAds.onArticlePage;
+
     this.getArticleComments(this.article.id);
 
     this.setUserDetails();

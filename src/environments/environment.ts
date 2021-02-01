@@ -25,7 +25,14 @@ export const environment = {
   },
   storeUrl: 'https://devstore.mytrendingstories.com',
   stripePublishableKey: 'pk_test_OLjCckOxOe5cMKFD4kQaSdGe00j69EehH2',
-  showAds: false,
+  showAds: {
+    onCompanyPage: false,
+    onCharityPage: false,
+    onFundraiserPage: false,
+    onArticlePage: true,
+    onCategoryPage: false,
+    onHomePage: false
+  }
 };
 
 /*

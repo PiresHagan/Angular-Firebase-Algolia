@@ -262,11 +262,11 @@
 
                 <ng-container *ngIf="item.insertAd">
                   <div style="margin: 10px auto;">
-                    <div class="desktop_ad" style="margin: 10px auto; text-align:center;" *ngIf="!isMobile" adItem
+                    <div class="desktop_ad" style="margin: 10px auto; text-align:center;" *ngIf="!isMobile && displayAd" adItem
                       [pointer]="'dynamic_mrectangle_ad_'+item.adIndex" [author]="article?.author?.slug">
                     </div>
 
-                    <div class="mobile_ad" style="margin: 10px auto; text-align:center;" *ngIf="isMobile" adItem
+                    <div class="mobile_ad" style="margin: 10px auto; text-align:center;" *ngIf="isMobile && displayAd" adItem
                       [pointer]="'dynamic_mrectangle_ad_'+item.adIndex" [author]="article?.author?.slug"></div>
 
 
@@ -355,7 +355,7 @@
           </button>
         </div>
 
-        <div class="ads-box">
+        <div class="ads-box" *ngIf="displayAd">
           <div adItem pointer="div-gpt-ad-1599554597929-0" [author]="article?.author?.slug"
             style="margin: 10px auto; text-align:center;"></div>
         </div>
