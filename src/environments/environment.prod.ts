@@ -26,6 +26,7 @@ export const environment = {
     onCharityPage: false,
     onFundraiserPage: false,
     onArticlePage: true,
-    onCategoryPage: false
+    onCategoryPage: false,
+    onHomePage: false
   }
 };
