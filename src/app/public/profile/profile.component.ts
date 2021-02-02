@@ -157,6 +157,7 @@ export class ProfileComponent implements OnInit {
     })
   }
   reportAbuseAuthor() {
+    if (this.isLoggedInUser) {
     this.isReportAbuseLoading = true;
     this.authorService.reportAbusedUser(this.authorDetails.id).then(() => {
       this.showAbuseSuccessMessage();
@@ -164,6 +165,9 @@ export class ProfileComponent implements OnInit {
     }).catch(() => {
       this.isReportAbuseLoading = false;
     })
+  }else{
+    this.isVisible = true;
+  }
   }
   showAbuseSuccessMessage() {
 
@@ -190,6 +194,7 @@ export class ProfileComponent implements OnInit {
     }
   }
   async follow(authorId) {
+    if (this.isLoggedInUser) {
     const userDetails = this.getUserDetails();
     const authorDetails = this.getAuthorDetails();
     if (userDetails.id == authorId) {
@@ -204,7 +209,11 @@ export class ProfileComponent implements OnInit {
       user_uid: userDetails.id,
       user_name: userDetails.fullname,
     });
+  }else{
+    this.isVisible = true;
   }
+  }
+
   showSameFollowerMessage() {
     this.modal.warning({
       nzTitle: this.translate.instant('FollowNotAllowed'),
@@ -213,6 +222,7 @@ export class ProfileComponent implements OnInit {
   }
 
   async unfollow(authorId) {
+    if (this.isLoggedInUser) {
     const userDetails = this.getUserDetails();
     const authorDetails = this.getAuthorDetails();
     await this.authorService.unfollow(authorId, userDetails.type);
@@ -223,7 +233,10 @@ export class ProfileComponent implements OnInit {
       user_uid: userDetails.id,
       user_name: userDetails.fullname,
     });
+  }else{
+    this.isVisible = true;
   }
+  } 
   setFollowOrNot() {
 
     this.authorService.isUserFollowing(this.authorDetails.id, this.getUserDetails().id).subscribe((data) => {
@@ -327,28 +340,27 @@ export class ProfileComponent implements OnInit {
     this.getArticleList(authorId);
   }
 
-  // isVisible = false;
-  // isOkLoading = false;
-  // followerData = "alltime";
+  isVisible = false;
+  isOkLoading = false;
+  followerData = "alltime";
+ 
+  showFollowOption(): void {
+    this.isVisible = true;
 
-  // showFollowOption(): void {
-  //   this.isVisible = true;
+  }
 
-  // }
+  async handleOk() {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.isVisible = false;
+      this.isOkLoading = false;
+      this.router.navigate(["auth/login"]);
+    }, 1000)
 
-  // async handleOk() {
-  //   this.isOkLoading = true;
+  }
 
-  //   await this.follow(this.authorDetails.id, { 'newsletter_time': this.followerData });
-  //   setTimeout(() => {
-  //     this.isVisible = false;
-  //     this.isOkLoading = false;
-  //   }, 1000)
-
-  // }
-
-  // handleCancel(): void {
-  //   this.isVisible = false;
-  // }
+  handleCancel(): void {
+    this.isVisible = false;
+  }
 
 }
