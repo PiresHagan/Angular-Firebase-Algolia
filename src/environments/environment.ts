@@ -25,6 +25,7 @@ export const environment = {
   },
   storeUrl: 'https://devstore.mytrendingstories.com',
   stripePublishableKey: 'pk_test_OLjCckOxOe5cMKFD4kQaSdGe00j69EehH2',
+  consoleURL: 'https://console.mytrendingstories.dev',
 };
 
 /*

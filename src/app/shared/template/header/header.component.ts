@@ -7,6 +7,7 @@ import { LanguageService } from '../../services/language.service';
 import { Language } from '../../interfaces/language.type';
 import { UserService } from '../../services/user.service';
 import { CategoryService } from '../../services/category.service';
+import { environment } from 'src/environments/environment';
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
@@ -111,4 +112,9 @@ export class HeaderComponent {
             });
         })
     }
+
+    goToConsole() {
+        this.authService.redirectToConsole(`${environment.consoleURL}/settings/profile-settings`, {});
+    }
+
 }

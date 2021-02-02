@@ -21,7 +21,7 @@ export interface User {
     photoURL?: string,
     uid?: string,
     phone?: string,
-
+    isNewConsoleUser?: boolean;
     biography?: string
 
 

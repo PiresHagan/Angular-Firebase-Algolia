@@ -4,7 +4,7 @@ import { first } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import * as firebase from 'firebase/app';
 import { STAFF, MEMBER } from "../constants/member-constant";
 import { MessagingService } from "./messaging.service";
@@ -14,6 +14,7 @@ import { AnalyticsService } from "./analytics/analytics.service";
     providedIn: 'root'
 })
 export class AuthService {
+    isLoading = false;
     loggedInUser;
     loggedInUserDetails;
 
@@ -98,7 +99,9 @@ export class AuthService {
     signout() {
         return new Promise(async (resolve, reject) => {
             if (this.afAuth.currentUser) {
-                const user = await this.afAuth.currentUser;
+                this.revokeAllSessions();
+
+                const user = firebase.auth().currentUser;
 
                 this.afAuth.signOut().then(() => {
                     this.analyticsService.logEvent("logout", {
@@ -173,6 +176,32 @@ export class AuthService {
             .replace(/\-\-+/g, "-")
             .replace(/^-+/, "")
             .replace(/-+$/, "");
+    }
+
+    redirectToConsole(url: string, queryParams: object) {
+        this.isLoading = true;
+        const body = {
+            uid: firebase.auth().currentUser.uid
+        }
+        this.http.post(`${environment.baseAPIDomain}/api/v1/authshared/getSharedToken`, body).subscribe( (data: any) => {
+            if(data.token) {
+                window.open(`${url}?token=${data.token}&queryParams=${JSON.stringify(queryParams)}`, '_self');
+            }        
+            this.isLoading = false;
+        }, err => {
+            this.isLoading = false;
+        })
+    }
+
+    revokeAllSessions() {
+        const body = {
+            uid: firebase.auth().currentUser.uid
+        }
+        this.http.post(`${environment.baseAPIDomain}/api/v1/authshared/revokeAllSessions`, body).subscribe( (data: any) => {
+            console.log('All sessions revoked');
+        }, err => {
+            console.error('Error while revoking all sessions');
+        })
     }
 
 }

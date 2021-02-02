@@ -52,9 +52,8 @@
                                     </div>
                                 </li>
 
-                                <li nz-menu-item>
-                                    <a class="p-v-5 d-flex align-items-center justify-content-between"
-                                        [routerLink]="['/app/settings/profile-settings']">
+                                <li nz-menu-item (click)='goToConsole()'>
+                                    <a class="p-v-5 d-flex align-items-center justify-content-between">
                                         <div>
                                             <i class="opacity-04 font-size-16" nz-icon nzType="lock"
                                                 theme="outline"></i>
