@@ -184,7 +184,15 @@ export class LoginComponent {
     private navigateToUserProfile() {
         this.ngZone.run(() => {
             this.previousUrl = this.previousRoute.getPreviousUrl();
-            this.router.navigate([this.previousUrl ? this.location.back() : "app/settings/profile-settings"]);
+            if(this.previousUrl) {
+                this.router.navigate([this.previousUrl]);
+            } else {
+                if(this.userService.userData?.isNewConsoleUser) {
+                    this.authService.redirectToConsole(`${environment.consoleURL}/settings/profile-settings`, {})
+                } else {
+                    this.router.navigate(["app/settings/profile-settings"]);
+                }
+            }
         });
 
     }
