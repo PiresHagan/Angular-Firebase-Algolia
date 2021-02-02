@@ -114,7 +114,11 @@ export class HeaderComponent {
     }
 
     goToConsole() {
-        this.authService.redirectToConsole(`${environment.consoleURL}/settings/profile-settings`, {});
+        if(this.userService.userData?.isNewConsoleUser) {
+            this.authService.redirectToConsole(`${environment.consoleURL}/settings/profile-settings`, {});
+        } else {
+            this.router.navigate(['/app/settings/profile-settings']);
+        }
     }
 
 }
