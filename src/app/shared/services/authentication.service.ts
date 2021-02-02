@@ -101,7 +101,7 @@ export class AuthService {
             if (this.afAuth.currentUser) {
                 this.revokeAllSessions();
 
-                const user = firebase.auth().currentUser;
+                const user = await this.afAuth.currentUser;
 
                 this.afAuth.signOut().then(() => {
                     this.analyticsService.logEvent("logout", {
@@ -181,7 +181,7 @@ export class AuthService {
     redirectToConsole(url: string, queryParams: object) {
         this.isLoading = true;
         const body = {
-            uid: firebase.auth().currentUser.uid
+            uid: this.loggedInUser.uid
         }
         this.http.post(`${environment.baseAPIDomain}/api/v1/authshared/getSharedToken`, body).subscribe( (data: any) => {
             if(data.token) {
@@ -195,7 +195,7 @@ export class AuthService {
 
     revokeAllSessions() {
         const body = {
-            uid: firebase.auth().currentUser.uid
+            uid: this.loggedInUser.uid
         }
         this.http.post(`${environment.baseAPIDomain}/api/v1/authshared/revokeAllSessions`, body).subscribe( (data: any) => {
             console.log('All sessions revoked');
