@@ -4,6 +4,8 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { NzModalService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import { LanguageService } from 'src/app/shared/services/language.service';
+import { AuthService } from 'src/app/shared/services/authentication.service';
+import { environment } from 'src/environments/environment';
 declare const cloudsponge: any;
 @Component({
   selector: 'app-import-contact',
@@ -60,7 +62,14 @@ export class ImportContactComponent implements OnInit {
   }]
 
 
-  constructor(private userService: UserService, public translate: TranslateService, private modalService: NzModalService, private router: Router, private language: LanguageService) { }
+  constructor(
+    private userService: UserService, 
+    public translate: TranslateService, 
+    private modalService: NzModalService, 
+    private router: Router, 
+    private language: LanguageService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
     const firstProvider = this.providerList[0].name;
@@ -277,7 +286,13 @@ export class ImportContactComponent implements OnInit {
     this.modalService.success({
       nzTitle: 'Congratulations',
       nzContent: 'Well done! You are all set.',
-      nzOnOk: () => this.router.navigate(['/app/settings/profile-settings'])
+      nzOnOk: () => { 
+        if(this.userService.userData?.isNewConsoleUser) {
+          this.authService.redirectToConsole(`${environment.consoleURL}/settings/profile-settings`, {});
+        } else {
+          this.router.navigate(['/app/settings/profile-settings']);
+        }
+      }
     });
   }
 

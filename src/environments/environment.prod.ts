@@ -28,5 +28,6 @@ export const environment = {
     onArticlePage: true,
     onCategoryPage: false,
     onHomePage: false
-  }
+  },
+  consoleURL: 'https://console.mytrendingstories.com',
 };

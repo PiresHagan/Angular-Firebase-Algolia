@@ -41,7 +41,7 @@
                           <span>{{'profileShare' | translate}}</span>
                       </a>
                       </li> -->
-            <li *ngIf="isLoggedInUser">
+            <li>
               <a class="follow-btn" *ngIf="!isFollowing" (click)="follow(authorDetails.id)">
                 <img src="assets/images/article/icon/follow.png" />
                 <span>{{'follow' | translate}}</span>
@@ -63,7 +63,7 @@
                           <span>{{'profileFollowing' | translate}}</span>
                       </a>
                       </li> -->
-            <li class="report-abuse-spin" *ngIf="isLoggedInUser">
+            <li class="report-abuse-spin">
               <a class="comment-view-replies">
                 <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseLoading"></nz-spin>
                 <span (click)="reportAbuseAuthor()">{{'reportAbuseAuth' | translate}}</span>
@@ -78,6 +78,23 @@
               </div>
             </li>
           </ul>
+          <div class="login-popup">
+            <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()"
+              (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
+              <div class="popup-content">
+                <div>
+                  <a [routerLink]="['/']" class="bg-logo">
+                    <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                  </a>
+                </div>
+                <p class="text-black">{{'Please' | translate}}, <a
+                    routerLink="/auth/login">{{'logInTitle' | translate}}</a>
+                  {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
+                  {{'toContinue' | translate}}.</p>
+
+              </div>
+            </nz-modal>
+          </div>
         </div>
       </div>
       <div class="clearfix"></div>

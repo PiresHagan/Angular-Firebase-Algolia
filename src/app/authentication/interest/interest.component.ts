@@ -8,6 +8,8 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.service';
+import { AuthService } from 'src/app/shared/services/authentication.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-interest',
@@ -31,6 +33,7 @@ export class InterestComponent implements OnInit {
     public translate: TranslateService,
     private language: LanguageService,
     private analyticsService: AnalyticsService,
+    private authService: AuthService
   ) { }
 
   async ngOnInit() {
@@ -137,7 +140,13 @@ export class InterestComponent implements OnInit {
     this.modalService.success({
       nzTitle: 'Congratulations',
       nzContent: 'Well done! You are all set.',
-      nzOnOk: () => this.router.navigate(['/app/settings/profile-settings'])
+      nzOnOk: () => { 
+        if(this.userService.userData?.isNewConsoleUser) {
+          this.authService.redirectToConsole(`${environment.consoleURL}/settings/profile-settings`, {});
+        } else {
+          this.router.navigate(['/app/settings/profile-settings']);
+        }
+      }
     });
   }
 

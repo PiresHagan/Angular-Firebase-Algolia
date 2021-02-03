@@ -168,7 +168,15 @@ export class SignUpComponent {
             if ((previousUrl && previousUrl.indexOf('auth/login') > -1) || previousUrl == '/') {
                 previousUrl = '';
             }
-            this.router.navigate([previousUrl ? previousUrl : "app/settings/profile-settings"]);
+            if(previousUrl) {
+                this.router.navigate([previousUrl]);
+            } else {
+                if(this.userService.userData?.isNewConsoleUser) {
+                    this.authService.redirectToConsole(`${environment.consoleURL}/settings/profile-settings`, {})
+                } else {
+                    this.router.navigate(["app/settings/profile-settings"]);
+                }
+            }
         });
     }
 

@@ -10,6 +10,7 @@ import { SeoService } from 'src/app/shared/services/seo/seo.service';
 import { Router } from '@angular/router';
 import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
+import { UserService } from 'src/app/shared/services/user.service';
 
 interface LeadSubscription { 
   created_at: string,
@@ -57,6 +58,7 @@ export class CompanyComponent implements OnInit {
     private seoService: SeoService,
     private router: Router,
     private articleService: BackofficeArticleService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -266,7 +268,11 @@ export class CompanyComponent implements OnInit {
     await this.setUserDetails();
     if (this.isLoggedInUser) {
       if(this.userDetails?.id == this.company?.owner?.id) {
-        this.router.navigate(["app/company/company-details"], { queryParams: { company: this.company.id, indexToShow: 5 } });
+        if(this.userService.userData?.isNewConsoleUser) {
+          this.authService.redirectToConsole(`${environment.consoleURL}/company/company-details`, { company: this.company.id, indexToShow: 5 });
+        } else {
+          this.router.navigate(["app/company/company-details"], { queryParams: { company: this.company.id, indexToShow: 5 } });
+        }
       }
     } else {
       this.showModal()
