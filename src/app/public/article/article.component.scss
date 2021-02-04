@@ -1048,6 +1048,9 @@ hr {
         padding-top: 10px;
         border-top: 1px solid #eee;
         padding-bottom: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         .comment-section {
           position: relative;
           z-index: 1;
@@ -1076,6 +1079,15 @@ hr {
               }
             }
           }
+        }
+        .follow-btn{
+          font-size: 15px;
+          background: #233470;
+          display: inline-block;
+          font-family: "open_sansregular";
+          padding: 7px 15px;
+          color: #fff;
+          border-radius: 40px;
         }
       }
     }
@@ -1490,10 +1502,10 @@ hr {
   justify-content: unset;
   padding: 10px;
 }
-.anticon {
-  font-size: 25px;
-  margin-right: 12px;
-}
+// .anticon {
+//   font-size: 25px;
+//   margin-right: 12px;
+// }
 
 /* Popup Modal*/
 
