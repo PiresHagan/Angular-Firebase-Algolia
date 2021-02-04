@@ -185,7 +185,7 @@ export class LoginComponent {
         this.ngZone.run(() => {
             this.previousUrl = this.previousRoute.getPreviousUrl();
             if(this.previousUrl) {
-                this.router.navigate([this.previousUrl]);
+                this.location.back();
             } else {
                 if(this.userService.userData?.isNewConsoleUser) {
                     this.authService.redirectToConsole(`${environment.consoleURL}/settings/profile-settings`, {})
