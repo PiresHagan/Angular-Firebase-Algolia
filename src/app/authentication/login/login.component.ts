@@ -9,6 +9,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { environment } from "src/environments/environment";
 import { combineLatest, Subscription } from 'rxjs';
 import { Location } from '@angular/common';
+import { LanguageService } from 'src/app/shared/services/language.service';
 
 @Component({
     templateUrl: './login.component.html',
@@ -48,6 +49,7 @@ export class LoginComponent {
     memberDetails;
     userDetails;
     userDataSubs: Subscription;
+    languageList;
 
 
     constructor(
@@ -59,10 +61,12 @@ export class LoginComponent {
         public authService: AuthService,
         public previousRoute: PreviousRouteService,
         public translate: TranslateService,
-        public location: Location
+        public location: Location,
+        private languageService: LanguageService,
     ) { }
 
     async ngOnInit(): Promise<void> {
+        this.languageList = this.languageService.getSelectedLanguage();
         this.addRecaptchaScript();
         this.invalidPassErr = this.translate.instant("invalidPassErr");
         this.invalidCredErr = this.translate.instant("invalidCredErr");
