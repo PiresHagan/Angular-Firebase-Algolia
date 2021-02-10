@@ -38,12 +38,7 @@
           </a>
         </div>
         <div class="xs-follow-author">
-          <!-- <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-            {{'followAuthor' | translate}}
-          </a>
-          <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-            {{'unfollowAuthor' | translate}}
-          </a> -->
+         
           <span style="padding: 8px;" (click)="openOptionModel()"><svg aria-label="More options" class="_8-yf5 "
               fill="#262626" height="25" viewBox="0 0 50 25" width="25">
               <circle clip-rule="evenodd" cx="8" cy="24" fill-rule="evenodd" r="4.5"></circle>
@@ -75,6 +70,14 @@
               </a>
             </li>
           </ul>
+        </div>
+        <div>
+           <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+            {{'followAuthor' | translate}}
+          </a>
+          <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+            {{'unfollowAuthor' | translate}}
+          </a>
         </div>
       </div>
     </div>
