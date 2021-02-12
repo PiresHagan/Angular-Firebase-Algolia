@@ -265,16 +265,21 @@
 
                 <ng-container *ngIf="item.insertAd">
                   <div style="margin: 10px auto;">
-                    <div class="desktop_ad" style="margin: 10px auto; text-align:center;" *ngIf="!isMobile && displayAd" adItem
-                      [pointer]="'dynamic_mrectangle_ad_'+item.adIndex" [author]="article?.author?.slug">
+                    <div class="desktop_ad" 
+                      style="margin: 10px auto; text-align:center;" 
+                      *ngIf="!isMobile && displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'"
+                      adItem
+                      [pointer]="'dynamic_mrectangle_ad_'+item.adIndex" 
+                      [author]="article?.author?.slug">
                     </div>
 
-                    <div class="mobile_ad" style="margin: 10px auto; text-align:center;" *ngIf="isMobile && displayAd" adItem
-                      [pointer]="'dynamic_mrectangle_ad_'+item.adIndex" [author]="article?.author?.slug"></div>
-
-
-
-
+                    <div class="mobile_ad" 
+                      style="margin: 10px auto; text-align:center;" 
+                      *ngIf="isMobile && displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'" 
+                      adItem
+                      [pointer]="'dynamic_mrectangle_ad_'+item.adIndex" 
+                      [author]="article?.author?.slug">
+                    </div>
                   </div>
                 </ng-container>
               </div>
@@ -358,7 +363,7 @@
           </button>
         </div>
 
-        <div class="ads-box" *ngIf="displayAd">
+        <div class="ads-box" *ngIf="displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'">
           <div adItem pointer="div-gpt-ad-1599554597929-0" [author]="article?.author?.slug"
             style="margin: 10px auto; text-align:center;"></div>
         </div>
