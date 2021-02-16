@@ -384,7 +384,6 @@
                   </a>
                   <div *ngIf="!(article.author.type)">
                     <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-                      <img src="assets/images/article/icon/follow.png" />
                       {{'followAuthor' | translate}}
                     </a>
                     <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
