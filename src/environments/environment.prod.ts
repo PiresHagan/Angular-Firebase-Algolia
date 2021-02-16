@@ -7,7 +7,7 @@ export const environment = {
   baseAPIDomain: 'https://us-central1-my-trending-stories-66f81.cloudfunctions.net',
   facebook: {
     appId: '327118671669396',
-    version: 'v8.0'
+    version: 'v9.0'
   },
   firebase: {
     apiKey: 'AIzaSyBrkchwLnuHo6bqJzCYpENfSrg7Hfg2cDM',
