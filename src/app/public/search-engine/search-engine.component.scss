@@ -3,7 +3,11 @@
   display: block;
   position: relative;
 }
-
+::ng-deep .ais-Highlight-highlighted {
+  color:#0079d0;
+  font-size: 16px;
+  font-weight: 500;
+}
 ::ng-deep .ais-SearchBox-submit {
   padding: 0;
   overflow: visible;
@@ -558,7 +562,12 @@
           font-size: 14px;
           padding: 4px 5px;
           display: block;
-
+          &.highlightResultBlack{
+            color: #000;
+          }
+          &.highlightResult{
+            color: #0079d0;
+          }
           &:hover {
             background: #eee;
           }

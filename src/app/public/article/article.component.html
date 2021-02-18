@@ -38,12 +38,14 @@
           </a>
         </div>
         <div class="xs-follow-author">
-          <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-            {{'followAuthor' | translate}}
-          </a>
-          <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-            {{'unfollowAuthor' | translate}}
-          </a>
+         
+          <span style="padding: 8px;" (click)="openOptionModel()"><svg aria-label="More options" class="_8-yf5 "
+              fill="#262626" height="25" viewBox="0 0 50 25" width="25">
+              <circle clip-rule="evenodd" cx="8" cy="24" fill-rule="evenodd" r="4.5"></circle>
+              <circle clip-rule="evenodd" cx="24" cy="24" fill-rule="evenodd" r="4.5"></circle>
+              <circle clip-rule="evenodd" cx="40" cy="24" fill-rule="evenodd" r="4.5"></circle>
+            </svg></span>
+
         </div>
       </div>
       <div class="xs-article-date">{{article?.published_at | date:'medium' }}</div>
@@ -69,6 +71,46 @@
             </li>
           </ul>
         </div>
+        <div *ngIf="!(article?.author?.type)">
+          <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+           {{'followAuthor' | translate}}
+         </a>
+         <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+           {{'unfollowAuthor' | translate}}
+         </a>
+       </div>
+        <div *ngIf="article?.author?.type === 'author'">
+           <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+            {{'followAuthor' | translate}}
+          </a>
+          <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+            {{'unfollowAuthor' | translate}}
+          </a>
+        </div>
+        <div *ngIf="article?.author?.type === 'staff'">
+          <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+           {{'followAuthor' | translate}}
+         </a>
+         <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+           {{'unfollowAuthor' | translate}}
+         </a>
+       </div>
+        <div *ngIf="article?.author?.type === 'company'">
+          <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+           {{'followCompany' | translate}}
+         </a>
+         <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+           {{'unfollowCompany' | translate}}
+         </a>
+       </div>
+       <div *ngIf="article?.author?.type === 'charity'">
+        <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+         {{'followCharity' | translate}}
+       </a>
+       <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+         {{'unfollowCharity' | translate}}
+       </a>
+     </div>
       </div>
     </div>
     <div class="article-full-img">
@@ -84,7 +126,7 @@
     <div class="is-article-sec">
       <div class="is-left-profile hidden-on-xs">
         <div class="sticky-box">
-          <div class="is-profile">
+          <div class="is-profile profile-icon">
             <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
               <img class="avatar" src="article && {{replaceImage(article?.author?.avatar?.url)}}"
                 alt="{{article?.author?.avatar?.alt}}" onerror="this.src='assets/images/default-avatar.png'"
@@ -106,6 +148,7 @@
                 <span class="name" itemprop="name">
                   {{article?.author?.fullname}}</span>
               </a>
+             <div *ngIf="!(article.author.type)">
               <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
                 <img src="assets/images/article/icon/follow.png" />
                 {{'followAuthor' | translate}}
@@ -114,7 +157,47 @@
                 <img src="assets/images/article/icon/un-follow.png" />
                 {{'unfollowAuthor' | translate}}
               </a>
-
+              </div>
+              <div *ngIf="article.author.type === 'author'">
+                <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                  <img src="assets/images/article/icon/follow.png" />
+                  {{'followAuthor' | translate}}
+                </a>
+                <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                  <img src="assets/images/article/icon/un-follow.png" />
+                  {{'unfollowAuthor' | translate}}
+                </a>
+              </div>
+              <div *ngIf="article.author.type === 'staff'">
+                <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                  <img src="assets/images/article/icon/follow.png" />
+                  {{'followAuthor' | translate}}
+                </a>
+                <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                  <img src="assets/images/article/icon/un-follow.png" />
+                  {{'unfollowAuthor' | translate}}
+                </a>
+              </div>
+              <div *ngIf="article.author.type === 'company'">
+                <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                  <img src="assets/images/article/icon/follow.png" />
+                  {{'followCompany' | translate}}
+                </a>
+                <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                  <img src="assets/images/article/icon/un-follow.png" />
+                  {{'unfollowCompany' | translate}}
+                </a>
+              </div>
+              <div *ngIf="article.author.type === 'charity'">
+                <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                  <img src="assets/images/article/icon/follow.png" />
+                  {{'followCharity' | translate}}
+                </a>
+                <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                  <img src="assets/images/article/icon/un-follow.png" />
+                  {{'unfollowCharity' | translate}}
+                </a>
+              </div>
               <div class="login-popup" *ngIf="!isLoggedInUser">
                 <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()"
                   (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
@@ -124,8 +207,8 @@
                         <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
                       </a>
                     </div>
-                    <p class="text-black">{{'Please' | translate}}, <a
-                        routerLink="/auth/login">{{'logInTitle' | translate}}</a>
+                    <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' |
+                        translate}}</a>
                       {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
                       {{'toContinue' | translate}}.</p>
 
@@ -255,16 +338,21 @@
 
                 <ng-container *ngIf="item.insertAd">
                   <div style="margin: 10px auto;">
-                    <div class="desktop_ad" style="margin: 10px auto; text-align:center;" *ngIf="!isMobile" adItem
-                      [pointer]="'dynamic_mrectangle_ad_'+item.adIndex" [author]="article?.author?.slug">
+                    <div class="desktop_ad" 
+                      style="margin: 10px auto; text-align:center;" 
+                      *ngIf="!isMobile && displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'"
+                      adItem
+                      [pointer]="'dynamic_mrectangle_ad_'+item.adIndex" 
+                      [author]="article?.author?.slug">
                     </div>
 
-                    <div class="mobile_ad" style="margin: 10px auto; text-align:center;" *ngIf="isMobile" adItem
-                      [pointer]="'dynamic_mrectangle_ad_'+item.adIndex" [author]="article?.author?.slug"></div>
-
-
-
-
+                    <div class="mobile_ad" 
+                      style="margin: 10px auto; text-align:center;" 
+                      *ngIf="isMobile && displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'" 
+                      adItem
+                      [pointer]="'dynamic_mrectangle_ad_'+item.adIndex" 
+                      [author]="article?.author?.slug">
+                    </div>
                   </div>
                 </ng-container>
               </div>
@@ -299,12 +387,44 @@
                     <span class="name" itemprop="name">
                       {{article?.author.fullname}}</span>
                   </a>
-                  <div>
+                  <div *ngIf="!(article.author.type)">
                     <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
                       {{'followAuthor' | translate}}
                     </a>
                     <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
                       {{'unfollowAuthor' | translate}}
+                    </a>
+                  </div>
+                  <div *ngIf="article.author.type === 'author'">
+                    <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                      {{'followAuthor' | translate}}
+                    </a>
+                    <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                      {{'unfollowAuthor' | translate}}
+                    </a>
+                  </div>
+                  <div *ngIf="article.author.type === 'staff'">
+                    <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                      {{'followAuthor' | translate}}
+                    </a>
+                    <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                      {{'unfollowAuthor' | translate}}
+                    </a>
+                  </div>
+                  <div *ngIf="article.author.type === 'company'">
+                    <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                      {{'followCompany' | translate}}
+                    </a>
+                    <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                      {{'unfollowCompany' | translate}}
+                    </a>
+                  </div>
+                  <div *ngIf="article.author.type === 'charity'">
+                    <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                      {{'followCharity' | translate}}
+                    </a>
+                    <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                      {{'unfollowCharity' | translate}}
                     </a>
                   </div>
                 </div>
@@ -316,6 +436,12 @@
                 </a>
               </p>
             </div>
+            <app-company-lead-form *ngIf="article?.author?.type == 'company' && isMobile" [companyId]="article?.author?.id">
+            </app-company-lead-form>
+    
+            <app-charity-donate-form *ngIf="article?.author?.type == 'charity' && isMobile" [charityId]="article.author.id">
+            </app-charity-donate-form>
+
             <app-article-comments *ngIf="article" [article]="article"></app-article-comments>
           </div>
         </div>
@@ -325,10 +451,10 @@
 
       <div class="is-right-ad-section" [ngClass]="SlideRelatedArticle ? 'removeSlide' : 'openSlideArticle'">
 
-        <app-company-lead-form *ngIf="article?.author?.type == 'company'" [companyId]="article?.author?.id">
+        <app-company-lead-form *ngIf="article?.author?.type == 'company' && !isMobile" [companyId]="article?.author?.id">
         </app-company-lead-form>
 
-        <app-charity-donate-form *ngIf="article?.author?.type == 'charity'" [charityId]="article.author.id">
+        <app-charity-donate-form *ngIf="article?.author?.type == 'charity' && !isMobile" [charityId]="article.author.id">
         </app-charity-donate-form>
 
         <app-similar-articles *ngIf="article" [article]="article"></app-similar-articles>
@@ -342,7 +468,7 @@
           </button>
         </div>
 
-        <div class="ads-box">
+        <div class="ads-box" *ngIf="displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'">
           <div adItem pointer="div-gpt-ad-1599554597929-0" [author]="article?.author?.slug"
             style="margin: 10px auto; text-align:center;"></div>
         </div>
@@ -350,4 +476,98 @@
     </div>
 
   </div>
+
+
+  <nz-modal nzWrapClassName=" vertical-center-modal mobile-option-pop-up" nzWidth="70%" nzFooter="null"
+    [(nzVisible)]="isVisibleMiddle">
+    <div class="mt3GC">
+      <button class="aOOlW -Cab_   " tabindex="0" (click)="reportAbuseArticle()">{{'reportAbuseAuth' |
+        translate}}</button>
+      <button class="aOOlW -Cab_   " tabindex="0" *ngIf="!isFollowing" (click)="follow()">{{'followAuthor' |
+        translate}}</button>
+      <button class="aOOlW -Cab_   " tabindex="0" *ngIf="isFollowing" (click)="unfollow()">{{'unfollowAuthor' |
+        translate}}</button>
+      <button class="aOOlW   HoLwm " tabindex="0" (click)="openShareModel()">Share to...</button>
+      <!-- <button class="aOOlW   HoLwm " tabindex="0">Copy
+        Link</button> -->
+      <button class="aOOlW   HoLwm " tabindex="0" (click)="handleCancelMiddle()">Cancel</button>
+    </div>
+  </nz-modal>
+
+
+  <div id="share-Modal" class="share-modal" [class.hidden-share]="!showShare">
+
+    <!-- Modal content -->
+    <div class="share-modal-content">
+      <nz-list class="addthis_toolbox">
+        <div id="atstbx" class="at-resp-share-element at-style-responsive addthis-smartlayers addthis-animated at4-show"
+          role="region">
+          <span id="at-58874b62-35e8-461d-a6c4-83824085693f" class="at4-visually-hidden"></span>
+          <div class="at-share-btn-elements">
+
+
+            <nz-list-item>
+              <span nz-typography class="addthis_button_facebook"><i nz-icon nzType="facebook"
+                  nzTheme="outline"></i></span>
+              <a class="at-icon-wrapper at-share-btn at-svc-facebook addthis_button_facebook share-icon-hidden"
+                (click)="closeSharepopUp()">Share
+                to Facebook</a>
+            </nz-list-item>
+            <nz-list-item>
+              <span nz-typography><i nz-icon nzType="twitter" nzTheme="outline"></i></span>
+              <a (click)="closeSharepopUp()"
+                class="at-icon-wrapper at-share-btn at-svc-twitter addthis_button_twitter share-icon-hidden">Share to
+                Twitter</a>
+            </nz-list-item>
+            <nz-list-item>
+              <span nz-typography><i nz-icon nzType="pushpin" nzTheme="outline"></i></span>
+              <a (click)="closeSharepopUp()"
+                class="at-icon-wrapper at-share-btn at-svc-pinterest_share addthis_button_pinterest share-icon-hidden">Share
+                to
+                Pinterest</a>
+            </nz-list-item>
+            <nz-list-item>
+              <span nz-typography><i nz-icon nzType="linkedin" nzTheme="outline"></i></span>
+              <a (click)="closeSharepopUp()"
+                class="at-icon-wrapper at-share-btn at-svc-linkedin addthis_button_linkedin share-icon-hidden">Share to
+                Linkedin</a>
+            </nz-list-item>
+            <nz-list-item>
+              <span nz-typography><i nz-icon nzType="aliwangwang" nzTheme="outline"></i></span>
+              <a (click)="closeSharepopUp()"
+                class="at-icon-wrapper at-share-btn at-svc-messenger addthis_button_messenger share-icon-hidden">Share
+                to
+                Messenger</a>
+            </nz-list-item>
+            <nz-list-item>
+              <span nz-typography><i nz-icon nzType="wechat" nzTheme="outline"></i></span>
+              <a (click)="closeSharepopUp()"
+                class="at-icon-wrapper at-share-btn at-svc-whatsapp addthis_button_whatsapp share-icon-hidden">Share to
+                WhatsApp</a>
+            </nz-list-item>
+            <nz-list-item>
+              <span nz-typography><i nz-icon nzType="mail" nzTheme="outline"></i></span>
+              <a (click)="closeSharepopUp()"
+                class="at-icon-wrapper at-share-btn at-svc-email addthis_button_email share-icon-hidden">Share via
+                Email</a>
+            </nz-list-item>
+            <!-- <nz-list-item>
+              <span nz-typography (click)="copyLink()"><i nz-icon nzType="link" nzTheme="outline"></i></span>
+              <a (click)="copyLink()" href="javascript:void(0)">Copy Link</a>
+            </nz-list-item> -->
+            <nz-list-item>
+              <span nz-typography (click)="closeSharepopUp()"><i nz-icon nzType="close-circle"
+                  nzTheme="outline"></i></span>
+              <span (click)="closeSharepopUp()">Close</span>
+            </nz-list-item>
+          </div>
+        </div>
+      </nz-list>
+    </div>
+
+  </div>
+
+
+
+
 </section>

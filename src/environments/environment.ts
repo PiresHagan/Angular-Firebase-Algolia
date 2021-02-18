@@ -11,7 +11,7 @@ export const environment = {
   baseAPIDomain: 'https://us-central1-my-trending-stories-dev.cloudfunctions.net',
   facebook: {
     appId: '327118671669396',
-    version: 'v8.0',
+    version: 'v9.0'
   },
   firebase: {
     apiKey: 'AIzaSyC83ZSVEBAP_9tuNucpudqPzya8zNsYxL8',
@@ -25,6 +25,15 @@ export const environment = {
   },
   storeUrl: 'https://devstore.mytrendingstories.com',
   stripePublishableKey: 'pk_test_OLjCckOxOe5cMKFD4kQaSdGe00j69EehH2',
+  showAds: {
+    onCompanyPage: false,
+    onCharityPage: false,
+    onFundraiserPage: false,
+    onArticlePage: true,
+    onCategoryPage: false,
+    onHomePage: false
+  },
+  consoleURL: 'https://console.mytrendingstories.dev',
 };
 
 /*

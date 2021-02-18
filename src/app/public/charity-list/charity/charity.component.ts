@@ -8,7 +8,8 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 import { Charity } from 'src/app/shared/interfaces/charity.type';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
-
+import { Article } from 'src/app/shared/interfaces/article.type';
+import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
 @Component({
   selector: 'app-charity',
   templateUrl: './charity.component.html',
@@ -25,6 +26,14 @@ export class CharityComponent implements OnInit {
   selectedLanguage: string = "";
   userDetails: User;
 
+  charityArticles: Article[];
+  lastArticleIndex;
+  lastArticleIndexOfAudio;
+  lastArticleIndexOfVideo;
+  lastArticleIndexOfText;
+  audioArticles: Article[] = [];
+  videoArticles: Article[] = [];
+  textArticles: Article[] = [];
 
 
   constructor(
@@ -34,7 +43,8 @@ export class CharityComponent implements OnInit {
     private charityService: CharityService,
     public translate: TranslateService,
     private seoService: SeoService,
-    private router: Router
+    private router: Router,
+    private articleService: BackofficeArticleService,
   ) { }
 
   ngOnInit(): void {
@@ -48,6 +58,11 @@ export class CharityComponent implements OnInit {
 
         this.charityId = this.charity.id;
 
+        // Fetching charity article
+        this.articleService.getArticlesByUser(this.charityId,  2, null, this.lastArticleIndex).subscribe((data) => {
+          this.charityArticles = data.articleList;
+          this.lastArticleIndex = data.lastVisible;
+        });
         this.setUserDetails();
 
         this.seoService.updateMetaTags({
@@ -64,6 +79,86 @@ export class CharityComponent implements OnInit {
     });
   }
 
+  loadMoreArticle() {
+    const CharityId = this.charityId;
+    this.articleService.getArticlesByAuthor(CharityId, 2, 'next', this.lastArticleIndex).subscribe((articleData) => {
+      let mergedData: any = [...this.charityArticles, ...articleData.articleList];
+      this.charityArticles = this.getDistinctArray(mergedData)
+      this.lastArticleIndex = articleData.lastVisible;
+    })
+  }
+  replaceImage(url) {
+    let latestURL = url
+    if (url) {
+      latestURL = latestURL.replace('http://cdn.mytrendingstories.com/', 'https://cdn.mytrendingstories.com/')
+        .replace('https://abc2020new.com/', 'https://assets.mytrendingstories.com/');
+    }
+    return latestURL;
+  }
+
+  getAudioArticles() {
+    if (this.audioArticles.length != 0)
+      return;
+      const CharityId = this.charityId;
+    this.articleService.getArticlesByUser(CharityId, 2, 'first', null, 'audio').subscribe((articleData) => {
+      this.audioArticles = articleData.articleList;
+      this.lastArticleIndexOfAudio = articleData.lastVisible;
+    })
+  }
+  getVideoArticles() {
+    if (this.videoArticles.length != 0)
+      return;
+      const CharityId = this.charityId;
+    this.articleService.getArticlesByUser(CharityId, 2, 'first', null, 'video').subscribe((articleData) => {
+      this.videoArticles = articleData.articleList;
+      this.lastArticleIndexOfVideo = articleData.lastVisible;
+    })
+  }
+  getTextArticles() {
+    if (this.textArticles.length != 0)
+      return;
+      const CharityId = this.charityId;
+    this.articleService.getArticlesByUser(CharityId, 2, 'first', null, 'text').subscribe((articleData) => {
+      this.textArticles = articleData.articleList;
+      this.lastArticleIndexOfText = articleData.lastVisible;
+    })
+  }
+  loadMoreAudioArticles() {
+    const CharityId = this.charityId;
+    this.articleService.getArticlesByUser(CharityId, 2, 'next', this.lastArticleIndexOfAudio, 'audio').subscribe((articleData) => {
+      let mergedData: any = [...this.audioArticles, ...articleData.articleList];
+      this.audioArticles = this.getDistinctArray(mergedData)
+      this.lastArticleIndexOfAudio = articleData.lastVisible;
+    })
+  }
+
+  loadMoreVideoArticles() {
+    const CharityId = this.charityId;
+    this.articleService.getArticlesByUser(CharityId, 2, 'next', this.lastArticleIndexOfVideo, 'video').subscribe((articleData) => {
+      let mergedData: any = [...this.videoArticles, ...articleData.articleList];
+      this.videoArticles = this.getDistinctArray(mergedData)
+      this.lastArticleIndexOfVideo = articleData.lastVisible;
+    })
+  }
+  loadMoreTextArticles() {
+    const CharityId = this.charityId;
+    this.articleService.getArticlesByUser(CharityId, 2, 'next', this.lastArticleIndexOfText, 'text').subscribe((articleData) => {
+      let mergedData: any = [...this.textArticles, ...articleData.articleList];
+      this.textArticles = this.getDistinctArray(mergedData)
+      this.lastArticleIndexOfText = articleData.lastVisible;
+    })
+  }
+  getDistinctArray(data) {
+    var resArr = [];
+    data.filter(function (item) {
+      var i = resArr.findIndex(x => x.id == item.id);
+      if (i <= -1) {
+        resArr.push(item);
+      }
+      return null;
+    });
+    return resArr;
+  }
   ngAfterViewChecked(): void {
     if (!this.isLoaded) {
       delete window['addthis']

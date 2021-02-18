@@ -23,7 +23,7 @@ export class UserService {
 
   isLoggedInUser = new BehaviorSubject<boolean>(false);
   isLoggedInUserChanges: Observable<boolean> = this.isLoggedInUser.asObservable();
-
+  userData: User;
   currentUser: User;
   constructor(
     public db: AngularFirestore,
@@ -32,8 +32,12 @@ export class UserService {
     private storage: AngularFireStorage,
   ) {
     this.afAuth.authState.subscribe((user) => {
-      if (user && !user.isAnonymous)
+      if (user && !user.isAnonymous) {
         this.currentUser = { id: user.uid, email: user.email, avatar: user.photoURL, fullname: user.displayName };
+        this.get(user.uid).subscribe( data => {
+          this.userData = data;
+        })
+      }
     })
   }
 

@@ -5,6 +5,7 @@ import { CategoryService } from 'src/app/shared/services/category.service';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { CacheService } from 'src/app/shared/services/cache.service';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -27,6 +28,7 @@ export class HomeComponent implements OnInit {
   trendingArticles: any;
   editorArticles: any;
   private homeDocument = 'home';
+  displayAd: boolean;
 
   constructor(
     private articleService: ArticleService,
@@ -44,6 +46,8 @@ export class HomeComponent implements OnInit {
   DefaultAvatar: string = 'assets/images/default-avatar.png';
 
   ngOnInit(): void {
+    this.displayAd = environment.showAds.onHomePage;
+
     this.seoService.updateTagsWithData(this.homeDocument);
 
     this.selectedLanguage = this.languageService.getSelectedLanguage();

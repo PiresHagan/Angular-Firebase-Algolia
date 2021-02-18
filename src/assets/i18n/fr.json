@@ -506,8 +506,8 @@
   "CharityFollowers": "Charity Followers",
   "CharityLeads": "Don de charité",
   "CharityPresentation": "Présentation de charité",
-  "followCompany": "Suivez nous",
-  "unfollowCompany": "Suivez-nouss",
+  "followCompany": "Suivez l'entreprise",
+  "unfollowCompany": "Se désabonner de la société",
   "leadFirstNameError": "Veuillez saisir votre prénom",
   "leadLastNameError": "Veuillez saisir votre nom de famille",
   "leadEmailError": "Veuillez saisir un e-mail valide",
@@ -521,8 +521,8 @@
   "leadInputPhoneNumber": "Numéro de téléphone",
   "companiesTitle": "Entreprises",
   "donateCharityTitle": "Faire un don",
-  "followCharity": "Suivez-nous",
-  "unfollowCharity": "Ne nous désabonner",
+  "followCharity": "Suivez la charité",
+  "unfollowCharity": "Se désabonner de la charité",
   "donatedSuccessfully": "Donated Successfully",
   "donateInputFirstName": "Prénom",
   "donateInputLastName": "Nom de famille",
@@ -647,5 +647,9 @@
   "DeletMsgConf": "Voulez-vous supprimer ces enregistrements?",
   "WrittenBy": "Écrit par",
   "AdminCenter": "Centre d'administration",
-  "city":"ville"
+  "city":"ville",
+  "text":"texte",
+  "ReadLess":"Lire moins",
+  "NoTextArticle":"Aucun article de texte",
+  "CompanyWebsite": "Site Web de l'entreprise"
 }

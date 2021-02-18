@@ -19,7 +19,7 @@
     <hr class="m-v-25" />
     <form nz-form [formGroup]="companyForm" class="login-form" (ngSubmit)="submitDetails()">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <nz-form-item>
                     <nz-form-label>{{'CompanyName'| translate}}</nz-form-label>
                     <nz-form-control nzErrorTip="{{'CompanyName'| translate}} {{'required' | translate}}">
@@ -29,7 +29,7 @@
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <nz-form-item>
                     <nz-form-label>{{'CompanyEmail'| translate}}</nz-form-label>
                     <nz-form-control
@@ -39,7 +39,7 @@
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <nz-form-item>
                     <nz-form-label>{{'CompanyPhone'| translate}}</nz-form-label>
                     <nz-form-control
@@ -49,7 +49,13 @@
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
+                <nz-form-item>
+                <nz-form-label>{{'CompanyWebsite'| translate}}</nz-form-label>
+                    <input nz-input placeholder="{{'CompanyWebsite'| translate}}" formControlName="company_website" type="text" value="" />
+                </nz-form-item>
+            </div>
+            <div class="col-md-4">
                 <nz-form-item>
                     <nz-form-label>{{'CompanyColorCode'| translate}}</nz-form-label>
                     <nz-form-control nzErrorTip="{{'InvalidValue'| translate}}">
@@ -58,7 +64,7 @@
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <nz-form-item>
                     <nz-form-label>{{'lang' | translate}}</nz-form-label>
                     <nz-form-control nzErrorTip="{{'langErr' | translate}}" class="m-5">

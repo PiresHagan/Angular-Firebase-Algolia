@@ -1,6 +1,16 @@
 img {
   max-width: 100%;
 }
+.share-icon-hidden svg,
+.share-icon-hidden .at-icon-wrapper {
+  display: none !important;
+}
+.at-resp-share-element {
+  font-size: inherit !important;
+}
+.hidden-share {
+  display: none !important;
+}
 .bottom-ad-container {
   margin-bottom: 20px;
   width: 100%;
@@ -30,6 +40,7 @@ hr {
 }
 .is-article-block {
   background: #fff;
+  text-align: justify;
   .is-article-sec {
     display: flex;
     flex-wrap: wrap;
@@ -219,6 +230,7 @@ hr {
             line-height: 33px;
             margin-bottom: 0px;
 
+            text-align: justify;
             &.big::first-letter {
               font-size: 100px;
               color: #fd6147;
@@ -1036,6 +1048,9 @@ hr {
         padding-top: 10px;
         border-top: 1px solid #eee;
         padding-bottom: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         .comment-section {
           position: relative;
           z-index: 1;
@@ -1064,6 +1079,15 @@ hr {
               }
             }
           }
+        }
+        .follow-btn{
+          font-size: 15px;
+          background: #233470;
+          display: inline-block;
+          font-family: "open_sansregular";
+          padding: 7px 15px;
+          color: #fff;
+          border-radius: 40px;
         }
       }
     }
@@ -1353,7 +1377,7 @@ hr {
         .is-profile {
           .special-icon {
             position: absolute;
-            top: -60px;
+            top: -10px;
           }
         }
       }
@@ -1423,4 +1447,90 @@ hr {
   .is-article-block .is-article-sec .is-left-profile .sticky-box {
     top: 190px;
   }
+}
+.mobile-option-pop-up .-Cab_ {
+  color: #ed4956;
+  color: rgba(var(--i30, 237, 73, 86), 1);
+  font-weight: 700;
+}
+.mobile-option-pop-up .aOOlW {
+  background-color: transparent;
+  display: block;
+  width: 100%;
+  border-bottom: 0;
+  border-left: 0;
+  border-right: 0;
+  border-top: 1px solid #dbdbdb;
+  border-top: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  cursor: pointer;
+  line-height: 1.5;
+  margin: 0;
+  min-height: 48px;
+  padding: 4px 8px;
+  /* text-align:center; */
+  /* -webkit-user-select:none; */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  /* user-select:none; */
+  /* vertical-align:middle */
+}
+.mobile-option-pop-up .aOOlW:focus {
+  outline: none;
+}
+.mobile-option-pop-up .ant-modal-content,
+.mobile-share-option-pop-up .ant-modal-content {
+  border-radius: 12px;
+}
+.mobile-share-option-pop-up .ant-modal-header {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+.mobile-option-pop-up .aOOlW:first-child {
+  border-top: none;
+}
+.mobile-option-pop-up .ant-modal-body,
+.mobile-share-option-pop-up .ant-modal-body {
+  padding: 0;
+}
+.mobile-option-pop-up .ant-modal-footer,
+.mobile-share-option-pop-up .ant-modal-footer,
+.mobile-option-pop-up .ant-modal-close,
+.mobile-share-option-pop-up .ant-modal-close {
+  display: none;
+}
+.ant-list-item {
+  justify-content: unset;
+  padding: 10px;
+}
+// .anticon {
+//   font-size: 25px;
+//   margin-right: 12px;
+// }
+
+/* Popup Modal*/
+
+/* The Modal (background) */
+.share-modal {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.share-modal-content {
+  background-color: #fefefe;
+  margin: 22% auto; /* 15% from the top and centered */
+  padding: 10px;
+  border-radius: 15px;
+  width: 70%; /* Could be more or less, depending on screen size */
+}
+.at-resp-share-element .at-share-btn {
+  color: #000 !important;
 }

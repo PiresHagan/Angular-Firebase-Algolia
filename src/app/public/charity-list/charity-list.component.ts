@@ -3,6 +3,8 @@ import { LanguageService } from 'src/app/shared/services/language.service';
 import { CharityService } from 'src/app/shared/services/charity.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from 'src/app/shared/services/user.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-charity-list',
   templateUrl: './charity-list.component.html',
@@ -22,6 +24,7 @@ export class CharityListComponent implements OnInit {
     private langService: LanguageService,
     public authService: AuthService,
     private router: Router,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -75,7 +78,11 @@ export class CharityListComponent implements OnInit {
   checkLogin(){
     this.authService.getAuthState().subscribe(async (user) => {
       if (!user.isAnonymous) {
-        this.router.navigate(["/app/charity/charity-list"]);
+        if(this.userService.userData?.isNewConsoleUser) {
+          this.authService.redirectToConsole(`${environment.consoleURL}/charity/charity-list`, {})
+        } else {
+          this.router.navigate(["/app/charity/charity-list"]);
+        }
       } else {
         this.showModal()
       }
