@@ -60,6 +60,10 @@
           "function": "sitemapArticle4"
         },
         {
+          "source": "/sitemap-article-5.xml",
+          "function": "sitemapArticle5"
+        },
+        {
           "source": "/sitemap-author.xml",
           "function": "sitemapAuthor"
         },
