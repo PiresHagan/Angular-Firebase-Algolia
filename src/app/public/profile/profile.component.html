@@ -12,11 +12,11 @@
           *ngIf="authorDetails && authorDetails.avatar && !authorDetails.avatar.cloudinary_id" />
       </div>
       <div class="is-author-profile-info">
-        <h2 class="is-author-profile-name is-divider">
+        <h1 class="is-author-profile-name is-divider">
           {{authorDetails?.fullname}}
           <span>{{authorDetails?.type}} On <a href="/" title="My Trending Stories">My Trending
               Stories</a></span>
-        </h2>
+        </h1>
         <p class="is-author-description"
           innerHTML="{{authorDetails?.biography_en || authorDetails?.biography_es || authorDetails?.biography_fr}}">
         </p>

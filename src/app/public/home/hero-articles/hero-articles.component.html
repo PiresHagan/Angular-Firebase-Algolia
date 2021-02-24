@@ -17,7 +17,7 @@
               <ng-container *ngIf="article && article?.author?.avatar?.cloudinary_id">
                 <div class="cloudinary-img">
                   <cl-image loading="lazy" public-id="{{replaceImage(article?.author?.avatar?.cloudinary_id)}}"
-                    secure="true">
+                    secure="true" alt="{{article?.author?.avatar?.alt}}">
                     <cl-transformation width="70" height="70" gravity="face" crop="thumb">
                     </cl-transformation>
                     <cl-transformation radius="100">
@@ -27,10 +27,10 @@
               </ng-container>
 
               <div class="special-icon" *ngIf="article.author.type==='company'">
-                <img src="assets/images/company-icon.png" style="max-width: 22px;" />
+                <img src="assets/images/company-icon.png" style="max-width: 22px;" alt="company-icon"/>
               </div>
               <div class="special-icon" *ngIf="article.author.type==='charity'">
-                <img src="assets/images/charity-icon.png" />
+                <img src="assets/images/charity-icon.png" alt="company-icon"/>
               </div>
             </div>
             <span class="is-card-author">{{article.author.fullname}}
@@ -126,10 +126,10 @@
                 </div>
               </ng-container>
               <div class="special-icon" *ngIf="article.author.type==='company'">
-                <img src="assets/images/company-icon.png" style="max-width: 22px;" />
+                <img src="assets/images/company-icon.png" style="max-width: 22px;" alt="company-icon"/>
               </div>
               <div class="special-icon" *ngIf="article.author.type==='charity'">
-                <img src="assets/images/charity-icon.png" />
+                <img src="assets/images/charity-icon.png" alt="charity-icon"/>
               </div>
             </div>
             <span class="is-card-author">{{article.author.fullname}}
@@ -240,10 +240,10 @@
                     </div>
                   </ng-container>
                   <div class="special-icon" *ngIf="article.author.type==='company'">
-                    <img src="assets/images/company-icon.png" style="max-width: 22px;" />
+                    <img src="assets/images/company-icon.png" style="max-width: 22px;" alt="company-icon"/>
                   </div>
                   <div class="special-icon" *ngIf="article.author.type==='charity'">
-                    <img src="assets/images/charity-icon.png" />
+                    <img src="assets/images/charity-icon.png" alt="charity-icon"/>
                   </div>
                 </div>
                 <span class="is-card-author">{{article.author.fullname}}</span>
