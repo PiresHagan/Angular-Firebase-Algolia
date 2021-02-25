@@ -115,8 +115,8 @@
     </div>
     <div class="article-full-img">
       <img src="{{replaceImage(article?.image?.url)}}" alt="{{article.image.alt}}"
-        *ngIf="article && !article.author.avatar.cloudinary_id" />
-      <ng-container *ngIf="article && article.author.avatar.cloudinary_id">
+        *ngIf="article && !article.image.cloudinary_id" />
+      <ng-container *ngIf="article && article.image.cloudinary_id">
         <cl-image loading="lazy" public-id="{{replaceImage(article.image.cloudinary_id)}}" secure="true" alt="{{article.image.alt}}">
           <cl-transformation width="1500" height="400" gravity="face" crop="thumb">
           </cl-transformation>
