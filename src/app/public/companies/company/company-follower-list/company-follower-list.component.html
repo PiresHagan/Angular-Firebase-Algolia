@@ -7,7 +7,7 @@
             <div class="is-followers-item" *ngFor="let follower of followers">
 
                 <a [routerLink]="['/',follower.slug]">
-                    <img src="{{replaceImage(follower?.avatar?.url)}}"
+                    <img src="{{follower?.avatar?.url}}"
                         onerror="this.src='assets/images/default-avatar.png'" alt="{{follower?.avatar?.alt}}" />
                 </a>
             </div>
