@@ -649,5 +649,6 @@
   "text":"texto",
   "ReadLess":"Leer menos",
   "NoTextArticle":"Sin artículo de texto",
-  "CompanyWebsite": "Sitio web de la empresa"
+  "CompanyWebsite": "Sitio web de la empresa",
+  "PasswordExpired": "Su contraseña caducó, verifique su correo electrónico para generar una nueva contraseña"
 }

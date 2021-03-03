@@ -689,5 +689,6 @@
   "text":"Text",
   "ReadLess":"Read less",
   "NoTextArticle":"No text article",
-  "CompanyWebsite": "Company Website"
+  "CompanyWebsite": "Company Website",
+  "PasswordExpired":"Your password is expired, please check your email to generate new password."
 }

@@ -651,5 +651,6 @@
   "text":"texte",
   "ReadLess":"Lire moins",
   "NoTextArticle":"Aucun article de texte",
-  "CompanyWebsite": "Site Web de l'entreprise"
+  "CompanyWebsite": "Site Web de l'entreprise",
+  "PasswordExpired": "Votre mot de passe a expiré, veuillez vérifier votre messagerie pour générer un nouveau mot de passe."
 }
