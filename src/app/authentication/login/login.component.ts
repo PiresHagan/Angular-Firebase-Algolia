@@ -34,6 +34,7 @@ export class LoginComponent {
   errorLogin: boolean = false;
   invalidCaptcha: boolean = false;
   user: any;
+  passExpired: boolean = false;
   captchaToken: string;
   previousUrl: string;
   isFormSaving: boolean = false;
@@ -136,7 +137,7 @@ export class LoginComponent {
             this.isFormSaving = false;
             this.errorMessage = this.translate.instant("PasswordExpired");
             this.showError = true;
-            this.errorLogin = true;
+            this.passExpired = true;
           }, _error => {
             this.resetCaptcha();
             this.isFormSaving = false;

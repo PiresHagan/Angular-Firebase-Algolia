@@ -1,143 +1,139 @@
 <section class="is-signup-main">
-    <div class="is-signup-center">
-        <div class="row no-gutters h-100">
-            <div class="col-sm-6 col-lg-5 is-form-img"
-                style="background-image:url('assets/images/others/sign-up-mts.png')">
-                <div class="is-banner-content">
-                    <div class="is-logo">
-                        <img src="assets/images/logo/logo-white.png" alt="">
-                    </div>
-                    <div class="is-img-title">
-                        <h3>{{'thePeopleVoice' | translate}}</h3>
-                        <p>{{'loginBannerDes' | translate}}</p>
+  <div class="is-signup-center">
+    <div class="row no-gutters h-100">
+      <div class="col-sm-6 col-lg-5 is-form-img" style="background-image:url('assets/images/others/sign-up-mts.png')">
+        <div class="is-banner-content">
+          <div class="is-logo">
+            <img src="assets/images/logo/logo-white.png" alt="">
+          </div>
+          <div class="is-img-title">
+            <h3>{{'thePeopleVoice' | translate}}</h3>
+            <p>{{'loginBannerDes' | translate}}</p>
 
-                    </div>
-                    <div class="is-signup-footer">
-                        <span class="text-white">© 2020 My Trending Stories</span>
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <a class="text-white text-link" routerLink="/terms">{{'loginTerms' | translate}}</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="text-white text-link" routerLink="/contact">{{'loginContact' | translate}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6  col-lg-7 bg-white">
-                <div class="is-signup-form-main">
-                    <div class="is-form">
-                        <nz-card *ngIf="!enablePasswordChangeScreen">
-                            <h2 class=" m-t-20">{{'loginSignIn' | translate}}</h2>
-                            <p class="m-b-30">{{'loginSignInDes' | translate}}</p>
-                            <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
-                                <nz-alert class="m-b-10" nzType="error"
-                                    nzDescription="You have entered an invalid username or password" nzShowIcon
-                                    *ngIf="errorLogin"></nz-alert>
-                                <nz-alert class="m-b-10" nzType="error"
-                                    nzDescription="{{'invalidCaptchaErr' | translate}}" nzShowIcon
-                                    *ngIf="invalidCaptcha"></nz-alert>
-                                <nz-alert class="m-b-10" *ngIf="enableEmailVerificationScreen" nzType="info"
-                                    nzMessage="{{'verifyEmailTitle' | translate}}"
-                                    nzDescription="{{'verifyEmailDesc' | translate}}" nzShowIcon>
-                                </nz-alert>
-                                <nz-form-item class="m-b-15">
-                                    <nz-form-control nzErrorTip="{{'loginEmailError' | translate}}" class="is-icon">
-                                        <nz-input-group [nzPrefix]="prefixUser">
-                                            <input type="text" nz-input formControlName="email"
-                                                placeholder="{{'loginInputEmail' | translate}}">
-                                        </nz-input-group>
-                                    </nz-form-control>
-                                </nz-form-item>
-                                <nz-form-item class="m-b-5">
-                                    <nz-form-control nzErrorTip="{{'loginPasswordError' | translate}}" class="is-icon">
-                                        <nz-input-group [nzPrefix]="prefixLock">
-                                            <input type="password" nz-input formControlName="password"
-                                                placeholder="{{'loginInputPassword' | translate}}">
-                                        </nz-input-group>
-                                    </nz-form-control>
-
-
-                                </nz-form-item>
-                                <div #recaptcha>Loading Captcha...</div>
-
-                                <a class="float-right font-size-13 text-muted"
-                                    [routerLink]="['/auth/reset-password']">{{'loginInputforgot' | translate}}</a>
-                                <div class="clearfix"></div>
-
-                                <div nz-row class="login-form-margin">
-                                    <div nz-col [nzSpan]="12">
-                                        <span class="font-size-13 text-muted">{{'signInTerms' | translate}}<a
-                                                class="small" [routerLink]="['/auth/signup']">
-                                                {{'loginSignUp' | translate}}</a></span>
-
-                                    </div>
-
-                                </div>
-
-
-                                <nz-form-item>
-                                    <nz-form-control>
-                                        <div class="text-center mt-4"> <button nz-button
-                                                class="login-form-button is-login-btn" [nzType]="'primary'"
-                                                [nzLoading]="isFormSaving">{{'loginSignInBtn' | translate}}</button>
-                                        </div>
-                                    </nz-form-control>
-                                </nz-form-item>
-                            </form>
-                            <ng-template #prefixUser><i nz-icon nzType="user"></i></ng-template>
-                            <ng-template #prefixLock><i nz-icon nzType="lock"></i></ng-template>
-                        </nz-card>
-                        <nz-card *ngIf="enablePasswordChangeScreen">
-                            <h2 class="m-t-20">{{'ResetPassword' | translate}}</h2>
-                            <nz-alert class="m-b-10" nzType="warning"
-                                nzDescription="{{'passwordChangeMsg' | translate}}" nzShowIcon></nz-alert>
-
-                            <form nz-form [formGroup]="passwordForm" class="login-form password-form"
-                                (ngSubmit)="resetPassword()">
-                                <nz-alert class="m-b-10" nzType="error" nzDescription="{{'errorMessage' | translate}}"
-                                    nzShowIcon *ngIf="paswordErr"></nz-alert>
-                                <nz-form-item>
-                                    <!-- <nz-form-label nzRequired nzFor="password">Password</nz-form-label> -->
-                                    <nz-form-control nzErrorTip="{{'passwordError' | translate}}" class="is-icon">
-                                        <input type="password" nz-input formControlName="password"
-                                            placeholder="{{'loginInputPassword' | translate}}" id="password">
-                                        <img src="assets/images/sign-up/password.png" />
-                                    </nz-form-control>
-                                </nz-form-item>
-                                <nz-form-item>
-                                    <!-- <nz-form-label nzFor="checkPassword" nzRequired>Confirm Password</nz-form-label> -->
-                                    <nz-form-control [nzErrorTip]="errorTpl" class="is-icon">
-                                        <input nz-input type="password" formControlName="checkPassword"
-                                            placeholder="{{'signUpConfirmPassword' | translate}}" id="checkPassword">
-                                        <img src="assets/images/sign-up/password.png" />
-                                        <ng-template #errorTpl let-control>
-                                            <ng-container *ngIf="control.hasError('required')">
-                                                {{'confirmPasswordError' | translate}}
-                                            </ng-container>
-                                            <ng-container *ngIf="control.hasError('confirm')">
-                                                {{'twoPasswodError' | translate}}
-                                            </ng-container>
-                                        </ng-template>
-                                    </nz-form-control>
-                                </nz-form-item>
-                                <nz-form-item>
-                                    <nz-form-control>
-                                        <div class="text-center mt-4"> <button nz-button
-                                                class="login-form-button is-login-btn" [nzType]="'primary'"
-                                                [nzLoading]="isFormSaving">{{'resetSubmit' | translate}}</button>
-                                        </div>
-                                    </nz-form-control>
-                                </nz-form-item>
-                            </form>
-                            <ng-template #prefixUser><i nz-icon nzType="user"></i></ng-template>
-                            <ng-template #prefixLock><i nz-icon nzType="lock"></i></ng-template>
-                        </nz-card>
-
-                    </div>
-                </div>
-            </div>
+          </div>
+          <div class="is-signup-footer">
+            <span class="text-white">© 2020 My Trending Stories</span>
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <a class="text-white text-link" routerLink="/terms">{{'loginTerms' | translate}}</a>
+              </li>
+              <li class="list-inline-item">
+                <a class="text-white text-link" routerLink="/contact">{{'loginContact' | translate}}</a>
+              </li>
+            </ul>
+          </div>
         </div>
+      </div>
+      <div class="col-sm-6  col-lg-7 bg-white">
+        <div class="is-signup-form-main">
+          <div class="is-form">
+            <nz-card *ngIf="!enablePasswordChangeScreen">
+              <h2 class=" m-t-20">{{'loginSignIn' | translate}}</h2>
+              <p class="m-b-30">{{'loginSignInDes' | translate}}</p>
+              <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
+                <nz-alert class="m-b-10" nzType="error" nzDescription="You have entered an invalid username or password"
+                  nzShowIcon *ngIf="errorLogin"></nz-alert>
+                <nz-alert class="m-b-10" nzType="error" nzDescription="{{'PasswordExpired' | translate}}" nzShowIcon
+                  *ngIf="passExpired"></nz-alert>
+                <nz-alert class="m-b-10" nzType="error" nzDescription="{{'invalidCaptchaErr' | translate}}" nzShowIcon
+                  *ngIf="invalidCaptcha"></nz-alert>
+                <nz-alert class="m-b-10" *ngIf="enableEmailVerificationScreen" nzType="info"
+                  nzMessage="{{'verifyEmailTitle' | translate}}" nzDescription="{{'verifyEmailDesc' | translate}}"
+                  nzShowIcon>
+                </nz-alert>
+                <nz-form-item class="m-b-15">
+                  <nz-form-control nzErrorTip="{{'loginEmailError' | translate}}" class="is-icon">
+                    <nz-input-group [nzPrefix]="prefixUser">
+                      <input type="text" nz-input formControlName="email"
+                        placeholder="{{'loginInputEmail' | translate}}">
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="m-b-5">
+                  <nz-form-control nzErrorTip="{{'loginPasswordError' | translate}}" class="is-icon">
+                    <nz-input-group [nzPrefix]="prefixLock">
+                      <input type="password" nz-input formControlName="password"
+                        placeholder="{{'loginInputPassword' | translate}}">
+                    </nz-input-group>
+                  </nz-form-control>
+
+
+                </nz-form-item>
+                <div #recaptcha>Loading Captcha...</div>
+
+                <a class="float-right font-size-13 text-muted"
+                  [routerLink]="['/auth/reset-password']">{{'loginInputforgot' | translate}}</a>
+                <div class="clearfix"></div>
+
+                <div nz-row class="login-form-margin">
+                  <div nz-col [nzSpan]="12">
+                    <span class="font-size-13 text-muted">{{'signInTerms' | translate}}<a class="small"
+                        [routerLink]="['/auth/signup']">
+                        {{'loginSignUp' | translate}}</a></span>
+
+                  </div>
+
+                </div>
+
+
+                <nz-form-item>
+                  <nz-form-control>
+                    <div class="text-center mt-4"> <button nz-button class="login-form-button is-login-btn"
+                        [nzType]="'primary'" [nzLoading]="isFormSaving">{{'loginSignInBtn' | translate}}</button>
+                    </div>
+                  </nz-form-control>
+                </nz-form-item>
+              </form>
+              <ng-template #prefixUser><i nz-icon nzType="user"></i></ng-template>
+              <ng-template #prefixLock><i nz-icon nzType="lock"></i></ng-template>
+            </nz-card>
+            <nz-card *ngIf="enablePasswordChangeScreen">
+              <h2 class="m-t-20">{{'ResetPassword' | translate}}</h2>
+              <nz-alert class="m-b-10" nzType="warning" nzDescription="{{'passwordChangeMsg' | translate}}" nzShowIcon>
+              </nz-alert>
+
+              <form nz-form [formGroup]="passwordForm" class="login-form password-form" (ngSubmit)="resetPassword()">
+                <nz-alert class="m-b-10" nzType="error" nzDescription="{{'errorMessage' | translate}}" nzShowIcon
+                  *ngIf="paswordErr"></nz-alert>
+                <nz-form-item>
+                  <!-- <nz-form-label nzRequired nzFor="password">Password</nz-form-label> -->
+                  <nz-form-control nzErrorTip="{{'passwordError' | translate}}" class="is-icon">
+                    <input type="password" nz-input formControlName="password"
+                      placeholder="{{'loginInputPassword' | translate}}" id="password">
+                    <img src="assets/images/sign-up/password.png" />
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <!-- <nz-form-label nzFor="checkPassword" nzRequired>Confirm Password</nz-form-label> -->
+                  <nz-form-control [nzErrorTip]="errorTpl" class="is-icon">
+                    <input nz-input type="password" formControlName="checkPassword"
+                      placeholder="{{'signUpConfirmPassword' | translate}}" id="checkPassword">
+                    <img src="assets/images/sign-up/password.png" />
+                    <ng-template #errorTpl let-control>
+                      <ng-container *ngIf="control.hasError('required')">
+                        {{'confirmPasswordError' | translate}}
+                      </ng-container>
+                      <ng-container *ngIf="control.hasError('confirm')">
+                        {{'twoPasswodError' | translate}}
+                      </ng-container>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-control>
+                    <div class="text-center mt-4"> <button nz-button class="login-form-button is-login-btn"
+                        [nzType]="'primary'" [nzLoading]="isFormSaving">{{'resetSubmit' | translate}}</button>
+                    </div>
+                  </nz-form-control>
+                </nz-form-item>
+              </form>
+              <ng-template #prefixUser><i nz-icon nzType="user"></i></ng-template>
+              <ng-template #prefixLock><i nz-icon nzType="lock"></i></ng-template>
+            </nz-card>
+
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
