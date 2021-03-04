@@ -132,7 +132,7 @@ export class LoginComponent {
 
         try {
           this.checkDejangoCred(userData).subscribe((_djangoData: any) => {
-            if (_djangoData.code == 'auth/reset-password') {
+            if (_djangoData.code == 'auth/password-expire') {
               this.resetCaptcha();
               this.isFormSaving = false;
               this.errorMessage = this.translate.instant("PasswordExpired");
