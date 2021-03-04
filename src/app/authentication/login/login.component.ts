@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
   passwordForm: FormGroup;
   errorLogin: boolean = false;
   user: any;
+  passExpired: boolean = false;
   previousUrl: string;
   isFormSaving: boolean = false;
   invalidPassErr: string = "";
@@ -141,7 +142,7 @@ export class LoginComponent implements OnInit {
             this.isFormSaving = false;
             this.errorMessage = this.translate.instant("PasswordExpired");
             this.showError = true;
-            this.errorLogin = true;
+            this.passExpired = true;
           }, _error => {
             this.resetCaptcha();
             this.isFormSaving = false;

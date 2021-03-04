@@ -18,6 +18,9 @@
                     <nz-alert class="m-b-10" nzType="error"
                         nzDescription="You have entered an invalid username or password" nzShowIcon
                         *ngIf="errorLogin"></nz-alert>
+                    <nz-alert class="m-b-10" nzType="error" 
+                        nzDescription="{{'PasswordExpired' | translate}}" nzShowIcon
+                        *ngIf="passExpired"></nz-alert>
                     <nz-alert class="m-b-10" nzType="error"
                         nzDescription="{{'invalidCaptchaErr' | translate}}" nzShowIcon
                         *ngIf="invalidCaptcha"></nz-alert>
@@ -77,5 +80,7 @@
                 </form>
             </nz-card>
         </div>
+      </div>
     </div>
+  </div>
 </section>
