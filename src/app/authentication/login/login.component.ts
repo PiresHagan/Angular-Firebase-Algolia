@@ -137,13 +137,11 @@ export class LoginComponent implements OnInit {
 
         try {
           this.checkDejangoCred(userData).subscribe((_djangoData: any) => {
-            if (_djangoData.code == 'auth/password-expire') {
-              this.resetCaptcha();
-              this.isFormSaving = false;
-              this.errorMessage = this.translate.instant("PasswordExpired");
-              this.showError = true;
-              this.errorLogin = true;
-            }
+            this.resetCaptcha();
+            this.isFormSaving = false;
+            this.errorMessage = this.translate.instant("PasswordExpired");
+            this.showError = true;
+            this.errorLogin = true;
           }, _error => {
             this.resetCaptcha();
             this.isFormSaving = false;
