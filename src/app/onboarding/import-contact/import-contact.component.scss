@@ -1,0 +1,220 @@
+::ng-deep body, ::ng-deep html{
+    background: #fff;
+    overflow-x: unset;
+    min-width:unset;
+}
+.import-email-section{
+    .is-signup-form-main{
+        .is-form{
+            max-width: 100%;
+            width:70%;
+            .email-contact-list{
+                max-height: calc(100vh - 260px);
+                overflow: auto;
+                margin-bottom: 20px;
+                overflow: auto;
+                padding-right: 10px;
+                ::ng-deep{
+                    .ant-list-item{
+                        padding:7px;
+                        background: #FFEFEF;
+                        margin-bottom: 15px;
+                        .ant-list-item-meta{
+                            align-items: center;
+                            .ant-list-item-meta-avatar{
+
+                            }
+                            .ant-list-item-meta-content{
+                                .ant-list-item-meta-description{
+                                    font-family: "open_sansregular";
+                                    font-weight: 600;
+                                    font-size: 16px;
+                                    line-height: 22px;
+                                    color: #000000;
+                                }
+                            }
+                        }
+                        .ant-list-item-action{
+                            li{
+                                a{
+                                    color:#000000;
+                                    font-family: "open_sansregular";
+                                    font-weight: 600;
+                                    font-size: 15px;
+                                }
+                                .anticon{
+                                    font-size: 28px;
+                                    color: #FF4020;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            ::ng-deep .import-contact-table{
+                .ant-table-thead{
+                    background: #eee;
+                    th{
+                        &.import-contact-check-box-th{
+                            width:50px;
+                        }
+                        &.import-contact-invite-th{
+                            width:120px;
+                        }
+                    }
+                }
+                .ant-table-tbody{
+                    td{
+                        &.import-contact-check-box{
+                            width:50px;
+                        }
+                        &.import-contact-name{
+                            font-family: "josefin_sanslight";
+                            font-weight: 600;
+                            font-size: 16px;
+                            line-height: 22px;
+                            color: #000000;
+                        }
+                        &.import-contact-email{
+                            font-family: "josefin_sanslight";
+                            font-weight: 600;
+                            font-size: 16px;
+                            line-height: 22px;
+                            color: #000000; 
+                        }
+                        &.import-contact-invite-btn{
+                            text-align: center;
+                            .anticon-check-circle{
+                                font-size: 28px;
+                                color: #FF4020;
+                            }
+                            .ant-btn{
+                                color: #000000;
+                                font-family: "josefin_sanssemibold";
+                                font-weight: 600;
+                                font-size: 15px;
+                                border: 0px;
+                                padding: 0px;
+                                box-shadow: unset;
+                                background: transparent;
+                                &:hover{
+                                    background: transparent;
+                                }
+                                &:focus{
+                                    background: transparent;
+                                }
+                            }
+
+                        }
+                    }
+                    .ant-table-row{
+                        &:nth-child(even){
+                            td{
+                                background: #FFEFEF;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .footer-btn{
+            padding-bottom: 40px;
+        }
+    }
+}
+.skip-btn-main{
+    border-bottom: 1px solid #e7e7e7;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    margin: 10px 0px 40px;
+    .skip-btn{
+        background: transparent;
+        color: #000;
+        font-weight: 600;
+        font-size: 20px;
+        font-family: "josefin_sanssemibold";
+        border: 0px;
+        padding: 0px;
+        margin-left: 30px;
+    }
+}
+
+@media screen and (max-width: 580px){
+    .import-email-section{
+        .is-signup-form-main{
+            .is-form{
+                width:100%;
+                .email-contact-list{
+                    ::ng-deep{
+                        .ant-list-item{
+                            padding:5px;
+                            .ant-list-item-meta{
+                                .ant-list-item-meta-content{
+                                    .ant-list-item-meta-description{
+                                        font-size: 15px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width:581px) and (max-width:767px){
+    .import-email-section{
+        .is-signup-form-main{
+            margin-top: 20px;
+            .is-form{
+                width:100%;
+                .email-contact-list{
+                    ::ng-deep{
+                        .ant-list-item{
+                            padding:5px;
+                            .ant-list-item-meta{
+                                .ant-list-item-meta-content{
+                                    .ant-list-item-meta-description{
+                                        font-size: 15px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width:768px) and (max-width:992px){
+    .import-email-section{
+        .is-signup-form-main{
+            margin-top: 20px;
+            .is-form{
+                width:100%;
+                .email-contact-list{
+                    ::ng-deep{
+                        .ant-list-item{
+                            padding:5px;
+                            .ant-list-item-meta{
+                                .ant-list-item-meta-content{
+                                    .ant-list-item-meta-description{
+                                        font-size: 15px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width:993px){
+    .import-email-section{
+        .is-signup-form-main{
+            margin-top: 20px;
+        }
+    }
+}

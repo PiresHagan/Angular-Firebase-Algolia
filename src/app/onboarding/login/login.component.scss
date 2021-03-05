@@ -1,0 +1,23 @@
+::ng-deep body, ::ng-deep html{
+    background: #fff;
+    overflow-x: unset;
+    min-width:unset;
+}
+:host ::ng-deep .ant-alert-icon {
+    top: 6px;
+}
+:host ::ng-deep .password-form .ant-input {
+    padding-left: 30px !important;
+}
+.is-signup-main {
+
+    .is-login-btn {
+        margin: auto;
+       
+    }
+    ::ng-deep .ant-card-bordered {
+        border: 0px;
+        background: transparent;
+    }
+    
+  }

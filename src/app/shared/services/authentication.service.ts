@@ -72,6 +72,22 @@ export class AuthService {
     })
   }
 
+  doRegisterOnBoarding(email: string, password: string, displayName) {
+    return new Promise<any>((resolve, reject) => {
+      this.http.post(environment.baseAPIDomain + '/api/v1/auth/sign-up', {
+          email: email,
+          password: password,
+          displayName: displayName
+      }).subscribe((data) => {
+          this.doLogin(email, password).then( result => {
+              resolve(data);
+          }).catch( error => {
+              reject(error);
+          });
+      }, err => reject(err))
+    })
+  }
+
   doLogin(email: string, password: string) {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.signInWithEmailAndPassword(email, password)

@@ -1,0 +1,11 @@
+::ng-deep body, ::ng-deep html{
+    background: #fff;
+    overflow-x: unset;
+    min-width:unset;
+}
+
+ .login-form  {
+    ::ng-deep .ant-alert-icon{
+        top:8px;
+    }
+}

@@ -1,0 +1,77 @@
+::ng-deep body, ::ng-deep html{
+    background: #fff;
+    overflow-x: unset;
+    min-width:unset;
+}
+
+.is-signup-main{
+    .is-signup-form-main{
+        .is-form{
+            .profile-image{
+                position: relative;
+                max-width: 180px;
+                margin: auto;
+                .upload-btn{
+                    bottom: 20px;
+                    position: absolute;
+                    right: 0px;
+                    .ant-btn{
+                        width: 50px;
+                        height: 50px;
+                        background: #000 !important;
+                        text-align: center;
+                        border:0px;
+                        line-height: 34px;
+                        border-radius: 100%;
+                        .anticon{
+                            font-size: 24px;
+                            color:#fff;
+                        }
+                    }
+                }
+            }
+           ::ng-deep  .profile-form{
+                .ant-form-item-label{
+                    text-align: center;
+                    label{
+                        color: #000;
+                        font-size: 22px;
+                        font-family: "josefin_sansregular";
+                    }
+                }
+                .ant-select-selector{
+                        height: 43px;
+                        width: 100%;
+                        border-radius: 3px;
+                        border:1px solid #BCBCBC;
+                        color: #000;
+                        font-family: "josefin_sansregular";
+                        font-size: 20px;
+                        text-align: left;
+                        display: flex;
+                        align-items: center;
+                }
+                .ant-form-item-control-input-content{
+                    textarea{
+                        width: 100%;
+                        border-radius: 3px;
+                        border:1px solid #BCBCBC;
+                        color: #000;
+                        font-family: "josefin_sansregular";
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width:580px){
+    .media-responsive{
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+    .media-responsive p{
+        margin:5px 0px 10px 0px !important;
+    }   
+} 

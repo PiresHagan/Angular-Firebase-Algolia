@@ -1,0 +1,100 @@
+
+<section class="is-signup-main"
+style="background: url(assets/images/sign-up/connecting.png) bottom right no-repeat; background-size: contain;">
+<img [routerLink]="['/']" src="assets/images/sign-up/logo.svg" class="onboarding-logo" alt="">
+<nz-select (ngModelChange)="switchLang($event)" [(ngModel)]="selectedLanguage" class="language-dropdown">
+    <nz-option 
+        *ngFor="let option of languageList" 
+        [nzLabel]="option.label"
+        [nzValue]="option.code">
+        {{ option.label }}
+    </nz-option>
+</nz-select>
+<div class="is-signup-form-main">
+    <div class="is-form text-center">
+            <div class="profile-image">
+                <nz-avatar [nzSize]="140" nzIcon="user" [nzSrc]="avatarUrl" accept="image/*"></nz-avatar>
+                <nz-upload class="upload-btn" nzName="avatar" [nzShowUploadList]="false" (nzChange)="handleChange($event)">
+                    <button nz-button nzType="primary" nzGhost [nzLoading]="isPhotoChangeLoading">
+                        <i nz-icon nzType="plus" nzTheme="outline"></i>
+                    </button>
+                </nz-upload>
+            </div>
+            <div class="m-l-20 m-r-20 m-t-10">
+                <p class="opacity-07 font-size-13 m-b-0">
+                    {{'loginProfileAvtarDimension' | translate}} <br>
+                    {{'loginProfileAvtarSize' | translate}}
+                </p>
+            </div>
+       
+        <form nz-form [formGroup]="profileForm" (ngSubmit)="submitForm()" class="profile-form m-t-30">
+            <div class="row">
+                <div class="col-md-12 m-b-15">
+                    <nz-form-item>
+                        <nz-form-label nzRequired>I am a</nz-form-label>
+                        <nz-form-control nzErrorTip="{{'profileTypeErr' | translate}}">
+                            <nz-select nzAllowClear formControlName="user_type" nzPlaceHolder="{{'PleaseSelectProfileOnboarding' | translate}}">
+                                <nz-option *ngFor="let type of userTypeList" [nzValue]="type" nzLabel="{{ type | translate}}"></nz-option>
+                              </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div class="col-md-12">
+                    <nz-form-item>
+                        <nz-form-label nzRequired>Tell us more about you</nz-form-label>
+                        <nz-form-control nzErrorTip="{{'SelectloginProfileBio' | translate}}">
+                            <textarea  formControlName="bio" nzPlaceHolder="Write here" rows="4" nz-input name="content"
+                                ></textarea>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <!-- </nz-card>  -->
+            <br />
+            <div class="d-flex align-items-center justify-content-between">
+                <nz-form-item style="display: none;">
+                    <nz-form-control>
+                        <label nz-checkbox >
+                            <span><a>{{'doItLater' | translate}}</a></span>
+                        </label>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="w-100">
+                    <nz-form-control>
+                        <div class="footer-btn">
+                            <a  (click)="backClicked()"  class="is-login-btn back-btn">
+                                    
+                                <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0)">
+                                    <path d="M0.286427 11.8087C0.286718 11.8084 0.286963 11.8081 0.287304 11.8078L5.39004 6.72969C5.77231 6.34927 6.39062 6.35068 6.77114 6.73301C7.15161 7.11528 7.15015 7.73359 6.76787 8.11406L3.34189 11.5234H24.0234C24.5628 11.5234 25 11.9606 25 12.5C25 13.0394 24.5628 13.4766 24.0234 13.4766H3.34194L6.76782 16.8859C7.1501 17.2664 7.15156 17.8847 6.77109 18.267C6.39058 18.6494 5.77222 18.6507 5.38999 18.2703L0.287256 13.1922C0.286963 13.1919 0.286718 13.1916 0.286377 13.1913C-0.0960941 12.8095 -0.0948734 12.1892 0.286427 11.8087Z" fill="black"/>
+                                    </g>
+                                    <defs>
+                                    <clipPath id="clip0">
+                                    <rect width="25" height="25" fill="white" transform="matrix(-1 0 0 1 25 0)"/>
+                                    </clipPath>
+                                    </defs>
+                                    </svg>
+                                    {{'Back' | translate}}
+                                </a>
+                            <button [nzLoading]="isFormSaving" nz-button class="is-login-btn" nzType="primary"
+                                >{{'Next' | translate}}
+                                <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0)">
+                                    <path d="M24.7136 11.8087C24.7133 11.8085 24.713 11.8081 24.7127 11.8078L19.61 6.72969C19.2277 6.34927 18.6094 6.35069 18.2289 6.73301C17.8484 7.11529 17.8499 7.7336 18.2321 8.11407L21.6581 11.5234H0.976562C0.437207 11.5234 0 11.9606 0 12.5C0 13.0394 0.437207 13.4766 0.976562 13.4766H21.6581L18.2322 16.8859C17.8499 17.2664 17.8484 17.8847 18.2289 18.267C18.6094 18.6494 19.2278 18.6507 19.61 18.2703L24.7127 13.1922C24.713 13.1919 24.7133 13.1916 24.7136 13.1913C25.0961 12.8095 25.0949 12.1892 24.7136 11.8087Z" fill="white"/>
+                                    </g>
+                                    <defs>
+                                    <clipPath id="clip0">
+                                    <rect width="25" height="25" fill="white"/>
+                                    </clipPath>
+                                    </defs>
+                                    </svg>
+                            </button>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </form>
+    </div>
+</div>
+</section>

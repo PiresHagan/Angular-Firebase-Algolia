@@ -1,0 +1,176 @@
+<section class="feed-section is-signup-main">
+    <img [routerLink]="['/']" src="assets/images/sign-up/logo.svg" class="onboarding-logo" alt="">
+    <nz-select (ngModelChange)="switchLang($event)" [(ngModel)]="selectedLanguage" class="language-dropdown feed-dropdown">
+        <nz-option 
+            *ngFor="let option of languageList" 
+            [nzLabel]="option.label"
+            [nzValue]="option.code">
+            {{ option.label }}
+        </nz-option>
+    </nz-select>
+    <div class="feed-content-section">
+        <h2>{{'WelcomeFeedOnboarding' | translate}}</h2>
+        <p>{{'feedDesOnboarding' | translate}}</p>
+        <div class="feed-content">
+            <div class="feed-row grey-bg">
+                <h3>{{'trendcateOnboarding' | translate}}</h3>
+                <div class="feed-content-data"  *ngIf="!(categoryList.length)">
+                    <div  class="feed-content-data-item" *ngFor="let repeatSkeleton of skeletonData">
+                        <nz-skeleton-element [nzLoading]="loading" nzType="avatar" class="custom-skeleton circle-box-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+                    </div>
+                </div>
+                <div class="feed-content-data"  *ngIf="categoryList.length > 0">
+                    <div class="feed-content-data-item" *ngFor="let category of categoryList">
+                        <div class="feed-follow-logo">
+                            <img src="{{category?.logo?.url}}" [alt]="category?.logo?.alt">
+                        </div>
+                        <h4>{{category.title}}</h4>
+                        <!-- <h5>{{category.categoryFollower}} {{'profileFollowers' | translate}}</h5> -->
+                        <button class="is-login-btn" nz-button *ngIf="!category?.isFollowing" [nzLoading]="category?.isUpdating" type="button" (click)="follow(category, 'category')">
+                            {{'profileFollow' | translate}}
+                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0)">
+                                <path d="M12.1136 5.3182H7.68178V0.886379C7.68178 0.397104 7.28469 1.52588e-05 6.79542 1.52588e-05H6.20455C5.71527 1.52588e-05 5.31818 0.397104 5.31818 0.886379V5.3182H0.886364C0.397089 5.3182 0 5.71529 0 6.20456V6.79543C0 7.28471 0.397089 7.6818 0.886364 7.6818H5.31818V12.1136C5.31818 12.6029 5.71527 13 6.20455 13H6.79542C7.28469 13 7.68178 12.6029 7.68178 12.1136V7.6818H12.1136C12.6029 7.6818 13 7.28471 13 6.79543V6.20456C13 5.71529 12.6029 5.3182 12.1136 5.3182Z" fill="white"/>
+                                </g>
+                                <defs>
+                                <clipPath id="clip0">
+                                <rect width="13" height="13" fill="white"/>
+                                </clipPath>
+                                </defs>
+                                </svg>
+                        </button>
+                        <button class="is-login-btn" nz-button *ngIf="category?.isFollowing" [nzLoading]="category?.isUpdating" type="button" (click)="unfollow(category, 'category')">
+                            {{'unFollow' | translate}}
+                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.1136 5.31818H7.68178H4.68998C4.68998 4.82891 11.6173 10.7342 8.9127 5.41598L1.80202 5.31818L5.5 5.5C5.01073 5.5 11.4527 9.87773 12 5.5L5.31818 5.31818H0.886364C0.397089 5.31818 0 5.71527 0 6.20455V6.79542C0 7.28469 0.397089 7.68178 0.886364 7.68178H5.31818C6.375 7.68178 6.29815 7.68178 6.78743 7.68178H5.31818C5.80746 7.68178 6.5 7.68178 6.78743 7.68178H7.68178H12.1136C12.6029 7.68178 13 7.28469 13 6.79542V6.20455C13 5.71527 12.6029 5.31818 12.1136 5.31818Z" fill="white"/>
+                                </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="feed-row">
+                <h3>{{'ContributorOnboarding' | translate}}</h3>
+                <div class="feed-content-data"  *ngIf="!(contributorList.length)">
+                    <div  class="feed-content-data-item" *ngFor="let repeatSkeleton of skeletonData">
+                        <nz-skeleton-element [nzLoading]="loading" nzType="avatar" class="custom-skeleton circle-box-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+                    </div>
+                </div>
+                <div class="feed-content-data"  *ngIf="contributorList.length > 0">
+                    <div class="feed-content-data-item" *ngFor="let contributor of contributorList">
+                        <div class="feed-follow-logo">
+                            <img src="{{contributor.avatar.url}}" [alt]="contributor.avatar.alt">
+                        </div>
+                        <h4>{{contributor.fullname}}</h4>
+                        <!-- <h5>{{contributor.followers_count}} {{'profileFollowers' | translate}}</h5> -->
+                        <button class="is-login-btn" nz-button *ngIf="!contributor?.isFollowing" [nzLoading]="contributor?.isUpdating" type="button" (click)="follow(contributor, 'contributor')">
+                            {{'profileFollow' | translate}}
+                            
+                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0)">
+                                <path d="M12.1136 5.3182H7.68178V0.886379C7.68178 0.397104 7.28469 1.52588e-05 6.79542 1.52588e-05H6.20455C5.71527 1.52588e-05 5.31818 0.397104 5.31818 0.886379V5.3182H0.886364C0.397089 5.3182 0 5.71529 0 6.20456V6.79543C0 7.28471 0.397089 7.6818 0.886364 7.6818H5.31818V12.1136C5.31818 12.6029 5.71527 13 6.20455 13H6.79542C7.28469 13 7.68178 12.6029 7.68178 12.1136V7.6818H12.1136C12.6029 7.6818 13 7.28471 13 6.79543V6.20456C13 5.71529 12.6029 5.3182 12.1136 5.3182Z" fill="white"/>
+                                </g>
+                                <defs>
+                                <clipPath id="clip0">
+                                <rect width="13" height="13" fill="white"/>
+                                </clipPath>
+                                </defs>
+                                </svg>
+                        </button>
+                        <button class="is-login-btn" nz-button *ngIf="contributor?.isFollowing" [nzLoading]="contributor?.isUpdating" type="button" (click)="unfollow(contributor, 'contributor')">
+                            {{'unFollow' | translate}}
+                            
+                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.1136 5.31818H7.68178H4.68998C4.68998 4.82891 11.6173 10.7342 8.9127 5.41598L1.80202 5.31818L5.5 5.5C5.01073 5.5 11.4527 9.87773 12 5.5L5.31818 5.31818H0.886364C0.397089 5.31818 0 5.71527 0 6.20455V6.79542C0 7.28469 0.397089 7.68178 0.886364 7.68178H5.31818C6.375 7.68178 6.29815 7.68178 6.78743 7.68178H5.31818C5.80746 7.68178 6.5 7.68178 6.78743 7.68178H7.68178H12.1136C12.6029 7.68178 13 7.28469 13 6.79542V6.20455C13 5.71527 12.6029 5.31818 12.1136 5.31818Z" fill="white"/>
+                                </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="feed-row grey-bg">
+                <h3>{{'companyOnboarding' | translate}}</h3>
+                <div class="feed-content-data"  *ngIf="!(companyList.length)">
+                    <div  class="feed-content-data-item" *ngFor="let repeatSkeleton of skeletonData">
+                        <nz-skeleton-element [nzLoading]="loading" nzType="avatar" class="custom-skeleton circle-box-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+                    </div>
+                </div>
+                <div class="feed-content-data grey-bg"  *ngIf="companyList.length > 0">
+                    <div class="feed-content-data-item" *ngFor="let company of companyList">
+                        <div class="feed-follow-logo">
+                            <img src="{{company.logo.url}}" [alt]="company.logo.alt">
+                        </div>
+                        <h4>{{company.name}}</h4>
+                        <!-- <h5>{{company.categoryFollower}} {{'profileFollowers' | translate}}</h5> -->
+                        <button class="is-login-btn" nz-button *ngIf="!company?.isFollowing" [nzLoading]="company?.isUpdating" type="button" (click)="follow(company, 'company')">
+                            {{'profileFollow' | translate}}
+                            
+                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0)">
+                                <path d="M12.1136 5.3182H7.68178V0.886379C7.68178 0.397104 7.28469 1.52588e-05 6.79542 1.52588e-05H6.20455C5.71527 1.52588e-05 5.31818 0.397104 5.31818 0.886379V5.3182H0.886364C0.397089 5.3182 0 5.71529 0 6.20456V6.79543C0 7.28471 0.397089 7.6818 0.886364 7.6818H5.31818V12.1136C5.31818 12.6029 5.71527 13 6.20455 13H6.79542C7.28469 13 7.68178 12.6029 7.68178 12.1136V7.6818H12.1136C12.6029 7.6818 13 7.28471 13 6.79543V6.20456C13 5.71529 12.6029 5.3182 12.1136 5.3182Z" fill="white"/>
+                                </g>
+                                <defs>
+                                <clipPath id="clip0">
+                                <rect width="13" height="13" fill="white"/>
+                                </clipPath>
+                                </defs>
+                                </svg>
+                        </button>
+                        <button class="is-login-btn" nz-button *ngIf="company?.isFollowing" [nzLoading]="company?.isUpdating" type="button" (click)="unfollow(company, 'company')">
+                            {{'unFollow' | translate}}
+                            
+                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.1136 5.31818H7.68178H4.68998C4.68998 4.82891 11.6173 10.7342 8.9127 5.41598L1.80202 5.31818L5.5 5.5C5.01073 5.5 11.4527 9.87773 12 5.5L5.31818 5.31818H0.886364C0.397089 5.31818 0 5.71527 0 6.20455V6.79542C0 7.28469 0.397089 7.68178 0.886364 7.68178H5.31818C6.375 7.68178 6.29815 7.68178 6.78743 7.68178H5.31818C5.80746 7.68178 6.5 7.68178 6.78743 7.68178H7.68178H12.1136C12.6029 7.68178 13 7.28469 13 6.79542V6.20455C13 5.71527 12.6029 5.31818 12.1136 5.31818Z" fill="white"/>
+                                </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="feed-row">
+                <h3>{{'CharityOnboarding' | translate}}</h3>
+                <div class="feed-content-data"  *ngIf="!(charityList.length)">
+                    <div  class="feed-content-data-item" *ngFor="let repeatSkeleton of skeletonData">
+                        <nz-skeleton-element [nzLoading]="loading" nzType="avatar" class="custom-skeleton circle-box-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+                    </div>
+                </div>
+                <div class="feed-content-data"  *ngIf="charityList.length > 0">
+                    <div class="feed-content-data-item" *ngFor="let charity of charityList">
+                        <div class="feed-follow-logo">
+                            <img src="{{charity.logo.url}}" [alt]="charity.logo.alt">
+                        </div>
+                        <h4>{{charity.name}}</h4>
+                        <!-- <h5>{{charity.categoryFollower}} {{'profileFollowers' | translate}}</h5> -->
+                        <button class="is-login-btn" nz-button *ngIf="!charity?.isFollowing" [nzLoading]="charity?.isUpdating" type="button" (click)="follow(charity, 'charity')">
+                            {{'profileFollow' | translate}}
+                            
+                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0)">
+                                <path d="M12.1136 5.3182H7.68178V0.886379C7.68178 0.397104 7.28469 1.52588e-05 6.79542 1.52588e-05H6.20455C5.71527 1.52588e-05 5.31818 0.397104 5.31818 0.886379V5.3182H0.886364C0.397089 5.3182 0 5.71529 0 6.20456V6.79543C0 7.28471 0.397089 7.6818 0.886364 7.6818H5.31818V12.1136C5.31818 12.6029 5.71527 13 6.20455 13H6.79542C7.28469 13 7.68178 12.6029 7.68178 12.1136V7.6818H12.1136C12.6029 7.6818 13 7.28471 13 6.79543V6.20456C13 5.71529 12.6029 5.3182 12.1136 5.3182Z" fill="white"/>
+                                </g>
+                                <defs>
+                                <clipPath id="clip0">
+                                <rect width="13" height="13" fill="white"/>
+                                </clipPath>
+                                </defs>
+                                </svg>
+                        </button>
+                        <button class="is-login-btn" nz-button *ngIf="charity?.isFollowing" [nzLoading]="charity?.isUpdating" type="button" (click)="unfollow(charity, 'charity')">
+                            {{'unFollow' | translate}}
+                            
+                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.1136 5.31818H7.68178H4.68998C4.68998 4.82891 11.6173 10.7342 8.9127 5.41598L1.80202 5.31818L5.5 5.5C5.01073 5.5 11.4527 9.87773 12 5.5L5.31818 5.31818H0.886364C0.397089 5.31818 0 5.71527 0 6.20455V6.79542C0 7.28469 0.397089 7.68178 0.886364 7.68178H5.31818C6.375 7.68178 6.29815 7.68178 6.78743 7.68178H5.31818C5.80746 7.68178 6.5 7.68178 6.78743 7.68178H7.68178H12.1136C12.6029 7.68178 13 7.28469 13 6.79542V6.20455C13 5.71527 12.6029 5.31818 12.1136 5.31818Z" fill="white"/>
+                                </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-btn">
+            <a  (click)="backClicked()"  class="is-login-btn back-btn">
+                <img src="assets/images/onboarding/left-arrow.svg" alt="">
+                    {{'Back' | translate}}
+                </a>
+            <button nz-button (click)="done()" class="is-login-btn" [nzType]="'primary'">{{'Next' | translate}}
+                <img src="assets/images/onboarding/right-arrow.svg" alt="">
+            </button>
+        </div>
+    </div>
+</section>

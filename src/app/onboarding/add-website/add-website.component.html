@@ -1,0 +1,173 @@
+
+<section class="mts-website-section is-signup-main">
+    <img [routerLink]="['/']" src="assets/images/sign-up/logo.svg" class="onboarding-logo" alt="">
+    <nz-select (ngModelChange)="switchLang($event)" [(ngModel)]="selectedLanguage" class="language-dropdown feed-dropdown">
+        <nz-option 
+            *ngFor="let option of languageList" 
+            [nzLabel]="option.label"
+            [nzValue]="option.code">
+            {{ option.label }}
+        </nz-option>
+    </nz-select>
+    <div class="mts-website-content-section">
+        <div class="website-banner">
+            <img src="assets/images/website.png" alt="Website Banner">
+            <h3>{{'WebsiteOnboarding' | translate}}</h3>
+        </div>
+        <div class="mts-website-content">
+            <div class="mts-website-avatar">
+                    <nz-avatar [nzSize]="50" nzIcon="user"></nz-avatar>
+                    <h3>{{'AddMTSiconlinksOnboarding' | translate}}</h3>
+            </div>
+            <div nz-row [nzGutter]="50">
+                <div nz-col class="gutter-row" nzXs="24" nzSm="24" nzMd="12" nzLg="12">
+                    <form [formGroup]="websiteForm" (ngSubmit)="submitForm()" nz-form class="website-form">
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="{{'EnterweburlOnboarding' | translate}}" class="is-icon">
+                                <input 
+                                    formControlName="url" 
+                                    type="text" 
+                                    nz-input
+                                    placeholder="{{'EnterweburlOnboarding' | translate}} *"
+                                >
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="{{'SelectlangOnboarding' | translate}}" class="m-5">
+                                <nz-select 
+                                    class="m-r-10" 
+                                    formControlName="lang" 
+                                    nzAllowClear 
+                                    nzPlaceHolder="{{'SelectlangOnboarding' | translate}}"
+                                    (ngModelChange)="languageSelected($event)"
+                                >
+                                    <nz-option 
+                                        *ngFor="let language of languageList" 
+                                        [nzValue]="language.code"
+                                        nzLabel="{{language.label}}">
+                                    </nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="{{'SelectcategoryOnboarding' | translate}}" class="m-5">
+                                <nz-select 
+                                    class="m-r-10" 
+                                    formControlName="category"
+                                    nzAllowClear nzPlaceHolder="{{'SelectcategoryOnboarding' | translate}}"
+                                >
+                                    <nz-option 
+                                        *ngFor="let category of categoryList" 
+                                        [nzValue]="category" 
+                                        nzLabel="{{category.title}}"
+                                    >
+                                    </nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="{{'SelmonthlytrafficOnboarding' | translate}}" class="is-icon">
+                                 <nz-select formControlName="monthly_traffic" nzPlaceHolder="{{'SelmonthlytrafficOnboarding' | translate}} *">
+                                    <nz-option 
+                                        *ngFor="let traffic of dailyTrafficOptions" 
+                                        [nzValue]="traffic.value" 
+                                        [nzLabel]="traffic.label">
+                                    </nz-option>
+                                  </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-control>
+                                <div class="footer-btn">
+                                    <a  (click)="backClicked()" class="is-login-btn back-btn">   
+                                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0)">
+                                            <path d="M0.286427 11.8087C0.286718 11.8084 0.286963 11.8081 0.287304 11.8078L5.39004 6.72969C5.77231 6.34927 6.39062 6.35068 6.77114 6.73301C7.15161 7.11528 7.15015 7.73359 6.76787 8.11406L3.34189 11.5234H24.0234C24.5628 11.5234 25 11.9606 25 12.5C25 13.0394 24.5628 13.4766 24.0234 13.4766H3.34194L6.76782 16.8859C7.1501 17.2664 7.15156 17.8847 6.77109 18.267C6.39058 18.6494 5.77222 18.6507 5.38999 18.2703L0.287256 13.1922C0.286963 13.1919 0.286718 13.1916 0.286377 13.1913C-0.0960941 12.8095 -0.0948734 12.1892 0.286427 11.8087Z" fill="black"/>
+                                            </g>
+                                            <defs>
+                                            <clipPath id="clip0">
+                                            <rect width="25" height="25" fill="white" transform="matrix(-1 0 0 1 25 0)"/>
+                                            </clipPath>
+                                            </defs>
+                                        </svg>
+                                        {{'Back' | translate}}
+                                    </a>
+                                    <button [nzLoading]="isFormSaving" class="is-login-btn m-r-10" nz-button nzType="primary">
+                                        {{'Next' | translate}}
+                                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0)">
+                                                <path d="M24.7136 11.8087C24.7133 11.8085 24.713 11.8081 24.7127 11.8078L19.61 6.72969C19.2277 6.34927 18.6094 6.35069 18.2289 6.73301C17.8484 7.11529 17.8499 7.7336 18.2321 8.11407L21.6581 11.5234H0.976562C0.437207 11.5234 0 11.9606 0 12.5C0 13.0394 0.437207 13.4766 0.976562 13.4766H21.6581L18.2322 16.8859C17.8499 17.2664 17.8484 17.8847 18.2289 18.267C18.6094 18.6494 19.2278 18.6507 19.61 18.2703L24.7127 13.1922C24.713 13.1919 24.7133 13.1916 24.7136 13.1913C25.0961 12.8095 25.0949 12.1892 24.7136 11.8087Z" fill="white"/>
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0">
+                                                    <rect width="25" height="25" fill="white"/>
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="skip-btn">
+                                    <button (click)="goToNext()" class="is-login-btn" nz-button type='button'>
+                                        {{'Skip' | translate}}
+                                    </button>
+                                </div>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </form>
+                </div>
+                <div nz-col class="gutter-row" nzXs="24" nzSm="24" nzMd="12" nzLg="12">
+                    <div class="mts-badge-btn">
+                        <div>
+                        <button type="button" class="badge-btn">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="20" cy="20" r="20" fill="#FF4020"/>
+                                <path d="M14.392 10.596C14.728 11.212 15.1107 11.9773 15.54 12.892C15.988 13.788 16.4453 14.768 16.912 15.832C17.3973 16.8773 17.8733 17.9507 18.34 19.052C18.8067 20.1533 19.2453 21.1893 19.656 22.16C20.0667 21.1893 20.5053 20.1533 20.972 19.052C21.4387 17.9507 21.9053 16.8773 22.372 15.832C22.8573 14.768 23.3147 13.788 23.744 12.892C24.192 11.9773 24.584 11.212 24.92 10.596H28.896C29.0827 11.884 29.2507 13.3307 29.4 14.936C29.568 16.5227 29.708 18.184 29.82 19.92C29.9507 21.6373 30.0627 23.364 30.156 25.1C30.268 26.836 30.3613 28.4693 30.436 30H26.18C26.124 28.1147 26.0493 26.0613 25.956 23.84C25.8627 21.6187 25.7227 19.3787 25.536 17.12C25.2 17.904 24.8267 18.772 24.416 19.724C24.0053 20.676 23.5947 21.628 23.184 22.58C22.792 23.532 22.4093 24.4467 22.036 25.324C21.6627 26.1827 21.3453 26.92 21.084 27.536H18.032C17.7707 26.92 17.4533 26.1827 17.08 25.324C16.7067 24.4467 16.3147 23.532 15.904 22.58C15.512 21.628 15.1107 20.676 14.7 19.724C14.2893 18.772 13.916 17.904 13.58 17.12C13.3933 19.3787 13.2533 21.6187 13.16 23.84C13.0667 26.0613 12.992 28.1147 12.936 30H8.68C8.75467 28.4693 8.83867 26.836 8.932 25.1C9.044 23.364 9.156 21.6373 9.268 19.92C9.39867 18.184 9.53867 16.5227 9.688 14.936C9.856 13.3307 10.0333 11.884 10.22 10.596H14.392Z" fill="white"/>
+                            </svg>
+                            <h4>
+                                <span>{{'FINDUSONOnboarding' | translate}}</span>
+                                My Trending Stories
+                            </h4>
+                        </button>
+                        </div>
+                        <div>
+                        <button type="button" class="badge-btn">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="20" cy="20" r="20" fill="#FF4020"/>
+                                <path d="M14.392 10.596C14.728 11.212 15.1107 11.9773 15.54 12.892C15.988 13.788 16.4453 14.768 16.912 15.832C17.3973 16.8773 17.8733 17.9507 18.34 19.052C18.8067 20.1533 19.2453 21.1893 19.656 22.16C20.0667 21.1893 20.5053 20.1533 20.972 19.052C21.4387 17.9507 21.9053 16.8773 22.372 15.832C22.8573 14.768 23.3147 13.788 23.744 12.892C24.192 11.9773 24.584 11.212 24.92 10.596H28.896C29.0827 11.884 29.2507 13.3307 29.4 14.936C29.568 16.5227 29.708 18.184 29.82 19.92C29.9507 21.6373 30.0627 23.364 30.156 25.1C30.268 26.836 30.3613 28.4693 30.436 30H26.18C26.124 28.1147 26.0493 26.0613 25.956 23.84C25.8627 21.6187 25.7227 19.3787 25.536 17.12C25.2 17.904 24.8267 18.772 24.416 19.724C24.0053 20.676 23.5947 21.628 23.184 22.58C22.792 23.532 22.4093 24.4467 22.036 25.324C21.6627 26.1827 21.3453 26.92 21.084 27.536H18.032C17.7707 26.92 17.4533 26.1827 17.08 25.324C16.7067 24.4467 16.3147 23.532 15.904 22.58C15.512 21.628 15.1107 20.676 14.7 19.724C14.2893 18.772 13.916 17.904 13.58 17.12C13.3933 19.3787 13.2533 21.6187 13.16 23.84C13.0667 26.0613 12.992 28.1147 12.936 30H8.68C8.75467 28.4693 8.83867 26.836 8.932 25.1C9.044 23.364 9.156 21.6373 9.268 19.92C9.39867 18.184 9.53867 16.5227 9.688 14.936C9.856 13.3307 10.0333 11.884 10.22 10.596H14.392Z" fill="white"/>
+                            </svg>
+                            <h4>
+                                <span>{{'followusonOnboarding' | translate}}</span>
+                                My Trending Stories
+                            </h4>
+                        </button>
+                    </div>
+                    <div>
+                        <button type="button" class="badge-btn">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="20" cy="20" r="20" fill="#FF4020"/>
+                                <path d="M14.392 10.596C14.728 11.212 15.1107 11.9773 15.54 12.892C15.988 13.788 16.4453 14.768 16.912 15.832C17.3973 16.8773 17.8733 17.9507 18.34 19.052C18.8067 20.1533 19.2453 21.1893 19.656 22.16C20.0667 21.1893 20.5053 20.1533 20.972 19.052C21.4387 17.9507 21.9053 16.8773 22.372 15.832C22.8573 14.768 23.3147 13.788 23.744 12.892C24.192 11.9773 24.584 11.212 24.92 10.596H28.896C29.0827 11.884 29.2507 13.3307 29.4 14.936C29.568 16.5227 29.708 18.184 29.82 19.92C29.9507 21.6373 30.0627 23.364 30.156 25.1C30.268 26.836 30.3613 28.4693 30.436 30H26.18C26.124 28.1147 26.0493 26.0613 25.956 23.84C25.8627 21.6187 25.7227 19.3787 25.536 17.12C25.2 17.904 24.8267 18.772 24.416 19.724C24.0053 20.676 23.5947 21.628 23.184 22.58C22.792 23.532 22.4093 24.4467 22.036 25.324C21.6627 26.1827 21.3453 26.92 21.084 27.536H18.032C17.7707 26.92 17.4533 26.1827 17.08 25.324C16.7067 24.4467 16.3147 23.532 15.904 22.58C15.512 21.628 15.1107 20.676 14.7 19.724C14.2893 18.772 13.916 17.904 13.58 17.12C13.3933 19.3787 13.2533 21.6187 13.16 23.84C13.0667 26.0613 12.992 28.1147 12.936 30H8.68C8.75467 28.4693 8.83867 26.836 8.932 25.1C9.044 23.364 9.156 21.6373 9.268 19.92C9.39867 18.184 9.53867 16.5227 9.688 14.936C9.856 13.3307 10.0333 11.884 10.22 10.596H14.392Z" fill="white"/>
+                            </svg>
+                            <h4>
+                                <span>{{'shareusonOnboarding' | translate}}</span>
+                                My Trending Stories
+                            </h4>
+                        </button>
+                    </div>
+                    <div>
+                        <button type="button" class="badge-btn">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="20" cy="20" r="20" fill="#FF4020"/>
+                                <path d="M14.392 10.596C14.728 11.212 15.1107 11.9773 15.54 12.892C15.988 13.788 16.4453 14.768 16.912 15.832C17.3973 16.8773 17.8733 17.9507 18.34 19.052C18.8067 20.1533 19.2453 21.1893 19.656 22.16C20.0667 21.1893 20.5053 20.1533 20.972 19.052C21.4387 17.9507 21.9053 16.8773 22.372 15.832C22.8573 14.768 23.3147 13.788 23.744 12.892C24.192 11.9773 24.584 11.212 24.92 10.596H28.896C29.0827 11.884 29.2507 13.3307 29.4 14.936C29.568 16.5227 29.708 18.184 29.82 19.92C29.9507 21.6373 30.0627 23.364 30.156 25.1C30.268 26.836 30.3613 28.4693 30.436 30H26.18C26.124 28.1147 26.0493 26.0613 25.956 23.84C25.8627 21.6187 25.7227 19.3787 25.536 17.12C25.2 17.904 24.8267 18.772 24.416 19.724C24.0053 20.676 23.5947 21.628 23.184 22.58C22.792 23.532 22.4093 24.4467 22.036 25.324C21.6627 26.1827 21.3453 26.92 21.084 27.536H18.032C17.7707 26.92 17.4533 26.1827 17.08 25.324C16.7067 24.4467 16.3147 23.532 15.904 22.58C15.512 21.628 15.1107 20.676 14.7 19.724C14.2893 18.772 13.916 17.904 13.58 17.12C13.3933 19.3787 13.2533 21.6187 13.16 23.84C13.0667 26.0613 12.992 28.1147 12.936 30H8.68C8.75467 28.4693 8.83867 26.836 8.932 25.1C9.044 23.364 9.156 21.6373 9.268 19.92C9.39867 18.184 9.53867 16.5227 9.688 14.936C9.856 13.3307 10.0333 11.884 10.22 10.596H14.392Z" fill="white"/>
+                            </svg>
+                            <h4>
+                                <span>{{'shareprofileOnboarding' | translate}}</span>
+                                My Trending Stories
+                            </h4>
+                        </button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

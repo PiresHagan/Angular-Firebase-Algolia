@@ -1,0 +1,227 @@
+::ng-deep body, ::ng-deep html{
+    background: #fff;
+    overflow-x: unset;
+    min-width:unset;
+}
+
+.mts-website-section{
+    padding: 0px;
+    .mts-website-content-section{
+        padding: 0px 40px;
+        margin-top: 20px;
+        .website-banner{
+            position: relative;
+            img{
+                width:100%;
+                height: auto;
+            }
+            h3{
+                position: absolute;
+                top:50%;
+                left: 50px;
+                transform: translate(0%, -50%);
+                font-family: "josefin_sanssemibold";
+                font-style: normal;
+                font-weight: 600;
+                font-size: 44px;
+                line-height: 66px;
+                color: #FFFFFF;
+            }
+        }
+        .mts-website-content{
+            .mts-website-avatar{
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid #ccc;
+                padding: 20px 0px;
+                margin-bottom: 20px;
+                h3{
+                    font-family: "josefin_sanssemibold";
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 22px;
+                    line-height: 22px;
+                    color: #000000;
+                    margin:0px 0px 0px 20px;
+                }
+            }
+            .website-form{
+                ::ng-deep .ant-form-item{
+                    .ant-input{
+                        height: 43px;
+                        width: 100%;
+                        border-radius: 3px;
+                        border:1px solid #BCBCBC;
+                        color: #000;
+                        font-family: "josefin_sansregular";
+                        font-size: 20px;
+                        &::-webkit-input-placeholder {
+                            color: #C8C8CA;
+                        }
+        
+                        &:-ms-input-placeholder {
+                            color: #C8C8CA;
+                        }
+        
+                        &::placeholder {
+                            color: #C8C8CA;
+                        }
+                    }
+                    .ant-select-selector{
+                        height: 43px;
+                        width: 100%;
+                        border-radius: 3px;
+                        border:1px solid #BCBCBC;
+                        color: #000;
+                        font-family: "josefin_sansregular";
+                        font-size: 20px;
+                        text-align: left;
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+            }
+            .mts-badge-btn{
+                display: flex;
+                flex-wrap: wrap;
+                div{
+                    width: 50%;
+                    margin-bottom: 20px;
+                    .badge-btn{
+                        border: 0px;
+                        background-color: transparent;
+                        outline: none;
+                        display: flex;
+                        align-items: center;
+    
+                        svg{
+                            max-width: 40px;
+                            margin-right: 10px;
+                        }
+                        h4{
+                            font-family: "josefin_sanssemibold";
+                            font-style: normal;
+                            font-weight: 600;
+                            font-size: 16px;
+                            color: #000000;
+                            text-align: left;
+                            line-height: 20px;
+                            margin: 0px;
+                            span{
+                                font-family: "josefin_sanslight";
+                                font-style: normal;
+                                font-weight: 300;
+                                font-size: 14px;
+                                line-height: 14px;
+                                color: #000000;
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.skip-btn{
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top:1px solid #eee;
+    button{
+        margin:auto;
+        padding: 0px;
+        background: transparent;
+        color:#000;
+        font-weight: 600;
+        font-size: 20px;
+        svg{
+            color:#000;
+        }
+    }
+}
+@media screen and (max-width:580px){
+    .mts-website-section{
+        padding: 30px;
+        .mts-website-content-section{
+            padding: 0px;
+            margin-top: 0px;
+            .website-banner{
+                position: relative;
+                img{
+                    width: 100%;
+                    height: 140px;
+                    object-fit: cover;
+                }
+                h3{
+                    left: 20px;
+                    font-weight: 600;
+                    font-size: 24px;
+                }
+            }
+            .mts-website-content{
+                .mts-website-avatar{
+                    display: flex;
+                    align-items: center;
+                    border-bottom: 1px solid #ccc;
+                    padding: 20px 0px;
+                    margin-bottom: 20px;
+                    h3{
+                        width: calc(100% - 60px);
+                        font-size: 18px;
+                    }
+                }
+                .mts-badge-btn{
+                    border-top: 1px solid #eee;
+                    padding-top: 20px;
+                    div{
+                        width: 100%;
+                        margin-bottom: 20px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width:581px) and (max-width:767px){
+    .mts-website-section{
+        padding: 30px;
+        .mts-website-content-section{
+            padding: 0px;
+            margin-top: 20px;
+            .mts-website-content{
+                .mts-website-avatar{
+                    h3{
+                        width: calc(100% - 60px);
+                    }
+                }
+                .mts-badge-btn{
+                    border-top: 1px solid #eee;
+                    padding-top: 20px;
+                
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width:769px) and (max-width:992px){
+    .mts-website-section{
+        .mts-website-content-section{
+            .mts-website-content{
+                .mts-website-avatar{
+                    h3{
+                        width: calc(100% - 60px);
+                    }
+                }
+                .mts-badge-btn{
+                    div{
+                        width:100%;
+                    }
+                    
+                }
+            }
+        }
+    }
+}
