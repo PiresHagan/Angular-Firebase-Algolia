@@ -57,9 +57,9 @@
                                     nzAllowClear nzPlaceHolder="{{'SelectcategoryOnboarding' | translate}}"
                                 >
                                     <nz-option 
-                                        *ngFor="let category of categoryList" 
-                                        [nzValue]="category" 
-                                        nzLabel="{{category.title}}"
+                                        *ngFor="let cat of categoryList" 
+                                        [nzValue]="cat"
+                                        nzLabel="{{cat.title}}"
                                     >
                                     </nz-option>
                                 </nz-select>

@@ -79,22 +79,27 @@ export class AddWebsiteComponent implements OnInit {
 
   setFormData() {
     this.userService.getCurrentUser().then((user) => {
-      this.userService.get(user.uid).subscribe((userDetails) => {
+      this.userService.getMember(user.uid).subscribe((userDetails) => {
         this.currentUser = userDetails;
       });
       
       this.userService.getMember(user.uid).subscribe((memberDetails) => {
+        if(memberDetails?.onboarding_website?.lang) 
+          this.websiteForm.controls['lang'].setValue(memberDetails.onboarding_website.lang);
+
         if(memberDetails?.onboarding_website?.url) 
-          this.websiteForm.controls['website_url'].setValue(memberDetails.onboarding_website.website_url);
+          this.websiteForm.controls['url'].setValue(memberDetails.onboarding_website.url);
 
         if(memberDetails?.onboarding_website?.monthly_traffic) 
           this.websiteForm.controls['monthly_traffic'].setValue(memberDetails.onboarding_website.monthly_traffic);
 
-        if(memberDetails?.onboarding_website?.category) 
-          this.websiteForm.controls['category'].setValue(memberDetails.onboarding_website.category);
-        
-        if(memberDetails?.onboarding_website?.lang) 
-          this.websiteForm.controls['lang'].setValue(memberDetails.onboarding_website.lang);
+
+        if(memberDetails?.onboarding_website?.category) {
+          this.categoryService.getAll(memberDetails.onboarding_website.lang).subscribe((categoryList) => {
+            this.categoryList = categoryList ? categoryList : [];
+            this.websiteForm.controls['category'].setValue(memberDetails.onboarding_website.category);
+          })
+        }
 
         this.memberDetails = memberDetails;
       })

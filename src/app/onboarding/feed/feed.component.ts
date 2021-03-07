@@ -26,6 +26,10 @@ import { Language } from 'src/app/shared/interfaces/language.type';
 })
 export class FeedComponent implements OnInit {
 
+  isCategoryLoading = true;
+  isContributorLoading = true;
+  isCharityLoading = true;
+  isCompanyLoading = true;
   categoryList: Array<Category> = [];
   contributorList: Array<Member> = [];
   companyList: Array<Company> = [];
@@ -53,9 +57,14 @@ export class FeedComponent implements OnInit {
 
   switchLang(lang: string) {
     this.languageService.changeLangOnBoarding(lang);
+    this.loadData();
   }
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData() {
     this.languageList = this.languageService.geLanguageList();
     this.selectedLanguage = this.languageService.defaultLanguage;
 
@@ -69,20 +78,33 @@ export class FeedComponent implements OnInit {
         this.memberDetails = memberDetails;
       });
 
+      this.categoryList = [];
+      this.contributorList = [];
+      this.companyList = [];
+      this.charityList = [];
+      this.isCategoryLoading = true;
+      this.isContributorLoading = true;
+      this.isCharityLoading = true;
+      this.isCompanyLoading = true;
+
       this.categoryService.getOnBoardingCategories(this.selectedLanguage).then((categories: Array<Category>) => {
         this.categoryList = categories;
+        this.isCategoryLoading = false;
       });
 
       this.authorService.getOnBoardingContributors(this.selectedLanguage).then((contributors: Array<Member>) => {
         this.contributorList = contributors;
+        this.isContributorLoading = false;
       });
 
       this.companyService.getOnBoardingCompanies(this.selectedLanguage).then((companies: Array<Company>) => {
         this.companyList = companies;
+        this.isCompanyLoading = false;
       });
 
       this.charityService.getOnBoardingCharities(this.selectedLanguage).then((chartities: Array<Charity>) => {
         this.charityList = chartities;
+        this.isCharityLoading = false;
       });
     });
   }

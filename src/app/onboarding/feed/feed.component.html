@@ -12,9 +12,9 @@
         <h2>{{'WelcomeFeedOnboarding' | translate}}</h2>
         <p>{{'feedDesOnboarding' | translate}}</p>
         <div class="feed-content">
-            <div class="feed-row grey-bg">
+            <div class="feed-row grey-bg" *ngIf="isCategoryLoading || categoryList.length > 0">
                 <h3>{{'trendcateOnboarding' | translate}}</h3>
-                <div class="feed-content-data"  *ngIf="!(categoryList.length)">
+                <div class="feed-content-data"  *ngIf="isCategoryLoading">
                     <div  class="feed-content-data-item" *ngFor="let repeatSkeleton of skeletonData">
                         <nz-skeleton-element [nzLoading]="loading" nzType="avatar" class="custom-skeleton circle-box-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
                     </div>
@@ -48,9 +48,9 @@
                     </div>
                 </div>
             </div>
-            <div class="feed-row">
+            <div class="feed-row" *ngIf="isContributorLoading || contributorList.length > 0">
                 <h3>{{'ContributorOnboarding' | translate}}</h3>
-                <div class="feed-content-data"  *ngIf="!(contributorList.length)">
+                <div class="feed-content-data"  *ngIf="isContributorLoading">
                     <div  class="feed-content-data-item" *ngFor="let repeatSkeleton of skeletonData">
                         <nz-skeleton-element [nzLoading]="loading" nzType="avatar" class="custom-skeleton circle-box-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
                     </div>
@@ -58,7 +58,7 @@
                 <div class="feed-content-data"  *ngIf="contributorList.length > 0">
                     <div class="feed-content-data-item" *ngFor="let contributor of contributorList">
                         <div class="feed-follow-logo">
-                            <img src="{{contributor.avatar.url}}" [alt]="contributor.avatar.alt">
+                            <img src="{{contributor?.avatar?.url}}" [alt]="contributor?.avatar?.alt">
                         </div>
                         <h4>{{contributor.fullname}}</h4>
                         <!-- <h5>{{contributor.followers_count}} {{'profileFollowers' | translate}}</h5> -->
@@ -86,9 +86,9 @@
                     </div>
                 </div>
             </div>
-            <div class="feed-row grey-bg">
+            <div class="feed-row grey-bg" *ngIf="isCompanyLoading || companyList.length > 0">
                 <h3>{{'companyOnboarding' | translate}}</h3>
-                <div class="feed-content-data"  *ngIf="!(companyList.length)">
+                <div class="feed-content-data"  *ngIf="isCompanyLoading">
                     <div  class="feed-content-data-item" *ngFor="let repeatSkeleton of skeletonData">
                         <nz-skeleton-element [nzLoading]="loading" nzType="avatar" class="custom-skeleton circle-box-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
                     </div>
@@ -124,9 +124,9 @@
                     </div>
                 </div>
             </div>
-            <div class="feed-row">
+            <div class="feed-row" *ngIf="isCharityLoading || charityList.length > 0">
                 <h3>{{'CharityOnboarding' | translate}}</h3>
-                <div class="feed-content-data"  *ngIf="!(charityList.length)">
+                <div class="feed-content-data"  *ngIf="isCharityLoading">
                     <div  class="feed-content-data-item" *ngFor="let repeatSkeleton of skeletonData">
                         <nz-skeleton-element [nzLoading]="loading" nzType="avatar" class="custom-skeleton circle-box-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
                     </div>
