@@ -9,6 +9,8 @@ import { AgreementComponent } from './agreement/agreement.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AuthGuard } from '../shared/guard/auth.guard';
 import { ImportContactComponent } from './import-contact/import-contact.component';
+import { EmailOtpComponent } from './email-otp/email-otp.component';
+import { AddWebsiteComponent } from './add-website/add-website.component';
 
 const routes: Routes = [
     {
@@ -53,6 +55,23 @@ const routes: Routes = [
         component: FeedComponent,
         data: {
             title: 'Welcome to your feed'
+        },
+        canActivate: [AuthGuard]
+    },
+    ,
+    {
+        path: 'email-verify',
+        component: EmailOtpComponent ,
+        data: {
+            title: 'Email Verify'
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'website',
+        component: AddWebsiteComponent ,
+        data: {
+            title: 'Website'
         },
         canActivate: [AuthGuard]
     },
