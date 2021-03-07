@@ -1,146 +1,77 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { NzModalService, NzMessageService, UploadFile } from 'ng-zorro-antd';
-import { UserService } from '../../shared/services/user.service';
-import { formatDate } from '@angular/common';
-import { User } from 'src/app/shared/interfaces/user.type';
-import { Member } from 'src/app/shared/interfaces/member.type';
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { NzModalService, UploadFile } from 'ng-zorro-antd';
 import { LanguageService } from 'src/app/shared/services/language.service';
+import { UserService } from '../../shared/services/user.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
-import { environment } from 'src/environments/environment';
-
-declare var FB: any;
+import { Language } from 'src/app/shared/interfaces/language.type';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-
 export class ProfileComponent implements OnInit {
-
+  
   profileForm: FormGroup;
-  changePWForm: FormGroup;
   avatarUrl: string = "";
-  selectedCountry: any;
-  selectedLanguage: any;
-  currentUser: any;
+  memberDetails;
   isPhotoChangeLoading: boolean = false;
   isFormSaving: boolean = false;
-  languageList;
-  loggedInUser;
-  fbloading: boolean = false;
-  fbAccountLinkStatus: boolean = false;
-  memberDetails;
+  currentUser: any;
   avatarData = null;
+  languageList: Language[];
+  selectedLanguage: string;
+  userTypeList = [];
+  loggedInUser;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private modalService: NzModalService,
-    private message: NzMessageService,
     private userService: UserService,
     public translate: TranslateService,
-    private languageService: LanguageService,
     private authService: AuthService,
+    private _location: Location,
+    private language: LanguageService
   ) { }
 
-  ngOnInit() {
-    this.languageList = this.languageService.geLanguageList();
+  switchLang(lang: string) {
+    this.language.changeLangOnBoarding(lang);
+  }
+
+  ngOnInit(): void {
+    this.languageList = this.language.geLanguageList();
+    this.selectedLanguage = this.language.defaultLanguage;
+
     this.profileForm = this.fb.group({
-      phone: [null, [Validators.required]],
-      birth: [null],
-      lang: [null, [Validators.required]],
-      biography: [null, [Validators.required]],
-      later: [null]
+      user_type: [null, [Validators.required]],
+      bio: [null, [Validators.required]]
     });
     this.setFormData();
 
-    (window as any).fbAsyncInit = function () {
-      FB.init({
-        appId: environment.facebook.appId,
-        cookie: true,
-        xfbml: true,
-        version: environment.facebook.version
+    setTimeout(() => {
+      this.userService.getUserTypeData().then( data => {
+        this.userTypeList = data.user_types;
       });
-
-      FB.AppEvents.logPageView();
-    };
-
-    (function (d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) { return; }
-      js = d.createElement(s); js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+    }, 2500)
   }
 
-  ngAfterViewInit() {
-    this.getFBLoginStatus();
+  backClicked() {
+    this._location.back();
   }
 
-  linkFacebook() {
-    this.fbloading = true;
-    FB.login((response) => {
-      console.log('submitLogin', response);
-      if (response.authResponse) {
-        this.fbloading = false;
-        this.fbAccountLinkStatus = true;
-      } else {
-        console.log('User login failed');
-        this.fbloading = false;
-      }
-    });
-  }
-
-  unlinkFacebook() {
-    let self = this;
-    this.fbloading = true;
-    FB.logout(function (response) {
-      self.fbAccountLinkStatus = false;
-      self.fbloading = false;
-    });
-  }
-
-  getFBLoginStatus() {
-    let self = this;
-    FB.getLoginStatus(function (response) {
-      self.statusChangeCallback(response);
-    });
-  }
-
-  statusChangeCallback(response) {
-    if (response.status === 'connected') {
-      this.fbAccountLinkStatus = true;
-    }
-  }
-
-  setUserDetails(userDetails: User) {
-    this.profileForm.controls['phone'].setValue(userDetails?.mobile);
-    this.profileForm.controls['birth'].setValue(userDetails?.birthdate ? formatDate(
-      userDetails.birthdate,
-      "yyyy/MM/dd",
-      "en"
-    ) : '');
-  }
-
-  setMemberDetails(memberDetails: Member) {
-    this.profileForm.controls['biography'].setValue(memberDetails?.bio);
-    this.profileForm.controls['lang'].setValue(memberDetails?.lang);
-
-  }
   setFormData() {
     this.userService.getCurrentUser().then((user) => {
 
 
       this.userService.get(user.uid).subscribe((userDetails) => {
         this.currentUser = userDetails;
-        this.setUserDetails(userDetails);
-
-      })
+      });
+      
       this.userService.getMember(user.uid).subscribe((memberDetails) => {
         this.avatarUrl = memberDetails?.avatar?.url;
         if (memberDetails?.avatar && memberDetails?.avatar?.url)
@@ -148,14 +79,18 @@ export class ProfileComponent implements OnInit {
             url: memberDetails?.avatar?.url,
             alt: memberDetails?.avatar?.alt
           }
+
+        if(memberDetails?.user_type) 
+          this.profileForm.controls['user_type'].setValue(memberDetails?.user_type);
+
+        if(memberDetails?.bio) 
+          this.profileForm.controls['bio'].setValue(memberDetails?.bio);
+
         this.memberDetails = memberDetails;
-        this.setMemberDetails(memberDetails);
       })
 
     })
   }
-
-
 
   async submitForm() {
 
@@ -179,43 +114,29 @@ export class ProfileComponent implements OnInit {
     if (this.findInvalidControls().length == 0 || this.profileForm.get('later').value) {
       try {
         this.isFormSaving = true;
-        const mobile = this.profileForm.get('phone').value;
-        const birthdate = formatDate(this.profileForm.get('birth').value, 'yyyy/MM/dd', "en");
-        const bio = this.profileForm.get('biography').value;
-        const lang = this.profileForm.get('lang').value;
+        const bio = this.profileForm.get('bio').value;
+        const user_type = this.profileForm.get('user_type').value;
         const loggedInUser = this.authService.getLoginDetails();
         if (!loggedInUser)
           return;
-        await this.userService.update(this.currentUser.id, { mobile, birthdate, lang })
-        await this.userService.updateMember(this.currentUser.id,
+        await this.userService.updateBasicDetails(this.currentUser.id,
           {
             bio: bio ? bio : '',
-            fullname: this.memberDetails && this.memberDetails.fullname ? this.memberDetails.fullname : loggedInUser.displayName,
-            lang,
-            slug: this.memberDetails && this.memberDetails.slug ? this.memberDetails.slug : this.authService.getSlug(loggedInUser.displayName),
+            user_type: user_type ? user_type : '',
             avatar: this.avatarData
           });
         this.isFormSaving = false;
-        this.router.navigate(['/auth/interest']);
+        if(user_type == 'reader') {
+          this.router.navigate(['/auth/import-contact']);
+        } else {
+          this.router.navigate(['/auth/website']);
+        }
       } catch (error) {
         console.log(error);
       }
 
     }
   }
-
-  updateConfirmValidator(): void {
-    Promise.resolve().then(() => this.profileForm.controls.checkPassword.updateValueAndValidity());
-  }
-
-  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
-    if (!control.value) {
-      return { required: true };
-    } else if (control.value !== this.profileForm.controls.password.value) {
-      return { confirm: true, error: true };
-    }
-  }
-
 
   private getBase64(img: File, callback: (img: {}) => void): void {
     const reader = new FileReader();
@@ -235,8 +156,7 @@ export class ProfileComponent implements OnInit {
           url: uploadedImage.url,
           alt: uploadedImage.alt
         }
-      }).catch((e) => {
-        console.info(e)
+      }).catch(() => {
         this.isPhotoChangeLoading = false;
         console.log('Image not uploaded properly')
       });
@@ -253,7 +173,5 @@ export class ProfileComponent implements OnInit {
     }
     return invalid;
   }
-
-
 
 }
