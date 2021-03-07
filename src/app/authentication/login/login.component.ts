@@ -1,59 +1,62 @@
-import { Component, NgZone, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { UserService } from 'src/app/shared/services/user.service';
-import { PreviousRouteService } from 'src/app/shared/services/previous-route.service';
-import { AuthService } from 'src/app/shared/services/authentication.service';
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { environment } from "src/environments/environment";
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { combineLatest, Subscription } from 'rxjs';
+import { AuthService } from 'src/app/shared/services/authentication.service';
+import { PreviousRouteService } from 'src/app/shared/services/previous-route.service';
+import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
 import { LanguageService } from 'src/app/shared/services/language.service';
+import { Language } from 'src/app/shared/interfaces/language.type';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
+  selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+
   recaptchaElement;
   isCaptchaElementReady: boolean = false;
+  invalidCaptcha: boolean = false;
+  captchaToken: string;
+  invalidCaptchaErr: string = "";
+  isCapchaScriptLoaded: boolean = false;
+  capchaObject;
+  languageList: Language[];
+  selectedLanguage: string;
+
   @ViewChild('recaptcha') set SetThing(e: LoginComponent) {
-    this.isCaptchaElementReady = true;
-    this.recaptchaElement = e;
-    if (this.isCaptchaElementReady && this.isCapchaScriptLoaded) {
-      this.renderReCaptcha();
-    }
+      this.isCaptchaElementReady = true;
+      this.recaptchaElement = e;
+      if (this.isCaptchaElementReady && this.isCapchaScriptLoaded) {
+          this.renderReCaptcha();
+      }
   }
-  //@ViewChild('recaptcha', { static: true }) recaptchaElement: ElementRef;
+
   errorMessage: string;
   paswordErr: boolean = false;
   showError: boolean;
   loginForm: FormGroup;
   passwordForm: FormGroup;
   errorLogin: boolean = false;
-  invalidCaptcha: boolean = false;
   user: any;
-  captchaToken: string;
   previousUrl: string;
   isFormSaving: boolean = false;
   invalidPassErr: string = "";
   invalidCredErr: string = "";
-  invalidCaptchaErr: string = "";
   somethingWentWrongErr: string = "";
   enablePasswordChangeScreen: boolean = false;
-  isCapchaScriptLoaded: boolean = false;
-  capchaObject;
   enableEmailVerificationScreen: boolean = false;
   logginUserDetails;
   memberDetails;
   userDetails;
   userDataSubs: Subscription;
-  languageList;
-
 
   constructor(
-    private userService: UserService,
     private router: Router,
     private fb: FormBuilder,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
@@ -61,24 +64,31 @@ export class LoginComponent {
     public authService: AuthService,
     public previousRoute: PreviousRouteService,
     public translate: TranslateService,
-    public location: Location,
+    private location: Location,
     private languageService: LanguageService,
+    private userService: UserService,
   ) { }
 
   async ngOnInit(): Promise<void> {
-    this.languageList = this.languageService.getSelectedLanguage();
+    this.languageList = this.languageService.geLanguageList();
+    this.selectedLanguage = this.languageService.defaultLanguage;
+  
     this.addRecaptchaScript();
     this.invalidPassErr = this.translate.instant("invalidPassErr");
     this.invalidCredErr = this.translate.instant("invalidCredErr");
     this.somethingWentWrongErr = this.translate.instant("somethingWrongErr");
     this.invalidCaptchaErr = this.translate.instant("invalidCaptchaErr");
     this.translate.onLangChange.subscribe((_event: LangChangeEvent) => {
-      this.invalidPassErr = this.translate.instant("invalidPassErr");
-      this.invalidCredErr = this.translate.instant("invalidCredErr");
-      this.somethingWentWrongErr = this.translate.instant("somethingWrongErr");
-      this.somethingWentWrongErr = this.translate.instant("invalidCaptchaErr");
+        this.invalidPassErr = this.translate.instant("invalidPassErr");
+        this.invalidCredErr = this.translate.instant("invalidCredErr");
+        this.somethingWentWrongErr = this.translate.instant("somethingWrongErr");
+        this.somethingWentWrongErr = this.translate.instant("invalidCaptchaErr");
     })
     this.buildLoginForm();
+  }
+
+  switchLang(lang: string) {
+    this.languageService.changeLangOnBoarding(lang);
   }
 
   buildLoginForm() {
@@ -89,10 +99,8 @@ export class LoginComponent {
     this.passwordForm = this.fb.group({
       password: [null, [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,30}$/)]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
-
     });
   }
-
 
   onLogin() {
     this.isFormSaving = true;
@@ -116,11 +124,8 @@ export class LoginComponent {
             this.validatePassAndNext(userData);
           }
         })
-
       }
       this.isFormSaving = false;
-
-
     }).catch((err) => {
       this.resetCaptcha();
 
@@ -138,7 +143,6 @@ export class LoginComponent {
               this.errorMessage = this.translate.instant("PasswordExpired");
               this.showError = true;
               this.errorLogin = true;
-
             }
           }, _error => {
             this.resetCaptcha();
@@ -146,7 +150,6 @@ export class LoginComponent {
             this.errorMessage = this.invalidCredErr;
             this.showError = true;
             this.errorLogin = true;
-
           })
         } catch (error) {
           this.resetCaptcha();
@@ -155,16 +158,8 @@ export class LoginComponent {
           this.showError = true;
           this.errorLogin = true;
         }
-
-
       }
-
-
-
     })
-
-
-
   }
 
   submitForm() {
@@ -173,7 +168,6 @@ export class LoginComponent {
       this.loginForm.controls[i].updateValueAndValidity();
     }
     this.validateCaptcha();
-
   }
 
   validatePassAndNext(userData) {
@@ -182,8 +176,6 @@ export class LoginComponent {
         this.navigateToUserProfile();
       else
         this.router.navigate(["auth/profile"]);
-
-
     } else {
       this.enablePasswordChangeScreen = true;
     }
@@ -202,13 +194,21 @@ export class LoginComponent {
         }
       }
     });
-
   }
+
   checkDejangoCred(userDetails) {
     return this.authService.checkDejangoCred(userDetails)
   }
-  addRecaptchaScript() {
 
+  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+    if (!control.value) {
+      return { required: true };
+    } else if (control.value !== this.passwordForm.controls.password.value) {
+      return { confirm: true, error: true };
+    }
+  }
+
+  addRecaptchaScript() {
     window['grecaptchaCallback'] = () => {
       this.isCapchaScriptLoaded = true;
       if (this.isCapchaScriptLoaded && this.isCaptchaElementReady)
@@ -226,8 +226,8 @@ export class LoginComponent {
       js.src = "https://www.google.com/recaptcha/api.js?onload=grecaptchaCallback&render=explicit";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'recaptcha-jssdk', this));
-
   }
+
   renderReCaptcha() {
     if (!this.recaptchaElement)
       return;
@@ -243,6 +243,7 @@ export class LoginComponent {
       }
     });
   }
+
   validateCaptcha() {
     if (this.captchaToken) {
       this.isFormSaving = true;
@@ -254,47 +255,19 @@ export class LoginComponent {
         this.errorMessage = this.invalidCaptchaErr;
         this.invalidCaptcha = true;
         this.resetCaptcha();
-
       })
     } else {
       this.errorMessage = this.invalidCaptchaErr;
       this.invalidCaptcha = true;
       this.resetCaptcha();
     }
-
-
-
   }
+
   isPassValidationApproved(passWord) {
     const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,30}$/;
     return pattern.test(passWord);
   }
-  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
-    if (!control.value) {
-      return { required: true };
-    } else if (control.value !== this.passwordForm.controls.password.value) {
-      return { confirm: true, error: true };
-    }
-  }
-  resetPassword() {
-    for (const i in this.passwordForm.controls) {
-      this.passwordForm.controls[i].markAsDirty();
-      this.passwordForm.controls[i].updateValueAndValidity();
-    }
 
-    if (this.findInvalidControls().length === 0) {
-      this.isFormSaving = true;
-      this.userService.updatePassword(this.passwordForm.get('password').value).then(() => {
-        this.isFormSaving = false;
-        this.navigateToUserProfile();
-      }).catch(() => {
-        this.paswordErr = true;
-        this.errorMessage = this.somethingWentWrongErr
-        this.isFormSaving = false;
-      })
-    }
-
-  }
   public findInvalidControls() {
     const invalid = [];
     const controls = this.passwordForm.controls;
@@ -305,16 +278,19 @@ export class LoginComponent {
     }
     return invalid;
   }
+  
   resetCaptcha() {
     window['grecaptcha'].reset(this.capchaObject);
     this.captchaToken = ""
   }
+
   showEmailVerification() {
     this.enableEmailVerificationScreen = true;
     setTimeout(() => {
       this.enableEmailVerificationScreen = false;
     }, 6000);
   }
+
   isOnboardingProcessDone() {
     const memberDetails = this.memberDetails;
     const userDetails = this.userDetails;
@@ -324,10 +300,10 @@ export class LoginComponent {
     else
       return true;
   }
+
   ngOnDestroy() {
     if (this.userDataSubs)
       this.userDataSubs.unsubscribe()
   }
+
 }
-
-

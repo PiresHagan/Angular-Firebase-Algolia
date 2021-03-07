@@ -150,6 +150,6 @@ export class AddWebsiteComponent implements OnInit {
   }
 
   goToNext() {
-    this.router.navigate(['/auth/onboarding/import-contact']);
+    this.router.navigate(['/auth/import-contact']);
   }
 }
