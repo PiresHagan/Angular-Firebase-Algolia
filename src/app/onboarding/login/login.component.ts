@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { Language } from 'src/app/shared/interfaces/language.type';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -64,12 +65,13 @@ export class LoginComponent implements OnInit {
     public previousRoute: PreviousRouteService,
     public translate: TranslateService,
     private location: Location,
-    private language: LanguageService
+    private languageService: LanguageService,
+    private userService: UserService,
   ) { }
 
   async ngOnInit(): Promise<void> {
-    this.languageList = this.language.geLanguageList();
-    this.selectedLanguage = this.language.defaultLanguage;
+    this.languageList = this.languageService.geLanguageList();
+    this.selectedLanguage = this.languageService.defaultLanguage;
   
     this.addRecaptchaScript();
     this.invalidPassErr = this.translate.instant("invalidPassErr");
@@ -86,7 +88,7 @@ export class LoginComponent implements OnInit {
   }
 
   switchLang(lang: string) {
-    this.language.changeLangOnBoarding(lang);
+    this.languageService.changeLangOnBoarding(lang);
   }
 
   buildLoginForm() {
@@ -134,11 +136,14 @@ export class LoginComponent implements OnInit {
       } else {
 
         try {
-          this.checkDejangoCred(userData).subscribe((_djangoData) => {
-            this.authService.doLogin(userData.email, userData.password).then(() => {
+          this.checkDejangoCred(userData).subscribe((_djangoData: any) => {
+            if (_djangoData.code == 'auth/reset-password') {
+              this.resetCaptcha();
               this.isFormSaving = false;
-              this.validatePassAndNext(userData);
-            })
+              this.errorMessage = this.translate.instant("PasswordExpired");
+              this.showError = true;
+              this.errorLogin = true;
+            }
           }, _error => {
             this.resetCaptcha();
             this.isFormSaving = false;
@@ -172,13 +177,22 @@ export class LoginComponent implements OnInit {
       else
         this.router.navigate(["auth/profile"]);
     } else {
-        this.enablePasswordChangeScreen = true;
+      this.enablePasswordChangeScreen = true;
     }
   }
 
   private navigateToUserProfile() {
     this.ngZone.run(() => {
-      this.location.back();
+      this.previousUrl = this.previousRoute.getPreviousUrl();
+      if (this.previousUrl) {
+        this.location.back();
+      } else {
+        if (this.userService.userData?.isNewConsoleUser) {
+          this.authService.redirectToConsole(`${environment.consoleURL}/settings/profile-settings`, {})
+        } else {
+          this.router.navigate(["app/settings/profile-settings"]);
+        }
+      }
     });
   }
 

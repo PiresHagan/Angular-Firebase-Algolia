@@ -789,5 +789,9 @@
   "author": "Autor",
   "company": "Empresas",
   "fundraiser": "Recaudador de fondos",
-  "sendInvitation": "Enviar invitaciones"
+  "sendInvitation": "Enviar invitaciones",
+  "ResetYourPassword": "Restablece tu contraseña",
+  "ResetPassDesc": "Ingrese su correo electrónico para restablecer su contraseña",
+  "EmailNotFound": "Correo electrónico no encontrado en nuestros registros.",
+  "EmailPassReset": "Se le ha enviado un correo electrónico"
 }
