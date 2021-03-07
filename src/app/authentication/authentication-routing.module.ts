@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { NetworkComponent } from './network/network.component';
-import { InterestComponent } from './interest/interest.component';
+import { FeedComponent } from './feed/feed.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AgreementComponent } from './agreement/agreement.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
@@ -49,10 +49,10 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'interest',
-        component: InterestComponent,
+        path: 'feed',
+        component: FeedComponent,
         data: {
-            title: 'Define your interests'
+            title: 'Welcome to your feed'
         },
         canActivate: [AuthGuard]
     },

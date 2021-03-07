@@ -6,7 +6,7 @@ import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { NetworkComponent } from './network/network.component';
-import { InterestComponent } from './interest/interest.component';
+import { FeedComponent } from './feed/feed.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AgreementComponent } from './agreement/agreement.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
@@ -43,7 +43,7 @@ import { LanguageService } from '../shared/services/language.service';
         LoginComponent,
         SignUpComponent,
         NetworkComponent,
-        InterestComponent,
+        FeedComponent,
         ProfileComponent,
         AgreementComponent,
         ResetPasswordComponent,
