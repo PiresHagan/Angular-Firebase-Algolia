@@ -302,7 +302,11 @@ export class LoginComponent implements OnInit {
   isOnboardingProcessDone() {
     const memberDetails = this.memberDetails;
     const userDetails = this.userDetails;
-    if (!memberDetails.bio || !memberDetails.avatar || !userDetails.interests || !memberDetails.lang || userDetails.interests.length == 0 || !memberDetails.avatar.url)
+    if (
+      !memberDetails.bio || !memberDetails.avatar || !memberDetails.user_type 
+      || !userDetails.interests || userDetails.interests.length == 0 || !memberDetails.avatar.url
+      || (memberDetails.user_type != 'reader' && !memberDetails.onboarding_website)
+    )
       return false;
     else
       return true;
