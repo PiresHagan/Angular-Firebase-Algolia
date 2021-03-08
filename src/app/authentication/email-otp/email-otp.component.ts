@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { Language } from 'src/app/shared/interfaces/language.type';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-email-otp',
   templateUrl: './email-otp.component.html',
@@ -16,7 +18,8 @@ export class EmailOtpComponent implements OnInit {
   constructor(
     public translate: TranslateService,
     private _location: Location,
-    private language: LanguageService
+    private language: LanguageService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {

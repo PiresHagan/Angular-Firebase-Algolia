@@ -41,7 +41,6 @@ const routes: Routes = [
             title: 'Agreement'
         }
     },
-
     {
         path: 'network',
         component: NetworkComponent,
@@ -58,14 +57,12 @@ const routes: Routes = [
         },
         canActivate: [AuthGuard]
     },
-    ,
     {
         path: 'email-verify',
         component: EmailOtpComponent ,
         data: {
             title: 'Email Verify'
-        },
-        canActivate: [AuthGuard]
+        }
     },
     {
         path: 'website',

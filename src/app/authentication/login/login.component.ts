@@ -174,8 +174,16 @@ export class LoginComponent implements OnInit {
     if (this.isPassValidationApproved(userData.password)) {
       if (this.isOnboardingProcessDone())
         this.navigateToUserProfile();
-      else
-        this.router.navigate(["auth/profile"]);
+      else {
+        const memberDetails = this.memberDetails;
+        const userDetails = this.userDetails;
+        if(!memberDetails.bio || !memberDetails.avatar || !memberDetails.avatar.url || !memberDetails.user_type)
+          this.router.navigate(["auth/profile"]);
+        else if(memberDetails.user_type != 'reader' && !memberDetails.onboarding_website)
+          this.router.navigate(["auth/website"]);
+        else if(!userDetails.interests || userDetails.interests.length == 0)
+          this.router.navigate(["auth/feed"]);
+      }
     } else {
       this.enablePasswordChangeScreen = true;
     }
@@ -285,6 +293,7 @@ export class LoginComponent implements OnInit {
   }
 
   showEmailVerification() {
+    this.router.navigate(['/auth/email-verify']);
     this.enableEmailVerificationScreen = true;
     setTimeout(() => {
       this.enableEmailVerificationScreen = false;
@@ -294,8 +303,7 @@ export class LoginComponent implements OnInit {
   isOnboardingProcessDone() {
     const memberDetails = this.memberDetails;
     const userDetails = this.userDetails;
-    if ((!memberDetails.bio && !memberDetails.biography_en && !memberDetails.biography_es && !memberDetails.biography_fr) ||
-      !memberDetails.avatar || !userDetails.interests || !memberDetails.lang || userDetails.interests.length == 0 || !memberDetails.avatar || !memberDetails.avatar.url)
+    if (!memberDetails.bio || !memberDetails.avatar || !userDetails.interests || !memberDetails.lang || userDetails.interests.length == 0 || !memberDetails.avatar.url)
       return false;
     else
       return true;
