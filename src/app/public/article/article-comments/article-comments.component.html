@@ -5,7 +5,7 @@
   </div>
 
   <div class="is-middle-ad-section" style="margin:30px 0px;">
-    <div *ngIf="displayAd" class="ads-box" style="margin:0 auto;">
+    <div *ngIf="displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'" class="ads-box" style="margin:0 auto;">
       <div adItem pointer="div-gpt-ad-1599554575619-0" [author]="article?.author?.slug" style="margin: 10px auto;">
       </div>
     </div>
