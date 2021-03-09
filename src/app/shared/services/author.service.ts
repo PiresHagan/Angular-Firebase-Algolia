@@ -40,6 +40,17 @@ export class AuthorService {
     );
 
   }
+
+  getOnBoardingContributors(lang: string) {
+    return new Promise((resolve, reject) => {
+      this.http.get(environment.baseAPIDomain + `/api/v1/onBoarding/${lang}/getTopContributors`, {}).subscribe((response: any) => {
+        resolve(response)
+      }, (error) => {
+        reject(error)
+      })
+    })
+  }
+
   reportAbusedUser(userId: string) {
     return new Promise<any>((resolve, reject) => {
       return this.http.post(environment.baseAPIDomain + `/api/v1/members/${userId}/abuse`, {}).subscribe(() => {

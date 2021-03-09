@@ -1,0 +1,22 @@
+::ng-deep body, ::ng-deep html{
+    background: #fff;
+    overflow-x: unset;
+    min-width:unset;
+}
+.is-signup-main {
+    .is-signup-form-main {
+        .is-form {
+           .verify-email{
+               text-align: center;
+            img{
+                max-width: 120px;
+                margin: 0px auto 30px;
+            }
+            .login-form-button{
+                margin: auto;
+            }
+           }
+        }
+    }
+
+  }

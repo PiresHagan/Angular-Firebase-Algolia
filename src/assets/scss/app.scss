@@ -869,3 +869,355 @@ li {
 /*********************************************************
               Custom Fonts Css End
 ********************************************************/
+
+
+// Onboarding css
+.is-signup-main {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding-right: 40%;
+  .onboarding-logo{
+    margin: 20px 0px 0px 40px;
+    z-index: 2;
+    max-width: 160px;
+  }
+  .language-dropdown{
+    position: absolute;
+    right: 40%;
+    top: 40px;
+    &.feed-dropdown{
+      right:40px;
+    }
+  }
+  .is-signup-form-main {
+      width: 100%;
+      max-width: 100%;
+      min-height: calc(100vh - 110px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .is-form {
+          width: 465px;
+          max-width: 500px;
+          ::ng-deep .Succes-alert{
+            .ant-alert-success{
+                background-color:#fff;
+                border:0px;
+                text-align: center;
+                svg{
+                    margin-bottom: 30px;
+                }
+            }
+          }
+          h2 {
+              font-family: "josefin_sansregular";
+              font-size: 42px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: 42px;
+              letter-spacing: 0em;
+              text-align: center;
+              color: #000000;
+              margin:0px 0px 12px 0px;
+          }
+          p {
+              font-family: "open_sansregular";
+              font-size: 18px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: 25px;
+              letter-spacing: 0em;
+              text-align: center;
+              color: #000000;
+              margin-bottom: 20px;
+          }
+          .import-contact-icon{
+            margin: 0px 0px 30px 0px;
+            justify-content: center;
+            display: flex;
+            padding:0px;
+            li{
+              padding: 10px;
+              list-style: none;
+              a{
+                display: inline-block;
+                position: relative;
+                >img{
+                  width:50px;
+                }
+                .check-icon{
+                  position: absolute;
+                  top:5px;
+                  right:5px;
+                  >img{
+                    width:25px;
+                  }
+                }
+              }
+            }
+          }
+          .is-icon {
+              position: relative;
+              ::ng-deep .ant-form-item-children {
+                  display: block;
+              }
+              input {
+                height: 43px;
+                width: 100%;
+                border-radius: 3px;
+                border:1px solid #BCBCBC;
+                color: #000;
+                font-family: "josefin_sansregular";
+                font-size: 20px;
+                &::-webkit-input-placeholder {
+                    color: #C8C8CA;
+                }
+
+                &:-ms-input-placeholder {
+                    color: #C8C8CA;
+                }
+
+                &::placeholder {
+                    color: #C8C8CA;
+                }
+            }
+          }
+          .ant-form-item {
+              margin-bottom: 15px;
+          }
+          .signin-footer{
+              text-align: center;
+              .forget-link{
+                  color: #000000;
+                  font-family: "josefin_sansregular";
+                  font-size: 18px;
+              }
+              .login-form-margin{
+                  justify-content: center;
+                  border-top: 1px solid #DADADA;
+                  margin-top: 20px;
+                  padding-top: 20px;
+                  span{
+                      font-family: "josefin_sanslight";
+                      color:#000;
+                      font-size: 18px;
+                      a{
+                          font-family: "josefin_sanssemibold";
+                          color: #EF4C26;
+                      }
+                  }
+              }
+          }
+      }
+  }
+.footer-btn{
+  display: flex;
+  justify-content: center;
+}
+  .is-login-btn {
+      padding: 10px 20px;
+      color: #fff;
+      background: #ff4020;
+      border-radius: 25px;
+      font-family: "open_sansregular";
+      font-weight: 600;
+      font-size: 20px;
+      justify-content: center;
+      display: flex;
+      align-items: center;
+      text-transform: uppercase;
+      border:0px;
+      outline: none;
+      svg{
+          margin-left: 10px;
+      }
+      &.back-btn{
+        background: #C1C1C1;
+        color: #000;
+        margin-right: 10px;
+        svg{
+          margin-left: 0px;
+          margin-right: 10px;
+        }
+      }
+  }
+
+  
+}
+
+.email-contact-list::-webkit-scrollbar {
+  width: 8px;
+  background: #ccc;
+}
+
+.email-contact-list::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+ 
+.email-contact-list::-webkit-scrollbar-thumb {
+  background: #ff4020; 
+  border-radius: 10px;
+}
+@media screen and (max-width:580px){
+  .is-signup-main {
+      background-image: none  !important;
+      padding: 30px 30px 0px 30px;
+      height: 100%;
+      .onboarding-logo{
+          margin: 0px 0px 20px 0px;
+        }
+        .language-dropdown{
+          right: 20px;
+          &.feed-dropdown{
+            right:30px;
+          }
+        }
+      .is-signup-form-main {
+        .is-form {
+            width: 100%;
+            ::ng-deep.ant-card{
+                margin-bottom: 0px;
+              .ant-card-body{
+                  padding: 0px;
+              }
+            }
+            h2 {
+                font-size: 26px;
+                line-height: normal;
+
+            }
+            p {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+            .is-icon {
+                position: relative;
+                ::ng-deep .ant-form-item-children {
+                    display: block;
+                }
+                input {
+                    height: 36px;
+                    font-size: 18px;
+                }
+            }
+            .signin-footer{
+                text-align: center;
+                .forget-link{
+                    font-size: 16px;
+                }
+                .login-form-margin{
+                    margin-top: 10px;
+                    padding-top: 10px;
+                    span{
+                        font-size: 16px;
+                    }
+                }
+            }
+            
+        }
+    }
+    .is-login-btn {
+      font-size: 16px;
+  }
+  }
+}
+
+@media screen and (min-width:581px) and (max-width:767px){
+    .is-signup-main {
+        background-image: none  !important;
+        padding: 30px 30px 0px 30px;
+        height: 100%;
+          .onboarding-logo{
+              margin: 0px;
+          }
+          .language-dropdown{
+            right: 20px;
+            &.feed-dropdown{
+              right:30px;
+            }
+          }
+        .is-signup-form-main {
+          .is-form {
+              width: 100%;
+              h2 {
+                  font-size: 26px;
+                  line-height: normal;
+  
+              }
+              p {
+                  font-size: 16px;
+                  margin-bottom: 20px;
+              }
+              .is-icon {
+                  position: relative;
+                  ::ng-deep .ant-form-item-children {
+                      display: block;
+                  }
+                  input {
+                      height: 36px;
+                      font-size: 18px;
+                  }
+              }
+              .signin-footer{
+                  text-align: center;
+                  .forget-link{
+                      font-size: 16px;
+                  }
+                  .login-form-margin{
+                      margin-top: 10px;
+                      padding-top: 10px;
+                      span{
+                          font-size: 16px;
+                      }
+                  }
+              }
+              
+          }
+      }
+      .is-login-btn {
+          font-size: 16px;
+      }
+    }
+}
+@media screen and (min-width:768px) and (max-width:1279px){
+  .is-signup-main {
+    background-size: 380px !important;
+    padding-right: 50%;
+    .language-dropdown{
+      right: 20px;
+    }
+    .is-signup-form-main {
+        padding: 0px 30px;
+        .is-form {
+            h2 {
+                font-size: 26px;
+                line-height: normal;
+
+            }
+            p {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+            .is-icon {
+                position: relative;
+                ::ng-deep .ant-form-item-children {
+                    display: block;
+                }
+                input {
+                    height: 36px;
+                    font-size: 18px;
+                }
+            }
+          ::ng-deep .ant-card-body{
+            padding-bottom: 0px;
+            padding-top: 0px;
+          }  
+        }
+    }
+    .is-login-btn {
+      font-size: 16px;
+  }
+  }
+}
+

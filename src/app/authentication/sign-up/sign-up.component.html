@@ -1,151 +1,135 @@
-<section class="is-signup-main">
-    <div class="is-signup-center">
-        <div class="row no-gutters h-100">
-            <div class="col-sm-6 col-lg-5 is-form-img"
-                style="background-image:url('assets/images/others/sign-up-mts.png')">
-                <div class="is-banner-content">
-                    <div class="is-logo">
-                        <img src="assets/images/logo/logo-white.png" alt="">
-                    </div>
-                    <div class="is-img-title">
-                        <h3>{{'thePeopleVoice' | translate}}</h3>
-                        <p>{{'loginBannerDes' | translate}}</p>
-
-                    </div>
-                    <div class="is-signup-footer">
-                        <span class="text-white">© 2020 My Trending Stories</span>
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <a class="text-white text-link" routerLink="/terms">{{'loginTerms' | translate}}</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="text-white text-link" routerLink="/contact">{{'loginContact' | translate}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6  col-lg-7 bg-white">
-                <div class="is-signup-form-main">
-                    <div class="is-form">
-                        <h2>{{'signUp' | translate}}</h2>
-                        <p>{{'signUpTitleDes' | translate}}</p>
-                        <form nz-form [formGroup]="signUpForm" class="login-form" (ngSubmit)="submitForm()">
-
-                            <nz-alert class="m-b-10" nzType="error" nzDescription=" {{'invalidCaptchaErr' | translate}}"
-                                nzShowIcon *ngIf="invalidCaptcha"></nz-alert>
+<section class="is-signup-main"
+    style="background: url(assets/images/sign-up/connecting.png) bottom right no-repeat; background-size: contain;">
+    <img [routerLink]="['/']" src="assets/images/sign-up/logo.svg" class="onboarding-logo" alt="">
+    <nz-select (ngModelChange)="switchLang($event)" [(ngModel)]="selectedLanguage" class="language-dropdown">
+        <nz-option 
+            *ngFor="let option of languageList" 
+            [nzLabel]="option.label"
+            [nzValue]="option.code">
+            {{ option.label }}
+        </nz-option>
+    </nz-select>
+    <div class="is-signup-form-main">
+        <div class="is-form">
+            <h2>{{'signUp' | translate}}</h2>
+            <p>{{'signUpTitleDes' | translate}}</p>
+            <form nz-form [formGroup]="signUpForm" class="login-form" (ngSubmit)="submitForm()">
+                
+                <nz-alert class="m-b-10" nzType="error" nzDescription=" {{'invalidCaptchaErr' | translate}}"
+                    nzShowIcon *ngIf="invalidCaptcha"></nz-alert>
 
 
-                            <nz-alert class="m-b-10" nzType="error" nzDescription="{{'artError' | translate}}"
-                                nzShowIcon *ngIf="errorDetails"></nz-alert>
+                <nz-alert class="m-b-10" nzType="error" nzDescription="{{'artError' | translate}}"
+                    nzShowIcon *ngIf="errorDetails"></nz-alert>
 
 
-                            <nz-alert class="m-b-10" *ngIf="enableEmailVerificationScreen" nzType="info"
-                                nzMessage="{{'verifyEmailTitle' | translate}}"
-                                nzDescription="{{'verifySignUpEmailDesc' | translate}}" nzShowIcon></nz-alert>
+                <nz-alert class="m-b-10" *ngIf="enableEmailVerificationScreen" nzType="info"
+                    nzMessage="{{'verifyEmailTitle' | translate}}"
+                    nzDescription="{{'verifySignUpEmailDesc' | translate}}" nzShowIcon></nz-alert>
 
-                            <nz-alert nzType="error" [nzDescription]="errorSignup" *ngIf="errorSignup">
-                                <ng-template #errorSignup>
-                                    <ng-container>
-                                        {{'alreadyEmailError' | translate}} <a
-                                            href="/login">{{'logIn' | translate}}</a>.
-                                    </ng-container>
-                                </ng-template>
-                            </nz-alert>
-                            <nz-alert nzType="error" [nzDescription]="errorPasswordWeak" *ngIf="errorPasswordWeak">
-                                <ng-template #errorPasswordWeak>
-                                    <ng-container>
-                                        {{'passwordError' | translate}}
+                <nz-alert nzType="error" [nzDescription]="errorSignup" *ngIf="errorSignup">
+                    <ng-template #errorSignup>
+                        <ng-container>
+                            {{'alreadyEmailError' | translate}} <a
+                                href="/login">{{'logIn' | translate}}</a>.
+                        </ng-container>
+                    </ng-template>
+                </nz-alert>
+                <nz-alert nzType="error" [nzDescription]="errorPasswordWeak" *ngIf="errorPasswordWeak">
+                    <ng-template #errorPasswordWeak>
+                        <ng-container>
+                            {{'passwordError' | translate}}
 
 
-                                    </ng-container>
-                                </ng-template>
-                            </nz-alert>
-                            <nz-alert nzType="error" [nzDescription]="errorAgree" *ngIf="errorAgree" class="mb-2">
-                                <ng-template #errorAgree>
-                                    <ng-container>
-                                        {{'signUpAgreement' | translate}}
-                                    </ng-container>
-                                </ng-template>
-                            </nz-alert>
-                            <nz-form-item>
-                                <!-- <nz-form-label nzRequired nzFor="fullname">Fullname</nz-form-label> -->
-                                <nz-form-control nzErrorTip="{{'fullNameError' | translate}}" class="is-icon">
-                                    <input type="text" nz-input formControlName="fullname"
-                                        placeholder="{{'signUpFullName' | translate}}" id="fullname">
-                                    <img src="assets/images/sign-up/user.png" />
-                                </nz-form-control>
-                            </nz-form-item>
-                            <nz-form-item>
-                                <!-- <nz-form-label nzRequired nzFor="email">Email</nz-form-label> -->
-                                <nz-form-control nzErrorTip="{{'loginEmailError' | translate}}" class="is-icon">
-                                    <input type="text" nz-input formControlName="email"
-                                        placeholder="{{'loginInputEmail' | translate}}" id="email">
-                                    <img src="assets/images/sign-up/email.png" />
-                                </nz-form-control>
-                            </nz-form-item>
-                            <nz-form-item>
-                                <!-- <nz-form-label nzRequired nzFor="password">Password</nz-form-label> -->
-                                <nz-form-control nzErrorTip="{{'passwordError' | translate}}" class="is-icon">
-                                    <input type="password" nz-input formControlName="password"
-                                        placeholder="{{'loginInputPassword' | translate}}" id="password">
-                                    <img src="assets/images/sign-up/password.png" />
-                                </nz-form-control>
-                            </nz-form-item>
-                            <nz-form-item>
-                                <!-- <nz-form-label nzFor="checkPassword" nzRequired>Confirm Password</nz-form-label> -->
-                                <nz-form-control [nzErrorTip]="errorTpl" class="is-icon">
-                                    <input nz-input type="password" formControlName="checkPassword"
-                                        placeholder="{{'signUpConfirmPassword' | translate}}" id="checkPassword">
-                                    <img src="assets/images/sign-up/password.png" />
-                                    <ng-template #errorTpl let-control>
-                                        <ng-container *ngIf="control.hasError('required')">
-                                            {{'confirmPasswordError' | translate}}
-                                        </ng-container>
-                                        <ng-container *ngIf="control.hasError('confirm')">
-                                            {{'twoPasswodError' | translate}}
-                                        </ng-container>
-                                    </ng-template>
-                                </nz-form-control>
-                            </nz-form-item>
-                            <div>
-                                <nz-form-item>
-                                    <nz-form-control>
-                                        <label nz-checkbox class="agree-check" formControlName="agree" nzRequired
-                                            style="margin-right:0px"><span>{{'signUpTermRead' | translate}}</span></label><a
-                                            routerLink="/terms">{{'loginTerms' | translate}}</a>
-                                    </nz-form-control>
-                                </nz-form-item>
-                                <div #recaptcha class="m-b-10">Loading Captcha...</div>
-                                <nz-form-item>
-                                    <nz-form-control>
-                                        <div class="text-center">
-                                            <button nz-button class="is-login-btn" [nzLoading]="isFormSaving"
-                                                [nzType]="'primary'">{{'signUp' | translate}}</button>
-                                        </div>
-                                    </nz-form-control>
-                                </nz-form-item>
+                        </ng-container>
+                    </ng-template>
+                </nz-alert>
+                <nz-alert nzType="error" [nzDescription]="errorAgree" *ngIf="errorAgree" class="mb-2">
+                    <ng-template #errorAgree>
+                        <ng-container>
+                            {{'signUpAgreement' | translate}}
+                        </ng-container>
+                    </ng-template>
+                </nz-alert>
+
+                <nz-form-item>
+                    <nz-form-control nzErrorTip="{{'fullNameError' | translate}}" class="is-icon">
+                        <input type="text" nz-input formControlName="fullname"
+                            placeholder="{{'signUpFullName' | translate}}" id="fullname">
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-control nzErrorTip="{{'loginEmailError' | translate}}" class="is-icon">
+                        <input type="text" nz-input formControlName="email"
+                            placeholder="{{'loginInputEmail' | translate}}" id="email">
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-control nzErrorTip="{{'passwordError' | translate}}" class="is-icon">
+                        <input type="password" nz-input formControlName="password"
+                            placeholder="{{'loginInputPassword' | translate}}" id="password">
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-control [nzErrorTip]="errorTpl" class="is-icon">
+                        <input nz-input type="password" formControlName="checkPassword"
+                            placeholder="{{'signUpConfirmPassword' | translate}}" id="checkPassword">
+                        <ng-template #errorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">
+                                {{'confirmPasswordError' | translate}}
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('confirm')">
+                                {{'twoPasswodError' | translate}}
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <div>
+                    <nz-form-item>
+                        <nz-form-control>
+                            <label 
+                                nz-checkbox class="agree-check" 
+                                formControlName="agree" 
+                                nzRequired
+                                style="margin-right:0px"
+                            >
+                            <span>{{'signUpTermRead' | translate}}</span></label>
+                            <a routerLink="/terms">{{'loginTerms' | translate}}</a>
+                        </nz-form-control>
+                    </nz-form-item>
+                    
+                    <div #recaptcha class="m-b-10">Loading Captcha...</div>
+                    
+                    <nz-form-item>
+                        <nz-form-control>
+                            <div class="footer-btn">
+                                <a  (click)="backClicked()" class="is-login-btn back-btn">
+                                        
+                                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0)">
+                                        <path d="M0.286427 11.8087C0.286718 11.8084 0.286963 11.8081 0.287304 11.8078L5.39004 6.72969C5.77231 6.34927 6.39062 6.35068 6.77114 6.73301C7.15161 7.11528 7.15015 7.73359 6.76787 8.11406L3.34189 11.5234H24.0234C24.5628 11.5234 25 11.9606 25 12.5C25 13.0394 24.5628 13.4766 24.0234 13.4766H3.34194L6.76782 16.8859C7.1501 17.2664 7.15156 17.8847 6.77109 18.267C6.39058 18.6494 5.77222 18.6507 5.38999 18.2703L0.287256 13.1922C0.286963 13.1919 0.286718 13.1916 0.286377 13.1913C-0.0960941 12.8095 -0.0948734 12.1892 0.286427 11.8087Z" fill="black"/>
+                                        </g>
+                                        <defs>
+                                        <clipPath id="clip0">
+                                        <rect width="25" height="25" fill="white" transform="matrix(-1 0 0 1 25 0)"/>
+                                        </clipPath>
+                                        </defs>
+                                    </svg>
+                                    {{'Back' | translate}}
+                                </a>
+                                
+                                <button 
+                                    nz-button class="is-login-btn" 
+                                    [nzLoading]="isFormSaving"
+                                    [nzType]="'primary'"
+                                >
+                                    {{'signUp' | translate}}
+                                </button>
                             </div>
-                            <!-- <div class="is-login-with-other">
-                                    <div class="is-or-txt">
-                                        <span>Or sign up using</span>
-                                    </div>
-                                    <ul>
-                                        <li>
-                                            <a href="#"><img src="assets/images/sign-up/facebook.png" /></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img src="assets/images/sign-up/twitter.png" /></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img src="assets/images/sign-up/google.png" /></a>
-                                        </li>
-                                    </ul>
-                                </div> -->
-                        </form>
-                    </div>
+                        </nz-form-control>
+                    </nz-form-item>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </section>

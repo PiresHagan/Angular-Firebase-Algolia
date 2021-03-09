@@ -1,18 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/shared/services/user.service';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { NzModalService } from 'ng-zorro-antd';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+
+import { UserService } from 'src/app/shared/services/user.service';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { environment } from 'src/environments/environment';
+import { Language } from 'src/app/shared/interfaces/language.type';
+
 declare const cloudsponge: any;
+
 @Component({
   selector: 'app-import-contact',
   templateUrl: './import-contact.component.html',
-  styleUrls: ['./import-contact.component.css']
+  styleUrls: ['./import-contact.component.scss']
 })
+
 export class ImportContactComponent implements OnInit {
+
   listOfDisplayData = {
     gmail: [],
     yahoo: [],
@@ -61,17 +67,26 @@ export class ImportContactComponent implements OnInit {
     loading: false
   }]
 
+  languageList: Language[];
+  selectedLanguage: string;
 
   constructor(
     private userService: UserService, 
     public translate: TranslateService, 
-    private modalService: NzModalService, 
     private router: Router, 
+    private authService: AuthService,
     private language: LanguageService,
-    private authService: AuthService
+    private _location: Location
   ) { }
 
+  switchLang(lang: string) {
+    this.language.changeLangOnBoarding(lang);
+  }
+
   ngOnInit(): void {
+    this.languageList = this.language.geLanguageList();
+    this.selectedLanguage = this.language.defaultLanguage;
+
     const firstProvider = this.providerList[0].name;
     this.setLoadingStatus(firstProvider, true);
     this.userService.getCurrentUser().then((user) => {
@@ -83,14 +98,9 @@ export class ImportContactComponent implements OnInit {
         this.providerList[0].serverLoadStatus = true;
         this.setLoadingStatus(firstProvider, false);
       })
-
     })
-
-
-
-
-
   }
+
   ngAfterViewChecked(): void {
     /* need _canScrollDown because it triggers even if you enter text in the textarea */
     try {
@@ -134,20 +144,9 @@ export class ImportContactComponent implements OnInit {
 
     } catch (error) {
       console.log(error);
-
     }
-
-  }
-  reset(): void {
-    this.searchValue = '';
-    this.search();
   }
 
-  search(): void {
-    //   this.visible = false;
-    //   this.listOfDisplayData = this.listOfDisplayData.filter((item) => item.name.indexOf(this.searchValue) !== -1);
-    // 
-  }
 
   refreshCheckedStatus(provider): void {
     this.checked = this.importedContact[provider].every(item => {
@@ -190,15 +189,7 @@ export class ImportContactComponent implements OnInit {
     return Object.keys(this.selectedContacts[provider]).length
 
   }
-  importContact(provider) {
-    this.loading = true;
-    this.userService.uploadContact(this.currentUser.uid, provider, this.getContactList(provider)).then(() => {
-      this.loading = false;
-      this.showSuccess();
-    }).catch(() => {
-      this.loading = false;
-    })
-  }
+
   getContactList(provider) {
     let serverContacts = []
     if (this.selectedContacts[provider]) {
@@ -272,28 +263,26 @@ export class ImportContactComponent implements OnInit {
       element.loading = false
     });
   }
-  showSuccess() {
-    let $message = this.translate.instant("profileSaveMessage");
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      $message = this.translate.instant("confirmPassMessage");
+
+  sendInvite(contact, providerName: string) {
+    contact['isSendingInvite'] = true;
+
+    const body = {
+      provider: providerName,
+      email: contact.email,
+      fullname: contact.fullname ? contact.fullname : ''
+    };
+
+    this.userService.sendInvitation(this.currentUser.uid, body).then( response => {
+      contact['isSendingInvite'] = false;
+      contact['isInvited'] = true;
+    }).catch( err => {
+      contact['isSendingInvite'] = false;
     })
-    this.modalService.success({
-      nzTitle: "<i>" + $message + "</i>",
-    });
   }
 
-  done(): void {
-    this.modalService.success({
-      nzTitle: 'Congratulations',
-      nzContent: 'Well done! You are all set.',
-      nzOnOk: () => { 
-        if(this.userService.userData?.isNewConsoleUser) {
-          this.authService.redirectToConsole(`${environment.consoleURL}/settings/profile-settings`, {});
-        } else {
-          this.router.navigate(['/app/settings/profile-settings']);
-        }
-      }
-    });
+  backClicked() {
+    this._location.back();
   }
 
 }

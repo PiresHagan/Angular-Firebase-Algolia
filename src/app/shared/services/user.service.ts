@@ -55,6 +55,15 @@ export class UserService {
       })
     })
   }
+
+  getUserTypeData() {
+    return new Promise<any>((resolve, reject) => {
+      this.http.get(environment.baseAPIDomain + '/api/v1/onBoarding/getUserType').subscribe((data) => {
+        resolve(data);
+      }, err => reject(err))
+    })
+  }
+
   get(uid: string): Observable<any> {
     return this.db.doc(`${this.userCollection}/${uid}`).valueChanges();
   }
@@ -99,9 +108,32 @@ export class UserService {
       // })
 
     })
-
-
   }
+
+  sendInvitation(userUid: string, data) {
+    return new Promise<any>((resolve, reject) => {
+      this.http.post(`${environment.baseAPIDomain}/api/v1/onBoarding/${userUid}/sendInvite`, data).subscribe(() => {
+        resolve(true);
+      }, err => reject(err));
+    })
+  }
+
+  updateBasicDetails(uid: string, fields: any): Promise<void> {
+    return new Promise<any>((resolve, reject) => {
+      this.http.post(`${environment.baseAPIDomain}/api/v1/onboarding/${uid}/updateBasicDetails`, fields).subscribe(() => {
+        resolve(true);
+      }, err => reject(err));
+    })
+  }
+
+  updateSpecificDetails(uid: string, fields: any): Promise<void> {
+    return new Promise<any>((resolve, reject) => {
+      this.http.post(`${environment.baseAPIDomain}/api/v1/onboarding/${uid}/updateSpecificDetails`, fields).subscribe(() => {
+        resolve(true);
+      }, err => reject(err));
+    })
+  }
+
   uploadContact(uid: string, provider: string, contacts: any): Promise<void> {
     return new Promise<any>((resolve, reject) => {
       this.db.collection(this.userCollection).doc(uid).collection(this.invitationCollection).doc(provider).set({ contacts: contacts }).then(() => {

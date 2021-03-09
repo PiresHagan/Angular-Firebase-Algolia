@@ -31,6 +31,16 @@ export class CharityService {
     );
   }
 
+  getOnBoardingCharities(lang: string) {
+    return new Promise((resolve, reject) => {
+      this.http.get(environment.baseAPIDomain + `/api/v1/onBoarding/${lang}/getTopCharities`, {}).subscribe((response: any) => {
+        resolve(response)
+      }, (error) => {
+        reject(error)
+      })
+    })
+  }
+
   getCharityById(charityId: string): Observable<any> {
     return this.db.doc(`${this.charitiesCollection}/${charityId}`).valueChanges();
   }

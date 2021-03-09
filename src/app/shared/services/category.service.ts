@@ -4,6 +4,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map, take } from 'rxjs/operators';
 import { Category } from '../interfaces/category.type';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,11 @@ export class CategoryService {
   funnelsCollection: string = 'funnels';
   topicsCollection: string = 'topics';
 
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore) { }
+  constructor(
+    private afAuth: AngularFireAuth, 
+    private db: AngularFirestore,
+    private http: HttpClient
+  ) { }
 
   getAll(language: string = 'en') {
     return this.db.collection<Category[]>(this.categoriesCollection, ref => ref.where('lang', '==', language).orderBy('order', 'asc')).snapshotChanges().pipe(
@@ -26,6 +32,16 @@ export class CategoryService {
         });
       })
     );
+  }
+
+  getOnBoardingCategories(lang: string) {
+    return new Promise((resolve, reject) => {
+      this.http.get(environment.baseAPIDomain + `/api/v1/onBoarding/${lang}/getTopCategories`, {}).subscribe((response: any) => {
+        resolve(response)
+      }, (error) => {
+        reject(error)
+      })
+    })
   }
 
   get(id: string): Observable<Category> {
@@ -93,6 +109,30 @@ export class CategoryService {
       })
     }).catch((error) => {
       console.log(error)
+    })
+  }
+
+  followCategory(userId: string, categoryId: string) {
+    return new Promise((resolve, reject) => {
+      this.http.post(environment.baseAPIDomain + `/api/v1/onBoarding/${userId}/followCategory`, {
+        category_id: categoryId
+      }).subscribe((response) => {
+        resolve(response)
+      }, (error) => {
+        reject(error)
+      })
+    })
+  }
+
+  unfollowCategory(userId: string, categoryId: string) {
+    return new Promise((resolve, reject) => {
+      this.http.post(environment.baseAPIDomain + `/api/v1/onBoarding/${userId}/unFollowCategory`, {
+        category_id: categoryId
+      }).subscribe((response) => {
+        resolve(response)
+      }, (error) => {
+        reject(error)
+      })
     })
   }
 

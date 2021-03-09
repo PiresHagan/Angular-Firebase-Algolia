@@ -33,6 +33,16 @@ export class CompanyService {
     );
   }
 
+  getOnBoardingCompanies(lang: string) {
+    return new Promise((resolve, reject) => {
+      this.http.get(environment.baseAPIDomain + `/api/v1/onBoarding/${lang}/getTopCompanies`, {}).subscribe((response: any) => {
+        resolve(response)
+      }, (error) => {
+        reject(error)
+      })
+    })
+  }
+
   getCompanyById(companyId: string): Observable<any> {
     return this.db.doc(`${this.companiesCollection}/${companyId}`).valueChanges();
   }
