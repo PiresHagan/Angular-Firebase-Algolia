@@ -178,8 +178,6 @@ export class LoginComponent implements OnInit {
         const userDetails = this.userDetails;
         if(!memberDetails.bio || !memberDetails.avatar || !memberDetails.avatar.url || !memberDetails.user_type)
           this.router.navigate(["auth/profile"]);
-        else if(memberDetails.user_type != 'reader' && !memberDetails.onboarding_website)
-          this.router.navigate(["auth/website"]);
         else if(!userDetails.interests || userDetails.interests.length == 0)
           this.router.navigate(["auth/feed"]);
       }
@@ -305,7 +303,6 @@ export class LoginComponent implements OnInit {
     if (
       !memberDetails.bio || !memberDetails.avatar || !memberDetails.user_type 
       || !userDetails.interests || userDetails.interests.length == 0 || !memberDetails.avatar.url
-      || (memberDetails.user_type != 'reader' && !memberDetails.onboarding_website)
     )
       return false;
     else

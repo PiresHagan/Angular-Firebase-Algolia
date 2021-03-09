@@ -52,12 +52,6 @@ export class ProfileComponent implements OnInit {
       bio: [null, [Validators.required]]
     });
     this.setFormData();
-
-    setTimeout(() => {
-      this.userService.getUserTypeData().then( data => {
-        this.userTypeList = data.user_types;
-      });
-    }, 2500)
   }
 
   backClicked() {
@@ -67,9 +61,12 @@ export class ProfileComponent implements OnInit {
   setFormData() {
     this.userService.getCurrentUser().then((user) => {
 
-
       this.userService.get(user.uid).subscribe((userDetails) => {
         this.currentUser = userDetails;
+      });
+
+      this.userService.getUserTypeData().then( data => {
+        this.userTypeList = data.user_types;
       });
       
       this.userService.getMember(user.uid).subscribe((memberDetails) => {

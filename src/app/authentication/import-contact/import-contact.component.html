@@ -102,7 +102,7 @@ style="background: url(assets/images/sign-up/connecting.png) bottom right no-rep
                         (click)="importContact(provider.name)">
                           {{'import' | translate}} {{provider.title}} {{'importContact' | translate}}
                         </button>
-                        <button class="skip-btn" type="button">Skip</button>
+                        <button [routerLink]="['/auth/feed']" class="skip-btn" type="button">Skip</button>
                      </div>
                   </nz-tab>
               </nz-tabset>
