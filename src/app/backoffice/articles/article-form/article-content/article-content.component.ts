@@ -88,7 +88,7 @@ export class ArticleContentComponent implements OnInit {
       content: ['', [Validators.minLength(10)]],
       category: ['', [Validators.required]],
       lang: ['', [Validators.required]],
-      topics: ['', [Validators.required]],
+      topics: [[], [Validators.required]],
       type: ['text'],
       author: ['', [Validators.required]]
     });
