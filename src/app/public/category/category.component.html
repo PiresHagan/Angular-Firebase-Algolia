@@ -72,7 +72,8 @@
                               <app-cloudinary-img [article]="article"></app-cloudinary-img>
                             </div>
                           </ng-template>
-                          <h3 class="is-category-title">{{category.title}}</h3>
+                          <h3 class="is-category-title" *ngIf="category.title === 'City'">{{category.title}}</h3>
+                          <h3 class="is-category-title" *ngIf="!(category.title === 'City')">{{pageHeader}}</h3>
                           <div class="article-image-icon" *ngIf="article.type==='audio'">
                             <i class="fas fa-play"></i>
                           </div>
