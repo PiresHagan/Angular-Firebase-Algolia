@@ -33,11 +33,353 @@
         "**/.*",
         "**/node_modules/**"
       ],
-      "rewrites": [{
-        "source": "**",
-        "function": "ssr"
-      }],
-      "headers": [{
+      "rewrites": [
+        {
+          "source": "/sitemap-article.xml",
+          "function": "sitemap"
+        },
+        {
+          "source": "/sitemap-article-1.xml",
+          "function": "sitemapArticle1"
+        },
+        {
+          "source": "/sitemap-article-2.xml",
+          "function": "sitemapArticle2"
+        },
+        {
+          "source": "/sitemap-article-3.xml",
+          "function": "sitemapArticle3"
+        },
+        {
+          "source": "/sitemap-article-4.xml",
+          "function": "sitemapArticle4"
+        },
+        {
+          "source": "/sitemap-article-5.xml",
+          "function": "sitemapArticle5"
+        },
+        {
+          "source": "/sitemap-author.xml",
+          "function": "sitemapAuthor"
+        },
+        {
+          "source": "/rss",
+          "function": "rss"
+        },
+        {
+          "source": "**",
+          "function": "ssr"
+        }
+      ],
+      "redirects": [
+        {
+          "source": "/fr/profil/annie-japaud/",
+          "destination": "/annie-japaud",
+          "type": 301
+        },
+        {
+          "source": "/fr/profil/april-soller/",
+          "destination": "/april-soller",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/franki-osegueda/",
+          "destination": "/franki-osegueda",
+          "type": 301
+        },
+        {
+          "source": "/es/videos/the-persuit-of-happiness/",
+          "destination": "/shawn-engel/the-pursuit-of-happiness",
+          "type": 301
+        },
+        {
+          "source": "/es/videos/strawberry-coconut-balls/",
+          "destination": "/ana-najdovska/strawberry-coconut-bites",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/stephanie-effendie/",
+          "destination": "/stephanie-effendie",
+          "type": 301
+        },
+        {
+          "source": "/es/perfil/kylee-ellis/",
+          "destination": "/kylee-ellis",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/leah-fleurimond/",
+          "destination": "/leah-fleurimond",
+          "type": 301
+        },
+        {
+          "source": "/en/category/San Juan, Agentina/",
+          "destination": "/category/city",
+          "type": 301
+        },
+        {
+          "source": "/fr/categorie/Hambourg, Allemagne/",
+          "destination": "/category/city",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/call-me-bebekoh/",
+          "destination": "/call-me-bebekoh",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/organicisbeautiful-exploring-the-world-going-skin-organic/",
+          "destination": "/organicisbeautiful-exploring-the-world-going-skin-organic",
+          "type": 301
+        },
+        {
+          "source": "/article/flix-premiere-is-set-to-disrupt-the-motion-picture-industry/",
+          "destination": "/search",
+          "type": 301
+        },
+        {
+          "source": "/en/videos/wisconsin-usa-visual-vibes/",
+          "destination": "/search",
+          "type": 301
+        },
+        {
+          "source": "/en/article/5-questions-to-ask-before-booking-a-wedding-venue-for-your-d-day/",
+          "destination": "/search",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/khadija-george/",
+          "destination": "/khadija-george",
+          "type": 301
+        },
+        {
+          "source": "/article/a-musical-day-in-lindau-lake-constance-germany/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/article/how-to-do-customer-service-as-an-entrepreneur/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/rachel-angeles/",
+          "destination": "/rachel-angeles",
+          "type": 301
+        },
+        {
+          "source": "/article/failure/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/article/the-merchant-of-venice-by-william-shakespeare-book-review/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/article/my-thoughts-on-skins-characters/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/article/melanie-martinez-without-makeup/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/article/star-plus-new-show-ishqbaaz-star-cast-and-characters-real-name/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/en/article/vancouver-fashion-week-ss17-sharleez-show-stoppers/",
+          "destination": "/jennica-b/vancouver-fashion-week-ss17-sharleez-show-stoppers",
+          "type": 301
+        },
+        {
+          "source": "/article/school-shootings-as-portrayed-on-criminal-minds/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/article/dear-god-please-help-my-brother/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/en/category/Edmonton%2C Canada/",
+          "destination": "/city",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/greta-lamfel/",
+          "destination": "/greta-lamfel",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/amanda-maregente/",
+          "destination": "/amanda-maregente",
+          "type": 301
+        },
+        {
+          "source": "/en/article/cookie-monster/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/en/article/exposing-lives/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/fr/profil/annie-japaud/",
+          "destination": "/annie-japaud",
+          "type": 301
+        },
+        {
+          "source": "/en/category/San Juan, Agentina/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/fr/profil/april-soller/",
+          "destination": "/april-soller",
+          "type": 301
+        },
+        {
+          "source": "/fr/categorie/Hambourg, Allemagne/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/es/videos/strawberry-coconut-balls/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/franki-osegueda/",
+          "destination": "/franki-osegueda",
+          "type": 301
+        },
+        {
+          "source": "/es/perfil/jessica_thebookaddict-/",
+          "destination": "/jessica_thebookaddict-",
+          "type": 301
+        },
+        {
+          "source": "/es/videos/the-persuit-of-happiness/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/stephanie-effendie/",
+          "destination": "/stephanie-effendie",
+          "type": 301
+        },
+        {
+          "source": "/en/videos/wisconsin-usa-visual-vibes/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/en/article/5-questions-to-ask-before-booking-a-wedding-venue-for-your-d-day/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/khadija-george/",
+          "destination": "/khadija-george",
+          "type": 301
+        },
+        {
+          "source": "/article/a-musical-day-in-lindau-lake-constance-germany/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/article/how-to-do-customer-service-as-an-entrepreneur/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/rachel-angeles/",
+          "destination": "/rachel-angeles",
+          "type": 301
+        },
+        {
+          "source": "/article/failure/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/article/my-thoughts-on-skins-characters/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/article/melanie-martinez-without-makeup/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/en/article/vancouver-fashion-week-ss17-sharleez-show-stoppers/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/article/dear-god-please-help-my-brother/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/en/category/Edmonton%2C Canada/",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/greta-lamfel/",
+          "destination": "/greta-lamfel",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/wanderlust-advocate/",
+          "destination": "/wanderlust-advocate",
+          "type": 301
+        },
+        {
+          "source": "/en/profile/amanda-maregente/",
+          "destination": "/amanda-maregente",
+          "type": 301
+        },
+        {
+          "source": "/en/article/weather-or-not/",
+          "destination": "/ash-douglas/weather-or-not",
+          "type": 301
+        },
+        {
+          "source": "/en/article/cookie-monster/",
+          "destination": "/denise-lee/cookie-monster",
+          "type": 301
+        },
+        {
+          "source": "/en/article/exposing-lives/",
+          "destination": "/rawiya-al-amri/exposing-lives",
+          "type": 301
+        },
+        {
+          "source": "/apptomate-digital-gkn1gb/are-you-running-online-ecommerce-store-in-magento-platform?-DmMp7Y",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/fr/profil/april-soller/",
+          "destination": "/april-soller",
+          "type": 301
+        }
+      ],
+      "headers": [
+        {
           "source": "**/*.@(eot|otf|ttf|ttc|woff|woff2|font.css)",
           "headers": [{
               "key": "Access-Control-Allow-Origin",

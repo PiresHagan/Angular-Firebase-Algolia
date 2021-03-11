@@ -1,1 +1,3 @@
-<router-outlet></router-outlet>
+<nz-spin nzTip="Please wait..." [nzSpinning]="authService.isLoading">
+    <router-outlet></router-outlet>
+</nz-spin>

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ECommerceFundingComponent } from './e-commerce-funding.component';
+import { FundraiserAuthorComponent } from './fundraiser-author.component';
 
-describe('ECommerceFundingComponent', () => {
-  let component: ECommerceFundingComponent;
-  let fixture: ComponentFixture<ECommerceFundingComponent>;
+describe('FundraiserAuthorComponent', () => {
+  let component: FundraiserAuthorComponent;
+  let fixture: ComponentFixture<FundraiserAuthorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ECommerceFundingComponent ]
+      declarations: [ FundraiserAuthorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ECommerceFundingComponent);
+    fixture = TestBed.createComponent(FundraiserAuthorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

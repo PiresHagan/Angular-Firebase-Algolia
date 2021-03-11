@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BlockedProfileGuard } from '../shared/guard/blocked-profile.guard';
 
 const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
-  },
-  {
-    path: 'shop',
-    loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)
   },
   {
     path: 'category/:slug',
@@ -19,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)
   },
   {
-    path: 'profile/:slug',
+    path: 'profile/:authorSlug',
     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
   },
   {
@@ -62,13 +59,22 @@ const routes: Routes = [
     path: 'charities',
     loadChildren: () => import('./charity-list/charity-list.module').then(m => m.CharityListModule)
   },
+  // {
+  //   path: '**',
+  //   component: HomeComponent,
+  //   data: {
+  //     title: 'Home',
+  //     headerDisplay: 'none'
+  //   }
+  // },
   {
     path: ':userSlug/:slug',
     loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)
   },
   {
     path: ':slug',
-    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
+    canActivate: [BlockedProfileGuard]
   }
 ];
 

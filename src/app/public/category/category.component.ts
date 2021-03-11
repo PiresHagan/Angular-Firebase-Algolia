@@ -6,9 +6,16 @@ import { TranslateService } from '@ngx-translate/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { Category } from 'src/app/shared/interfaces/category.type';
-import * as firebase from 'firebase/app';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
 import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.service';
+import { Article } from 'src/app/shared/interfaces/article.type';
+import { AdItemData } from 'src/app/shared/directives/ad/ad.directive';
+import { environment } from 'src/environments/environment';
+
+interface ArticleGroup {
+  articles: Article[];
+  adItem: AdItemData;
+}
 
 @Component({
   selector: 'app-category',
@@ -17,12 +24,13 @@ import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.se
 })
 export class CategoryComponent implements OnInit {
   category: Category;
-  articles: any[];
+  articleGroups: ArticleGroup[] = [];
   loading: boolean = true;
   loadingMore: boolean = false;
   lastVisible: any = null;
   slug = '';
   topic: string = '';
+  rss = '';
   selectedLanguage: string = "";
   pageHeader: string = '';
   newsLetterForm = new FormGroup({
@@ -30,7 +38,10 @@ export class CategoryComponent implements OnInit {
   });
   errorSubscribe: boolean = false;
   successSubscribe: boolean = false;
-  categoryskeletonData:any;
+  categoryskeletonData: any;
+  public isMobile: boolean;
+  displayAd: boolean;
+
   constructor(
     private categoryService: CategoryService,
     private articleService: ArticleService,
@@ -42,6 +53,7 @@ export class CategoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.displayAd = environment.showAds.onCategoryPage;
     window.addEventListener('scroll', this.scrollEvent, true);
     this.selectedLanguage = this.languageService.getSelectedLanguage();
 
@@ -55,6 +67,9 @@ export class CategoryComponent implements OnInit {
       this.topic = this.route.snapshot.queryParamMap.get('topic');
       const slug = params.get('slug');
       this.slug = slug;
+      this.category = null;
+      this.articleGroups = [];
+      this.rss = `?category=${slug}`;
 
       if (this.topic) {
         this.getTopicDetails(this.topic);
@@ -62,6 +77,7 @@ export class CategoryComponent implements OnInit {
 
       this.categoryService.getCategoryBySlug(slug).subscribe(category => {
         this.category = category;
+        this.rss = `?category=${this.category.slug}`;
         if (!this.topic) {
           this.pageHeader = this.category?.title;
         }
@@ -71,13 +87,13 @@ export class CategoryComponent implements OnInit {
 
       this.getPageDetails();
     });
-    
-    this.categoryskeletonData = new Array(20).fill({}).map((_i, index) => {
-      return 
-    });
+
+    this.categoryskeletonData = new Array(20).fill({}).map((_i) => undefined);
   }
 
-  scrollEvent = (event: any): void => {
+  private scrollEvent = (event: any): void => {
+    this.isMobile = window.innerWidth < 767;
+
     let documentElement = event.target.documentElement ? event.target.documentElement : event.target;
     if (documentElement) {
       const top = documentElement.scrollTop
@@ -87,14 +103,33 @@ export class CategoryComponent implements OnInit {
         this.loadingMore = true;
         this.articleService.getArticlesBySlug(20, 'next', this.lastVisible, this.slug, this.topic, this.selectedLanguage).subscribe((data) => {
           this.loadingMore = false;
-          this.articles = [...this.articles, ...data.articleList];
+          this.groupArticlesWithAd(data.articleList);
           this.lastVisible = data.lastVisible;
+
+          console.log(this.articleGroups);
         });
       }
     }
-
   }
-  replaceImage(url) {
+
+  public trackByArticleGrp(_index: number, data: ArticleGroup): string {
+    return data.adItem.id;
+  }
+
+  private groupArticlesWithAd(articles: Article[]): void {
+    if (articles.length > 0) {
+      const pos = this.articleGroups.length;
+
+      const ad: AdItemData = {
+        id: `category_ad_${pos}`
+      };
+
+      const newGroup: ArticleGroup = { articles: articles, adItem: ad };
+      this.articleGroups.push(newGroup);
+    }
+  }
+
+  replaceImage(url: string) {
     let latestURL = url
     if (url) {
       latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
@@ -129,16 +164,17 @@ export class CategoryComponent implements OnInit {
   }
   getTopicDetails(topicSlug: string) {
     this.categoryService.getTopicBySlug(topicSlug).subscribe((topicData: Category) => {
-      if (topicData?.title)
+      if (topicData?.title){
+        this.rss = `?topic=${this.topic}`;
         this.pageHeader = topicData?.title;
-      console.log(topicData);
+      }
     })
 
   }
   getPageDetails() {
     this.getTopicDetails(this.topic);
     this.articleService.getArticlesBySlug(20, '', this.lastVisible, this.slug, this.topic, this.selectedLanguage).subscribe((data) => {
-      this.articles = data.articleList;
+      this.groupArticlesWithAd(data.articleList);
       this.lastVisible = data.lastVisible;
       this.loading = false;
     });

@@ -5,11 +5,10 @@ import { Cloudinary } from 'cloudinary-core';
 
 import { CompaniesComponent } from './companies.component';
 import { CompanyFollowerListComponent } from './company/company-follower-list/company-follower-list.component';
-import { CompanyLeadFormComponent } from './company/company-lead-form/company-lead-form.component';
 import { CompanyComponent } from './company/company.component';
 
 import { CompaniesRoutingModule } from './companies-routing.module';
-import { createTranslateLoader } from 'src/app/shared/shared.module';
+import { createTranslateLoader, SharedModule } from 'src/app/shared/shared.module';
 import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
@@ -19,7 +18,6 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     CompaniesComponent,
     CompanyComponent,
-    CompanyLeadFormComponent,
     CompanyFollowerListComponent
   ],
   imports: [
@@ -28,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CompaniesRoutingModule,
     ReactiveFormsModule,
     NgZorroAntdModule,
+    SharedModule,
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })
   ]
 })

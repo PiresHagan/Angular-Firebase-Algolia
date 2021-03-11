@@ -26,13 +26,60 @@
 
         <div class="sr-bar-with-ads">
           <div class="sr-bar">
-            <div class="sr-box">
-              <ais-search-box></ais-search-box>
+            <div class="sr-box"> 
+              <ais-search-box (input)="onSearchChange($event.target.value)"  [ngClass]="showResult? 'Show-autocomplete-box' : 'hide-autocomplete-box'"></ais-search-box>
+              <ais-hits class="autocomplete-box" *ngIf="showResult" id="autocomplete-box">
+                <ng-template let-hits="hits" let-results="results">
+                  <div class="sr-article-sec-item" *ngFor="let hit of hits; let i=index"
+                    [ngStyle]="{'order': OrderIndex + i}">
+                    <ul *ngIf="showResult">
+                      <li>
+                        <a [routerLink]="['/companies',hit.slug]" *ngIf="hit.type==='company'">
+                          <ais-highlight attribute="title" [hit]="hit"></ais-highlight>
+                        </a>
+                        <a [routerLink]="['/charities',hit.slug]" *ngIf="hit.type==='charity'">
+                          <ais-highlight attribute="bio" [hit]="hit"></ais-highlight>
+                        </a>
+                        <a [routerLink]="['/',hit.author.slug,hit.slug]" *ngIf="hit.type==='audio'">
+                          <ais-highlight attribute="title" [hit]="hit"></ais-highlight>
+                        </a>
+                        <a [routerLink]="['/',hit.author.slug,hit.slug]" *ngIf="hit.type==='video'">
+                          <ais-highlight attribute="title" [hit]="hit"></ais-highlight>
+                        </a>
+                        <a [routerLink]="['/',hit.author.slug,hit.slug]" *ngIf="hit.type==='text'">
+                          <ais-highlight attribute="title" [hit]="hit"></ais-highlight>
+                        </a>
+                        <a [routerLink]="['/',hit.slug]" *ngIf="hit.type==='author'">
+                          <ais-highlight attribute="fullname" [hit]="hit"></ais-highlight>
+                        </a>
+                        <a [routerLink]="['/fundraisers',hit.slug]" *ngIf="hit.type==='fundraiser'">
+                          <ais-highlight attribute="fundraiser" [hit]="hit"></ais-highlight>
+                        </a>
+
+                        
+                        
+                        <!-- <a class="ais-Highlight">{{hit?.title}}</a> -->
+
+                        <!-- <a [ngClass]="(CurrentValue === hit?.title )? 'highlightResult' : 'highlightResultBlack'" [routerLink]="['/companies',hit.slug]" *ngIf="hit.type==='company'">{{hit?.title}}</a>
+                        <a [ngClass]="(CurrentValue === hit?.bio )? 'highlightResult' : 'highlightResultBlack'" [routerLink]="['/charities',hit.slug]" *ngIf="hit.type==='charity'">{{hit?.bio}}</a>
+                        <a [ngClass]="(CurrentValue === hit?.title )? 'highlightResult' : 'highlightResultBlack'" [routerLink]="['/',hit.author.slug,hit.slug]" *ngIf="hit.type==='audio'">{{hit?.title}}</a>
+                        <a [ngClass]="(CurrentValue === hit?.title )? 'highlightResult' : 'highlightResultBlack'" [routerLink]="['/',hit.author.slug,hit.slug]" *ngIf="hit.type==='video'">{{hit?.title}}</a>
+                        <a [ngClass]="(CurrentValue === hit?.title )? 'highlightResult' : 'highlightResultBlack'" [routerLink]="['/',hit.author.slug,hit.slug]" *ngIf="hit.type==='text'">{{hit?.title}}</a>
+                        <a [ngClass]="(CurrentValue === hit?.fullname )? 'highlightResult' : 'highlightResultBlack'" [routerLink]="['/',hit.slug]" *ngIf="hit.type==='author'">{{hit?.fullname}}</a>
+                        <a [ngClass]="(CurrentValue === hit?.fundraiser )? 'highlightResult' : 'highlightResultBlack'" [routerLink]="['/fundraisers',hit.slug]" *ngIf="hit.type==='author'">{{hit?.fundraiser}}</a> -->
+
+                      </li>
+                      
+                    </ul>
+                  </div>
+                  
+                </ng-template>
+              </ais-hits>          
             </div>
           </div>
         </div>
       </div>
-
+      
       <ais-refinement-list attribute="brand"></ais-refinement-list>
       <ais-configure [searchParameters]="{ hitsPerPage: 16 }"></ais-configure>
       <ais-hits>

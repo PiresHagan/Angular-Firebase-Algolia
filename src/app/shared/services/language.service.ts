@@ -59,6 +59,14 @@ export class LanguageService {
     this.isSelectedLang.next(lng);
     this.router.navigate(['/']);
   }
+
+  changeLangOnBoarding(lng: string) {
+    this.selectedLanguage = lng;
+    this.setlanguageInLS(lng);
+    this.translate.use(lng);
+    this.isSelectedLang.next(lng);
+  }
+
   getSelectedLanguage() {
     return this.selectedLanguage ? this.selectedLanguage : this.defaultLanguage;
   }

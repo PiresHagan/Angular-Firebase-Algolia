@@ -31,10 +31,13 @@ import { NgAisModule } from 'angular-instantsearch';
 import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+
 registerLocaleData(en);
 
 @NgModule({
@@ -45,6 +48,7 @@ registerLocaleData(en);
         BackofficeLayoutComponent
     ],
     imports: [
+        AngularFireModule.initializeApp(environment.firebase),
         BrowserModule,
         BrowserAnimationsModule,
         CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
@@ -52,7 +56,6 @@ registerLocaleData(en);
         AppRoutingModule,
         TemplateModule,
         SharedModule,
-        AngularFireModule.initializeApp(environment.firebase),
         AngularFireAnalyticsModule,
         AngularFireMessagingModule,
         AngularFireAuthModule,
@@ -62,6 +65,7 @@ registerLocaleData(en);
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useFactory: createTranslateLoader, deps: [HttpClient] } }),
         NgAisModule.forRoot(),
         NgxStripeModule.forRoot(environment.stripePublishableKey),
+        NzSpinModule,
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ],
     exports: [],

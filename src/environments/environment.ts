@@ -4,27 +4,36 @@
 
 export const environment = {
   isAnonymousUserEnabled: true,
-  addThisScript: "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ed48a5fc8315a5b",
-  authService: "https://us-central1-my-trending-stories-dev.cloudfunctions.net/api/token/migration",
+  addThisScript: '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ed48a5fc8315a5b',
+  authService: 'https://us-central1-my-trending-stories-dev.cloudfunctions.net/api/token/migration',
   production: false,
-  captchaKey: "6LfMnKoZAAAAALeLCs7H9LL9MhOy3EmcwtchxUf-",
+  captchaKey: '6LfMnKoZAAAAALeLCs7H9LL9MhOy3EmcwtchxUf-',
   baseAPIDomain: 'https://us-central1-my-trending-stories-dev.cloudfunctions.net',
   facebook: {
     appId: '327118671669396',
     version: 'v9.0'
   },
   firebase: {
-    apiKey: "AIzaSyC83ZSVEBAP_9tuNucpudqPzya8zNsYxL8",
-    authDomain: "my-trending-stories-dev.firebaseapp.com",
-    databaseURL: "https://my-trending-stories-dev.firebaseio.com",
-    projectId: "my-trending-stories-dev",
-    storageBucket: "my-trending-stories-dev.appspot.com",
-    messagingSenderId: "446215367606",
-    appId: "1:446215367606:web:8f9ef10855e88708c9af17",
-    measurementId: "G-EY017BDB3Z"
+    apiKey: 'AIzaSyC83ZSVEBAP_9tuNucpudqPzya8zNsYxL8',
+    authDomain: 'my-trending-stories-dev.firebaseapp.com',
+    databaseURL: 'https://my-trending-stories-dev.firebaseio.com',
+    projectId: 'my-trending-stories-dev',
+    storageBucket: 'my-trending-stories-dev.appspot.com',
+    messagingSenderId: '446215367606',
+    appId: '1:446215367606:web:8f9ef10855e88708c9af17',
+    measurementId: 'G-EY017BDB3Z',
   },
   storeUrl: 'https://devstore.mytrendingstories.com',
-  stripePublishableKey: 'pk_test_OLjCckOxOe5cMKFD4kQaSdGe00j69EehH2'
+  stripePublishableKey: 'pk_test_OLjCckOxOe5cMKFD4kQaSdGe00j69EehH2',
+  showAds: {
+    onCompanyPage: false,
+    onCharityPage: false,
+    onFundraiserPage: false,
+    onArticlePage: true,
+    onCategoryPage: false,
+    onHomePage: false
+  },
+  consoleURL: 'https://console.mytrendingstories.dev',
 };
 
 /*

@@ -225,5 +225,11 @@ export class CommonBackofficeService {
     })
     );
   }
+  blockUser(id) {
+    return this.http.patch(environment.baseAPIDomain + '/api/v1/members/' + id + '/block', {});
+  }
+  unBlockuser(id) {
+    return this.http.patch(environment.baseAPIDomain + '/api/v1/members/' + id + '/unblock', {});
+  }
 }
 

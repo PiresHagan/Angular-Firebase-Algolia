@@ -1,6 +1,16 @@
 img {
   max-width: 100%;
 }
+.share-icon-hidden svg,
+.share-icon-hidden .at-icon-wrapper {
+  display: none !important;
+}
+.at-resp-share-element {
+  font-size: inherit !important;
+}
+.hidden-share {
+  display: none !important;
+}
 .bottom-ad-container {
   margin-bottom: 20px;
   width: 100%;
@@ -33,7 +43,7 @@ hr {
 
 .is-article-block {
   background: #fff;
-
+  text-align: justify;
   .is-article-sec {
     display: flex;
     flex-wrap: wrap;
@@ -159,7 +169,6 @@ hr {
           display: none;
         }
       }
-
     }
 
     .is-divider {
@@ -191,10 +200,10 @@ hr {
           a {
             span {
               font-family: "josefin_sanssemibold";
-              text-align: center;
+
               display: block;
               font-size: 28px;
-              color: #000;
+
               line-height: 35px;
             }
           }
@@ -251,8 +260,8 @@ hr {
             color: #464444;
             line-height: 33px;
             margin-bottom: 0px;
-            word-break: break-all;
 
+            text-align: justify;
             &.big::first-letter {
               font-size: 100px;
               color: #fd6147;
@@ -297,7 +306,8 @@ hr {
                 position: absolute;
                 top: 30px;
                 left: 40px;
-                background: url(../../../assets/images/article/icon/dot.png) center center repeat;
+                background: url(../../../assets/images/article/icon/dot.png)
+                  center center repeat;
                 background-size: 10px;
                 width: calc(100% - 50px);
                 height: 100%;
@@ -440,8 +450,6 @@ hr {
             }
           }
         }
-
-        
       }
     }
 
@@ -608,7 +616,6 @@ hr {
               -webkit-box-orient: vertical;
               height: 32px;
               overflow: hidden;
-              word-break: break-all;
             }
             ul {
               margin: 0px;
@@ -858,6 +865,122 @@ hr {
 .xs-article-publish {
   display: none;
 }
+.no-overlay {
+  &:after {
+    display: none !important;
+  }
+}
+.custom-skeleton[_ngcontent-ccc1] {
+  border: 1px solid #efeeee;
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: #fff;
+  box-shadow: unset;
+  .ant-skeleton-avatar {
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    margin: 10px;
+    background: linear-gradient(90deg, #c5c5c5 25%, #c5c5c5 37%, #d0cfcf 63%);
+    background-size: 400% 100%;
+    -webkit-animation: ant-skeleton-loading 2s ease infinite;
+    animation: ant-skeleton-loading 2s ease infinite;
+  }
+  &.circle-box-skeleton {
+    border-radius: 100% !important;
+    width: 105px;
+    height: 105px;
+    .ant-skeleton-avatar {
+      border-radius: 100%;
+    }
+  }
+  &.card-skeleton {
+    box-shadow: 0px 4px 7px 1px rgba(0, 0, 0, 0.1);
+    .ant-skeleton-header {
+      display: block;
+      padding-right: 0px;
+      margin-bottom: 20px;
+      .ant-skeleton-avatar {
+        border-radius: 0px;
+        width: 100%;
+        height: 150px;
+        margin: 0px;
+        background: linear-gradient(
+          90deg,
+          #f2f2f2 25%,
+          #e6e6e6 37%,
+          #f2f2f2 63%
+        );
+        background-size: 400% 100%;
+        -webkit-animation: ant-skeleton-loading 2s ease infinite;
+        animation: ant-skeleton-loading 2s ease infinite;
+      }
+    }
+    .ant-skeleton-content {
+      display: block;
+      width: calc(100% - 20px);
+      margin: 10px;
+      .ant-skeleton-title {
+        width: 100% !important;
+      }
+      .ant-skeleton-paragraph {
+        margin-top: 15px;
+        li {
+          width: 100% !important;
+          background: linear-gradient(
+            90deg,
+            #f2f2f2 25%,
+            #e6e6e6 37%,
+            #f2f2f2 63%
+          );
+          background-size: 400% 100%;
+          -webkit-animation: ant-skeleton-loading 2s ease infinite;
+          animation: ant-skeleton-loading 2s ease infinite;
+        }
+      }
+    }
+    &.left-skeleton-profile {
+      .ant-skeleton-header {
+        .ant-skeleton-avatar {
+          width: 140px;
+          height: 140px;
+          margin: 20px auto;
+          display: flex;
+          border-radius: 100% !important;
+        }
+      }
+    }
+  }
+  &.list-skeleton {
+    .ant-skeleton-header {
+      .ant-skeleton-avatar {
+        border-radius: 0px;
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        background: linear-gradient(
+          90deg,
+          #f2f2f2 25%,
+          #e6e6e6 37%,
+          #f2f2f2 63%
+        );
+        background-size: 400% 100%;
+        -webkit-animation: ant-skeleton-loading 2s ease infinite;
+        animation: ant-skeleton-loading 2s ease infinite;
+      }
+    }
+    .ant-skeleton-content {
+      padding-right: 10px;
+      .ant-skeleton-title {
+        width: 100% !important;
+        margin-bottom: 0px;
+      }
+      .ant-skeleton-paragraph {
+        margin-top: 15px;
+      }
+    }
+  }
+}
 @media screen and (max-width: 580px) {
   .bottom-ad-container {
     display: none;
@@ -899,7 +1022,7 @@ hr {
 
         .is-content {
           .is-head {
-            h2 {
+            h1 {
               span {
                 font-size: 20px;
               }
@@ -954,7 +1077,7 @@ hr {
       display: block;
       .xs-article-title {
         font-size: 18px;
-        word-break: break-all;
+
         color: #ff4020;
         margin: 0px 0px 20px 0px;
         font-family: "josefin_sanssemibold";
@@ -971,7 +1094,7 @@ hr {
       }
       .xs-article-author-detail {
         display: flex;
-        align-items: flex-start;
+        align-items: baseline;
         .xs-article-name {
           padding-right: 10px;
           font-family: "josefin_sansregular";
@@ -980,14 +1103,34 @@ hr {
           color: #000;
           font-weight: 600;
           flex: 1;
-          a{
-            color:#000;
+          a {
+            color: #000;
           }
-
         }
+        .xs-follow-author {
+          a {
+            background: #0079d0;
+            color: #fff;
+            padding: 5px;
+          }
+        }
+      }
+      .xs-article-date {
+        font-size: 13px;
+        color: #000;
+        display: block;
+        font-weight: normal;
+        font-family: "open_sansregular";
+        margin-bottom: 10px;
+      }
+      .xs-follow-author-detail {
+        padding-top: 10px;
+        border-top: 1px solid #eee;
+        padding-bottom: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         .comment-section {
-          width: 130px;
-          text-align: right;
           position: relative;
           z-index: 1;
           ul {
@@ -995,9 +1138,7 @@ hr {
             li {
               display: inline-block;
               color: #042c99;
-              &:nth-child(2) {
-                padding-left: 10px;
-              }
+              padding-right: 10px;
               a {
                 font-size: 16px;
                 color: #042c99;
@@ -1018,14 +1159,15 @@ hr {
             }
           }
         }
-      }
-      .xs-article-date {
-        font-size: 13px;
-        color: #000;
-        display: block;
-        font-weight: normal;
-        font-family: "open_sansregular";
-        margin-bottom: 10px;
+        .follow-btn{
+          font-size: 15px;
+          background: #233470;
+          display: inline-block;
+          font-family: "open_sansregular";
+          padding: 7px 15px;
+          color: #fff;
+          border-radius: 40px;
+        }
       }
     }
     .xs-article-publish {
@@ -1123,7 +1265,7 @@ hr {
 
         .is-content {
           .is-head {
-            h2 {
+            h1 {
               span {
                 font-size: 22px;
               }
@@ -1204,7 +1346,7 @@ hr {
 
         .is-content {
           .is-head {
-            h2 {
+            h1 {
               span {
                 font-size: 22px;
               }
@@ -1231,7 +1373,6 @@ hr {
             }
           }
         }
-
       }
 
       .is-right-ad-section {
@@ -1285,7 +1426,7 @@ hr {
 
         .is-content {
           .is-head {
-            h2 {
+            h1 {
               span {
                 font-size: 24px;
                 text-align: left;
@@ -1353,7 +1494,7 @@ hr {
         .is-profile {
           .special-icon {
             position: absolute;
-            top: -60px;
+            top: -10px;
           }
         }
       }
@@ -1364,7 +1505,7 @@ hr {
 
         .is-content {
           .is-head {
-            h2 {
+            h1 {
               span {
                 font-size: 22px;
                 text-align: left;
@@ -1390,7 +1531,6 @@ hr {
             }
           }
         }
-
       }
 
       .is-right-ad-section {
@@ -1435,4 +1575,90 @@ hr {
   .is-article-block .is-article-sec .is-left-profile .sticky-box {
     top: 190px;
   }
+}
+.mobile-option-pop-up .-Cab_ {
+  color: #ed4956;
+  color: rgba(var(--i30, 237, 73, 86), 1);
+  font-weight: 700;
+}
+.mobile-option-pop-up .aOOlW {
+  background-color: transparent;
+  display: block;
+  width: 100%;
+  border-bottom: 0;
+  border-left: 0;
+  border-right: 0;
+  border-top: 1px solid #dbdbdb;
+  border-top: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  cursor: pointer;
+  line-height: 1.5;
+  margin: 0;
+  min-height: 48px;
+  padding: 4px 8px;
+  /* text-align:center; */
+  /* -webkit-user-select:none; */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  /* user-select:none; */
+  /* vertical-align:middle */
+}
+.mobile-option-pop-up .aOOlW:focus {
+  outline: none;
+}
+.mobile-option-pop-up .ant-modal-content,
+.mobile-share-option-pop-up .ant-modal-content {
+  border-radius: 12px;
+}
+.mobile-share-option-pop-up .ant-modal-header {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+.mobile-option-pop-up .aOOlW:first-child {
+  border-top: none;
+}
+.mobile-option-pop-up .ant-modal-body,
+.mobile-share-option-pop-up .ant-modal-body {
+  padding: 0;
+}
+.mobile-option-pop-up .ant-modal-footer,
+.mobile-share-option-pop-up .ant-modal-footer,
+.mobile-option-pop-up .ant-modal-close,
+.mobile-share-option-pop-up .ant-modal-close {
+  display: none;
+}
+.ant-list-item {
+  justify-content: unset;
+  padding: 10px;
+}
+// .anticon {
+//   font-size: 25px;
+//   margin-right: 12px;
+// }
+
+/* Popup Modal*/
+
+/* The Modal (background) */
+.share-modal {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.share-modal-content {
+  background-color: #fefefe;
+  margin: 22% auto; /* 15% from the top and centered */
+  padding: 10px;
+  border-radius: 15px;
+  width: 70%; /* Could be more or less, depending on screen size */
+}
+.at-resp-share-element .at-share-btn {
+  color: #000 !important;
 }

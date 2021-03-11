@@ -1,9 +1,14 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+<<<<<<< HEAD:src/app/public/companies/company/company-lead-form/company-lead-form.component.ts
 import { AuthService } from '../../../../shared/services/authentication.service';
+=======
+
+>>>>>>> preprod:src/app/shared/component/company-lead-form/company-lead-form.component.ts
 import { environment } from 'src/environments/environment';
 import { CompanyService } from 'src/app/shared/services/company.service';
+import { AuthService } from 'src/app/shared/services/authentication.service';
 
 @Component({
   selector: 'app-company-lead-form',
@@ -29,9 +34,9 @@ export class CompanyLeadFormComponent implements OnInit {
     this.isCaptchaElementReady = true;
     this.recaptchaElement = e;
     if (this.isCaptchaElementReady && this.isCapchaScriptLoaded) {
-        this.renderReCaptcha();
+      this.renderReCaptcha();
     }
-  } 
+  }
 
   constructor(
     private authService: AuthService,
@@ -44,7 +49,7 @@ export class CompanyLeadFormComponent implements OnInit {
     this.addLeadForm = this.fb.group({
       first_name: [null, [Validators.required]],
       last_name: [null, [Validators.required]],
-      email: [null, [Validators.email, Validators.required]], 
+      email: [null, [Validators.email, Validators.required]],
       mobile_number: [null, [Validators.required]]
     });
 
@@ -71,7 +76,7 @@ export class CompanyLeadFormComponent implements OnInit {
             this.invalidCaptcha = true;
           });
         } else {
-            this.invalidCaptcha = true;
+          this.invalidCaptcha = true;
         }
       } catch (err) {
         this.isFormSaving = false;
@@ -100,16 +105,16 @@ export class CompanyLeadFormComponent implements OnInit {
     window['grecaptchaCallback'] = () => {
       this.isCapchaScriptLoaded = true;
       if (this.isCapchaScriptLoaded && this.isCaptchaElementReady)
-        this.renderReCaptcha(); 
+        this.renderReCaptcha();
       return;
     }
 
     (function (d, s, id, obj) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) {
-          obj.isCapchaScriptLoaded = true;
-          if (obj.isCapchaScriptLoaded && obj.isCaptchaElementReady)
-              obj.renderReCaptcha(); return;
+        obj.isCapchaScriptLoaded = true;
+        if (obj.isCapchaScriptLoaded && obj.isCaptchaElementReady)
+          obj.renderReCaptcha(); return;
       }
       js = d.createElement(s); js.id = id;
       js.src = "https://www.google.com/recaptcha/api.js?onload=grecaptchaCallback&render=explicit";

@@ -6,17 +6,17 @@ import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { NetworkComponent } from './network/network.component';
-import { InterestComponent } from './interest/interest.component';
+import { FeedComponent } from './feed/feed.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AgreementComponent } from './agreement/agreement.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { AddWebsiteComponent } from './add-website/add-website.component';
+import { EmailOtpComponent } from './email-otp/email-otp.component';
 
 import { environment } from '../../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-
-
 
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 
@@ -24,10 +24,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { ImportContactComponent } from './import-contact/import-contact.component';
 import { LanguageService } from '../shared/services/language.service';
-
-
-
-
 
 @NgModule({
     imports: [
@@ -42,10 +38,12 @@ import { LanguageService } from '../shared/services/language.service';
 
     ],
     declarations: [
+        AddWebsiteComponent,
+        EmailOtpComponent,
         LoginComponent,
         SignUpComponent,
         NetworkComponent,
-        InterestComponent,
+        FeedComponent,
         ProfileComponent,
         AgreementComponent,
         ResetPasswordComponent,

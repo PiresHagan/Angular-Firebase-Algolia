@@ -3,7 +3,8 @@ import { LanguageService } from 'src/app/shared/services/language.service';
 import { FundraiserService } from 'src/app/shared/services/fundraiser.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/authentication.service';
-import { User } from 'src/app/shared/interfaces/user.type';
+import { environment } from 'src/environments/environment';
+import { UserService } from 'src/app/shared/services/user.service';
 @Component({
   selector: 'app-fundraiser-list',
   templateUrl: './fundraiser-list.component.html',
@@ -24,6 +25,7 @@ export class FundraiserListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public authService: AuthService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -80,7 +82,11 @@ export class FundraiserListComponent implements OnInit {
   checkLogin() {
     this.authService.getAuthState().subscribe(async (user) => {
       if (!user.isAnonymous) {
-        this.router.navigate(["/app/fundraiser/fundraiser-list"]);
+        if(this.userService.userData?.isNewConsoleUser) {
+          this.authService.redirectToConsole(`${environment.consoleURL}/fundraiser/fundraiser-list`, {})
+        } else {
+          this.router.navigate(["/app/fundraiser/fundraiser-list"]);
+        }
       } else {
         this.showModal()
       }

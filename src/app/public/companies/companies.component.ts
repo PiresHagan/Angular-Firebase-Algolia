@@ -3,7 +3,8 @@ import { CompanyService } from 'src/app/shared/services/company.service';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/authentication.service';
-import { User } from 'src/app/shared/interfaces/user.type';
+import { environment } from 'src/environments/environment';
+import { UserService } from 'src/app/shared/services/user.service';
 @Component({
   selector: 'app-companies',
   templateUrl: './companies.component.html',
@@ -24,6 +25,7 @@ export class CompaniesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public authService: AuthService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -78,7 +80,11 @@ export class CompaniesComponent implements OnInit {
   checkLogin() {
     this.authService.getAuthState().subscribe(async (user) => {
       if (!user.isAnonymous) {
-        this.router.navigate(["/app/company/company-list"]);
+        if(this.userService.userData?.isNewConsoleUser) {
+          this.authService.redirectToConsole(`${environment.consoleURL}/company/company-list`, {})
+        } else {
+          this.router.navigate(["/app/company/company-list"]);
+        }
       } else {
         this.showModal()
       }

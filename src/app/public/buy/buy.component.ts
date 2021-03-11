@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { ThemeConstantService } from 'src/app/shared/services/theme-constant.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/authentication.service';
-import { User } from 'src/app/shared/interfaces/user.type';
+import { environment } from 'src/environments/environment';
+import { UserService } from 'src/app/shared/services/user.service';
 @Component({
   selector: 'app-buy',
   templateUrl: './buy.component.html',
@@ -16,6 +17,7 @@ export class BuyComponent implements OnInit {
     public translate: TranslateService,
     private themeService: ThemeConstantService,
     public authService: AuthService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -41,7 +43,11 @@ export class BuyComponent implements OnInit {
   checkLogin() {
     this.authService.getAuthState().subscribe(async (user) => {
       if (!user.isAnonymous) {
-        this.router.navigate(["/app/campaign/buy-search-engine"]);
+        if(this.userService.userData?.isNewConsoleUser) {
+          this.authService.redirectToConsole(`${environment.consoleURL}/campaign/buy-search-engine`, {})
+        } else {
+          this.router.navigate(["/app/campaign/buy-search-engine"]);
+        }
       } else {
         this.showModal()
       }

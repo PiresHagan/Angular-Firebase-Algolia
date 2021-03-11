@@ -23,8 +23,12 @@ import { StripTagsPipe } from './pipes/striptags.pipe';
 import { ThemeConstantService } from './services/theme-constant.service';
 import { ProductStarRatingComponent } from './component/product-star-rating/product-star-rating.component';
 import { AdDirective } from './directives/ad/ad.directive';
-import { AnalyticsService } from './services/analytics/analytics.service';
 import { SeoService } from './services/seo/seo.service';
+import { QuicklinkModule } from 'ngx-quicklink';
+import { CharityDonateFormComponent } from './component/charity-donate-form/charity-donate-form.component';
+import { CompanyLeadFormComponent } from './component/company-lead-form/company-lead-form.component';
+import { NgxStripeModule } from 'ngx-stripe';
+import { environment } from 'src/environments/environment';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -48,15 +52,21 @@ export function createTranslateLoader(http: HttpClient) {
         ShopProductAddReviewComponent,
         ProductStarRatingComponent,
         AdDirective,
+        QuicklinkModule,
+        CharityDonateFormComponent,
+        CompanyLeadFormComponent
     ],
     imports: [
         RouterModule,
         CommonModule,
         FormsModule,
         NgZorroAntdModule,
-        PerfectScrollbarModule,
+        FormsModule,
         ReactiveFormsModule,
+        PerfectScrollbarModule,
+        QuicklinkModule,
         CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
+        NgxStripeModule.forRoot(environment.stripePublishableKey),
         TranslateModule.forChild({
             useDefaultLang: true,
             isolate: false,
@@ -75,15 +85,12 @@ export function createTranslateLoader(http: HttpClient) {
         ArticleAvatarComponent,
         CloudinaryImgComponent,
         ShareButtonsComponent,
-        ShopProductCardComponent,
-        StoreComponent,
-        ShopProductAddReviewComponent,
-        ProductStarRatingComponent,
-        AdDirective
+        AdDirective,
+        CharityDonateFormComponent,
+        CompanyLeadFormComponent
     ],
     providers: [
         ThemeConstantService,
-        AnalyticsService,
         SeoService,
     ]
 })

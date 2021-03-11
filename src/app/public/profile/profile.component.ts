@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -10,7 +10,6 @@ import { LanguageService } from 'src/app/shared/services/language.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { AUTHOR } from 'src/app/shared/constants/member-constant';
 import { NzModalService } from 'ng-zorro-antd';
-import {  Router } from '@angular/router';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
 import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.service';
 
@@ -40,6 +39,7 @@ export class ProfileComponent implements OnInit {
   lastArticleIndexOfVideo;
   audioArticles: Article[] = [];
   videoArticles: Article[] = [];
+  rss = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -52,15 +52,21 @@ export class ProfileComponent implements OnInit {
     private modal: NzModalService,
     private router: Router,
     private seoService: SeoService,
-    private analyticsService: AnalyticsService,
+    private analyticsService: AnalyticsService
   ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
+      if (params.get('authorSlug')) {
+        this.router.navigate(['/', params.get('authorSlug')]);
+        return;
+      }
 
       const slug = params.get('slug');
       if (slug == 'undefined')
         return;
+
+      this.rss = `?member=${slug}`;
 
       this.authorService.getUserBySlug(slug).subscribe(author => {
         this.authorDetails = author;
@@ -151,6 +157,7 @@ export class ProfileComponent implements OnInit {
     })
   }
   reportAbuseAuthor() {
+    if (this.isLoggedInUser) {
     this.isReportAbuseLoading = true;
     this.authorService.reportAbusedUser(this.authorDetails.id).then(() => {
       this.showAbuseSuccessMessage();
@@ -158,6 +165,9 @@ export class ProfileComponent implements OnInit {
     }).catch(() => {
       this.isReportAbuseLoading = false;
     })
+  }else{
+    this.isVisible = true;
+  }
   }
   showAbuseSuccessMessage() {
 
@@ -184,7 +194,7 @@ export class ProfileComponent implements OnInit {
     }
   }
   async follow(authorId) {
-    if(this.authorDetails.id){
+    if (this.isLoggedInUser) {
     const userDetails = this.getUserDetails();
     const authorDetails = this.getAuthorDetails();
     if (userDetails.id == authorId) {
@@ -192,8 +202,7 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    await this.authorService.follow(authorId, userDetails.type);
-
+    await this.authorService.follow(authorId, AUTHOR);
     this.analyticsService.logEvent("follow_author", {
       author_id: authorDetails.id,
       author_name: authorDetails.fullname,
@@ -201,9 +210,10 @@ export class ProfileComponent implements OnInit {
       user_name: userDetails.fullname,
     });
   }else{
-    this.showModal();
+    this.isVisible = true;
   }
   }
+
   showSameFollowerMessage() {
     this.modal.warning({
       nzTitle: this.translate.instant('FollowNotAllowed'),
@@ -212,7 +222,7 @@ export class ProfileComponent implements OnInit {
   }
 
   async unfollow(authorId) {
-    if(this.authorDetails.id){
+    if (this.isLoggedInUser) {
     const userDetails = this.getUserDetails();
     const authorDetails = this.getAuthorDetails();
     await this.authorService.unfollow(authorId, userDetails.type);
@@ -224,9 +234,9 @@ export class ProfileComponent implements OnInit {
       user_name: userDetails.fullname,
     });
   }else{
-    this.showModal();
+    this.isVisible = true;
   }
-  }
+  } 
   setFollowOrNot() {
 
     this.authorService.isUserFollowing(this.authorDetails.id, this.getUserDetails().id).subscribe((data) => {
@@ -274,9 +284,8 @@ export class ProfileComponent implements OnInit {
   replaceImage(url) {
     let latestURL = url
     if (url) {
-      latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
-        .replace('http://cdn.mytrendingstories.com/', "https://cdn.mytrendingstories.com/")
-        .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
+      latestURL = latestURL.replace('http://cdn.mytrendingstories.com/', 'https://cdn.mytrendingstories.com/')
+        .replace('https://abc2020new.com/', 'https://assets.mytrendingstories.com/');
     }
     return latestURL;
   }
@@ -326,9 +335,20 @@ export class ProfileComponent implements OnInit {
       this.lastArticleIndexOfVideo = articleData.lastVisible;
     })
   }
+  getTextArticle() {
+    const authorId = this.authorDetails.id;
+    this.getArticleList(authorId);
+  }
 
   isVisible = false;
   isOkLoading = false;
+  followerData = "alltime";
+ 
+  showFollowOption(): void {
+    this.isVisible = true;
+
+  }
+
   showModal(): void {
     this.isVisible = true;
   }

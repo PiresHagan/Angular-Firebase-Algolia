@@ -47,11 +47,13 @@
             width: 40px;
             height: 40px;
             border-radius: 100%;
+            object-fit: cover;
           }
         }
 
         .is-comment-detail {
           flex:1;
+          word-break: break-word;
           .is-comment-user-name {
             font-family: "josefin_sansregular";
             color: #000;

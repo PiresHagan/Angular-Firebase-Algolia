@@ -19,8 +19,11 @@ export class BackofficeFundraiserService {
   fundraiserCollection: string = 'fundraisings';
   fundraiserImagePath: string = '/fundraiser';
   fundraiserDonation = "donates";
-  
-  constructor(private http: HttpClient, private db: AngularFirestore, private storage: AngularFireStorage, ) { }
+
+  constructor(private http: HttpClient,
+    private db: AngularFirestore,
+    private storage: AngularFireStorage,
+  ) { }
 
   deleteFundraiser(fundraiserId) {
     return this.http.delete(environment.baseAPIDomain + '/api/v1/fundraisings/' + fundraiserId);
@@ -70,7 +73,7 @@ export class BackofficeFundraiserService {
   addFundraiserImage(fundraiserId: string, imageDetails: any) {
     const path = `${this.fundraiserImagePath}/${Date.now()}_${imageDetails.file.name}`;
     return new Promise((resolve, reject) => {
-      this.storage.upload(path, imageDetails.file).then( snapshot => {
+      this.storage.upload(path, imageDetails.file).then(snapshot => {
         snapshot.ref.getDownloadURL().then((downloadURL) => {
           const imageUrl: string = downloadURL;
           this.updateFundraiser(fundraiserId, { image: { url: imageUrl, alt: imageDetails.alt } }).then(res => resolve()).catch(err => reject(err))
@@ -85,7 +88,7 @@ export class BackofficeFundraiserService {
   uploadFundraiserFile(fileDetails: any) {
     const path = `${this.fundraiserImagePath}/${Date.now()}_${fileDetails.name}`;
     return new Promise((resolve, reject) => {
-      this.storage.upload(path, fileDetails).then( snapshot => {
+      this.storage.upload(path, fileDetails).then(snapshot => {
         snapshot.ref.getDownloadURL().then((downloadURL) => {
           const imageUrl: string = downloadURL;
           resolve({ url: imageUrl, name: fileDetails.name })
@@ -285,7 +288,7 @@ export class BackofficeFundraiserService {
 
   addImage(file: string, fileName: string) {
     return new Promise((resolve, reject) => {
-      firebase.storage().ref(`${this.fundraiserImagePath}/${fileName}`).putString(file, "data_url").then( snapshot => {
+      this.storage.ref(`${this.fundraiserImagePath}/${fileName}`).putString(file, "data_url").then(snapshot => {
         snapshot.ref.getDownloadURL().then((downloadURL) => {
           const imageUrl: string = downloadURL;
           resolve({ url: downloadURL, alt: fileName });

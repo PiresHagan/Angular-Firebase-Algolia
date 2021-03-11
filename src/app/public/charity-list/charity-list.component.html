@@ -3,58 +3,64 @@
         <div class="is-comman-title"> {{ 'charitiesTitle' | translate }} </div>
         <div class="all-companies-main-sec">
             <div class="companies-box">
-                <div class="row">
-                    <div *ngFor="let charity of charities" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                        <a [routerLink]="['/charities',charity.slug]">
-                            <div class="companies-box-item">
-                                <div>
-                                    <img [src]="charity?.logo.url" [alt]="charity?.logo?.alt"
-                                        onerror="this.src='assets/images/default-avatar.png'"
-                                        *ngIf="!(charity.logo.cloudinary_id); else charityCloudinoryImg" />
-                                    <ng-template #charityCloudinoryImg>
-                                        <cl-image loading="lazy" public-id="{{charity.logo.cloudinary_id}}"
-                                            secure="true">
-                                            <cl-transformation width="140" height="140" gravity="face" crop="thumb">
-                                            </cl-transformation>
-                                        </cl-image>
-                                    </ng-template>
-                                    <h2 [ngStyle]="{'color': charity?.color_code}">{{ charity?.name }}</h2>
-                                    <p>{{ charity?.bio }}</p>
-                                    <button type="button" class="is-read-more">
-                                        {{'readMore' | translate }} <img src="assets/images/read-more-icon-black.png"
-                                            alt="Read More" />
-                                    </button>
+                <div class="row" *ngIf="!charities">
+                    <nz-skeleton [nzAvatar]="true" [nzParagraph]="{ rows: 6 }" class="custom-skeleton card-skeleton"></nz-skeleton>
+                </div>
+                <div  *ngIf="charities">
+                    <div class="row">
+                        <div *ngFor="let charity of charities" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                            <a [routerLink]="['/charities',charity.slug]">
+                                <div class="companies-box-item">
+                                    <div>
+                                        <img [src]="charity?.logo.url" [alt]="charity?.logo?.alt"
+                                            onerror="this.src='assets/images/default-avatar.png'"
+                                            *ngIf="!(charity.logo.cloudinary_id); else charityCloudinoryImg" />
+                                        <ng-template #charityCloudinoryImg>
+                                            <cl-image loading="lazy" public-id="{{charity.logo.cloudinary_id}}"
+                                                secure="true">
+                                                <cl-transformation width="140" height="140" gravity="face" crop="thumb">
+                                                </cl-transformation>
+                                            </cl-image>
+                                        </ng-template>
+                                        <h2 [ngStyle]="{'color': charity?.color_code}">{{ charity?.name }}</h2>
+                                        <p>{{ charity?.bio }}</p>
+                                        <button type="button" class="is-read-more">
+                                            {{'readMore' | translate }} <img src="assets/images/read-more-icon-black.png"
+                                                alt="Read More" />
+                                        </button>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div *ngIf="!charities?.length" class="box-center">
+                        <nz-result [nzIcon]="'crown'" [nzTitle]="'CreateCharity' | translate">
+                            <div nz-result-extra>
+                                <button nz-button nzType="primary"
+                                    (click)="checkLogin()">{{'CreateCharityBtn' | translate}}</button>
+                                <div class="login-popup" *ngIf="!(isLoggedInUser)">
+                                    <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()"
+                                        (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
+                                        <div class="popup-content">
+                                            <div>
+                                                <a [routerLink]="['/']" class="bg-logo">
+                                                    <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                                                </a>
+                                            </div>
+                                            <p class="text-black">{{'Please' | translate}}, <a
+                                                    routerLink="/auth/login">{{'logInTitle' | translate}}</a> {{'or' | translate}}
+                                                <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
+                                                {{'toContinue' | translate}}.</p>
+            
+                                        </div>
+                                    </nz-modal>
                                 </div>
                             </div>
-                        </a>
+                        </nz-result>
                     </div>
                 </div>
-              </div>
-          </div>
-        <div *ngIf="!charities?.length" class="box-center">
-            <nz-result [nzIcon]="'crown'" [nzTitle]="'CreateCharity' | translate">
-                <div nz-result-extra>
-                    <button nz-button nzType="primary"
-                        (click)="checkLogin()">{{'CreateCharityBtn' | translate}}</button>
-                    <div class="login-popup" *ngIf="!(isLoggedInUser)">
-                        <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()"
-                            (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
-                            <div class="popup-content">
-                                <div>
-                                    <a [routerLink]="['/']" class="bg-logo">
-                                        <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
-                                    </a>
-                                </div>
-                                <p class="text-black">{{'Please' | translate}}, <a
-                                        routerLink="/auth/login">{{'logInTitle' | translate}}</a> {{'or' | translate}}
-                                    <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
-                                    {{'toContinue' | translate}}.</p>
-
-                            </div>
-                        </nz-modal>
-                    </div>
-                </div>
-            </nz-result>
+            </div>
         </div>
-   </div>
+        
+    </div>
 </section>

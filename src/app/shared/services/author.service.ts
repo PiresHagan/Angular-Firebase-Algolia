@@ -40,6 +40,17 @@ export class AuthorService {
     );
 
   }
+
+  getOnBoardingContributors(lang: string) {
+    return new Promise((resolve, reject) => {
+      this.http.get(environment.baseAPIDomain + `/api/v1/onBoarding/${lang}/getTopContributors`, {}).subscribe((response: any) => {
+        resolve(response)
+      }, (error) => {
+        reject(error)
+      })
+    })
+  }
+
   reportAbusedUser(userId: string) {
     return new Promise<any>((resolve, reject) => {
       return this.http.post(environment.baseAPIDomain + `/api/v1/members/${userId}/abuse`, {}).subscribe(() => {
@@ -157,14 +168,14 @@ export class AuthorService {
     );
   }
 
-  follow(authorId: string, type: string = null) {
+  follow(authorId: string, type: string = null, followerData = { 'newsletter_time': 'alltime' }) {
     if (!type || type == STAFF || type == AUTHOR || type == MEMBER)
-      return this.http.post(environment.baseAPIDomain + `/api/v1/members/${authorId}/follow`, {}).subscribe();
+      return this.http.post(environment.baseAPIDomain + `/api/v1/members/${authorId}/follow`, followerData).subscribe();
     else if (type == COMPANY) {
-      return this.http.post(environment.baseAPIDomain + `/api/v1/companies/${authorId}/follow`, {}).subscribe();
+      return this.http.post(environment.baseAPIDomain + `/api/v1/companies/${authorId}/follow`, followerData).subscribe();
     }
     else if (type == CHARITY) {
-      return this.http.post(environment.baseAPIDomain + `/api/v1/charities/${authorId}/follow`, {}).subscribe();
+      return this.http.post(environment.baseAPIDomain + `/api/v1/charities/${authorId}/follow`, followerData).subscribe();
     }
 
   }

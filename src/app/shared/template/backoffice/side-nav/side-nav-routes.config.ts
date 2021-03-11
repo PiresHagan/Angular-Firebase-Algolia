@@ -73,7 +73,7 @@ export const ROUTES: SideNavInterface[] = [
     },
     {
         path: '/app/admin',
-        title: 'Admin Center',
+        title: 'AdminCenter',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'lock',
@@ -119,7 +119,7 @@ export const ROUTES: SideNavInterface[] = [
     },
     {
         path: '/app/charity/charity-list',
-        title: 'Charities',
+        title: 'charitiesTitle',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'notification',
@@ -128,7 +128,7 @@ export const ROUTES: SideNavInterface[] = [
     },
     {
         path: '/app/fundraiser/fundraiser-list',
-        title: 'Fundraisers',
+        title: 'fundraisers',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'notification',

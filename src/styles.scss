@@ -5,7 +5,7 @@
 
 html,
 body {
-    min-width: 350px;
+    min-width: 320px;
     overflow-x: hidden;
 }
 
@@ -28,5 +28,23 @@ body {
     .ant-picker-input > input-focused,
     .ant-picker-input > input:focus {
         border-color: #ff4020;
+    }
+}
+
+.desktop_ad,
+.mobile_ad {
+    display: none !important;
+    margin: auto;
+}
+
+@media screen and (max-width: 767px) {
+    .mobile_ad {
+        display: block !important;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .desktop_ad {
+        display: block !important;
     }
 }

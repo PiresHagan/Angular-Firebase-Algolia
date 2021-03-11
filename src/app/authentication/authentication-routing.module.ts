@@ -3,12 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { NetworkComponent } from './network/network.component';
-import { InterestComponent } from './interest/interest.component';
+import { FeedComponent } from './feed/feed.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AgreementComponent } from './agreement/agreement.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AuthGuard } from '../shared/guard/auth.guard';
 import { ImportContactComponent } from './import-contact/import-contact.component';
+import { EmailOtpComponent } from './email-otp/email-otp.component';
+import { AddWebsiteComponent } from './add-website/add-website.component';
 
 const routes: Routes = [
     {
@@ -39,7 +41,6 @@ const routes: Routes = [
             title: 'Agreement'
         }
     },
-
     {
         path: 'network',
         component: NetworkComponent,
@@ -49,10 +50,25 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'interest',
-        component: InterestComponent,
+        path: 'feed',
+        component: FeedComponent,
         data: {
-            title: 'Define your interests'
+            title: 'Welcome to your feed'
+        },
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'email-verify',
+        component: EmailOtpComponent ,
+        data: {
+            title: 'Email Verify'
+        }
+    },
+    {
+        path: 'website',
+        component: AddWebsiteComponent ,
+        data: {
+            title: 'Website'
         },
         canActivate: [AuthGuard]
     },
