@@ -1,44 +1,12 @@
 <div class="mainmenu">
-  <nz-layout class="layout">
-    <nz-sider nzCollapsible nzBreakpoint="lg" [nzCollapsedWidth]="0" [(nzCollapsed)]="isMenuHidden">
-      <ul nz-menu [nzMode]="'horizontal'" nzTheme="dark" class="hidden-categories-xs">
-        <ng-container *ngFor="let item of (categories)">
-          <li nz-menu-item [routerLink]="['/category', item.slug]" [ngClass]="item.slug">
-            {{item.title}}</li>
-
-        </ng-container>
-        <li nz-menu-item class="megamenu-list" id="mega-menu-header" (mouseenter)="showMegaMenu()"
-          (mouseleave)="hideMegaMenu()">
-          <a class="megamenu-link">{{'More' | translate}} <i nz-icon nzType="down" nzTheme="outline"></i></a>
-          <div class="mega-body-sec" id="mega-menu-section">
-            <div class="megamenu-body">
-              <div class="sub-catagories-sec">
+    <nz-layout class="layout">
+        <nz-sider nzCollapsible nzBreakpoint="lg" [nzCollapsedWidth]="0" [(nzCollapsed)]="isMenuHidden">
+            <ul nz-menu [nzMode]="'horizontal'" nzTheme="dark" class="hidden-categories-xs">
                 <ng-container *ngFor="let item of (categories)">
-                  <div class="sub-catagories-list" [ngClass]="item.slug">
-                    <h2>{{item.title}}</h2>
-                    <ul>
-                      <li (click)="hideMegaMenu()" *ngFor="let topic of (categoryListData[item.uid].child | async )"
-                        nz-menu-item [routerLink]="['/category', item.slug]" [queryParams]="{topic:topic.slug}"
-                        class="mega-menu-list-item">
-                        {{topic.title}}
-                      </li>
-                    </ul>
-                  </div>
+                    <li nz-menu-item [routerLink]="['/category', item.slug]" [ngClass]="item.slug">
+                        {{item.title}}</li>
+
                 </ng-container>
-              </div>
-            </div>
-          </div>
-        </li>
-      </ul>
-      <ul nz-menu [nzMode]="'inline'" class="hidden-on-lg mobile-mega-menu">
-        <li>
-            <h2 class="menu-title">{{'menu' | translate}}</h2>
-        </li>
-        <li routerLink="/" nz-menu-item class="border-bottom" (click)="hideMenu()">Home</li>
-        <li routerLink="/today" nz-menu-item class="border-bottom" (click)="hideMenu()">Today's Stories</li>
-        <ng-container *ngFor="let item of (categories)">
-            <li  class="border-bottom" nz-menu-item [routerLink]="['/category', item.slug]" [ngClass]="item.slug" (click)="hideMenu()">
-                {{item.title}}</li>
 
 
 

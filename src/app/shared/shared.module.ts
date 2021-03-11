@@ -87,7 +87,11 @@ export function createTranslateLoader(http: HttpClient) {
         ShareButtonsComponent,
         AdDirective,
         CharityDonateFormComponent,
-        CompanyLeadFormComponent
+        CompanyLeadFormComponent,
+        ShopProductAddReviewComponent,
+        ShopProductCardComponent,
+        ProductStarRatingComponent,
+        StoreComponent
     ],
     providers: [
         ThemeConstantService,

@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { Charity } from 'src/app/shared/interfaces/charity.type';
 import { take, map } from 'rxjs/operators';
 import { Store } from 'src/app/shared/interfaces/ecommerce/store';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
     providedIn: 'root'
@@ -17,13 +18,15 @@ export class StoreSetting {
     private storeCollection = 'stores';
     private productCollection = 'store-products';
     constructor(private http: HttpClient,
-        public db: AngularFirestore) {
+        public db: AngularFirestore,
+        private storage: AngularFireStorage
+    ) {
 
     }
 
     addImage(file: string, fileName: string) {
         return new Promise((resolve, reject) => {
-            firebase.storage().ref(`${this.basePath}/${fileName}`).putString(file, "data_url").then(
+            this.storage.ref(`${this.basePath}/${fileName}`).putString(file, "data_url").then(
                 snapshot => {
                     snapshot.ref.getDownloadURL().then((downloadURL) => {
                         const imageUrl: string = downloadURL;
