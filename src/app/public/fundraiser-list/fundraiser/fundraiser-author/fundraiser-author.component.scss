@@ -137,7 +137,16 @@
 	    }
 	}
 }
-
+.share-sec{
+    h3{
+        color: #fd6147;
+        font-size: 22px;
+        font-family: josefin_sanssemibold;
+        text-align: center;
+        text-transform: capitalize;
+        margin-top: 20px;
+    }
+}
 @media screen and (max-width: 580px) {
     .sticky-box {
         padding: 20px 0px;

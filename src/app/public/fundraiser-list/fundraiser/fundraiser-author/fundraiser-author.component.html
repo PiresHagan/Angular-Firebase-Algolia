@@ -1,43 +1,9 @@
 <div class="sticky-box">
     <div class="is-author-name-sec">
-        <div class="logo">
-            <a [routerLink]="[getAuthorUrl(fundraiser),fundraiserAuthor?.slug]" itemprop="url">
-                <img class="avatar" [src]="fundraiser?.author?.avatar?.url"
-                    [alt]="fundraiser?.author?.avatar?.alt"
-                    onerror="this.src='assets/images/default-avatar.png'" />
-            </a>
-            <app-article-avatar [article]="fundraiser"></app-article-avatar>
-        </div>
-        <span [routerLink]="[getAuthorUrl(fundraiser),fundraiserAuthor?.slug]" class="is-author-name">
-            <a>
-                <span class="name">{{ fundraiser?.author?.fullname }}</span>
-            </a>
-        </span>
-        <div class="follow-btn-sec">
-            <div class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/article/icon/follow.png" alt="Follow Image" >{{ "followFundraiser" | translate }}</a>
-            </div>
-            <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/article/icon/un-follow.png" alt="Unfollow Image"/>{{ "unfollowFundraiser" | translate }}</a>
-            </div>
-            <div class="login-popup"  *ngIf="!isLoggedInUser">
-                <nz-modal
-                    [(nzVisible)]="isVisible"
-                    nzTitle="My Trending Stories"
-                    (nzOnCancel)="handleCancel()"
-                    (nzOnOk)="handleOk()"
-                    [nzOkLoading]="isOkLoading"
-                    >
-                    <div class="popup-content">
-                        <div>
-                            <a [routerLink]="['/']" class="bg-logo">
-                                <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
-                            </a>
-                        </div>
-                        <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' | translate}}</a> {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a> {{'toContinue' | translate}}.</p> 
-                    </div>
-                </nz-modal>
-            </div>
+         
+         <div class="share-sec text-center">
+            <h3>{{'shareArticle' | translate}}</h3>
+            <div class="addthis_inline_share_toolbox"></div>
         </div>
     </div>
 
