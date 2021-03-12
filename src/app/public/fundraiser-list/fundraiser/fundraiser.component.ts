@@ -12,7 +12,9 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { CompanyService } from 'src/app/shared/services/company.service';
 import { CharityService } from 'src/app/shared/services/charity.service';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
-
+import { AuthService } from 'src/app/shared/services/authentication.service';
+import { Article } from 'src/app/shared/interfaces/article.type';
+import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
 @Component({
   selector: 'app-fundraiser',
   templateUrl: './fundraiser.component.html',
@@ -30,7 +32,15 @@ export class FundraiserComponent implements OnInit {
   // TEXT = TEXT;
   // AUDIO = AUDIO;
   // VIDEO = VIDEO;
-
+  Allfundraisers:any;
+  fundraiserArticles: Article[];
+  textArticles: Article[] = [];
+  audioArticles: Article[] = [];
+  videoArticles: Article[] = [];
+  lastArticleIndex;
+  lastArticleIndexOfAudio;
+  lastArticleIndexOfVideo;
+  lastArticleIndexOfText;
   constructor(
     private route: ActivatedRoute,
     private langService: LanguageService,
@@ -41,6 +51,7 @@ export class FundraiserComponent implements OnInit {
     public companyService: CompanyService,
     public charityService: CharityService,
     private seoService: SeoService,
+    private articleService: BackofficeArticleService,
   ) { }
 
   ngOnInit(): void {
@@ -51,8 +62,15 @@ export class FundraiserComponent implements OnInit {
 
       this.fundraiserService.getFundraiserBySlug(slug).subscribe(data => {
         this.fundraiser = data[0];
-
+        this.Allfundraisers = data;
+        
         this.fundraiserId = this.fundraiser.id;
+             // Fetching fundraiser article
+             this.articleService.getArticlesByUser(this.fundraiserId,  2, null, this.lastArticleIndex).subscribe((data) => {
+              this.fundraiserArticles = data.articleList;
+              this.lastArticleIndex = data.lastVisible;
+            });
+    
 
         if (this.fundraiser.goal_amount && this.fundraiser.amount) {
           this.donationPercentage = ((this.fundraiser.amount / this.fundraiser.goal_amount) * 100).toFixed(1);
@@ -86,6 +104,57 @@ export class FundraiserComponent implements OnInit {
         });
       });
     });
+    
+  }
+
+  loadMoreArticle() {
+    const fundraiserId = this.fundraiser.id;
+    this.articleService.getArticlesByAuthor(fundraiserId, 2, 'next', this.lastArticleIndex).subscribe((articleData) => {
+      let mergedData: any = [...this.fundraiserArticles, ...articleData.articleList];
+      this.fundraiserArticles = this.getDistinctArray(mergedData)
+      this.lastArticleIndex = articleData.lastVisible;
+    })
+  }
+
+  getDistinctArray(data) {
+    var resArr = [];
+    data.filter(function (item) {
+      var i = resArr.findIndex(x => x.id == item.id);
+      if (i <= -1) {
+        resArr.push(item);
+      }
+      return null;
+    });
+    return resArr;
+  }
+
+  getTextArticles() {
+    if (this.textArticles.length != 0)
+      return;
+    const fundraiserId = this.fundraiser.id; 
+    this.articleService.getArticlesByUser(fundraiserId, 2, 'first', null, 'text').subscribe((data) => {
+      this.textArticles = data.articleList;
+      this.lastArticleIndexOfText = data.lastVisible;
+    })
+  }
+
+  getAudioArticles() {
+    if (this.audioArticles.length != 0)
+      return;
+    const CompanyId = this.fundraiser.id;
+    this.articleService.getArticlesByUser(CompanyId, 2, 'first', null, 'audio').subscribe((articleData) => {
+      this.audioArticles = articleData.articleList;
+      this.lastArticleIndexOfAudio = articleData.lastVisible;
+    })
+  }
+  getVideoArticles() {
+    if (this.videoArticles.length != 0)
+      return;
+    const CompanyId = this.fundraiser.id;
+    this.articleService.getArticlesByUser(CompanyId, 2, 'first', null, 'video').subscribe((articleData) => {
+      this.videoArticles = articleData.articleList;
+      this.lastArticleIndexOfVideo = articleData.lastVisible;
+    })
   }
 
   ngAfterViewChecked(): void {

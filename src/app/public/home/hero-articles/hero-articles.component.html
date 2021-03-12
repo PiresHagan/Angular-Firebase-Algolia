@@ -32,6 +32,9 @@
               <div class="special-icon" *ngIf="article.author.type==='charity'">
                 <img src="assets/images/charity-icon.png" alt="company-icon"/>
               </div>
+              <div class="special-icon" *ngIf="article.author.type==='fundraiser'">
+                <img src="assets/images/fundraiser.svg" style="max-width: 22px;" />
+              </div>
             </div>
             <span class="is-card-author">{{article.author.fullname}}
             </span>
@@ -130,6 +133,9 @@
               </div>
               <div class="special-icon" *ngIf="article.author.type==='charity'">
                 <img src="assets/images/charity-icon.png" alt="charity-icon"/>
+              </div>
+              <div class="special-icon" *ngIf="article.author.type==='fundraiser'">
+                <img src="assets/images/fundraiser.svg" style="max-width: 22px;" />
               </div>
             </div>
             <span class="is-card-author">{{article.author.fullname}}
@@ -244,6 +250,9 @@
                   </div>
                   <div class="special-icon" *ngIf="article.author.type==='charity'">
                     <img src="assets/images/charity-icon.png" alt="charity-icon"/>
+                  </div>
+                  <div class="special-icon" *ngIf="article.author.type==='fundraiser'">
+                    <img src="assets/images/fundraiser.svg" style="max-width: 22px;" />
                   </div>
                 </div>
                 <span class="is-card-author">{{article.author.fullname}}</span>
