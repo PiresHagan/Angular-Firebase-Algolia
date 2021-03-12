@@ -22,11 +22,36 @@
  </section>
 <section class="is-article-block" *ngIf="fundraiser">
    <div class="container">
+    <div class="mobile-article-detail">
+      <div class="xs-company-img">
+        <img *ngIf="fundraiser" [src]='fundraiser?.logo?.url' [alt]='fundraiser?.logo?.alt' 
+        onerror="this.src='assets/images/default-avatar.png'"
+        />
+       </div>
+      <div class="xs-article-author-detail">
+          <div class="xs-article-name">
+                  {{ fundraiser?.title }}
+              </div>
+          <div class="comment-section">
+              <ul>
+                  <li>
+                      <div class="follow-btn">
+                          <a nz-button>Follow Fundraiser</a>
+                      </div>
+                      <!-- <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                          <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowCompany" | translate }}</a>
+                      </div> -->
+                  </li>
+              </ul>
+          </div>
+      </div>
+     
+  </div>
       <div class="article-full-img">
          <img *ngIf="fundraiser" [src]='fundraiser?.image?.url' [alt]='fundraiser?.image?.alt'/>
       </div>
       <div class="is-article-sec">
-         <div class="is-left-profile">
+         <div class="is-left-profile hidden-on-xs">
             <app-fundraiser-author 
                *ngIf="fundraiser && fundraiserAuthor" 
                [fundraiser]="fundraiser"
@@ -34,12 +59,15 @@
             ></app-fundraiser-author>
          </div>
          <div class="is-main-article-content">
-            <div class="company-img">
+            <div class="company-img hidden-on-xs">
                <img *ngIf="fundraiser" [src]="fundraiser?.logo?.url" [alt]="fundraiser?.logo?.alt"  onerror="this.src='assets/images/default-avatar.png'"/>
-            </div>
+               <div class="special-icon" *ngIf="fundraiser">
+                <img src="assets/images/fundraiser.svg" style="max-width:28px;" />
+              </div>
+              </div>
             <div class="is-content">
                <div class="is-head">
-                  <div class="company-name">
+                  <div class="company-name hidden-on-xs">
                      <h1>
                         <a>
                            {{ fundraiser?.title }}
@@ -48,7 +76,7 @@
                   </div>
                   <div class="media-section">
                      <div class="follow-btn-sec">
-                        <div class="follow-btn">
+                        <div class="follow-btn hidden-on-xs">
                             <a nz-button>{{ "followFundraiser" | translate }}</a>
                         </div>
                         <!-- <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
@@ -72,6 +100,25 @@
                      <div class="is-paragraph">
                         <p class="big " innerHTML="{{ fundraiser?.content }}"></p>
                      </div>
+                     <div class="xs-article-publish">
+                      <div class="d-flex">
+                        <div class="xs-article-publisher-img">
+                          <div class="company-img">
+                              <img *ngIf="fundraiser" [src]='fundraiser?.logo?.url' [alt]='fundraiser?.logo?.url' 
+                              onerror="this.src='assets/images/default-avatar.png'"
+                              />
+                              <div class="special-icon" *ngIf="fundraiser">
+                                  <img src="assets/images/fundraiser.svg" style="max-width:28px;" />
+                              </div>
+                          </div>
+                      </div>
+                      <div class="xs-articl-publisher-name">{{ fundraiser?.title }}</div>
+                      </div>
+                      <div class="share-sec text-left">
+                          <h3>{{'shareArticle' | translate}}</h3>
+                          <app-share-buttons></app-share-buttons>
+                      </div>
+                  </div>
                   </div>
                   <!-- <div *ngIf="fundraiser?.type === VIDEO" class="main-video-sec">
                      <cl-video [public-id]="fundraiser?.fundraising_file?.cloudinary_id" secure="true" controls="true" class="cld-video"></cl-video>
@@ -146,7 +193,8 @@
                                               <div class="item-card-content">
                                                 <div class="item-card-category  cat-yellow">
                                                   <div class="is-avatar-dv">
-                                                    <img class="avatar" [src]="replaceImage(article?.author?.avatar?.url)"
+                                                    <div class="overlay-icon">
+                                                      <img class="avatar" [src]="replaceImage(article?.author?.avatar?.url)"
                                                       [alt]="article?.author?.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
                                                       *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg">
                                                     <ng-template #CateAvatarCloudinoryImg>
@@ -155,6 +203,9 @@
                                                         </app-cloudinary-img>
                                                       </div>
                                                     </ng-template>
+                                                    <app-article-avatar [article]="article">
+                                                    </app-article-avatar>
+                                                    </div>
                                                     <span class="item-card-author">{{article?.author?.fullname}}</span>
                                                   </div>
                                                 </div>
@@ -493,7 +544,8 @@
                                                   <div class="item-card-content">
                                                     <div class="item-card-category  cat-yellow">
                                                       <div class="is-avatar-dv">
-                                                        <img class="avatar" [src]="replaceImage(article?.author?.avatar?.url)"
+                                                        <div class="overlay-icon">
+                                                          <img class="avatar" [src]="replaceImage(article?.author?.avatar?.url)"
                                                           [alt]="article?.author?.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
                                                           *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg">
                                                         <ng-template #CateAvatarCloudinoryImg>
@@ -502,6 +554,9 @@
                                                             </app-cloudinary-img>
                                                           </div>
                                                         </ng-template>
+                                                        <app-article-avatar [article]="article">
+                                                        </app-article-avatar>
+                                                        </div>
                                                         <span class="item-card-author">{{article?.author?.fullname}}</span>
                                                       </div>
                                                     </div>
