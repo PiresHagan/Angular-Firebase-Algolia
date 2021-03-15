@@ -25,6 +25,9 @@ export class FundraiserComponent implements OnInit {
   fundraiser: Fundraiser;
   fundraiserAuthor;
   fundraiserId: string;
+  isFollowing: boolean = false;
+  isLoggedInUser: boolean = false;
+  isUpdatingFollow: boolean = false;
   isLoaded: boolean = false;
   selectedLanguage: string = "";
   donationPercentage: string = "0";
@@ -41,11 +44,13 @@ export class FundraiserComponent implements OnInit {
   lastArticleIndexOfAudio;
   lastArticleIndexOfVideo;
   lastArticleIndexOfText;
+  userDetails: User;
   constructor(
     private route: ActivatedRoute,
     private langService: LanguageService,
     private fundraiserService: FundraiserService,
     private authorService: AuthorService,
+    private authService: AuthService,
     public translate: TranslateService,
     public userService: UserService,
     public companyService: CompanyService,
@@ -65,6 +70,7 @@ export class FundraiserComponent implements OnInit {
         this.Allfundraisers = data;
         
         this.fundraiserId = this.fundraiser.id;
+        this.setUserDetails();
              // Fetching fundraiser article
              this.articleService.getArticlesByUser(this.fundraiserId,  2, null, this.lastArticleIndex).subscribe((data) => {
               this.fundraiserArticles = data.articleList;
@@ -103,6 +109,7 @@ export class FundraiserComponent implements OnInit {
           keywords: this.fundraiser.meta?.keyword,
         });
       });
+      this.setUserDetails();
     });
     
   }
@@ -162,6 +169,73 @@ export class FundraiserComponent implements OnInit {
       delete window['addthis']
       setTimeout(() => { this.loadScript(); }, 100);
       this.isLoaded = true;
+    }
+  }
+
+  getUserDetails() {
+    return {
+      fullname: this.userDetails.fullname,
+      slug: this.userDetails.slug ? this.userDetails.slug : '',
+      avatar: this.userDetails.avatar ? this.userDetails.avatar : '',
+      id: this.userDetails.id,
+    }
+  }
+
+  setFollowOrNot() { debugger
+    this.fundraiserService.isUserFollowing(this.fundraiser.id, this.getUserDetails().id).subscribe((data) => {
+      setTimeout(() => {
+        if (data) {
+          this.isFollowing = true;
+          this.isUpdatingFollow = false;
+        } else {
+          this.isFollowing = false;
+          this.isUpdatingFollow = false;
+        }
+      }, 1500);
+    });
+  }
+
+  async setUserDetails() {
+    this.authService.getAuthState().subscribe(async (user) => {
+      if (!user.email) {
+        this.userDetails = null;
+        this.isLoggedInUser = false;
+        return;
+      }
+
+      this.userDetails = await this.authService.getLoggedInUserDetails();
+
+      if (this.userDetails) {
+        this.isLoggedInUser = true;
+        this.setFollowOrNot();
+      } else {
+        this.userDetails = null;
+        this.isLoggedInUser = false;
+      }
+    })
+  }
+
+  async follow() { debugger
+    await this.setUserDetails();
+    if (this.isLoggedInUser) {
+      this.isUpdatingFollow = true;
+      await this.fundraiserService.followFundraiser(this.fundraiser.id).then(data => {
+        this.setFollowOrNot();
+      });
+    } else {
+      this.showModal()
+    }
+  }
+
+  async unfollow() {
+    await this.setUserDetails();
+    if (this.isLoggedInUser) {
+      this.isUpdatingFollow = true;
+      await this.fundraiserService.unfollowFundraiser(this.fundraiser.id).then(data => {
+        this.setFollowOrNot();
+      });
+    } else {
+      this.showModal()
     }
   }
 
