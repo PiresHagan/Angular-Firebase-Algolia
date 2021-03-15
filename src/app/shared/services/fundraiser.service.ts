@@ -29,6 +29,30 @@ export class FundraiserService {
         });
       })
     );
+  } 
+
+  isUserFollowing(fundraiserId: string, followerId: string) {
+    return this.db.collection(this.fundraisersCollection).doc(fundraiserId).collection(this.followersSubCollection).doc(followerId).valueChanges();
+  }
+
+  followFundraiser(fundraiserId: string) {
+    return new Promise((resolve, reject) => {
+      this.http.post(environment.baseAPIDomain + `/api/v1/fundraisings/${fundraiserId}/follow`, {}).subscribe((response) => {
+        resolve(response)
+      }, (error) => {
+        reject(error)
+      })
+    })
+  }
+
+  unfollowFundraiser(fundraiserId: string) {
+    return new Promise((resolve, reject) => {
+      this.http.post(environment.baseAPIDomain + `/api/v1/fundraisings/${fundraiserId}/unfollow`, {}).subscribe((response) => {
+        resolve(response)
+      }, (error) => {
+        reject(error)
+      })
+    })
   }
 
   getFundraiserBySlug(slug: string) {

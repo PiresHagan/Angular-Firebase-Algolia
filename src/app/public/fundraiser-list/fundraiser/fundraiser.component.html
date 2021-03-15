@@ -76,9 +76,12 @@
                   </div>
                   <div class="media-section">
                      <div class="follow-btn-sec">
-                        <div class="follow-btn hidden-on-xs">
-                            <a nz-button>{{ "followFundraiser" | translate }}</a>
-                        </div>
+                      <div class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                        <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "followCompany" | translate }}</a>
+                      </div>
+                      <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                          <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowCompany" | translate }}</a>
+                      </div>
                         <!-- <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
                             <a nz-button [nzLoading]="isUpdatingFollow">{{ "unfollowFundraiser" | translate }}</a>
                         </div> -->
