@@ -442,6 +442,11 @@
             <app-charity-donate-form *ngIf="article?.author?.type == 'charity' && isMobile" [charityId]="article.author.id">
             </app-charity-donate-form>
 
+            <app-fundraiser-donate-form 
+              *ngIf="article?.author?.type == 'fundraiser' && isMobile && fundraiserAuthor && fundraiserAuthor?.stripe_status == 'active'" 
+              [fundraiserId]="article?.author?.id">
+            </app-fundraiser-donate-form>
+
             <app-article-comments *ngIf="article" [article]="article"></app-article-comments>
           </div>
         </div>
@@ -454,8 +459,13 @@
         <app-company-lead-form *ngIf="article?.author?.type == 'company' && !isMobile" [companyId]="article?.author?.id">
         </app-company-lead-form>
 
-        <app-charity-donate-form *ngIf="article?.author?.type == 'charity' && !isMobile" [charityId]="article.author.id">
+        <app-charity-donate-form *ngIf="article?.author?.type == 'charity' && !isMobile" [charityId]="article?.author?.id">
         </app-charity-donate-form>
+
+        <app-fundraiser-donate-form 
+          *ngIf="article?.author?.type == 'fundraiser' && !isMobile && fundraiserAuthor && fundraiserAuthor?.stripe_status == 'active'" 
+          [fundraiserId]="article?.author?.id">
+        </app-fundraiser-donate-form>
 
         <app-similar-articles *ngIf="article" [article]="article"></app-similar-articles>
 
