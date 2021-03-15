@@ -251,7 +251,7 @@
                                           <a (click)="loadMoreArticle()" class="load-more-btn"><span>{{'loadMore' | translate}}</span></a>
                                          
                                         </div>
-                                        <div *ngIf="!fundraiserArticles.length" class="m-t-10">
+                                        <div *ngIf="!fundraiserArticles?.length" class="m-t-10">
                                           {{'artNoArt' | translate}}
                                         </div>
                                       </div>
@@ -371,7 +371,7 @@
                                             
                                           </div>
                                         </div>
-                                        <div *ngIf="!textArticles.length" class="m-t-10">
+                                        <div *ngIf="!textArticles?.length" class="m-t-10">
                                          {{'NoTextArticle' | translate}}
                                         </div>
                                       </nz-tab>
@@ -488,7 +488,7 @@
                                           
                                         </div>
                                       </div>
-                                      <div *ngIf="!audioArticles.length" class="m-t-10">
+                                      <div *ngIf="!audioArticles?.length" class="m-t-10">
                                         {{'NoAudio' | translate}}
                                       </div>
                                     </nz-tab>
@@ -603,7 +603,7 @@
                                          
                                         </div>
                                       </div>
-                                      <div *ngIf="!videoArticles.length" class="m-t-10">
+                                      <div *ngIf="!videoArticles?.length" class="m-t-10">
                                         {{'NoVideo' | translate}}
                                       </div>
                                     </nz-tab>
@@ -644,8 +644,8 @@
                    <button type="button" class="donation-btn" nz-button nzType="primary" (click)="showModal()"><i class="fas fa-heart"></i> Donate Now</button>
                    <nz-modal
                    [(nzVisible)]="isVisible"
-                   nzTitle="{{ 'donateFundraiserTitle' | translate }}"
                    (nzOnCancel)="handleCancel()"
+                   nzFooter=null
                    >
                      <app-fundraiser-donate-form [fundraiserId]="fundraiserId"></app-fundraiser-donate-form>
                    </nz-modal>   

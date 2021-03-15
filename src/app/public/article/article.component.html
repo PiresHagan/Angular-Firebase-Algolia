@@ -442,11 +442,21 @@
             <app-charity-donate-form *ngIf="article?.author?.type == 'charity' && isMobile" [charityId]="article.author.id">
             </app-charity-donate-form>
 
-            <app-fundraiser-donate-form 
-              *ngIf="article?.author?.type == 'fundraiser' && isMobile && fundraiserAuthor && fundraiserAuthor?.stripe_status == 'active'" 
-              [fundraiserId]="article?.author?.id">
-            </app-fundraiser-donate-form>
-
+            <div class="text-center pb-3 donate-form-modal" 
+              *ngIf="article?.author?.type == 'fundraiser' && isMobile && fundraiserAuthor && fundraiserAuthor?.stripe_status == 'active'"
+            >
+              <button type="button" class="donation-btn" nz-button nzType="primary" (click)="showDonateForm()"><i class="fas fa-heart"></i> Donate Now</button>
+              <nz-modal
+                [(nzVisible)]="isDonateFormVisible"
+                (nzOnCancel)="hideDonateForm()"
+                nzFooter=null
+              >
+                <app-fundraiser-donate-form 
+                  *ngIf="" 
+                  [fundraiserId]="article?.author?.id">
+                </app-fundraiser-donate-form>
+              </nz-modal>   
+            </div>
             <app-article-comments *ngIf="article" [article]="article"></app-article-comments>
           </div>
         </div>
@@ -462,10 +472,20 @@
         <app-charity-donate-form *ngIf="article?.author?.type == 'charity' && !isMobile" [charityId]="article?.author?.id">
         </app-charity-donate-form>
 
-        <app-fundraiser-donate-form 
-          *ngIf="article?.author?.type == 'fundraiser' && !isMobile && fundraiserAuthor && fundraiserAuthor?.stripe_status == 'active'" 
-          [fundraiserId]="article?.author?.id">
-        </app-fundraiser-donate-form>
+        <div class="text-center pb-3" 
+          *ngIf="article?.author?.type == 'fundraiser' && !isMobile && fundraiserAuthor && fundraiserAuthor?.stripe_status == 'active'"
+        >
+          <button type="button" class="donation-btn" nz-button nzType="primary" (click)="showDonateForm()"><i class="fas fa-heart"></i> Donate Now</button>
+          <nz-modal
+            [(nzVisible)]="isDonateFormVisible"
+            (nzOnCancel)="hideDonateForm()"
+            nzFooter=null
+          >
+            <app-fundraiser-donate-form 
+              [fundraiserId]="article?.author?.id">
+            </app-fundraiser-donate-form>
+          </nz-modal>   
+        </div>
 
         <app-similar-articles *ngIf="article" [article]="article"></app-similar-articles>
 

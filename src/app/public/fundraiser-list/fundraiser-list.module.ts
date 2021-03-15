@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { FundraiserListComponent } from './fundraiser-list.component';
 import { FundraiserComponent } from './fundraiser/fundraiser.component';
-import { FundraiserDonateFormComponent } from './fundraiser/fundraiser-donate-form/fundraiser-donate-form.component';
 import { FundraiserAuthorComponent } from './fundraiser/fundraiser-author/fundraiser-author.component';
 
 import { FundraiserListRoutingModule } from './fundraiser-list-routing.module';
@@ -21,7 +20,6 @@ import { environment } from 'src/environments/environment';
   declarations: [
     FundraiserListComponent,
     FundraiserComponent,
-    FundraiserDonateFormComponent,
     FundraiserAuthorComponent
   ],
   imports: [

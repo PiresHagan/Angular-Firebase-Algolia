@@ -52,6 +52,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   displayAd: boolean;
   fundraiser: Fundraiser;
   fundraiserAuthor;
+  isDonateFormVisible = false;
 
   constructor(
     private articleService: ArticleService,
@@ -462,6 +463,14 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   copyLink() {
 
     console.log(this.router.url);
+  }
+
+  showDonateForm(): void {
+    this.isDonateFormVisible = true;
+  }
+
+  hideDonateForm(): void {
+    this.isDonateFormVisible = false;
   }
 }
 
