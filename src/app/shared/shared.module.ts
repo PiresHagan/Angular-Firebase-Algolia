@@ -27,6 +27,8 @@ import { SeoService } from './services/seo/seo.service';
 import { QuicklinkModule } from 'ngx-quicklink';
 import { CharityDonateFormComponent } from './component/charity-donate-form/charity-donate-form.component';
 import { CompanyLeadFormComponent } from './component/company-lead-form/company-lead-form.component';
+import { FundraiserDonateFormComponent } from './component/fundraiser-donate-form/fundraiser-donate-form.component';
+
 import { NgxStripeModule } from 'ngx-stripe';
 import { environment } from 'src/environments/environment';
 
@@ -54,7 +56,8 @@ export function createTranslateLoader(http: HttpClient) {
         AdDirective,
         QuicklinkModule,
         CharityDonateFormComponent,
-        CompanyLeadFormComponent
+        CompanyLeadFormComponent,
+        FundraiserDonateFormComponent
     ],
     imports: [
         RouterModule,
@@ -88,6 +91,7 @@ export function createTranslateLoader(http: HttpClient) {
         AdDirective,
         CharityDonateFormComponent,
         CompanyLeadFormComponent,
+        FundraiserDonateFormComponent,
         ShopProductAddReviewComponent,
         ShopProductCardComponent,
         ProductStarRatingComponent,

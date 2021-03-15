@@ -18,6 +18,10 @@ import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.se
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { ArticleAdItem } from 'src/app/shared/interfaces/article-meta.type';
+import { FundraiserService } from 'src/app/shared/services/fundraiser.service';
+import { CompanyService } from 'src/app/shared/services/company.service';
+import { CharityService } from 'src/app/shared/services/charity.service';
+import { Fundraiser } from 'src/app/shared/interfaces/fundraiser.type';
 
 @Component({
   selector: 'app-article',
@@ -46,6 +50,8 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   AUDIO = AUDIO;
   VIDEO = VIDEO;
   displayAd: boolean;
+  fundraiser: Fundraiser;
+  fundraiserAuthor;
 
   constructor(
     private articleService: ArticleService,
@@ -60,6 +66,9 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
     private modal: NzModalService,
     private seoService: SeoService,
     private analyticsService: AnalyticsService,
+    private fundraiserService: FundraiserService,
+    public companyService: CompanyService,
+    public charityService: CharityService,
   ) { }
 
   ngOnInit(): void {
@@ -108,9 +117,33 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
         });
 
         this.articleService.updateViewCount(articleId);
+
+        if(this.article?.author?.type === 'fundraiser') {
+          this.getFundraiserDetails();
+        }
       });
 
       this.setLanguageNotification();
+    });
+  }
+
+  getFundraiserDetails() {
+    this.fundraiserService.getFundraiserBySlug(this.article.author.slug).subscribe(data => {
+      this.fundraiser = data[0];
+
+      if (this.fundraiser.author.type == 'charity') {
+        this.charityService.getCharityById(this.fundraiser.author.id).subscribe(charity => {
+          this.fundraiserAuthor = charity;
+        });
+      } else if (this.fundraiser.author.type == 'company') {
+        this.companyService.getCompanyById(this.fundraiser.author.id).subscribe(company => {
+          this.fundraiserAuthor = company;
+        });
+      } else {
+        this.userService.getMember(this.fundraiser.author.id).subscribe(member => {
+          this.fundraiserAuthor = member;
+        });
+      }
     });
   }
 
