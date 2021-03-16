@@ -15,12 +15,14 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
+import { FundraiserFollowerListComponent } from './fundraiser/fundraiser-follower-list/fundraiser-follower-list.component';
 
 @NgModule({
   declarations: [
     FundraiserListComponent,
     FundraiserComponent,
-    FundraiserAuthorComponent
+    FundraiserAuthorComponent,
+    FundraiserFollowerListComponent
   ],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),

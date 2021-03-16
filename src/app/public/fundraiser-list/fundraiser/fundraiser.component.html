@@ -57,6 +57,7 @@
                [fundraiser]="fundraiser"
                [fundraiserAuthor]="fundraiserAuthor"
             ></app-fundraiser-author>
+            <app-fundraiser-follower-list *ngIf="fundraiserId" [fundraiserId]="fundraiserId"></app-fundraiser-follower-list>
          </div>
          <div class="is-main-article-content">
             <div class="company-img hidden-on-xs">
@@ -77,10 +78,10 @@
                   <div class="media-section">
                      <div class="follow-btn-sec">
                       <div class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-                        <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "followCompany" | translate }}</a>
+                        <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "followFundraiser" | translate }}</a>
                       </div>
                       <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-                          <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowCompany" | translate }}</a>
+                          <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowFundraiser" | translate }}</a>
                       </div>
                         <!-- <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
                             <a nz-button [nzLoading]="isUpdatingFollow">{{ "unfollowFundraiser" | translate }}</a>
@@ -630,21 +631,16 @@
                      <span>{{ fundraiser?.donor_count | number:'1.0-0' }}</span>
                      {{ 'fundraiserDonors' | translate }}
                   </div>
-                  
-                  <div class="donor-row">
-                     <span>{{ authorFollowersCount }}</span>
-                     {{ "profileFollowers" | translate }}
-                  </div>
                   <!-- <div class="donor-row">
                      <span>2</span>
                      Days Left
                   </div> -->
                </div>
                <div class="text-center pb-3" *ngIf="fundraiserAuthor && fundraiserAuthor?.stripe_status == 'active'">
-                   <button type="button" class="donation-btn" nz-button nzType="primary" (click)="showModal()"><i class="fas fa-heart"></i> Donate Now</button>
+                   <button type="button" class="donation-btn" nz-button nzType="primary" (click)="showDonateForm()"><i class="fas fa-heart"></i> Donate Now</button>
                    <nz-modal
-                   [(nzVisible)]="isVisible"
-                   (nzOnCancel)="handleCancel()"
+                   [(nzVisible)]="isDonateFormVisible"
+                   (nzOnCancel)="hideDonateForm()"
                    nzFooter=null
                    >
                      <app-fundraiser-donate-form [fundraiserId]="fundraiserId"></app-fundraiser-donate-form>
@@ -660,3 +656,18 @@
       </div>
    </div>
 </section>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
+  <div class="popup-content">
+    <div>
+      <a [routerLink]="['/']" class="bg-logo">
+        <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+      </a>
+    </div>
+    <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' |
+        translate}}</a>
+      {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
+      {{'toContinue' | translate}}.</p>
+
+  </div>
+</nz-modal>
