@@ -734,6 +734,20 @@ hr {
 	display:none;
 }
 
+.popup-content {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	.bg-logo {
+	  display: inline-block;
+	  max-width: 90px;
+	  margin-right: 20px;
+	  img {
+		max-width: 100%;
+	  }
+	}
+  }
+
 .donation-btn {
 	display: flex;
 	align-items: center;

@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { FundraiserService } from 'src/app/shared/services/fundraiser.service';
@@ -45,6 +45,10 @@ export class FundraiserComponent implements OnInit {
   lastArticleIndexOfVideo;
   lastArticleIndexOfText;
   userDetails: User;
+  isDonateFormVisible = false;
+  isOkLoading = false;
+  isVisible = false;
+
   constructor(
     private route: ActivatedRoute,
     private langService: LanguageService,
@@ -57,6 +61,7 @@ export class FundraiserComponent implements OnInit {
     public charityService: CharityService,
     private seoService: SeoService,
     private articleService: BackofficeArticleService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -248,8 +253,13 @@ export class FundraiserComponent implements OnInit {
     document.getElementsByTagName('head')[0].appendChild(node);
   }
 
-  isVisible = false;
-  isOkLoading = false;
+  showDonateForm(): void {
+    this.isDonateFormVisible = true;
+  }
+
+  hideDonateForm(): void {
+    this.isDonateFormVisible = false;
+  }
 
   showModal(): void {
     this.isVisible = true;
@@ -258,6 +268,7 @@ export class FundraiserComponent implements OnInit {
   handleOk(): void {
     this.isOkLoading = true;
     setTimeout(() => {
+      this.router.navigate(["auth/login"]);
       this.isOkLoading = false;
     }, 2000);
   }
