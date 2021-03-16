@@ -383,6 +383,8 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
       return '/charities/';
     } else if (article.author.type == 'company') {
       return '/companies/';
+    } else if (article.author.type == 'fundraiser') {
+      return '/fundraisers/';
     } else {
       return '/';
     }

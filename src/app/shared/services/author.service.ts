@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import 'firebase/storage';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { STAFF, AUTHOR, MEMBER, COMPANY, CHARITY } from '../constants/member-constant';
+import { STAFF, AUTHOR, MEMBER, COMPANY, CHARITY, FUNDRAISER } from '../constants/member-constant';
 
 
 
@@ -16,6 +16,7 @@ export class AuthorService {
   authorsCollection: string = 'members';
   charitiesCollection: string = 'charities';
   companiesColection: string = 'companies';
+  fundraisersCollection = 'fundraisings';
   private followersCollection: string = 'followers';
   private followingsCollection: string = 'followings';
 
@@ -72,6 +73,9 @@ export class AuthorService {
     else if (type == CHARITY) {
       return this.afs.collection(this.charitiesCollection).doc(authorId).collection(this.followersCollection).doc(followerId).valueChanges();
     }
+    else if (type == FUNDRAISER) {
+      return this.afs.collection(this.fundraisersCollection).doc(authorId).collection(this.followersCollection).doc(followerId).valueChanges();
+    }
   }
 
   getAllFollowersByAuthorType(authorId: string, type: string) {
@@ -82,6 +86,9 @@ export class AuthorService {
     }
     else if (type == CHARITY) {
       return this.afs.collection(this.charitiesCollection).doc(authorId).collection(this.followersCollection).valueChanges();
+    }
+    else if (type == FUNDRAISER) {
+      return this.afs.collection(this.fundraisersCollection).doc(authorId).collection(this.followersCollection).valueChanges();
     }
   }
 
@@ -177,6 +184,9 @@ export class AuthorService {
     else if (type == CHARITY) {
       return this.http.post(environment.baseAPIDomain + `/api/v1/charities/${authorId}/follow`, followerData).subscribe();
     }
+    else if (type == FUNDRAISER) {
+      return this.http.post(environment.baseAPIDomain + `/api/v1/fundraisings/${authorId}/follow`, followerData).subscribe();
+    }
 
   }
 
@@ -188,6 +198,9 @@ export class AuthorService {
     }
     else if (type == CHARITY) {
       return this.http.post(environment.baseAPIDomain + `/api/v1/charities/${authorId}/unfollow`, {}).subscribe();
+    }
+    else if (type == FUNDRAISER) {
+      return this.http.post(environment.baseAPIDomain + `/api/v1/fundraisings/${authorId}/unfollow`, {}).subscribe();
     }
 
   }
