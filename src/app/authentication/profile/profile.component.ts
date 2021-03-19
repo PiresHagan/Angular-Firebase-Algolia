@@ -8,6 +8,7 @@ import { LanguageService } from 'src/app/shared/services/language.service';
 import { UserService } from '../../shared/services/user.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { Language } from 'src/app/shared/interfaces/language.type';
+import { User } from 'src/app/shared/interfaces/user.type';
 
 @Component({
   selector: 'app-profile',
@@ -19,6 +20,7 @@ export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
   avatarUrl: string = "";
   memberDetails;
+  userDetails: User;
   isPhotoChangeLoading: boolean = false;
   isFormSaving: boolean = false;
   currentUser: any;
@@ -49,7 +51,9 @@ export class ProfileComponent implements OnInit {
 
     this.profileForm = this.fb.group({
       user_type: [null, [Validators.required]],
-      bio: [null, [Validators.required]]
+      bio: [null, [Validators.required]],
+      whatsapp: '',
+      skype: ''
     });
     this.setFormData();
   }
@@ -86,6 +90,16 @@ export class ProfileComponent implements OnInit {
         this.memberDetails = memberDetails;
       })
 
+      this.userService.get(user.uid).subscribe((userDetails: User) => {
+        if(userDetails?.whatsapp) 
+          this.profileForm.controls['whatsapp'].setValue(userDetails?.whatsapp);
+
+        if(userDetails?.skype) 
+          this.profileForm.controls['skype'].setValue(userDetails?.skype);
+
+        this.userDetails = userDetails;
+      })
+
     })
   }
 
@@ -113,6 +127,8 @@ export class ProfileComponent implements OnInit {
         this.isFormSaving = true;
         const bio = this.profileForm.get('bio').value;
         const user_type = this.profileForm.get('user_type').value;
+        const whatsapp = this.profileForm.get('whatsapp').value;
+        const skype = this.profileForm.get('skype').value;
         const loggedInUser = this.authService.getLoginDetails();
         if (!loggedInUser)
           return;
@@ -120,6 +136,8 @@ export class ProfileComponent implements OnInit {
           {
             bio: bio ? bio : '',
             user_type: user_type ? user_type : '',
+            whatsapp: whatsapp ? whatsapp : '',
+            skype: skype ? skype : '',
             avatar: this.avatarData
           });
         this.isFormSaving = false;

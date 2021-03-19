@@ -841,5 +841,7 @@
   "ResetYourPassword": "Reset your password",
   "ResetPassDesc": "Enter your email to reset your password",
   "EmailNotFound": "Email not found in our records.", 
-  "EmailPassReset": "An email has been sent to you."
+  "EmailPassReset": "An email has been sent to you.",
+  "WhatsappOnboarding": "Write whatsapp contact number here",
+  "SkypeOnboarding": "Write skype id here"
 }
