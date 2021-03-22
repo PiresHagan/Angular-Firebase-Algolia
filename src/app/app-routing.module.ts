@@ -11,6 +11,10 @@ import { QuicklinkModule, QuicklinkStrategy } from 'ngx-quicklink';
 
 const appRoutes: Routes = [
     {
+        path: 'mobile',
+        loadChildren: () => import('./mobile/mobile.module').then(m => m.MobileModule)
+    },
+    {
         path: 'auth',
         component: FullLayoutComponent,
         children: FullLayout_ROUTES
