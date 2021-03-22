@@ -23,6 +23,6 @@ export interface User {
     phone?: string,
     isNewConsoleUser?: boolean;
     biography?: string
-
-
+    whatsapp?: string;
+    skype?: string;
 }

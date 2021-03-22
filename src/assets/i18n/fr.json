@@ -795,5 +795,7 @@
   "ResetYourPassword": "Réinitialisez votre mot de passe",
   "ResetPassDesc": "Entrez votre email pour réinitialiser votre mot de passe",
   "EmailNotFound": "Email introuvable dans nos archives.",
-  "EmailPassReset": "Un e-mail vous a été envoyé."
+  "EmailPassReset": "Un e-mail vous a été envoyé.",
+  "WhatsappOnboarding": "Écrivez le numéro de contact WhatsApp ici",
+  "SkypeOnboarding": "Écrivez l'identifiant Skype ici"
 }
