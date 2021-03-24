@@ -938,6 +938,7 @@ hr {
   display: none !important;
 }
 .related-topics{
+  
   color:#000;
   span{
     display: inline-block;
@@ -950,6 +951,10 @@ hr {
       }
     }
   }
+}
+
+.comma{
+  margin-right: 2px;
 }
 
 @media screen and (max-width: 580px) {
