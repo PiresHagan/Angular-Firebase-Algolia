@@ -301,10 +301,8 @@
                 </a>
                 <div class="related-topics">
                   <b>Topics: </b>
-                  <span>
-                    <a href="" [ngClass]="article.category.slug" class="category">Cricket</a>,
-                    <a href="" [ngClass]="article.category.slug" class="category"> Cricket</a>,
-                    <a href="" [ngClass]="article.category.slug" class="category"> Cricket</a>
+                  <span *ngFor="let topic of topics">
+                    <a [routerLink]="['/category/',topic?.slug]" [ngClass]="article.category.slug" class="category"> {{topic?.title}}</a>,
                   </span>
                 </div>
               </div>

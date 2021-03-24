@@ -53,6 +53,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   fundraiser: Fundraiser;
   fundraiserAuthor;
   isDonateFormVisible = false;
+  topics: string;
 
   constructor(
     private articleService: ArticleService,
@@ -83,6 +84,8 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
       this.articleService.getArtical(slug).subscribe(artical => {
         this.articleAds = [{ elem: '<em>Parsing...</em>' }];
         this.article = artical[0];
+        this.topics = this.article.topics;
+        console.log(this.article)
 
         if (!this.article) {
           this.modal.error({
