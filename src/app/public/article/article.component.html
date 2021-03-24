@@ -299,6 +299,14 @@
                   [ngClass]="article.category.slug">
                   {{article?.category.title}}
                 </a>
+                <div class="related-topics">
+                  <b>Topics: </b>
+                  <span>
+                    <a href="" [ngClass]="article.category.slug" class="category">Cricket</a>,
+                    <a href="" [ngClass]="article.category.slug" class="category"> Cricket</a>,
+                    <a href="" [ngClass]="article.category.slug" class="category"> Cricket</a>
+                  </span>
+                </div>
               </div>
             </div>
           </div>

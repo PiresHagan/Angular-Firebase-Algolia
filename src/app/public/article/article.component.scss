@@ -937,6 +937,18 @@ hr {
 .donate-form-modal nz-modal-container > div > div > div.ant-modal-footer.ng-tns-c213-11.ng-star-inserted {
   display: none !important;
 }
+.related-topics{
+  color:#000;
+  span{
+    display: inline-block;
+    b{
+      display: inline-block;
+    }
+    a{
+      color: #464444 !important;
+    }
+  }
+}
 
 @media screen and (max-width: 580px) {
   .bottom-ad-container {
