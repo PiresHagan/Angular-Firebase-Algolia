@@ -944,8 +944,10 @@ hr {
     b{
       display: inline-block;
     }
-    a{
-      color: #464444 !important;
+    &:last-child{
+      .comma{
+        display: none;
+      }
     }
   }
 }
@@ -1115,7 +1117,7 @@ hr {
           }
         }
         .follow-btn{
-          font-size: 15px;
+          font-size: 13px;
           background: #233470;
           display: inline-block;
           font-family: "open_sansregular";
