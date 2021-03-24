@@ -937,6 +937,20 @@ hr {
 .donate-form-modal nz-modal-container > div > div > div.ant-modal-footer.ng-tns-c213-11.ng-star-inserted {
   display: none !important;
 }
+.related-topics{
+  color:#000;
+  span{
+    display: inline-block;
+    b{
+      display: inline-block;
+    }
+    &:last-child{
+      .comma{
+        display: none;
+      }
+    }
+  }
+}
 
 @media screen and (max-width: 580px) {
   .bottom-ad-container {
@@ -1103,7 +1117,7 @@ hr {
           }
         }
         .follow-btn{
-          font-size: 15px;
+          font-size: 13px;
           background: #233470;
           display: inline-block;
           font-family: "open_sansregular";

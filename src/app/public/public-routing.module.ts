@@ -40,6 +40,10 @@ const routes: Routes = [
     loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule)
   },
   {
+    path: 'about',
+    loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
+  },
+  {
     path: 'search',
     loadChildren: () => import('./search-engine/search-engine.module').then(m => m.SearchEngineModule)
   },
