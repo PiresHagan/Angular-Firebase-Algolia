@@ -302,7 +302,8 @@
                 <div class="related-topics">
                   <b>Topics: </b>
                   <span *ngFor="let topic of topics"> 
-                    <a [routerLink]="['/category/',topic?.slug]" [ngClass]="article.category.slug" class="category"> {{topic?.title}}</a>,
+                    <a [routerLink]="['/category/', article?.category?.slug]"
+                    [queryParams]="{topic:topic.slug}" [ngClass]="article.category.slug" class="category"> {{topic?.title}}</a>,
                   </span>
                 </div>
               </div>
