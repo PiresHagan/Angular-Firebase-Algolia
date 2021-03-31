@@ -49,6 +49,14 @@
         </div>
       </div>
       <div class="xs-article-date">{{article?.published_at | date:'medium' }}</div>
+      <div class="related-topics">
+        <b>Topics: </b>
+        <span *ngFor="let topic of topics"> 
+          <a [routerLink]="['/category/', article?.category?.slug]"
+          [queryParams]="{topic:topic.slug}" [ngClass]="article.category.slug" class="category"> {{topic?.title}}</a>
+          <strong class="comma">,</strong>
+        </span>
+      </div>
       <div class="xs-follow-author-detail">
         <div class="comment-section">
           <ul>
@@ -299,6 +307,14 @@
                   [ngClass]="article.category.slug">
                   {{article?.category.title}}
                 </a>
+                <div class="related-topics">
+                  <b>Topics: </b>
+                  <span *ngFor="let topic of topics"> 
+                    <a [routerLink]="['/category/', article?.category?.slug]"
+                    [queryParams]="{topic:topic.slug}" [ngClass]="article.category.slug" class="category"> {{topic?.title}}</a>
+                    <strong class="comma">,</strong>
+                  </span>
+                </div>
               </div>
             </div>
           </div>

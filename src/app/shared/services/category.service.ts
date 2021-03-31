@@ -136,4 +136,28 @@ export class CategoryService {
     })
   }
 
+  unfollowTopic(userId: string, topicId: string) {
+    return new Promise((resolve, reject) => {
+      this.http.post(environment.baseAPIDomain + `/api/v1/members/${userId}/unFollowTopic`, {
+        topic_id: topicId
+      }).subscribe((response) => {
+        resolve(response)
+      }, (error) => {
+        reject(error)
+      })
+    })
+  }
+
+  followTopic(userId: string, topicId: string) {
+    return new Promise((resolve, reject) => {
+      this.http.post(environment.baseAPIDomain + `/api/v1/members/${userId}/followTopic`, {
+        topic_id: topicId
+      }).subscribe((response) => {
+        resolve(response)
+      }, (error) => {
+        reject(error)
+      })
+    })
+  }
+
 }

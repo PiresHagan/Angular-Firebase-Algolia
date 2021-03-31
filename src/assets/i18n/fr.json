@@ -797,5 +797,6 @@
   "EmailNotFound": "Email introuvable dans nos archives.",
   "EmailPassReset": "Un e-mail vous a été envoyé.",
   "WhatsappOnboarding": "Écrivez le numéro de contact WhatsApp ici",
-  "SkypeOnboarding": "Écrivez l'identifiant Skype ici"
+  "SkypeOnboarding": "Écrivez l'identifiant Skype ici",
+  "aboutPage": "Mytrendingstories est une plate-forme de médias sociaux qui se targue d'une valeur spécifique: redonner le pouvoir aux gens en permettant la liberté de parole et d'expression à travers diverses méthodes créatives telles que l'écriture, la vidéographie et l'audio."
 }
