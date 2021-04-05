@@ -59,6 +59,7 @@ export class CategoryComponent implements OnInit {
 
     this.route.queryParams.subscribe(() => {
       this.topic = this.route.snapshot.queryParamMap.get('topic');
+      this.articleGroups = [];
       this.getPageDetails();
     });
 
@@ -164,7 +165,7 @@ export class CategoryComponent implements OnInit {
   }
   getTopicDetails(topicSlug: string) {
     this.categoryService.getTopicBySlug(topicSlug).subscribe((topicData: Category) => {
-      if (topicData?.title){
+      if (topicData?.title) {
         this.rss = `?topic=${this.topic}`;
         this.pageHeader = topicData?.title;
       }

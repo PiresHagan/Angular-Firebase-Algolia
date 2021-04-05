@@ -22,10 +22,10 @@
           <div class="clearfix"></div>
         </div>
         <div class="btn-rss">
-            <a href="https://mytrendingstories.com/rss{{rss}}" target="_blank">
-                {{'subscribeRSS' | translate}}
-                <span class="rss-icon"><i class="fa fa-rss" aria-hidden="true"></i></span>
-            </a>
+          <a href="https://mytrendingstories.com/rss{{rss}}" target="_blank">
+            {{'subscribeRSS' | translate}}
+            <span class="rss-icon"><i class="fa fa-rss" aria-hidden="true"></i></span>
+          </a>
         </div>
         <div class="clearfix"></div>
       </div>
@@ -178,6 +178,10 @@
                   </div>
                 </ng-container>
               </ng-container>
+            </div>
+            <div style="font-size: large; text-align: center;" *ngIf="!articleGroups || !articleGroups.length">
+              {{'NoArticle' | translate}}
+
             </div>
           </div>
         </div>
