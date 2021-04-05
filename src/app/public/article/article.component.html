@@ -368,7 +368,7 @@
             </div>
             <div *ngIf="articleType === TEXT" class="is-paragraph">
               <div class="big" *ngFor="let item of articleAds; trackBy:trackByArticleAdFn">
-                <span [innerHTML]="item.elem"></span>
+                <span [ngClass]="{'not-active': article.author.type === 'company'}" [innerHTML]="item.elem"></span>
 
                 <ng-container *ngIf="item.insertAd">
                   <div style="margin: 10px auto;">
