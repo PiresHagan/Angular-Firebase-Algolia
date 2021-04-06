@@ -1,215 +1,414 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SignUpComponent } from 'src/app/authentication/sign-up/sign-up.component';
-
 const routes: Routes = [
   {
     path: 'becomeblogger',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'en',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'becomevlogger',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'en',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'becomepodcaster',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'en',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'createMytrendingstoriescompanypage',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'en',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'createMytrendingstoriescharitypage',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'en',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'createMytrendingstoriesfundraiserpage',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'en',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'createMytrendingstoriesecommercepage',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'en',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'MytrendingstorieslocalSEOservices',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'en',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'Mytrendingstoriesagencyservices',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'en',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'joinMytrendingstoriesacademy',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'en',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'Mytrendingstoriesagencywebinar',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'en',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'Mytrendingstoriesacademywebinar',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'en',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'joinMytrendingstoriesBitcoinplatform',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'en',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'Mytrendingstoriesvideoservices',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'en',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'becomeartist',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'en',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'takepartinMytrendingstoriescontest',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'en',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'mobileapp',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'en',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'devenezblogueur',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'fr',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'devenezvlogger',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'fr',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'devenezpodcasteur',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'fr',
+      headerDisplay: 'none'
+    }
   },
   {
     path: "créerunepaged'entrepriseMytrendingstories",
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'fr',
+      headerDisplay: 'none'
+    }
   },
   {
     path: "créerunepaged'entrepriseMytrendingstories",
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'fr',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'créerunepagedecollectedefondsMytrendingstories',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'fr',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'créerunepagee-commerceMytrendingstories',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'fr',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'servicesdeSEOlocalMytrendingstories',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'fr',
+      headerDisplay: 'none'
+    }
   },
   {
     path: "servicesd'agenceMytrendingstories",
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'fr',
+      headerDisplay: 'none'
+    }
   },
   {
     path: "webinairedel'académieMytrendingstories",
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'fr',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'rejoignezMytrendingstoriesacademy',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'fr',
+      headerDisplay: 'none'
+    }
   },
   {
   path: "webinairedel'agenceMytrendingstories",
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'fr',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'rejoignezlaplateformeBitcoinMytrendingstories',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'fr',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'servicesvidéoMytrendingstories',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'fr',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'devenezartiste',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'fr',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'participezauconcoursMytrendingstories',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'fr',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'applicationmobile',
-    component: SignUpComponent
-  },
-  {
-    path: 'mobileapp',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'fr',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'conviérteteenBlogger',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'es',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'conviérteteenvlogger',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'es',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'conviérteteenpodcaster',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'es',
+      headerDisplay: 'none'
+    }
   },
   {
     path: "crearlapáginadelaempresaMytrendingstories",
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'es',
+      headerDisplay: 'none'
+    }
   },
   {
     path: "crearlapáginadelaempresaMytrendingstories",
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'es',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'crearlapáginaderecaudacióndefondosdeMytrendingstories',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'es',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'crearpáginadecomercioelectrónicoMytrendingstories',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'es',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'serviciosdeSEOlocalesMytrendingstories',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'es',
+      headerDisplay: 'none'
+    }
   },
   {
     path: "serviciosdelaagenciaMytrendingstories",
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'es',
+      headerDisplay: 'none'
+    }
   },
   {
     path: "únetealaacademiaMytrendingstories",
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'es',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'seminariowebdelaagenciaMytrendingstories',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'es',
+      headerDisplay: 'none'
+    }
   },
   {
   path: "seminariowebdeMytrendingstoriesacademy",
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'es',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'únasealaplataformaBitcoinMytrendingstories',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'es',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'serviciosdevideodeMytrendingstories',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'es',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'conviérteteenartista',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'es',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'participaenelconcurso',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'es',
+      headerDisplay: 'none'
+    }
   },
   {
     path: 'aplicaciónmovil',
-    component: SignUpComponent
+    component: SignUpComponent,
+    data: {
+      lang : 'es',
+      headerDisplay: 'none'
+    }
   },
 ];
 
