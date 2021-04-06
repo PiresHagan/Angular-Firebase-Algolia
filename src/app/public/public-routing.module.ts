@@ -56,6 +56,10 @@ const routes: Routes = [
     loadChildren: () => import('./today/today.module').then(m => m.TodayModule)
   },
   {
+    path: 'guide',
+    loadChildren: () => import('./landing-page/landing-page.module').then(m => m.LandingPageModule)
+  },
+  {
     path: 'companies',
     loadChildren: () => import('./companies/companies.module').then(m => m.CompaniesModule)
   },
