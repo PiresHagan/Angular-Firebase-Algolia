@@ -11,6 +11,7 @@ import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.se
 import { LanguageService } from 'src/app/shared/services/language.service';
 import {Location} from '@angular/common';
 import { Language } from 'src/app/shared/interfaces/language.type';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -44,6 +45,7 @@ export class SignUpComponent implements OnInit {
     selectedLanguage: string;
 
   constructor(
+    private route: ActivatedRoute,
     private fb: FormBuilder,
     public afAuth: AngularFireAuth,
     private router: Router,
