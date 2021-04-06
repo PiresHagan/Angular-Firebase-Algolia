@@ -11,6 +11,7 @@ export class CompanyFollowerListComponent implements OnInit {
   @Input() companyId: string;
 
   followers: any = [];
+  followersCount: number = 0;
   loadingMoreFollowers: boolean = false;
   lastVisibleFollower;
 
@@ -19,7 +20,14 @@ export class CompanyFollowerListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getCompanyAllFollowersCount();
     this.getcompanyFollowers();
+  }
+
+  getCompanyAllFollowersCount() {
+    this.companyService.getAllFollowers(this.companyId).subscribe((data) => {
+      this.followersCount = data.followers.length || 0;
+    });
   }
 
   getcompanyFollowers() {

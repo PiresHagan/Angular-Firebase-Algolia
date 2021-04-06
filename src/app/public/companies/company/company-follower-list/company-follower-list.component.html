@@ -1,7 +1,7 @@
 <section class="is-followers-sec" *ngIf="followers.length">
     <div class="container">
         <div class="is-comman-title">
-            {{'profileFollowers' | translate}} {{ followers.length }}
+            {{'profileFollowers' | translate}} {{ followersCount }}
         </div>
         <div class="is-followers-user">
             <div class="is-followers-item" *ngFor="let follower of followers">
