@@ -65,12 +65,7 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.data.subscribe(data => {
-      this.routelang=data;
-      if (this.routelang.lang) {
-        this.language.changeLangOnBoarding(this.routelang.lang);
-      }
-    })
+    
     this.languageList = this.language.geLanguageList();
     this.selectedLanguage = this.language.defaultLanguage;
   
