@@ -143,7 +143,7 @@ export class ImportContactComponent implements OnInit {
       });
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
@@ -179,7 +179,7 @@ export class ImportContactComponent implements OnInit {
     } else {
       delete this.selectedContacts[provider][id];
     }
-    console.log(this.selectedContacts)
+    // console.log(this.selectedContacts)
     //this.refreshCheckedStatus(provider);
   }
   isChecked(id) {
@@ -223,7 +223,7 @@ export class ImportContactComponent implements OnInit {
         this.setLoadingStatus(provider, false);
       })
     } else {
-      console.log('contacts are already loaded');
+      // console.log('contacts are already loaded');
     }
 
   }

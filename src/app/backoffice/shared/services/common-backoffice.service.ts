@@ -55,9 +55,9 @@ export class CommonBackofficeService {
       email: email,
       password: password
     }).subscribe((data) => {
-      console.log(data)
+      // console.log(data)
     }, (err) => {
-      console.log(err)
+      // console.log(err)
     });
 
   }

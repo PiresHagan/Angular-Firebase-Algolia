@@ -24,14 +24,14 @@ export class TodayComponent implements OnInit {
     this.selectedLanguage = this.languageService.getSelectedLanguage();
     this.articleService.getToday(this.selectedLanguage).subscribe(articles => {
       this.todayArticle = articles;
-      console.log('Todays Articles', articles);
+      // console.log('Todays Articles', articles);
     });
 
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.selectedLanguage = this.languageService.getSelectedLanguage()
 
       this.articleService.getToday(this.selectedLanguage).subscribe(articles => {
-        console.log('Todays Articles1', articles);
+        // console.log('Todays Articles1', articles);
       });
 
     });

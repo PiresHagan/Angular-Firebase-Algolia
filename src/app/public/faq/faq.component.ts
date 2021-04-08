@@ -29,7 +29,7 @@ export class FaqComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedLanguage = this.language.getSelectedLanguage();
-    console.log(this.selectedLanguage)
+    // console.log(this.selectedLanguage)
     if (this.selectedLanguage == 'fr') {
       this.frFaqImg = true;
       this.esFaqImg = false;

@@ -130,7 +130,7 @@ export class AddWebsiteComponent implements OnInit {
         this.goToNext();
       } catch (error) {
         this.isFormSaving = false;
-        console.log(error);
+        // console.log(error);
       }
 
     }

@@ -179,7 +179,7 @@ export class StaffSettingsComponent {
         this.isPhotoChangeLoading = false;
       }).catch(() => {
         this.isPhotoChangeLoading = false;
-        console.log('Image not uploaded properly')
+        // console.log('Image not uploaded properly')
       });
     })
   }
@@ -318,7 +318,10 @@ export class StaffSettingsComponent {
             });
             reject();
           })
-        }).catch(() => console.log('Oops errors!'))
+        }).catch(() => {
+          // console.log('Oops errors!')
+        })
+          
     });
   }
   goBack() {
@@ -331,7 +334,7 @@ export class StaffSettingsComponent {
       const top = documentElement.scrollTop
       const height = documentElement.scrollHeight
       const offset = documentElement.offsetHeight
-      console.log(height, offset, top)
+      // console.log(height, offset, top)
       if (top > height - offset - 1 - 100 && this.lastVisible && !this.loadingMore) {
         this.loadingMore = true;
         this.commonBackofficeService.getMemberList(null, 'next', this.lastVisible).subscribe((memberListData) => {

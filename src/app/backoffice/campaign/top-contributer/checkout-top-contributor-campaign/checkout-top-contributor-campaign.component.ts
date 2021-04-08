@@ -33,7 +33,7 @@ export class CheckoutTopContributorCampaignComponent implements OnInit {
   ngOnInit(): void {
     this.campaignId = this.route.snapshot.params['campaignId'];
     this.campaignService.getCampaignInfo(this.campaignId).subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.campaignData = data;
     }, error => {
       this.router.navigate(['app/campaign/campaign-manager']);

@@ -58,7 +58,7 @@ export class AuthorService {
         resolve();
       }, err => {
         reject();
-        console.log(err);
+        // console.log(err);
       });
     })
   }

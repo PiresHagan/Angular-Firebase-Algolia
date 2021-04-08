@@ -129,7 +129,7 @@ export class ArticleSingleComponent implements OnInit {
       this.articleService.getArticleCommentNextPage(this.article.id, null, this.lastVisible).subscribe((data) => {
         this.loadingMore = false;
         this.articleComments = [...this.articleComments, ...data.commentList];
-        console.log(this.articleComments.length)
+        // console.log(this.articleComments.length)
         this.lastVisible = data.lastCommentDoc;
       });
     }
@@ -170,7 +170,9 @@ export class ArticleSingleComponent implements OnInit {
                 });
                 reject();
               })
-            }).catch(() => console.log('Oops errors!'))
+            }).catch(() => {
+              // console.log('Oops errors!')
+            })
         });
       }
 

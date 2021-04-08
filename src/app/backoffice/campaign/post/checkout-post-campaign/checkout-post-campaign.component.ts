@@ -47,7 +47,7 @@ export class CheckoutPostCampaignComponent implements OnInit {
     })
     this.campaignId = this.route.snapshot.params['campaignId'];
     this.campaignService.getCampaignInfo(this.campaignId).subscribe((data: any) => {
-      console.log(data);
+      // console.log(data);
       this.campaignData = data;
       this.loadArticleData(data.articleId);
     }, error => {
@@ -93,7 +93,7 @@ export class CheckoutPostCampaignComponent implements OnInit {
 
       this.backofficeArticleService.getArticleById(articleId, user.uid, ACTIVE).then((data) => {
         this.articleData = data
-        console.log(data);
+        // console.log(data);
       })
 
     })

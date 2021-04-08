@@ -126,7 +126,7 @@ export class NetworkComponent implements OnInit {
     });
 
     this.afAuth.onAuthStateChanged((user) => {
-      console.log("currentUser", JSON.stringify(user));
+      // console.log("currentUser", JSON.stringify(user));
 
       return new Promise(async resolve => {
         if (user != null) {

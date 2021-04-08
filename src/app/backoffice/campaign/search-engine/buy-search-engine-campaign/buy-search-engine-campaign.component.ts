@@ -135,7 +135,7 @@ export class BuySearchEngineCampaignComponent implements OnInit {
       campaignDate: value.campaignDate.toISOString(),
 
     }
-    console.log(formDetails);
+    // console.log(formDetails);
     this.buySearchengineSpot(formDetails);
   }
   private getBase64(img, callback: (img: string) => void): void {

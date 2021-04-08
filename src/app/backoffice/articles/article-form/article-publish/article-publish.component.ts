@@ -59,7 +59,7 @@ export class ArticlePublishComponent implements OnInit {
           this.router.navigate(['/app/error'])
         }
       } else {
-        console.log('Unknown entity');
+        // console.log('Unknown entity');
         this.router.navigate(['/app/error'])
       }
       this.loading = false;
