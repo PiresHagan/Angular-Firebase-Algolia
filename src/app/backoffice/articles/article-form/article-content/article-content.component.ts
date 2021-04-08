@@ -220,7 +220,7 @@ export class ArticleContentComponent implements OnInit {
       }
 
     }
-    console.log(this.articleForm)
+    // console.log(this.articleForm)
   }
   resetAndNavigate(article = null) {
     this.articleId = article ? article.articleId : this.article.id;

@@ -78,7 +78,7 @@ export class BackofficeArticleService {
             this.updateArticle(articleId, { image: { url: imageUrl, alt: imageDetails.alt } }).then(res => resolve()).catch(err => reject(err))
           }).catch(err => reject(err))
         }).catch((error) => {
-          console.log(error);
+          // console.log(error);
           reject();
         });
 
@@ -94,7 +94,7 @@ export class BackofficeArticleService {
             resolve({ url: imageUrl, name: fileDetails.name })
           }).catch(err => reject(err))
         }).catch((error) => {
-          console.log(error);
+          // console.log(error);
           reject();
         });
 

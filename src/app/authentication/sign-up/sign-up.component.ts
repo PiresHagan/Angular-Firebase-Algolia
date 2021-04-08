@@ -122,7 +122,7 @@ export class SignUpComponent implements OnInit {
         }
       } catch (err) {
         this.isFormSaving = false;
-        console.log("err...", err);
+        // console.log("err...", err);
       }
     }
     else {
@@ -146,7 +146,7 @@ export class SignUpComponent implements OnInit {
       this.router.navigate(['/auth/profile']);
     }).catch(() => {
       this.generalError = true;
-      console.log('Something went wrong....');
+      // console.log('Something went wrong....');
     })
   }
 

@@ -6,7 +6,7 @@ declare var $: any; // JQuery
 })
 export class SideNavDirective implements AfterViewChecked {
     ngAfterViewChecked() {
-        console.log('On every here...');
+        // console.log('On every here...');
 
         $('.side-nav .side-nav-menu:not(.ant-menu-inline-collapsed) li a').click(function (event) {
             if ($(this).parent().hasClass("ant-menu-submenu-open")) {

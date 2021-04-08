@@ -79,7 +79,7 @@ export class BackofficeFundraiserService {
           this.updateFundraiser(fundraiserId, { image: { url: imageUrl, alt: imageDetails.alt } }).then(res => resolve()).catch(err => reject(err))
         }).catch(err => reject(err))
       }).catch((error) => {
-        console.log(error);
+        // console.log(error);
         reject();
       });
     })
@@ -94,7 +94,7 @@ export class BackofficeFundraiserService {
           resolve({ url: imageUrl, name: fileDetails.name })
         }).catch(err => reject(err))
       }).catch((error) => {
-        console.log(error);
+        // console.log(error);
         reject();
       });
     })
@@ -294,7 +294,7 @@ export class BackofficeFundraiserService {
           resolve({ url: downloadURL, alt: fileName });
         }).catch(err => reject(err))
       }).catch((error) => {
-        console.log(error);
+        // console.log(error);
         reject();
       });
     })

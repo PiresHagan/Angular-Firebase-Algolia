@@ -50,7 +50,7 @@ export class UserService {
         if (user && !user.isAnonymous) {
           resolve(user);
         } else {
-          console.log('No user logged in');
+          // console.log('No user logged in');
         }
       })
     })
@@ -162,7 +162,7 @@ export class UserService {
       ).set({ ...memberData })
       resolve();
     }).catch((error) => {
-      console.log(error);
+      // console.log(error);
     })
   }
 

@@ -141,7 +141,7 @@ export class BuyTopContributorCampaignComponent implements OnInit {
       campaignDate: value.campaignDate.toISOString(),
 
     }
-    console.log(formDetails);
+    // console.log(formDetails);
     this.buyTopContributorSpot(formDetails)
   }
   private getBase64(img, callback: (img: string) => void): void {

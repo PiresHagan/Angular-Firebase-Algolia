@@ -98,7 +98,7 @@ export class CampaignService {
             resolve({ url: imageUrl, alt: this.removeExt(imageDetails.file.name) })
           }).catch(err => reject(err))
         }).catch((error) => {
-          console.log(error);
+          // console.log(error);
           reject();
         });
 

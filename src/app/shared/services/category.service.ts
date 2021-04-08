@@ -108,7 +108,7 @@ export class CategoryService {
         resolve(articleData)
       })
     }).catch((error) => {
-      console.log(error)
+      // console.log(error)
     })
   }
 

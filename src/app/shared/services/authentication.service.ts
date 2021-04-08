@@ -29,7 +29,7 @@ export class AuthService {
       if (!user || !user.emailVerified) {
         if (environment && environment.isAnonymousUserEnabled) {
           this.afAuth.signInAnonymously().catch(function () {
-            console.log('anonymusly login');
+            // console.log('anonymusly login');
           });
         }
       } else {
@@ -211,9 +211,9 @@ export class AuthService {
       uid: this.loggedInUser.uid
     }
     this.http.post(`${environment.baseAPIDomain}/api/v1/authshared/revokeAllSessions`, body).subscribe((data: any) => {
-      console.log('All sessions revoked');
+      // console.log('All sessions revoked');
     }, err => {
-      console.error('Error while revoking all sessions');
+      // console.error('Error while revoking all sessions');
     })
   }
 

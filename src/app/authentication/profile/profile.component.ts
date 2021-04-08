@@ -147,7 +147,7 @@ export class ProfileComponent implements OnInit {
           this.router.navigate(['/auth/website']);
         }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
 
     }
@@ -173,7 +173,7 @@ export class ProfileComponent implements OnInit {
         }
       }).catch(() => {
         this.isPhotoChangeLoading = false;
-        console.log('Image not uploaded properly')
+        // console.log('Image not uploaded properly')
       });
     })
   }
