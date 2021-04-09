@@ -138,8 +138,8 @@
         <a *ngIf="subscriber.type === CHARITY" [routerLink]="['/charities',subscriber.slug]">
           <div class="company-img">
             <img 
-              [src]='subscriber?.logo?.url' 
-              [alt]='subscriber?.logo?.alt' 
+              [src]='subscriber?.avatar?.url' 
+              [alt]='subscriber?.avatar?.alt' 
               onerror="this.src='assets/images/default-avatar.png'"
             />
             <div class="special-icon">
@@ -150,8 +150,8 @@
         <a *ngIf="subscriber.type === FUNDRAISER" [routerLink]="['/fundraisers',subscriber.slug]">
           <div class="company-img">
             <img 
-              [src]='subscriber?.logo?.url' 
-              [alt]='subscriber?.logo?.url' 
+              [src]='subscriber?.avatar?.url' 
+              [alt]='subscriber?.avatar?.url' 
               onerror="this.src='assets/images/default-avatar.png'"
             />
             <div class="special-icon">
@@ -163,8 +163,8 @@
         <a *ngIf="subscriber.type === COMPANY" [routerLink]="['/companies',subscriber.slug]">
           <div class="company-img">
             <img 
-              [src]='subscriber?.logo?.url' 
-              [alt]='subscriber?.logo?.alt' 
+              [src]='subscriber?.avatar?.url' 
+              [alt]='subscriber?.avatar?.alt' 
               onerror="this.src='assets/images/default-avatar.png'"
             />
             <div class="special-icon">
