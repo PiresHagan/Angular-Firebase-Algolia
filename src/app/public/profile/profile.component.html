@@ -135,9 +135,52 @@
           </p> -->
     <div class="is-followers-user">
       <div class="is-followers-item" *ngFor="let subscriber of subscribers">
-        <a [routerLink]="['/',subscriber.slug]" *ngIf="!subscriber.blocked">
-          <img [src]="subscriber?.avatar?.url" onerror="this.src='assets/images/default-avatar.png'"
-            alt="{{subscriber?.avatar?.alt}}" />
+        <a *ngIf="subscriber.type === CHARITY" [routerLink]="['/charities',subscriber.slug]">
+          <div class="company-img">
+            <img 
+              [src]='subscriber?.logo?.url' 
+              [alt]='subscriber?.logo?.alt' 
+              onerror="this.src='assets/images/default-avatar.png'"
+            />
+            <div class="special-icon">
+              <img src="assets/images/charity-icon.png" />
+            </div>
+          </div>
+        </a>
+        <a *ngIf="subscriber.type === FUNDRAISER" [routerLink]="['/fundraisers',subscriber.slug]">
+          <div class="company-img">
+            <img 
+              [src]='subscriber?.logo?.url' 
+              [alt]='subscriber?.logo?.url' 
+              onerror="this.src='assets/images/default-avatar.png'"
+            />
+            <div class="special-icon">
+              <img src="assets/images/fundraiser.svg" style="max-width:28px;" />
+            </div>
+          </div>
+        </a>
+
+        <a *ngIf="subscriber.type === COMPANY" [routerLink]="['/companies',subscriber.slug]">
+          <div class="company-img">
+            <img 
+              [src]='subscriber?.logo?.url' 
+              [alt]='subscriber?.logo?.alt' 
+              onerror="this.src='assets/images/default-avatar.png'"
+            />
+            <div class="special-icon">
+              <img src="assets/images/company-icon.png" style="max-width:28px;" />
+            </div>
+          </div>
+        </a>
+        <a 
+          *ngIf="(subscriber.type === AUTHOR || subscriber.type === MEMBER || !subscriber.type) && !subscriber.blocked" 
+          [routerLink]="['/',subscriber.slug]"
+        >
+          <img 
+            [src]="subscriber?.avatar?.url" 
+            onerror="this.src='assets/images/default-avatar.png'"
+            alt="{{subscriber?.avatar?.alt}}" 
+          />
         </a>
       </div>
     </div>
