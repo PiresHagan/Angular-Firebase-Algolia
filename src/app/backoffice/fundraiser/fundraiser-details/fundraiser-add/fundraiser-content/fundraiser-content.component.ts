@@ -266,7 +266,7 @@ export class FundraiserContentComponent implements OnInit {
       }
 
     }
-    console.log(this.fundraiserForm)
+    // console.log(this.fundraiserForm)
   }
   resetAndNavigate(fundraiser = null) {
     this.fundraiserId = fundraiser ? fundraiser.fundraisingId : this.fundraiser.id;

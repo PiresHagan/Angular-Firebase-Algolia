@@ -81,7 +81,7 @@ export class SearchEngineComponent implements OnInit {
     return Array(n);
   }
   onSearchChange(searchValue: string): void {
-    console.log(searchValue);
+    // console.log(searchValue);
     if (searchValue) {
       this.showResult = true;
     } else {

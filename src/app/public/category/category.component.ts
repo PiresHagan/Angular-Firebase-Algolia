@@ -70,6 +70,7 @@ export class CategoryComponent implements OnInit {
 
     this.route.queryParams.subscribe(() => {
       this.topic = this.route.snapshot.queryParamMap.get('topic');
+      this.articleGroups = [];
       this.getPageDetails();
     });
 
@@ -118,11 +119,11 @@ export class CategoryComponent implements OnInit {
       this.userService.get(user.uid).subscribe((userDetails) => {
         this.currentUser = userDetails;
         this.isFollowingCategory = false;
-        if(userDetails) {
-          if(this.topicDetails) {
+        if (userDetails) {
+          if (this.topicDetails) {
             if (userDetails.topic_interests) {
               userDetails.topic_interests.forEach(topic => {
-                if(topic.id === this.topicDetails.id) {
+                if (topic.id === this.topicDetails.id) {
                   this.isFollowingCategory = true;
                   return
                 }
@@ -131,7 +132,7 @@ export class CategoryComponent implements OnInit {
           } else {
             if (userDetails.interests) {
               userDetails.interests.forEach(category => {
-                if(category.id === this.category.id) {
+                if (category.id === this.category.id) {
                   this.isFollowingCategory = true;
                   return
                 }
@@ -214,7 +215,7 @@ export class CategoryComponent implements OnInit {
   }
   getTopicDetails(topicSlug: string) {
     this.categoryService.getTopicBySlug(topicSlug).subscribe((topicData: Category) => {
-      if (topicData?.title){
+      if (topicData?.title) {
         this.topicDetails = topicData;
         this.rss = `?topic=${this.topic}`;
         this.pageHeader = topicData?.title;
@@ -232,19 +233,19 @@ export class CategoryComponent implements OnInit {
   }
 
   follow() {
-    if(this.isLoggedInUser) {
+    if (this.isLoggedInUser) {
       this.isUpdatingFollow = true;
-      if(this.topicDetails) {
+      if (this.topicDetails) {
         this.categoryService.followTopic(this.currentUser.id, this.topicDetails.id).then(res => {
           this.isUpdatingFollow = false;
           this.isFollowingCategory = true;
-        }).catch( err => {
+        }).catch(err => {
           this.isUpdatingFollow = false;
         });
       } else {
         this.categoryService.followCategory(this.currentUser.id, this.category.id).then(res => {
           this.isUpdatingFollow = false;
-        }).catch( err => {
+        }).catch(err => {
           this.isUpdatingFollow = false;
         });
       }
@@ -254,19 +255,19 @@ export class CategoryComponent implements OnInit {
   }
 
   unfollow() {
-    if(this.isLoggedInUser) {
+    if (this.isLoggedInUser) {
       this.isUpdatingFollow = true;
-      if(this.topicDetails) {
+      if (this.topicDetails) {
         this.categoryService.unfollowTopic(this.currentUser.id, this.topicDetails.id).then(res => {
           this.isUpdatingFollow = false;
           this.isFollowingCategory = false;
-        }).catch( err => {
+        }).catch(err => {
           this.isUpdatingFollow = false;
         });
       } else {
         this.categoryService.unfollowCategory(this.currentUser.id, this.category.id).then(res => {
           this.isUpdatingFollow = false;
-        }).catch( err => {
+        }).catch(err => {
           this.isUpdatingFollow = false;
         });
       }

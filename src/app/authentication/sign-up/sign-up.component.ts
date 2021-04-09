@@ -11,6 +11,7 @@ import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.se
 import { LanguageService } from 'src/app/shared/services/language.service';
 import {Location} from '@angular/common';
 import { Language } from 'src/app/shared/interfaces/language.type';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -26,6 +27,7 @@ export class SignUpComponent implements OnInit {
     captchaToken: string;
     capchaObject;
     errorDetails;
+  routelang: any;
     @ViewChild('recaptcha') set SetThing(e: SignUpComponent) {
         this.isCaptchaElementReady = true;
         this.recaptchaElement = e;
@@ -44,6 +46,7 @@ export class SignUpComponent implements OnInit {
     selectedLanguage: string;
 
   constructor(
+    private route: ActivatedRoute,
     private fb: FormBuilder,
     public afAuth: AngularFireAuth,
     private router: Router,
@@ -62,6 +65,7 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     this.languageList = this.language.geLanguageList();
     this.selectedLanguage = this.language.defaultLanguage;
   
@@ -118,7 +122,7 @@ export class SignUpComponent implements OnInit {
         }
       } catch (err) {
         this.isFormSaving = false;
-        console.log("err...", err);
+        // console.log("err...", err);
       }
     }
     else {
@@ -142,7 +146,7 @@ export class SignUpComponent implements OnInit {
       this.router.navigate(['/auth/profile']);
     }).catch(() => {
       this.generalError = true;
-      console.log('Something went wrong....');
+      // console.log('Something went wrong....');
     })
   }
 

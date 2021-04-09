@@ -190,13 +190,17 @@ export class ArticleCommentsComponent implements OnInit {
   scrollToCommentSection(): void {
     try {
       this.myScrollContainer.nativeElement.scrollIntoView({ behavior: 'smooth' })
-    } catch (err) { console.log(err); }
+    } catch (err) { 
+      // console.log(err); 
+    }
   }
 
   scrollToEditCommentSection(): void {
     try {
       this.commentReplyContainer.nativeElement.scrollIntoView({ behavior: 'smooth' })
-    } catch (err) { console.log(err); }
+    } catch (err) { 
+      // console.log(err); 
+    }
   }
 
   getUserDetails() {

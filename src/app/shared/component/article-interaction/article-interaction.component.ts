@@ -18,7 +18,7 @@ export class ArticleInteractionComponent implements OnInit {
       this.viewCount = this.article?.view_count;
       this.commentCount = this.article?.comments_count;
     } else {
-      console.log('Article not received')
+      // console.log('Article not received')
     }
 
   }

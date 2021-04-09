@@ -122,6 +122,19 @@ export class CompanyService {
     }));
   }
 
+  getAllFollowers(companyId) {
+    return this.db.collection(this.companiesCollection).doc(companyId).collection(`${this.followersSubCollection}`)
+      .snapshotChanges().pipe(map(actions => {
+        return {
+          followers: actions.map(a => {
+            const data: any = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          }),
+        }
+      }));
+  }
+
   getFollowers(companyId, limit: number = 10, navigation: string = "first", lastVisible = null) {
     if (!limit) {
       limit = 10;

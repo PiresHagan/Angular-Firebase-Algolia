@@ -242,7 +242,7 @@ export class ProfileSettingsComponent {
         this.isPhotoChangeLoading = false;
       }).catch(() => {
         this.isPhotoChangeLoading = false;
-        console.log('Image not uploaded properly')
+        // console.log('Image not uploaded properly')
       });
     })
   }

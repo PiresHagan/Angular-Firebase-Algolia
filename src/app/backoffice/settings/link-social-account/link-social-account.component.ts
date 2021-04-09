@@ -74,7 +74,7 @@ export class LinkSocialAccountComponent implements OnInit {
         this.socialSharingService.saveAuthTokenToServer(response.authResponse);
         this.getFacebookFriends();
       } else {
-      console.log('User login failed');
+      // console.log('User login failed');
       this.fbloading = false;
       }
     });
@@ -86,7 +86,7 @@ export class LinkSocialAccountComponent implements OnInit {
     FB.logout(function(response) {
       self.fbAccountLinkStatus = false;
       self.fbloading = false;
-      console.log('Facebook account unlinked', response);
+      // console.log('Facebook account unlinked', response);
     });
   }
 

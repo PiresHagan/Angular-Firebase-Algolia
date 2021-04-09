@@ -60,7 +60,7 @@ export class SeoService {
         this.updateMetaTags(data);
       }
     }, err => {
-      console.log('Error getting seo data', seoId, err);
+      // console.log('Error getting seo data', seoId, err);
     });
   }
 

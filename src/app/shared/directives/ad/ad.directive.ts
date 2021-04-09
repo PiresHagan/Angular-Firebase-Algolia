@@ -57,14 +57,14 @@ export class AdDirective implements OnInit, AfterViewInit {
       if (slot) {
         if(this.author){
           googletag.pubads().setTargeting("author", this.author);
-          console.log('Author key pair', googletag.pubads().getTargeting('author'));
+          // console.log('Author key pair', googletag.pubads().getTargeting('author'));
           
         }
         googletag.display(this.pointer);
         googletag.pubads().refresh([slot.ref]);
       } else {
-        console.log(`Slot was not found for ${this.pointer}`);
-        console.log(allGoogleAdSlots);
+        // console.log(`Slot was not found for ${this.pointer}`);
+        // console.log(allGoogleAdSlots);
       }
     });
   }

@@ -85,7 +85,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
         this.articleAds = [{ elem: '<em>Parsing...</em>' }];
         this.article = artical[0];
         this.topics = this.article.topics;
-        console.log(this.article)
+        // console.log(this.article)
 
         if (!this.article) {
           this.modal.error({
@@ -243,7 +243,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
     this.articleService.updateArticleAbuse(this.article.id).then(() => {
       this.isReportAbuseArticleLoading = false;
       this.showAbuseSuccessMessage();
-      console.log('Your suggestion saved successfully.')
+      // console.log('Your suggestion saved successfully.')
     })
   }
   getUserDetails() {
@@ -467,7 +467,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   }
   copyLink() {
 
-    console.log(this.router.url);
+    // console.log(this.router.url);
   }
 
   showDonateForm(): void {

@@ -34,7 +34,7 @@ export class CharityService {
             resolve({ url: downloadURL, alt: fileName });
           }).catch(err => reject(err))
         }).catch((error) => {
-          console.log(error);
+          // console.log(error);
           reject();
         });
 

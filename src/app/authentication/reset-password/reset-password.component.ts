@@ -56,14 +56,14 @@ export class ResetPasswordComponent implements OnInit {
         const email = this.resetPasswordForm.get('email').value;
 
         await this.afAuth.sendPasswordResetEmail(email).then(() => {
-          console.log("email sent");
+          // console.log("email sent");
           this.successReset = true;
         }).catch((error) => {
-          console.log(error);
+          // console.log(error);
           this.errorReset = true;
         })
       } catch (err) {
-        console.log("err...", err); 
+        // console.log("err...", err); 
       }
     }
   }
