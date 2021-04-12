@@ -8,7 +8,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { environment } from 'src/environments/environment';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
-import { AUTHOR, MEMBER, CHARITY, COMPANY, FUNDRAISER } from 'src/app/shared/constants/member-constant';
+import { AUTHOR, MEMBER, CHARITY, COMPANY, FUNDRAISER, MTS_ACCOUNT } from 'src/app/shared/constants/member-constant';
 import { NzModalService } from 'ng-zorro-antd';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
 import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.service';
@@ -22,7 +22,8 @@ export class ProfileComponent implements OnInit {
   AUTHOR = AUTHOR;
   MEMBER = MEMBER; 
   CHARITY = CHARITY; 
-  COMPANY = COMPANY; 
+  COMPANY = COMPANY;
+  MTS_ACCOUNT = MTS_ACCOUNT; 
   FUNDRAISER = FUNDRAISER; 
   authorDetails: any = {};
   followers: any = [];

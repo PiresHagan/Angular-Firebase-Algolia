@@ -173,7 +173,7 @@
           </div>
         </a>
         <a 
-          *ngIf="(subscriber.type === AUTHOR || subscriber.type === MEMBER || !subscriber.type) && !subscriber.blocked" 
+          *ngIf="(subscriber.type === AUTHOR || subscriber.type === MEMBER || subscriber.type === MTS_ACCOUNT || !subscriber.type) && !subscriber.blocked" 
           [routerLink]="['/',subscriber.slug]"
         >
           <img 
