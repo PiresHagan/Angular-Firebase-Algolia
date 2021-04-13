@@ -112,7 +112,7 @@
                             *ngIf="!article?.image?.cloudinary_id">
                           <ng-container *ngIf="article.image.cloudinary_id">
                             <div class="hide-avatar">
-                              <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                              <app-cloudinary-feature-img [article]="article"></app-cloudinary-feature-img>
                             </div>
                           </ng-container>
                           <h3 class="is-category-title" *ngIf="category.title === 'City'">{{category.title}}</h3>
