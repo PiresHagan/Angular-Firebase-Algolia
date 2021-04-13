@@ -28,7 +28,7 @@
                     *ngIf="article && !(article?.image?.cloudinary_id)">
                   <ng-container *ngIf="article && (article?.image?.cloudinary_id)">
                     <div class="hide-avatar">
-                      <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                      <app-cloudinary-feature-img [article]="article"></app-cloudinary-feature-img>
                     </div>
                   </ng-container>
                   <h3 class="is-category-title">{{article.category.title}}</h3>
@@ -161,7 +161,7 @@
                     *ngIf="article && !(article?.image?.cloudinary_id)">
                   <ng-container *ngIf="article && (article?.image?.cloudinary_id)">
                     <div class="hide-avatar">
-                      <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                      <app-cloudinary-feature-img [article]="article"></app-cloudinary-feature-img>
                     </div>
                   </ng-container>
                   <h3 class="is-category-title">{{article.category.title}}</h3>
@@ -294,7 +294,7 @@
                     *ngIf="article && !(article?.image?.cloudinary_id)">
                   <ng-container *ngIf="article && (article?.image?.cloudinary_id)">
                     <div class="hide-avatar">
-                      <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                      <app-cloudinary-feature-img [article]="article"></app-cloudinary-feature-img>
                     </div>
                   </ng-container>
                   <h3 class="is-category-title">{{article.category.title}}</h3>
