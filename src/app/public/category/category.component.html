@@ -106,7 +106,7 @@
                             *ngIf="!(article.image.cloudinary_id); else CateCloudinoryImg">
                           <ng-template #CateCloudinoryImg>
                             <div class="hide-avatar">
-                              <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                              <app-cloudinary-feature-img [article]="article"></app-cloudinary-feature-img>
                             </div>
                           </ng-template>
                           <h3 class="is-category-title" *ngIf="category.title === 'City'">{{category.title}}</h3>

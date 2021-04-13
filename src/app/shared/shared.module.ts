@@ -26,6 +26,7 @@ import { FundraiserDonateFormComponent } from './component/fundraiser-donate-for
 
 import { NgxStripeModule } from 'ngx-stripe';
 import { environment } from 'src/environments/environment';
+import { CloudinaryFeatureImgComponent } from './component/cloudinary-feature-img/cloudinary-feature-img.component';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -47,7 +48,8 @@ export function createTranslateLoader(http: HttpClient) {
         QuicklinkModule,
         CharityDonateFormComponent,
         CompanyLeadFormComponent,
-        FundraiserDonateFormComponent
+        FundraiserDonateFormComponent,
+        CloudinaryFeatureImgComponent
     ],
     imports: [
         RouterModule,
@@ -80,7 +82,8 @@ export function createTranslateLoader(http: HttpClient) {
         AdDirective,
         CharityDonateFormComponent,
         CompanyLeadFormComponent,
-        FundraiserDonateFormComponent
+        FundraiserDonateFormComponent,
+        CloudinaryFeatureImgComponent
     ],
     providers: [
         ThemeConstantService,
