@@ -424,9 +424,11 @@
             }
           ]
         },
-        { 
-          "key" : "X-Frame-Options", 
-          "value" : "sameorigin" 
+        {
+          "source": "**",
+          "headers" : [
+            { "key" : "X-Frame-Options", "value" : "deny" }
+          ]
         }
       ]
     },
@@ -485,9 +487,11 @@
             }
           ]
         },
-        { 
-          "key" : "X-Frame-Options", 
-          "value" : "sameorigin" 
+        {
+          "source": "**",
+          "headers" : [
+            { "key" : "X-Frame-Options", "value" : "deny" }
+          ]
         }
       ]
     }
