@@ -394,10 +394,6 @@
             {
               "key": "Cache-Control",
               "value": "max-age=31536000"
-            },
-            { 
-              "key" : "X-Frame-Options", 
-              "value" : "sameorigin" 
             }
           ]
         },
@@ -455,10 +451,6 @@
             {
               "key": "Cache-Control",
               "value": "max-age=31536000"
-            },
-            { 
-              "key" : "X-Frame-Options", 
-              "value" : "sameorigin" 
             }
           ]
         },
