@@ -423,6 +423,10 @@
               "value": "max-age=31536000"
             }
           ]
+        },
+        { 
+          "key" : "X-Frame-Options", 
+          "value" : "sameorigin" 
         }
       ]
     },
@@ -480,6 +484,10 @@
               "value": "max-age=31536000"
             }
           ]
+        },
+        { 
+          "key" : "X-Frame-Options", 
+          "value" : "sameorigin" 
         }
       ]
     }
