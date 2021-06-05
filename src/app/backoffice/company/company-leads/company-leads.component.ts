@@ -66,7 +66,7 @@ export class CompanyLeadsComponent implements OnInit {
     if (!this.companyId)
       return;
 
-    this.companyService.getCompanySubscription(this.companyId).subscribe((data) => {
+      this.companyService.getCompanyLeadSubscription(this.companyId).subscribe((data) => {
       this.activeLeadSubscription = data[0];
     });
 

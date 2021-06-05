@@ -17,8 +17,9 @@ export class CompanyService {
   private basePath = '/companies/';
   private companyCollection = 'companies'
   private followersCollection = "followers"
-  private leadsCollection = "leads"
+  private leadsCollection = "leads";
   private leadsPackageCollection = 'lead-packages';
+  private publicProfilePackageCollection = "company-general-packages"
   private subscriptionsCollection = 'subscriptions';
 
   constructor(private http: HttpClient,
@@ -213,7 +214,7 @@ export class CompanyService {
     return this.http.get(environment.baseAPIDomain + `/api/v1/companies/${companyId}/leads/${monthId}`)
   }
 
-  getCompanySubscription(companyId: string) {
+  getCompanyLeadSubscription(companyId: string) {
     let dataQuery = this.db.collection(`${this.subscriptionsCollection}`, ref => ref
       .where("customer_id", "==", companyId)
       .where("status", "==", CompanyConstant.STATUS_ACTIVE)
@@ -237,6 +238,32 @@ export class CompanyService {
 
   cancelLeadPackageSubscription(companyId: string, subscriptionId: string) {
     return this.http.delete(environment.baseAPIDomain + `/api/v1/payment/companies/${companyId}/subscriptions/${subscriptionId}`)
+  }
+
+  getCompanyPublicProfilePackages() {
+    return this.db.collection(this.publicProfilePackageCollection).valueChanges()
+  }
+
+  createPublicProfilePackageSubscription(companyId: string, postData: { packageId: string, paymentMethodId: string }) {
+    return this.http.post(environment.baseAPIDomain + `/api/v1/payment/companies/company-general-package/${companyId}/subscriptions`, postData)
+  }
+
+  cancelPublicProfilePackageSubscription(companyId: string, subscriptionId: string) {
+    return this.http.delete(environment.baseAPIDomain + `/api/v1/payment/companies/company-general-package/${companyId}/subscriptions/${subscriptionId}`)
+  }
+
+  getCompanyPublicProfileSubscription(companyId: string) {
+    let dataQuery = this.db.collection(`${this.subscriptionsCollection}`, ref => ref
+      .where("customer_id", "==", companyId)
+      .where("status", "==", CompanyConstant.STATUS_ACTIVE)
+      .where("type", "==", CompanyConstant.PUBLIC_PROFILE_PACKAGE)
+    );
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data: any = a.payload.doc.data();
+        return data;
+      })
+    }));
   }
 
 }
