@@ -6,5 +6,6 @@ export class CompanyConstant {
     public static STATUS_INACTIVE = "inactive";
 
     public static LEAD_PACKAGE = "lead-package";
+    public static PUBLIC_PROFILE_PACKAGE = "company-general-package";
 
 }
