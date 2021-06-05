@@ -12,7 +12,7 @@ import { BackofficeArticleService } from 'src/app/backoffice/shared/services/bac
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { UserService } from 'src/app/shared/services/user.service';
 
-interface LeadSubscription { 
+interface PublicProfileSubscription { 
   created_at: string,
   customer_id: string,
   external_id: string,
@@ -46,7 +46,7 @@ export class CompanyComponent implements OnInit {
   lastArticleIndexOfAudio;
   lastArticleIndexOfVideo;
   lastArticleIndexOfText;
-  currentSubscription: LeadSubscription;
+  currentPublicProfileSubscription: PublicProfileSubscription;
   audioArticles: Article[] = [];
   videoArticles: Article[] = [];
   textArticles: Article[] = [];
@@ -72,9 +72,10 @@ export class CompanyComponent implements OnInit {
 
         this.companyId = this.company.id;
 
-        this.companyService.getCompanySubscription(this.companyId).subscribe((data) => {
-          this.currentSubscription = data[0];
+        this.companyService.getCompanyPublicProfileSubscription(this.companyId).subscribe((data) => {
+          this.currentPublicProfileSubscription = data[0];
         });
+    
 
          // Fetching company article
         this.articleService.getArticlesByUser(this.companyId,  2, null, this.lastArticleIndex).subscribe((data) => {

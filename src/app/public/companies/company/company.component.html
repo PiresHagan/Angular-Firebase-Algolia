@@ -629,26 +629,26 @@
               </div>
 
             </div>
+            <div class="is-right-ad-section">
+              <div class="cmpy-subs-status" 
+                *ngIf="!currentPublicProfileSubscription || currentPublicProfileSubscription?.status != 'active'" 
+                (click)='openCompanySubscription()'
+              >
+                <h5>{{ 'CompanyWebsite' | translate }} : <span class="txt-primary ptr-cursor">N/A</span></h5>
+                <h5>{{ 'CompanyPhone' | translate }} : <span class="txt-primary ptr-cursor">N/A</span></h5>
+              </div>
+              <div class="cmpy-subs-status" *ngIf="currentPublicProfileSubscription && currentPublicProfileSubscription.status == 'active'">
+                <h5 *ngIf="!company.website || company?.website?.length == 0">{{ 'CompanyWebsite' | translate }} : <span class="txt-primary">N/A</span></h5>
+                <h5 *ngIf="company.website && company?.website?.length != 0">
+                  {{ 'CompanyWebsite' | translate }} : <a href="{{ company.website }}" target="_blank"> Click Here </a>
+                </h5>
+                <h5>{{ 'CompanyPhone' | translate }} : <a href="tel:{{ company.phone }}">{{ company.phone }}</a></h5>
+              </div>
+              <app-company-lead-form *ngIf="companyId" [companyId]="companyId"></app-company-lead-form>
+            </div>
           </div>
-        </div>
 
-      </div>
-      <div class="is-right-ad-section">
-        <div class="cmpy-subs-status" *ngIf="!currentSubscription || currentSubscription?.status != 'active'"
-          (click)='openCompanySubscription()'>
-          <h5>{{ 'CompanyWebsite' | translate }} : <span class="txt-primary ptr-cursor">N/A</span></h5>
-          <h5>{{ 'CompanyPhone' | translate }} : <span class="txt-primary ptr-cursor">N/A</span></h5>
         </div>
-        <div class="cmpy-subs-status" *ngIf="currentSubscription && currentSubscription.status == 'active'">
-          <h5 *ngIf="!company.website || company?.website?.length == 0">{{ 'CompanyWebsite' | translate }} : <span
-              class="txt-primary">N/A</span></h5>
-          <h5 *ngIf="company.website && company?.website?.length != 0">
-            {{ 'CompanyWebsite' | translate }} : <a href="{{ company.website }}" target="_blank"> Click Here </a>
-          </h5>
-          <h5>{{ 'CompanyPhone' | translate }} : <a href="tel:{{ company.phone }}">{{ company.phone }}</a></h5>
-        </div>
-        <app-company-lead-form *ngIf="companyId" [companyId]="companyId"></app-company-lead-form>
-      </div>
     </div>
 
   </div>
