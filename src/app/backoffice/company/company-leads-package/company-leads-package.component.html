@@ -1,31 +1,67 @@
 <div class="container">
     <nz-spin [nzSpinning]="isUpgradingPlan" nzTip="Upgrading Subscription">
-        <div class="is-comman-title"> {{'LeadsPackageTitle' | translate}}</div>
         <div class="row">
-            <div class="col-12 col-sm-6 col-md-4 mb-4" *ngFor="let package of packages">
-                <div class="package-box">
-                    <div class="package-img" style="background: url(assets/images/campaign/contributor.jpeg) center center no-repeat;">
-                        <div class="package-detail">
-                            <h2>
-                                {{package.limit}}
-                                <span>{{'leadsTitle' | translate}}</span>
-                            </h2>
-                            <p>${{package.price}}</p>
+
+            <div class="col-6">
+                <div class="row">
+                    <div class="is-comman-title"> Company Public Profile Monthly Packages</div>
+                    <div class=" offset-4 col-4" *ngFor="let package of publicProfilePackages">
+                        <div class="package-box">
+                            <div class="package-img" style="background: url(assets/images/campaign/contributor.jpeg) center center no-repeat;">
+                                <div class="package-detail">
+                                    <h2>
+                                        <span>Make company website and contact details visible</span>
+                                        <span></span>
+                                    </h2>
+                                    <p>${{package.price}}</p>
+                                </div>
+                            </div>
+                            <button
+                                nz-button nzType="primary" 
+                                class="is-see-more" 
+                                nz-popconfirm
+                                nzPopconfirmTitle="Are you sure you want to upgrade to this plan?"
+                                (nzOnConfirm)="upgradePublicProfileSubscription(package)"
+                                nzPopconfirmPlacement="bottom"
+                                [disabled]="currentPublicProfileSubscription?.package_id == package.id" 
+                            >
+                                {{'UpgradePackage' | translate}}
+                            </button>
                         </div>
                     </div>
-                    <button
-                        nz-button nzType="primary" 
-                        class="is-see-more" 
-                        nz-popconfirm
-                        nzPopconfirmTitle="Are you sure you want to upgrade to this plan?"
-                        (nzOnConfirm)="upgradeSubscription(package)"
-                        nzPopconfirmPlacement="bottom"
-                        [disabled]="currentSubscription?.package_id == package.id" 
-                    >
-                        {{'UpgradePackage' | translate}}
-                    </button>
                 </div>
             </div>
+
+            <div class="col-6">
+                <div class="row">
+                    <div class="is-comman-title"> {{'LeadsPackageTitle' | translate}}</div>
+                    <div class="col-12 col-sm-6 col-md-4 mb-4" *ngFor="let package of leadPackages">
+                        <div class="package-box">
+                            <div class="package-img" style="background: url(assets/images/campaign/contributor.jpeg) center center no-repeat;">
+                                <div class="package-detail">
+                                    <h2>
+                                        {{package.limit}}
+                                        <span>{{'leadsTitle' | translate}}</span>
+                                    </h2>
+                                    <p>${{package.price}}</p>
+                                </div>
+                            </div>
+                            <button
+                                nz-button nzType="primary" 
+                                class="is-see-more" 
+                                nz-popconfirm
+                                nzPopconfirmTitle="Are you sure you want to upgrade to this plan?"
+                                (nzOnConfirm)="upgradeSubscription(package)"
+                                nzPopconfirmPlacement="bottom"
+                                [disabled]="currentLeadSubscription?.package_id == package.id" 
+                            >
+                                {{'UpgradePackage' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </nz-spin>
 </div>

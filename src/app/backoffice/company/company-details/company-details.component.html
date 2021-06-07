@@ -1,8 +1,24 @@
 <div class="container">
     <div class="profile-setting-main">
+        <nz-alert 
+            *ngIf="!currentLeadSubscription"
+            (nzOnClose)="changeActiveTab(5)" 
+            style="margin-top: 10px;" nzType="error" nzMessage="Your monthly lead package subscription is not active" nzShowIcon
+            nzCloseText="View">
+        </nz-alert>
+        
+        <nz-alert 
+            *ngIf="!currentPublicProfileSubscription"
+            (nzOnClose)="changeActiveTab(5)" 
+            style="margin-top: 10px;" nzType="error" 
+            nzMessage="Upgrade to company public profile monthly package, to make company website and contact details available to public" nzShowIcon
+            nzCloseText="View">
+        </nz-alert>
+
         <div class="page-header has-tab">
             <h2 class="font-weight-normal"> {{ 'CompanyInfo' | translate }}</h2>
         </div>
+        
         <nz-tabset class="page-header-tab" [nzSelectedIndex]='showTabIndex'>
             <nz-tab nzTitle="{{'CompanyDetails'| translate}}">
                 <app-add-company class="m-10"></app-add-company>

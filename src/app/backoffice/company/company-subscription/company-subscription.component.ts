@@ -32,7 +32,27 @@ export class CompanySubscriptionComponent implements OnInit {
           new Promise((resolve, reject) => {
             this.leadPackageComponent.cancelSubscription().subscribe(() => {
               this.message.create('success', this.translate.instant("LeadSubscriptionCancelled"));
-              resolve()
+              resolve(true);
+            }, error => {
+              reject(error)
+            })
+          }).catch((err) => {
+            this.message.create('error', err.message);
+          })
+      });
+    });
+  }
+
+  cancelPublicProfilePlan() {
+    this.translate.get("LeadSubscriptionCancelMsgConf").subscribe((text:string) => {
+      let title = text;
+      this.modal.confirm({
+        nzTitle: title,
+        nzOnOk: () =>
+          new Promise((resolve, reject) => {
+            this.leadPackageComponent.cancelPublicProfileSubscription().subscribe(() => {
+              this.message.create('success', this.translate.instant("LeadSubscriptionCancelled"));
+              resolve(true);
             }, error => {
               reject(error)
             })
