@@ -84,6 +84,17 @@
                         </ng-template>
                     </nz-form-control>
                 </nz-form-item>
+                <!-- <nz-form-item>
+                    <nz-form-control class="is-icon">
+                        <input [disabled]="true" type="text" nz-input formControlName="referral_code"
+                            placeholder="{{'loginReferralCode' | translate}}" id="referral_code">
+                    </nz-form-control>
+                </nz-form-item> -->
+                <div style="text-align: left;">
+                    <nz-form-item>
+                        <p *ngIf="referral_code">{{'loginReferralCode' | translate}}: <span style="color: orangered;">{{referral_code}}</span></p>
+                    </nz-form-item>
+                </div>
                 <div>
                     <nz-form-item>
                         <nz-form-control>
