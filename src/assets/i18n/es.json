@@ -240,6 +240,7 @@
   "signUpFullName": "Nombre completo",
   "signUpConfirmPassword": "Confirmar contraseña",
   "signUpTermRead": "He leído la",
+  "loginReferralCode": "Código de referencia",
   "signUpAgreement": "Debes leer el acuerdo.",
   "loginEmailError": "La entrada no es válida E-mail!",
   "loginPasswordError": "Por favor ingrese su contraseña!",
