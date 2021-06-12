@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgAisModule } from 'angular-instantsearch';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { SearchEngineRoutingModule } from './search-engine-routing.module';
-
+import { NzTabsModule } from "ng-zorro-antd";
 @NgModule({
   declarations: [
     SearchEngineComponent
@@ -18,6 +18,7 @@ import { SearchEngineRoutingModule } from './search-engine-routing.module';
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
     CommonModule,
+    NzTabsModule,
     NgAisModule.forRoot(),
     SearchEngineRoutingModule,
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } }),

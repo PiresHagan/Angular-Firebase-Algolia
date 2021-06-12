@@ -79,9 +79,25 @@
           </div>
         </div>
       </div>
-      
+      <nz-tabset>
+        <nz-tab nzTitle="All">
+          Content of Tab Pane 1
+        </nz-tab>
+        <nz-tab nzTitle="Images">
+          Content of Tab Pane 2
+        </nz-tab>
+        <nz-tab nzTitle="Text">
+          Content of Tab Pane 3
+        </nz-tab>
+        <nz-tab nzTitle="Audio">
+          Content of Tab Pane 1
+        </nz-tab>
+        <nz-tab nzTitle="Video">
+          Content of Tab Pane 2
+        </nz-tab>
+      </nz-tabset>
       <ais-refinement-list attribute="brand"></ais-refinement-list>
-      <ais-configure [searchParameters]="{ hitsPerPage: 16 }"></ais-configure>
+      <ais-configure [searchParameters]="{ hitsPerPage: 16 }"></ais-configure> 
       <ais-hits>
         <ng-template let-hits="hits" let-results="results">
           <div class="sr-article-sec">
