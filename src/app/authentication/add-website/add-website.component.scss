@@ -4,6 +4,10 @@
     min-width:unset;
 }
 
+:host ::ng-deep .ant-alert-icon {
+    top: 6px;
+}
+
 .mts-website-section{
     padding: 0px;
     .mts-website-content-section{
@@ -13,7 +17,7 @@
             position: relative;
             img{
                 width:100%;
-                height: auto;
+                height: 400px;
             }
             h3{
                 position: absolute;
