@@ -771,6 +771,8 @@
   "SelectcategoryOnboarding": "Sélectionnez la catégorie de site Web",
   "SelectlangOnboarding": "Sélectionnez la langue du site Web",
   "SelmonthlytrafficOnboarding": "Sélectionnez le trafic mensuel du site Web",
+  "SelmonthlyrevenueOnboarding": "Sélectionner les revenus mensuels du site Web",
+  "WebsiteOnboardingTitle": "Enregistrer votre site web avec My Trending Stories publicitaire",
   "charityorcompanyOnboarding":"Contributeurs ou organisme de bienfaisance ou entreprise ou commerce électronique",
   "FINDUSONOnboarding":"TROUVEZ-NOUS SUR",
   "followusonOnboarding":"SUIVEZ-NOUS SUR",
@@ -799,5 +801,6 @@
   "EmailPassReset": "Un e-mail vous a été envoyé.",
   "WhatsappOnboarding": "Écrivez le numéro de contact WhatsApp ici",
   "SkypeOnboarding": "Écrivez l'identifiant Skype ici",
-  "aboutPage": "Mytrendingstories est une plate-forme de médias sociaux qui se targue d'une valeur spécifique: redonner le pouvoir aux gens en permettant la liberté de parole et d'expression à travers diverses méthodes créatives telles que l'écriture, la vidéographie et l'audio."
+  "aboutPage": "Mytrendingstories est une plate-forme de médias sociaux qui se targue d'une valeur spécifique: redonner le pouvoir aux gens en permettant la liberté de parole et d'expression à travers diverses méthodes créatives telles que l'écriture, la vidéographie et l'audio.",
+  "whatsappSkypeMissing": "Les détails de WhatsApp et de Skype sont manquants. Veuillez revenir en arrière et mettre à jour les détails."
 }

@@ -769,6 +769,8 @@
   "SelectcategoryOnboarding": "Seleccionar categoría de sitio web",
   "SelectlangOnboarding": "Seleccionar idioma del sitio web",
   "SelmonthlytrafficOnboarding": "Seleccione el tráfico mensual del sitio web",
+  "SelmonthlyrevenueOnboarding": "Seleccionar ingresos mensuales del sitio web",
+  "WebsiteOnboardingTitle": "Registre su sitio web con My Trending Stories Ad Network",
   "charityorcompanyOnboarding":"Colaboradoras o caridad o empresa o comercio electrónico.",
   "FINDUSONOnboarding":"ENCUÉNTRANOS EN",
   "followusonOnboarding":"SIGA CON NOSOTROS",
@@ -797,5 +799,6 @@
   "EmailPassReset": "Se le ha enviado un correo electrónico",
   "WhatsappOnboarding": "Escriba aquí el número de contacto de Whatsapp",
   "SkypeOnboarding": "Escriba aquí el ID de Skype",
-  "aboutPage": "Mytrendingstories es una plataforma de redes sociales que se enorgullece de un valor específico: devolver el poder a las personas al permitir la libertad de expresión y expresión a través de varios métodos creativos como la escritura, la videografía y el audio."
+  "aboutPage": "Mytrendingstories es una plataforma de redes sociales que se enorgullece de un valor específico: devolver el poder a las personas al permitir la libertad de expresión y expresión a través de varios métodos creativos como la escritura, la videografía y el audio.",
+  "whatsappSkypeMissing": "Falta los detalles de Whatsapp y Skype. Por favor, vuelva y actualiza los detalles"
 }
