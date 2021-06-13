@@ -44,7 +44,7 @@ export class SignUpComponent implements OnInit {
     enableEmailVerificationScreen: boolean = false;
     languageList: Language[];
     selectedLanguage: string;
-    referral_code;
+    referral_code = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -66,7 +66,7 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.referral_code = this.route.snapshot.queryParams['referral_code'] || null;
+    this.referral_code = this.route.snapshot.queryParams['referral_code'] || "";
     this.languageList = this.language.geLanguageList();
     this.selectedLanguage = this.language.defaultLanguage;
   
@@ -89,7 +89,7 @@ export class SignUpComponent implements OnInit {
   }
 
   backClicked() {
-    this._location.back();
+    this.router.navigate(['/']);
   }
 
   async submitForm() {
