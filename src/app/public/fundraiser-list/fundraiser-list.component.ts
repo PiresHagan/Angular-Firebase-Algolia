@@ -1,28 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { FundraiserService } from 'src/app/shared/services/fundraiser.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import * as algoliasearch from 'algoliasearch/lite';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { environment } from 'src/environments/environment';
 import { UserService } from 'src/app/shared/services/user.service';
+
+const searchClient = algoliasearch(
+  environment.algolia.applicationId,
+  environment.algolia.apiKey
+);
+
+
 @Component({
   selector: 'app-fundraiser-list',
   templateUrl: './fundraiser-list.component.html',
   styleUrls: ['./fundraiser-list.component.scss']
 })
+
 export class FundraiserListComponent implements OnInit {
-  fundraisers: any[];
-  lastVisible: any = null;
+  config = {
+    indexName: environment.algolia.index.fundraisers,
+    searchClient,
+    routing: true
+  };
+
   loading: boolean = true;
-  loadingMore: boolean = false;
   selectedLanguage: string = "";
-  fundraiserListLimit = 20;
-  isLoggedInUser: any;
 
   constructor(
-    private fundraiserService: FundraiserService,
     private langService: LanguageService,
-    private route: ActivatedRoute,
     private router: Router,
     public authService: AuthService,
     private userService: UserService
@@ -31,34 +39,7 @@ export class FundraiserListComponent implements OnInit {
   ngOnInit(): void {
     this.selectedLanguage = this.langService.getSelectedLanguage();
 
-    window.addEventListener('scroll', this.scrollEvent, true);
-
-    this.getFirstFundraisers();
-  }
-
-  getFirstFundraisers() {
-    this.fundraiserService.getFundraisersOnScroll(this.fundraiserListLimit, 'first', this.lastVisible, this.selectedLanguage).subscribe((data) => {
-      this.fundraisers = data.fundraiserList;
-      this.lastVisible = data.lastVisible;
-      this.loading = false;
-    });
-  }
-
-  scrollEvent = (event: any): void => {
-    let documentElement = event.target.documentElement ? event.target.documentElement : event.target;
-    if (documentElement) {
-      const top = documentElement.scrollTop
-      const height = documentElement.scrollHeight
-      const offset = documentElement.offsetHeight
-      if (top > height - offset - 1 - 100 && this.lastVisible && !this.loadingMore) {
-        this.loadingMore = true;
-        this.fundraiserService.getFundraisersOnScroll(this.fundraiserListLimit, 'next', this.lastVisible, this.selectedLanguage).subscribe((data) => {
-          this.loadingMore = false;
-          this.fundraisers = [...this.fundraisers, ...data.fundraiserList];
-          this.lastVisible = data.lastVisible;
-        });
-      }
-    }
+    this.config.indexName = this.config.indexName + this.selectedLanguage;
   }
 
   isVisible = false;
@@ -91,8 +72,6 @@ export class FundraiserListComponent implements OnInit {
         this.showModal()
       }
     });
-
-
   }
 
 }
