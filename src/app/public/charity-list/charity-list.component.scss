@@ -1,3 +1,135 @@
+/*Algolia*/
+::ng-deep .ais-SearchBox-form {
+  display: block;
+  position: relative;
+}
+::ng-deep .ais-Highlight-highlighted {
+  color:#0079d0;
+  font-size: 16px;
+  font-weight: 500;
+}
+::ng-deep .ais-SearchBox-submit {
+  padding: 0;
+  overflow: visible;
+  font: inherit;
+  line-height: normal;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 0px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: absolute;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  right: 0.3rem;
+  transform: translateY(-50%);
+}
+
+
+::ng-deep .ais-SearchBox-form {
+  ::ng-deep .ais-SearchBox-input {
+    border: 1px solid #cacaca;
+    width: 100%;
+    border-radius: 40px;
+    padding: 15px 10px 13px 20px;
+    outline: none;
+    font-family: 'josefin_sanslight';
+    font-size: 18px;
+    box-sizing: border-box;
+
+    &::-webkit-input-placeholder {
+      color: #acaaaa;
+    }
+
+    &:-ms-input-placeholder {
+      color: #acaaaa;
+    }
+
+    &::placeholder {
+      color: #acaaaa;
+    }
+  }
+
+  .ais-SearchBox-submit {
+    max-width: 100%;
+    position: absolute;
+    top: 29px;
+    right: 20px;
+    left: auto;
+    outline: none;
+
+    .ais-SearchBox-submitIcon {
+      width: 20px;
+      height: 20px;
+
+      path {
+        fill: #cacaca;
+      }
+    }
+  }
+
+  .ais-SearchBox-reset {
+    right: 50px;
+    outline: none;
+    position: absolute;
+    top: 21px;
+    border: 0px;
+    background: transparent;
+
+    .ais-SearchBox-resetIcon {
+      width: 14px;
+      height: 14px;
+
+      path {
+        fill: #cacaca;
+      }
+    }
+  }
+}
+
+.companies-box{
+  ::ng-deep .ais-SearchBox-form{
+    max-width: 550px;
+    margin: 0px auto 30px;
+  }
+}
+
+::ng-deep .ais-Pagination-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .ais-Pagination-item {
+    list-style: none;
+  }
+}
+
+::ng-deep .ais-Pagination-link {
+  padding: 0.3rem 0.6rem;
+  display: block;
+  border: 1px solid #C4C8D8;
+  border-radius: 5px;
+  transition: background-color 0.2s ease-out;
+  list-style: none;
+}
+
+::ng-deep .ais-Pagination-item+.ais-Pagination-item {
+  margin-left: 0.3rem;
+}
+
+.ais-SearchBox { margin-bottom: 1em }
+
+/*Algolia End*/
+
 .is-comman-title {
   color: #000;
   padding: 30px 0px 10px 0px;

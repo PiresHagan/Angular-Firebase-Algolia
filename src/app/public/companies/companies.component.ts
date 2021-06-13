@@ -24,7 +24,6 @@ export class CompaniesComponent implements OnInit {
     routing: true
   };
   loading: boolean = true;
-  loadingMore: boolean = false;
   selectedLanguage: string = "";
 
   constructor(
