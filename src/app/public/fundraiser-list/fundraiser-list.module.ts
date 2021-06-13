@@ -12,6 +12,7 @@ import { createTranslateLoader, SharedModule } from 'src/app/shared/shared.modul
 import { HttpClient } from '@angular/common/http';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NgxStripeModule } from 'ngx-stripe';
+import { NgAisModule } from 'angular-instantsearch';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
@@ -30,6 +31,7 @@ import { FundraiserFollowerListComponent } from './fundraiser/fundraiser-followe
     FundraiserListRoutingModule,
     ReactiveFormsModule,
     NgZorroAntdModule,
+    NgAisModule.forRoot(),
     NgxStripeModule.forRoot(environment.stripePublishableKey),
     SharedModule,
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })
