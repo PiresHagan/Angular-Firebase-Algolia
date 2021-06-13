@@ -30,7 +30,6 @@ interface PublicProfileSubscription {
 })
 
 export class CompanyComponent implements OnInit {
-
   company: Company;
   companyId: string;
   isFollowing: boolean = false;

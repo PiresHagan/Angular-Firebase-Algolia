@@ -5,6 +5,15 @@ export const environment = {
   isAnonymousUserEnabled: true,
   captchaKey: '6LfMnKoZAAAAALeLCs7H9LL9MhOy3EmcwtchxUf-',
   baseAPIDomain: 'https://us-central1-my-trending-stories-66f81.cloudfunctions.net',
+  algolia: {
+    applicationId: 'N7WFUORZZU',
+    apiKey: '6f5d2e637debb45f0078b85091532c42',
+    index: {
+      companies: 'prod_companies_',
+      charities: 'prod_charities_',
+      fundraisers: 'prod_fundraisers_',
+    },
+  },
   facebook: {
     appId: '327118671669396',
     version: 'v9.0'
