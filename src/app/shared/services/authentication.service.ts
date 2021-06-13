@@ -72,12 +72,13 @@ export class AuthService {
     })
   }
 
-  doRegisterOnBoarding(email: string, password: string, displayName) {
+  doRegisterOnBoarding(email: string, password: string, displayName, referral_code) {
     return new Promise<any>((resolve, reject) => {
       this.http.post(environment.baseAPIDomain + '/api/v1/auth/sign-up', {
           email: email,
           password: password,
-          displayName: displayName
+          displayName: displayName,
+          referral_code: referral_code,
       }).subscribe((data) => {
           this.doLogin(email, password).then( result => {
               resolve(data);

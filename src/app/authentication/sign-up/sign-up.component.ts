@@ -44,6 +44,7 @@ export class SignUpComponent implements OnInit {
     enableEmailVerificationScreen: boolean = false;
     languageList: Language[];
     selectedLanguage: string;
+    referral_code;
 
   constructor(
     private route: ActivatedRoute,
@@ -65,7 +66,7 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.referral_code = this.route.snapshot.queryParams['referral_code'] || null;
     this.languageList = this.language.geLanguageList();
     this.selectedLanguage = this.language.defaultLanguage;
   
@@ -82,7 +83,8 @@ export class SignUpComponent implements OnInit {
       email: [null, [Validators.email, Validators.required]],
       password: [null, [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,30}$/)]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
-      agree: [null, [Validators.required]]
+      agree: [null, [Validators.required]],
+      referral_code: [this.referral_code],
     });
   }
 
@@ -105,11 +107,12 @@ export class SignUpComponent implements OnInit {
         const email = this.signUpForm.get('email').value;
         const password = this.signUpForm.get('password').value;
         const fullname = this.signUpForm.get('fullname').value;
+        const referral_code = this.signUpForm.get('referral_code').value;
         if (this.captchaToken) {
           this.isFormSaving = true;
           this.invalidCaptcha = false;
           this.authService.validateCaptcha(this.captchaToken).subscribe((success) => {
-            this.saveDataOnServer(email, password, fullname)
+            this.saveDataOnServer(email, password, fullname, referral_code)
           }, (error) => {
             window['grecaptcha'].reset(this.capchaObject);
             this.isFormSaving = false;
@@ -227,8 +230,8 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  saveDataOnServer(email, password, fullname) {
-    this.authService.doRegisterOnBoarding(email, password, fullname).then(user => {
+  saveDataOnServer(email, password, fullname, referral_code) {
+    this.authService.doRegisterOnBoarding(email, password, fullname, referral_code).then(user => {
       this.enableEmailVerificationScreen = true;
       this.signUpForm.reset();
       this.isFormSaving = false;
