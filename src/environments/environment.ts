@@ -9,6 +9,15 @@ export const environment = {
   production: false,
   captchaKey: '6LfMnKoZAAAAALeLCs7H9LL9MhOy3EmcwtchxUf-',
   baseAPIDomain: 'https://us-central1-my-trending-stories-dev.cloudfunctions.net',
+  algolia: {
+    applicationId: 'N7WFUORZZU',
+    apiKey: '6f5d2e637debb45f0078b85091532c42',
+    index: {
+      companies: 'dev_companies_',
+      charities: 'dev_charities_',
+      fundraisers: 'dev_fundraisers_',
+    },
+  },
   facebook: {
     appId: '327118671669396',
     version: 'v9.0'
