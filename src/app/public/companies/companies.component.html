@@ -3,61 +3,74 @@
         <div class="is-comman-title"> {{'companiesTitle' | translate }} </div>
         <div class="all-companies-main-sec">
             <div class="companies-box">
-                <div class="row"  *ngIf="!companies">
-                    <nz-skeleton [nzAvatar]="true" [nzParagraph]="{ rows: 6 }" class="custom-skeleton card-skeleton"></nz-skeleton>
-                </div>
-            
-                <div class="row" *ngIf="companies">
-                    <div *ngFor="let company of companies" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                        <a [routerLink]="['/companies',company.slug]">
-                            <div class="companies-box-item">
-                                <div>
-                                    <img [src]="company?.logo?.url" [alt]="company?.logo?.alt"
-                                        onerror="this.src='assets/images/default-avatar.png'"
-                                        *ngIf="!(company.logo.cloudinary_id); else CompaniesCloudinaryImg" />
-                                    <ng-template #CompaniesCloudinaryImg>
-                                        <cl-image loading="lazy" public-id="{{company.logo.cloudinary_id}}"
-                                            secure="true">
-                                            <cl-transformation width="70" height="70" gravity="face" crop="thumb">
-                                            </cl-transformation>
-                                        </cl-image>
-                                    </ng-template>
-                                    <h2 [ngStyle]="{'color': company?.color_code}">{{ company?.name }}</h2>
-                                    <p>{{ company?.bio }}</p>
-                                    <button type="button" class="is-read-more">
-                                        {{'readMore' | translate }} <img src="assets/images/read-more-icon-black.png"
-                                            alt="Read More" />
-                                    </button>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div *ngIf="!companies?.length" class="box-center">
-                        <nz-result [nzIcon]="'crown'" [nzTitle]="'CreateCompany' | translate">
-                            <div nz-result-extra>
-                                <button nz-button nzType="primary"
-                                    (click)="checkLogin()">{{'CreateCompanyBtn' | translate}}</button>
-                                <div class="login-popup" *ngIf="!(isLoggedInUser)">
-                                    <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()"
-                                        (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
-                                        <div class="popup-content">
+                <ais-instantsearch [config]="config">
+                    <ais-search-box></ais-search-box>
+                    <ais-hits>
+                        <ng-template let-hits="hits">
+                            <div class="row">
+                                <div *ngFor="let company of hits" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                                    <a [routerLink]="['/companies',company.slug]">
+                                        <div class="companies-box-item">
                                             <div>
-                                                <a [routerLink]="['/']" class="bg-logo">
-                                                    <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
-                                                </a>
+                                                <img [src]="company?.logo?.url" [alt]="company?.logo?.alt"
+                                                    onerror="this.src='assets/images/default-avatar.png'"
+                                                    *ngIf="!(company.logo.cloudinary_id); else CompaniesCloudinaryImg" />
+                                                <ng-template #CompaniesCloudinaryImg>
+                                                    <cl-image loading="lazy" public-id="{{company.logo.cloudinary_id}}"
+                                                        secure="true">
+                                                        <cl-transformation width="70" height="70" gravity="face" crop="thumb">
+                                                        </cl-transformation>
+                                                    </cl-image>
+                                                </ng-template>
+                                                <h2 [ngStyle]="{'color': company?.color_code}">{{ company?.name }}</h2>
+                                                <p>{{ company?.bio }}</p>
+                                                <button type="button" class="is-read-more">
+                                                    {{'readMore' | translate }} <img src="assets/images/read-more-icon-black.png"
+                                                        alt="Read More" />
+                                                </button>
                                             </div>
-                                            <p class="text-black">{{'Please' | translate}}, <a
-                                                    routerLink="/auth/login">{{'logInTitle' | translate}}</a> {{'or' | translate}}
-                                                <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
-                                                {{'toContinue' | translate}}.</p>
-            
                                         </div>
-                                    </nz-modal>
+                                    </a>
                                 </div>
                             </div>
-                        </nz-result>
-                    </div>
-                </div>
+
+                            <div *ngIf="hits.length === 0">
+                                <div class="row">
+                                    <div class="box-center">
+                                        <nz-result [nzIcon]="'crown'" [nzTitle]="'CreateCompany' | translate">
+                                            <div nz-result-extra>
+                                                <button nz-button nzType="primary" (click)="checkLogin()">
+                                                    {{'CreateCompanyBtn' | translate}}
+                                                </button>
+                                                <div class="login-popup">
+                                                    <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()"
+                                                        (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
+                                                        <div class="popup-content">
+                                                            <div>
+                                                                <a [routerLink]="['/']" class="bg-logo">
+                                                                    <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                                                                </a>
+                                                            </div>
+                                                            <p class="text-black">
+                                                                {{'Please' | translate}}, 
+                                                                <a routerLink="/auth/login">{{'logInTitle' | translate}}</a> 
+                                                                {{'or' | translate}}
+                                                                <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
+                                                                {{'toContinue' | translate}}.
+                                                            </p>
+                                                        </div>
+                                                    </nz-modal>
+                                                </div>
+                                            </div>
+                                        </nz-result>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ais-hits>
+                    <ais-configure [searchParameters]="{ hitsPerPage: 16 }"></ais-configure>
+                    <ais-pagination></ais-pagination>
+                </ais-instantsearch>
             </div>
         </div>
       

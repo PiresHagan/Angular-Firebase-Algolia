@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./company.component.scss']
 })
 export class CompanyComponent implements OnInit {
-
   company: Company;
   companyId: string;
   isFollowing: boolean = false;
