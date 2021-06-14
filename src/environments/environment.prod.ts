@@ -9,9 +9,13 @@ export const environment = {
     applicationId: 'N7WFUORZZU',
     apiKey: '6f5d2e637debb45f0078b85091532c42',
     index: {
+      fullSearch: 'prod_fullsearch_',
       companies: 'prod_companies_',
       charities: 'prod_charities_',
       fundraisers: 'prod_fundraisers_',
+      textArticles: 'prod_text_articles_',
+      audioArticles: 'prod_audio_articles_',
+      videoArticles: 'prod_video_articles_',
     },
   },
   facebook: {
