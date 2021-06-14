@@ -4,6 +4,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import * as firebase from 'firebase/app';
 import { CacheService } from 'src/app/shared/services/cache.service';
+import { environment } from 'src/environments/environment';
 const searchClient = algoliasearch(
   'N7WFUORZZU',
   '6f5d2e637debb45f0078b85091532c42'
@@ -14,15 +15,53 @@ const searchClient = algoliasearch(
   styleUrls: ['./search-engine.component.scss']
 })
 export class SearchEngineComponent implements OnInit {
+  searchValue = "";
   selectedLanguage: string = "";
   articleBrand: any;
   buyCount: any;
   showResult: boolean = false;
   config = {
-    indexName: 'dev_fullsearch',
+    indexName: environment.algolia.index.fullSearch,
     searchClient,
     routing: true
   };
+
+  textArticleConfig = {
+    indexName: environment.algolia.index.textArticles,
+    searchClient,
+    routing: true
+  };
+
+  videoArticleConfig = {
+    indexName: environment.algolia.index.videoArticles,
+    searchClient,
+    routing: true
+  };
+
+  audioArticleConfig = {
+    indexName: environment.algolia.index.audioArticles,
+    searchClient,
+    routing: true
+  };
+
+  companyConfig = {
+    indexName: environment.algolia.index.companies,
+    searchClient,
+    routing: true
+  };
+
+  charityConfig = {
+    indexName: environment.algolia.index.charities,
+    searchClient,
+    routing: true
+  };
+
+  fundraiserConfig = {
+    indexName: environment.algolia.index.fundraisers,
+    searchClient,
+    routing: true
+  };
+
   //public OrderIndex = 0;
   articleBrand1 = [
     { "brandName": "" },
@@ -47,11 +86,25 @@ export class SearchEngineComponent implements OnInit {
   }
   ngOnInit(): void {
     this.selectedLanguage = this.languageService.getSelectedLanguage();
-    this.config.indexName = `dev_fullsearch_${this.selectedLanguage}`;
+
+    this.config.indexName = environment.algolia.index.fullSearch + this.selectedLanguage;
+    this.charityConfig.indexName = environment.algolia.index.charities + this.selectedLanguage;
+    this.companyConfig.indexName = environment.algolia.index.companies + this.selectedLanguage;
+    this.fundraiserConfig.indexName = environment.algolia.index.fundraisers + this.selectedLanguage;
+    this.textArticleConfig.indexName = environment.algolia.index.textArticles + this.selectedLanguage;
+    this.audioArticleConfig.indexName = environment.algolia.index.audioArticles + this.selectedLanguage;
+    this.videoArticleConfig.indexName = environment.algolia.index.videoArticles + this.selectedLanguage;
 
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.selectedLanguage = this.languageService.getSelectedLanguage();
-      this.config.indexName = `dev_fullsearch_${this.selectedLanguage}`;
+
+      this.config.indexName = environment.algolia.index.fullSearch + this.selectedLanguage;
+      this.charityConfig.indexName = environment.algolia.index.charities + this.selectedLanguage;
+      this.companyConfig.indexName = environment.algolia.index.companies + this.selectedLanguage;
+      this.fundraiserConfig.indexName = environment.algolia.index.fundraisers + this.selectedLanguage;
+      this.textArticleConfig.indexName = environment.algolia.index.textArticles + this.selectedLanguage;
+      this.audioArticleConfig.indexName = environment.algolia.index.audioArticles + this.selectedLanguage;
+      this.videoArticleConfig.indexName = environment.algolia.index.videoArticles + this.selectedLanguage;
     });
 
     this.cacheService.getBrands().subscribe(brands => {
@@ -81,10 +134,11 @@ export class SearchEngineComponent implements OnInit {
     return Array(n);
   }
   onSearchChange(searchValue: string): void {
-    // console.log(searchValue);
+    this.searchValue = searchValue;
     if (searchValue) {
       this.showResult = true;
     } else {
+      this.searchValue = '';
       this.showResult = false;
     }
 
@@ -115,6 +169,12 @@ export class SearchEngineComponent implements OnInit {
             document.getElementsByClassName('ais-SearchBox-submitIcon')[0].querySelectorAll("path")[0]["style"].fill="#cccc"
         }
     
+  }
+
+  get searchParameters() {
+    return {
+      query: this.searchValue
+    }
   }
 
 }
