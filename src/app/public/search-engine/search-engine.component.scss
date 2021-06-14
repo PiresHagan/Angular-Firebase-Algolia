@@ -34,6 +34,10 @@
   transform: translateY(-50%);
 }
 
+::ng-deep .ais-SearchBox-reset {
+  display: none !important;
+}
+
 ::ng-deep .ais-Pagination-list {
   display: flex;
   align-items: center;
