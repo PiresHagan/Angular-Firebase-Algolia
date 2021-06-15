@@ -27,7 +27,7 @@ export class SearchEngineComponent implements OnInit {
   };
 
   textArticleConfig = {
-    indexName: environment.algolia.index.textArticles,
+    indexName: environment.algolia.index.fullSearch,
     searchClient,
     routing: true
   };

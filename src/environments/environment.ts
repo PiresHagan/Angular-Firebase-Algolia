@@ -18,8 +18,8 @@ export const environment = {
       charities: 'dev_charities_',
       fundraisers: 'dev_fundraisers_',
       textArticles: 'dev_text_articles_',
-      audioArticles: 'dev_audio_articles_',
-      videoArticles: 'dev_video_articles_',
+      audioArticles: 'dev_audio_article_',
+      videoArticles: 'dev_video_article_',
     },
   },
   facebook: {
