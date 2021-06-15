@@ -14,8 +14,8 @@ export const environment = {
       charities: 'prod_charities_',
       fundraisers: 'prod_fundraisers_',
       textArticles: 'prod_text_articles_',
-      audioArticles: 'prod_audio_articles_',
-      videoArticles: 'prod_video_articles_',
+      audioArticles: 'prod_audio_article_',
+      videoArticles: 'prod_video_article_',
     },
   },
   facebook: {
