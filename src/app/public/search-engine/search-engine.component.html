@@ -246,7 +246,9 @@
                           <img [src]="hit?.author?.avatar.url" [alt]="hit?.author?.avatar?.alt"
                             onerror="this.src='assets/images/default-avatar.png'"
                             *ngIf="hit?.author?.avatar; else defaultBlock" />
-                          <ng-template #defaultBlock><img src="assets/images/default-avatar.png" /></ng-template>
+                          <ng-template #defaultBlock>
+                            <img src="assets/images/default-avatar.png" />
+                          </ng-template>
                           <app-article-avatar [article]="hit"></app-article-avatar>
                         </div>
                       </div>
@@ -641,7 +643,7 @@
             <ng-template let-hits="hits" let-results="results">
               <div class="sr-article-sec">
                 <div class="sr-article-sec-item" *ngFor="let hit of hits; let i=index"
-                  [ngStyle]="{'order': OrderIndex + i}">
+                  [ngStyle]="{'order': OrderIndex + i}">{{hit|json}}
                   <div [routerLink]="['/fundraisers',hit.slug]">
                     <div class="sr-article-img">
                       <img [src]="hit?.logo?.url" alt="hit?.logo?.alt"
@@ -657,7 +659,7 @@
                     </div>
                     <div class="sr-article-detail">
                       <div class="sr-article-txt">
-                        <h2>{{hit?.bio}}</h2>
+                        <h2>{{hit?.title}}</h2>
                         <div class="category-article-readmore">
                           <div>
                             <button type="button" class="is-read-more">{{'showNow' | translate }} <img
@@ -666,7 +668,7 @@
                         </div>
                       </div>
                       <div class="sr-avtar bg-black">
-                        <img src="assets/images/charity-icon.png" alt="Charity icon"
+                        <img src="assets/images/fundraiser.svg" alt="Charity icon"
                           onerror="this.src='assets/images/default-avatar.png'" />
                       </div>
                     </div>
