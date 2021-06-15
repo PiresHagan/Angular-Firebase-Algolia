@@ -641,7 +641,7 @@
             <ng-template let-hits="hits" let-results="results">
               <div class="sr-article-sec">
                 <div class="sr-article-sec-item" *ngFor="let hit of hits; let i=index"
-                  [ngStyle]="{'order': OrderIndex + i}">{{hit|json}}
+                  [ngStyle]="{'order': OrderIndex + i}">
                   <div [routerLink]="['/fundraisers',hit.slug]">
                     <div class="sr-article-img">
                       <img [src]="hit?.logo?.url" alt="hit?.logo?.alt"
