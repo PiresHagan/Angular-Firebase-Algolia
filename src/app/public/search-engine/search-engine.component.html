@@ -24,7 +24,7 @@
         <div class="sr-bar">
           <div class="sr-box"> 
             <ais-instantsearch [config]="config">
-              <ais-search-box (input)="onSearchChange($event.target.value)"  [ngClass]="showResult? 'Show-autocomplete-box' : 'hide-autocomplete-box'"></ais-search-box>
+              <ais-search-box  placeholder="{{'search' | translate}}" (input)="onSearchChange($event.target.value)"  [ngClass]="showResult? 'Show-autocomplete-box' : 'hide-autocomplete-box'"></ais-search-box>
               <ais-hits class="autocomplete-box" *ngIf="showResult" id="autocomplete-box">
                 <ng-template let-hits="hits" let-results="results">
                   <div class="sr-article-sec-item" *ngFor="let hit of hits; let i=index"

@@ -800,5 +800,6 @@
   "WhatsappOnboarding": "Escriba aquí el número de contacto de Whatsapp",
   "SkypeOnboarding": "Escriba aquí el ID de Skype",
   "aboutPage": "Mytrendingstories es una plataforma de redes sociales que se enorgullece de un valor específico: devolver el poder a las personas al permitir la libertad de expresión y expresión a través de varios métodos creativos como la escritura, la videografía y el audio.",
-  "whatsappSkypeMissing": "Falta los detalles de Whatsapp y Skype. Por favor, vuelva y actualiza los detalles"
+  "whatsappSkypeMissing": "Falta los detalles de Whatsapp y Skype. Por favor, vuelva y actualiza los detalles",
+  "search": "Buscar"
 }
