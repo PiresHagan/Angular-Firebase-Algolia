@@ -802,5 +802,6 @@
   "WhatsappOnboarding": "Écrivez le numéro de contact WhatsApp ici",
   "SkypeOnboarding": "Écrivez l'identifiant Skype ici",
   "aboutPage": "Mytrendingstories est une plate-forme de médias sociaux qui se targue d'une valeur spécifique: redonner le pouvoir aux gens en permettant la liberté de parole et d'expression à travers diverses méthodes créatives telles que l'écriture, la vidéographie et l'audio.",
-  "whatsappSkypeMissing": "Les détails de WhatsApp et de Skype sont manquants. Veuillez revenir en arrière et mettre à jour les détails."
+  "whatsappSkypeMissing": "Les détails de WhatsApp et de Skype sont manquants. Veuillez revenir en arrière et mettre à jour les détails.",
+  "search": "Rechercher"
 }
