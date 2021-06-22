@@ -278,13 +278,18 @@
       <div class="is-main-article-content">
         <div class="is-content">
           <div class="is-head hidden-on-xs">
-            <h1>
+            
+            <!-- <h1>
               <a itemprop="mainEntityOfPage" [routerLink]="['/',article?.slug]" *ngIf="article">
                 <span itemprop="headline">
                   {{article?.title}}
                 </span>
               </a>
-            </h1>
+            </h1> -->
+              <h1 itemprop="headline">
+                {{article?.title}}
+              </h1>
+
             <div class="is-small-profile">
               <div class="is-image">
                 <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
