@@ -796,7 +796,7 @@
   "ResetYourPassword": "Restablece tu contraseña",
   "ResetPassDesc": "Ingrese su correo electrónico para restablecer su contraseña",
   "EmailNotFound": "Correo electrónico no encontrado en nuestros registros.",
-  "EmailPassReset": "Se le ha enviado un correo electrónico",
+  "EmailPassReset": "Si el correo electrónico es válido, recibirá un correo electrónico con un enlace para restablecer su contraseña",
   "WhatsappOnboarding": "Escriba aquí el número de contacto de Whatsapp",
   "SkypeOnboarding": "Escriba aquí el ID de Skype",
   "aboutPage": "Mytrendingstories es una plataforma de redes sociales que se enorgullece de un valor específico: devolver el poder a las personas al permitir la libertad de expresión y expresión a través de varios métodos creativos como la escritura, la videografía y el audio.",
