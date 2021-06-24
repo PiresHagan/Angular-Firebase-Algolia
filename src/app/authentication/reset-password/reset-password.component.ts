@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup,  Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -6,6 +6,8 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import {Location} from '@angular/common';
 import { Language } from 'src/app/shared/interfaces/language.type';
+import { AuthService } from 'src/app/shared/services/authentication.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-reset-password',
@@ -13,14 +15,31 @@ import { Language } from 'src/app/shared/interfaces/language.type';
   styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
+  recaptchaElement;
+  isFormSaving: boolean = false;
+  isCaptchaElementReady: boolean = false;
+  invalidCaptcha: boolean = false;
+  captchaToken: string;
+  invalidCaptchaErr: string = "";
+  isCapchaScriptLoaded: boolean = false;
+  capchaObject;
+
   resetPasswordForm: FormGroup;
-  errorReset: boolean = false;
   successReset: boolean = false;
   languageList: Language[];
   selectedLanguage: string;
 
+  @ViewChild('recaptcha') set SetThing(e: ResetPasswordComponent) {
+    this.isCaptchaElementReady = true;
+    this.recaptchaElement = e;
+    if (this.isCaptchaElementReady && this.isCapchaScriptLoaded) {
+        this.renderReCaptcha();
+    }
+  }
+
   constructor( 
     private fb: FormBuilder, 
+    private authService: AuthService,
     public afAuth: AngularFireAuth,
     private router: Router,
     public translate: TranslateService,
@@ -33,6 +52,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.addRecaptchaScript();
     this.languageList = this.language.geLanguageList();
 
     this.selectedLanguage = this.language.defaultLanguage;
@@ -48,7 +68,10 @@ export class ResetPasswordComponent implements OnInit {
       this.resetPasswordForm.controls[ i ].updateValueAndValidity();
     }
 
-    this.errorReset = false;
+    this.validateCaptcha();
+  }
+
+  async checkEmail(){
     this.successReset = false;
 
     if(this.findInvalidControls().length == 0){
@@ -58,11 +81,14 @@ export class ResetPasswordComponent implements OnInit {
         await this.afAuth.sendPasswordResetEmail(email).then(() => {
           // console.log("email sent");
           this.successReset = true;
+          this.isFormSaving = false;
         }).catch((error) => {
           // console.log(error);
-          this.errorReset = true;
+          this.successReset = true;
+          this.isFormSaving = false;
         })
       } catch (err) {
+        this.isFormSaving = false;
         // console.log("err...", err); 
       }
     }
@@ -81,6 +107,64 @@ export class ResetPasswordComponent implements OnInit {
 
   backClicked() {
     this._location.back();
+  }
+
+  addRecaptchaScript() {
+    window['grecaptchaCallback'] = () => {
+      this.isCapchaScriptLoaded = true;
+      if (this.isCapchaScriptLoaded && this.isCaptchaElementReady)
+        this.renderReCaptcha(); return;
+    }
+
+    (function (d, s, id, obj) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        obj.isCapchaScriptLoaded = true;
+        if (obj.isCapchaScriptLoaded && obj.isCaptchaElementReady)
+          obj.renderReCaptcha(); return;
+      }
+      js = d.createElement(s); js.id = id;
+      js.src = "https://www.google.com/recaptcha/api.js?onload=grecaptchaCallback&render=explicit";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'recaptcha-jssdk', this));
+  }
+
+  renderReCaptcha() {
+    if (!this.recaptchaElement)
+      return;
+    this.capchaObject = window['grecaptcha'].render(this.recaptchaElement.nativeElement, {
+      'sitekey': environment.captchaKey,
+      'callback': (response) => {
+        this.invalidCaptcha = false;
+        this.captchaToken = response;
+      },
+      'expired-callback': () => {
+        this.invalidCaptcha = false;
+        this.captchaToken = '';
+      }
+    });
+  }
+
+  validateCaptcha() {
+    if (this.captchaToken) {
+      this.isFormSaving = true;
+      this.invalidCaptcha = false;
+      this.authService.validateCaptcha(this.captchaToken).subscribe((_success) => {
+        this.checkEmail();
+      }, (_error) => {
+        this.isFormSaving = false;
+        this.invalidCaptcha = true;
+        this.resetCaptcha();
+      })
+    } else {
+      this.invalidCaptcha = true;
+      this.resetCaptcha();
+    }
+  }
+
+  resetCaptcha() {
+    window['grecaptcha'].reset(this.capchaObject);
+    this.captchaToken = ""
   }
 
 }
