@@ -50,6 +50,7 @@ export class ArticleCommentsComponent implements OnInit {
     this.getArticleComments(this.article.id);
 
     this.setUserDetails();
+    this.removeAncherTag();
   }
 
   async setUserDetails() {
@@ -169,6 +170,19 @@ export class ArticleCommentsComponent implements OnInit {
       this.isCommentsLoading = false;
 
     })
+    this.removeAncherTag();
+  }
+
+  removeAncherTag(){
+    (function ($) {
+      $(document).ready(function(){
+          $("div.replied-comment").find("a").each(function(){
+              var linkText = $(this).text();
+              $(this).before(linkText);
+              $(this).remove();
+          });
+      });
+    });
   }
 
   showCommentSavedMessage() {
