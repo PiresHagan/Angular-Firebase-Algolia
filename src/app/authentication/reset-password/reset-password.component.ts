@@ -78,7 +78,7 @@ export class ResetPasswordComponent implements OnInit {
       try {
         const email = this.resetPasswordForm.get('email').value;
 
-        await this.afAuth.sendPasswordResetEmail(email).then(() => {
+        await this.authService.sendPasswordResetEmail(email).then(() => {
           // console.log("email sent");
           this.successReset = true;
           this.isFormSaving = false;
