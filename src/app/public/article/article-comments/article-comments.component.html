@@ -53,7 +53,7 @@
             <div class="replied-comment">
               <blockquote *ngIf="articleComment.replied_on" innerHTML="{{articleComment.replied_on}}">
               </blockquote>
-              <div innerHTML="{{articleComment.message}}"></div>
+              <div [innerHTML]="striplinks(articleComment.message)"></div>
             </div>
           </div>
         </div>

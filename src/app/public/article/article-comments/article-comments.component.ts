@@ -169,6 +169,15 @@ export class ArticleCommentsComponent implements OnInit {
       this.isCommentsLoading = false;
 
     })
+
+  }
+
+  striplinks(text) {
+    var re = /<a\s.*?href=[\"\'](.*?)[\"\']*?>(.*?)<\/a>/g;
+    var str = text;
+    var subst = '$2';
+    var result = str.replace(re, subst);
+    return result;
   }
 
   showCommentSavedMessage() {
