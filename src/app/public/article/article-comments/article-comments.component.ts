@@ -174,15 +174,27 @@ export class ArticleCommentsComponent implements OnInit {
   }
 
   removeAncherTag(){
-    (function ($) {
-      $(document).ready(function(){
-          $("div.replied-comment").find("a").each(function(){
-              var linkText = $(this).text();
-              $(this).before(linkText);
-              $(this).remove();
-          });
-      });
-    });
+    
+      // $(document).ready(function(){
+      //     $("div.replied-comment").find("a").each(function(){
+      //         var linkText = $(this).text();
+      //         $(this).before(linkText);
+      //         $(this).remove();
+      //     });
+      // });
+
+      var container = document.getElementById("comment"), anchor;
+      var anchors = container.getElementsByTagName('a');
+      while (anchor = anchors[0]) {
+        var anchorParent = anchor.parentNode;
+        
+        while (anchor.firstChild) {
+            anchorParent.insertBefore(anchor.firstChild, anchor);
+        }
+        anchorParent.removeChild(anchor);
+    }
+      //anchors.remove(anchors.selectedIndex);
+    
   }
 
   showCommentSavedMessage() {
