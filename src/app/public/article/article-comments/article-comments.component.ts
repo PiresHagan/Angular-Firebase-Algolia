@@ -50,7 +50,6 @@ export class ArticleCommentsComponent implements OnInit {
     this.getArticleComments(this.article.id);
 
     this.setUserDetails();
-    this.removeAncherTag();
   }
 
   async setUserDetails() {
@@ -170,31 +169,15 @@ export class ArticleCommentsComponent implements OnInit {
       this.isCommentsLoading = false;
 
     })
-    this.removeAncherTag();
+
   }
 
-  removeAncherTag(){
-    
-      // $(document).ready(function(){
-      //     $("div.replied-comment").find("a").each(function(){
-      //         var linkText = $(this).text();
-      //         $(this).before(linkText);
-      //         $(this).remove();
-      //     });
-      // });
-
-      var container = document.getElementById("comment"), anchor;
-      var anchors = container.getElementsByTagName('a');
-      while (anchor = anchors[0]) {
-        var anchorParent = anchor.parentNode;
-        
-        while (anchor.firstChild) {
-            anchorParent.insertBefore(anchor.firstChild, anchor);
-        }
-        anchorParent.removeChild(anchor);
-    }
-      //anchors.remove(anchors.selectedIndex);
-    
+  striplinks(text) {
+    var re = /<a\s.*?href=[\"\'](.*?)[\"\']*?>(.*?)<\/a>/g;
+    var str = text;
+    var subst = '$2';
+    var result = str.replace(re, subst);
+    return result;
   }
 
   showCommentSavedMessage() {

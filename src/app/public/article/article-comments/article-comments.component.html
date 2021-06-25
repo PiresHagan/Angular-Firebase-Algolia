@@ -53,7 +53,7 @@
             <div class="replied-comment" id="replied-comment">
               <blockquote *ngIf="articleComment.replied_on" innerHTML="{{articleComment.replied_on}}">
               </blockquote>
-              <div innerHTML="{{articleComment.message}}"></div>
+              <div [innerHTML]="striplinks(articleComment.message)"></div>
             </div>
           </div>
         </div>
@@ -84,7 +84,7 @@
                       <button class="ql-bold"></button>
                       <button class="ql-italic"></button>
                       <button class="ql-underline"></button>
-                      <!-- <button class=" ql-link"></button> -->
+                      <button class=" ql-link"></button>
                     </span>
 
                   </div>
