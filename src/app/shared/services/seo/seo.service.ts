@@ -18,16 +18,20 @@ export class SeoService {
     private seoDataService: SeoDataService,
   ) { }
 
-  public updateMetaTags(config: SeoConfig): void {
+  private fallbackKeyWords(title: string): string {
+    return title.split(' ').filter(s => s.length > 3).join(',');
+  }
+
+  public updateMetaTags(cfg: SeoConfig): void {
     // default values
-    config = {
+    const config: SeoConfig = {
       title: 'What’s Trending Today | Trending News | Live News | My Trending Stories',
       description: 'Are you wondering what’s trending today? Find the best trending news on My Trending Stories. Discover our daily live news and never miss anything again.',
       summary: 'Are you wondering what’s trending today? Find the best trending news on My Trending Stories.',
       image: {},
       keywords: 'news,articles',
       type: 'website',
-      ...config,
+      ...cfg,
       url: window.location.href, // window.location.origin + (config.url || this.router.url)
     };
 
@@ -42,7 +46,7 @@ export class SeoService {
 
     this.meta.updateTag({ name: 'description', content: config.description });
     this.meta.updateTag({ name: 'image', content: config.image.url });
-    this.meta.updateTag({ name: 'keywords', content: config.keywords });
+    this.meta.updateTag({ name: 'keywords', content: config.keywords || this.fallbackKeyWords(config.title) });
 
     this.meta.updateTag({ property: 'og:title', content: config.title });
     this.meta.updateTag({ property: 'og:description', content: config.description });

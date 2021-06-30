@@ -110,14 +110,22 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
         this.insertAdsToArticle();
         this.setUserDetails();
 
+        // just a fallback in case excerpt is empty
+        if (!this.article.excerpt) {
+          const elem = document.createElement('div');
+          elem.innerHTML = this.article.content;
+
+          this.article.excerpt = elem.innerText;
+        }
+
         this.seoService.updateMetaTags({
           keywords: this.article.meta.keyword,
           title: this.article.title,
           tabTitle: this.article.title.substring(0, 69),
-          description: this.article.meta.description.substring(0, 154),
+          description: (this.article.meta.description || this.article.excerpt).substring(0, 200),
           image: { url: this.article.image.url },
           type: 'article',
-          summary: this.article.summary,
+          summary: this.article.summary || this.article.excerpt.substring(0, 69),
         });
 
         this.articleService.updateViewCount(articleId);
