@@ -452,59 +452,6 @@
           </ais-hits>
         </ais-instantsearch>
       </nz-tab>
-      <nz-tab nzTitle="Audio">
-        <ais-instantsearch [config]="audioArticleConfig">
-          <ais-configure [searchParameters]="searchParameters"></ais-configure>
-          <ais-hits>
-            <ng-template let-hits="hits" let-results="results">
-              <div class="sr-article-sec">
-                <div class="sr-article-sec-item" *ngFor="let hit of hits; let i=index"
-                  [ngStyle]="{'order': OrderIndex + i}">        
-                  <div [routerLink]="['/',hit.author.slug,hit.slug]" *ngIf="hit.type==='audio'"
-                    [ngClass]="hit.category.slug">
-                    <div class="item-card">
-                      <div class="sr-article-img">
-                        <img [src]="hit?.image?.url" [alt]="hit?.image?.alt" />
-                        <div class="article-image-icon">
-                          <i class="fas fa-play"></i>
-                        </div>
-                      </div>
-                      <div class="sr-article-detail">
-                        <div class="sr-article-txt">
-                          <h2>{{hit?.title}}</h2>
-                          <div class="category-article-readmore">
-                            <div>
-                              <button type="button" class="is-read-more">{{'ListenNow' | translate }}<img
-                                  src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
-                            </div>
-                            <div class="article-icon-main">
-                              <div class="article-icon">
-                                <i class="fas fa-volume-down"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="sr-avtar position-relative">
-                          <img [src]="hit?.author?.avatar?.url" [alt]="hit?.author?.avatar?.alt"
-                            onerror="this.src='assets/images/default-avatar.png'"
-                            *ngIf="hit?.author?.avatar; else defaultBlock" />
-                          <ng-template #defaultBlock><img src="assets/images/default-avatar.png" /></ng-template>
-                          <app-article-avatar [article]="hit"></app-article-avatar>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-              <div *ngIf="hits.length === 0">
-                <h1 class="text-center">No data found</h1>
-              </div>
-              <ais-pagination *ngIf="hits.length != 0"></ais-pagination>
-            </ng-template>
-          </ais-hits>
-        </ais-instantsearch>
-      </nz-tab>
       <nz-tab nzTitle="Video">
         <ais-instantsearch [config]="videoArticleConfig">
           <ais-configure [searchParameters]="searchParameters"></ais-configure>
@@ -547,6 +494,59 @@
                       </div>
                     </div>
 
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div *ngIf="hits.length === 0">
+                <h1 class="text-center">No data found</h1>
+              </div>
+              <ais-pagination *ngIf="hits.length != 0"></ais-pagination>
+            </ng-template>
+          </ais-hits>
+        </ais-instantsearch>
+      </nz-tab>
+      <nz-tab nzTitle="Audio">
+        <ais-instantsearch [config]="audioArticleConfig">
+          <ais-configure [searchParameters]="searchParameters"></ais-configure>
+          <ais-hits>
+            <ng-template let-hits="hits" let-results="results">
+              <div class="sr-article-sec">
+                <div class="sr-article-sec-item" *ngFor="let hit of hits; let i=index"
+                  [ngStyle]="{'order': OrderIndex + i}">        
+                  <div [routerLink]="['/',hit.author.slug,hit.slug]" *ngIf="hit.type==='audio'"
+                    [ngClass]="hit.category.slug">
+                    <div class="item-card">
+                      <div class="sr-article-img">
+                        <img [src]="hit?.image?.url" [alt]="hit?.image?.alt" />
+                        <div class="article-image-icon">
+                          <i class="fas fa-play"></i>
+                        </div>
+                      </div>
+                      <div class="sr-article-detail">
+                        <div class="sr-article-txt">
+                          <h2>{{hit?.title}}</h2>
+                          <div class="category-article-readmore">
+                            <div>
+                              <button type="button" class="is-read-more">{{'ListenNow' | translate }}<img
+                                  src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                            </div>
+                            <div class="article-icon-main">
+                              <div class="article-icon">
+                                <i class="fas fa-volume-down"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="sr-avtar position-relative">
+                          <img [src]="hit?.author?.avatar?.url" [alt]="hit?.author?.avatar?.alt"
+                            onerror="this.src='assets/images/default-avatar.png'"
+                            *ngIf="hit?.author?.avatar; else defaultBlock" />
+                          <ng-template #defaultBlock><img src="assets/images/default-avatar.png" /></ng-template>
+                          <app-article-avatar [article]="hit"></app-article-avatar>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="clearfix"></div>
