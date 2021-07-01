@@ -110,6 +110,11 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
         this.insertAdsToArticle();
         this.setUserDetails();
 
+        // ensures that article description and title are never the same
+        if (this.article.meta && this.article.meta?.title === this.article.meta?.description) {
+          this.article.meta.description = '';
+        }
+
         // just a fallback in case excerpt is empty
         if (!this.article.excerpt) {
           const elem = document.createElement('div');
@@ -121,11 +126,11 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
         this.seoService.updateMetaTags({
           keywords: this.article.meta.keyword,
           title: this.article.title,
-          tabTitle: this.article.title.substring(0, 69),
+          tabTitle: this.article.title.substring(0, 60),
           description: (this.article.meta.description || this.article.excerpt).substring(0, 200),
           image: { url: this.article.image.url },
           type: 'article',
-          summary: this.article.summary || this.article.excerpt.substring(0, 69),
+          summary: this.article.summary || this.article.excerpt.substring(0, 70),
         });
 
         this.articleService.updateViewCount(articleId);
