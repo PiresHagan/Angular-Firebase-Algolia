@@ -35,6 +35,8 @@ img {
 
 .article-full-img {
   position: relative;
+  height: 400px;
+  
 }
 hr {
   border-top: 1px solid #eee;
@@ -959,6 +961,10 @@ hr {
   .bottom-ad-container {
     display: none;
   }
+
+  .article-full-img{
+    height: 180px;
+  }
   .article-full-img img {
     height: 180px;
   }
@@ -1192,6 +1198,9 @@ hr {
 }
 
 @media screen and (min-width: 581px) and (max-width: 768px) {
+  .article-full-img {
+    height: 250px;
+  }
   .article-full-img img {
     height: 250px;
   }
@@ -1260,6 +1269,9 @@ hr {
 }
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
+  .article-full-img{
+    height: 330px;
+  }
   .article-full-img img {
     height: 330px;
   }
