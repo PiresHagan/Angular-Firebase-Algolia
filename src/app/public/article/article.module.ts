@@ -29,6 +29,10 @@ import { ArticleCommentsComponent } from './article-comments/article-comments.co
     SharedModule,
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } }),
     QuillModule.forRoot(),
+    
+  ],
+  exports:[
+    ArticleCommentsComponent
   ]
 })
 
