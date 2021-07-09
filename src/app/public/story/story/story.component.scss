@@ -1,0 +1,140 @@
+.story-sec{
+    .story-content-sec{
+        display: flex;
+        flex-wrap: wrap;
+        font-family: "open_sansregular";
+        .left-side-profile{
+            padding: 0px 15px;
+            width: 25%;
+        }
+        .main-content-area{
+            padding: 0px 15px;
+            width: 50%;
+            .story-head{
+                h1{
+                    margin:0px;
+                    font-family: "josefin_sansregular";
+                    color: #ff4020;
+                }
+                .story-head-profile{
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 20px;
+                }
+                .story-head-avatar{
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                    margin-top: 15px;
+                    >img{
+                        width: 45px;
+                        height: 45px;
+                        object-fit: contain;
+                        border-radius: 100%;
+                    }
+                    h5{
+                        margin:0px;
+                        padding: 0px 15px;
+                        font-size: 15px;
+                        color: #000;
+                        font-family: "josefin_sansregular";
+                        span{
+                            display: block;
+                            font-size: 14px;
+                            color: #666;
+                            font-family: "josefin_sanslight";
+                            b{
+                                color: #999;
+                            }
+                        }
+                    }
+                    .btn{
+                        margin:0px;
+                        background-color: #ff4020;
+                        border-radius: 30px;
+                        border:0px;
+                        font-size: 14px;
+                        color: #fff;
+                        padding: 4px 10px;
+                        cursor: pointer;
+                    }
+                }
+                .story-head-media{
+                    margin:0px;
+                }
+            }
+            .story-body-content{
+                img{
+                    width: 100%;
+                    margin-bottom: 20px;
+                }
+                p{
+                    font-size: 15px;
+                    font-weight: 400;
+                    color: #464444;
+                    line-height: 30px;
+                    margin-bottom: 0;
+                    text-align: justify;
+                    margin-bottom: 20px;
+                }
+                ul{
+                    margin: 0px 0px 20px 0px;
+                    li{
+                        font-size: 14px;
+                        position: relative;
+                        list-style: none;
+                        padding: 0px 0px 10px 17px;
+                        color: #464444;
+                        &:before{
+                            content: "";
+                            position: absolute;
+                            top: 7px;
+                            left: 0px;
+                            width: 8px;
+                            height: 8px;
+                            border-radius: 20px;
+                            background-color: #464444;
+                        }
+                    }
+                }
+                h3{
+                    color:#000;
+                    font-family: "josefin_sansregular";
+                }
+                .category{
+                    b{
+                        font-size: 18px;
+                        color:#000;
+                        margin-bottom: 10px;
+                        display: block;
+                        font-family: "josefin_sansregular";  
+                    }
+                    .tags{
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 20px;
+                        div{
+                            background: #eee;
+                            padding: 6px 15px;
+                            color: #000;
+                            margin: 0px 10px 0px 0px;
+                            font-family: "josefin_sanslight";
+                            font-size: 15px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            border-radius: 3px;
+                        }
+                    }
+                }
+            }
+        }
+        .right-side-area{
+            padding: 0px 15px;
+            width: 25%;
+        }
+
+    }
+   
+}
