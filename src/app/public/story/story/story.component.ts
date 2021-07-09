@@ -94,10 +94,10 @@ export class StoryComponent implements OnInit {
           return;
         }
 
-        if (!params.get('userSlug')) {
-          this.router.navigate(['/', this.article?.author?.slug, this.article?.slug]);
-          return;
-        }
+        // if (!params.get('userSlug')) {
+        //   this.router.navigate(['/', this.article?.author?.slug, this.article?.slug]);
+        //   return;
+        // }
 
         const articleId = this.article.id;
 
