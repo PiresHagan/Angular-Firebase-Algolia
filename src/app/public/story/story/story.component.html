@@ -1,27 +1,23 @@
-<section class="is-article-block" *ngIf="!article">
-    <div class="container">
+<section class="story-sec" *ngIf="!article">
+    <div class="container-fluid">
       
       <div class="story-content-sec">
-        <div class="left-side-profile hidden-on-xs mt-2 p-4">
-          <nz-skeleton *ngIf="!article" _ngcontent-ccc1="" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }"
-            class="custom-skeleton card-skeleton left-skeleton-profile"></nz-skeleton>
+        <div class="left-side-profile">
+         
         </div>
         <div class="main-content-area">
-          <div class="is-content">
-            <nz-skeleton-element *ngIf="!article" _ngcontent-ccc1="" [nzLoading]="loading" nzType="avatar"
-              class="custom-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
-          </div>
+          <nz-skeleton  _ngcontent-ccc1="" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }"
+            class="custom-skeleton card-skeleton left-skeleton-profile"></nz-skeleton>
   
         </div>
         <div class="right-side-area">
-          <nz-skeleton *ngIf="!article" _ngcontent-ccc1="" [nzAvatar]="true" [nzParagraph]="{ rows: 5 }"
-            class="custom-skeleton list-skeleton"></nz-skeleton>
+         
         </div>
       </div>
   
     </div>
   </section>
-<section class="story-sec">
+<section class="story-sec"  *ngIf="article">
     <div class="container-fluid">
         <div class="story-content-sec">
             <div class="left-side-profile">
@@ -50,80 +46,104 @@
                                       {{article?.author?.fullname}}</span>
                                   </a>
                                 <span>{{article?.published_at | date:'medium' }}</span>
-                                <div class="pt-2">
-                                    <div *ngIf="!(article.author.type)">
-                                        <a class="btn" *ngIf="!isFollowing" (click)="follow()">
-                                          {{'followAuthor' | translate}}
+                                <div  class="view-like-sec-main">
+                                  <div class="view-like-sec">
+                                    <ul>
+
+                                      <li>
+                                        <i class="fas fa-eye"></i>
+                                        <span>{{articleVicewCount}}</span>
+                                      </li>
+                                      <li>
+                                        <a class="is-like text-black" *ngIf="!isLike" (click)="like()">
+                                          <i class="far fa-thumbs-up"></i>
+                                          {{'like' | translate}} <span class="like-count">{{articleLikes}}</span>
                                         </a>
-                                        <a class="btn" *ngIf="isFollowing" (click)="unfollow()">
-                                          {{'unfollowAuthor' | translate}}
+                                        <a class="is-like text-black" *ngIf="isLike" (click)="disLike()">
+                                          <i class="fas fa-heart"></i>
+                                          {{'liked' | translate}} <span class="like-count">{{articleLikes}}</span>
                                         </a>
-                                        </div>
-                                        <div *ngIf="article.author.type === 'author'">
-                                          <a class="btn" *ngIf="!isFollowing" (click)="follow()">
-                                            {{'followAuthor' | translate}}
-                                          </a>
-                                          <a class="btn" *ngIf="isFollowing" (click)="unfollow()">
-                                            {{'unfollowAuthor' | translate}}
-                                          </a>
-                                        </div>
-                                        <div *ngIf="article.author.type === 'staff'">
-                                          <a class="btn" *ngIf="!isFollowing" (click)="follow()">
-                                            
-                                            {{'followAuthor' | translate}}
-                                          </a>
-                                          <a class="btn" *ngIf="isFollowing" (click)="unfollow()">
-                                            
-                                            {{'unfollowAuthor' | translate}}
-                                          </a>
-                                        </div>
-                                        <div *ngIf="article.author.type === 'company'">
-                                          <a class="btn" *ngIf="!isFollowing" (click)="follow()">
-                                            <img src="assets/images/article/icon/follow.png" alt="follow button"/>
-                                            {{'followCompany' | translate}}
-                                          </a>
-                                          <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-                                           
-                                            {{'unfollowCompany' | translate}}
-                                          </a>
-                                        </div>
-                                        <div *ngIf="article.author.type === 'charity'">
-                                          <a class="btn" *ngIf="!isFollowing" (click)="follow()">
-                                            
-                                            {{'followCharity' | translate}}
-                                          </a>
-                                          <a class="btn" *ngIf="isFollowing" (click)="unfollow()">
-                                            
-                                            {{'unfollowCharity' | translate}}
-                                          </a>
-                                        </div>
-                                        <div *ngIf="article.author.type === 'fundraiser'">
-                                          <a class="btn" *ngIf="!isFollowing" (click)="follow()">
-                                            
-                                            {{'followFundraiser' | translate}}
-                                          </a>
-                                          <a class="btn" *ngIf="isFollowing" (click)="unfollow()">
-                                            
-                                            {{'unfollowFundraiser' | translate}}
-                                          </a>
-                                        </div>
-                                        <div class="login-popup" *ngIf="!isLoggedInUser">
-                                          <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()"
-                                            (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
-                                            <div class="popup-content">
-                                              <div>
-                                                <a [routerLink]="['/']" class="bg-logo">
-                                                  <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                                      </li>
+                                      <li>
+                                        <div>
+                                          <div *ngIf="!(article.author.type)">
+                                              <a class="btn" *ngIf="!isFollowing" (click)="follow()">
+                                                {{'followAuthor' | translate}}
+                                              </a>
+                                              <a class="btn" *ngIf="isFollowing" (click)="unfollow()">
+                                                {{'unfollowAuthor' | translate}}
+                                              </a>
+                                              </div>
+                                              <div *ngIf="article.author.type === 'author'">
+                                                <a class="btn" *ngIf="!isFollowing" (click)="follow()">
+                                                  {{'followAuthor' | translate}}
+                                                </a>
+                                                <a class="btn" *ngIf="isFollowing" (click)="unfollow()">
+                                                  {{'unfollowAuthor' | translate}}
                                                 </a>
                                               </div>
-                                              <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' |
-                                                  translate}}</a>
-                                                {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
-                                                {{'toContinue' | translate}}.</p>
-                          
-                                            </div>
-                                          </nz-modal>
-                                        </div>
+                                              <div *ngIf="article.author.type === 'staff'">
+                                                <a class="btn" *ngIf="!isFollowing" (click)="follow()">
+                                                  
+                                                  {{'followAuthor' | translate}}
+                                                </a>
+                                                <a class="btn" *ngIf="isFollowing" (click)="unfollow()">
+                                                  
+                                                  {{'unfollowAuthor' | translate}}
+                                                </a>
+                                              </div>
+                                              <div *ngIf="article.author.type === 'company'">
+                                                <a class="btn" *ngIf="!isFollowing" (click)="follow()">
+                                                  <img src="assets/images/article/icon/follow.png" alt="follow button"/>
+                                                  {{'followCompany' | translate}}
+                                                </a>
+                                                <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                                                 
+                                                  {{'unfollowCompany' | translate}}
+                                                </a>
+                                              </div>
+                                              <div *ngIf="article.author.type === 'charity'">
+                                                <a class="btn" *ngIf="!isFollowing" (click)="follow()">
+                                                  
+                                                  {{'followCharity' | translate}}
+                                                </a>
+                                                <a class="btn" *ngIf="isFollowing" (click)="unfollow()">
+                                                  
+                                                  {{'unfollowCharity' | translate}}
+                                                </a>
+                                              </div>
+                                              <div *ngIf="article.author.type === 'fundraiser'">
+                                                <a class="btn" *ngIf="!isFollowing" (click)="follow()">
+                                                  
+                                                  {{'followFundraiser' | translate}}
+                                                </a>
+                                                <a class="btn" *ngIf="isFollowing" (click)="unfollow()">
+                                                  
+                                                  {{'unfollowFundraiser' | translate}}
+                                                </a>
+                                              </div>
+                                              <div class="login-popup" *ngIf="!isLoggedInUser">
+                                                <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()"
+                                                  (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
+                                                  <div class="popup-content">
+                                                    <div>
+                                                      <a [routerLink]="['/']" class="bg-logo">
+                                                        <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                                                      </a>
+                                                    </div>
+                                                    <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' |
+                                                        translate}}</a>
+                                                      {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
+                                                      {{'toContinue' | translate}}.</p>
+                                
+                                                  </div>
+                                                </nz-modal>
+                                              </div>
+                                         </div>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                 
                                 </div>
                             </h5>
                             
@@ -135,9 +155,9 @@
                 </div>
                 <div class="story-body-content">
                     <img src="{{replaceImage(article?.image?.url)}}" alt="{{article.image.alt}}"
-                        *ngIf="article && !article.image.cloudinary_id" />
+                        *ngIf="article && !article.image.cloudinary_id" class="banner-img" />
                     <ng-container *ngIf="article && article.image.cloudinary_id">
-                        <cl-image loading="lazy" public-id="{{replaceImage(article.image.cloudinary_id)}}" secure="true" alt="{{article.image.alt}}">
+                        <cl-image class="banner-img" loading="lazy" public-id="{{replaceImage(article.image.cloudinary_id)}}" secure="true" alt="{{article.image.alt}}">
                         <cl-transformation width="1500" height="400" gravity="face" crop="thumb">
                         </cl-transformation>
                         </cl-image>
@@ -229,9 +249,10 @@
                         [ngClass]="article.category.slug">
                         {{article?.category.title}}
                         </a>
-                        <div class="tags pt-2" *ngFor="let topic of topics">
-                            <div> <a [routerLink]="['/category/', article?.category?.slug]"
-                                [queryParams]="{topic:topic.slug}" [ngClass]="article.category.slug" class="category"> {{topic?.title}}</a></div>
+                        <div class="tags pt-2">
+                            <div  *ngFor="let topic of topics"> <a [routerLink]="['/category/', article?.category?.slug]"
+                                [queryParams]="{topic:topic.slug}" [ngClass]="article.category.slug" class="category"> {{topic?.title}}</a>
+                              </div>
                             
                         </div>
                     </div>
