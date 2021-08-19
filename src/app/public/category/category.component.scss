@@ -411,6 +411,90 @@
         }
       }
     }
+    
+    .item-card-content {
+      padding: 20px;
+      .item-card-category {
+        h3 {
+          font-family: "Ubuntu", sans-serif;
+          font-size: 12px;
+          font-weight: bold;
+          display: inline-block;
+        }
+      }
+
+      .item-card-title {
+        h4 {
+          font-family: "josefin_sansregular";
+          font-size: 18px;
+          color: #000000;
+          line-height: 26px;
+          margin-top: 20px;
+          font-weight: 600;
+          word-break: break-word;
+        }
+      }
+      .item-card-texte {
+        p {
+          font-family: "open_sansregular";
+          font-size: 15px;
+          font-weight: normal;
+          color: #464444;
+          line-height: 24px;
+          padding-bottom: 30px;
+          word-break: break-word;
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+          height: 100px;
+          overflow: hidden;
+          margin-bottom: 40px;
+          text-align: justify;
+        }
+        .category-article-readmore {
+          position: absolute;
+          left: 20px;
+          bottom: 20px;
+          width: calc(100% - 40px);
+          display: flex;
+          align-items: center;
+          .is-read-more {
+            color: #000;
+            font-size: 18px;
+            &:before {
+              background: #000;
+            }
+          }
+          .article-icon-main {
+            flex: 1;
+            justify-content: flex-end;
+            display: flex;
+            .article-icon {
+              width: 45px;
+              height: 45px;
+              background: #fff;
+              display: flex;
+              border-radius: 100%;
+              i {
+                color: #000;
+                font-size: 25px;
+                margin: auto;
+              }
+            }
+          }
+        }
+      }
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        color: transparent;
+        border-radius: 100%;
+        -webkit-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        object-fit: cover;
+      }
+    }
     &:hover .item-card-image:after {
       left: 0;
     }
