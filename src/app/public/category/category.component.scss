@@ -347,7 +347,7 @@
           line-height: 26px;
           margin-top: 20px;
           font-weight: 600;
-          word-break: break-all;
+          word-break: break-word;
         }
       }
       .item-card-texte {
@@ -358,13 +358,14 @@
           color: #464444;
           line-height: 24px;
           padding-bottom: 30px;
-          word-break: break-all;
+          word-break: break-word;
           display: -webkit-box;
           -webkit-line-clamp: 4;
           -webkit-box-orient: vertical;
           height: 100px;
           overflow: hidden;
           margin-bottom: 40px;
+          text-align: justify;
         }
         .category-article-readmore {
           position: absolute;
