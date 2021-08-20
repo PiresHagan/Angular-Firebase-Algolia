@@ -11,7 +11,11 @@ import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 export class TodayComponent implements OnInit {
   selectedLanguage: string = "";
   todayArticle: any[];
-
+  trendingArticles: any[];
+  todayArticles: any[];
+  total: any;
+  paginatedItems: any[];
+  total_pages: any;
   constructor(
     private articleService: ArticleService,
     public translate: TranslateService,
@@ -21,11 +25,11 @@ export class TodayComponent implements OnInit {
     this.translate.use(lang);
   }
   ngOnInit(): void {
-    this.selectedLanguage = this.languageService.getSelectedLanguage();
-    this.articleService.getToday(this.selectedLanguage).subscribe(articles => {
-      this.todayArticle = articles;
-      // console.log('Todays Articles', articles);
-    });
+    // this.selectedLanguage = this.languageService.getSelectedLanguage();
+    // this.articleService.getToday(this.selectedLanguage).subscribe(articles => {
+    //   //this.todayArticle = articles;
+    //   // console.log('Todays Articles', articles);
+    // });
 
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.selectedLanguage = this.languageService.getSelectedLanguage()
@@ -35,6 +39,27 @@ export class TodayComponent implements OnInit {
       });
 
     });
+
+    this.onIndexChange(1);
+  }
+
+  onIndexChange(value: number){ debugger
+    this.selectedLanguage = this.languageService.getSelectedLanguage();
+    
+    this.articleService.getToday(this.selectedLanguage).subscribe(articles => {
+      this.todayArticles = articles;
+      this.total = articles.length;
+
+      const per_page = 30;
+      const start = (value - 1) * per_page;
+      const end = value * per_page;
+      this.todayArticle = this.todayArticles.slice(start, end);
+      this.total_pages = Math.ceil(this.total / per_page);
+      this.total_pages = this.total_pages * 10;
+      console.log('total_pages', this.total_pages)
+      console.log('paginatedItems', this.trendingArticles)
+    });
+    
   }
 
 }
