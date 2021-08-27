@@ -60,10 +60,10 @@
       <div class="is-left-profile hidden-on-xs">
         <div class="sticky-box">
           <app-company-follower-list *ngIf="companyId" [companyId]="companyId"></app-company-follower-list>
-          <div class="share-sec text-center">
+          <!-- <div class="share-sec text-center">
             <h3>{{'shareArticle' | translate}}</h3>
             <app-share-buttons></app-share-buttons>
-          </div>
+          </div> -->
 
         </div>
       </div>
@@ -136,10 +136,10 @@
                 <div class="xs-articl-publisher-name">{{ company?.name }}</div>
               </div>
               <app-company-follower-list *ngIf="companyId" [companyId]="companyId"></app-company-follower-list>
-              <div class="share-sec text-left">
+              <!-- <div class="share-sec text-left">
                 <h3>{{'shareArticle' | translate}}</h3>
                 <app-share-buttons></app-share-buttons>
-              </div>
+              </div> -->
             </div>
             <div class="text-left">
               <app-company-followers *ngIf="companyId" [companyId]="companyId" class="hidden-on-desktop">
