@@ -28,7 +28,29 @@
                 <app-search></app-search>
             </nz-drawer>
         </li> -->
-
+                <li class="megamenu-list  start-hover" id="mega-menu-header" (mouseenter)="showMegaMenu()"
+                    (mouseleave)="hideMegaMenu()">
+                    <a class="megamenu-link">{{'More' | translate}} <i nz-icon nzType="down" nzTheme="outline"></i></a>
+                    <div class="mega-body-sec" id="mega-menu-section">
+                        <div class="megamenu-body">
+                            <div class="sub-catagories-sec">
+                                <ng-container *ngFor="let item of (categories)">
+                                    <div class="sub-catagories-list" [ngClass]="item.slug">
+                                        <h2>{{item.title}}</h2>
+                                        <ul>
+                                            <li (click)="hideMegaMenu()"
+                                                *ngFor="let topic of (categoryListData[item.uid].child | async )"
+                                                nz-menu-item [routerLink]="['/category', item.slug]"
+                                                [queryParams]="{topic:topic.slug}" class="mega-menu-list-item">
+                                                {{topic.title}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </li>
                 <li class="megamenu-list city-dropdown start-hover" id="mega-menu-header" (mouseenter)="showMegaMenu()"
                     (mouseleave)="hideMegaMenu()">
                     <a class="megamenu-link">{{'city' | translate}} <i nz-icon nzType="down" nzTheme="outline"></i></a>
@@ -53,29 +75,7 @@
                     </div>
                 </li>
 
-                <li class="megamenu-list  start-hover" id="mega-menu-header" (mouseenter)="showMegaMenu()"
-                    (mouseleave)="hideMegaMenu()">
-                    <a class="megamenu-link">{{'More' | translate}} <i nz-icon nzType="down" nzTheme="outline"></i></a>
-                    <div class="mega-body-sec" id="mega-menu-section">
-                        <div class="megamenu-body">
-                            <div class="sub-catagories-sec">
-                                <ng-container *ngFor="let item of (categories)">
-                                    <div class="sub-catagories-list" [ngClass]="item.slug">
-                                        <h2>{{item.title}}</h2>
-                                        <ul>
-                                            <li (click)="hideMegaMenu()"
-                                                *ngFor="let topic of (categoryListData[item.uid].child | async )"
-                                                nz-menu-item [routerLink]="['/category', item.slug]"
-                                                [queryParams]="{topic:topic.slug}" class="mega-menu-list-item">
-                                                {{topic.title}}
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </ng-container>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+                
             </ul>
 
             <ul nz-menu [nzMode]="'inline'" class="hidden-on-lg mobile-mega-menu">
@@ -90,19 +90,7 @@
                         {{item.title}}</li>
 
                 </ng-container>
-                <li nz-submenu nzTitle="{{'city' | translate}}" class="xs-menu-item xs-city-menu">
-                    <ng-container *ngFor="let item of (categories)">
-                        <ul *ngIf="(item?.title) == 'City'">
-                            <li (click)="hideMegaMenu()"
-                                *ngFor="let topic of (categoryListData[item.uid].child | async )"
-                                nz-menu-item [routerLink]="['/category', item.slug]"
-                                [queryParams]="{topic:topic.slug}" class="mega-menu-list-item">
-                                {{topic.title}}
-                            </li>
-                        </ul>
-                    </ng-container>
-                </li>
-
+                
                 <li nz-submenu nzTitle="{{'More' | translate}}" class="xs-menu-item">
                     <ng-container *ngFor="let item of (categories)">
                         <div [ngClass]="item.slug">
@@ -117,6 +105,20 @@
                         </div>
                     </ng-container>
                 </li>
+                <li nz-submenu nzTitle="{{'city' | translate}}" class="xs-menu-item xs-city-menu">
+                    <ng-container *ngFor="let item of (categories)">
+                        <ul *ngIf="(item?.title) == 'City'">
+                            <li (click)="hideMegaMenu()"
+                                *ngFor="let topic of (categoryListData[item.uid].child | async )"
+                                nz-menu-item [routerLink]="['/category', item.slug]"
+                                [queryParams]="{topic:topic.slug}" class="mega-menu-list-item">
+                                {{topic.title}}
+                            </li>
+                        </ul>
+                    </ng-container>
+                </li>
+
+                
                 <li class="h-auto line-height-normal" nz-menu-item *ngIf="!isLoggedInUser">
                     <a class="is-login-link" (click)="routeLogin()">
                         {{'login' | translate }}
