@@ -55,10 +55,10 @@
             <div class="is-left-profile  hidden-on-xs">
                 <div class="sticky-box">
                     <app-charity-follower-list *ngIf="charityId" [charityId]="charityId"></app-charity-follower-list>
-                    <div class="share-sec text-center">
+                    <!-- <div class="share-sec text-center">
                         <h3>{{'shareArticle' | translate}}</h3>
                         <app-share-buttons></app-share-buttons>
-                    </div>
+                    </div> -->
 
                    
                 </div>
@@ -133,10 +133,10 @@
                             <div class="text-left">
                                 <app-charity-follower-list *ngIf="charityId" [charityId]="charityId" class="hidden-on-desktop"></app-charity-follower-list>
                             </div>
-                            <div class="share-sec text-left">
+                            <!-- <div class="share-sec text-left">
                                 <h3>{{'shareArticle' | translate}}</h3>
                                 <app-share-buttons></app-share-buttons>
-                            </div>
+                            </div> -->
                         </div>
                         <app-charity-followers *ngIf="charityId" [charityId]="charityId" class="hidden-on-desktop"></app-charity-followers>
                         <div class="bg-white" *ngIf="charityArticles">
