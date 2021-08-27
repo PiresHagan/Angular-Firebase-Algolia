@@ -52,11 +52,11 @@
       </div>
       <div class="is-article-sec">
          <div class="is-left-profile hidden-on-xs">
-            <app-fundraiser-author 
+            <!-- <app-fundraiser-author 
                *ngIf="fundraiser && fundraiserAuthor" 
                [fundraiser]="fundraiser"
                [fundraiserAuthor]="fundraiserAuthor"
-            ></app-fundraiser-author>
+            ></app-fundraiser-author> -->
             <app-fundraiser-follower-list *ngIf="fundraiserId" [fundraiserId]="fundraiserId"></app-fundraiser-follower-list>
          </div>
          <div class="is-main-article-content">
@@ -118,10 +118,10 @@
                       </div>
                       <div class="xs-articl-publisher-name">{{ fundraiser?.title }}</div>
                       </div>
-                      <div class="share-sec text-left">
+                      <!-- <div class="share-sec text-left">
                           <h3>{{'shareArticle' | translate}}</h3>
                           <app-share-buttons></app-share-buttons>
-                      </div>
+                      </div> -->
                   </div>
                   </div>
                   <!-- <div *ngIf="fundraiser?.type === VIDEO" class="main-video-sec">
