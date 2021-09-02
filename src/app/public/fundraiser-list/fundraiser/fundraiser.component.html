@@ -60,20 +60,34 @@
             <app-fundraiser-follower-list *ngIf="fundraiserId" [fundraiserId]="fundraiserId"></app-fundraiser-follower-list>
          </div>
          <div class="is-main-article-content">
-            <div class="company-img hidden-on-xs">
+            <!-- <div class="company-img hidden-on-xs">
                <img *ngIf="fundraiser" [src]="fundraiser?.logo?.url" [alt]="fundraiser?.logo?.alt"  onerror="this.src='assets/images/default-avatar.png'"/>
                <div class="special-icon" *ngIf="fundraiser">
                 <img src="assets/images/fundraiser.svg" style="max-width:28px;" />
               </div>
-              </div>
+              </div> -->
             <div class="is-content">
+              <h1 class="post-title">
+                {{ fundraiser?.title }}
+             </h1>
                <div class="is-head">
-                  <div class="company-name hidden-on-xs">
-                     <h1>
-                        <a>
-                           {{ fundraiser?.title }}
-                        </a>
-                     </h1>
+                <div class="post-avatar hidden-on-xs">
+                      <div>
+                        <img class="avatar" [src]="replaceImage(fundraiser.author.avatar?.url)"
+                            [alt]="fundraiser.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
+                            *ngIf="fundraiser && !(fundraiser?.author?.avatar?.cloudinary_id)">
+                          <ng-container *ngIf="fundraiser && (fundraiser?.author?.avatar?.cloudinary_id)">
+                            <div class="cloudinary-avatar">
+                              <cl-image loading="lazy" public-id="{{replaceImage(fundraiser.author.avatar.cloudinary_id)}}" secure="true">
+                                  <cl-transformation width="50" height="50" gravity="face" crop="thumb">
+                                  </cl-transformation>
+                                  <cl-transformation radius="100">
+                                  </cl-transformation>
+                                </cl-image>
+                            </div>
+                          </ng-container>
+                      </div>
+                      <h2>{{ fundraiser?.author?.fullname }}</h2>
                   </div>
                   <div class="media-section">
                      <div class="follow-btn-sec">
@@ -88,7 +102,6 @@
                         </div> -->
                     </div>
                   </div>
-                  <div class="clearfix"></div>
                </div>
                <div class="is-body">
                   <div class="fundraiser-content">
@@ -100,6 +113,46 @@
                         </h5>
                         <nz-progress [nzPercent]="donationPercentage" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"></nz-progress>
                      </div> -->
+
+                     <div class="charity-form">
+                      <h5>
+                         <b>{{ fundraiser?.goal_amount | currency :'USD':'symbol':'1.0-2' }}</b>
+                          MTS Raised {{ fundraiser?.amount | currency :'USD':'symbol':'1.0-2' }}
+                      </h5>
+                         
+                      <nz-progress [nzPercent]="donationPercentage" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"></nz-progress>
+                      <div class="text-center pb-4 pt-4" *ngIf="fundraiserAuthor && fundraiserAuthor?.stripe_status == 'active'">
+                        <button type="button" class="donation-btn" nz-button nzType="primary" (click)="showDonateForm()">
+                          Donate Now
+                        </button>
+                        <button type="button" class="donation-btn share-btn mt-3" nz-button nzType="primary" (click)="showShareModel()">
+                          Share
+                        </button>
+                        <nz-modal
+                        [(nzVisible)]="isDonateFormVisible"
+                        (nzOnCancel)="hideDonateForm()"
+                        nzFooter=null
+                        >
+                          <app-fundraiser-donate-form [fundraiserId]="fundraiserId"></app-fundraiser-donate-form>
+                        </nz-modal>  
+                        <nz-modal
+                          nzTitle="Share"
+                          [(nzVisible)]="isShareVisible"
+                          (nzOnCancel)="hideShareModel()"
+                          nzFooter=null
+                          >
+                          <app-share-buttons class="text-center pt-3"></app-share-buttons>
+                          </nz-modal>  
+                    </div>
+
+                      <!-- <div class="donor-detail pb-4">
+                         <div class="donor-row">
+                            <span>{{ fundraiser?.donor_count | number:'1.0-0' }}</span>
+                            {{ 'fundraiserDonors' | translate }}
+                         </div>
+                      </div> -->
+                      
+                   </div>
                      <p class="big mb-3">{{ fundraiser?.excerpt }}</p>
                      <div class="is-paragraph">
                         <p class="big " innerHTML="{{ fundraiser?.content }}"></p>
@@ -618,38 +671,20 @@
             </div>
          </div>
          <div class="is-right-ad-section">
-            <div class="charity-form">
-               <h5>
-                  <b>{{ fundraiser?.goal_amount | currency :'USD':'symbol':'1.0-2' }}</b>
-                   MTS Raised {{ fundraiser?.amount | currency :'USD':'symbol':'1.0-2' }}
-               </h5>
-                  
-               <nz-progress [nzPercent]="donationPercentage" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"></nz-progress>
-               
-               <div class="donor-detail pb-4">
-                  <div class="donor-row">
-                     <span>{{ fundraiser?.donor_count | number:'1.0-0' }}</span>
-                     {{ 'fundraiserDonors' | translate }}
-                  </div>
-                  <!-- <div class="donor-row">
-                     <span>2</span>
-                     Days Left
-                  </div> -->
-               </div>
-               <div class="text-center pb-3" *ngIf="fundraiserAuthor && fundraiserAuthor?.stripe_status == 'active'">
-                   <button type="button" class="donation-btn" nz-button nzType="primary" (click)="showDonateForm()"><i class="fas fa-heart"></i> Donate Now</button>
-                   <nz-modal
-                   [(nzVisible)]="isDonateFormVisible"
-                   (nzOnCancel)="hideDonateForm()"
-                   nzFooter=null
-                   >
-                     <app-fundraiser-donate-form [fundraiserId]="fundraiserId"></app-fundraiser-donate-form>
-                   </nz-modal>   
-               </div>
-               <div class="share-sec text-center">
-                 
-               </div>
+          <div class="donations-list-sec">
+            <h2 class="dn-count">Donations ({{ donationList?.length }})</h2>
+            <div class="dn-list">
+              <div class="dn-list-item" *ngFor="let donation of donationList">
+                <div class="dn-details">
+                  <h3>{{donation.first_name}} {{donation.last_name}}</h3>
+                  <ul>
+                    <li><b>${{donation.amount}}</b></li>
+                    <li class="dot">{{donation?.created_at | date:'medium' }}</li>
+                  </ul>
+                </div>
+              </div>
             </div>
+          </div>
            
             
          </div>

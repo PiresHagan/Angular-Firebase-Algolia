@@ -14,10 +14,24 @@ export class CharityService {
   private charitiesCollection = 'charities';
   private followersSubCollection = 'followers';
   private donationsSubCollection = 'donations';
+  private charityDonation = "donates";
   constructor(
     private http: HttpClient, 
     private db: AngularFirestore
   ) { }
+
+  getAllCharityDonation(charityId) {
+    let dataQuery = this.db.collection(this.charitiesCollection).doc(charityId).collection(`${this.charityDonation}`, ref => ref)
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        donations: actions.map(a => {
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      }
+    }));
+  }
 
   getAllCharities() {
     return this.db.collection<Charity[]>(this.charitiesCollection).snapshotChanges().pipe(

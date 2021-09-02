@@ -34,6 +34,9 @@ export class CharityComponent implements OnInit {
   audioArticles: Article[] = [];
   videoArticles: Article[] = [];
   textArticles: Article[] = [];
+  isDonateFormVisible: boolean = false;
+  isShareVisible : boolean = false
+  donationList: any[];
 
 
   constructor(
@@ -50,21 +53,20 @@ export class CharityComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.selectedLanguage = this.langService.getSelectedLanguage();
-
       const slug = params.get('slug');
-
       this.charityService.getCharityBySlug(slug).subscribe(data => {
         this.charity = data[0];
-
         this.charityId = this.charity.id;
-
+        // Fetching charity donations
+        this.charityService.getAllCharityDonation(this.charityId).subscribe(data => {
+          this.donationList = data.donations;
+        })
         // Fetching charity article
         this.articleService.getArticlesByUser(this.charityId,  2, null, this.lastArticleIndex).subscribe((data) => {
           this.charityArticles = data.articleList;
           this.lastArticleIndex = data.lastVisible;
         });
         this.setUserDetails();
-
         this.seoService.updateMetaTags({
           title: this.charity.name,
           tabTitle: this.charity.name.substring(0, 69),
@@ -74,7 +76,6 @@ export class CharityComponent implements OnInit {
           image: { url: this.charity.logo.url }
         });
       });
-
       this.setUserDetails();
     });
   }
@@ -87,11 +88,13 @@ export class CharityComponent implements OnInit {
       this.lastArticleIndex = articleData.lastVisible;
     })
   }
+
   replaceImage(url) {
     let latestURL = url
     if (url) {
-      latestURL = latestURL.replace('http://cdn.mytrendingstories.com/', 'https://cdn.mytrendingstories.com/')
-        .replace('https://abc2020new.com/', 'https://assets.mytrendingstories.com/');
+      latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
+        .replace('http://cdn.mytrendingstories.com/', "https://cdn.mytrendingstories.com/")
+        .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
     }
     return latestURL;
   }
@@ -257,4 +260,22 @@ export class CharityComponent implements OnInit {
   handleCancel(): void {
     this.isVisible = false;
   }
+
+  showDonateForm(): void {
+    this.isDonateFormVisible = true;
+  }
+
+  showShareModel(): void {
+    this.isShareVisible = true;
+  }
+
+  hideShareModel(): void {
+    this.isShareVisible = false;
+  }
+ 
+  hideDonateForm(): void {
+    this.isDonateFormVisible = false;
+  }
+
+ 
 }
