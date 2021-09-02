@@ -14,10 +14,25 @@ export class FundraiserService {
 
   private fundraisersCollection = 'fundraisings';
   private followersSubCollection = 'followers';
+  fundraiserDonation = "donates";
   constructor(
     private http: HttpClient, 
     private db: AngularFirestore
   ) { }
+
+  getAllFundraiserDonation(fundraiserId) {
+    let dataQuery = this.db.collection(this.fundraisersCollection).doc(fundraiserId).collection(`${this.fundraiserDonation}`, ref => ref)
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        donations: actions.map(a => {
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      }
+    })
+    );
+  }
 
   getAllFundraisers() {
     return this.db.collection<Fundraiser[]>(this.fundraisersCollection).snapshotChanges().pipe(
