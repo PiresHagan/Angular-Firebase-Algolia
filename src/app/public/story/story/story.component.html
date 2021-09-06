@@ -1,0 +1,271 @@
+<section class="story-sec" *ngIf="!article">
+    <div class="container-fluid">
+      
+      <div class="story-content-sec">
+        <div class="left-side-profile">
+         
+        </div>
+        <div class="main-content-area">
+          <nz-skeleton  _ngcontent-ccc1="" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }"
+            class="custom-skeleton card-skeleton left-skeleton-profile"></nz-skeleton>
+  
+        </div>
+        <div class="right-side-area">
+         
+        </div>
+      </div>
+  
+    </div>
+  </section>
+<section class="story-sec"  *ngIf="article">
+    <div class="container-fluid">
+        <div class="story-content-sec">
+            <div class="left-side-profile">
+
+            </div>
+            <div class="main-content-area">
+                <div class="story-head">
+                    <h1>{{article?.title}}</h1>
+                    <div class="story-head-profile">
+                        <div class="story-head-avatar">
+                            <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
+                                <img class="avatar" src="{{replaceImage(article?.author?.avatar?.url)}}"
+                                  alt="{{article?.author?.avatar?.alt}}" onerror="this.src='assets/images/default-avatar.png'"
+                                  *ngIf="article && !article.author.avatar.cloudinary_id" />
+                                <ng-container *ngIf="article && article.author.avatar.cloudinary_id">
+                                  <cl-image loading="lazy" public-id="{{replaceImage(article.author.avatar.cloudinary_id)}}"
+                                    secure="true">
+                                    <cl-transformation width="140" height="140" gravity="face" crop="thumb">
+                                    </cl-transformation>
+                                  </cl-image>
+                                </ng-container>
+                              </a>
+                            <h5>
+                                <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
+                                    <span class="name" itemprop="name">
+                                      {{article?.author?.fullname}}</span>
+                                  </a>
+                                <span>{{article?.published_at | date:'medium' }}</span>
+                                <!-- <div  class="view-like-sec-main">
+                                  <div class="view-like-sec">
+                                    <ul>
+
+                                      <li>
+                                        <i class="fas fa-eye"></i>
+                                        <span>{{articleVicewCount}}</span>
+                                      </li>
+                                      <li>
+                                        <a class="is-like text-black" *ngIf="!isLike" (click)="like()">
+                                          <i class="far fa-thumbs-up"></i>
+                                          {{'like' | translate}} <span class="like-count">{{articleLikes}}</span>
+                                        </a>
+                                        <a class="is-like text-black" *ngIf="isLike" (click)="disLike()">
+                                          <i class="fas fa-heart"></i>
+                                          {{'liked' | translate}} <span class="like-count">{{articleLikes}}</span>
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <div>
+                                          <div *ngIf="!(article.author.type)">
+                                              <a class="btn" *ngIf="!isFollowing" (click)="follow()">
+                                                {{'followAuthor' | translate}}
+                                              </a>
+                                              <a class="btn" *ngIf="isFollowing" (click)="unfollow()">
+                                                {{'unfollowAuthor' | translate}}
+                                              </a>
+                                              </div>
+                                              <div *ngIf="article.author.type === 'author'">
+                                                <a class="btn" *ngIf="!isFollowing" (click)="follow()">
+                                                  {{'followAuthor' | translate}}
+                                                </a>
+                                                <a class="btn" *ngIf="isFollowing" (click)="unfollow()">
+                                                  {{'unfollowAuthor' | translate}}
+                                                </a>
+                                              </div>
+                                              <div *ngIf="article.author.type === 'staff'">
+                                                <a class="btn" *ngIf="!isFollowing" (click)="follow()">
+                                                  
+                                                  {{'followAuthor' | translate}}
+                                                </a>
+                                                <a class="btn" *ngIf="isFollowing" (click)="unfollow()">
+                                                  
+                                                  {{'unfollowAuthor' | translate}}
+                                                </a>
+                                              </div>
+                                              <div *ngIf="article.author.type === 'company'">
+                                                <a class="btn" *ngIf="!isFollowing" (click)="follow()">
+                                                  <img src="assets/images/article/icon/follow.png" alt="follow button"/>
+                                                  {{'followCompany' | translate}}
+                                                </a>
+                                                <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                                                 
+                                                  {{'unfollowCompany' | translate}}
+                                                </a>
+                                              </div>
+                                              <div *ngIf="article.author.type === 'charity'">
+                                                <a class="btn" *ngIf="!isFollowing" (click)="follow()">
+                                                  
+                                                  {{'followCharity' | translate}}
+                                                </a>
+                                                <a class="btn" *ngIf="isFollowing" (click)="unfollow()">
+                                                  
+                                                  {{'unfollowCharity' | translate}}
+                                                </a>
+                                              </div>
+                                              <div *ngIf="article.author.type === 'fundraiser'">
+                                                <a class="btn" *ngIf="!isFollowing" (click)="follow()">
+                                                  
+                                                  {{'followFundraiser' | translate}}
+                                                </a>
+                                                <a class="btn" *ngIf="isFollowing" (click)="unfollow()">
+                                                  
+                                                  {{'unfollowFundraiser' | translate}}
+                                                </a>
+                                              </div>
+                                              <div class="login-popup" *ngIf="!isLoggedInUser">
+                                                <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()"
+                                                  (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
+                                                  <div class="popup-content">
+                                                    <div>
+                                                      <a [routerLink]="['/']" class="bg-logo">
+                                                        <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                                                      </a>
+                                                    </div>
+                                                    <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' |
+                                                        translate}}</a>
+                                                      {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
+                                                      {{'toContinue' | translate}}.</p>
+                                
+                                                  </div>
+                                                </nz-modal>
+                                              </div>
+                                         </div>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                 
+                                </div> -->
+                            </h5>
+                            
+                        </div>
+                        <!-- <div class="story-head-media">
+                            <app-share-buttons></app-share-buttons>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="story-body-content">
+                    <img src="{{replaceImage(article?.image?.url)}}" alt="{{article.image.alt}}"
+                        *ngIf="article && !article.image.cloudinary_id" class="banner-img" />
+                    <ng-container *ngIf="article && article.image.cloudinary_id">
+                        <cl-image class="banner-img" loading="lazy" public-id="{{replaceImage(article.image.cloudinary_id)}}" secure="true" alt="{{article.image.alt}}">
+                        <cl-transformation width="1500" height="400" gravity="face" crop="thumb">
+                        </cl-transformation>
+                        </cl-image>
+                    </ng-container>
+                    <div *ngIf="articleType === VIDEO" class="main-video-sec">
+                        <cl-video [public-id]="article.article_file.cloudinary_id" secure="true" controls="true"
+                          class="cld-video"></cl-video>
+                        <div class="video-control">
+                          <ul>
+                            <li>
+                              <a>
+                                <article-interaction [article]="article"></article-interaction>
+                              </a>
+                            </li>
+                            <li>
+                              <a>
+                                <img src="assets/images/video/icon/point.png" alt="point" class="bullet">
+                                {{ getRelativeDate(article.published_at) }}
+                              </a>
+                            </li>
+                          </ul>
+                          <!-- <div class="btn-download">
+                                            <button class="video-download-btn"><img src="assets/images/video/icon/download.png" alt=""> Download</button>
+                                        </div> -->
+                        </div>
+                      </div>
+                      <div *ngIf="articleType === AUDIO" class="main-audio-sec">
+                        <cl-video [public-id]="article.article_file.cloudinary_id" resource-type="video" class="cld-audio-wave">
+                          <cl-transformation flags="waveform"></cl-transformation>
+                        </cl-video>
+                        <cl-video [public-id]="article.article_file.cloudinary_id" secure="true" controls="true"
+                          class="cld-audio"></cl-video>
+                        <div class="video-control">
+                          <ul>
+                            <li>
+                              <a>
+                                <article-interaction [article]="article"></article-interaction>
+                              </a>
+                            </li>
+                            <li>
+                              <a>
+                                <img src="assets/images/video/icon/point.png" alt="point" class="bullet">
+                                {{ getRelativeDate(article.published_at) }}
+                              </a>
+                            </li>
+                          </ul>
+                          <!-- <div class="btn-download">
+                                            <button class="video-download-btn"><img src="assets/images/video/icon/download.png" alt=""> Download</button>
+                                        </div> -->
+                        </div>
+                      </div>
+                      <div *ngIf="articleType === TEXT" class="is-paragraph">
+                        <div class="big" *ngFor="let item of articleAds; trackBy:trackByArticleAdFn">
+                          <span [ngClass]="{'not-active': article.author.type === 'company'}" [innerHTML]="item.elem"></span>
+          
+                          <ng-container *ngIf="item.insertAd">
+                            <div style="margin: 10px auto;">
+                              <div class="desktop_ad" 
+                                style="margin: 10px auto; text-align:center;" 
+                                *ngIf="!isMobile && displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'"
+                                adItem
+                                [pointer]="'dynamic_mrectangle_ad_'+item.adIndex" 
+                                [author]="article?.author?.slug">
+                              </div>
+          
+                              <div class="mobile_ad" 
+                                style="margin: 10px auto; text-align:center;" 
+                                *ngIf="isMobile && displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'" 
+                                adItem
+                                [pointer]="'dynamic_mrectangle_ad_'+item.adIndex" 
+                                [author]="article?.author?.slug">
+                              </div>
+                            </div>
+                          </ng-container>
+                        </div>
+          
+                       
+                        
+                        <p class="report-abuse-spin" *ngIf="isLoggedInUser">
+                          <a class="comment-view-replies" (click)="reportAbuseArticle()">
+                            <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseArticleLoading"></nz-spin>
+                            {{'reportAbuseAuth' | translate}}
+                          </a>
+                        </p>
+                      </div>
+                    
+                    <div class="category">
+                        <a class="category" [routerLink]="['/category/',article?.category?.slug]" *ngIf="article"
+                        [ngClass]="article.category.slug">
+                        {{article?.category.title}}
+                        </a>
+                        <div class="tags pt-2">
+                            <div  *ngFor="let topic of topics"> <a [routerLink]="['/category/', article?.category?.slug]"
+                                [queryParams]="{topic:topic.slug}" [ngClass]="article.category.slug" class="category"> {{topic?.title}}</a>
+                              </div>
+                            
+                        </div>
+                    </div>
+                    <p>Published by <b>
+                        <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
+                        <span class="name" itemprop="name">
+                          {{article?.author?.fullname}}</span>
+                      </a></b></p>
+                    <app-article-comments *ngIf="article" [article]="article"></app-article-comments>
+                  
+                </div>
+            </div>
+            <div class="right-side-area"></div>
+        </div>
+    </div>
+</section>

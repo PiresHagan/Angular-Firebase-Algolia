@@ -1,123 +1,655 @@
-<section class="is-article-block">
-    <div class="container">
-        <div class="mobile-article-detail">
-            <h2 class="xs-article-title">
-                <img class="avatar" src="assets/images/company/company-logo.png" alt="company logo"/>
-            </h2>
-            <div class="xs-article-author-detail">
-                <div class="xs-article-name">
-                        {{ company?.name }}
-                    </div>
-                <div class="comment-section">
-                    <ul>
-                        <li>
-                            <div class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-                                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "followCompany" | translate }}</a>
-                            </div>
-                            <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-                                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowCompany" | translate }}</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-           
+<section class="is-article-block" *ngIf="!company">
+  <div class="container">
+    <div class="article-full-img no-overlay">
+      <nz-skeleton-element *ngIf="!company" [nzLoading]="loading" nzType="avatar" class="custom-skeleton"
+        [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+    </div>
+    <div class="is-article-sec">
+      <div class="is-left-profile hidden-on-xs mt-2 p-4">
+        <nz-skeleton *ngIf="!company" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }"
+          class="custom-skeleton card-skeleton left-skeleton-profile"></nz-skeleton>
+      </div>
+      <div class="is-main-article-content">
+        <div class="is-content">
+          <nz-skeleton-element *ngIf="!company" [nzLoading]="loading" nzType="avatar" class="custom-skeleton"
+            [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
         </div>
-        <div class="article-full-img">
-            <img *ngIf="company" [src]='company?.cover?.url' [alt]='company?.cover?.alt'/>
-        </div>
-        <div class="is-article-sec">
-            <div class="is-left-profile hidden-on-xs">
-                <div class="sticky-box">
-                    <div class="is-profile">
-                        <a>
-                            <img class="avatar" src="assets/images/company/company-logo.png" alt="company logo"/>
-                        </a>
-                    </div>
-                    <div class="share-sec text-center">
-                        <div class="addthis_inline_share_toolbox"></div>
-                    </div>
-                        
-                    <app-company-follower-list *ngIf="companyId" [companyId]="companyId"></app-company-follower-list>
-                </div>
-            </div>
-            <div class="is-main-article-content">
-                <div class="company-img hidden-on-xs">
-                    <img *ngIf="company" [src]='company?.logo?.url' [alt]='company?.logo?.alt' 
-                    onerror="this.src='assets/images/default-avatar.png'"
-                    />
-                    <div class="special-icon" *ngIf="company">
-                        <img src="assets/images/company-icon.png" style="max-width:28px;" />
-                    </div>
-                </div>
-                <div class="is-content">
-                    <div class="is-head">
-                        <div class="company-name hidden-on-xs">
-                            <h1>
-                                <a [ngStyle]="{'color': company?.color_code}">
-                                    {{ company?.name }}
-                                </a>
-                            </h1>
-                        </div>
-                        <div class="media-section">
-                            <div class="follow-btn hidden-on-xs" *ngIf="!isFollowing" (click)="follow()">
-                                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "followCompany" | translate }}</a>
-                            </div>
-                            <div class="follow-btn hidden-on-xs" *ngIf="isFollowing" (click)="unfollow()">
-                                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowCompany" | translate }}</a>
-                            </div>
-                            <div class="login-popup"  *ngIf="!isLoggedInUser">
-                                <nz-modal
-                                    [(nzVisible)]="isVisible"
-                                    nzTitle="My Trending Stories"
-                                    (nzOnCancel)="handleCancel()"
-                                    (nzOnOk)="handleOk()"
-                                    [nzOkLoading]="isOkLoading"
-                                    >
-                                    <div class="popup-content">
-                                        <div>
-                                            <a [routerLink]="['/']" class="bg-logo">
-                                                <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
-                                            </a>
-                                        </div>
-                                        <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' | translate}}</a> {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a> {{'toContinue' | translate}}.</p>
-                                       
-                                    </div>
-                                    </nz-modal>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="is-body">
-                        <div class="is-paragraph">
-                            <p class="big">{{ company?.bio }}</p>
-                            <br>
-                            <p innerHTML={{company?.presentation}}></p>
-                        </div>
-                       
-                        <div class="xs-article-publish">
-                            <div class="xs-article-publisher-img">
-                                <div class="company-img">
-                                    <img *ngIf="company" [src]='company?.logo?.url' [alt]='company?.logo?.alt' 
-                                    onerror="this.src='assets/images/default-avatar.png'"
-                                    />
-                                    <div class="special-icon" *ngIf="company">
-                                        <img src="assets/images/company-icon.png" style="max-width:28px;" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="xs-articl-publisher-name">{{ company?.name }}</div>
-                        </div>
-                        <app-company-followers *ngIf="companyId" [companyId]="companyId" class="hidden-on-desktop"></app-company-followers>
-                    </div>
-                </div>
 
-            </div>
-            <div class="is-right-ad-section">
-                <app-company-lead-form *ngIf="companyId" [companyId]="companyId"></app-company-lead-form>
-            </div>
+      </div>
+      <div class="is-right-ad-section">
+        <nz-skeleton-element *ngIf="!company" [nzLoading]="loading" nzType="avatar" class="custom-skeleton"
+          [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="is-article-block" *ngIf="company">
+  <div class="container">
+    <div class="mobile-article-detail">
+
+      <div class="xs-company-img">
+        <img *ngIf="company" [src]='company?.logo?.url' [alt]='company?.logo?.alt'
+          onerror="this.src='assets/images/default-avatar.png'" />
+      </div>
+      <div class="xs-article-author-detail">
+        <div class="xs-article-name">
+          {{ company?.name }}
         </div>
+        <div class="comment-section">
+          <ul>
+            <li>
+              <div class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png"
+                    alt="company img">{{ "followCompany" | translate }}</a>
+              </div>
+              <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png"
+                    alt="company img">{{ "unfollowCompany" | translate }}</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
 
     </div>
+    <div class="article-full-img">
+      <img *ngIf="company" [src]='company?.cover?.url' [alt]='company?.cover?.alt' />
+    </div>
+    <div class="is-article-sec">
+      <div class="is-left-profile hidden-on-xs">
+        <div class="sticky-box">
+          <app-company-follower-list *ngIf="companyId" [companyId]="companyId"></app-company-follower-list>
+          <!-- <div class="share-sec text-center">
+            <h3>{{'shareArticle' | translate}}</h3>
+            <app-share-buttons></app-share-buttons>
+          </div> -->
+
+        </div>
+      </div>
+      <div class="is-main-article-content">
+        <div class="company-img hidden-on-xs">
+          <img *ngIf="company" [src]='company?.logo?.url' [alt]='company?.logo?.alt'
+            onerror="this.src='assets/images/default-avatar.png'" />
+          <div class="special-icon" *ngIf="company">
+            <img src="assets/images/company-icon.png" style="max-width:28px;" />
+          </div>
+        </div>
+        <div class="is-content">
+          <div class="is-head">
+            <div class="company-name hidden-on-xs">
+              <h1>
+                <a [ngStyle]="{'color': company?.color_code}">
+                  {{ company?.name }}
+                </a>
+              </h1>
+            </div>
+            <div class="media-section">
+              <div class="follow-btn hidden-on-xs" *ngIf="!isFollowing" (click)="follow()">
+                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png"
+                    alt="company img">{{ "followCompany" | translate }}</a>
+              </div>
+              <div class="follow-btn hidden-on-xs" *ngIf="isFollowing" (click)="unfollow()">
+                <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png"
+                    alt="company img">{{ "unfollowCompany" | translate }}</a>
+              </div>
+              <div class="login-popup" *ngIf="!isLoggedInUser">
+                <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()"
+                  (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
+                  <div class="popup-content">
+                    <div>
+                      <a [routerLink]="['/']" class="bg-logo">
+                        <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                      </a>
+                    </div>
+                    <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' |
+                        translate}}</a> {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
+                      {{'toContinue' | translate}}.</p>
+
+                  </div>
+                </nz-modal>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="is-body">
+            <div class="is-paragraph not-active">
+              <div>
+                <p class="big">{{ company?.bio }}</p>
+                <br>
+                <p innerHTML={{company?.presentation}}></p>
+              </div>
+
+            </div>
+
+            <div class="xs-article-publish">
+              <div class="d-flex">
+                <div class="xs-article-publisher-img">
+                  <div class="company-img">
+                    <img *ngIf="company" [src]='company?.logo?.url' [alt]='company?.logo?.alt'
+                      onerror="this.src='assets/images/default-avatar.png'" />
+                    <div class="special-icon" *ngIf="company">
+                      <img src="assets/images/company-icon.png" style="max-width:28px;" />
+                    </div>
+                  </div>
+                </div>
+                <div class="xs-articl-publisher-name">{{ company?.name }}</div>
+              </div>
+              <app-company-follower-list *ngIf="companyId" [companyId]="companyId"></app-company-follower-list>
+              <!-- <div class="share-sec text-left">
+                <h3>{{'shareArticle' | translate}}</h3>
+                <app-share-buttons></app-share-buttons>
+              </div> -->
+            </div>
+            <div class="text-left">
+              <app-company-followers *ngIf="companyId" [companyId]="companyId" class="hidden-on-desktop">
+              </app-company-followers>
+            </div>
+            <div class="bg-white" *ngIf="companyArticles">
+              <div class="is-comman-title">
+                {{'CompanyArticle' | translate}}
+              </div>
+              <div class="is-cat-box-card-main">
+                <div class="cat-box">
+                  <div class="cat-box-gallery">
+                    <div class="container">
+                      <nz-tabset>
+                        <nz-tab nzTitle="{{'All' | translate}}">
+                          <div class="row article-row">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-20" *ngFor="let article of companyArticles"
+                              [ngClass]="article?.category?.slug">
+                              <div class="item-card item-card-life-and-styles">
+                                <a [routerLink]="['/',article.author.slug,article.slug]">
+                                  <div class="item-card-image">
+                                    <img [src]="replaceImage(article.image.url)" [alt]="article?.image?.alt"
+                                      *ngIf="!(article.image.cloudinary_id); else CateCloudinoryImg">
+                                    <ng-template #CateCloudinoryImg>
+                                      <div class="hide-avatar">
+                                        <app-cloudinary-feature-img [article]="article"></app-cloudinary-feature-img>
+                                      </div>
+                                    </ng-template>
+                                    <h3 class="is-category-title">{{article?.category?.title}}</h3>
+                                    <div class="article-image-icon" *ngIf="article.type==='audio'">
+                                      <i class="fas fa-play"></i>
+                                    </div>
+                                    <div class="article-image-icon" *ngIf="article.type==='video'">
+                                      <i class="fas fa-play"></i>
+                                    </div>
+                                    <div class="article-image-icon"
+                                      *ngIf="!(article.type==='audio' || article.type==='video')">
+                                      <i class="fas fa-angle-right"></i>
+                                    </div>
+                                    <div class="comment-right">
+                                      <div class="article-comment-info">
+                                        <div class="comment-section">
+                                          <ul>
+                                            <li *ngIf="article.view_count">
+                                              <a href="#">
+                                                <i class="fas fa-eye"></i>
+                                                {{article.view_count}}
+                                              </a>
+                                            </li>
+                                            <li *ngIf="article.likes_count">
+                                              <a href="#">
+                                                <i class="fas fa-heart"></i>
+                                                {{article.likes_count}}
+                                              </a>
+                                            </li>
+                                            <li *ngIf="article.comments_count">
+                                              <a href="#">
+                                                <i class="fa fa-comment"></i>
+                                                {{article.comments_count}}
+                                              </a>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="item-card-content">
+                                    <div class="item-card-category  cat-yellow">
+                                      <div class="is-avatar-dv">
+                                        <img class="avatar" [src]="replaceImage(article?.author?.avatar?.url)"
+                                          [alt]="article?.author?.avatar?.alt"
+                                          onerror="this.src='assets/images/default-avatar.png'"
+                                          *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg">
+                                        <ng-template #CateAvatarCloudinoryImg>
+                                          <div class="hide-feature-img">
+                                            <app-cloudinary-img [article]="article">
+                                            </app-cloudinary-img>
+                                          </div>
+                                        </ng-template>
+                                        <span class="item-card-author">{{article?.author?.fullname}}</span>
+                                      </div>
+                                    </div>
+                                    <div class="item-card-title">
+                                      <h4 class="item-long-title">{{article.title}}</h4>
+                                    </div>
+                                    <div class="item-card-texte">
+                                      <p>{{article.excerpt}}</p>
+                                      <div class="category-article-readmore">
+                                        <div *ngIf="article.type==='audio'">
+                                          <button type="button" class="is-read-more">{{'ListenNow' | translate }} <img
+                                              src="assets/images/read-more-icon-black.png" alt="Listen Now" /></button>
+                                        </div>
+                                        <div *ngIf="article.type==='video'">
+                                          <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                                              src="assets/images/read-more-icon-black.png" alt="Watch Now" /></button>
+                                        </div>
+                                        <div *ngIf="!(article.type==='audio' || article.type==='video')">
+                                          <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                                              src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                        </div>
+                                        <div class="article-icon-main">
+                                          <div class="article-icon" *ngIf="article.type==='audio'">
+                                            <i class="fas fa-volume-down"></i>
+                                          </div>
+                                          <div class="article-icon" *ngIf="article.type==='video'">
+                                            <i class="fas fa-video"></i>
+                                          </div>
+                                          <div class="article-icon"
+                                            *ngIf="!(article.type==='audio' || article.type==='video')">
+                                            <i class="far fa-file-alt"></i>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                            </div>
+                            <div *ngIf="lastArticleIndex" class="w-100 mt-2">
+                              <a (click)="loadMoreArticle()" class="load-more-btn"><span>{{'loadMore' |
+                                  translate}}</span></a>
+                              <!-- <nz-spin nzSimple *ngIf="loadingMoreFollowers"></nz-spin> -->
+                            </div>
+                            <div *ngIf="!companyArticles.length" class="m-t-10">
+                              {{'artNoArt' | translate}}
+                            </div>
+                          </div>
+                        </nz-tab>
+                        <nz-tab nzTitle="{{'text' | translate}}" (nzClick)="getTextArticles()">
+                          <div class="row article-row" *ngIf="textArticles.length">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-20" *ngFor="let article of textArticles"
+                              [ngClass]="article?.category?.slug">
+                              <div class="item-card item-card-life-and-styles">
+                                <a [routerLink]="['/',article.author.slug,article.slug]">
+                                  <div class="item-card-image">
+                                    <img [src]="replaceImage(article.image.url)" [alt]="article?.image?.alt"
+                                      *ngIf="!(article.image.cloudinary_id); else CateCloudinoryImg">
+                                    <ng-template #CateCloudinoryImg>
+                                      <div class="hide-avatar">
+                                        <app-cloudinary-feature-img [article]="article"></app-cloudinary-feature-img>
+                                      </div>
+                                    </ng-template>
+                                    <h3 class="is-category-title">{{article?.category?.title}}</h3>
+                                    <div class="article-image-icon" *ngIf="article.type==='audio'">
+                                      <i class="fas fa-play"></i>
+                                    </div>
+                                    <div class="article-image-icon" *ngIf="article.type==='video'">
+                                      <i class="fas fa-play"></i>
+                                    </div>
+                                    <div class="article-image-icon"
+                                      *ngIf="!(article.type==='audio' || article.type==='video')">
+                                      <i class="fas fa-angle-right"></i>
+                                    </div>
+                                    <div class="comment-right">
+                                      <div class="article-comment-info">
+                                        <div class="comment-section">
+                                          <ul>
+                                            <li *ngIf="article.view_count">
+                                              <a href="#">
+                                                <i class="fas fa-eye"></i>
+                                                {{article.view_count}}
+                                              </a>
+                                            </li>
+                                            <li *ngIf="article.likes_count">
+                                              <a href="#">
+                                                <i class="fas fa-heart"></i>
+                                                {{article.likes_count}}
+                                              </a>
+                                            </li>
+                                            <li *ngIf="article.comments_count">
+                                              <a href="#">
+                                                <i class="fa fa-comment"></i>
+                                                {{article.comments_count}}
+                                              </a>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="item-card-content">
+                                    <div class="item-card-category  cat-yellow">
+                                      <div class="is-avatar-dv">
+                                        <div class="overlay-icon">
+                                          <img class="avatar" [src]="replaceImage(article?.author?.avatar?.url)"
+                                            [alt]="article?.author?.avatar?.alt"
+                                            onerror="this.src='assets/images/default-avatar.png'"
+                                            *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg">
+                                          <ng-template #CateAvatarCloudinoryImg>
+                                            <div class="hide-feature-img">
+                                              <app-cloudinary-img [article]="article">
+                                              </app-cloudinary-img>
+                                            </div>
+                                          </ng-template>
+                                          <app-article-avatar [article]="article">
+                                          </app-article-avatar>
+                                        </div>
+                                        <span class="item-card-author">{{article?.author?.fullname}}</span>
+                                      </div>
+                                    </div>
+                                    <div class="item-card-title">
+                                      <h4 class="item-long-title">{{article.title}}</h4>
+                                    </div>
+                                    <div class="item-card-texte">
+                                      <p>{{article.excerpt}}</p>
+                                      <div class="category-article-readmore">
+                                        <div *ngIf="article.type==='audio'">
+                                          <button type="button" class="is-read-more">{{'ListenNow' | translate }} <img
+                                              src="assets/images/read-more-icon-black.png" alt="Listen Now" /></button>
+                                        </div>
+                                        <div *ngIf="article.type==='video'">
+                                          <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                                              src="assets/images/read-more-icon-black.png" alt="Watch Now" /></button>
+                                        </div>
+                                        <div *ngIf="!(article.type==='audio' || article.type==='video')">
+                                          <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                                              src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                        </div>
+                                        <div class="article-icon-main">
+                                          <div class="article-icon" *ngIf="article.type==='audio'">
+                                            <i class="fas fa-volume-down"></i>
+                                          </div>
+                                          <div class="article-icon" *ngIf="article.type==='video'">
+                                            <i class="fas fa-video"></i>
+                                          </div>
+                                          <div class="article-icon"
+                                            *ngIf="!(article.type==='audio' || article.type==='video')">
+                                            <i class="far fa-file-alt"></i>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                            </div>
+                            <div *ngIf="lastArticleIndexOfText" class="w-100 mt-2"> <a (click)="loadMoreTextArticles()"
+                                class="load-more-btn"><span>{{'loadMore' | translate}}</span></a>
+                              <!-- <nz-spin nzSimple *ngIf="loadingMoreFollowers"></nz-spin> -->
+                            </div>
+                          </div>
+                          <div *ngIf="!textArticles.length" class="m-t-10">
+                            {{'NoTextArticle' | translate}}
+                          </div>
+                        </nz-tab>
+
+                        <nz-tab nzTitle="{{'Video' | translate}}" (nzClick)="getVideoArticles()">
+                          <div class="row article-row" *ngIf="videoArticles.length">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-20" *ngFor="let article of videoArticles"
+                              [ngClass]="article?.category?.slug">
+                              <div class="item-card item-card-life-and-styles">
+                                <a [routerLink]="['/',article.author.slug,article.slug]">
+                                  <div class="item-card-image">
+                                    <img [src]="replaceImage(article.image.url)" [alt]="article?.image?.alt"
+                                      *ngIf="!(article.image.cloudinary_id); else CateCloudinoryImg">
+                                    <ng-template #CateCloudinoryImg>
+                                      <div class="hide-avatar">
+                                        <app-cloudinary-feature-img [article]="article"></app-cloudinary-feature-img>
+                                      </div>
+                                    </ng-template>
+                                    <h3 class="is-category-title">{{article?.category?.title}}</h3>
+                                    <div class="article-image-icon" *ngIf="article.type==='audio'">
+                                      <i class="fas fa-play"></i>
+                                    </div>
+                                    <div class="article-image-icon" *ngIf="article.type==='video'">
+                                      <i class="fas fa-play"></i>
+                                    </div>
+                                    <div class="article-image-icon"
+                                      *ngIf="!(article.type==='audio' || article.type==='video')">
+                                      <i class="fas fa-angle-right"></i>
+                                    </div>
+                                    <div class="comment-right">
+                                      <div class="article-comment-info">
+                                        <div class="comment-section">
+                                          <ul>
+                                            <li *ngIf="article.view_count">
+                                              <a href="#">
+                                                <i class="fas fa-eye"></i>
+                                                {{article.view_count}}
+                                              </a>
+                                            </li>
+                                            <li *ngIf="article.likes_count">
+                                              <a href="#">
+                                                <i class="fas fa-heart"></i>
+                                                {{article.likes_count}}
+                                              </a>
+                                            </li>
+                                            <li *ngIf="article.comments_count">
+                                              <a href="#">
+                                                <i class="fa fa-comment"></i>
+                                                {{article.comments_count}}
+                                              </a>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="item-card-content">
+                                    <div class="item-card-category  cat-yellow">
+                                      <div class="is-avatar-dv">
+                                        <img class="avatar" [src]="replaceImage(article?.author?.avatar?.url)"
+                                          [alt]="article?.author?.avatar?.alt"
+                                          onerror="this.src='assets/images/default-avatar.png'"
+                                          *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg">
+                                        <ng-template #CateAvatarCloudinoryImg>
+                                          <div class="hide-feature-img">
+                                            <app-cloudinary-img [article]="article">
+                                            </app-cloudinary-img>
+                                          </div>
+                                        </ng-template>
+                                        <span class="item-card-author">{{article?.author?.fullname}}</span>
+                                      </div>
+                                    </div>
+                                    <div class="item-card-title">
+                                      <h4 class="item-long-title">{{article.title}}</h4>
+                                    </div>
+                                    <div class="item-card-texte">
+                                      <p>{{article.excerpt}}</p>
+                                      <div class="category-article-readmore">
+                                        <div *ngIf="article.type==='audio'">
+                                          <button type="button" class="is-read-more">{{'ListenNow' | translate }} <img
+                                              src="assets/images/read-more-icon-black.png" alt="Listen Now" /></button>
+                                        </div>
+                                        <div *ngIf="article.type==='video'">
+                                          <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                                              src="assets/images/read-more-icon-black.png" alt="Watch Now" /></button>
+                                        </div>
+                                        <div *ngIf="!(article.type==='audio' || article.type==='video')">
+                                          <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                                              src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                        </div>
+                                        <div class="article-icon-main">
+                                          <div class="article-icon" *ngIf="article.type==='audio'">
+                                            <i class="fas fa-volume-down"></i>
+                                          </div>
+                                          <div class="article-icon" *ngIf="article.type==='video'">
+                                            <i class="fas fa-video"></i>
+                                          </div>
+                                          <div class="article-icon"
+                                            *ngIf="!(article.type==='audio' || article.type==='video')">
+                                            <i class="far fa-file-alt"></i>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                            </div>
+                            <div *ngIf="lastArticleIndexOfVideo" class="w-100 mt-2"> <a
+                                (click)="loadMoreVideoArticles()" class="load-more-btn"><span>{{'loadMore' |
+                                  translate}}</span></a>
+                              <!-- <nz-spin nzSimple *ngIf="loadingMoreFollowers"></nz-spin> -->
+                            </div>
+                          </div>
+                          <div *ngIf="!videoArticles.length" class="m-t-10">
+                            {{'NoVideo' | translate}}
+                          </div>
+                        </nz-tab>
+                        <nz-tab nzTitle="{{'Audio' | translate}}" (nzClick)="getAudioArticles()">
+                          <div class="row article-row" *ngIf="audioArticles.length">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-20" *ngFor="let article of audioArticles"
+                              [ngClass]="article?.category?.slug">
+                              <div class="item-card item-card-life-and-styles">
+                                <a [routerLink]="['/',article.author.slug,article.slug]">
+                                  <div class="item-card-image">
+                                    <img [src]="replaceImage(article.image.url)" [alt]="article?.image?.alt"
+                                      *ngIf="!(article.image.cloudinary_id); else CateCloudinoryImg">
+                                    <ng-template #CateCloudinoryImg>
+                                      <div class="hide-avatar">
+                                        <app-cloudinary-feature-img [article]="article"></app-cloudinary-feature-img>
+                                      </div>
+                                    </ng-template>
+                                    <h3 class="is-category-title">{{article?.category?.title}}</h3>
+                                    <div class="article-image-icon" *ngIf="article.type==='audio'">
+                                      <i class="fas fa-play"></i>
+                                    </div>
+                                    <div class="article-image-icon" *ngIf="article.type==='video'">
+                                      <i class="fas fa-play"></i>
+                                    </div>
+                                    <div class="article-image-icon"
+                                      *ngIf="!(article.type==='audio' || article.type==='video')">
+                                      <i class="fas fa-angle-right"></i>
+                                    </div>
+                                    <div class="comment-right">
+                                      <div class="article-comment-info">
+                                        <div class="comment-section">
+                                          <ul>
+                                            <li *ngIf="article.view_count">
+                                              <a href="#">
+                                                <i class="fas fa-eye"></i>
+                                                {{article.view_count}}
+                                              </a>
+                                            </li>
+                                            <li *ngIf="article.likes_count">
+                                              <a href="#">
+                                                <i class="fas fa-heart"></i>
+                                                {{article.likes_count}}
+                                              </a>
+                                            </li>
+                                            <li *ngIf="article.comments_count">
+                                              <a href="#">
+                                                <i class="fa fa-comment"></i>
+                                                {{article.comments_count}}
+                                              </a>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="item-card-content">
+                                    <div class="item-card-category  cat-yellow">
+                                      <div class="is-avatar-dv">
+                                        <div class="overlay-icon">
+                                          <img class="avatar" [src]="replaceImage(article?.author?.avatar?.url)"
+                                            [alt]="article?.author?.avatar?.alt"
+                                            onerror="this.src='assets/images/default-avatar.png'"
+                                            *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg">
+                                          <ng-template #CateAvatarCloudinoryImg>
+                                            <div class="hide-feature-img">
+                                              <app-cloudinary-img [article]="article">
+                                              </app-cloudinary-img>
+                                            </div>
+                                          </ng-template>
+                                          <app-article-avatar [article]="article">
+                                          </app-article-avatar>
+                                        </div>
+                                        <span class="item-card-author">{{article?.author?.fullname}}</span>
+                                      </div>
+                                    </div>
+                                    <div class="item-card-title">
+                                      <h4 class="item-long-title">{{article.title}}</h4>
+                                    </div>
+                                    <div class="item-card-texte">
+                                      <p>{{article.excerpt}}</p>
+                                      <div class="category-article-readmore">
+                                        <div *ngIf="article.type==='audio'">
+                                          <button type="button" class="is-read-more">{{'ListenNow' | translate }} <img
+                                              src="assets/images/read-more-icon-black.png" alt="Listen Now" /></button>
+                                        </div>
+                                        <div *ngIf="article.type==='video'">
+                                          <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                                              src="assets/images/read-more-icon-black.png" alt="Watch Now" /></button>
+                                        </div>
+                                        <div *ngIf="!(article.type==='audio' || article.type==='video')">
+                                          <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                                              src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                        </div>
+                                        <div class="article-icon-main">
+                                          <div class="article-icon" *ngIf="article.type==='audio'">
+                                            <i class="fas fa-volume-down"></i>
+                                          </div>
+                                          <div class="article-icon" *ngIf="article.type==='video'">
+                                            <i class="fas fa-video"></i>
+                                          </div>
+                                          <div class="article-icon"
+                                            *ngIf="!(article.type==='audio' || article.type==='video')">
+                                            <i class="far fa-file-alt"></i>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                            </div>
+                            <div *ngIf="lastArticleIndexOfAudio" class="w-100 mt-2"> <a
+                                (click)="loadMoreAudioArticles()" class="load-more-btn"><span>{{'loadMore' |
+                                  translate}}</span></a>
+                              <!-- <nz-spin nzSimple *ngIf="loadingMoreFollowers"></nz-spin> -->
+                            </div>
+                          </div>
+                          <div *ngIf="!audioArticles.length" class="m-t-10">
+                            {{'NoAudio' | translate}}
+                          </div>
+                        </nz-tab>
+                      </nz-tabset>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="is-right-ad-section">
+        <div class="cmpy-subs-status" 
+          *ngIf="!currentPublicProfileSubscription || currentPublicProfileSubscription?.status != 'active'" 
+          (click)='openCompanySubscription()'
+        >
+          <h5>{{ 'CompanyWebsite' | translate }} : <span class="txt-primary ptr-cursor">N/A</span></h5>
+          <h5>{{ 'CompanyPhone' | translate }} : <span class="txt-primary ptr-cursor">N/A</span></h5>
+        </div>
+        <div class="cmpy-subs-status" *ngIf="currentPublicProfileSubscription && currentPublicProfileSubscription.status == 'active'">
+          <h5 *ngIf="!company.website || company?.website?.length == 0">{{ 'CompanyWebsite' | translate }} : <span class="txt-primary">N/A</span></h5>
+          <h5 *ngIf="company.website && company?.website?.length != 0">
+            {{ 'CompanyWebsite' | translate }} : <a href="{{ company.website }}" target="_blank"> Click Here </a>
+          </h5>
+          <h5>{{ 'CompanyPhone' | translate }} : <a href="tel:{{ company.phone }}">{{ company.phone }}</a></h5>
+        </div>
+        <app-company-lead-form *ngIf="companyId" [companyId]="companyId"></app-company-lead-form>
+      </div>
+    </div>
+  </div>
 
 </section>

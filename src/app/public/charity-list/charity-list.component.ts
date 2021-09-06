@@ -38,7 +38,6 @@ export class CharityListComponent implements OnInit {
     this.config.indexName = this.config.indexName + this.selectedLanguage;
   }
 
-
   isVisible = false;
   isOkLoading = false;
   showModal(): void {

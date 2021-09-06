@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -10,6 +11,9 @@ import { AuthService } from 'src/app/shared/services/authentication.service';
 import { Category } from 'src/app/shared/interfaces/category.type';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { Language } from 'src/app/shared/interfaces/language.type';
+import { Site } from 'src/app/shared/interfaces/ad-network-site.type';
+import { BackofficeAdNetworkService } from 'src/app/backoffice/shared/services/backoffice-ad-network.service';
+import { SiteConstant } from 'src/app/shared/constants/site-constant';
 
 @Component({
   selector: 'app-add-website',
@@ -22,31 +26,71 @@ export class AddWebsiteComponent implements OnInit {
   currentUser: any;
   memberDetails;
   isFormSaving: boolean = false;
+  publisherSites: Array<Site> = [];
   dailyTrafficOptions = [
     {
-      label: "< 1k page view",
-      value: "< 1k page view"
+       text: "< 1k page view",
+       label: "< 1k page view",
+       value: "< 1k page view"
     },
     {
-      label: "1k - 10k page views",
-      value: "1k - 10k page views"
+       text: "1k - 10k page views",
+       label: "1k - 10k page views",
+       value: "1k - 10k page views"
     },
     {
-      label: "10k - 100k page views",
-      value: "10k - 100k page views"
+       text: "10k - 100k page views",
+       label: "10k - 100k page views",
+       value: "10k - 100k page views"
     },
     {
-      label: "100k - 1M page views",
-      value: "100k - 1M page views"
+       text: "100k - 1M page views",
+       label: "100k - 1M page views",
+       value: "100k - 1M page views"
     },
     {
-      label: "> 1M page views",
-      value: "> 1M page views"
+       text: "> 1M page views",
+       label: "> 1M page views",
+       value: "> 1M page views"
+    }
+  ];
+
+  adRevenueOptions = [
+    {
+       text: "< $100/month",
+       label: "< $100/month",
+       value: "< $100/month"
+    },
+    {
+       text: "$100 to $1,000/month",
+       label: "$100 to $1,000/month",
+       value: "$100 to $1,000/month"
+    },
+    {
+       text: "$1,000 to $10,000/month",
+       label: "$1,000 to $10,000/month",
+       value: "$1,000 to $10,000/month"
+    },
+    {
+       text: "$10,000 to $50,000/month",
+       label: "$10,000 to $50,000/month",
+       value: "$10,000 to $50,000/month"
+    },
+    {
+       text: "$50,000 to $100,000/month",
+       label: "$50,000 to $100,000/month",
+       value: "$50,000 to $100,000/month"
+    },
+    {
+       text: "> $100,000/month",
+       label: "> $100,000/month",
+       value: "> $100,000/month"
     }
   ];
   categoryList: Category[] = [];
   languageList: Language[];
   selectedLanguage: string;
+  whatsappSkypeMissingError: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -57,6 +101,8 @@ export class AddWebsiteComponent implements OnInit {
     private _location: Location,
     private userService: UserService,
     private categoryService: CategoryService,
+    private message: NzMessageService,
+    private adNetworkService: BackofficeAdNetworkService
   ) { }
 
   switchLang(lang: string) {
@@ -72,6 +118,7 @@ export class AddWebsiteComponent implements OnInit {
       monthly_traffic: [null, [Validators.required]],
       category: [null, [Validators.required]],
       lang: [null, [Validators.required]],
+      revenue: [null]
     });
 
     this.setFormData();
@@ -81,29 +128,47 @@ export class AddWebsiteComponent implements OnInit {
     this.userService.getCurrentUser().then((user) => {
       this.userService.getMember(user.uid).subscribe((userDetails) => {
         this.currentUser = userDetails;
+
+        this.adNetworkService.getSitesByPublisher(this.currentUser.id).subscribe((data) => {
+          this.publisherSites = data.sites;
+        });
+
+        if(!userDetails.whatsapp || !userDetails.skype) {
+          this.whatsappSkypeMissingError = true;
+        } else {
+          this.whatsappSkypeMissingError = false;
+        }
       });
       
       this.userService.getMember(user.uid).subscribe((memberDetails) => {
-        if(memberDetails?.onboarding_website?.lang) 
-          this.websiteForm.controls['lang'].setValue(memberDetails.onboarding_website.lang);
+        // if(memberDetails?.onboarding_website?.lang) 
+        //   this.websiteForm.controls['lang'].setValue(memberDetails.onboarding_website.lang);
 
-        if(memberDetails?.onboarding_website?.url) 
-          this.websiteForm.controls['url'].setValue(memberDetails.onboarding_website.url);
+        // if(memberDetails?.onboarding_website?.url) 
+        //   this.websiteForm.controls['url'].setValue(memberDetails.onboarding_website.url);
 
-        if(memberDetails?.onboarding_website?.monthly_traffic) 
-          this.websiteForm.controls['monthly_traffic'].setValue(memberDetails.onboarding_website.monthly_traffic);
+        // if(memberDetails?.onboarding_website?.monthly_traffic) 
+        //   this.websiteForm.controls['monthly_traffic'].setValue(memberDetails.onboarding_website.monthly_traffic);
 
 
-        if(memberDetails?.onboarding_website?.category) {
-          this.categoryService.getAll(memberDetails.onboarding_website.lang).subscribe((categoryList) => {
-            this.categoryList = categoryList ? categoryList : [];
-            this.websiteForm.controls['category'].setValue(memberDetails.onboarding_website.category);
-          })
-        }
+        // if(memberDetails?.onboarding_website?.category) {
+        //   this.categoryService.getAll(memberDetails.onboarding_website.lang).subscribe((categoryList) => {
+        //     this.categoryList = categoryList ? categoryList : [];
+        //     this.websiteForm.controls['category'].setValue(memberDetails.onboarding_website.category);
+        //   })
+        // }
 
         this.memberDetails = memberDetails;
       })
     })
+  }
+
+  showMessage(type: string, message: string) {
+    this.message.create(type, message);
+  }
+
+  showContactMissingError() {
+    this.whatsappSkypeMissingError = true;
   }
 
   async submitForm() {
@@ -118,19 +183,44 @@ export class AddWebsiteComponent implements OnInit {
 
     if (this.websiteForm.valid) {
       try {
-        this.isFormSaving = true;
-        const loggedInUser = this.authService.getLoginDetails();
-        if (!loggedInUser)
-          return;
-        await this.userService.updateSpecificDetails(
-          this.currentUser.id,
-          this.websiteForm.value
-        );
-        this.isFormSaving = false;
-        this.goToNext();
+        if(this.publisherSites.some(item => item.url == this.websiteForm.value.url)) {
+          this.showMessage('error', 'Site is already added by you');
+        } else if(!this.currentUser.whatsapp && !this.currentUser.skype) {
+          this.showContactMissingError();
+        } else {
+          this.isFormSaving = true;
+          this.whatsappSkypeMissingError = false;
+
+          let websiteValue = JSON.parse(JSON.stringify(this.websiteForm.value));
+          delete websiteValue.revenue;
+
+          const loggedInUser = this.authService.getLoginDetails();
+          if (!loggedInUser)
+            return;
+
+          await this.userService.updateSpecificDetails(this.currentUser.id, websiteValue);
+
+          websiteValue = JSON.parse(JSON.stringify(this.websiteForm.value));
+          websiteValue['publisher'] = {};
+          websiteValue.publisher['id'] = this.currentUser.id;
+          websiteValue.publisher['type'] = this.currentUser.type;
+          websiteValue.publisher['name'] = this.currentUser.fullname;
+          websiteValue['daily_traffic'] = websiteValue.monthly_traffic;
+          websiteValue['status'] = SiteConstant.IN_PROCESS;
+          delete websiteValue.monthly_traffic;
+
+          this.adNetworkService.addNewSite(this.currentUser.id, websiteValue).then((result: any) => {
+            this.websiteForm.reset();
+            this.showMessage('success', 'Site added successfully');
+            this.isFormSaving = false;
+          }).catch((err) => {
+            this.showMessage('error', err.message);
+            this.isFormSaving = false;
+          });
+
+        }
       } catch (error) {
         this.isFormSaving = false;
-        // console.log(error);
       }
 
     }

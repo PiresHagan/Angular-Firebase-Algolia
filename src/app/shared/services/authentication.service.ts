@@ -52,6 +52,17 @@ export class AuthService {
 
     })
   }
+
+  sendPasswordResetEmail(email) {
+    return new Promise<any>((resolve, reject) => {
+      this.http.post(environment.baseAPIDomain + '/api/v1/auth/forgot-password', {
+        email
+      }).subscribe(async (data) => {
+        resolve(data);
+      }, err => reject(err))
+    })
+  }
+
   get(uid: string): Observable<any> {
     return this.db.doc(`users/${uid}`).valueChanges();
   }

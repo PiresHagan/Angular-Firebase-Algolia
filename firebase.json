@@ -407,10 +407,18 @@
         },
         {
           "source": "**/*.@(js|map|css|json)",
-          "headers": [{
-            "key": "Cache-Control",
-            "value": "max-age=31536000"
-          }]
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "max-age=31536000"
+            }
+          ]
+        },
+        {
+          "source": "**",
+          "headers" : [
+            { "key" : "X-Frame-Options", "value" : "sameorigin" }
+          ]
         }
       ]
     },
@@ -454,10 +462,18 @@
         },
         {
           "source": "**/*.@(js|map|css|json)",
-          "headers": [{
-            "key": "Cache-Control",
-            "value": "max-age=31536000"
-          }]
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "max-age=31536000"
+            }
+          ]
+        },
+        {
+          "source": "**",
+          "headers" : [
+            { "key" : "X-Frame-Options", "value" : "sameorigin" }
+          ]
         }
       ]
     }

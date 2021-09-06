@@ -74,42 +74,16 @@ img{
               padding: 0px;
             }
           }
-        }
-      }
-      .is-main-article-content {
-        width: 700px;
-        padding: 30px;
-        margin-top: -110px;
-        z-index: 1;
-        background: #fff;
-        .company-img{
-          text-align: center;
-          margin: -100px auto auto;
-          position: relative;
-          width: 140px;
-           > img{
-                width: 140px;
-                height: 140px;
-                -o-object-fit: cover;
-                object-fit: cover;
-                border-radius: 100%;
-                border: 3px solid #fff;
-                background-color: white;
-            }
-            .special-icon{
-              position: absolute;
-              top: -10px;
-              right: -10px;
-              width: 50px;
-              height: 50px;
-              background: #000;
-              border: 1px solid #fff;
-              display: flex;
-              border-radius: 100%;
-              img{
-                max-width: 38px;
-                margin: auto;
-              }
+  
+          .item-card-title {
+            h4 {
+              font-family: "josefin_sansregular";
+              font-size: 18px;
+              color: #000000;
+              line-height: 26px;
+              margin-top: 20px;
+              font-weight: 600;
+              word-break: break-word;
             }
         }
         .is-head {
@@ -165,36 +139,47 @@ img{
               font-family: "open_sansregular";
               font-size: 15px;
               font-weight: normal;
-              color: #464444;
-              line-height: 33px;
-              margin-bottom: 0px;
-              word-break: break-all;
-              &.big::first-letter {
-                font-size: 100px;
-                color: #fd6147;
-              }
-              h3{
-                margin: 0px;
-              }
-              h2{
-                margin: 0px;
-                color: #000;
-                font-family: "josefin_sanssemibold";
-                font-size: 22px;
-                margin-top: 30px;
-                display: block;
-              }
-              strong {
-                color: #000;
-                font-family: "josefin_sanssemibold";
-                font-size: 22px;
-                margin-top: 30px;
-                display: block;
-              }
-              &.para-bg {
-                background: #f5f5f5;
-                padding: 20px;
-                border-top: 2px solid #fd6147;
+              color: #535353;
+              line-height: normal;
+              word-break: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            height: 90px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            text-align: justify;
+            }
+            .category-article-readmore{
+              position: absolute;
+              left: 20px;
+              bottom: 20px;
+              width: calc(100% - 40px);
+              display: flex;
+              align-items: center;
+              .is-read-more{
+                  color: #000;
+                  font-size: 18px;
+                  &:before{
+                    background: #000;
+                  }
+                }
+              .article-icon-main{
+                flex: 1;
+                justify-content: flex-end;
+                display: flex;
+                .article-icon {
+                  width: 45px;
+                  height: 45px;
+                  background: #fff;
+                  display: flex;
+                  border-radius: 100%;
+                  i{
+                    color:#000;
+                    font-size: 25px;
+                    margin: auto;
+                  }
+                }
               }
             }
             .feature-sec {

@@ -12,23 +12,32 @@
     <div class="mts-website-content-section">
         <div class="website-banner">
             <img src="assets/images/website.png" alt="Website Banner">
-            <h3>{{'WebsiteOnboarding' | translate}}</h3>
+            <h3>{{'WebsiteOnboardingTitle' | translate}}</h3>
         </div>
         <div class="mts-website-content">
-            <div class="mts-website-avatar">
+            <!-- <div class="mts-website-avatar">
                     <nz-avatar [nzSize]="50" nzIcon="user"></nz-avatar>
                     <h3>{{'AddMTSiconlinksOnboarding' | translate}}</h3>
-            </div>
-            <div nz-row [nzGutter]="50">
+            </div> -->
+            <br />
+            <div nz-row [nzGutter]="50" style="justify-content: center;">
                 <div nz-col class="gutter-row" nzXs="24" nzSm="24" nzMd="12" nzLg="12">
+                    <nz-alert 
+                        class="m-b-10 error-alert"
+                        nzType="error"
+                        nzDescription="{{ 'whatsappSkypeMissing' | translate }}" nzShowIcon
+                        nzCloseText="SHOW"
+                        *ngIf="whatsappSkypeMissingError"
+                        (nzOnClose)="backClicked()">
+                    </nz-alert>
                     <form [formGroup]="websiteForm" (ngSubmit)="submitForm()" nz-form class="website-form">
                         <nz-form-item>
                             <nz-form-control nzErrorTip="{{'EnterweburlOnboarding' | translate}}" class="is-icon">
                                 <input 
                                     formControlName="url" 
-                                    type="text" 
+                                    type="url" 
                                     nz-input
-                                    placeholder="{{'EnterweburlOnboarding' | translate}} *"
+                                    placeholder="https://example.com *"
                                 >
                             </nz-form-control>
                         </nz-form-item>
@@ -38,7 +47,7 @@
                                     class="m-r-10" 
                                     formControlName="lang" 
                                     nzAllowClear 
-                                    nzPlaceHolder="{{'SelectlangOnboarding' | translate}}"
+                                    nzPlaceHolder="{{'SelectlangOnboarding' | translate}} *"
                                     (ngModelChange)="languageSelected($event)"
                                 >
                                     <nz-option 
@@ -54,7 +63,7 @@
                                 <nz-select 
                                     class="m-r-10" 
                                     formControlName="category"
-                                    nzAllowClear nzPlaceHolder="{{'SelectcategoryOnboarding' | translate}}"
+                                    nzAllowClear nzPlaceHolder="{{'SelectcategoryOnboarding' | translate}} *"
                                 >
                                     <nz-option 
                                         *ngFor="let cat of categoryList" 
@@ -77,7 +86,26 @@
                             </nz-form-control>
                         </nz-form-item>
                         <nz-form-item>
+                            <nz-form-control nzErrorTip="{{'SelmonthlyrevenueOnboarding' | translate}}" class="is-icon">
+                                 <nz-select formControlName="revenue" nzPlaceHolder="{{'SelmonthlyrevenueOnboarding' | translate}}">
+                                    <nz-option 
+                                        *ngFor="let revenue of adRevenueOptions" 
+                                        [nzValue]="revenue.value" 
+                                        [nzLabel]="revenue.label">
+                                    </nz-option>
+                                  </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
                             <nz-form-control>
+                                <div class="footer-btn">
+                                    <button [nzLoading]="isFormSaving" class="is-login-btn m-r-10" nz-button nzType="primary">
+                                        Save
+                                    </button>
+                                </div>
+
+                                <hr />
+
                                 <div class="footer-btn">
                                     <a  (click)="backClicked()" class="is-login-btn back-btn">   
                                         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -92,7 +120,7 @@
                                         </svg>
                                         {{'Back' | translate}}
                                     </a>
-                                    <button [nzLoading]="isFormSaving" class="is-login-btn m-r-10" nz-button nzType="primary">
+                                    <button (click)="goToNext()" class="is-login-btn m-r-10" nz-button nzType="primary">
                                         {{'Next' | translate}}
                                         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0)">
@@ -106,16 +134,11 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div class="skip-btn">
-                                    <button (click)="goToNext()" class="is-login-btn" nz-button type='button'>
-                                        {{'Skip' | translate}}
-                                    </button>
-                                </div>
                             </nz-form-control>
                         </nz-form-item>
                     </form>
                 </div>
-                <div nz-col class="gutter-row" nzXs="24" nzSm="24" nzMd="12" nzLg="12">
+                <!-- <div nz-col class="gutter-row" nzXs="24" nzSm="24" nzMd="12" nzLg="12">
                     <div class="mts-badge-btn">
                         <div>
                         <button type="button" class="badge-btn">
@@ -166,7 +189,7 @@
                         </button>
                     </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

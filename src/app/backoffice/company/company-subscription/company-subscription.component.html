@@ -1,30 +1,46 @@
 <div class="container">
     <div class="is-comman-title">Active Subscription</div>
-    <div class="col-12 col-md-4 mb-4 offset-md-4" *ngIf="leadPackageComponent?.currentSubscription">
-        <div class="package-box">
-            <div class="package-img" style="background: url(assets/images/campaign/contributor.jpeg) center center no-repeat;">
-                <div class="package-detail">
-                    <h2>
-                        {{ leadPackageComponent?.currentSubscription?.limit }}
-                        <span>{{'leadsTitle' | translate}}</span>
-                    </h2>
-                    <div class="subscription-date">{{ leadPackageComponent?.currentSubscription?.created_at | date:'medium' }}</div>
-                    <p class="text-green">{{ leadPackageComponent?.currentSubscription?.status | titlecase }}</p>
+    <div class="row text-center">
+
+        <div class="col-4 offset-1" *ngIf="leadPackageComponent?.currentPublicProfileSubscription">
+            <div class="package-box">
+                <div class="package-img" style="background: url(assets/images/campaign/contributor.jpeg) center center no-repeat;">
+                    <div class="package-detail">
+                        <h2>
+                            Company Public Profile Package
+                            <span>Website & Contact Visible</span>
+                        </h2>
+                        <div class="subscription-date">{{ leadPackageComponent?.currentPublicProfileSubscription?.created_at | date:'medium' }}</div>
+                        <p class="text-green">{{ leadPackageComponent?.currentPublicProfileSubscription?.status | titlecase }}</p>
+                    </div>
                 </div>
+                <button nz-button nz-type="default" nzShape="round" class="cancel-btn" (click)="cancelPublicProfilePlan()">
+                    Cancel
+                </button>
             </div>
-            <button nz-button nz-type="default" nzShape="round" class="cancel-btn" (click)="cancelPlan()">
-                Cancel
-            </button>
         </div>
-        <!-- <p>Lead Count Limit : {{ leadPackageComponent?.currentSubscription?.limit }}</p>
-        <p>Subscription Date : {{ leadPackageComponent?.currentSubscription?.created_at | date:'medium' }}</p>
-        <p>Status : {{ leadPackageComponent?.currentSubscription?.status | titlecase }}</p> -->
-        <!-- <button nz-button nz-type="default" nzShape="round" class="cancel-btn" (click)="cancelPlan()">
-            Cancel
-        </button> -->
+
+        <div class="col-4 offset-2" *ngIf="leadPackageComponent?.currentLeadSubscription">
+            <div class="package-box">
+                <div class="package-img" style="background: url(assets/images/campaign/contributor.jpeg) center center no-repeat;">
+                    <div class="package-detail">
+                        <h2>
+                            {{ leadPackageComponent?.currentLeadSubscription?.limit }}
+                            <span>{{'leadsTitle' | translate}}</span>
+                        </h2>
+                        <div class="subscription-date">{{ leadPackageComponent?.currentLeadSubscription?.created_at | date:'medium' }}</div>
+                        <p class="text-green">{{ leadPackageComponent?.currentLeadSubscription?.status | titlecase }}</p>
+                    </div>
+                </div>
+                <button nz-button nz-type="default" nzShape="round" class="cancel-btn" (click)="cancelPlan()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+        
     </div>
     
-    <div *ngIf="!leadPackageComponent?.currentSubscription">
+    <div *ngIf="!leadPackageComponent?.currentLeadSubscription && !leadPackageComponent?.currentPublicProfileSubscription">
         <div class="no-subscription-sec">
             <div>
                 <div class="subs-icon">
@@ -112,10 +128,12 @@
                                    </g>
                                    </svg>
                 </div>
-                <h2>Company does not have monthly lead package subscription.</h2>
+                <h2>Company does not have monthly lead package or monthly public profile package subscription.</h2>
             </div>
         </div>
     </div>
 </div>
+
+<hr />
 
 <app-company-leads-package></app-company-leads-package>

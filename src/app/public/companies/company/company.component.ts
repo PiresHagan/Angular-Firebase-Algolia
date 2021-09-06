@@ -8,6 +8,21 @@ import { Company } from 'src/app/shared/interfaces/company.type';
 import { CompanyService } from 'src/app/shared/services/company.service';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
 import { Router } from '@angular/router';
+import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
+import { Article } from 'src/app/shared/interfaces/article.type';
+import { UserService } from 'src/app/shared/services/user.service';
+import { ArticleService } from 'src/app/shared/services/article.service';
+
+interface PublicProfileSubscription { 
+  created_at: string,
+  customer_id: string,
+  external_id: string,
+  id: string,
+  limit: number,
+  package_id: string,
+  status: string,
+  type: string
+}
 
 @Component({
   selector: 'app-company',
@@ -25,14 +40,23 @@ export class CompanyComponent implements OnInit {
   userDetails: User;
   isVisible = false;
   isOkLoading = false;
-
+  companyArticles: Article[];
+  lastArticleIndex;
+  lastArticleIndexOfAudio;
+  lastArticleIndexOfVideo;
+  lastArticleIndexOfText;
+  currentPublicProfileSubscription: PublicProfileSubscription;
+  audioArticles: Article[] = [];
+  videoArticles: Article[] = [];
+  textArticles: Article[] = [];
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService,
     private langService: LanguageService,
     private companyService: CompanyService,
     private seoService: SeoService,
-    private router: Router
+    private router: Router,
+    public articleService: ArticleService
   ) { }
 
   ngOnInit(): void {
@@ -45,6 +69,17 @@ export class CompanyComponent implements OnInit {
         this.company = data[0];
 
         this.companyId = this.company.id;
+
+        this.companyService.getCompanyPublicProfileSubscription(this.companyId).subscribe((data) => {
+          this.currentPublicProfileSubscription = data[0];
+        });
+    
+
+         // Fetching company article
+        this.articleService.getArticlesByUser(this.companyId,  2, null, this.lastArticleIndex).subscribe((data) => {
+          this.companyArticles = data.articleList;
+          this.lastArticleIndex = data.lastVisible;
+        });
 
         this.setUserDetails();
 

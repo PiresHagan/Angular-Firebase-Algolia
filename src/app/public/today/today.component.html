@@ -124,6 +124,7 @@
             </div>
 
           </div>
+           
           <div class="clearfix"></div>
           <div *ngIf="!todayArticle?.length" class="box-center">
             <nz-result [nzIcon]="'crown'" [nzTitle]="'PublishStories' | translate ">
@@ -132,6 +133,10 @@
               </div>
             </nz-result>
           </div>
+        </div>
+        <div class="text-center mt-4">
+        <nz-pagination [nzPageIndex]="1" [nzTotal]="total_pages" (nzPageIndexChange)=onIndexChange($event)></nz-pagination>
+
         </div>
       </div>
     </div>

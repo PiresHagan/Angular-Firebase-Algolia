@@ -69,22 +69,74 @@
                     </div>
                   </div>
                 </div>
+
+              </a>
                 <div class="item-card-content">
                   <div class="item-card-category cat-yellow">
-                    <div class="is-avatar-dv">
-                      <div class="overlay-icon">
-                        <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
-                          [alt]="article.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
-                          *ngIf="article && !(article?.author?.avatar?.cloudinary_id)">
-                        <ng-container *ngIf="article && (article?.author?.avatar?.cloudinary_id)">
-                          <div class="hide-feature-img">
-                            <app-cloudinary-img [article]="article"></app-cloudinary-img>
-                          </div>
-                        </ng-container>
-                        <app-article-avatar [article]="article"></app-article-avatar>
+                    <a  [routerLink]="['/',article.author.slug]"  *ngIf="!(article.author.type==='company' || article.author.type==='charity' || article.author.type==='fundraiser')">
+                      <div class="is-avatar-dv">
+                        <div class="overlay-icon">
+                          <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                            [alt]="article.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
+                            *ngIf="article && !(article?.author?.avatar?.cloudinary_id)">
+                          <ng-container *ngIf="article && (article?.author?.avatar?.cloudinary_id)">
+                            <div class="hide-feature-img">
+                              <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                            </div>
+                          </ng-container>
+                          <app-article-avatar [article]="article"></app-article-avatar>
+                        </div>
+                        <span class="item-card-author">{{article.author.fullname}}</span>
                       </div>
-                      <span class="item-card-author">{{article.author.fullname}}</span>
-                    </div>
+                    </a>
+                    <a  [routerLink]="['/companies',article.author.slug]"  *ngIf="article.author.type==='company' ">
+                      <div class="is-avatar-dv">
+                        <div class="overlay-icon">
+                          <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                            [alt]="article.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
+                            *ngIf="article && !(article?.author?.avatar?.cloudinary_id)">
+                          <ng-container *ngIf="article && (article?.author?.avatar?.cloudinary_id)">
+                            <div class="hide-feature-img">
+                              <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                            </div>
+                          </ng-container>
+                          <app-article-avatar [article]="article"></app-article-avatar>
+                        </div>
+                        <span class="item-card-author">{{article.author.fullname}}</span>
+                      </div>
+                    </a>
+                    <a  [routerLink]="['/charities',article.author.slug]"  *ngIf="article.author.type==='charity' ">
+                      <div class="is-avatar-dv">
+                        <div class="overlay-icon">
+                          <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                            [alt]="article.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
+                            *ngIf="article && !(article?.author?.avatar?.cloudinary_id)">
+                          <ng-container *ngIf="article && (article?.author?.avatar?.cloudinary_id)">
+                            <div class="hide-feature-img">
+                              <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                            </div>
+                          </ng-container>
+                          <app-article-avatar [article]="article"></app-article-avatar>
+                        </div>
+                        <span class="item-card-author">{{article.author.fullname}}</span>
+                      </div>
+                    </a>
+                    <a  [routerLink]="['/fundraisers',article.author.slug]"  *ngIf="article.author.type==='fundraiser' ">
+                      <div class="is-avatar-dv">
+                        <div class="overlay-icon">
+                          <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                            [alt]="article.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
+                            *ngIf="article && !(article?.author?.avatar?.cloudinary_id)">
+                          <ng-container *ngIf="article && (article?.author?.avatar?.cloudinary_id)">
+                            <div class="hide-feature-img">
+                              <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                            </div>
+                          </ng-container>
+                          <app-article-avatar [article]="article"></app-article-avatar>
+                        </div>
+                        <span class="item-card-author">{{article.author.fullname}}</span>
+                      </div>
+                    </a>
                   </div>
                   <div class="item-card-title">
                     <h4 class="item-long-title">{{article.title}}</h4>
@@ -118,7 +170,7 @@
                     </div>
                   </div>
                 </div>
-              </a>
+             
             </div>
           </div>
           <div class="clearfix"></div>
@@ -202,22 +254,73 @@
                     </div>
                   </div>
                 </div>
+              </a>
                 <div class="item-card-content">
                   <div class="item-card-category cat-yellow">
-                    <div class="is-avatar-dv">
-                      <div class="overlay-icon">
-                        <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
-                          [alt]="article.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
-                          *ngIf="article && !(article?.author?.avatar?.cloudinary_id)">
-                        <ng-container *ngIf="article && (article?.author?.avatar?.cloudinary_id)">
-                          <div class="hide-feature-img">
-                            <app-cloudinary-img [article]="article"></app-cloudinary-img>
-                          </div>
-                        </ng-container>
-                        <app-article-avatar [article]="article"></app-article-avatar>
+                    <a  [routerLink]="['/',article.author.slug]"  *ngIf="!(article.author.type==='company' || article.author.type==='charity' || article.author.type==='fundraiser')">
+                      <div class="is-avatar-dv">
+                        <div class="overlay-icon">
+                          <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                            [alt]="article.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
+                            *ngIf="article && !(article?.author?.avatar?.cloudinary_id)">
+                          <ng-container *ngIf="article && (article?.author?.avatar?.cloudinary_id)">
+                            <div class="hide-feature-img">
+                              <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                            </div>
+                          </ng-container>
+                          <app-article-avatar [article]="article"></app-article-avatar>
+                        </div>
+                        <span class="item-card-author">{{article.author.fullname}}</span>
                       </div>
-                      <span class="item-card-author">{{article.author.fullname}}</span>
-                    </div>
+                    </a>
+                    <a  [routerLink]="['/companies',article.author.slug]"  *ngIf="article.author.type==='company' ">
+                      <div class="is-avatar-dv">
+                        <div class="overlay-icon">
+                          <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                            [alt]="article.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
+                            *ngIf="article && !(article?.author?.avatar?.cloudinary_id)">
+                          <ng-container *ngIf="article && (article?.author?.avatar?.cloudinary_id)">
+                            <div class="hide-feature-img">
+                              <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                            </div>
+                          </ng-container>
+                          <app-article-avatar [article]="article"></app-article-avatar>
+                        </div>
+                        <span class="item-card-author">{{article.author.fullname}}</span>
+                      </div>
+                    </a>
+                    <a  [routerLink]="['/charities',article.author.slug]"  *ngIf="article.author.type==='charity' ">
+                      <div class="is-avatar-dv">
+                        <div class="overlay-icon">
+                          <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                            [alt]="article.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
+                            *ngIf="article && !(article?.author?.avatar?.cloudinary_id)">
+                          <ng-container *ngIf="article && (article?.author?.avatar?.cloudinary_id)">
+                            <div class="hide-feature-img">
+                              <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                            </div>
+                          </ng-container>
+                          <app-article-avatar [article]="article"></app-article-avatar>
+                        </div>
+                        <span class="item-card-author">{{article.author.fullname}}</span>
+                      </div>
+                    </a>
+                    <a  [routerLink]="['/fundraisers',article.author.slug]"  *ngIf="article.author.type==='fundraiser' ">
+                      <div class="is-avatar-dv">
+                        <div class="overlay-icon">
+                          <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                            [alt]="article.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
+                            *ngIf="article && !(article?.author?.avatar?.cloudinary_id)">
+                          <ng-container *ngIf="article && (article?.author?.avatar?.cloudinary_id)">
+                            <div class="hide-feature-img">
+                              <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                            </div>
+                          </ng-container>
+                          <app-article-avatar [article]="article"></app-article-avatar>
+                        </div>
+                        <span class="item-card-author">{{article.author.fullname}}</span>
+                      </div>
+                    </a>
                   </div>
                   <div class="item-card-title">
                     <h4 class="item-long-title">{{article.title}}</h4>
@@ -251,7 +354,6 @@
                     </div>
                   </div>
                 </div>
-              </a>
             </div>
           </div>
           <div class="clearfix"></div>
@@ -335,22 +437,74 @@
                     </div>
                   </div>
                 </div>
+              </a>
                 <div class="item-card-content">
                   <div class="item-card-category cat-yellow">
-                    <div class="is-avatar-dv">
-                      <div class="overlay-icon">
-                        <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
-                          [alt]="article.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
-                          *ngIf="article && !(article?.author?.avatar?.cloudinary_id)">
-                        <ng-container *ngIf="article && (article?.author?.avatar?.cloudinary_id)">
-                          <div class="hide-feature-img">
-                            <app-cloudinary-img [article]="article"></app-cloudinary-img>
-                          </div>
-                        </ng-container>
-                        <app-article-avatar [article]="article"></app-article-avatar>
+                    <a  [routerLink]="['/',article.author.slug]"  *ngIf="!(article.author.type==='company' || article.author.type==='charity' || article.author.type==='fundraiser')">
+                      <div class="is-avatar-dv">
+                        <div class="overlay-icon">
+                          <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                            [alt]="article.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
+                            *ngIf="article && !(article?.author?.avatar?.cloudinary_id)">
+                          <ng-container *ngIf="article && (article?.author?.avatar?.cloudinary_id)">
+                            <div class="hide-feature-img">
+                              <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                            </div>
+                          </ng-container>
+                          <app-article-avatar [article]="article"></app-article-avatar>
+                        </div>
+                        <span class="item-card-author">{{article.author.fullname}}</span>
                       </div>
-                      <span class="item-card-author">{{article.author.fullname}}</span>
-                    </div>
+                    </a>
+                    <a  [routerLink]="['/companies',article.author.slug]"  *ngIf="article.author.type==='company' ">
+                      <div class="is-avatar-dv">
+                        <div class="overlay-icon">
+                          <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                            [alt]="article.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
+                            *ngIf="article && !(article?.author?.avatar?.cloudinary_id)">
+                          <ng-container *ngIf="article && (article?.author?.avatar?.cloudinary_id)">
+                            <div class="hide-feature-img">
+                              <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                            </div>
+                          </ng-container>
+                          <app-article-avatar [article]="article"></app-article-avatar>
+                        </div>
+                        <span class="item-card-author">{{article.author.fullname}}</span>
+                      </div>
+                    </a>
+                    <a  [routerLink]="['/charities',article.author.slug]"  *ngIf="article.author.type==='charity' ">
+                      <div class="is-avatar-dv">
+                        <div class="overlay-icon">
+                          <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                            [alt]="article.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
+                            *ngIf="article && !(article?.author?.avatar?.cloudinary_id)">
+                          <ng-container *ngIf="article && (article?.author?.avatar?.cloudinary_id)">
+                            <div class="hide-feature-img">
+                              <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                            </div>
+                          </ng-container>
+                          <app-article-avatar [article]="article"></app-article-avatar>
+                        </div>
+                        <span class="item-card-author">{{article.author.fullname}}</span>
+                      </div>
+                    </a>
+                    <a  [routerLink]="['/fundraisers',article.author.slug]"  *ngIf="article.author.type==='fundraiser' ">
+                      <div class="is-avatar-dv">
+                        <div class="overlay-icon">
+                          <img class="avatar" [src]="replaceImage(article.author.avatar?.url)"
+                            [alt]="article.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
+                            *ngIf="article && !(article?.author?.avatar?.cloudinary_id)">
+                          <ng-container *ngIf="article && (article?.author?.avatar?.cloudinary_id)">
+                            <div class="hide-feature-img">
+                              <app-cloudinary-img [article]="article"></app-cloudinary-img>
+                            </div>
+                          </ng-container>
+                          <app-article-avatar [article]="article"></app-article-avatar>
+                        </div>
+                        <span class="item-card-author">{{article.author.fullname}}</span>
+                      </div>
+                    </a>
+
                   </div>
                   <div class="item-card-title">
                     <h4 class="item-long-title">{{article.title}}</h4>
@@ -384,7 +538,7 @@
                     </div>
                   </div>
                 </div>
-              </a>
+              
             </div>
           </div>
           <div class="clearfix"></div>

@@ -177,4 +177,19 @@ export class CompanyService {
     }));
   }
 
+  getCompanyPublicProfileSubscription(companyId: string) {
+    let dataQuery = this.db.collection(`${this.subscriptionsCollection}`, ref => ref
+      .where("customer_id", "==", companyId)
+      .where("status", "==", CompanyConstant.STATUS_ACTIVE)
+      .where("type", "==", CompanyConstant.PUBLIC_PROFILE_PACKAGE)
+    );
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data: any = a.payload.doc.data();
+        return data;
+      })
+    }));
+  }
+
+
 }

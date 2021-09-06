@@ -35,6 +35,8 @@ img {
 
 .article-full-img {
   position: relative;
+  height: 400px;
+  
 }
 hr {
   border-top: 1px solid #eee;
@@ -213,19 +215,16 @@ hr {
       background: #fff;
 
       .is-head {
-        h1 {
-          a {
-            span {
-              font-family: "josefin_sanssemibold";
+       
+          h1 {
+            font-family: "josefin_sanssemibold";
 
-              display: block;
-              font-size: 28px;
-
-              line-height: 35px;
-            }
+            display: block;
+            font-size: 28px;
+            color: #ff4020;
+            line-height: 35px;
           }
-        }
-
+       
         .is-small-profile {
           display: flex;
           -webkit-box-align: center;
@@ -1026,6 +1025,10 @@ hr {
   .bottom-ad-container {
     display: none;
   }
+
+  .article-full-img{
+    height: 180px;
+  }
   .article-full-img img {
     height: 180px;
   }
@@ -1064,9 +1067,9 @@ hr {
         .is-content {
           .is-head {
             h1 {
-              span {
+              
                 font-size: 20px;
-              }
+              
             }
 
             .is-small-profile {
@@ -1273,6 +1276,9 @@ hr {
 }
 
 @media screen and (min-width: 581px) and (max-width: 768px) {
+  .article-full-img {
+    height: 250px;
+  }
   .article-full-img img {
     height: 250px;
   }
@@ -1307,9 +1313,9 @@ hr {
         .is-content {
           .is-head {
             h1 {
-              span {
+             
                 font-size: 22px;
-              }
+             
             }
           }
 
@@ -1352,6 +1358,9 @@ hr {
 }
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
+  .article-full-img{
+    height: 330px;
+  }
   .article-full-img img {
     height: 330px;
   }
@@ -1388,9 +1397,9 @@ hr {
         .is-content {
           .is-head {
             h1 {
-              span {
+              
                 font-size: 22px;
-              }
+             
             }
           }
 
@@ -1468,10 +1477,10 @@ hr {
         .is-content {
           .is-head {
             h1 {
-              span {
+            
                 font-size: 24px;
                 text-align: left;
-              }
+              
             }
           }
 
@@ -1546,10 +1555,10 @@ hr {
         .is-content {
           .is-head {
             h1 {
-              span {
+              
                 font-size: 22px;
                 text-align: left;
-              }
+             
             }
           }
 

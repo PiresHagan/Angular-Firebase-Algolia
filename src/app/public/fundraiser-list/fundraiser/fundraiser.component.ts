@@ -48,6 +48,8 @@ export class FundraiserComponent implements OnInit {
   isDonateFormVisible = false;
   isOkLoading = false;
   isVisible = false;
+  isShareVisible: boolean = false;
+  donationList: any[];
 
   constructor(
     private route: ActivatedRoute,
@@ -73,8 +75,11 @@ export class FundraiserComponent implements OnInit {
       this.fundraiserService.getFundraiserBySlug(slug).subscribe(data => {
         this.fundraiser = data[0];
         this.Allfundraisers = data;
-        
         this.fundraiserId = this.fundraiser.id;
+        // Fetching fundraiser donations
+        this.fundraiserService.getAllFundraiserDonation(this.fundraiserId).subscribe(data => {
+          this.donationList = data.donations;
+        })
         this.setUserDetails();
              // Fetching fundraiser article
              this.articleService.getArticlesByUser(this.fundraiserId,  2, null, this.lastArticleIndex).subscribe((data) => {
@@ -117,6 +122,16 @@ export class FundraiserComponent implements OnInit {
       this.setUserDetails();
     });
     
+  }
+
+  replaceImage(url) {
+    let latestURL = url
+    if (url) {
+      latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
+        .replace('http://cdn.mytrendingstories.com/', "https://cdn.mytrendingstories.com/")
+        .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
+    }
+    return latestURL;
   }
 
   loadMoreArticle() {
@@ -186,7 +201,7 @@ export class FundraiserComponent implements OnInit {
     }
   }
 
-  setFollowOrNot() { debugger
+  setFollowOrNot() {
     this.fundraiserService.isUserFollowing(this.fundraiser.id, this.getUserDetails().id).subscribe((data) => {
       setTimeout(() => {
         if (data) {
@@ -259,6 +274,14 @@ export class FundraiserComponent implements OnInit {
 
   hideDonateForm(): void {
     this.isDonateFormVisible = false;
+  }
+
+  showShareModel(): void {
+    this.isShareVisible = true;
+  }
+
+  hideShareModel(): void {
+    this.isShareVisible = false;
   }
 
   showModal(): void {

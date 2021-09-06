@@ -22,14 +22,12 @@ import { FundraiserService } from 'src/app/shared/services/fundraiser.service';
 import { CompanyService } from 'src/app/shared/services/company.service';
 import { CharityService } from 'src/app/shared/services/charity.service';
 import { Fundraiser } from 'src/app/shared/interfaces/fundraiser.type';
-
 @Component({
-  selector: 'app-article',
-  templateUrl: './article.component.html',
-  styleUrls: ['./article.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  selector: 'app-story',
+  templateUrl: './story.component.html',
+  styleUrls: ['./story.component.scss']
 })
-export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class StoryComponent implements OnInit {
   article: Article;
   articleType: string;
   articleLikes: number = 0;
@@ -54,7 +52,6 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   fundraiserAuthor;
   isDonateFormVisible = false;
   topics: string;
-
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
@@ -97,10 +94,10 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
           return;
         }
 
-        if (!params.get('userSlug')) {
-          this.router.navigate(['/', this.article?.author?.slug, this.article?.slug]);
-          return;
-        }
+        // if (!params.get('userSlug')) {
+        //   this.router.navigate(['/', this.article?.author?.slug, this.article?.slug]);
+        //   return;
+        // }
 
         const articleId = this.article.id;
 
@@ -256,6 +253,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
       // console.log('Your suggestion saved successfully.')
     })
   }
+
   getUserDetails() {
     return {
       fullname: this.userDetails.fullname,
@@ -312,7 +310,6 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
     });
   }
   like() {
-
     if (this.isLoggedInUser) {
       this.articleService.like(this.article.id, this.getUserDetails());
 
@@ -487,5 +484,5 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   hideDonateForm(): void {
     this.isDonateFormVisible = false;
   }
-}
 
+}

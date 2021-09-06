@@ -266,7 +266,7 @@
 			  line-height: 26px;
 			  margin-top: 20px;
 			  font-weight: 600;
-			  word-break: break-all;
+			  word-break: break-word;
 			}
 		  }
   
@@ -280,13 +280,14 @@
 			  color: #464444;
 			  line-height: 24px;
 			  padding-bottom: 30px;
-			  word-break: break-all;
+			  word-break: break-word;
 			  display: -webkit-box;
 			  -webkit-line-clamp: 4;
 			  -webkit-box-orient: vertical;
 			  height: 100px;
 			  overflow: hidden;
 			  margin-bottom: 10px;
+			  text-align: justify;
 			}
   
 			.is-read-more {
@@ -469,7 +470,36 @@
 	  }
 	}
   }
+  ::ng-deep .ais-Pagination-list {
+	.ais-Pagination-item {
+	  margin-bottom: 20px;
   
+	  &.ais-Pagination-item--selected {
+		.ais-Pagination-link {
+		  background-color: #ff4121;
+		  border-color: #ff4121;
+		  color: #fff;
+		}
+	  }
+  
+	  .ais-Pagination-link {
+		border-radius: 0px;
+		border-color: #dadada;
+		color: #000;
+		width: 40px;
+		height: 40px;
+		line-height: 29px;
+		text-align: center;
+		color: #000;
+  
+		&:hover {
+		  background-color: #ff4121;
+		  border-color: #ff4121;
+		  color: #fff;
+		}
+	  }
+	}
+  }
   @media screen and (min-width: 1500px) {
 	.container {
 	  width: 1520px;
