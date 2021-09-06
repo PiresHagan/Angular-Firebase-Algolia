@@ -28,24 +28,30 @@
           </a>
         </div>
         <div class="clearfix"></div>
-        <button class="is-login-btn" *ngIf="!isFollowingCategory" [nzLoading]="isUpdatingFollow" (click)="follow()"  nz-button>
-          {{'follow' | translate}}            
+        <button class="is-login-btn" *ngIf="!isFollowingCategory" [nzLoading]="isUpdatingFollow" (click)="follow()"
+          nz-button>
+          {{'follow' | translate}}
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0)">
-              <path d="M12.1136 5.3182H7.68178V0.886379C7.68178 0.397104 7.28469 1.52588e-05 6.79542 1.52588e-05H6.20455C5.71527 1.52588e-05 5.31818 0.397104 5.31818 0.886379V5.3182H0.886364C0.397089 5.3182 0 5.71529 0 6.20456V6.79543C0 7.28471 0.397089 7.6818 0.886364 7.6818H5.31818V12.1136C5.31818 12.6029 5.71527 13 6.20455 13H6.79542C7.28469 13 7.68178 12.6029 7.68178 12.1136V7.6818H12.1136C12.6029 7.6818 13 7.28471 13 6.79543V6.20456C13 5.71529 12.6029 5.3182 12.1136 5.3182Z" fill="white"/>
+              <path
+                d="M12.1136 5.3182H7.68178V0.886379C7.68178 0.397104 7.28469 1.52588e-05 6.79542 1.52588e-05H6.20455C5.71527 1.52588e-05 5.31818 0.397104 5.31818 0.886379V5.3182H0.886364C0.397089 5.3182 0 5.71529 0 6.20456V6.79543C0 7.28471 0.397089 7.6818 0.886364 7.6818H5.31818V12.1136C5.31818 12.6029 5.71527 13 6.20455 13H6.79542C7.28469 13 7.68178 12.6029 7.68178 12.1136V7.6818H12.1136C12.6029 7.6818 13 7.28471 13 6.79543V6.20456C13 5.71529 12.6029 5.3182 12.1136 5.3182Z"
+                fill="white" />
             </g>
             <defs>
               <clipPath id="clip0">
-                <rect width="13" height="13" fill="white"/>
+                <rect width="13" height="13" fill="white" />
               </clipPath>
             </defs>
           </svg>
         </button>
-        <button class="is-login-btn" *ngIf="isFollowingCategory" [nzLoading]="isUpdatingFollow" (click)="unfollow()" nz-button>
-            {{'unFollow' | translate}}               
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12.1136 5.31818H7.68178H4.68998C4.68998 4.82891 11.6173 10.7342 8.9127 5.41598L1.80202 5.31818L5.5 5.5C5.01073 5.5 11.4527 9.87773 12 5.5L5.31818 5.31818H0.886364C0.397089 5.31818 0 5.71527 0 6.20455V6.79542C0 7.28469 0.397089 7.68178 0.886364 7.68178H5.31818C6.375 7.68178 6.29815 7.68178 6.78743 7.68178H5.31818C5.80746 7.68178 6.5 7.68178 6.78743 7.68178H7.68178H12.1136C12.6029 7.68178 13 7.28469 13 6.79542V6.20455C13 5.71527 12.6029 5.31818 12.1136 5.31818Z" fill="white"/>
-            </svg>
+        <button class="is-login-btn" *ngIf="isFollowingCategory" [nzLoading]="isUpdatingFollow" (click)="unfollow()"
+          nz-button>
+          {{'unFollow' | translate}}
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12.1136 5.31818H7.68178H4.68998C4.68998 4.82891 11.6173 10.7342 8.9127 5.41598L1.80202 5.31818L5.5 5.5C5.01073 5.5 11.4527 9.87773 12 5.5L5.31818 5.31818H0.886364C0.397089 5.31818 0 5.71527 0 6.20455V6.79542C0 7.28469 0.397089 7.68178 0.886364 7.68178H5.31818C6.375 7.68178 6.29815 7.68178 6.78743 7.68178H5.31818C5.80746 7.68178 6.5 7.68178 6.78743 7.68178H7.68178H12.1136C12.6029 7.68178 13 7.28469 13 6.79542V6.20455C13 5.71527 12.6029 5.31818 12.1136 5.31818Z"
+              fill="white" />
+          </svg>
         </button>
       </div>
 
@@ -103,12 +109,12 @@
                         <div class="item-card-image">
 
                           <img [src]="replaceImage(article?.image?.url)" [alt]="article?.image?.alt"
-                            *ngIf="!(article.image.cloudinary_id); else CateCloudinoryImg">
-                          <ng-template #CateCloudinoryImg>
+                            *ngIf="!article?.image?.cloudinary_id">
+                          <ng-container *ngIf="article.image.cloudinary_id">
                             <div class="hide-avatar">
                               <app-cloudinary-feature-img [article]="article"></app-cloudinary-feature-img>
                             </div>
-                          </ng-template>
+                          </ng-container>
                           <h3 class="is-category-title" *ngIf="category.title === 'City'">{{category.title}}</h3>
                           <h3 class="is-category-title" *ngIf="!(category.title === 'City')">{{pageHeader}}</h3>
                           <div class="article-image-icon" *ngIf="article.type==='audio'">
