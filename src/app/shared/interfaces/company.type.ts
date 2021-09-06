@@ -24,4 +24,5 @@ export interface Company {
     updated_at: string,
     type?: string,
     stripe_status?: string,
+    status?: string,
 }
