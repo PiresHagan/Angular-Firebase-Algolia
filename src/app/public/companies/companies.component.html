@@ -9,28 +9,30 @@
                         <ng-template let-hits="hits">
                             <div class="row">
                                 <div *ngFor="let company of hits" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                    <a [routerLink]="['/companies',company.slug]">
-                                        <div class="companies-box-item">
-                                            <div>
-                                                <img [src]="company?.logo?.url" [alt]="company?.logo?.alt"
-                                                    onerror="this.src='assets/images/default-avatar.png'"
-                                                    *ngIf="!(company.logo.cloudinary_id); else CompaniesCloudinaryImg" />
-                                                <ng-template #CompaniesCloudinaryImg>
-                                                    <cl-image loading="lazy" public-id="{{company.logo.cloudinary_id}}"
-                                                        secure="true">
-                                                        <cl-transformation width="70" height="70" gravity="face" crop="thumb">
-                                                        </cl-transformation>
-                                                    </cl-image>
-                                                </ng-template>
-                                                <h2 [ngStyle]="{'color': company?.color_code}">{{ company?.name }}</h2>
-                                                <p>{{ company?.bio }}</p>
-                                                <button type="button" class="is-read-more">
-                                                    {{'readMore' | translate }} <img src="assets/images/read-more-icon-black.png"
-                                                        alt="Read More" />
-                                                </button>
+                                    <div *ngIf="company?.status != 'unverified'">
+                                        <a [routerLink]="['/companies',company.slug]">
+                                            <div class="companies-box-item">
+                                                <div>
+                                                    <img [src]="company?.logo?.url" [alt]="company?.logo?.alt"
+                                                        onerror="this.src='assets/images/default-avatar.png'"
+                                                        *ngIf="!(company.logo.cloudinary_id); else CompaniesCloudinaryImg" />
+                                                    <ng-template #CompaniesCloudinaryImg>
+                                                        <cl-image loading="lazy" public-id="{{company.logo.cloudinary_id}}"
+                                                            secure="true">
+                                                            <cl-transformation width="70" height="70" gravity="face" crop="thumb">
+                                                            </cl-transformation>
+                                                        </cl-image>
+                                                    </ng-template>
+                                                    <h2 [ngStyle]="{'color': company?.color_code}">{{ company?.name }}</h2>
+                                                    <p>{{ company?.bio }}</p>
+                                                    <button type="button" class="is-read-more">
+                                                        {{'readMore' | translate }} <img src="assets/images/read-more-icon-black.png"
+                                                            alt="Read More" />
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
 
