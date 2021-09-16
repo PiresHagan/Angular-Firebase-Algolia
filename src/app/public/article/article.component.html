@@ -373,8 +373,11 @@
             </div>
             <div *ngIf="articleType === TEXT" class="is-paragraph">
               <div class="big" *ngFor="let item of articleAds; trackBy:trackByArticleAdFn">
-                <span [ngClass]="{'not-active': article.author.type === 'company'}" [innerHTML]="item.elem"></span>
-
+                <!-- <span [ngClass]="{'not-active': article.author.type === 'company'}" [innerHTML]="item.elem"></span> -->
+                <div class="ql-container ql-snow" style="border-width: 0;">
+                  <div class="ql-editor big" [innerHTML]="article?.content">
+                  </div>
+                </div>
                 <ng-container *ngIf="item.insertAd">
                   <div style="margin: 10px auto;">
                     <div class="desktop_ad" 
