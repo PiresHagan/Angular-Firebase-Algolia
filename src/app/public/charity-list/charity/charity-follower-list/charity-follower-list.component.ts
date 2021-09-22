@@ -13,7 +13,7 @@ export class CharityFollowerListComponent implements OnInit {
   followers: any = [];
   loadingMoreFollowers: boolean = false;
   lastVisibleFollower;
-  followersCount: any[];
+  followersCount: number;
 
   constructor(
     private charityService: CharityService
@@ -24,14 +24,15 @@ export class CharityFollowerListComponent implements OnInit {
   }
 
   getCharityFollowers() {
+    this.charityService.getAllFollowers(this.charityId).subscribe((data) => {
+      this.loadingMoreFollowers = false;
+      this.followersCount = data.followers.length;
+    });
+
     this.charityService.getFollowers(this.charityId, 14, null, this.lastVisibleFollower).subscribe((data) => {
       this.loadingMoreFollowers = false;
       this.followers = data.followers;
       this.lastVisibleFollower = data.lastVisible;
-    });
-    this.charityService.getFollowersCount(this.charityId, null, this.lastVisibleFollower).subscribe((data) => {
-      this.loadingMoreFollowers = false;
-      this.followersCount = data.followers;
     });
   }
 
