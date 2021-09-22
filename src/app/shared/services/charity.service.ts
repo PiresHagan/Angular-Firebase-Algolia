@@ -162,4 +162,26 @@ export class CharityService {
     );
   }
 
+  getFollowersCount(charityId, navigation: string = "first", lastVisible = null) {
+    let dataQuery = this.db.collection(this.charitiesCollection).doc(charityId).collection(`${this.followersSubCollection}`, ref => ref
+    )
+    switch (navigation) {
+      case 'next':
+        dataQuery = this.db.collection(this.charitiesCollection).doc(charityId).collection(`${this.followersSubCollection}`, ref => ref
+          .startAfter(lastVisible))
+        break;
+    }
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        followers: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      }
+    })
+    );
+  }
+
 }
