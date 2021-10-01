@@ -294,4 +294,9 @@ export class CategoryComponent implements OnInit {
     this.isVisible = false;
   }
 
+  ngOnDestroy() {
+    const el = document.querySelector('.ant-menu-item-selected');
+    el.classList.remove("ant-menu-item-selected");
+  }
+
 }
