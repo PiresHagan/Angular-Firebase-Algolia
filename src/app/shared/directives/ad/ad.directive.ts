@@ -4,6 +4,12 @@ import { delay, take } from 'rxjs/operators';
 
 declare const $: any;
 
+export interface AdItemData {
+  id: string;
+  slot?: string;
+  size?: number[];
+}
+
 @Directive({
   selector: '[adItem]'
 })
@@ -11,16 +17,13 @@ export class AdDirective implements OnInit, AfterViewInit {
   @Input() id: string;
   @Input() type: 'gtag' | 'playwire';
   @Input() adUnit: string;
+  @Input() pointer: string;
 
   constructor(
     private element: ElementRef,
   ) { }
 
-  ngOnInit(): void {
-    if (!this.id) {
-      throw Error('Ad item ID must be specified');
-    }
-  }
+  ngOnInit(): void { }
 
   ngAfterViewInit() {
     if (this.type === 'playwire') {
@@ -30,7 +33,7 @@ export class AdDirective implements OnInit, AfterViewInit {
         const googletag = window['googletag'];
 
         googletag.cmd.push(() => {
-          googletag.display(this.id);
+          googletag.display(this.pointer);
           googletag.pubads().refresh();
         });
       });

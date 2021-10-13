@@ -42,6 +42,8 @@
           }
         ]).then(() => {
           console.log('Units created ...');
+
+          window.tyche.displayUnits();
         }).catch((e) => {
           // catch errors
           console.log(e);
