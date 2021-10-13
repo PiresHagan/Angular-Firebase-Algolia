@@ -11,7 +11,7 @@
 <body>
   <h1>Playwire Test Ads for MTS</h1>
 
-  <div id="sidebar-med-rect-atf"></div>
+  <div id="sidebar-med-rect-atf" style="height: 500px; width: 500px; background-color: green;"></div>
   <div style="height: 100px;"></div>
   <div id="sidebar-med-rect-btf"></div>
 
@@ -24,30 +24,30 @@
       onReady: () => {
         console.log('Playwire is initializeed');
         console.log(tyche);
-
-        window.tyche.addUnits([
-          {   // Tagged unit requires container
-            // HTML elemment ID ie. - element#id 
-            selectorId: 'sidebar-med-rect-atf',
-            // Tagged unit types - med_rect_atf, med_rect_btf, 
-            // leaderboard_atf, leaderboard_btf, sky_atf, sky_btf
-            type: 'med_rect_atf'
-          },
-          {
-            selectorId: 'sidebar-med-rect-btf',
-            type: 'med_rect_btf'
-          },
-          {
-            type: 'bottom_rail'
-          }
-        ]).then(() => {
-          console.log('Units created ...');
-        }).catch((e) => {
-          // catch errors
-          console.log(e);
-        });
       }
     };
+
+    window.tyche.addUnits([
+      {   // Tagged unit requires container
+        // HTML elemment ID ie. - element#id 
+        selectorId: 'sidebar-med-rect-atf',
+        // Tagged unit types - med_rect_atf, med_rect_btf, 
+        // leaderboard_atf, leaderboard_btf, sky_atf, sky_btf
+        type: 'med_rect_atf'
+      },
+      {
+        selectorId: 'sidebar-med-rect-btf',
+        type: 'med_rect_btf'
+      },
+      {
+        type: 'bottom_rail'
+      }
+    ]).then(() => {
+      console.log('Units created ...');
+    }).catch((e) => {
+      // catch errors
+      console.log(e);
+    });
   </script>
 
   <script id="tyche" src="https://cdn.intergi.com/hera/tyche.js" type="text/javascript">
