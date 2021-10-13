@@ -373,7 +373,7 @@
             </div>
             <div *ngIf="articleType === TEXT" class="is-paragraph big">
               <div class="ql-container ql-snow" style="border-width: 0;">
-                <div class="ql-editor big" [innerHTML]="article?.content">
+                <div class="ql-editor big" [ngClass]="{'not-active': article.author.type === 'company'}" [innerHTML]="article?.content">
                 </div>
               </div>
               <div class="big" *ngFor="let item of articleAds; trackBy:trackByArticleAdFn">

@@ -84,9 +84,9 @@ export class ProfileComponent implements OnInit {
 
         this.seoService.updateMetaTags({
           title: this.authorDetails.fullname,
-          description: this.authorDetails[`biography_${this.authorDetails?.lang}`]?.substring(0, 154),
+          description: this.authorDetails[`biography_${this.authorDetails?.lang}`]?.substring(0, 154) || this.authorDetails?.bio?.substring(0, 154),
           keywords: this.authorDetails.fullname,
-          summary: this.authorDetails[`biography_${this.authorDetails?.lang}`],
+          summary: this.authorDetails[`biography_${this.authorDetails?.lang}`] || this.authorDetails?.bio?.substring(0, 154),
           type: this.authorDetails?.type,
           image: { url: this.authorDetails?.avatar?.url }
         });
