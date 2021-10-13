@@ -310,7 +310,6 @@
                                         </div>
                                       </div>
                                     </nz-tab>
-                                    
                                     <nz-tab nzTitle="{{'text' | translate}}" (nzClick)="getTextArticles()">
                                        <div class="row article-row">
                                           <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-20" *ngFor="let article of textArticles"
@@ -433,7 +432,7 @@
                                       <div class="row article-row">
                                           <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-20" *ngFor="let article of videoArticles"
                                           [ngClass]="article?.category?.slug">
-                                             <div class="item-card item-card-life-and-styles">
+                                              <div class="item-card item-card-life-and-styles">
                                                 <a [routerLink]="['/',article.author.slug,article.slug]">
                                                   <div class="item-card-image">
                                                     <img [src]="replaceImage(article.image.url)" [alt]="article?.image?.alt"
@@ -533,11 +532,11 @@
                                                     </div>
                                                   </div>
                                                 </a>
-                                             </div>
+                                              </div>
                                           </div>
                                         <div *ngIf="lastArticleIndexOfVideo" class="w-100 mt-2"> <a (click)="loadMoreVideoArticles()"
                                             class="load-more-btn"><span>{{'loadMore' | translate}}</span></a>
-                                         
+                                          
                                         </div>
                                       </div>
                                       <div *ngIf="!videoArticles?.length" class="m-t-10">

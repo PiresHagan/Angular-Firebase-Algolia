@@ -185,6 +185,9 @@ hr {
             margin-bottom: 0px;
             word-break: break-word;
             text-align: justify;
+            img{
+              max-width: 100%;
+            }
             &.big{
               padding-top: 20px;
             }

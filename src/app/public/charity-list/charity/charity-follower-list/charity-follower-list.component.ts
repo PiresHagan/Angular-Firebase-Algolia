@@ -13,6 +13,7 @@ export class CharityFollowerListComponent implements OnInit {
   followers: any = [];
   loadingMoreFollowers: boolean = false;
   lastVisibleFollower;
+  followersCount: number;
 
   constructor(
     private charityService: CharityService
@@ -23,6 +24,11 @@ export class CharityFollowerListComponent implements OnInit {
   }
 
   getCharityFollowers() {
+    this.charityService.getAllFollowers(this.charityId).subscribe((data) => {
+      this.loadingMoreFollowers = false;
+      this.followersCount = data.followers.length;
+    });
+
     this.charityService.getFollowers(this.charityId, 14, null, this.lastVisibleFollower).subscribe((data) => {
       this.loadingMoreFollowers = false;
       this.followers = data.followers;
@@ -52,13 +58,11 @@ export class CharityFollowerListComponent implements OnInit {
     return resArr;
   }
 
-
   replaceImage(url) {
     let latestURL = url
     if (url) {
-      latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
-        .replace('https://cdn.mytrendingstories.com/', "https://assets.mytrendingstories.com/")
-        .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
+      latestURL = latestURL.replace('http://cdn.mytrendingstories.com/', 'https://cdn.mytrendingstories.com/')
+        .replace('https://abc2020new.com/', 'https://assets.mytrendingstories.com/');
     }
     return latestURL;
   }
