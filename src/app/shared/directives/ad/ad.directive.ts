@@ -1,84 +1,92 @@
 import { AfterViewInit, Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 
 declare const $: any;
-
-export interface AdItemData {
-  id: string;
-  slot?: string;
-  size?: number[];
-}
 
 @Directive({
   selector: '[adItem]'
 })
 export class AdDirective implements OnInit, AfterViewInit {
-  @Input() pointer: string;
-  @Input() author: string;
+  @Input() id: string;
+  @Input() type: 'gtag' | 'playwire';
+  @Input() adUnit: string;
 
   constructor(
     private element: ElementRef,
   ) { }
 
   ngOnInit(): void {
-    if (!this.pointer) {
+    if (!this.id) {
       throw Error('Ad item ID must be specified');
     }
   }
 
   ngAfterViewInit() {
-    let adConfig = environment.showAds;
-    if(
-      adConfig.onArticlePage || 
-      adConfig.onCategoryPage || 
-      adConfig.onCharityPage || 
-      adConfig.onCompanyPage || 
-      adConfig.onFundraiserPage ||
-      adConfig.onHomePage
-    ) {
-      // sets ID attr in case it was escaped
-      this.element.nativeElement.setAttribute('id', this.pointer);
-  
+    if (this.type === 'playwire') {
+      this.checkPlaywireAdScript(this.displayPlaywireAd.bind(this));
+    } else {
       this.checkAdScript(() => {
-        this.insertAd();
+        const googletag = window['googletag'];
+
+        googletag.cmd.push(() => {
+          googletag.display(this.id);
+          googletag.pubads().refresh();
+        });
       });
     }
   }
 
-  private insertAd(): void {
-    const googletag = window['googletag'];
+  private displayPlaywireAd(): void {
+    const tyche = window['tyche'];
 
-    googletag.cmd.push(() => {
-      const allGoogleAdSlots: { ref: any, data: AdItemData }[] = window['allGoogleAdSlots'];
-      const slot = allGoogleAdSlots.find(item => item.data.id === this.pointer);
+    tyche.addUnits([
+      {
+        // HTML elemment ID ie. - element#id 
+        selectorId: this.id,
+        // Tagged unit types - med_rect_atf, med_rect_btf, 
+        // leaderboard_atf, leaderboard_btf, sky_atf, sky_btf
+        type: this.adUnit || 'med_rect_atf'
+      },
+      // {
+      //   type: 'bottom_rail'
+      // },
+    ]).then(() => {
+      this.delay(500).subscribe(() => {
+        tyche.displayUnits();
+      });
 
-      if (slot) {
-        if(this.author){
-          googletag.pubads().setTargeting("author", this.author);
-          // console.log('Author key pair', googletag.pubads().getTargeting('author'));
-          
-        }
-        googletag.display(this.pointer);
-        googletag.pubads().refresh([slot.ref]);
-      } else {
-        // console.log(`Slot was not found for ${this.pointer}`);
-        // console.log(allGoogleAdSlots);
-      }
+      console.log(`Displaying ${this.id} ad units`);
+    }).catch((e) => {
+      // catch errors
+      console.log(e);
     });
   }
 
   private checkAdScript(cb: Function) {
     const script = window['googletag'];
 
-    if (script && script.apiReady && window['allGoogleAdSlots']) {
-      this.delay(1000).subscribe(() => {
+    if (script && script.apiReady) {
+      this.delay(100).subscribe(() => {
         cb();
       });
     } else {
       this.delay(500).subscribe(() => {
         this.checkAdScript(cb);
+      });
+    }
+  }
+
+  private checkPlaywireAdScript(cb: Function) {
+    const script = window['tyche'];
+
+    if (script && script.initialized) {
+      this.delay(100).subscribe(() => {
+        cb();
+      });
+    } else {
+      this.delay(500).subscribe(() => {
+        this.checkPlaywireAdScript(cb);
       });
     }
   }

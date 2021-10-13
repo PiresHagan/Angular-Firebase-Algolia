@@ -5,6 +5,18 @@
     fetch(jquerySrc).then(res => res.text()).then(res => {
       eval(res);
 
+      // playwire tyche ads config
+      window.tyche = {
+        mode: 'tyche',
+        // test config NOT to be used in production
+        config: '//config.playwire.com/1024452/v2/websites/73198/banner.json',
+        passiveMode: true, // sets passiveMode to active
+        onReady: () => {
+          window.tyche.initialized = true;
+          console.log('Playwire ads scripts are loaded and ready to display ads');
+        }
+      };
+
       // asynchronously loads other scripts to prevent page slowing down
       const scripts = [
         'assets/lib/hljs/highlight.pack.js',
@@ -12,6 +24,7 @@
         '//app.leadfox.co/js/api/leadfox.js',
         'https://securepubads.g.doubleclick.net/tag/js/gpt.js',
         'https://adxbid.info/mytrendingstories.js',
+        '//cdn.intergi.com/hera/tyche.js',
       ];
 
       setTimeout(() => {
