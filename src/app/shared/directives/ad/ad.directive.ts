@@ -1,6 +1,7 @@
 import { AfterViewInit, Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 declare const $: any;
 
@@ -18,6 +19,7 @@ export class AdDirective implements OnInit, AfterViewInit {
   @Input() type: 'gtag' | 'playwire';
   @Input() adUnit: string;
   @Input() pointer: string;
+  @Input() author: string;
 
   constructor(
     private element: ElementRef,
@@ -26,18 +28,48 @@ export class AdDirective implements OnInit, AfterViewInit {
   ngOnInit(): void { }
 
   ngAfterViewInit() {
-    if (this.type === 'playwire') {
-      this.checkPlaywireAdScript(this.displayPlaywireAd.bind(this));
-    } else {
-      this.checkAdScript(() => {
-        const googletag = window['googletag'];
+    let adConfig = environment.showAds;
+    if (
+      adConfig.onArticlePage ||
+      adConfig.onCategoryPage ||
+      adConfig.onCharityPage ||
+      adConfig.onCompanyPage ||
+      adConfig.onFundraiserPage ||
+      adConfig.onHomePage
+    ) {
+      if (this.type === 'playwire') {
+        this.checkPlaywireAdScript(this.displayPlaywireAd.bind(this));
+      } else {
+        // sets ID attr in case it was escaped
+        this.element.nativeElement.setAttribute('id', this.pointer);
 
-        googletag.cmd.push(() => {
-          googletag.display(this.pointer);
-          googletag.pubads().refresh();
+        this.checkAdScript(() => {
+          this.insertGTagAd();
         });
-      });
+      }
     }
+  }
+
+  private insertGTagAd(): void {
+    const googletag = window['googletag'];
+
+    googletag.cmd.push(() => {
+      const allGoogleAdSlots: { ref: any, data: AdItemData }[] = window['allGoogleAdSlots'];
+      const slot = allGoogleAdSlots.find(item => item.data.id === this.pointer);
+
+      if (slot) {
+        if (this.author) {
+          googletag.pubads().setTargeting("author", this.author);
+          // console.log('Author key pair', googletag.pubads().getTargeting('author'));
+
+        }
+        googletag.display(this.pointer);
+        googletag.pubads().refresh([slot.ref]);
+      } else {
+        // console.log(`Slot was not found for ${this.pointer}`);
+        // console.log(allGoogleAdSlots);
+      }
+    });
   }
 
   private displayPlaywireAd(): void {
@@ -57,6 +89,8 @@ export class AdDirective implements OnInit, AfterViewInit {
       });
 
       console.log(`Displaying ${this.id} ad units`);
+
+      console.log(tyche.getUnits());
     }).catch((e) => {
       // catch errors
       console.log(e);
