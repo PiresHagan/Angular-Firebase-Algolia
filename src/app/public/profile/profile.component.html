@@ -18,7 +18,7 @@
               Stories</a></span>
         </h1>
         <p class="is-author-description"
-          innerHTML="{{authorDetails?.biography_en || authorDetails?.biography_es || authorDetails?.biography_fr}}">
+          innerHTML="{{ authorDetails?.bio || authorDetails?.biography_en || authorDetails?.biography_es || authorDetails?.biography_fr}}">
         </p>
         <!-- <p style="color:#ff4020; font-style: italic;" *ngIf="selectedLang!=authorDetails?.lang">
                 {{'disclaimer' | translate}}</p> -->
