@@ -42,10 +42,7 @@ export class AdDirective implements OnInit, AfterViewInit {
 
     tyche.addUnits([
       {
-        // HTML elemment ID ie. - element#id 
         selectorId: this.id,
-        // Tagged unit types - med_rect_atf, med_rect_btf, 
-        // leaderboard_atf, leaderboard_btf, sky_atf, sky_btf
         type: this.adUnit || 'med_rect_atf'
       },
       // {
