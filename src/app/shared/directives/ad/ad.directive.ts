@@ -38,6 +38,8 @@ export class AdDirective implements OnInit, AfterViewInit {
       adConfig.onHomePage
     ) {
       if (this.type === 'playwire') {
+        console.log('THis is playwire ad script...');
+
         this.checkPlaywireAdScript(this.displayPlaywireAd.bind(this));
       } else {
         // sets ID attr in case it was escaped

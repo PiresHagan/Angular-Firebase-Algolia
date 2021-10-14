@@ -52,7 +52,6 @@
   <meta property="og:locale" content="en_US">
   <meta property="og:type" content="website">
   <meta property="fb:pages" content="1537454709805166" />
-  <script type="text/javascript" src="assets/lib/async-script-loader.js"></script>
 </head>
 
 <body>
@@ -62,62 +61,7 @@
   <link rel="preload" type="text/css" href="assets/css/algolia.css" as="style">
   <link rel="preload" type="text/css" href="assets/css/reset.css" as="style">
 
-  <!-- <div id="sidebar-med-rect-atf"></div>
-  <div style="height: 100px;"></div>
-  <div id="sidebar-med-rect-btf"></div> -->
-
-  <script type="text/javascript">
-    var tyche = {
-      mode: "tyche",
-      // config: "https://config.playwire.com/1024452/v2/websites/73198/banner.json",
-      config: '//config.playwire.com/1023264/v2/websites/71249/banner.json',
-      passiveMode: true, // sets passiveMode to active
-      onReady: () => {
-        window.tyche.initialized = true;
-        console.log('Playwire is initializeed');
-        console.log(tyche);
-
-        // window.tyche.addUnits([
-        //   {   // Tagged unit requires container
-        //     // HTML elemment ID ie. - element#id 
-        //     selectorId: 'sidebar-med-rect-atf',
-        //     // Tagged unit types - med_rect_atf, med_rect_btf, 
-        //     // leaderboard_atf, leaderboard_btf, sky_atf, sky_btf
-        //     type: 'med_rect_atf'
-        //   },
-        //   {
-        //     selectorId: 'sidebar-med-rect-btf',
-        //     type: 'med_rect_btf'
-        //   },
-        //   {
-        //     type: 'bottom_rail'
-        //   }
-        // ]).then(() => {
-        //   console.log('Units created ...');
-
-        //   window.tyche.displayUnits();
-        // }).catch((e) => {
-        //   // catch errors
-        //   console.log(e);
-        // });
-      }
-    };
-  </script>
-
-  <script id="tyche" src="//cdn.intergi.com/hera/tyche.js" type="text/javascript">
-  </script>
-
-  <script>
-    window.resfreshAds = () => {
-      window.tyche.displayUnits();
-
-      console.log('Displayed...');
-    }
-
-    console.log(window);
-  </script>
-
-  <button onclick="resfreshAds()">Refresh display</button>
+  <script type="text/javascript" src="assets/lib/async-script-loader.js" async></script>
 </body>
 
 </html>
