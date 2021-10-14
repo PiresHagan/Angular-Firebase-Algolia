@@ -41,6 +41,8 @@
             // catch errors
             console.log(e);
           });
+
+          console.log(window);
         }
       };
 
@@ -59,7 +61,7 @@
           const script = document.createElement('script');
           script.src = src;
           script.type = 'text/javascript';
-          script.async = 'true';
+          // script.async = 'true';
 
           document.body.appendChild(script);
         });
