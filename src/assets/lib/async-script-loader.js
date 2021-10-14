@@ -3,6 +3,14 @@
   console.log(jquerySrc);
 
   window.addEventListener('load', function () {
+    console.log('Added event listener...');
+  });
+
+  window.onload = () => {
+    console.log('Attach event assignment...');
+  }
+
+  window.addEventListener('load', function () {
     console.log('Window onload event fired...');
 
     fetch(jquerySrc).then(res => res.text()).then(res => {
