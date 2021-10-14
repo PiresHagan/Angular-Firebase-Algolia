@@ -1,5 +1,5 @@
 (function () {
-  const jquerySrc = 'assets/lib/scripts/jquery.js';
+  const jquerySrc = `assets/lib/scripts/jquery.js?_t=${Date.now()}`;
   console.log(jquerySrc);
 
   fetch(jquerySrc).then(res => res.text()).then(res => {
@@ -56,7 +56,7 @@
     setTimeout(() => {
       scripts.forEach(src => {
         const script = document.createElement('script');
-        script.src = src;
+        script.src = src + `?_t=${Date.now()}`;
         script.type = 'text/javascript';
         // script.async = 'true';
 
