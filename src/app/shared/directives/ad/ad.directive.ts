@@ -12,7 +12,7 @@ export interface AdItemData {
 }
 
 @Directive({
-  selector: '[adItem]'
+  selector: '[adItem]',
 })
 export class AdDirective implements OnInit, AfterViewInit {
   @Input() id: string;
@@ -25,7 +25,9 @@ export class AdDirective implements OnInit, AfterViewInit {
     private element: ElementRef,
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    console.log(this);
+  }
 
   ngAfterViewInit() {
     let adConfig = environment.showAds;
@@ -46,7 +48,8 @@ export class AdDirective implements OnInit, AfterViewInit {
         this.element.nativeElement.setAttribute('id', this.pointer);
 
         this.checkAdScript(() => {
-          this.insertGTagAd();
+          console.log('Google ad scripts are ready...');
+          // this.insertGTagAd();
         });
       }
     }
