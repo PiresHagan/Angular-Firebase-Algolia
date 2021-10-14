@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -14,7 +14,7 @@ export interface AdItemData {
 @Directive({
   selector: '[adItem]',
 })
-export class AdDirective implements OnInit, AfterViewInit {
+export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
   @Input() id: string;
   @Input() type: 'gtag' | 'playwire';
   @Input() adUnit: string;
@@ -118,7 +118,6 @@ export class AdDirective implements OnInit, AfterViewInit {
 
   private checkPlaywireAdScript(cb: Function) {
     const script = window['tyche'];
-    console.log(new Date());
 
     if (script && script.initialized) {
       this.delay(100).subscribe(() => {
@@ -133,5 +132,18 @@ export class AdDirective implements OnInit, AfterViewInit {
 
   private delay(num: number): Observable<void> {
     return of(null).pipe(delay(num), take(1));
+  }
+
+  ngOnDestroy(): void {
+    if (this.type === 'playwire') {
+      // destroy
+      const script = window['tyche'];
+
+      if (script) {
+        script.destroyUnits(this.adUnit);
+      }
+    } else {
+      // destroy gtag for this spot
+    }
   }
 }
