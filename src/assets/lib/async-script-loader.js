@@ -41,8 +41,6 @@
       }
     };
 
-    console.log('Tyche...');
-
     // asynchronously loads other scripts to prevent page slowing down
     const scripts = [
       'assets/lib/hljs/highlight.pack.js',
