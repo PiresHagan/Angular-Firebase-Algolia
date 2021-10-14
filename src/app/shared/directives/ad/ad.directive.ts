@@ -89,9 +89,9 @@ export class AdDirective implements OnInit, AfterViewInit {
       //   type: 'bottom_rail'
       // },
     ]).then(() => {
-      // this.delay(500).subscribe(() => {
-      //   tyche.displayUnits();
-      // });
+      this.delay(500).subscribe(() => {
+        tyche.displayUnits();
+      });
 
       console.log(`Displaying ${this.id} ad units`);
 
