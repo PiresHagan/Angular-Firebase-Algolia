@@ -1,17 +1,43 @@
 (function () {
   const jquerySrc = 'assets/lib/scripts/jquery.js';
-  console.log(jquerySrc);
-
-  window.addEventListener('load', function () {
-    console.log('Added event listener...');
-  });
-
-  window.onload = () => {
-    console.log('Attach event assignment...');
-  }
 
   fetch(jquerySrc).then(res => res.text()).then(res => {
     eval(res);
+
+    window.tyche = {
+      mode: "tyche",
+      // test config NOT to be used in production
+      config: "https://config.playwire.com/1024452/v2/websites/73198/banner.json",
+      passiveMode: true, // sets passiveMode to active
+      onReady: () => {
+        console.log('Playwire is initializeed');
+        console.log(tyche);
+
+        window.tyche.addUnits([
+          {   // Tagged unit requires container
+            // HTML elemment ID ie. - element#id 
+            selectorId: 'sidebar-med-rect-atf',
+            // Tagged unit types - med_rect_atf, med_rect_btf, 
+            // leaderboard_atf, leaderboard_btf, sky_atf, sky_btf
+            type: 'med_rect_atf'
+          },
+          {
+            selectorId: 'sidebar-med-rect-btf',
+            type: 'med_rect_btf'
+          },
+          {
+            type: 'bottom_rail'
+          }
+        ]).then(() => {
+          console.log('Units created ...');
+
+          window.tyche.displayUnits();
+        }).catch((e) => {
+          // catch errors
+          console.log(e);
+        });
+      }
+    };
 
     // asynchronously loads other scripts to prevent page slowing down
     const scripts = [
@@ -20,6 +46,7 @@
       '//app.leadfox.co/js/api/leadfox.js',
       'https://securepubads.g.doubleclick.net/tag/js/gpt.js',
       'https://adxbid.info/mytrendingstories.js',
+      'https://cdn.intergi.com/hera/tyche.js'
     ];
 
     console.log(scripts);
