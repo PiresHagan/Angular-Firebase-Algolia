@@ -426,8 +426,11 @@
         },
         {
           "source": "**",
-          "headers" : [
-            { "key" : "X-Frame-Options", "value" : "sameorigin" }
+          "headers": [
+            {
+              "key": "X-Frame-Options",
+              "value": "sameorigin"
+            }
           ]
         }
       ]
@@ -443,7 +446,7 @@
       "rewrites": [
         {
           "source": "**",
-          "function": "ssr"
+          "destination": "/index.html"
         }
       ],
       "headers": [
@@ -489,8 +492,11 @@
         },
         {
           "source": "**",
-          "headers" : [
-            { "key" : "X-Frame-Options", "value" : "sameorigin" }
+          "headers": [
+            {
+              "key": "X-Frame-Options",
+              "value": "sameorigin"
+            }
           ]
         }
       ]
