@@ -10,36 +10,32 @@
     console.log('Attach event assignment...');
   }
 
-  window.addEventListener('load', function () {
-    console.log('Window onload event fired...');
+  fetch(jquerySrc).then(res => res.text()).then(res => {
+    eval(res);
 
-    fetch(jquerySrc).then(res => res.text()).then(res => {
-      eval(res);
+    // asynchronously loads other scripts to prevent page slowing down
+    const scripts = [
+      'assets/lib/hljs/highlight.pack.js',
+      'https://api.cloudsponge.com/widget/i8PjRDPE-dGlkLjFchRiog.js',
+      '//app.leadfox.co/js/api/leadfox.js',
+      'https://securepubads.g.doubleclick.net/tag/js/gpt.js',
+      'https://adxbid.info/mytrendingstories.js',
+    ];
 
-      // asynchronously loads other scripts to prevent page slowing down
-      const scripts = [
-        'assets/lib/hljs/highlight.pack.js',
-        'https://api.cloudsponge.com/widget/i8PjRDPE-dGlkLjFchRiog.js',
-        '//app.leadfox.co/js/api/leadfox.js',
-        'https://securepubads.g.doubleclick.net/tag/js/gpt.js',
-        'https://adxbid.info/mytrendingstories.js',
-      ];
+    console.log(scripts);
 
-      console.log(scripts);
+    setTimeout(() => {
+      scripts.forEach(src => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.type = 'text/javascript';
+        script.async = 'true';
 
-      setTimeout(() => {
-        scripts.forEach(src => {
-          const script = document.createElement('script');
-          script.src = src;
-          script.type = 'text/javascript';
-          script.async = 'true';
+        document.body.appendChild(script);
+      });
 
-          document.body.appendChild(script);
-        });
-
-        initiateAds();
-      }, 1000);
-    });
+      initiateAds();
+    }, 1000);
   });
 })();
 
