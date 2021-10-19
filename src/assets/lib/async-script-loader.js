@@ -1,9 +1,10 @@
 (function () {
-  const jquerySrc = `assets/lib/scripts/jquery.js?_t=${Date.now()}`;
+  const jquerySrc = `assets/lib/scripts/jquery.js`;
   console.log(jquerySrc);
 
   fetch(jquerySrc).then(res => res.text()).then(res => {
     eval(res);
+    console.log(`juery loaded successfully...`);
 
     window.tyche = {
       mode: 'tyche',
@@ -56,11 +57,13 @@
     setTimeout(() => {
       scripts.forEach(src => {
         const script = document.createElement('script');
-        script.src = src + `?_t=${Date.now()}`;
+        script.src = src;
         script.type = 'text/javascript';
         // script.async = 'true';
 
         document.body.appendChild(script);
+
+        console.log(script);
       });
 
       initiateAds();
@@ -70,6 +73,8 @@
 
 function initiateAds() {
   const gtag = window.googletag;
+
+  console.log('Initiating ads scripts after fetching...');
 
   if (gtag && gtag.apiReady) {
     const definedSlots = []; // re-usable references
