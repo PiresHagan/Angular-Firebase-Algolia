@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
-declare const $: any;
+declare const ramp: any;
 
 export interface AdItemData {
   id: string;
@@ -30,7 +30,7 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    let adConfig = environment.showAds;
+    const adConfig = environment.showAds;
     if (
       adConfig.onArticlePage ||
       adConfig.onCategoryPage ||
@@ -40,14 +40,12 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
       adConfig.onHomePage
     ) {
       if (this.type === 'playwire') {
-        console.log('THis is playwire ad script...');
-
         this.checkPlaywireAdScript(this.displayPlaywireAd.bind(this));
       } else {
         // sets ID attr in case it was escaped
         this.element.nativeElement.setAttribute('id', this.pointer);
 
-        this.checkAdScript(() => {
+        this.checkGoogleAdScript(() => {
           console.log('Google ad scripts are ready...');
           // this.insertGTagAd();
         });
@@ -78,9 +76,9 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private displayPlaywireAd(): void {
-    const tyche = window['tyche'];
+    // const ramp = window['ramp'];
 
-    tyche.addUnits([
+    ramp.addUnits([
       {
         selectorId: this.id,
         type: this.adUnit || 'med_rect_atf'
@@ -90,19 +88,23 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
       // },
     ]).then(() => {
       this.delay(500).subscribe(() => {
-        tyche.displayUnits();
+        ramp.displayUnits();
       });
 
       console.log(`Displaying ${this.id} ad units`);
 
-      console.log(tyche.getUnits());
+      console.log(ramp.getUnits());
     }).catch((e) => {
+      this.delay(500).subscribe(() => {
+        ramp.displayUnits();
+      });
+
       // catch errors
-      console.log(e);
+      console.log('Error', e);
     });
   }
 
-  private checkAdScript(cb: Function) {
+  private checkGoogleAdScript(cb: Function) {
     const script = window['googletag'];
 
     if (script && script.apiReady) {
@@ -111,19 +113,23 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
       });
     } else {
       this.delay(500).subscribe(() => {
-        this.checkAdScript(cb);
+        this.checkGoogleAdScript(cb);
       });
     }
   }
 
   private checkPlaywireAdScript(cb: Function) {
-    const script = window['tyche'];
+    const script = window['ramp'];
 
-    if (script && script.initialized) {
+    console.log(ramp, script);
+
+    if (script?.mtsInitialized) {
       this.delay(100).subscribe(() => {
         cb();
       });
     } else {
+      console.log(`Ramp not read... `, new Date());
+
       this.delay(500).subscribe(() => {
         this.checkPlaywireAdScript(cb);
       });
@@ -137,7 +143,7 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.type === 'playwire') {
       // destroy
-      const script = window['tyche'];
+      const script = window['ramp'];
 
       if (script) {
         script.destroyUnits(this.adUnit);

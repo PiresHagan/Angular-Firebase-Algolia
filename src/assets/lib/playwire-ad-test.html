@@ -76,8 +76,7 @@
       // Delete any units that were created before
       try {
         ramp.destroyUnits('all')
-      }
-      catch (e) {
+      } catch (e) {
         console.log('destroyUnits error: ', e)
       }
 
@@ -95,7 +94,7 @@
         .catch((e) => {
           ramp.displayUnits();
           console.log(e);
-        })
+        });
     }
 
     ramp.onReady = function () { // attach function to tyche onReady
