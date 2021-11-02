@@ -62,25 +62,8 @@
 
   <!-- <script type="text/javascript" src="assets/lib/async-script-loader.js"></script> -->
 
-  <!-- Use the following placeholder divs to indicate where you want the ad unit to appear -->
-  <!-- The ID must match the the selectorId -->
-  <!-- This step is not needed for tagless units such as rails units or video -->
+  <div style="width: 400px; height: 300px; background-color: blue;"></div>
 
-  <!-- 728 x 90 ATF Desktop -->
-  <div id="top-leaderboard"></div>
-
-  <div style="width: 400px; height: 300px; background-color: red;"></div>
-
-  <!-- 728 x 90 BTF Desktop -->
-  <div id="bottom-leaderboard"></div>
-
-  <!-- 300 x 250 and 300 x 600 ATF Desktop -->
-  <div id="top-med-rect"></div>
-
-  <!-- 300 x 250 and 300 x 600 BTF Desktop -->
-  <div id="bottom-med-rect"></div>
-
-  <!-- Place after opening head tag - Header Bidding Script -->
   <script type="text/javascript">
 
     // There are three major parts to get started to show ads on the page
@@ -103,22 +86,22 @@
       {
         type: 'bottom_rail'
       },
-      {
-        selectorId: 'top-leaderboard',
-        type: 'leaderboard_atf'
-      },
-      {
-        selectorId: 'bottom-leaderboard',
-        type: 'leaderboard_btf'
-      },
-      {
-        selectorId: 'top-med-rect',
-        type: 'med_rect_atf'
-      },
-      {
-        selectorId: 'bottom-med-rect',
-        type: 'med_rect_btf'
-      }
+      // {
+      //   selectorId: 'top-leaderboard',
+      //   type: 'leaderboard_atf'
+      // },
+      // {
+      //   selectorId: 'bottom-leaderboard',
+      //   type: 'leaderboard_btf'
+      // },
+      // {
+      //   selectorId: 'top-med-rect',
+      //   type: 'med_rect_atf'
+      // },
+      // {
+      //   selectorId: 'bottom-med-rect',
+      //   type: 'med_rect_btf'
+      // }
     ]
 
     // 3. Initialize and show units
@@ -150,7 +133,7 @@
     }
 
     ramp.onReady = function () { // attach function to tyche onReady
-      init()
+      init();
     }
 
     console.log('Ramp 2', ramp);
