@@ -38,16 +38,26 @@ export class SeoService {
     if (!config.image.url) {
       config.image.url = 'https://mytrendingstories.com/assets/images/favicon.png';
     }
-
+    this.meta.removeTag("name='twitter:title'");
+    this.meta.removeTag("name='twitter:description'");
+    this.meta.removeTag("name='twitter:card'");
+    this.meta.removeTag("name='twitter:image'");
     this.meta.updateTag({ name: 'twitter:title', content: config.title });
     this.meta.updateTag({ name: 'twitter:description', content: config.description || '' });
-    this.meta.updateTag({ name: 'twitter:card', content: config.summary || config.description || '' });
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary' }); // The card type, which will be one of “summary”, “summary_large_image”, “app”, or “player”.
     this.meta.updateTag({ name: 'twitter:image', content: config.image.url });
 
+    this.meta.removeTag("name='description'");
+    this.meta.removeTag("name='image'");
+    this.meta.removeTag("name='keywords'");
     this.meta.updateTag({ name: 'description', content: config.description || '' });
     this.meta.updateTag({ name: 'image', content: config.image.url });
     this.meta.updateTag({ name: 'keywords', content: config.keywords || this.fallbackKeyWords(config.title) });
 
+    this.meta.removeTag("name='og:title'");
+    this.meta.removeTag("name='og:description'");
+    this.meta.removeTag("name='og:image'");
+    this.meta.removeTag("name='og:url'");
     this.meta.updateTag({ property: 'og:title', content: config.title });
     this.meta.updateTag({ property: 'og:description', content: config.description || '' });
     this.meta.updateTag({ property: 'og:image', content: config.image.url });
