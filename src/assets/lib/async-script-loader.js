@@ -15,7 +15,7 @@
       { src: '//app.leadfox.co/js/api/leadfox.js' },
       { src: 'https://securepubads.g.doubleclick.net/tag/js/gpt.js' },
       { src: 'https://adxbid.info/mytrendingstories.js' },
-      { src: 'https//cdn.intergient.com/ramp.js', id: 'ramp' },
+      { src: 'https://cdn.intergient.com/ramp.js', id: 'ramp' },
     ];
 
     setTimeout(() => {
