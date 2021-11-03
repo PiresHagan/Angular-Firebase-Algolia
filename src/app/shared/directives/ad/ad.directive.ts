@@ -4,6 +4,7 @@ import { delay, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 declare const ramp: any;
+declare const googletag: any;
 
 export interface AdItemData {
   id: string;
@@ -38,24 +39,19 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
       adConfig.onHomePage
     ) {
       if (this.type === 'playwire') {
-        console.log('HELLO PLAYWIRE 222');
-
         this.checkPlaywireAdScript(this.displayPlaywireAd.bind(this));
       } else {
         // sets ID attr in case it was escaped
         this.element.nativeElement.setAttribute('id', this.pointer);
 
         this.checkGoogleAdScript(() => {
-          console.log('Google ad scripts are ready...');
-          // this.insertGTagAd();
+          this.insertGTagAd();
         });
       }
     }
   }
 
   private insertGTagAd(): void {
-    const googletag = window['googletag'];
-
     googletag.cmd.push(() => {
       const allGoogleAdSlots: { ref: any, data: AdItemData }[] = window['allGoogleAdSlots'];
       const slot = allGoogleAdSlots.find(item => item.data.id === this.pointer);
@@ -63,21 +59,17 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
       if (slot) {
         if (this.author) {
           googletag.pubads().setTargeting("author", this.author);
-          // console.log('Author key pair', googletag.pubads().getTargeting('author'));
-
         }
+
         googletag.display(this.pointer);
         googletag.pubads().refresh([slot.ref]);
       } else {
-        // console.log(`Slot was not found for ${this.pointer}`);
-        // console.log(allGoogleAdSlots);
+        console.log(`Slot was not found for ${this.pointer}`);
       }
     });
   }
 
   private displayPlaywireAd(): void {
-    // const ramp = window['ramp'];
-
     ramp.addUnits([
       {
         selectorId: this.id,
@@ -90,10 +82,6 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
       this.delay(500).subscribe(() => {
         ramp.displayUnits();
       });
-
-      console.log(`Displaying ${this.id} ad units`);
-
-      console.log('All units displayed: ', ramp.getUnits());
     }).catch((e) => {
       this.delay(500).subscribe(() => {
         ramp.displayUnits();
@@ -105,9 +93,7 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private checkGoogleAdScript(cb: Function) {
-    const script = window['googletag'];
-
-    if (script && script.apiReady) {
+    if (googletag?.apiReady) {
       this.delay(100).subscribe(() => {
         cb();
       });
@@ -124,8 +110,7 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
         cb();
       });
     } else {
-      console.log(`Ramp not read... `, new Date());
-      console.log(ramp);
+      console.log(`Ramp not ready yet... `, new Date());
 
       this.delay(1000).subscribe(() => {
         this.checkPlaywireAdScript(cb);

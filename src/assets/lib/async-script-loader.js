@@ -1,10 +1,8 @@
 (function () {
   const jquerySrc = `assets/lib/scripts/jquery.js`;
-  console.log(jquerySrc);
 
   fetch(jquerySrc).then(res => res.text()).then(res => {
     eval(res);
-    console.log(`jQuery loaded successfully...`);
 
     initPlayerWireConfiguration();
 
@@ -40,8 +38,6 @@
 
 function initiateAds() {
   const gtag = window.googletag;
-
-  console.log('Initiating ads scripts after fetching...');
 
   if (gtag && gtag.apiReady) {
     const definedSlots = []; // re-usable references
@@ -107,55 +103,15 @@ function initPlayerWireConfiguration() {
     passiveMode: true,
   };
 
-  // var pwUnits = [
-  //   {
-  //     type: 'bottom_rail'
-  //   },
-  //   {
-  //     selectorId: 'top-leaderboard',
-  //     type: 'leaderboard_atf'
-  //   },
-  //   {
-  //     selectorId: 'bottom-leaderboard',
-  //     type: 'leaderboard_btf'
-  //   },
-  //   {
-  //     selectorId: 'top-med-rect',
-  //     type: 'med_rect_atf'
-  //   },
-  //   {
-  //     selectorId: 'bottom-med-rect',
-  //     type: 'med_rect_btf'
-  //   }
-  // ]
-
   ramp.onReady = () => {
-    // Delete any units that were created before
     try {
       ramp.destroyUnits('all');
     } catch (e) {
       console.error('destroyUnits error: ', e);
     }
 
-    // console.log('Ramp 1', ramp);
-
-    // ramp
-    //   // Set up the units you will use
-    //   .addUnits(pwUnits)
-    //   .then(() => {
-    //     // Show the units
-    //     ramp.displayUnits();
-
-    //     console.log('Displayed ads');
-    //   })
-    //   .catch((e) => {
-    //     ramp.displayUnits();
-    //     console.log(e);
-    //   });
-
     // rest of ad units display/destroy should be handled within directive
     ramp.mtsInitialized = true;
-    console.log('Continue from angular...');
   }
 
   window['ramp'] = ramp;
