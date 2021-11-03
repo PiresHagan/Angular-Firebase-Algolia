@@ -25,9 +25,7 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
     private element: ElementRef,
   ) { }
 
-  ngOnInit(): void {
-    if (this.type === 'playwire') console.log(this);
-  }
+  ngOnInit(): void { }
 
   ngAfterViewInit() {
     const adConfig = environment.showAds;
@@ -40,7 +38,7 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
       adConfig.onHomePage
     ) {
       if (this.type === 'playwire') {
-        console.log('HELLO PLAYWIRE');
+        console.log('HELLO PLAYWIRE 222');
 
         this.checkPlaywireAdScript(this.displayPlaywireAd.bind(this));
       } else {
@@ -95,7 +93,7 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
 
       console.log(`Displaying ${this.id} ad units`);
 
-      console.log(ramp.getUnits());
+      console.log('All units displayed: ', ramp.getUnits());
     }).catch((e) => {
       this.delay(500).subscribe(() => {
         ramp.displayUnits();
@@ -121,11 +119,7 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private checkPlaywireAdScript(cb: Function) {
-    const script = window['ramp'];
-
-    console.log(ramp, script);
-
-    if (script?.mtsInitialized) {
+    if (ramp?.mtsInitialized) {
       this.delay(100).subscribe(() => {
         cb();
       });
@@ -145,10 +139,8 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.type === 'playwire') {
       // destroy
-      const script = window['ramp'];
-
-      if (script) {
-        script.destroyUnits(this.adUnit);
+      if (ramp) {
+        ramp.destroyUnits(this.adUnit);
       }
     } else {
       // destroy gtag for this spot

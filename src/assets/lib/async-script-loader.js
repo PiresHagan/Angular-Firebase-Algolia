@@ -6,28 +6,27 @@
     eval(res);
     console.log(`jQuery loaded successfully...`);
 
-    // initPlayerWireConfiguration();
+    initPlayerWireConfiguration();
 
     // asynchronously loads other scripts to prevent page slowing down
     const scripts = [
-      'assets/lib/hljs/highlight.pack.js',
-      'https://api.cloudsponge.com/widget/i8PjRDPE-dGlkLjFchRiog.js',
-      '//app.leadfox.co/js/api/leadfox.js',
-      'https://securepubads.g.doubleclick.net/tag/js/gpt.js',
-      'https://adxbid.info/mytrendingstories.js',
-      // 'https//cdn.intergient.com/ramp.js',
-      // '/assets/lib/plw.js'
+      { src: 'assets/lib/hljs/highlight.pack.js' },
+      { src: 'https://api.cloudsponge.com/widget/i8PjRDPE-dGlkLjFchRiog.js' },
+      { src: '//app.leadfox.co/js/api/leadfox.js' },
+      { src: 'https://securepubads.g.doubleclick.net/tag/js/gpt.js' },
+      { src: 'https://adxbid.info/mytrendingstories.js' },
+      { src: 'https//cdn.intergient.com/ramp.js', id: 'ramp' },
     ];
 
     setTimeout(() => {
-      scripts.forEach(src => {
+      scripts.forEach(obj => {
         const script = document.createElement('script');
-        script.src = src;
+        script.src = obj.src;
         script.type = 'text/javascript';
         script.async = 'true';
 
-        if (scripts[scripts.length - 1] === src) {
-          script.id = 'ramp';
+        if (obj.id) {
+          script.id = obj.id;
         }
 
         document.head.appendChild(script);
@@ -107,27 +106,27 @@ function initPlayerWireConfiguration() {
     passiveMode: true,
   };
 
-  var pwUnits = [
-    {
-      type: 'bottom_rail'
-    },
-    {
-      selectorId: 'top-leaderboard',
-      type: 'leaderboard_atf'
-    },
-    {
-      selectorId: 'bottom-leaderboard',
-      type: 'leaderboard_btf'
-    },
-    {
-      selectorId: 'top-med-rect',
-      type: 'med_rect_atf'
-    },
-    {
-      selectorId: 'bottom-med-rect',
-      type: 'med_rect_btf'
-    }
-  ]
+  // var pwUnits = [
+  //   {
+  //     type: 'bottom_rail'
+  //   },
+  //   {
+  //     selectorId: 'top-leaderboard',
+  //     type: 'leaderboard_atf'
+  //   },
+  //   {
+  //     selectorId: 'bottom-leaderboard',
+  //     type: 'leaderboard_btf'
+  //   },
+  //   {
+  //     selectorId: 'top-med-rect',
+  //     type: 'med_rect_atf'
+  //   },
+  //   {
+  //     selectorId: 'bottom-med-rect',
+  //     type: 'med_rect_btf'
+  //   }
+  // ]
 
   ramp.onReady = () => {
     // Delete any units that were created before
@@ -137,26 +136,24 @@ function initPlayerWireConfiguration() {
       console.error('destroyUnits error: ', e);
     }
 
-    console.log('Ramp 1', ramp);
+    // console.log('Ramp 1', ramp);
 
-    ramp
-      // Set up the units you will use
-      .addUnits(pwUnits)
-      .then(() => {
-        // Show the units
-        ramp.displayUnits();
+    // ramp
+    //   // Set up the units you will use
+    //   .addUnits(pwUnits)
+    //   .then(() => {
+    //     // Show the units
+    //     ramp.displayUnits();
 
-        console.log('Displayed ads');
-      })
-      .catch((e) => {
-        ramp.displayUnits();
-        console.log(e);
-      });
+    //     console.log('Displayed ads');
+    //   })
+    //   .catch((e) => {
+    //     ramp.displayUnits();
+    //     console.log(e);
+    //   });
 
     // rest of ad units display/destroy should be handled within directive
     ramp.mtsInitialized = true;
     console.log('Continue from angular...');
-
-    console.log(window['ramp']);
   }
 }
