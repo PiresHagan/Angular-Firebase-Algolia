@@ -26,7 +26,7 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    console.log(this);
+    if (this.type === 'playwire') console.log(this);
   }
 
   ngAfterViewInit() {
@@ -40,6 +40,8 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
       adConfig.onHomePage
     ) {
       if (this.type === 'playwire') {
+        console.log('HELLO PLAYWIRE');
+
         this.checkPlaywireAdScript(this.displayPlaywireAd.bind(this));
       } else {
         // sets ID attr in case it was escaped
@@ -130,7 +132,7 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
     } else {
       console.log(`Ramp not read... `, new Date());
 
-      this.delay(500).subscribe(() => {
+      this.delay(1000).subscribe(() => {
         this.checkPlaywireAdScript(cb);
       });
     }
