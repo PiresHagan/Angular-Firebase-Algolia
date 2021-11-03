@@ -125,6 +125,7 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
       });
     } else {
       console.log(`Ramp not read... `, new Date());
+      console.log(ramp);
 
       this.delay(1000).subscribe(() => {
         this.checkPlaywireAdScript(cb);

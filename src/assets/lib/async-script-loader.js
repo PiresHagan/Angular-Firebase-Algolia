@@ -16,6 +16,7 @@
       { src: 'https://securepubads.g.doubleclick.net/tag/js/gpt.js' },
       { src: 'https://adxbid.info/mytrendingstories.js' },
       { src: 'https://cdn.intergient.com/ramp.js', id: 'ramp' },
+      { src: 'https://btloader.com/tag?o=5150306120761344&upapi=true' }
     ];
 
     setTimeout(() => {
@@ -101,7 +102,7 @@ function initiateAds() {
 }
 
 function initPlayerWireConfiguration() {
-  const ramp = {
+  var ramp = {
     config: '//config.playwire.com/1024452/v2/websites/73198/banner.json',
     passiveMode: true,
   };
@@ -156,4 +157,6 @@ function initPlayerWireConfiguration() {
     ramp.mtsInitialized = true;
     console.log('Continue from angular...');
   }
+
+  window['ramp'] = ramp;
 }
