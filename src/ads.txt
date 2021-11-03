@@ -482,3 +482,4 @@ pubmatic.com, 160648, RESELLER, 5d62403b186f2ace
 indexexchange.com, 194520, RESELLER, 50b1c356f2c5c8fc
 onetag.com, 664e107d9f2b748, RESELLER
 conversantmedia.com, 100270, RESELLER, 03113cd04947736d
+playwire.com,73198,DIRECT
