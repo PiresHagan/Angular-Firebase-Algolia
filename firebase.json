@@ -78,6 +78,11 @@
       ],
       "redirects": [
         {
+          "source": "/ads.txt",
+          "destination": "https://config.playwire.com/dyn_ads/1024452/73198/ads.txt",
+          "type": 301
+        },
+        {
           "source": "/fr/profil/annie-japaud/",
           "destination": "/annie-japaud",
           "type": 301
