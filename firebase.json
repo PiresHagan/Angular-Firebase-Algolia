@@ -449,6 +449,13 @@
           "destination": "/index.html"
         }
       ],
+      "redirects": [
+        {
+          "source": "/ads.txt",
+          "destination": "https://config.playwire.com/dyn_ads/1024452/73198/ads.txt",
+          "type": 301
+        }
+      ],
       "headers": [
         {
           "source": "**/*.@(eot|otf|ttf|ttc|woff|woff2|font.css)",
