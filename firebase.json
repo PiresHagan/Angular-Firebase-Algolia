@@ -78,6 +78,11 @@
       ],
       "redirects": [
         {
+          "source": "/ads.txt",
+          "destination": "https://config.playwire.com/dyn_ads/1024452/73198/ads.txt",
+          "type": 301
+        },
+        {
           "source": "/fr/profil/annie-japaud/",
           "destination": "/annie-japaud",
           "type": 301
@@ -426,8 +431,11 @@
         },
         {
           "source": "**",
-          "headers" : [
-            { "key" : "X-Frame-Options", "value" : "sameorigin" }
+          "headers": [
+            {
+              "key": "X-Frame-Options",
+              "value": "sameorigin"
+            }
           ]
         }
       ]
@@ -443,7 +451,14 @@
       "rewrites": [
         {
           "source": "**",
-          "function": "ssr"
+          "destination": "/index.html"
+        }
+      ],
+      "redirects": [
+        {
+          "source": "/ads.txt",
+          "destination": "https://config.playwire.com/dyn_ads/1024452/73198/ads.txt",
+          "type": 301
         }
       ],
       "headers": [
@@ -489,8 +504,11 @@
         },
         {
           "source": "**",
-          "headers" : [
-            { "key" : "X-Frame-Options", "value" : "sameorigin" }
+          "headers": [
+            {
+              "key": "X-Frame-Options",
+              "value": "sameorigin"
+            }
           ]
         }
       ]

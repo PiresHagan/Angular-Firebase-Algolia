@@ -1,32 +1,38 @@
 (function () {
-  const jquerySrc = 'assets/lib/scripts/jquery.js';
+  const jquerySrc = `assets/lib/scripts/jquery.js`;
 
-  window.addEventListener('load', function () {
-    fetch(jquerySrc).then(res => res.text()).then(res => {
-      eval(res);
+  fetch(jquerySrc).then(res => res.text()).then(res => {
+    eval(res);
 
-      // asynchronously loads other scripts to prevent page slowing down
-      const scripts = [
-        'assets/lib/hljs/highlight.pack.js',
-        'https://api.cloudsponge.com/widget/i8PjRDPE-dGlkLjFchRiog.js',
-        '//app.leadfox.co/js/api/leadfox.js',
-        'https://securepubads.g.doubleclick.net/tag/js/gpt.js',
-        'https://adxbid.info/mytrendingstories.js',
-      ];
+    initPlayerWireConfiguration();
 
-      setTimeout(() => {
-        scripts.forEach(src => {
-          const script = document.createElement('script');
-          script.src = src;
-          script.type = 'text/javascript';
-          script.async = 'true';
+    // asynchronously loads other scripts to prevent page slowing down
+    const scripts = [
+      { src: 'assets/lib/hljs/highlight.pack.js' },
+      { src: 'https://api.cloudsponge.com/widget/i8PjRDPE-dGlkLjFchRiog.js' },
+      { src: '//app.leadfox.co/js/api/leadfox.js' },
+      { src: 'https://securepubads.g.doubleclick.net/tag/js/gpt.js' },
+      { src: 'https://adxbid.info/mytrendingstories.js' },
+      { src: 'https://cdn.intergient.com/ramp.js', id: 'ramp' },
+      { src: 'https://btloader.com/tag?o=5150306120761344&upapi=true' }
+    ];
 
-          document.body.appendChild(script);
-        });
+    setTimeout(() => {
+      scripts.forEach(obj => {
+        const script = document.createElement('script');
+        script.src = obj.src;
+        script.type = 'text/javascript';
+        script.async = 'true';
 
-        initiateAds();
-      }, 1000);
-    });
+        if (obj.id) {
+          script.id = obj.id;
+        }
+
+        document.head.appendChild(script);
+      });
+
+      initiateAds();
+    }, 1000);
   });
 })();
 
@@ -89,4 +95,24 @@ function initiateAds() {
       initiateAds();
     }, 1000);
   }
+}
+
+function initPlayerWireConfiguration() {
+  var ramp = {
+    config: '//config.playwire.com/1024452/v2/websites/73198/banner.json',
+    passiveMode: true,
+  };
+
+  ramp.onReady = () => {
+    try {
+      ramp.destroyUnits('all');
+    } catch (e) {
+      console.error('destroyUnits error: ', e);
+    }
+
+    // rest of ad units display/destroy should be handled within directive
+    ramp.mtsInitialized = true;
+  }
+
+  window['ramp'] = ramp;
 }

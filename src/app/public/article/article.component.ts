@@ -132,7 +132,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
 
         this.articleService.updateViewCount(articleId);
 
-        if(this.article?.author?.type === 'fundraiser') {
+        if (this.article?.author?.type === 'fundraiser') {
           this.getFundraiserDetails();
         }
       });
