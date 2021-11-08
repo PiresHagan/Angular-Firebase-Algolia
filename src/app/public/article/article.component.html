@@ -33,7 +33,7 @@
       </h2>
       <div class="xs-article-author-detail">
         <div class="xs-article-name">
-          <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
+          <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article" target="_blank">
             {{article?.author?.fullname}}
           </a>
         </div>
@@ -405,7 +405,7 @@
               </p>
               <div class="xs-article-publish">
                 <div class="xs-article-publisher-img">
-                  <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article">
+                  <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article" target="_blank">
                     <img class="avatar" alt="{{article?.author?.avatar?.alt}}"
                       src="article && {{replaceImage(article?.author?.avatar?.url)}}"
                       onerror="this.src='assets/images/default-avatar.png'"
