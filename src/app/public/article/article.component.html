@@ -424,7 +424,7 @@
                 </div>
                 <div class="xs-articl-publisher-name">
                   {{'WrittenBy' | translate}}
-                  <a [routerLink]="['/profile/',article?.author?.slug]" target="_blank"
+                  <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" target="_blank"
                     title="  {{article?.author.fullname}}" *ngIf="article">
                     <span class="name" itemprop="name">
                       {{article?.author.fullname}}</span>
