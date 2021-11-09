@@ -4,8 +4,9 @@ import { NzModalService } from "ng-zorro-antd";
 import { StripeService, StripeCardNumberComponent } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 import { TranslateService } from "@ngx-translate/core";
-
+import { Fundraiser } from 'src/app/shared/interfaces/fundraiser.type';
 import { FundraiserService } from 'src/app/shared/services/fundraiser.service';
+import { BackofficeMemberService } from 'src/app/backoffice/shared/services/backoffice-member.service';
 
 @Component({
   selector: 'app-fundraiser-donate-form',
@@ -16,12 +17,16 @@ import { FundraiserService } from 'src/app/shared/services/fundraiser.service';
 export class FundraiserDonateFormComponent implements OnInit {
 
   @Input() fundraiserId: string;
+  @Input() fundraiser: Fundraiser;
 
   donateForm: FormGroup;
   donateSuccess: boolean = false;
   isFormSaving: boolean = false;
   showInvalidCardError: boolean = false;
 
+  stripeStatusInactive: boolean = true;
+  isDonateBtnDisabled: boolean = true;
+  
   @ViewChild(StripeCardNumberComponent) card: StripeCardNumberComponent;
 
   cardOptions: StripeCardElementOptions = {
@@ -48,10 +53,19 @@ export class FundraiserDonateFormComponent implements OnInit {
     private fundraiserService: FundraiserService,
     private modalService: NzModalService,
     private stripeService: StripeService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private memberService: BackofficeMemberService
   ) { }
 
   ngOnInit(): void {
+    // Checking stripe_status
+    this.memberService.getMemberByUid(this.fundraiser.author.id).subscribe((member) => {
+      if(member.stripe_status == 'active') {
+        this.stripeStatusInactive= false;
+        this.isDonateBtnDisabled = false;
+      }
+    });
+    
     this.donateForm = this.fb.group({
       first_name: [null, [Validators.required]],
       last_name: [null, [Validators.required]],
