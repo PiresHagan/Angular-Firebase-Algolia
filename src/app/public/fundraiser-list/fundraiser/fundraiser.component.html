@@ -121,7 +121,7 @@
                       </h5>
                          
                       <nz-progress [nzPercent]="donationPercentage" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"></nz-progress>
-                      <div class="text-center pb-4 pt-4" *ngIf="fundraiserAuthor && fundraiserAuthor?.stripe_status == 'active'">
+                      <div class="text-center pb-4 pt-4">
                         <button type="button" class="donation-btn" nz-button nzType="primary" (click)="showDonateForm()">
                           Donate Now
                         </button>
@@ -133,7 +133,7 @@
                         (nzOnCancel)="hideDonateForm()"
                         nzFooter=null
                         >
-                          <app-fundraiser-donate-form [fundraiserId]="fundraiserId"></app-fundraiser-donate-form>
+                          <app-fundraiser-donate-form [fundraiser]="fundraiser" [fundraiserId]="fundraiserId"></app-fundraiser-donate-form>
                         </nz-modal>  
                         <nz-modal
                           nzTitle="Share"

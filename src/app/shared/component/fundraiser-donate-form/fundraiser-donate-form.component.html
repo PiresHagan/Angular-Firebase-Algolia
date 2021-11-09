@@ -1,6 +1,7 @@
 <div class="charity-form">
-   <h2>{{ 'donateFundraiserTitle' | translate }}</h2>
-    <form nz-form [formGroup]="donateForm" (ngSubmit)="submitForm()" ngxStripeCardGroup [elementsOptions]="elementsOptions">
+  <nz-alert nzShowIcon *ngIf="stripeStatusInactive" nzType="error" nzMessage="Account is not registered yet to receive donation"></nz-alert>
+   <h2 *ngIf="!stripeStatusInactive">{{ 'donateFundraiserTitle' | translate }}</h2>
+    <form *ngIf="!stripeStatusInactive" nz-form [formGroup]="donateForm" (ngSubmit)="submitForm()" ngxStripeCardGroup [elementsOptions]="elementsOptions">
        <nz-alert class="m-b-10" nzType="success" nzMessage="{{'donatedSuccessfully' | translate}}" nzShowIcon *ngIf="donateSuccess"></nz-alert>
        <div class="row">
        <nz-form-item  class="col-lg-6">
@@ -49,7 +50,7 @@
           <div nz-col nzSpan="11" class="card-expiry-col">
                 <ngx-stripe-card-expiry [options]="cardOptions"></ngx-stripe-card-expiry>
           </div>
-          <div nz-col nzSpan="12" class="card-cvc-col">
+          <div nz-col nzSpan="12" class="card-cvc-col" nzOffset="1">
                 <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
           </div>
        </div>
@@ -60,7 +61,7 @@
           <nz-form-item>
                 <nz-form-control>
                    <div class="text-center">
-                      <button nz-button class="is-login-btn mt-20" [nzLoading]="isFormSaving" [nzType]="'primary'">{{"leadSubmit" | translate}}</button>
+                      <button [disabled]="isDonateBtnDisabled" nz-button class="is-login-btn mt-20" [nzLoading]="isFormSaving" [nzType]="'primary'" >{{"leadSubmit" | translate}}</button>
                    </div>
                 </nz-form-control>
           </nz-form-item>
