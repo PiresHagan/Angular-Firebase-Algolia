@@ -403,6 +403,43 @@
                     {{article?.author.fullname}}</span>
                 </a>
               </p>
+              <!-- Displaying Charity Donate button with progresss bar -->
+              <div class="text-center pb-3 mt-4" *ngIf="article?.author?.type == 'charity' && !isMobile">
+                <h5 class="mt-2">
+                  <b>{{ charity?.goal_amount | currency :'USD':'symbol':'1.0-2' }}</b>
+                   MTS Raised {{ charity?.amount | currency :'USD':'symbol':'1.0-2' }}
+               </h5>
+                <nz-progress [nzPercent]="donationPercentage" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"></nz-progress>
+                <button type="button" class="donation-btn mt-2" nz-button nzType="primary" (click)="showDonateForm()">Donate Now</button>
+                <nz-modal
+                  [(nzVisible)]="isDonateFormVisible"
+                  (nzOnCancel)="hideDonateForm()"
+                  nzFooter=null
+                >
+                <app-charity-donate-form [charityId]="article?.author?.id" [charity]="charity">
+                </app-charity-donate-form>
+                </nz-modal>   
+              </div>
+              <!-- Displaying Fundraiser Donate button with progresss bar -->
+              <div class="text-center pb-3 mt-4" *ngIf="article?.author?.type == 'fundraiser' && !isMobile && fundraiserAuthor"
+              >
+                <h5>
+                  <b>{{ fundraiser?.goal_amount | currency :'USD':'symbol':'1.0-2' }}</b>
+                  MTS Raised {{ fundraiser?.amount | currency :'USD':'symbol':'1.0-2' }}
+                </h5>
+                <nz-progress [nzPercent]="donationPercentage" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"></nz-progress>
+                <button type="button" class="donation-btn mt-2" nz-button nzType="primary" (click)="showDonateForm()">Donate Now</button>
+                <nz-modal
+                  [(nzVisible)]="isDonateFormVisible"
+                  (nzOnCancel)="hideDonateForm()"
+                  nzFooter=null
+                >
+                  <app-fundraiser-donate-form 
+                    [fundraiser]="fundraiser" [fundraiserId]="article?.author?.id">
+                  </app-fundraiser-donate-form>
+                </nz-modal>   
+              </div>
+
               <div class="xs-article-publish">
                 <div class="xs-article-publisher-img">
                   <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article" target="_blank">
@@ -502,30 +539,11 @@
             <app-article-comments *ngIf="article" [article]="article"></app-article-comments>
           </div>
         </div>
-
       </div>
 
-
       <div class="is-right-ad-section" [ngClass]="SlideRelatedArticle ? 'removeSlide' : 'openSlideArticle'">
-
-        <app-company-lead-form *ngIf="article?.author?.type == 'company' && !isMobile"
-          [companyId]="article?.author?.id">
+        <app-company-lead-form *ngIf="article?.author?.type == 'company' && !isMobile" [companyId]="article?.author?.id">
         </app-company-lead-form>
-
-        <app-charity-donate-form *ngIf="article?.author?.type == 'charity' && !isMobile"
-          [charityId]="article?.author?.id">
-        </app-charity-donate-form>
-
-        <div class="text-center pb-3"
-          *ngIf="article?.author?.type == 'fundraiser' && !isMobile && fundraiserAuthor && fundraiserAuthor?.stripe_status == 'active'">
-          <button type="button" class="donation-btn" nz-button nzType="primary" (click)="showDonateForm()"><i
-              class="fas fa-heart"></i> Donate Now</button>
-          <nz-modal [(nzVisible)]="isDonateFormVisible" (nzOnCancel)="hideDonateForm()" nzFooter=null>
-            <app-fundraiser-donate-form [fundraiserId]="article?.author?.id">
-            </app-fundraiser-donate-form>
-          </nz-modal>
-        </div>
-
         <app-similar-articles *ngIf="article" [article]="article"></app-similar-articles>
 
         <div class="slide-article">
@@ -539,16 +557,13 @@
 
         <div adItem id="playwire-test_ad" type="playwire" adUnit="med_rect_atf"></div>
 
-        <div class="ads-box"
-          *ngIf="displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'">
-          <div adItem pointer="div-gpt-ad-1599554597929-0" [author]="article?.author?.slug"
-            style="margin: 10px auto; text-align:center;"></div>
+        <div class="ads-box" *ngIf="displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'">
+          <div adItem pointer="div-gpt-ad-1599554597929-0" [author]="article?.author?.slug" style="margin: 10px auto; text-align:center;">
+          </div>
         </div>
       </div>
     </div>
-
   </div>
-
 
   <nz-modal nzWrapClassName=" vertical-center-modal mobile-option-pop-up" nzWidth="70%" nzFooter="null"
     [(nzVisible)]="isVisibleMiddle">
@@ -568,7 +583,6 @@
 
 
   <div id="share-Modal" class="share-modal" [class.hidden-share]="!showShare">
-
     <!-- Modal content -->
     <div class="share-modal-content">
       <nz-list class="addthis_toolbox">
@@ -576,8 +590,6 @@
           role="region">
           <span id="at-58874b62-35e8-461d-a6c4-83824085693f" class="at4-visually-hidden"></span>
           <div class="at-share-btn-elements">
-
-
             <nz-list-item>
               <span nz-typography class="addthis_button_facebook"><i nz-icon nzType="facebook"
                   nzTheme="outline"></i></span>

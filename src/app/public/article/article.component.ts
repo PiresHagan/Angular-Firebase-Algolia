@@ -22,6 +22,7 @@ import { FundraiserService } from 'src/app/shared/services/fundraiser.service';
 import { CompanyService } from 'src/app/shared/services/company.service';
 import { CharityService } from 'src/app/shared/services/charity.service';
 import { Fundraiser } from 'src/app/shared/interfaces/fundraiser.type';
+import { Charity } from 'src/app/shared/interfaces/charity.type';
 
 @Component({
   selector: 'app-article',
@@ -54,6 +55,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   fundraiserAuthor;
   isDonateFormVisible = false;
   topics: string;
+  charity: Charity;
 
   constructor(
     private articleService: ArticleService,
@@ -132,18 +134,29 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
 
         this.articleService.updateViewCount(articleId);
 
-        if (this.article?.author?.type === 'fundraiser') {
+        if(this.article?.author?.type === "charity") {
+          this.getCharityDetails();
+        } else if(this.article?.author?.type === 'fundraiser') {
           this.getFundraiserDetails();
         }
+
       });
 
       this.setLanguageNotification();
     });
   }
 
+  getCharityDetails() {
+    this.charityService.getCharityBySlug(this.article.author.slug).subscribe(data => {
+      this.charity = data[0];
+      // console.log("getCharityDetails",this.charity)
+    });
+  }
+
   getFundraiserDetails() {
     this.fundraiserService.getFundraiserBySlug(this.article.author.slug).subscribe(data => {
       this.fundraiser = data[0];
+      // console.log("this.fundraiser",this.fundraiser)
 
       if (this.fundraiser.author.type == 'charity') {
         this.charityService.getCharityById(this.fundraiser.author.id).subscribe(charity => {
