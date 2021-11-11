@@ -44,9 +44,9 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
         // sets ID attr in case it was escaped
         this.element.nativeElement.setAttribute('id', this.pointer);
 
-        this.checkGoogleAdScript(() => {
-          this.insertGTagAd();
-        });
+        // this.checkGoogleAdScript(() => {
+        //   this.insertGTagAd();
+        // });
       }
     }
   }
