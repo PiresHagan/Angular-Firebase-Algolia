@@ -1,8 +1,4 @@
 <div class="is-comment-sec" #commentSection>
-  <div class="is-share is-line">
-    <h2>{{'share' | translate}} - </h2>
-    <app-share-buttons></app-share-buttons>
-  </div>
 
   <div class="is-middle-ad-section" style="margin:30px 0px;">
     <div *ngIf="displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'" class="ads-box" style="margin:0 auto;">

@@ -57,7 +57,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   isDonateFormVisible = false;
   topics: string;
   charity: Charity;
-
+  isShareVisible: boolean = false;
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
@@ -509,6 +509,14 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
 
   ngOnDestroy(): void {
     this.adService.removeBottomRailAd();
+  }
+
+  showShareModel(): void {
+    this.isShareVisible = true;
+  }
+
+  hideShareModel(): void {
+    this.isShareVisible = false;
   }
 }
 
