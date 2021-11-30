@@ -382,7 +382,7 @@
               <div class="big" *ngFor="let item of articleAds; trackBy:trackByArticleAdFn">
                 <span [ngClass]="{'not-active': article.author.type === 'company'}" [innerHTML]="item.elem"></span>
                 <ng-container *ngIf="item.insertAd">
-                  <div style="margin: 10px auto; background-color: red; width: 100%; height: 200px;">
+                  <div style="margin: 10px auto; background-color: #e0dddd; width: 100%; min-height: 100px;">
                     <div class="article-ad pw-in-article-container"
                       *ngIf="displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'"
                       adItem [id]="'articleAd_'+item.adIndex" type="playwire"
