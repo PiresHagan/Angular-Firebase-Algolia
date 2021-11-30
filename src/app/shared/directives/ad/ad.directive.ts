@@ -78,10 +78,9 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
       });
 
       // console.log(`Element with ID: ${this.id} not found for playwire ad`);
-      return;
+    } else {
+      this.adService.displayAd(this.adUnit, this.id);
     }
-
-    this.adService.displayAd(this.adUnit, this.id);
   }
 
   private checkGoogleAdScript(cb: Function) {
