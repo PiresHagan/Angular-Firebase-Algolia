@@ -15,6 +15,8 @@ export class AdService {
   }
 
   public displayAd(type: string, selectorId?: string): Promise<void> {
+    console.log(`Displaying ad ${type} and selector: ${selectorId}`);
+
     return new Promise(resolve => {
       ramp.addUnits([
         {
@@ -25,6 +27,8 @@ export class AdService {
         this.wait(500).then(() => {
           ramp.displayUnits();
         });
+
+        console.log(ramp.getUnits());
 
         resolve();
       }).catch((e) => {
@@ -46,8 +50,6 @@ export class AdService {
   }
 
   public async displayBottomRailAd(): Promise<void> {
-    console.log('Displaying...');
-
     if (ramp?.mtsInitialized) {
       return this.displayAd('bottom_rail');
     } else {

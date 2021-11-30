@@ -41,6 +41,9 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
       adConfig.onHomePage
     ) {
       if (this.type === 'playwire') {
+        // sets ID attr in case it was escaped
+        this.element.nativeElement.setAttribute('id', this.id);
+
         this.checkPlaywireAdScript(this.displayPlaywireAd.bind(this));
       } else {
         // sets ID attr in case it was escaped
@@ -71,13 +74,18 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  private displayPlaywireAd(): void {
+  private displayPlaywireAd(c = 0): void {
+    if (c >= 50) {
+      console.log(this);
+      return;
+    }
+
     if (!document.getElementById(this.id)) {
       this.adService.wait(500).then(() => {
-        this.displayPlaywireAd();
+        this.displayPlaywireAd(c + 1);
       });
 
-      // console.log(`Element with ID: ${this.id} not found for playwire ad`);
+      console.log(`Element with ID: ${this.id} not found for playwire ad`);
     } else {
       this.adService.displayAd(this.adUnit, this.id);
     }
