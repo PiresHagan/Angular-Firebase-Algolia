@@ -414,6 +414,18 @@
                   <app-charity-donate-form [charityId]="article?.author?.id" [charity]="charity">
                   </app-charity-donate-form>
                 </nz-modal>
+
+                <button type="button" class="donation-btn share-btn mt-3" nz-button nzType="primary" (click)="showShareModel()">
+                  Share
+                </button>
+                <nz-modal
+                nzTitle="Share"
+                [(nzVisible)]="isShareVisible"
+                (nzOnCancel)="hideShareModel()"
+                nzFooter=null
+                >
+                <app-share-buttons class="text-center pt-3"></app-share-buttons>
+                </nz-modal>  
               </div>
               <!-- Displaying Fundraiser Donate button with progresss bar -->
               <div class="text-center pb-3 mt-4"
@@ -430,6 +442,18 @@
                   <app-fundraiser-donate-form [fundraiser]="fundraiser" [fundraiserId]="article?.author?.id">
                   </app-fundraiser-donate-form>
                 </nz-modal>
+
+                <button type="button" class="donation-btn share-btn mt-3" nz-button nzType="primary" (click)="showShareModel()">
+                  Share
+                </button>
+                <nz-modal
+                  nzTitle="Share"
+                  [(nzVisible)]="isShareVisible"
+                  (nzOnCancel)="hideShareModel()"
+                  nzFooter=null
+                  >
+                  <app-share-buttons class="text-center pt-3"></app-share-buttons>
+                  </nz-modal>  
               </div>
 
               <div class="xs-article-publish">
@@ -529,6 +553,11 @@
                 </app-fundraiser-donate-form>
               </nz-modal>
             </div>
+            <div class="is-share is-line"  *ngIf="!(article?.author?.type == 'fundraiser' || article?.author?.type == 'charity')">
+              <h2>{{'share' | translate}} - </h2>
+              <app-share-buttons></app-share-buttons>
+            </div>
+          
             <app-article-comments *ngIf="article" [article]="article"></app-article-comments>
           </div>
         </div>
