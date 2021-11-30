@@ -384,9 +384,9 @@
                 <ng-container *ngIf="item.insertAd">
                   <div style="margin: 10px auto; background-color: red; width: 100%; height: 200px;">
                     <div class="article-ad pw-in-article-container"
-                      *ngIf="!isMobile && displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'"
-                      adItem [id]="'articleAd_'+item.adIndex" type="playwire" adUnit="med_rect_btf"
-                      [author]="article?.author?.slug">
+                      *ngIf="displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'"
+                      adItem [id]="'articleAd_'+item.adIndex" type="playwire"
+                      [adUnit]="isMobile ? 'mobile_in_article' : 'desktop_in_article'" [author]="article?.author?.slug">
                     </div>
                   </div>
                 </ng-container>
