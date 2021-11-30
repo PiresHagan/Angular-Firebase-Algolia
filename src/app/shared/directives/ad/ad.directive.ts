@@ -2,6 +2,7 @@ import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, OnInit } from '
 import { Observable, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { AdService } from '../../services/ad/ad.service';
 
 declare const ramp: any;
 declare const googletag: any;
@@ -24,6 +25,7 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private element: ElementRef,
+    private adService: AdService,
   ) { }
 
   ngOnInit(): void { }
@@ -70,35 +72,25 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private displayPlaywireAd(): void {
-    ramp.addUnits([
-      {
-        selectorId: this.id,
-        type: this.adUnit || 'med_rect_atf'
-      },
-      // {
-      //   type: 'bottom_rail'
-      // },
-    ]).then(() => {
-      this.delay(500).subscribe(() => {
-        ramp.displayUnits();
-      });
-    }).catch((e) => {
-      this.delay(500).subscribe(() => {
-        ramp.displayUnits();
+    if (!document.getElementById(this.id)) {
+      this.adService.wait(500).then(() => {
+        this.displayPlaywireAd();
       });
 
-      // catch errors
-      console.log('Error', e);
-    });
+      // console.log(`Element with ID: ${this.id} not found for playwire ad`);
+      return;
+    }
+
+    this.adService.displayAd(this.adUnit, this.id);
   }
 
   private checkGoogleAdScript(cb: Function) {
     if (googletag?.apiReady) {
-      this.delay(100).subscribe(() => {
+      this.adService.wait(100).then(() => {
         cb();
       });
     } else {
-      this.delay(500).subscribe(() => {
+      this.adService.wait(500).then(() => {
         this.checkGoogleAdScript(cb);
       });
     }
@@ -106,28 +98,22 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
 
   private checkPlaywireAdScript(cb: Function) {
     if (ramp?.mtsInitialized) {
-      this.delay(100).subscribe(() => {
+      this.adService.wait(100).then(() => {
         cb();
       });
     } else {
       console.log(`Ramp not ready yet... `, new Date());
 
-      this.delay(1000).subscribe(() => {
+      this.adService.wait(1000).then(() => {
         this.checkPlaywireAdScript(cb);
       });
     }
   }
 
-  private delay(num: number): Observable<void> {
-    return of(null).pipe(delay(num), take(1));
-  }
-
   ngOnDestroy(): void {
     if (this.type === 'playwire') {
       // destroy
-      if (ramp) {
-        ramp.destroyUnits(this.adUnit);
-      }
+      this.adService.removeAd(this.adUnit);
     } else {
       // destroy gtag for this spot
     }
