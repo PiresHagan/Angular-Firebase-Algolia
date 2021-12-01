@@ -147,9 +147,9 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
       this.setLanguageNotification();
     });
 
-    if (this.displayAd) {
-      this.adService.displayBottomRailAd();
-    }
+    // if (this.displayAd) {
+    //   this.adService.displayBottomRailAd();
+    // }
   }
 
   getCharityDetails() {
