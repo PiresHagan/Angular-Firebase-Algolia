@@ -22,8 +22,6 @@ export class CharityDonateFormComponent implements OnInit {
   isFormSaving: boolean = false;
   donateForm: FormGroup;
   showInvalidCardError: boolean = false;
-  isDonateBtnDisabled: boolean= true;
-  stripeStatusInactive: boolean= true;
 
   @ViewChild(StripeCardNumberComponent) card: StripeCardNumberComponent;
 
@@ -55,11 +53,6 @@ export class CharityDonateFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    if(this.charity?.stripe_status == 'active'){
-      this.stripeStatusInactive= false;
-      this.isDonateBtnDisabled = false;
-    } 
     
     this.donateForm = this.fb.group({
       first_name: [null, [Validators.required]],
@@ -73,10 +66,6 @@ export class CharityDonateFormComponent implements OnInit {
     if(!this.charity && this.charityId) {
       this.charityService.getCharityById(this.charityId).subscribe((charityData) => {
         this.charity = charityData;
-        if(this.charity?.stripe_status == 'inactive'){
-          this.stripeStatusInactive= true;
-          this.isDonateBtnDisabled = true;
-        }
       });
     }
   }

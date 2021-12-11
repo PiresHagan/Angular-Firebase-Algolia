@@ -58,8 +58,8 @@
                                 <a (click)="deleteCharity(item.id)" class="article-edit-link m-5" nz-button
                                     nzType="default" nzGhost>{{'DeleteCharity' | translate}}</a>
 
-                                <a (click)="setupConnectedAccount(item.id)" [nzLoading]="setupPaymentLoading" *ngIf="item.stripe_status != 'active'" class="article-edit-link m-5" nz-button
-                                    nzType="default" nzGhost>{{'SetupPaymentAccount' | translate}}</a>
+                                <!-- <a (click)="setupConnectedAccount(item.id)" [nzLoading]="setupPaymentLoading" *ngIf="item.stripe_status != 'active'" class="article-edit-link m-5" nz-button
+                                    nzType="default" nzGhost>{{'SetupPaymentAccount' | translate}}</a> -->
                             </div>
                         </div>
                     </div>

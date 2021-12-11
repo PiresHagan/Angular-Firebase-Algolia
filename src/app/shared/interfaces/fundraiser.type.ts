@@ -32,5 +32,5 @@ export interface Fundraiser {
         name: string,
         cloudinary_id: string
     };
-    stripe_status?: string;
+    // stripe_status?: string;
 }

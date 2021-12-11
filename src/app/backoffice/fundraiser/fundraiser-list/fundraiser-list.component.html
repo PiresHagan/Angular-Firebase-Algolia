@@ -9,13 +9,13 @@
                             <span>{{'newFundraiser' | translate}}</span>
                         </button>
                     </div>
-                    <div *ngIf="loggedInMember" class="m-v-10 m-l-20">
+                    <!-- <div *ngIf="loggedInMember" class="m-v-10 m-l-20">
                         <button nz-button nzType="primary" (click)="setupConnectedAccount(loggedInMember.id)" 
                             [nzLoading]="setupPaymentLoading" *ngIf="loggedInMember.stripe_status != 'active'">
                             <i nz-icon nzType="money"></i>
                             <span>{{'SetupPaymentAccount' | translate}}</span>
                         </button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

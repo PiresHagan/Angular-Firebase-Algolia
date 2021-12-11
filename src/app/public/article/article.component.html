@@ -545,7 +545,7 @@
             </app-charity-donate-form>
 
             <div class="text-center pb-3 donate-form-modal"
-              *ngIf="article?.author?.type == 'fundraiser' && isMobile && fundraiserAuthor && fundraiserAuthor?.stripe_status == 'active'">
+              *ngIf="article?.author?.type == 'fundraiser' && isMobile">
               <button type="button" class="donation-btn" nz-button nzType="primary" (click)="showDonateForm()"><i
                   class="fas fa-heart"></i> Donate Now</button>
               <nz-modal [(nzVisible)]="isDonateFormVisible" (nzOnCancel)="hideDonateForm()" nzFooter=null>

@@ -1,8 +1,8 @@
 <div class="charity-form">
-    <nz-alert nzShowIcon *ngIf="stripeStatusInactive" nzType="error" nzMessage="Account is not registered yet to receive donation"></nz-alert>
-    <h2 *ngIf="!stripeStatusInactive">{{ "donateCharityTitle" | translate }}</h2>
+    <!-- <nz-alert nzShowIcon *ngIf="stripeStatusInactive" nzType="error" nzMessage="Account is not registered yet to receive donation"></nz-alert> -->
+    <h2>{{ "donateCharityTitle" | translate }}</h2>
 
-    <form *ngIf="!stripeStatusInactive" nz-form [formGroup]="donateForm" (ngSubmit)="submitForm()" ngxStripeCardGroup [elementsOptions]="elementsOptions">
+    <form nz-form [formGroup]="donateForm" (ngSubmit)="submitForm()" ngxStripeCardGroup [elementsOptions]="elementsOptions">
         <nz-alert class="m-b-10" nzType="success" nzMessage="{{'donatedSuccessfully' | translate}}" nzShowIcon *ngIf="donateSuccess"></nz-alert>
 
         <nz-form-item>
@@ -61,7 +61,7 @@
             <nz-form-item>
                 <nz-form-control>
                     <div class="text-center">
-                        <button [disabled]="isDonateBtnDisabled" nz-button class="is-login-btn mt-20" [nzLoading]="isFormSaving" [nzType]="'primary'">{{"leadSubmit" | translate}}</button>
+                        <button nz-button class="is-login-btn mt-20" [nzLoading]="isFormSaving" [nzType]="'primary'">{{"leadSubmit" | translate}}</button>
                     </div>
                 </nz-form-control>
             </nz-form-item>
