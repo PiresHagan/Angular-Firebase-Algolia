@@ -33,12 +33,13 @@
       </h2>
       <div class="xs-article-author-detail">
         <div class="xs-article-name">
-          <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article" target="_blank">
+          <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article"
+            target="_blank">
             {{article?.author?.fullname}}
           </a>
         </div>
         <div class="xs-follow-author">
-         
+
           <span style="padding: 8px;" (click)="openOptionModel()"><svg aria-label="More options" class="_8-yf5 "
               fill="#262626" height="25" viewBox="0 0 50 25" width="25">
               <circle clip-rule="evenodd" cx="8" cy="24" fill-rule="evenodd" r="4.5"></circle>
@@ -51,9 +52,9 @@
       <div class="xs-article-date">{{article?.published_at | date:'medium' }}</div>
       <div class="related-topics">
         <b>Topics: </b>
-        <span *ngFor="let topic of topics"> 
-          <a [routerLink]="['/category/', article?.category?.slug]"
-          [queryParams]="{topic:topic.slug}" [ngClass]="article.category.slug" class="category"> {{topic?.title}}</a>
+        <span *ngFor="let topic of topics">
+          <a [routerLink]="['/category/', article?.category?.slug]" [queryParams]="{topic:topic.slug}"
+            [ngClass]="article.category.slug" class="category"> {{topic?.title}}</a>
           <strong class="comma">,</strong>
         </span>
       </div>
@@ -81,14 +82,14 @@
         </div>
         <div *ngIf="!(article?.author?.type)">
           <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-           {{'followAuthor' | translate}}
-         </a>
-         <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-           {{'unfollowAuthor' | translate}}
-         </a>
-       </div>
+            {{'followAuthor' | translate}}
+          </a>
+          <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+            {{'unfollowAuthor' | translate}}
+          </a>
+        </div>
         <div *ngIf="article?.author?.type === 'author'">
-           <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+          <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
             {{'followAuthor' | translate}}
           </a>
           <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
@@ -97,30 +98,30 @@
         </div>
         <div *ngIf="article?.author?.type === 'staff'">
           <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-           {{'followAuthor' | translate}}
-         </a>
-         <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-           {{'unfollowAuthor' | translate}}
-         </a>
-       </div>
+            {{'followAuthor' | translate}}
+          </a>
+          <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+            {{'unfollowAuthor' | translate}}
+          </a>
+        </div>
         <div *ngIf="article?.author?.type === 'company'">
           <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-           {{'followCompany' | translate}}
-         </a>
-         <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-           {{'unfollowCompany' | translate}}
-         </a>
-       </div>
-       <div *ngIf="article?.author?.type === 'charity'">
-        <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-         {{'followCharity' | translate}}
-       </a>
-       <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-         {{'unfollowCharity' | translate}}
-       </a>
-     </div>
+            {{'followCompany' | translate}}
+          </a>
+          <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+            {{'unfollowCompany' | translate}}
+          </a>
+        </div>
+        <div *ngIf="article?.author?.type === 'charity'">
+          <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+            {{'followCharity' | translate}}
+          </a>
+          <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+            {{'unfollowCharity' | translate}}
+          </a>
+        </div>
         <div *ngIf="article?.author?.type === 'fundraiser'">
-            <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+          <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
             {{'followFundraiser' | translate}}
           </a>
           <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
@@ -133,7 +134,8 @@
       <img src="{{replaceImage(article?.image?.url)}}" alt="{{article.image.alt}}"
         *ngIf="article && !article.image.cloudinary_id" />
       <ng-container *ngIf="article && article.image.cloudinary_id">
-        <cl-image loading="lazy" public-id="{{replaceImage(article.image.cloudinary_id)}}" secure="true" alt="{{article.image.alt}}">
+        <cl-image loading="lazy" public-id="{{replaceImage(article.image.cloudinary_id)}}" secure="true"
+          alt="{{article.image.alt}}">
           <cl-transformation width="1500" height="400" gravity="face" crop="thumb">
           </cl-transformation>
         </cl-image>
@@ -164,63 +166,63 @@
                 <span class="name" itemprop="name">
                   {{article?.author?.fullname}}</span>
               </a>
-             <div *ngIf="!(article.author.type)">
-              <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-                <img src="assets/images/article/icon/follow.png" alt="Follow button"/>
-                {{'followAuthor' | translate}}
-              </a>
-              <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-                <img src="assets/images/article/icon/un-follow.png"  alt="Unfollow button"/>
-                {{'unfollowAuthor' | translate}}
-              </a>
-              </div>
-              <div *ngIf="article.author.type === 'author'">
+              <div *ngIf="!(article.author.type)">
                 <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-                  <img src="assets/images/article/icon/follow.png" alt="follow button"/>
+                  <img src="assets/images/article/icon/follow.png" alt="Follow button" />
                   {{'followAuthor' | translate}}
                 </a>
                 <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-                  <img src="assets/images/article/icon/un-follow.png" alt="Unfollow button"/>
+                  <img src="assets/images/article/icon/un-follow.png" alt="Unfollow button" />
+                  {{'unfollowAuthor' | translate}}
+                </a>
+              </div>
+              <div *ngIf="article.author.type === 'author'">
+                <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                  <img src="assets/images/article/icon/follow.png" alt="follow button" />
+                  {{'followAuthor' | translate}}
+                </a>
+                <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                  <img src="assets/images/article/icon/un-follow.png" alt="Unfollow button" />
                   {{'unfollowAuthor' | translate}}
                 </a>
               </div>
               <div *ngIf="article.author.type === 'staff'">
                 <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-                  <img src="assets/images/article/icon/follow.png" alt="follow button"/>
+                  <img src="assets/images/article/icon/follow.png" alt="follow button" />
                   {{'followAuthor' | translate}}
                 </a>
                 <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-                  <img src="assets/images/article/icon/un-follow.png" alt="Unfollow button"/>
+                  <img src="assets/images/article/icon/un-follow.png" alt="Unfollow button" />
                   {{'unfollowAuthor' | translate}}
                 </a>
               </div>
               <div *ngIf="article.author.type === 'company'">
                 <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-                  <img src="assets/images/article/icon/follow.png" alt="follow button"/>
+                  <img src="assets/images/article/icon/follow.png" alt="follow button" />
                   {{'followCompany' | translate}}
                 </a>
                 <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-                  <img src="assets/images/article/icon/un-follow.png" alt="Unfollow button"/>
+                  <img src="assets/images/article/icon/un-follow.png" alt="Unfollow button" />
                   {{'unfollowCompany' | translate}}
                 </a>
               </div>
               <div *ngIf="article.author.type === 'charity'">
                 <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-                  <img src="assets/images/article/icon/follow.png" alt="follow button"/>
+                  <img src="assets/images/article/icon/follow.png" alt="follow button" />
                   {{'followCharity' | translate}}
                 </a>
                 <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-                  <img src="assets/images/article/icon/un-follow.png" alt="Unfollow button"/>
+                  <img src="assets/images/article/icon/un-follow.png" alt="Unfollow button" />
                   {{'unfollowCharity' | translate}}
                 </a>
               </div>
               <div *ngIf="article.author.type === 'fundraiser'">
                 <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-                  <img src="assets/images/article/icon/follow.png" alt="follow button"/>
+                  <img src="assets/images/article/icon/follow.png" alt="follow button" />
                   {{'followFundraiser' | translate}}
                 </a>
                 <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-                  <img src="assets/images/article/icon/un-follow.png" alt="Unfollow button"/>
+                  <img src="assets/images/article/icon/un-follow.png" alt="Unfollow button" />
                   {{'unfollowFundraiser' | translate}}
                 </a>
               </div>
@@ -278,7 +280,7 @@
       <div class="is-main-article-content">
         <div class="is-content">
           <div class="is-head hidden-on-xs">
-            
+
             <!-- <h1>
               <a itemprop="mainEntityOfPage" [routerLink]="['/',article?.slug]" *ngIf="article">
                 <span itemprop="headline">
@@ -286,9 +288,9 @@
                 </span>
               </a>
             </h1> -->
-              <h1 itemprop="headline">
-                {{article?.title}}
-              </h1>
+            <h1 itemprop="headline">
+              {{article?.title}}
+            </h1>
 
             <div class="is-small-profile">
               <div class="is-image">
@@ -314,9 +316,9 @@
                 </a>
                 <div class="related-topics">
                   <b>Topics: </b>
-                  <span *ngFor="let topic of topics"> 
-                    <a [routerLink]="['/category/', article?.category?.slug]"
-                    [queryParams]="{topic:topic.slug}" [ngClass]="article.category.slug" class="category"> {{topic?.title}}</a>
+                  <span *ngFor="let topic of topics">
+                    <a [routerLink]="['/category/', article?.category?.slug]" [queryParams]="{topic:topic.slug}"
+                      [ngClass]="article.category.slug" class="category"> {{topic?.title}}</a>
                     <strong class="comma">,</strong>
                   </span>
                 </div>
@@ -372,28 +374,19 @@
               </div>
             </div>
             <div *ngIf="articleType === TEXT" class="is-paragraph big">
-              <div class="ql-container ql-snow" style="border-width: 0;">
-                <div class="ql-editor big" [ngClass]="{'not-active': article.author.type === 'company'}" [innerHTML]="article?.content">
+              <!-- <div class="ql-container ql-snow" style="border-width: 0;">
+                <div class="ql-editor big" [ngClass]="{'not-active': article.author.type === 'company'}"
+                  [innerHTML]="article?.content">
                 </div>
-              </div>
+              </div> -->
               <div class="big" *ngFor="let item of articleAds; trackBy:trackByArticleAdFn">
-                <!-- <span [ngClass]="{'not-active': article.author.type === 'company'}" [innerHTML]="item.elem"></span> -->
+                <span [ngClass]="{'not-active': article.author.type === 'company'}" [innerHTML]="item.elem"></span>
                 <ng-container *ngIf="item.insertAd">
-                  <div style="margin: 10px auto;">
-                    <div class="desktop_ad" 
-                      style="margin: 10px auto; text-align:center;" 
-                      *ngIf="!isMobile && displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'"
-                      adItem
-                      [pointer]="'dynamic_mrectangle_ad_'+item.adIndex" 
-                      [author]="article?.author?.slug">
-                    </div>
-
-                    <div class="mobile_ad" 
-                      style="margin: 10px auto; text-align:center;" 
-                      *ngIf="isMobile && displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'" 
-                      adItem
-                      [pointer]="'dynamic_mrectangle_ad_'+item.adIndex" 
-                      [author]="article?.author?.slug">
+                  <div style="margin: 10px auto; width: 100%; min-height: 50px;">
+                    <div class="article-ad pw-in-article-container"
+                      *ngIf="displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'"
+                      adItem [id]="'articleAd_'+item.adIndex" type="playwire"
+                      [adUnit]="isMobile ? 'mobile_in_article' : 'desktop_in_article'" [author]="article?.author?.slug">
                     </div>
                   </div>
                 </ng-container>
@@ -411,42 +404,54 @@
               <div class="text-center pb-3 mt-4" *ngIf="article?.author?.type == 'charity' && !isMobile">
                 <h5 class="mt-2">
                   <b>{{ charity?.goal_amount | currency :'USD':'symbol':'1.0-2' }}</b>
-                   MTS Raised {{ charity?.amount | currency :'USD':'symbol':'1.0-2' }}
-               </h5>
-                <nz-progress [nzPercent]="donationPercentage" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"></nz-progress>
-                <button type="button" class="donation-btn mt-2" nz-button nzType="primary" (click)="showDonateForm()">Donate Now</button>
-                <nz-modal
-                  [(nzVisible)]="isDonateFormVisible"
-                  (nzOnCancel)="hideDonateForm()"
-                  nzFooter=null
-                >
-                <app-charity-donate-form [charityId]="article?.author?.id" [charity]="charity">
-                </app-charity-donate-form>
-                </nz-modal>   
+                  MTS Raised {{ charity?.amount | currency :'USD':'symbol':'1.0-2' }}
+                </h5>
+                <nz-progress [nzPercent]="donationPercentage" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }">
+                </nz-progress>
+                <button type="button" class="donation-btn mt-2" nz-button nzType="primary"
+                  (click)="showDonateForm()">Donate Now</button>
+                <nz-modal [(nzVisible)]="isDonateFormVisible" (nzOnCancel)="hideDonateForm()" nzFooter=null>
+                  <app-charity-donate-form [charityId]="article?.author?.id" [charity]="charity">
+                  </app-charity-donate-form>
+                </nz-modal>
+
+                <button type="button" class="donation-btn share-btn mt-3" nz-button nzType="primary"
+                  (click)="showShareModel()">
+                  Share
+                </button>
+                <nz-modal nzTitle="Share" [(nzVisible)]="isShareVisible" (nzOnCancel)="hideShareModel()" nzFooter=null>
+                  <app-share-buttons class="text-center pt-3"></app-share-buttons>
+                </nz-modal>
               </div>
               <!-- Displaying Fundraiser Donate button with progresss bar -->
-              <div class="text-center pb-3 mt-4" *ngIf="article?.author?.type == 'fundraiser' && !isMobile && fundraiserAuthor"
-              >
+              <div class="text-center pb-3 mt-4"
+                *ngIf="article?.author?.type == 'fundraiser' && !isMobile && fundraiserAuthor">
                 <h5>
                   <b>{{ fundraiser?.goal_amount | currency :'USD':'symbol':'1.0-2' }}</b>
                   MTS Raised {{ fundraiser?.amount | currency :'USD':'symbol':'1.0-2' }}
                 </h5>
-                <nz-progress [nzPercent]="donationPercentage" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"></nz-progress>
-                <button type="button" class="donation-btn mt-2" nz-button nzType="primary" (click)="showDonateForm()">Donate Now</button>
-                <nz-modal
-                  [(nzVisible)]="isDonateFormVisible"
-                  (nzOnCancel)="hideDonateForm()"
-                  nzFooter=null
-                >
-                  <app-fundraiser-donate-form 
-                    [fundraiser]="fundraiser" [fundraiserId]="article?.author?.id">
+                <nz-progress [nzPercent]="donationPercentage" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }">
+                </nz-progress>
+                <button type="button" class="donation-btn mt-2" nz-button nzType="primary"
+                  (click)="showDonateForm()">Donate Now</button>
+                <nz-modal [(nzVisible)]="isDonateFormVisible" (nzOnCancel)="hideDonateForm()" nzFooter=null>
+                  <app-fundraiser-donate-form [fundraiser]="fundraiser" [fundraiserId]="article?.author?.id">
                   </app-fundraiser-donate-form>
-                </nz-modal>   
+                </nz-modal>
+
+                <button type="button" class="donation-btn share-btn mt-3" nz-button nzType="primary"
+                  (click)="showShareModel()">
+                  Share
+                </button>
+                <nz-modal nzTitle="Share" [(nzVisible)]="isShareVisible" (nzOnCancel)="hideShareModel()" nzFooter=null>
+                  <app-share-buttons class="text-center pt-3"></app-share-buttons>
+                </nz-modal>
               </div>
 
               <div class="xs-article-publish">
                 <div class="xs-article-publisher-img">
-                  <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article" target="_blank">
+                  <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article"
+                    target="_blank">
                     <img class="avatar" alt="{{article?.author?.avatar?.alt}}"
                       src="article && {{replaceImage(article?.author?.avatar?.url)}}"
                       onerror="this.src='assets/images/default-avatar.png'"
@@ -523,34 +528,37 @@
                 </a>
               </p>
             </div>
-            <app-company-lead-form *ngIf="article?.author?.type == 'company' && isMobile" [companyId]="article?.author?.id">
+            <app-company-lead-form *ngIf="article?.author?.type == 'company' && isMobile"
+              [companyId]="article?.author?.id">
             </app-company-lead-form>
-    
-            <app-charity-donate-form *ngIf="article?.author?.type == 'charity' && isMobile" [charityId]="article.author.id">
+
+            <app-charity-donate-form *ngIf="article?.author?.type == 'charity' && isMobile"
+              [charityId]="article.author.id">
             </app-charity-donate-form>
 
-            <div class="text-center pb-3 donate-form-modal" 
-              *ngIf="article?.author?.type == 'fundraiser' && isMobile && fundraiserAuthor && fundraiserAuthor?.stripe_status == 'active'"
-            >
-              <button type="button" class="donation-btn" nz-button nzType="primary" (click)="showDonateForm()"><i class="fas fa-heart"></i> Donate Now</button>
-              <nz-modal
-                [(nzVisible)]="isDonateFormVisible"
-                (nzOnCancel)="hideDonateForm()"
-                nzFooter=null
-              >
-                <app-fundraiser-donate-form 
-                  *ngIf="" 
-                  [fundraiserId]="article?.author?.id">
+            <div class="text-center pb-3 donate-form-modal"
+              *ngIf="article?.author?.type == 'fundraiser' && isMobile">
+              <button type="button" class="donation-btn" nz-button nzType="primary" (click)="showDonateForm()"><i
+                  class="fas fa-heart"></i> Donate Now</button>
+              <nz-modal [(nzVisible)]="isDonateFormVisible" (nzOnCancel)="hideDonateForm()" nzFooter=null>
+                <app-fundraiser-donate-form *ngIf="" [fundraiserId]="article?.author?.id">
                 </app-fundraiser-donate-form>
-              </nz-modal>   
+              </nz-modal>
             </div>
+            <div class="is-share is-line"
+              *ngIf="!(article?.author?.type == 'fundraiser' || article?.author?.type == 'charity')">
+              <h2>{{'share' | translate}} - </h2>
+              <app-share-buttons></app-share-buttons>
+            </div>
+
             <app-article-comments *ngIf="article" [article]="article"></app-article-comments>
           </div>
         </div>
       </div>
 
       <div class="is-right-ad-section" [ngClass]="SlideRelatedArticle ? 'removeSlide' : 'openSlideArticle'">
-        <app-company-lead-form *ngIf="article?.author?.type == 'company' && !isMobile" [companyId]="article?.author?.id">
+        <app-company-lead-form *ngIf="article?.author?.type == 'company' && !isMobile"
+          [companyId]="article?.author?.id">
         </app-company-lead-form>
         <app-similar-articles *ngIf="article" [article]="article"></app-similar-articles>
 
@@ -563,9 +571,13 @@
           </button>
         </div>
 
-        <div class="ads-box" *ngIf="displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'">
+        <div adItem id="playwire-test_ad" type="playwire" adUnit="med_rect_atf"></div>
+
+        <div class="ads-box"
+          *ngIf="displayAd && article?.author?.type != 'company' && article?.author?.type != 'charity'">
           <div adItem pointer="div-gpt-ad-1599554597929-0" [author]="article?.author?.slug"
-            style="margin: 10px auto; text-align:center;"></div>
+            style="margin: 10px auto; text-align:center;">
+          </div>
         </div>
       </div>
     </div>

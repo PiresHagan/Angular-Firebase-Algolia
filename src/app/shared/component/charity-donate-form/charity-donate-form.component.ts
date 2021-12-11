@@ -55,11 +55,6 @@ export class CharityDonateFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    if(this.charity?.stripe_status == 'active'){
-      this.stripeStatusInactive= false;
-      this.isDonateBtnDisabled = false;
-    } 
     
     this.donateForm = this.fb.group({
       first_name: [null, [Validators.required]],

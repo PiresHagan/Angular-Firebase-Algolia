@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation, AfterViewInit, AfterViewChecked, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
@@ -23,6 +23,7 @@ import { CompanyService } from 'src/app/shared/services/company.service';
 import { CharityService } from 'src/app/shared/services/charity.service';
 import { Fundraiser } from 'src/app/shared/interfaces/fundraiser.type';
 import { Charity } from 'src/app/shared/interfaces/charity.type';
+import { AdService } from 'src/app/shared/services/ad/ad.service';
 
 @Component({
   selector: 'app-article',
@@ -30,7 +31,7 @@ import { Charity } from 'src/app/shared/interfaces/charity.type';
   styleUrls: ['./article.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
   article: Article;
   articleType: string;
   articleLikes: number = 0;
@@ -56,7 +57,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   isDonateFormVisible = false;
   topics: string;
   charity: Charity;
-
+  isShareVisible: boolean = false;
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
@@ -73,6 +74,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
     private fundraiserService: FundraiserService,
     public companyService: CompanyService,
     public charityService: CharityService,
+    private adService: AdService,
   ) { }
 
   ngOnInit(): void {
@@ -134,15 +136,26 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
 
         this.articleService.updateViewCount(articleId);
 
-        if(this.article?.author?.type === "charity") {
+        if (this.article?.author?.type === "charity") {
           this.getCharityDetails();
-        } else if(this.article?.author?.type === 'fundraiser') {
+        } else if (this.article?.author?.type === 'fundraiser') {
           this.getFundraiserDetails();
         }
 
       });
 
       this.setLanguageNotification();
+    });
+
+    // if (this.displayAd) {
+    //   this.adService.displayBottomRailAd();
+    // }
+  }
+
+  getCharityDetails() {
+    this.charityService.getCharityBySlug(this.article.author.slug).subscribe(data => {
+      this.charity = data[0];
+      // console.log("getCharityDetails",this.charity)
     });
   }
 
@@ -499,6 +512,18 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
 
   hideDonateForm(): void {
     this.isDonateFormVisible = false;
+  }
+
+  ngOnDestroy(): void {
+    this.adService.removeBottomRailAd();
+  }
+
+  showShareModel(): void {
+    this.isShareVisible = true;
+  }
+
+  hideShareModel(): void {
+    this.isShareVisible = false;
   }
 }
 

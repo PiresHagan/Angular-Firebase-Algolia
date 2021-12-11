@@ -1,9 +1,11 @@
-import { AfterViewInit, Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { AdService } from '../../services/ad/ad.service';
 
-declare const $: any;
+declare const ramp: any;
+declare const googletag: any;
 
 export interface AdItemData {
   id: string;
@@ -12,78 +14,115 @@ export interface AdItemData {
 }
 
 @Directive({
-  selector: '[adItem]'
+  selector: '[adItem]',
 })
-export class AdDirective implements OnInit, AfterViewInit {
+export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
+  @Input() id: string;
+  @Input() type: 'gtag' | 'playwire';
+  @Input() adUnit: string;
   @Input() pointer: string;
   @Input() author: string;
 
   constructor(
     private element: ElementRef,
+    private adService: AdService,
   ) { }
 
-  ngOnInit(): void {
-    if (!this.pointer) {
-      throw Error('Ad item ID must be specified');
-    }
-  }
+  ngOnInit(): void { }
 
   ngAfterViewInit() {
-    let adConfig = environment.showAds;
-    if(
-      adConfig.onArticlePage || 
-      adConfig.onCategoryPage || 
-      adConfig.onCharityPage || 
-      adConfig.onCompanyPage || 
+    const adConfig = environment.showAds;
+    if (
+      adConfig.onArticlePage ||
+      adConfig.onCategoryPage ||
+      adConfig.onCharityPage ||
+      adConfig.onCompanyPage ||
       adConfig.onFundraiserPage ||
       adConfig.onHomePage
     ) {
-      // sets ID attr in case it was escaped
-      this.element.nativeElement.setAttribute('id', this.pointer);
-  
-      this.checkAdScript(() => {
-        this.insertAd();
-      });
+      if (this.type === 'playwire') {
+        // sets ID attr in case it was escaped
+        this.element.nativeElement.setAttribute('id', this.id);
+
+        this.checkPlaywireAdScript(this.displayPlaywireAd.bind(this));
+      } else {
+        // sets ID attr in case it was escaped
+        this.element.nativeElement.setAttribute('id', this.pointer);
+
+        // this.checkGoogleAdScript(() => {
+        //   this.insertGTagAd();
+        // });
+      }
     }
   }
 
-  private insertAd(): void {
-    const googletag = window['googletag'];
-
+  private insertGTagAd(): void {
     googletag.cmd.push(() => {
       const allGoogleAdSlots: { ref: any, data: AdItemData }[] = window['allGoogleAdSlots'];
       const slot = allGoogleAdSlots.find(item => item.data.id === this.pointer);
 
       if (slot) {
-        if(this.author){
+        if (this.author) {
           googletag.pubads().setTargeting("author", this.author);
-          // console.log('Author key pair', googletag.pubads().getTargeting('author'));
-          
         }
+
         googletag.display(this.pointer);
         googletag.pubads().refresh([slot.ref]);
       } else {
-        // console.log(`Slot was not found for ${this.pointer}`);
-        // console.log(allGoogleAdSlots);
+        console.log(`Slot was not found for ${this.pointer}`);
       }
     });
   }
 
-  private checkAdScript(cb: Function) {
-    const script = window['googletag'];
+  private displayPlaywireAd(c = 0): void {
+    if (c >= 50) {
+      console.log(this);
+      return;
+    }
 
-    if (script && script.apiReady && window['allGoogleAdSlots']) {
-      this.delay(1000).subscribe(() => {
+    if (!document.getElementById(this.id)) {
+      this.adService.wait(500).then(() => {
+        this.displayPlaywireAd(c + 1);
+      });
+
+      console.log(`Element with ID: ${this.id} not found for playwire ad`);
+    } else {
+      this.adService.displayAd(this.adUnit, this.id);
+    }
+  }
+
+  private checkGoogleAdScript(cb: Function) {
+    if (googletag?.apiReady) {
+      this.adService.wait(100).then(() => {
         cb();
       });
     } else {
-      this.delay(500).subscribe(() => {
-        this.checkAdScript(cb);
+      this.adService.wait(500).then(() => {
+        this.checkGoogleAdScript(cb);
       });
     }
   }
 
-  private delay(num: number): Observable<void> {
-    return of(null).pipe(delay(num), take(1));
+  private checkPlaywireAdScript(cb: Function) {
+    if (ramp?.mtsInitialized) {
+      this.adService.wait(100).then(() => {
+        cb();
+      });
+    } else {
+      console.log(`Ramp not ready yet... `, new Date());
+
+      this.adService.wait(1000).then(() => {
+        this.checkPlaywireAdScript(cb);
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.type === 'playwire') {
+      // destroy
+      this.adService.removeAd(this.adUnit);
+    } else {
+      // destroy gtag for this spot
+    }
   }
 }

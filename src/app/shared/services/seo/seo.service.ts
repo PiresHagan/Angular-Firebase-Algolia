@@ -44,7 +44,7 @@ export class SeoService {
     this.meta.removeTag("name='twitter:image'");
     this.meta.updateTag({ name: 'twitter:title', content: config.title });
     this.meta.updateTag({ name: 'twitter:description', content: config.description || '' });
-    this.meta.updateTag({ name: 'twitter:card', content: 'summary' }); // The card type, which will be one of “summary”, “summary_large_image”, “app”, or “player”.
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' }); // The card type, which will be one of “summary”, “summary_large_image”, “app”, or “player”.
     this.meta.updateTag({ name: 'twitter:image', content: config.image.url });
 
     this.meta.removeTag("name='description'");

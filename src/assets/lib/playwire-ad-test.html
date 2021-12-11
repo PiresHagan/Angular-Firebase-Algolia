@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>Playwire Test Ads for MTS</h1>
+
+
+  <!-- Use the following placeholder divs to indicate where you want the ad unit to appear -->
+  <!-- The ID must match the the selectorId -->
+  <!-- This step is not needed for tagless units such as rails units or video -->
+
+  <!-- 728 x 90 ATF Desktop -->
+  <div id="top-leaderboard"></div>
+
+  <!-- 728 x 90 BTF Desktop -->
+  <div id="bottom-leaderboard"></div>
+
+  <!-- 300 x 250 and 300 x 600 ATF Desktop -->
+  <div id="top-med-rect"></div>
+
+  <!-- 300 x 250 and 300 x 600 BTF Desktop -->
+  <div id="bottom-med-rect"></div>
+
+  <!-- Place after opening head tag - Header Bidding Script -->
+  <script type="text/javascript">
+
+    // There are three major parts to get started to show ads on the page
+    // 1. Set up account specific config code
+    // 2. Configure ad units
+    // 3. Initialize and show units
+
+    // 1. Set up account specific config code
+
+    var ramp = {
+      config: '//config.playwire.com/1024452/v2/websites/73198/banner.json',
+      passiveMode: true
+    }
+
+    // 2. Configure ad units
+    // In this array, you'll define the units you will use on the page
+    // You can edit this array to include only the units you want to show on the page
+
+    var pwUnits = [
+      {
+        type: 'bottom_rail'
+      },
+      {
+        selectorId: 'top-leaderboard',
+        type: 'leaderboard_atf'
+      },
+      {
+        selectorId: 'bottom-leaderboard',
+        type: 'leaderboard_btf'
+      },
+      {
+        selectorId: 'top-med-rect',
+        type: 'med_rect_atf'
+      },
+      {
+        selectorId: 'bottom-med-rect',
+        type: 'med_rect_btf'
+      }
+    ]
+
+    // 3. Initialize and show units
+    // We define the function that is called when everything is ready
+
+    var init = function () {
+      // Delete any units that were created before
+      try {
+        ramp.destroyUnits('all')
+      } catch (e) {
+        console.log('destroyUnits error: ', e)
+      }
+
+      console.log('Ramp 1', ramp);
+
+      ramp
+        // Set up the units you will use
+        .addUnits(pwUnits)
+        .then(() => {
+          // Show the units
+          ramp.displayUnits();
+
+          console.log('Displayed ads');
+        })
+        .catch((e) => {
+          ramp.displayUnits();
+          console.log(e);
+        });
+    }
+
+    ramp.onReady = function () { // attach function to tyche onReady
+      init()
+    }
+
+    console.log('Ramp 2', ramp);
+  </script>
+  <script id="ramp" async src="//cdn.intergient.com/ramp.js" type="text/javascript"></script>
+</body>
+
+</html>

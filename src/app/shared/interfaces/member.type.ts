@@ -7,5 +7,5 @@ export interface Member {
     lang?: string,
     avatar?: any,
     bio?: string,
-    stripe_status?: string
+    // stripe_status?: string
 }
