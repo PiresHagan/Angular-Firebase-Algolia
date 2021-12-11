@@ -23,6 +23,6 @@ export interface Company {
     created_at: string,
     updated_at: string,
     type?: string,
-    stripe_status?: string,
+    // stripe_status?: string,
     status?: string,
 }
