@@ -1,7 +1,8 @@
 <div class="charity-form">
    <!-- <nz-alert nzShowIcon *ngIf="stripeStatusInactive" nzType="error" nzMessage="Account is not registered yet to receive donation"></nz-alert> -->
    <h2>{{ 'donateFundraiserTitle' | translate }}</h2>
-    <form nz-form [formGroup]="donateForm" (ngSubmit)="submitForm()" ngxStripeCardGroup [elementsOptions]="elementsOptions">
+    <!-- <form nz-form [formGroup]="donateForm" (ngSubmit)="submitForm()" ngxStripeCardGroup [elementsOptions]="elementsOptions"> -->
+   <form nz-form [formGroup]="donateForm" (ngSubmit)="submitForm()">
        <nz-alert class="m-b-10" nzType="success" nzMessage="{{'donatedSuccessfully' | translate}}" nzShowIcon *ngIf="donateSuccess"></nz-alert>
        <div class="row">
        <nz-form-item  class="col-lg-6">
@@ -42,7 +43,7 @@
           </nz-form-control>
        </nz-form-item>
        <div class="col-lg-12">
-       <div nz-row class="card-info" [ngClass]="{'errorBorder' : showInvalidCardError}">
+       <!-- <div nz-row class="card-info" [ngClass]="{'errorBorder' : showInvalidCardError}">
           <p class="card-header">{{ "paymentDetails" | translate }}</p>
           <div nz-col nzSpan="24" class="card-number-col">
                 <ngx-stripe-card-number [options]="cardOptions"></ngx-stripe-card-number>
@@ -53,7 +54,7 @@
           <div nz-col nzSpan="12" class="card-cvc-col" nzOffset="1">
                 <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
           </div>
-       </div>
+       </div> -->
     </div>
        <p *ngIf="showInvalidCardError" class="err-msg">{{ "invalidCardErrorMessage" | translate }}</p>
 
