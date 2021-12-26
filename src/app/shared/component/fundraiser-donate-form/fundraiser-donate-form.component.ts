@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalService } from "ng-zorro-antd";
-import { StripeService, StripeCardNumberComponent } from 'ngx-stripe';
-import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
+// import { StripeService, StripeCardNumberComponent } from 'ngx-stripe';
+// import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 import { TranslateService } from "@ngx-translate/core";
 import { Fundraiser } from 'src/app/shared/interfaces/fundraiser.type';
 import { FundraiserService } from 'src/app/shared/services/fundraiser.service';
@@ -24,34 +24,33 @@ export class FundraiserDonateFormComponent implements OnInit {
   isFormSaving: boolean = false;
   showInvalidCardError: boolean = false;
   
-  @ViewChild(StripeCardNumberComponent) card: StripeCardNumberComponent;
+  // @ViewChild(StripeCardNumberComponent) card: StripeCardNumberComponent;
 
-  cardOptions: StripeCardElementOptions = {
-    style: {
-      base: {
-        iconColor: '#666EE8',
-        color: '#31325F',
-        fontWeight: '300',
-        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSize: '18px',
-        '::placeholder': {
-          color: '#CFD7E0'
-        }
-      }
-    }
-  };
+  // cardOptions: StripeCardElementOptions = {
+  //   style: {
+  //     base: {
+  //       iconColor: '#666EE8',
+  //       color: '#31325F',
+  //       fontWeight: '300',
+  //       fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+  //       fontSize: '18px',
+  //       '::placeholder': {
+  //         color: '#CFD7E0'
+  //       }
+  //     }
+  //   }
+  // };
 
-  elementsOptions: StripeElementsOptions = {
-    locale: 'en'
-  };
+  // elementsOptions: StripeElementsOptions = {
+  //   locale: 'en'
+  // };
 
   constructor(
     private fb: FormBuilder,
     private fundraiserService: FundraiserService,
     private modalService: NzModalService,
-    private stripeService: StripeService,
+    // private stripeService: StripeService,
     public translate: TranslateService,
-    private memberService: BackofficeMemberService
   ) { }
 
   ngOnInit(): void {
@@ -72,47 +71,54 @@ export class FundraiserDonateFormComponent implements OnInit {
       this.donateForm.controls[i].updateValueAndValidity();
     }
 
-    const cardElement: any = this.card.element;
+    // const cardElement: any = this.card.element;
 
-    if (this.findInvalidControls().length == 0 && !cardElement._empty && !cardElement._invalid) {
+    if (this.findInvalidControls().length == 0 /*&& !cardElement._empty && !cardElement._invalid */) {
       try {
         this.isFormSaving = true;
 
         const name = `${this.donateForm.get('first_name').value} ${this.donateForm.get('last_name').value}`;
 
-        this.stripeService.createToken(cardElement, { name }).subscribe((result) => {
-          if (result.token) {
+        // this.stripeService.createToken(cardElement, { name }).subscribe((result) => {
+          // if (result.token) {
             let donorData = JSON.parse(JSON.stringify(this.donateForm.value));
-            donorData['fundraiser_id'] = this.fundraiserId;
-            donorData['card_token'] = result.token.id;
+            donorData['success_url'] = window && window.location && window.location.href || '';
+            donorData['cancel_url'] = window && window.location && window.location.href || '';
+            // donorData['card_token'] = result.token.id;
             if (donorData.message.length == 0) {
               delete donorData.message;
             }
 
-            this.fundraiserService.donate(donorData, this.fundraiserId).then(result => {
-              this.donateForm.reset();
-              this.card.element.clear();
-              this.isFormSaving = false;
-              this.donateSuccess = true;
-              setTimeout(() => {
-                this.donateSuccess = false;
-              }, 10000);
+            this.fundraiserService.donate(donorData, this.fundraiserId).then((redirectUrl: any) => {
+              if (redirectUrl) {
+                window && window.open(redirectUrl, '_self')
+                this.donateForm.reset();
+                // this.card.element.clear();
+                this.isFormSaving = false;
+                this.donateSuccess = true;
+                setTimeout(() => {
+                  this.donateSuccess = false;
+                }, 10000);
+              } else {
+                this.isFormSaving = false;
+                this.showError("FundraiserAccountError");
+              }
             }).catch(err => {
               this.isFormSaving = false;
               this.showError("FundraiserAccountError");
             });
-          } else if (result.error) {
-            this.isFormSaving = false;
-            this.showInvalidCardErr();
-          }
-        });
+          // } else if (result.error) {
+          //   this.isFormSaving = false;
+          //   this.showInvalidCardErr();
+          // }
+      //   });
       } catch (err) {
         this.isFormSaving = false;
       }
     } else {
-      if (cardElement._empty || cardElement._invalid) {
-        this.showInvalidCardErr();
-      }
+      // if (cardElement._empty || cardElement._invalid) {
+      //   this.showInvalidCardErr();
+      // }
 
       this.isFormSaving = false;
     }
