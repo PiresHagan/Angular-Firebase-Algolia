@@ -693,6 +693,15 @@ hr {
               margin-top: 30px;
               display: block; 
             }
+            .progress {
+              width: 100%;
+              background: #0c80406b;
+              height: 5px;
+              .progress-bar {
+                height: 5px;
+                background: #0c8040;
+              }
+            }
             .fundraiser-btn{
               display: flex;
               flex-direction: column;

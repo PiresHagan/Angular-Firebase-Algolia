@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { User } from 'src/app/shared/interfaces/user.type';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AuthorService } from 'src/app/shared/services/author.service';
 import { environment } from 'src/environments/environment';
@@ -58,6 +59,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   topics: string;
   charity: Charity;
   isShareVisible: boolean = false;
+  donationPercentage: string = "0";
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
@@ -75,10 +77,30 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
     public companyService: CompanyService,
     public charityService: CharityService,
     private adService: AdService,
+    private message: NzMessageService,
   ) { }
 
   ngOnInit(): void {
     this.displayAd = environment.showAds.onArticlePage;
+
+    this.route.queryParams.subscribe(params => {
+      if(params && params.donation) {
+        switch(params.donation) {
+          case 'success': {
+            const msg = this.translate.instant("Donated Successfully");
+            this.showMessage('success', msg);
+            break;
+          }
+
+          case 'error': {
+            const msg = this.translate.instant("Something went wrong. Please connect with support team.");
+            this.showMessage('error', msg);
+            break;
+          }
+        }
+      } 
+    });
+
     this.route.paramMap.subscribe(params => {
       this.selectedLanguage = this.langService.getSelectedLanguage();
 
@@ -152,6 +174,12 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
     // }
   }
 
+  showMessage(type: string, message: string) {
+    this.message.create(type, message, {
+      nzDuration: 5000
+    });
+  }
+
   getCharityDetails() {
     this.charityService.getCharityBySlug(this.article.author.slug).subscribe(data => {
       this.charity = data[0];
@@ -176,6 +204,10 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
         this.userService.getMember(this.fundraiser.author.id).subscribe(member => {
           this.fundraiserAuthor = member;
         });
+      }
+
+      if (this.fundraiser.goal_amount && this.fundraiser.amount) {
+        this.donationPercentage = ((this.fundraiser.amount / this.fundraiser.goal_amount) * 100).toFixed(1);
       }
     });
   }

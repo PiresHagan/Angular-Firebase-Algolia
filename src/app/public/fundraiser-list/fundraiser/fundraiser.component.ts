@@ -7,6 +7,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { Fundraiser } from 'src/app/shared/interfaces/fundraiser.type';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { AuthorService } from 'src/app/shared/services/author.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 // import { TEXT, AUDIO, VIDEO } from 'src/app/shared/constants/article-constants';
 import { UserService } from 'src/app/shared/services/user.service';
 import { CompanyService } from 'src/app/shared/services/company.service';
@@ -63,10 +64,29 @@ export class FundraiserComponent implements OnInit {
     public charityService: CharityService,
     private seoService: SeoService,
     private articleService: BackofficeArticleService,
-    private router: Router
+    private router: Router,
+    private message: NzMessageService,
   ) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      if(params && params.donation) {
+        switch(params.donation) {
+          case 'success': {
+            const msg = this.translate.instant("Donated Successfully");
+            this.showMessage('success', msg);
+            break;
+          }
+
+          case 'error': {
+            const msg = this.translate.instant("Something went wrong. Please connect with support team.");
+            this.showMessage('error', msg);
+            break;
+          }
+        }
+      } 
+    });
+
     this.route.paramMap.subscribe(params => {
       this.selectedLanguage = this.langService.getSelectedLanguage();
 
@@ -122,6 +142,12 @@ export class FundraiserComponent implements OnInit {
       this.setUserDetails();
     });
     
+  }
+
+  showMessage(type: string, message: string) {
+    this.message.create(type, message, {
+      nzDuration: 5000
+    });
   }
 
   replaceImage(url) {
