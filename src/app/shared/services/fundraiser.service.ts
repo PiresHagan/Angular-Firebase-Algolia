@@ -21,7 +21,7 @@ export class FundraiserService {
   ) { }
 
   getAllFundraiserDonation(fundraiserId) {
-    let dataQuery = this.db.collection(this.fundraisersCollection).doc(fundraiserId).collection(`${this.fundraiserDonation}`, ref => ref)
+    let dataQuery = this.db.collection(this.fundraisersCollection).doc(fundraiserId).collection(`${this.fundraiserDonation}`, ref => ref.orderBy('created_at', 'desc'))
     return dataQuery.snapshotChanges().pipe(map(actions => {
       return {
         donations: actions.map(a => {

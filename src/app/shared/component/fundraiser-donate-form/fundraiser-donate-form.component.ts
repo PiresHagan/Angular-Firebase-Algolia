@@ -82,8 +82,8 @@ export class FundraiserDonateFormComponent implements OnInit {
         // this.stripeService.createToken(cardElement, { name }).subscribe((result) => {
           // if (result.token) {
             let donorData = JSON.parse(JSON.stringify(this.donateForm.value));
-            donorData['success_url'] = window && window.location && window.location.href || '';
-            donorData['cancel_url'] = window && window.location && window.location.href || '';
+            donorData['success_url'] = window && window.location && `${window.location.href}?donation=success` || '';
+            donorData['cancel_url'] = window && window.location && `${window.location.href}?donation=error`|| '';
             // donorData['card_token'] = result.token.id;
             if (donorData.message.length == 0) {
               delete donorData.message;
@@ -95,10 +95,10 @@ export class FundraiserDonateFormComponent implements OnInit {
                 this.donateForm.reset();
                 // this.card.element.clear();
                 this.isFormSaving = false;
-                this.donateSuccess = true;
-                setTimeout(() => {
-                  this.donateSuccess = false;
-                }, 10000);
+                // this.donateSuccess = true;
+                // setTimeout(() => {
+                //   this.donateSuccess = false;
+                // }, 10000);
               } else {
                 this.isFormSaving = false;
                 this.showError("FundraiserAccountError");
