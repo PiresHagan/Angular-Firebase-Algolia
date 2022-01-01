@@ -678,7 +678,7 @@
                   <div class="dn-details">
                     <h3>{{donation.first_name}} {{donation.last_name}}</h3>
                     <ul>
-                      <li><b>${{donation.amount}}</b></li>
+                      <li><b>${{donation.amount | currency :'USD':'symbol':'1.0-2' }}</b></li>
                       <li class="dot">{{donation?.created_at | date:'medium' }}</li>
                     </ul>
                   </div>

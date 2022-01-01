@@ -183,14 +183,16 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   getCharityDetails() {
     this.charityService.getCharityBySlug(this.article.author.slug).subscribe(data => {
       this.charity = data[0];
-      // console.log("getCharityDetails",this.charity)
+
+      if (this.charity.amount) {
+        this.donationPercentage = ((this.charity.amount / 1000) * 100).toFixed(1);
+      }
     });
   }
 
   getFundraiserDetails() {
     this.fundraiserService.getFundraiserBySlug(this.article.author.slug).subscribe(data => {
       this.fundraiser = data[0];
-      // console.log("this.fundraiser",this.fundraiser)
 
       if (this.fundraiser.author.type == 'charity') {
         this.charityService.getCharityById(this.fundraiser.author.id).subscribe(charity => {

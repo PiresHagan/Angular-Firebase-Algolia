@@ -5,7 +5,8 @@ export interface Charity {
     lang?: string,
     phone?: string
     slug?: string,
-    bio?: string
+    bio?: string,
+    amount?: number;
     presentation?: string,
     color_code?: string
     logo?: {

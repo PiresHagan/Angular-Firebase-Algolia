@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
 import { Article } from 'src/app/shared/interfaces/article.type';
 import { BackofficeArticleService } from 'src/app/backoffice/shared/services/backoffice-article.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+
 @Component({
   selector: 'app-charity',
   templateUrl: './charity.component.html',
@@ -38,7 +40,7 @@ export class CharityComponent implements OnInit {
   isDonateFormVisible: boolean = false;
   isShareVisible : boolean = false
   donationList: any[];
-
+  donationPercentage: string = "0";
 
   constructor(
     private route: ActivatedRoute,
@@ -46,17 +48,41 @@ export class CharityComponent implements OnInit {
     private langService: LanguageService,
     private charityService: CharityService,
     public translate: TranslateService,
-    private seoService: SeoService,
+    private seoService: SeoService,    
     private router: Router,
+    private message: NzMessageService,
     private articleService: BackofficeArticleService,
   ) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      if(params && params.donation) {
+        switch(params.donation) {
+          case 'success': {
+            const msg = this.translate.instant("Donated Successfully");
+            this.showMessage('success', msg);
+            break;
+          }
+
+          case 'error': {
+            const msg = this.translate.instant("Something went wrong. Please connect with support team.");
+            this.showMessage('error', msg);
+            break;
+          }
+        }
+      } 
+    });
+
     this.route.paramMap.subscribe(params => {
       this.selectedLanguage = this.langService.getSelectedLanguage();
       const slug = params.get('slug');
       this.charityService.getCharityBySlug(slug).subscribe(data => {
         this.charity = data[0];
+
+        if (this.charity.amount) {
+          this.donationPercentage = ((this.charity.amount / 1000) * 100).toFixed(1);
+        }
+
         this.charityId = this.charity.id;
         // Fetching charity donations
         this.charityService.getAllCharityDonation(this.charityId).subscribe(data => {
@@ -78,6 +104,12 @@ export class CharityComponent implements OnInit {
         });
       });
       this.setUserDetails();
+    });
+  }
+
+  showMessage(type: string, message: string) {
+    this.message.create(type, message, {
+      nzDuration: 5000
     });
   }
 
