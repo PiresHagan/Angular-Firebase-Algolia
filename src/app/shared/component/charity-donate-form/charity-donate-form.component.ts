@@ -1,8 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalService } from "ng-zorro-antd";
-import { StripeService, StripeCardNumberComponent } from 'ngx-stripe';
-import { StripeCardElementOptions, StripeElementsOptions, PaymentIntent } from '@stripe/stripe-js';
 import { TranslateService } from "@ngx-translate/core";
 
 import { Charity } from 'src/app/shared/interfaces/charity.type';
@@ -23,37 +21,14 @@ export class CharityDonateFormComponent implements OnInit {
   donateForm: FormGroup;
   showInvalidCardError: boolean = false;
 
-  @ViewChild(StripeCardNumberComponent) card: StripeCardNumberComponent;
-
-  cardOptions: StripeCardElementOptions = {
-    style: {
-      base: {
-        iconColor: '#666EE8',
-        color: '#31325F',
-        fontWeight: '300',
-        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSize: '18px',
-        '::placeholder': {
-          color: '#CFD7E0'
-        }
-      }
-    }
-  };
-
-  elementsOptions: StripeElementsOptions = {
-    locale: 'en'
-  };
-
   constructor(
     private fb: FormBuilder,
     private charityService: CharityService,
-    private stripeService: StripeService,
     public translate: TranslateService,
     private modalService: NzModalService,
   ) { }
 
   ngOnInit(): void {
-    
     this.donateForm = this.fb.group({
       first_name: [null, [Validators.required]],
       last_name: [null, [Validators.required]],
@@ -89,48 +64,36 @@ export class CharityDonateFormComponent implements OnInit {
       this.donateForm.controls[i].updateValueAndValidity();
     }
 
-    const cardElement: any = this.card.element;
-
-    if (this.findInvalidControls().length == 0 && !cardElement._empty && !cardElement._invalid) {
+    if (this.findInvalidControls().length == 0) {
       try {
         this.isFormSaving = true;
 
         const name = `${this.donateForm.get('first_name').value} ${this.donateForm.get('last_name').value}`;
 
-        this.stripeService.createToken(cardElement, { name }).subscribe((result) => {
-          if (result.token) {
-            let donorData = JSON.parse(JSON.stringify(this.donateForm.value));
-            donorData['charity_id'] = this.charityId;
-            donorData['card_token'] = result.token.id;
-            if(donorData.message.length == 0) {
-              delete donorData.message;
-            }
+        let donorData = JSON.parse(JSON.stringify(this.donateForm.value));
+        donorData['success_url'] = window && window.location && `${window.location.href}?donation=success` || '';
+        donorData['cancel_url'] = window && window.location && `${window.location.href}?donation=error`|| '';
+        if(donorData.message.length == 0) {
+          delete donorData.message;
+        }
 
-            this.charityService.donate(donorData, this.charityId).then(result => {
-              this.donateForm.reset();
-              this.card.element.clear();
-              this.isFormSaving = false;
-              this.donateSuccess = true;
-              setTimeout(() => {
-                this.donateSuccess = false;
-              }, 10000);
-            }).catch(err => {
-              this.isFormSaving = false;
-              this.showError("CharityAccountError");
-            });
-          } else if (result.error) {
+        this.charityService.donate(donorData, this.charityId).then((redirectUrl: any) => {
+          if (redirectUrl) {
+            window && window.open(redirectUrl, '_self')
+            this.donateForm.reset();
             this.isFormSaving = false;
-            this.showInvalidCardErr();
+          } else {
+            this.isFormSaving = false;
+            this.showError("CharityAccountError");
           }
+        }).catch(err => {
+          this.isFormSaving = false;
+          this.showError("CharityAccountError");
         });
       } catch (err) {
         this.isFormSaving = false;
       }
     } else {
-      if(cardElement._empty || cardElement._invalid) {
-        this.showInvalidCardErr();
-      }
-
       this.isFormSaving = false;
     }
   }
