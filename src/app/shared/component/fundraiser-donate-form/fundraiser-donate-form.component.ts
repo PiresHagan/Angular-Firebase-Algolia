@@ -61,7 +61,7 @@ export class FundraiserDonateFormComponent implements OnInit {
       email: [null, [Validators.email, Validators.required]],
       mobile_number: [null, [Validators.required]],
       amount: [null, [Validators.required, Validators.min(1)]],
-      message: [""]
+      message: [null, [Validators.required]],
     });
   }
 
