@@ -974,7 +974,7 @@ hr {
 }
 @media screen and (max-width: 580px) {
   .is-paragraph.word-break .big > span > p > span{
-      word-break: break-all;
+      word-break: break-word;
     }
 
   .bottom-ad-container {
