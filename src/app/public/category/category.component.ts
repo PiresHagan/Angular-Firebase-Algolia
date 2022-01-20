@@ -295,8 +295,12 @@ export class CategoryComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    const el = document.querySelector('.ant-menu-item-selected');
-    el.classList.remove("ant-menu-item-selected");
+    this.categoryService.getAll(this.selectedLanguage).subscribe((categoryListData) => {
+      categoryListData.forEach(category => {
+          const el = document.querySelector('.' + category['slug']);
+          el.classList.remove("ant-menu-item-selected");
+      });
+    });
   }
 
 }
