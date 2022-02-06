@@ -1614,3 +1614,13 @@ cursor: pointer;
     margin-left: 10px;
   }
 }
+
+::ng-deep .lead-form{
+	.ant-form-item-control-input{
+		.ant-input{
+			&:focus{
+				background:#eee;
+			}
+		}
+	}
+}
