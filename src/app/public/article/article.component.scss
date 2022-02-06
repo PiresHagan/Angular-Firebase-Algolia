@@ -1593,3 +1593,24 @@ hr {
 .at-resp-share-element .at-share-btn {
   color: #000 !important;
 }
+
+.request-info-btn{
+  background: #FF4020;
+border-radius: 5px;
+padding: 8px 15px;
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 26px;
+text-align: center;
+justify-content: center;
+color: #FFFFFF;
+display: flex;
+align-items: center;
+border:0px;
+width:100%;
+cursor: pointer;
+  img{
+    margin-left: 10px;
+  }
+}

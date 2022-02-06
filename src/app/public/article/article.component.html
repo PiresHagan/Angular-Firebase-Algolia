@@ -528,6 +528,12 @@
                 </a>
               </p>
             </div>
+            <div>
+              <button class="request-info-btn" (click)="companyMoreInfo()" *ngIf="article?.author?.type == 'company' && isMobile">
+                Request More Info
+                <img src="assets/images/read-more-icon.png" alt="">
+              </button>
+            </div>
             <app-company-lead-form *ngIf="article?.author?.type == 'company' && isMobile"
               [companyId]="article?.author?.id">
             </app-company-lead-form>
@@ -556,6 +562,12 @@
       </div>
 
       <div class="is-right-ad-section" [ngClass]="SlideRelatedArticle ? 'removeSlide' : 'openSlideArticle'">
+        <div>
+          <button class="request-info-btn mt-3" (click)="companyMoreInfo()" *ngIf="article?.author?.type == 'company' && !isMobile">
+            Request More Info
+            <img src="assets/images/read-more-icon.png" alt="">
+          </button>
+        </div>
         <app-company-lead-form *ngIf="article?.author?.type == 'company' && !isMobile"
           [companyId]="article?.author?.id">
         </app-company-lead-form>
