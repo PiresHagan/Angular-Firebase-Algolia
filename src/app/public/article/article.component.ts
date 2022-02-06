@@ -552,5 +552,9 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   hideShareModel(): void {
     this.isShareVisible = false;
   }
+
+  companyMoreInfo() {
+    document.getElementById('firstName').focus();
+  }
 }
 
