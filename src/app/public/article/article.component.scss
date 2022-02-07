@@ -1624,3 +1624,99 @@ cursor: pointer;
 		}
 	}
 }
+.donation-count{
+  background: #ff4020;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+}
+.donation-count:hover{
+  background: #f43414 !important;
+}
+.border-top{
+  border-top:1px solid #eee
+}
+
+.dn-list{
+  max-height: 400px;
+  margin: 40px auto 0px;
+  max-width: 430px;
+  &::-webkit-scrollbar {
+  width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+  background: #eee; 
+  }
+  &::-webkit-scrollbar-thumb {
+  background: #ff4020; 
+  border-radius:10px;
+  }
+  .dn-list-item{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #F5F5F5;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    .dn-avtar{
+      padding-right: 15px;
+      img{
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 100%;
+      }
+    }
+    .dn-details{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width:100%;
+      h3{
+        font-style: normal;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 16px;
+        color: #575757;
+        font-family: "josefin_sanslight";
+        margin-bottom: 0px;
+        text-align: left;
+      }
+      ul{
+        margin: 0px 0px  0px  40px !important;
+        li{
+          font-family: "josefin_sanslight" !important;
+          font-style: normal !important;
+          font-weight: 300 !important;
+          font-size: 14px !important;
+          line-height: 14px;
+          color: #000000;
+          list-style: none !important;
+          display: inline-block;
+          padding-left: 0px !important;
+          b{
+            font-family: "josefin_sansregular";
+          }
+          &::before{
+            display: none;
+          }
+          &.dot{
+            padding-left: 20px !important;
+            position: relative;
+            &:before{
+              content: '';
+              display: block;
+              position: absolute;
+              top:9px !important;
+              left: 0px;
+              width: 4px !important;
+              height: 4px !important;
+              border-radius: 100%;
+              background: #C4C4C4 !important;
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
