@@ -202,6 +202,13 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
     this.fundraiserService.getFundraiserBySlug(this.article.author.slug).subscribe(data => {
       this.fundraiser = data[0];
 
+      if(this.fundraiser.id){
+        // Fetching fundraiser donations
+        this.fundraiserService.getAllFundraiserDonation(this.fundraiser.id).subscribe(data => {
+        this.donationList = data.donations;
+        })
+      }
+
       if (this.fundraiser.author.type == 'charity') {
         this.charityService.getCharityById(this.fundraiser.author.id).subscribe(charity => {
           this.fundraiserAuthor = charity;
