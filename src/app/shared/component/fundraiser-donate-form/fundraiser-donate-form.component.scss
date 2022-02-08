@@ -31,6 +31,9 @@ nz-alert {
     border: 1px solid #f7f7f7;
     margin-top: 20px;
     background: pink;
+    max-width: 450px;
+    margin: 40px auto 20px;
+
     >h2 {
         font-family: "josefin_sanssemibold";
         text-align: center;
