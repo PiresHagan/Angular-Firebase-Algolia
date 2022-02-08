@@ -568,10 +568,6 @@
               [companyId]="article?.author?.id">
             </app-company-lead-form>
 
-            <app-charity-donate-form *ngIf="article?.author?.type == 'charity' && isMobile"
-              [charityId]="article.author.id">
-            </app-charity-donate-form>
-
             <div class="is-share is-line"
               *ngIf="!(article?.author?.type == 'fundraiser' || article?.author?.type == 'charity')">
               <h2>{{'share' | translate}} - </h2>
