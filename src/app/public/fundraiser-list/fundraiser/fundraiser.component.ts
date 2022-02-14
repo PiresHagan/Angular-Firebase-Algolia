@@ -70,7 +70,6 @@ export class FundraiserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.href = this.router.url;
     this.route.queryParams.subscribe(params => {
       if(params && params.donation) {
         switch(params.donation) {
@@ -325,6 +324,7 @@ export class FundraiserComponent implements OnInit {
   }
 
   showShareModel(): void {
+    this.href = window.location.href;
     this.isShareVisible = true;
     let addthis = window["addthis"];
     let config = {
@@ -336,7 +336,6 @@ export class FundraiserComponent implements OnInit {
     addthis.init();
     addthis.update('share', 'url', "${environment.baseDomain}");
     addthis.url = this.href;
-    addthis.toolbox(".addthis_toolbox");
     addthis.toolbox('.addthis_toolbox')
   }
  

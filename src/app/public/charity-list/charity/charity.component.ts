@@ -55,7 +55,6 @@ export class CharityComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.href = this.router.url;
     this.route.queryParams.subscribe(params => {
       if(params && params.donation) {
         switch(params.donation) {
@@ -308,6 +307,7 @@ export class CharityComponent implements OnInit {
   }
 
   showShareModel(): void {
+    this.href = window.location.href;
     this.isShareVisible = true;
     let addthis = window["addthis"];
     let config = {
@@ -319,7 +319,6 @@ export class CharityComponent implements OnInit {
     addthis.init();
     addthis.update('share', 'url', this.href);
     addthis.url = this.href;
-    addthis.toolbox(".addthis_toolbox");
     addthis.toolbox('.addthis_toolbox');
     addthis.layers.refresh(
       addthis.url,
