@@ -334,7 +334,7 @@ export class FundraiserComponent implements OnInit {
       "services_compact": "facebook,twitter,mailto,pinterest_share,whatsapp,print,gmail,linkedin,google,messenger,more"
     }
     addthis.init();
-    addthis.update('share', 'url', "${environment.baseDomain}");
+    addthis.update('share', 'url', this.href);
     addthis.url = this.href;
     addthis.toolbox('.addthis_toolbox')
   }
