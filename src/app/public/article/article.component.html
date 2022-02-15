@@ -478,7 +478,7 @@
                 </div>
               </div>
 
-              <div class="xs-article-publish">
+              <div class="xs-article-publish" *ngIf="article.author.type != 'company'">
                 <div class="xs-article-publisher-img">
                   <a [routerLink]="[getArticleUrl(article),article?.author?.slug]" itemprop="url" *ngIf="article"
                     target="_blank">
@@ -559,7 +559,7 @@
               </p>
             </div>
             <div>
-              <button class="request-info-btn" (click)="companyMoreInfo()" *ngIf="article?.author?.type == 'company' && isMobile">
+              <button class="request-info-btn mt-2" (click)="companyMoreInfo()" *ngIf="article?.author?.type == 'company' && isMobile">
                 Request More Info
                 <img src="assets/images/read-more-icon.png" alt="">
               </button>
