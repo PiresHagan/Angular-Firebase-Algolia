@@ -5,7 +5,7 @@ import { Cloudinary } from 'cloudinary-core';
 
 import { TodayComponent } from './today.component';
 
-import { createTranslateLoader } from 'src/app/shared/shared.module';
+import { createTranslateLoader, SharedModule } from 'src/app/shared/shared.module';
 import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TodayRoutingModule } from './today-routing.module';
@@ -20,6 +20,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
     CommonModule,
     TodayRoutingModule,
     NgZorroAntdModule,
+    SharedModule,
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })
   ]
 })

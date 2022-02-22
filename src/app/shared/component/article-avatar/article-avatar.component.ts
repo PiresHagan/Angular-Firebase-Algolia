@@ -6,7 +6,7 @@ import { Article } from '../../interfaces/article.type';
   styleUrls: ['./article-avatar.component.scss']
 })
 export class ArticleAvatarComponent implements OnInit {
-  @Input() article: Article;
+  @Input() today: Article;
   constructor() {
 
   }
