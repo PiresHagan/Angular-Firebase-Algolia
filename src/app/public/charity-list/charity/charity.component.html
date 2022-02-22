@@ -240,19 +240,6 @@
                           <p innerHTML={{charity?.presentation}}></p>
                       </div>
                       <div class="xs-article-publish">
-                          <div class="d-flex">
-                              <div class="xs-article-publisher-img">
-                                  <div class="company-img">
-                                      <img *ngIf="charity" [src]='charity?.logo?.url' [alt]='charity?.logo?.alt' 
-                                      onerror="this.src='assets/images/default-avatar.png'"
-                                      />
-                                      <div class="special-icon" *ngIf="charity">
-                                          <img src="assets/images/charity-icon.png" style="max-width:28px;" />
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="xs-articl-publisher-name"> {{ charity?.name }}</div>
-                          </div>
                           <div class="text-left">
                               <app-charity-follower-list *ngIf="charityId" [charityId]="charityId" class="hidden-on-desktop"></app-charity-follower-list>
                           </div>

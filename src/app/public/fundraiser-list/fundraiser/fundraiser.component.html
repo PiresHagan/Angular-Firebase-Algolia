@@ -227,19 +227,7 @@
                         <p class="big " innerHTML="{{ fundraiser?.content }}"></p>
                      </div>
                      <div class="xs-article-publish">
-                      <div class="d-flex">
-                        <div class="xs-article-publisher-img">
-                          <div class="company-img">
-                              <img *ngIf="fundraiser" [src]='fundraiser?.logo?.url' [alt]='fundraiser?.logo?.url' 
-                              onerror="this.src='assets/images/default-avatar.png'"
-                              />
-                              <div class="special-icon" *ngIf="fundraiser">
-                                  <img src="assets/images/fundraiser.svg" style="max-width:28px;" />
-                              </div>
-                          </div>
-                      </div>
-                      <div class="xs-articl-publisher-name">{{ fundraiser?.title }}</div>
-                      </div>
+                      
                       <!-- <div class="share-sec text-left">
                           <h3>{{'shareArticle' | translate}}</h3>
                           <app-share-buttons></app-share-buttons>
