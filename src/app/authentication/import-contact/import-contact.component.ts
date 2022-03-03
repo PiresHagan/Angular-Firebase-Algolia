@@ -23,6 +23,7 @@ export class ImportContactComponent implements OnInit {
     gmail: [],
     yahoo: [],
     windowslive: [],
+    facebook:[],
     aol: []
 
   };
@@ -38,12 +39,14 @@ export class ImportContactComponent implements OnInit {
     gmail: [],
     yahoo: [],
     windowslive: [],
+    facebook:[],
     aol: []
   }
   selectedContacts = {
     gmail: {},
     yahoo: {},
     windowslive: {},
+    facebook: {},
     aol: {}
   }
 
@@ -65,15 +68,22 @@ export class ImportContactComponent implements OnInit {
     serverLoadStatus: false,
     providerLoadStatus: false,
     loading: false
+  },
+  {
+    name: 'facebook',
+    title: 'Facebook',
+    serverLoadStatus: false,
+    providerLoadStatus: false,
+    loading: false
   }]
 
   languageList: Language[];
   selectedLanguage: string;
 
   constructor(
-    private userService: UserService, 
-    public translate: TranslateService, 
-    private router: Router, 
+    private userService: UserService,
+    public translate: TranslateService,
+    private router: Router,
     private authService: AuthService,
     private language: LanguageService,
     private _location: Location

@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.languageList = this.languageService.geLanguageList();
     this.selectedLanguage = this.languageService.defaultLanguage;
-  
+
     this.addRecaptchaScript();
     this.invalidPassErr = this.translate.instant("invalidPassErr");
     this.invalidCredErr = this.translate.instant("invalidCredErr");
@@ -170,7 +170,7 @@ export class LoginComponent implements OnInit {
   }
 
   validatePassAndNext(userData) {
-    if (this.isPassValidationApproved(userData.password)) {
+    if (this.isPassValidationApproved(userData.password)) { //TODO: Remove validation on password
       if (this.isOnboardingProcessDone())
         this.navigateToUserProfile();
       else {
@@ -283,7 +283,7 @@ export class LoginComponent implements OnInit {
     }
     return invalid;
   }
-  
+
   resetCaptcha() {
     window['grecaptcha'].reset(this.capchaObject);
     this.captchaToken = ""
@@ -301,7 +301,7 @@ export class LoginComponent implements OnInit {
     const memberDetails = this.memberDetails;
     const userDetails = this.userDetails;
     if (
-      !memberDetails.bio || !memberDetails.avatar || !memberDetails.user_type 
+      !memberDetails.bio || !memberDetails.avatar || !memberDetails.user_type
       || !userDetails.interests || userDetails.interests.length == 0 || !memberDetails.avatar.url
     )
       return false;

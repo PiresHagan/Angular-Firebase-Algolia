@@ -24,6 +24,9 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { ImportContactComponent } from './import-contact/import-contact.component';
 import { LanguageService } from '../shared/services/language.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { CompanyComponent } from './company/company.component';
+import { PendingComponent } from './pending/pending.component';
 
 @NgModule({
     imports: [
@@ -34,6 +37,7 @@ import { LanguageService } from '../shared/services/language.service';
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
         AngularFirestoreModule,
+        NgxSpinnerModule,
         TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })
 
     ],
@@ -48,7 +52,9 @@ import { LanguageService } from '../shared/services/language.service';
         AgreementComponent,
         ResetPasswordComponent,
         MaintenanceComponent,
-        ImportContactComponent
+        ImportContactComponent,
+        CompanyComponent,
+        PendingComponent
     ],
     providers: [LanguageService],
 })
