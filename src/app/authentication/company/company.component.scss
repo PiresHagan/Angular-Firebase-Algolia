@@ -1,0 +1,48 @@
+*:not(button) {
+  font-family: "josefin_sansregular";
+}
+
+::ng-deep {
+  .ant-spin-container {
+    overflow-x: hidden;
+  }
+
+  .ant-radio-button-wrapper-checked {
+    color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+    box-shadow: unset !important;
+    &:hover {
+      color: var(--color-primary) !important;
+      border-color: var(--color-primary) !important;
+      box-shadow: unset !important;
+    }
+    &::before {
+      background-color: var(--color-primary) !important;
+    }
+  }
+
+  .ant-form-item-explain {
+    text-align: start;
+    padding-top: 10px;
+  }
+}
+
+.bg-company {
+  background: url("../../../assets/images/company.png") no-repeat center center
+    fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 400px;
+}
+
+.form-title {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.link {
+  color: #0554b0;
+  font-weight: 500;
+}

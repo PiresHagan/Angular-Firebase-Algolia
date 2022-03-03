@@ -1,0 +1,65 @@
+<app-fluid-toolbar></app-fluid-toolbar>
+<section>
+  <div class="bg-pending row">
+    <div class="col text-center align-self-center">
+      <h2 class="banner-title text-white mb-0">{{'banner.pending' | translate}}</h2>
+    </div>
+  </div>
+  <div class="px-5">
+    <form (ngSubmit)="addPreference()" #preferences="ngForm" *ngFor="let preferenceType of preferenceTypes">
+      <div class="row py-5" *ngIf="preferenceType.type == userType">
+        <div class="col">
+          <h3>{{preferenceType.type | translate}}</h3>
+          <p for="topics" class="py-1">{{preferenceType.description | translate}}</p>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="{{'error.preferencesRequired' | translate}}">
+              <textarea [(ngModel)]="topics" name="topcis" class="custom-form-input" nz-input
+                placeholder="{{'placeholder.writeHere' | translate}}" required>
+                </textarea>
+            </nz-form-control>
+          </nz-form-item>
+          <button nz-button nzType="primary" [nzLoading]="isSendingPreference" type="submit" class="d-block btn-black btn-next"
+            [disabled]="!preferences.form.valid">{{'contactSubmit' | translate}}</button>
+        </div>
+      </div>
+    </form>
+    <div class="row">
+      <div class="col-12 col-sm-auto">
+        <h3 class="promo">{{'pending.promoCode' | translate}}</h3>
+      </div>
+      <div class="col-12 col-sm-auto col-md-3 px-sm-4">
+        <form (ngSubmit)="addPromoCode()" #promoCode="ngForm">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="{{'error.codeRequired' | translate}}">
+              <input [(ngModel)]="code" name="code" class="custom-form-input" nz-input
+                placeholder="{{'placeholder.addCode' | translate}}" required>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </div>
+      <div class="col-12 col-sm-auto px-sm-2">
+        <button nz-button nzType="primary" [nzLoading]="isSendingCode" type="submit" class="btn-next br-0"
+          [disabled]="!promoCode.form.valid" (click)="promoCode.ngSubmit.emit()">{{'contactSubmit' |
+          translate}}</button>
+      </div>
+    </div>
+    <div class="row py-5">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-6 text-end">
+            <button nz-button type="button" (click)="goBack()" class="btn-prev">
+              <img class="pr-2" src="../../../assets/images/arrows/left.svg" alt="">
+              {{'back' | translate}}
+            </button>
+          </div>
+          <div class="col-6">
+            <button (click)="done()" nz-button type="button" class="btn-next" nzType="primary" [nzLoading]="isSaving">
+              {{'Next' | translate}}
+              <img class="pl-2" src="../../../assets/images/arrows/right.svg" alt="">
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

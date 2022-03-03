@@ -1,27 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
+import { NzMessageService } from "ng-zorro-antd/message";
+import { Location } from "@angular/common";
+import { Router } from "@angular/router";
 
-import { LanguageService } from 'src/app/shared/services/language.service';
-import { UserService } from '../../shared/services/user.service';
-import { AuthService } from 'src/app/shared/services/authentication.service';
-import { Category } from 'src/app/shared/interfaces/category.type';
-import { CategoryService } from 'src/app/shared/services/category.service';
-import { Language } from 'src/app/shared/interfaces/language.type';
-import { Site } from 'src/app/shared/interfaces/ad-network-site.type';
-import { BackofficeAdNetworkService } from 'src/app/backoffice/shared/services/backoffice-ad-network.service';
-import { SiteConstant } from 'src/app/shared/constants/site-constant';
+import { LanguageService } from "src/app/shared/services/language.service";
+import { UserService } from "../../shared/services/user.service";
+import { AuthService } from "src/app/shared/services/authentication.service";
+import { Category } from "src/app/shared/interfaces/category.type";
+import { CategoryService } from "src/app/shared/services/category.service";
+import { Language } from "src/app/shared/interfaces/language.type";
+import { Site } from "src/app/shared/interfaces/ad-network-site.type";
+import { BackofficeAdNetworkService } from "src/app/backoffice/shared/services/backoffice-ad-network.service";
+import { SiteConstant } from "src/app/shared/constants/site-constant";
 
 @Component({
-  selector: 'app-add-website',
-  templateUrl: './add-website.component.html',
-  styleUrls: ['./add-website.component.scss']
+  selector: "app-add-website",
+  templateUrl: "./add-website.component.html",
+  styleUrls: ["./add-website.component.scss"],
 })
 export class AddWebsiteComponent implements OnInit {
-
   websiteForm: FormGroup;
   currentUser: any;
   memberDetails;
@@ -29,68 +33,66 @@ export class AddWebsiteComponent implements OnInit {
   publisherSites: Array<Site> = [];
   dailyTrafficOptions = [
     {
-       text: "< 1k page view",
-       label: "< 1k page view",
-       value: "< 1k page view"
+      text: "< 1k page view",
+      label: "< 1k page view",
+      value: "< 1k page view",
     },
     {
-       text: "1k - 10k page views",
-       label: "1k - 10k page views",
-       value: "1k - 10k page views"
+      text: "1k - 10k page views",
+      label: "1k - 10k page views",
+      value: "1k - 10k page views",
     },
     {
-       text: "10k - 100k page views",
-       label: "10k - 100k page views",
-       value: "10k - 100k page views"
+      text: "10k - 100k page views",
+      label: "10k - 100k page views",
+      value: "10k - 100k page views",
     },
     {
-       text: "100k - 1M page views",
-       label: "100k - 1M page views",
-       value: "100k - 1M page views"
+      text: "100k - 1M page views",
+      label: "100k - 1M page views",
+      value: "100k - 1M page views",
     },
     {
-       text: "> 1M page views",
-       label: "> 1M page views",
-       value: "> 1M page views"
-    }
+      text: "> 1M page views",
+      label: "> 1M page views",
+      value: "> 1M page views",
+    },
   ];
 
   adRevenueOptions = [
     {
-       text: "< $100/month",
-       label: "< $100/month",
-       value: "< $100/month"
+      text: "< $100/month",
+      label: "< $100/month",
+      value: "< $100/month",
     },
     {
-       text: "$100 to $1,000/month",
-       label: "$100 to $1,000/month",
-       value: "$100 to $1,000/month"
+      text: "$100 to $1,000/month",
+      label: "$100 to $1,000/month",
+      value: "$100 to $1,000/month",
     },
     {
-       text: "$1,000 to $10,000/month",
-       label: "$1,000 to $10,000/month",
-       value: "$1,000 to $10,000/month"
+      text: "$1,000 to $10,000/month",
+      label: "$1,000 to $10,000/month",
+      value: "$1,000 to $10,000/month",
     },
     {
-       text: "$10,000 to $50,000/month",
-       label: "$10,000 to $50,000/month",
-       value: "$10,000 to $50,000/month"
+      text: "$10,000 to $50,000/month",
+      label: "$10,000 to $50,000/month",
+      value: "$10,000 to $50,000/month",
     },
     {
-       text: "$50,000 to $100,000/month",
-       label: "$50,000 to $100,000/month",
-       value: "$50,000 to $100,000/month"
+      text: "$50,000 to $100,000/month",
+      label: "$50,000 to $100,000/month",
+      value: "$50,000 to $100,000/month",
     },
     {
-       text: "> $100,000/month",
-       label: "> $100,000/month",
-       value: "> $100,000/month"
-    }
+      text: "> $100,000/month",
+      label: "> $100,000/month",
+      value: "> $100,000/month",
+    },
   ];
   categoryList: Category[] = [];
   languageList: Language[];
-  selectedLanguage: string;
-  whatsappSkypeMissingError: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -103,22 +105,17 @@ export class AddWebsiteComponent implements OnInit {
     private categoryService: CategoryService,
     private message: NzMessageService,
     private adNetworkService: BackofficeAdNetworkService
-  ) { }
-
-  switchLang(lang: string) {
-    this.languageService.changeLangOnBoarding(lang);
-  }
+  ) {}
 
   ngOnInit(): void {
     this.languageList = this.languageService.geLanguageList();
-    this.selectedLanguage = this.languageService.defaultLanguage;
-
     this.websiteForm = this.fb.group({
       url: [null, [Validators.required]],
       monthly_traffic: [null, [Validators.required]],
       category: [null, [Validators.required]],
       lang: [null, [Validators.required]],
-      revenue: [null]
+      revenue: [null],
+      phone: [null, Validators.required],
     });
 
     this.setFormData();
@@ -129,27 +126,22 @@ export class AddWebsiteComponent implements OnInit {
       this.userService.getMember(user.uid).subscribe((userDetails) => {
         this.currentUser = userDetails;
 
-        this.adNetworkService.getSitesByPublisher(this.currentUser.id).subscribe((data) => {
-          this.publisherSites = data.sites;
-        });
-
-        if(!userDetails.whatsapp || !userDetails.skype) {
-          this.whatsappSkypeMissingError = true;
-        } else {
-          this.whatsappSkypeMissingError = false;
-        }
+        this.adNetworkService
+          .getSitesByPublisher(this.currentUser.id)
+          .subscribe((data) => {
+            this.publisherSites = data.sites;
+          });
       });
-      
+
       this.userService.getMember(user.uid).subscribe((memberDetails) => {
-        // if(memberDetails?.onboarding_website?.lang) 
+        // if(memberDetails?.onboarding_website?.lang)
         //   this.websiteForm.controls['lang'].setValue(memberDetails.onboarding_website.lang);
 
-        // if(memberDetails?.onboarding_website?.url) 
+        // if(memberDetails?.onboarding_website?.url)
         //   this.websiteForm.controls['url'].setValue(memberDetails.onboarding_website.url);
 
-        // if(memberDetails?.onboarding_website?.monthly_traffic) 
+        // if(memberDetails?.onboarding_website?.monthly_traffic)
         //   this.websiteForm.controls['monthly_traffic'].setValue(memberDetails.onboarding_website.monthly_traffic);
-
 
         // if(memberDetails?.onboarding_website?.category) {
         //   this.categoryService.getAll(memberDetails.onboarding_website.lang).subscribe((categoryList) => {
@@ -159,22 +151,18 @@ export class AddWebsiteComponent implements OnInit {
         // }
 
         this.memberDetails = memberDetails;
-      })
-    })
+      });
+    });
   }
 
   showMessage(type: string, message: string) {
     this.message.create(type, message);
   }
 
-  showContactMissingError() {
-    this.whatsappSkypeMissingError = true;
-  }
-
   async submitForm() {
-
-    if (!this.currentUser)
+    if (!this.currentUser) {
       return;
+    }
 
     for (const i in this.websiteForm.controls) {
       this.websiteForm.controls[i].markAsDirty();
@@ -182,57 +170,62 @@ export class AddWebsiteComponent implements OnInit {
     }
 
     if (this.websiteForm.valid) {
+      console.warn("here");
       try {
-        if(this.publisherSites.some(item => item.url == this.websiteForm.value.url)) {
-          this.showMessage('error', 'Site is already added by you');
-        } else if(!this.currentUser.whatsapp && !this.currentUser.skype) {
-          this.showContactMissingError();
+        if (
+          this.publisherSites.some(
+            (item) => item.url == this.websiteForm.value.url
+          )
+        ) {
+          this.showMessage("error", "Site is already added by you");
         } else {
           this.isFormSaving = true;
-          this.whatsappSkypeMissingError = false;
-
           let websiteValue = JSON.parse(JSON.stringify(this.websiteForm.value));
           delete websiteValue.revenue;
-
           const loggedInUser = this.authService.getLoginDetails();
-          if (!loggedInUser)
-            return;
+          if (!loggedInUser) return;
+          console.warn(websiteValue);
 
-          await this.userService.updateSpecificDetails(this.currentUser.id, websiteValue);
-
+          await this.userService.updateSpecificDetails(
+            this.currentUser.id,
+            websiteValue
+          );
           websiteValue = JSON.parse(JSON.stringify(this.websiteForm.value));
-          websiteValue['publisher'] = {};
-          websiteValue.publisher['id'] = this.currentUser.id;
-          websiteValue.publisher['type'] = this.currentUser.type;
-          websiteValue.publisher['name'] = this.currentUser.fullname;
-          websiteValue['daily_traffic'] = websiteValue.monthly_traffic;
-          websiteValue['status'] = SiteConstant.IN_PROCESS;
+          websiteValue["publisher"] = {};
+          websiteValue.publisher["id"] = this.currentUser.id;
+          websiteValue.publisher["type"] = this.currentUser.type;
+          websiteValue.publisher["name"] = this.currentUser.fullname;
+          websiteValue["daily_traffic"] = websiteValue.monthly_traffic;
+          websiteValue["status"] = SiteConstant.IN_PROCESS;
           delete websiteValue.monthly_traffic;
-
-          this.adNetworkService.addNewSite(this.currentUser.id, websiteValue).then((result: any) => {
-            this.websiteForm.reset();
-            this.showMessage('success', 'Site added successfully');
-            this.isFormSaving = false;
-          }).catch((err) => {
-            this.showMessage('error', err.message);
-            this.isFormSaving = false;
-          });
-
+          this.goToNext();
+          this.adNetworkService
+            .addNewSite(this.currentUser.id, websiteValue)
+            .then((result: any) => {
+              this.websiteForm.reset();
+              console.warn(result);
+              this.showMessage("success", "Site added successfully");
+              this.isFormSaving = false;
+            })
+            .catch((err) => {
+              this.showMessage("error", err.message);
+              this.isFormSaving = false;
+            });
         }
       } catch (error) {
+        console.error(error);
+
         this.isFormSaving = false;
       }
-
     }
   }
 
   languageSelected(language: string) {
-    if (!language)
-      return
-    this.websiteForm.controls['category'].setValue(null);
+    if (!language) return;
+    this.websiteForm.controls["category"].setValue(null);
     this.categoryService.getAll(language).subscribe((categoryList) => {
       this.categoryList = categoryList ? categoryList : [];
-    })
+    });
   }
 
   backClicked() {
@@ -240,6 +233,6 @@ export class AddWebsiteComponent implements OnInit {
   }
 
   goToNext() {
-    this.router.navigate(['/auth/import-contact']);
+    this.router.navigate(["/auth/import-contact"]);
   }
 }
