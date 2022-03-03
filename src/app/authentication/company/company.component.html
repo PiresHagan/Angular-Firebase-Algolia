@@ -1,0 +1,89 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#ff4020" type="ball-triangle-path" [fullScreen]="true">
+  <p style="color: #ff4020"> Loading... </p>
+</ngx-spinner>
+<app-fluid-toolbar></app-fluid-toolbar>
+<section>
+  <div class="bg-company row">
+    <div class="col text-center align-self-center">
+      <h2 class="banner-title text-white mb-0">{{'banner.company' | translate}}</h2>
+    </div>
+  </div>
+  <div class="row pt-5 pb-3">
+    <div class="col text-center">
+      <h2 class="form-title">{{'heading.mtsCompanyProfile' | translate }}</h2>
+    </div>
+  </div>
+  <form [formGroup]="companyForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-10 offset-1 col-md-4 offset-md-4 text-center">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="{{'error.urlOrNotInterested' | translate}}">
+            <input formControlName="url" type="url" class="custom-form-input" nz-input
+              placeholder="{{'placeholder.addCompanyURL' | translate}}">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10 offset-1 col-md-4 offset-md-4 text-center">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="{{'error.phoneOrNotInterested' | translate}}">
+            <input formControlName="phone" type="tel" class="custom-form-input" nz-input
+              placeholder="{{'placeholder.addPhoneNumber' | translate}}">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10 offset-1 col-md-4 offset-md-4 text-center">
+        <nz-form-item>
+          <nz-form-control>
+            <div class="col text-center">
+              <label class="mx-4">{{'placeholder.addHyperlinksIntoArticles' | translate}}?</label>
+              <nz-radio-group formControlName="hyperlinks">
+                <label nz-radio-button [nzValue]="true">{{'answer.yes' | translate}}</label>
+                <label nz-radio-button [nzValue]="false">{{'answer.no' | translate}}</label>
+              </nz-radio-group>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10 offset-1 col-md-4 offset-md-4 text-center">
+        <hr class="my-2">
+      </div>
+    </div>
+    <div class="row pt-3">
+      <div class="col text-center">
+        <nz-radio-group formControlName="mtsIcon">
+          <label nz-radio-button [nzValue]="true">{{'companyComponent.freeMTSIcon' | translate}}</label>
+          <label nz-radio-button [nzValue]="false">$25 {{'companyComponent.perMonth' | translate}}</label>
+        </nz-radio-group>
+      </div>
+    </div>
+    <div class="row pt-3">
+      <div class="col text-center">
+        <a class="link" (click)="navigateImportContacts()">{{'companyComponent.notInterested' | translate}}</a>
+      </div>
+    </div>
+    <div class="row py-5">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-6 text-end">
+            <button nz-button type="button" (click)="goBack()" class="btn-prev">
+              <img class="pr-2" src="../../../assets/images/arrows/left.svg" alt="">
+              {{'back' | translate}}
+            </button>
+          </div>
+          <div class="col-6">
+            <button nz-button type="submit" class="btn-next" nzType="primary" [nzLoading]="isSaving">
+              {{'Next' | translate}}
+              <img class="pl-2" src="../../../assets/images/arrows/right.svg" alt="">
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>

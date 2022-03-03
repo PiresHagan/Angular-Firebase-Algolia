@@ -1,77 +1,122 @@
-::ng-deep body, ::ng-deep html{
-    background: #fff;
-    overflow-x: unset;
-    min-width:unset;
+::ng-deep body,
+::ng-deep html {
+  background: #fff;
+  overflow-x: hidden;
+  min-width: unset;
+  nz-avatar {
+    i.anticon-user {
+      color: white;
+    }
+  }
+  .ant-upload.ant-upload-select.ant-upload-select-text {
+    position: relative;
+  }
+
+  .bg-black.ant-btn.ant-btn-primary {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+    background-color: var(--color-black) !important;
+    border-color: var(--color-black) !important;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
 }
 
-.is-signup-main{
-    .is-signup-form-main{
-        .is-form{
-            .profile-image{
-                position: relative;
-                max-width: 180px;
-                margin: auto;
-                .upload-btn{
-                    bottom: 20px;
-                    position: absolute;
-                    right: 0px;
-                    .ant-btn{
-                        width: 50px;
-                        height: 50px;
-                        background: #000 !important;
-                        text-align: center;
-                        border:0px;
-                        line-height: 34px;
-                        border-radius: 100%;
-                        .anticon{
-                            font-size: 24px;
-                            color:#fff;
-                        }
-                    }
-                }
-            }
-           ::ng-deep  .profile-form{
-                .ant-form-item-label{
-                    text-align: center;
-                    label{
-                        color: #000;
-                        font-size: 22px;
-                        font-family: "josefin_sansregular";
-                    }
-                }
-                .ant-select-selector{
-                        height: 43px;
-                        width: 100%;
-                        border-radius: 3px;
-                        border:1px solid #BCBCBC;
-                        color: #000;
-                        font-family: "josefin_sansregular";
-                        font-size: 20px;
-                        text-align: left;
-                        display: flex;
-                        align-items: center;
-                }
-                .ant-form-item-control-input-content{
-                    textarea{
-                        width: 100%;
-                        border-radius: 3px;
-                        border:1px solid #BCBCBC;
-                        color: #000;
-                        font-family: "josefin_sansregular";
-                        font-size: 20px;
-                    }
-                }
-            }
-        }
-    }
+.bg-welcome {
+  background: url("../../../assets/images/onboarding/welcome.png") no-repeat
+    center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 400px;
 }
-@media screen and (max-width:580px){
-    .media-responsive{
-        flex-wrap: wrap;
-        justify-content: center;
-        text-align: center;
-    }
-    .media-responsive p{
-        margin:5px 0px 10px 0px !important;
-    }   
-} 
+
+.box {
+  height: 100px;
+  border-radius: 5px;
+}
+
+.absolute-center {
+  position: relative;
+  top: 60%;
+  left: 50%;
+  padding: 0;
+  margin: 0;
+  transform-origin: center center;
+  transform: translate(-50%, -70%);
+}
+
+.is-login-btn {
+  padding: 10px 20px;
+  color: #fff;
+  background: #ff4020;
+  border-radius: 25px;
+  font-family: "open_sansregular";
+  font-weight: 600;
+  font-size: 20px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  border: 0px;
+  outline: none;
+}
+
+.back-btn {
+  background: #c1c1c1;
+  color: #000;
+  padding: 7px 20px;
+  border-radius: 25px;
+  font-family: "open_sansregular";
+  font-weight: 600;
+  font-size: 20px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  border: 0px;
+  outline: none;
+  margin-left: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .justify-md-content-center {
+    justify-content: center;
+  }
+}
+
+.check {
+  color: var(--color-primary);
+  position: absolute;
+  right: 30px;
+  top: 10px;
+  font-size: 16px;
+}
+
+//TODO: Check if stakeholders like the new scrollbar to distribute it globally
+::ng-deep {
+  ::-webkit-scrollbar {
+    width: 1px;
+    height: 1px;
+  }
+
+  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 1px;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+  }
+}

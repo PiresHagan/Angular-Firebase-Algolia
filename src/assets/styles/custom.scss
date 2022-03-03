@@ -1,0 +1,18 @@
+.banner-title {
+  font-family: "josefin_sansregular";
+  font-size: calc(20px + 3vw);
+}
+
+.rfs-banner {
+  font-size: calc(10px + 3vw) !important;
+}
+
+.custom-form-input {
+  background-color: var(--color-placeholder);
+  &::placeholder {
+    color: var(--color-placeholder-text);
+  }
+  &::-ms-input-placeholder {
+    color: var(--color-placeholder-text);
+  }
+}

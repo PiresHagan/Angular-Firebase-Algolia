@@ -1,0 +1,19 @@
+*:not(button) {
+  font-family: "josefin_sansregular";
+}
+
+.bg-pending {
+  background: url("../../../assets/images/pending.png") no-repeat center center
+    fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 400px;
+}
+
+.btn-black {
+  padding: 5px 20px;
+  background: var(--color-black);
+  color: var(--color-white);
+}

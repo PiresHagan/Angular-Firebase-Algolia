@@ -1,0 +1,13 @@
+<div class="row p-4">
+  <div class="col col-sm-6 text-start px-lg-5">
+    <img [routerLink]="['/']" src="assets/images/sign-up/logo.svg" width="160px" height="auto" class="onboarding-logo"
+      alt="">
+  </div>
+  <div class="col col-sm-6 text-end align-self-center">
+    <nz-select (ngModelChange)="switchLang($event)" [(ngModel)]="selectedLanguage" class="language-dropdown">
+      <nz-option *ngFor="let option of languageList" [nzLabel]="option.label" [nzValue]="option.code">
+        {{ option.label }}
+      </nz-option>
+    </nz-select>
+  </div>
+</div>
