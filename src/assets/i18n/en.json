@@ -842,6 +842,7 @@
   "blogger": "Blogger",
   "vlogger": "Vlogger",
   "podcaster": "Podcaster",
+  "guest": "Guest Poster",
   "fundraiser": "Fundraiser",
   "ecommerce": "E-commerce Store",
   "sendInvitation": "Send Invites",
@@ -889,7 +890,7 @@
     "notInterested": "Not Interested"
   },
   "error": {
-    "areaCode": "Please add your phone number",
+    "areaCode": "Please provide a valid phone number",
     "urlOrNotInterested": "Please add a URL or go with Not Interested",
     "phoneOrNotInterested": "Please provide a valid phone number or go with Not Interested",
     "preferencesRequired": "Preferences are required for submission",
