@@ -112,10 +112,10 @@ export class AddWebsiteComponent implements OnInit {
     this.websiteForm = this.fb.group({
       url: [null, [Validators.required]],
       monthly_traffic: [null, [Validators.required]],
-      category: [null, [Validators.required]],
       lang: [null, [Validators.required]],
-      revenue: [null],
-      phone: [null, Validators.required],
+      category: [null, [Validators.required]],
+      revenue: [null, [Validators.required]],
+      phone: [null, [Validators.required, Validators.pattern("^[0-9]*$")]],
     });
 
     this.setFormData();
@@ -163,6 +163,10 @@ export class AddWebsiteComponent implements OnInit {
     if (!this.currentUser) {
       return;
     }
+    // Async Http along with navigation
+    //! This is not reliable and requires error handler
+    //TODO: Ask for a design change to add a skip method instead of this approach
+    this.goToNext();
 
     for (const i in this.websiteForm.controls) {
       this.websiteForm.controls[i].markAsDirty();
@@ -170,7 +174,6 @@ export class AddWebsiteComponent implements OnInit {
     }
 
     if (this.websiteForm.valid) {
-      console.warn("here");
       try {
         if (
           this.publisherSites.some(
@@ -184,7 +187,6 @@ export class AddWebsiteComponent implements OnInit {
           delete websiteValue.revenue;
           const loggedInUser = this.authService.getLoginDetails();
           if (!loggedInUser) return;
-          console.warn(websiteValue);
 
           await this.userService.updateSpecificDetails(
             this.currentUser.id,
@@ -198,7 +200,7 @@ export class AddWebsiteComponent implements OnInit {
           websiteValue["daily_traffic"] = websiteValue.monthly_traffic;
           websiteValue["status"] = SiteConstant.IN_PROCESS;
           delete websiteValue.monthly_traffic;
-          this.goToNext();
+          //this.goToNext();
           this.adNetworkService
             .addNewSite(this.currentUser.id, websiteValue)
             .then((result: any) => {
