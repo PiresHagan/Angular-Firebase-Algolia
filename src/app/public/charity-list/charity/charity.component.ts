@@ -41,7 +41,8 @@ export class CharityComponent implements OnInit {
   isShareVisible : boolean = false
   donationList: any[];
   donationPercentage: string = "0";
-
+  public href: string = "";
+  
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService,
@@ -298,10 +299,6 @@ export class CharityComponent implements OnInit {
     this.isDonateFormVisible = true;
   }
 
-  showShareModel(): void {
-    this.isShareVisible = true;
-  }
-
   hideShareModel(): void {
     this.isShareVisible = false;
   }
@@ -310,5 +307,27 @@ export class CharityComponent implements OnInit {
     this.isDonateFormVisible = false;
   }
 
+  showShareModel(): void {
+    this.href = window.location.href;
+    this.isShareVisible = true;
+    let addthis = window["addthis"];
+    let config = {
+      "username": "ra-5ed48a5fc8315a5b",
+      "services_exclude": "",
+      "services_exclude_natural": "",
+      "services_compact": "facebook,twitter,mailto,pinterest_share,whatsapp,print,gmail,linkedin,google,messenger,more"
+    }
+    addthis.init();
+    addthis.update('share', 'url', this.href);
+    addthis.url = this.href;
+    addthis.toolbox('.addthis_toolbox');
+    addthis.layers.refresh(
+      addthis.url,
+      addthis.title
+      )
+  }
  
+  closeSharepopUp() {
+    this.isShareVisible = false;
+  } 
 }

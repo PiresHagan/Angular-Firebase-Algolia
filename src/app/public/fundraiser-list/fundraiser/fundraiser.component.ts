@@ -51,7 +51,8 @@ export class FundraiserComponent implements OnInit {
   isVisible = false;
   isShareVisible: boolean = false;
   donationList: any[];
-
+  public href: string = "";
+  
   constructor(
     private route: ActivatedRoute,
     private langService: LanguageService,
@@ -302,10 +303,6 @@ export class FundraiserComponent implements OnInit {
     this.isDonateFormVisible = false;
   }
 
-  showShareModel(): void {
-    this.isShareVisible = true;
-  }
-
   hideShareModel(): void {
     this.isShareVisible = false;
   }
@@ -325,5 +322,25 @@ export class FundraiserComponent implements OnInit {
   handleCancel(): void {
     this.isVisible = false;
   }
+
+  showShareModel(): void {
+    this.href = window.location.href;
+    this.isShareVisible = true;
+    let addthis = window["addthis"];
+    let config = {
+      "username": "ra-5ed48a5fc8315a5b",
+      "services_exclude": "",
+      "services_exclude_natural": "",
+      "services_compact": "facebook,twitter,mailto,pinterest_share,whatsapp,print,gmail,linkedin,google,messenger,more"
+    }
+    addthis.init();
+    addthis.update('share', 'url', this.href);
+    addthis.url = this.href;
+    addthis.toolbox('.addthis_toolbox')
+  }
+ 
+  closeSharepopUp() {
+    this.isShareVisible = false;
+  } 
 }
 

@@ -196,4 +196,8 @@ export class CompanyComponent implements OnInit {
   handleCancel(): void {
     this.isVisible = false;
   }
+
+  companyMoreInfo() {
+    document.getElementById('firstName').focus();
+  }
 }

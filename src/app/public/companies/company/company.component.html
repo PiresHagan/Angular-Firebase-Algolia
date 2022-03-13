@@ -123,7 +123,7 @@
             </div>
 
             <div class="xs-article-publish">
-              <div class="d-flex">
+              <!-- <div class="d-flex">
                 <div class="xs-article-publisher-img">
                   <div class="company-img">
                     <img *ngIf="company" [src]='company?.logo?.url' [alt]='company?.logo?.alt'
@@ -134,7 +134,7 @@
                   </div>
                 </div>
                 <div class="xs-articl-publisher-name">{{ company?.name }}</div>
-              </div>
+              </div> -->
               <app-company-follower-list *ngIf="companyId" [companyId]="companyId"></app-company-follower-list>
               <!-- <div class="share-sec text-left">
                 <h3>{{'shareArticle' | translate}}</h3>
@@ -646,6 +646,12 @@
             {{ 'CompanyWebsite' | translate }} : <a href="{{ company.website }}" target="_blank"> Click Here </a>
           </h5>
           <h5>{{ 'CompanyPhone' | translate }} : <a href="tel:{{ company.phone }}">{{ company.phone }}</a></h5>
+        </div>
+        <div>
+          <button class="request-info-btn" (click)="companyMoreInfo()">
+            Request More Info
+            <img src="assets/images/read-more-icon.png" alt="">
+          </button>
         </div>
         <app-company-lead-form *ngIf="companyId" [companyId]="companyId"></app-company-lead-form>
       </div>

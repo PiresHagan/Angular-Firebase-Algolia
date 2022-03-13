@@ -32,6 +32,8 @@ import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { LoadingInterceptor } from './incterceptors/loading.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -67,6 +69,10 @@ registerLocaleData(en);
         NgxStripeModule.forRoot(environment.stripePublishableKey),
         NzSpinModule,
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+        ToastrModule.forRoot({
+          timeOut: 3000,
+          positionClass: 'toast-bottom-right',
+        }),
     ],
     exports: [],
     providers: [
@@ -80,7 +86,8 @@ registerLocaleData(en);
         PreviousRouteService,
         ScreenTrackingService,
         UserTrackingService,
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
 })

@@ -43,7 +43,7 @@ export class TodayComponent implements OnInit {
     this.onIndexChange(1);
   }
 
-  onIndexChange(value: number){ debugger
+  onIndexChange(value: number){ 
     this.selectedLanguage = this.languageService.getSelectedLanguage();
     
     this.articleService.getToday(this.selectedLanguage).subscribe(articles => {

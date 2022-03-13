@@ -55,11 +55,12 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   displayAd: boolean;
   fundraiser: Fundraiser;
   fundraiserAuthor;
-  isDonateFormVisible = false;
   topics: string;
   charity: Charity;
   isShareVisible: boolean = false;
   donationPercentage: string = "0";
+  donationList: any[];
+
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
@@ -183,6 +184,13 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   getCharityDetails() {
     this.charityService.getCharityBySlug(this.article.author.slug).subscribe(data => {
       this.charity = data[0];
+      
+      if(this.charity.id){
+        // Fetching charity donations
+        this.charityService.getAllCharityDonation(this.charity.id).subscribe(data => {
+          this.donationList = data.donations;
+        })
+      }
 
       if (this.charity.amount) {
         this.donationPercentage = ((this.charity.amount / 1000) * 100).toFixed(1);
@@ -193,6 +201,13 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   getFundraiserDetails() {
     this.fundraiserService.getFundraiserBySlug(this.article.author.slug).subscribe(data => {
       this.fundraiser = data[0];
+
+      if(this.fundraiser.id){
+        // Fetching fundraiser donations
+        this.fundraiserService.getAllFundraiserDonation(this.fundraiser.id).subscribe(data => {
+        this.donationList = data.donations;
+        })
+      }
 
       if (this.fundraiser.author.type == 'charity') {
         this.charityService.getCharityById(this.fundraiser.author.id).subscribe(charity => {
@@ -533,13 +548,13 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
     // console.log(this.router.url);
   }
 
-  showDonateForm(): void {
-    this.isDonateFormVisible = true;
-  }
+  // showDonateForm(): void {
+  //   this.isDonateFormVisible = true;
+  // }
 
-  hideDonateForm(): void {
-    this.isDonateFormVisible = false;
-  }
+  // hideDonateForm(): void {
+  //   this.isDonateFormVisible = false;
+  // }
 
   ngOnDestroy(): void {
     this.adService.removeBottomRailAd();
@@ -551,6 +566,10 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
 
   hideShareModel(): void {
     this.isShareVisible = false;
+  }
+
+  companyMoreInfo() {
+    document.getElementById('firstName').focus();
   }
 }
 
