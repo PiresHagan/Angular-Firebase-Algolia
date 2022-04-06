@@ -140,7 +140,15 @@ export class ProfileComponent implements OnInit {
         if (
           user_type == "reader" ||
           user_type == "fundraiser" ||
-          user_type == "ecommerce"
+          user_type == "ecommerce"  ||
+          user_type == "guest-post" ||
+          user_type == "ecommerce-store" ||
+          user_type == "member-reader" ||
+          user_type == "advisor" ||
+          user_type == "services" ||
+          user_type == "online-courses" ||
+          user_type == "paid-premium-group" ||
+          user_type == "jobs"
         ) {
           this.router.navigate(["/auth/import-contact"]);
         } else if (user_type == "company") {
