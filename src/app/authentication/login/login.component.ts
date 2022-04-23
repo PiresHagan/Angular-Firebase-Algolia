@@ -269,8 +269,9 @@ export class LoginComponent implements OnInit {
   }
 
   isPassValidationApproved(passWord) {
-    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,30}$/;
-    return pattern.test(passWord);
+    /* const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,30}$/;
+    return pattern.test(passWord); */
+    return true;
   }
 
   public findInvalidControls() {
