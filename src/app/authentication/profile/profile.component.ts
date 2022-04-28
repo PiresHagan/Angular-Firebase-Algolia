@@ -143,14 +143,23 @@ export class ProfileComponent implements OnInit {
           user_type == "ecommerce"  ||
           user_type == "guest-post" ||
           user_type == "ecommerce-store" ||
-          user_type == "member-reader" ||
-          user_type == "advisor" ||
-          user_type == "services" ||
-          user_type == "online-courses" ||
-          user_type == "paid-premium-group" ||
-          user_type == "jobs"
+          user_type == "member-reader"
         ) {
           this.router.navigate(["/auth/import-contact"]);
+        } else if(
+          user_type == 'advisor' || 
+          user_type == 'online-course' || 
+          user_type == 'job' || 
+          user_type == 'paid-premium-group' || 
+          user_type == 'influencer-marketing' ||
+          user_type == 'restaurant'||
+          user_type == 'host-event'||
+          user_type == 'politician' ||
+          user_type == 'investment' ||
+          user_type == 'vacations-rentals' ||
+          user_type == "services" ) 
+        {
+          this.router.navigate(["auth/coming-soon"]);
         } else if (user_type == "company") {
           this.router.navigate(["auth/company"]);
         } else {

@@ -926,5 +926,6 @@
   },
   "pending": {
     "promoCode": "Do you have promo code:"
-  }
+  },
+  "comingSoon":"Coming Soon!"
 }
