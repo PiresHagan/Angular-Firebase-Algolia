@@ -62,7 +62,7 @@
                                     <ng-container *ngFor="let item of (categories)">
                                         <ul *ngIf="(item?.title) == 'City'">
                                             <li (click)="hideMegaMenu()"
-                                                *ngFor="let topic of (categoryListData[item.uid].child | async )"
+                                                *ngFor="let topic of countryListArray"
                                                 nz-menu-item [routerLink]="['/category', item.slug]"
                                                 [queryParams]="{topic:topic.slug}" class="mega-menu-list-item">
                                                 {{topic.title}}
