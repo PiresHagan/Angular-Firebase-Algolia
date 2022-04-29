@@ -142,14 +142,14 @@ export class ProfileComponent implements OnInit {
           user_type == FUNDRAISER ||
           user_type == ECOMMERCE  ||
           user_type == GUESTPOST ||
-          user_type == READER
+          user_type == READER ||
+          user_type == ADVISOR ||
+          user_type == ONLINECOURSE ||
+          user_type == JOB ||
+          user_type == PAIDPREMIUMGROUP
         ) {
           this.router.navigate(["/auth/import-contact"]);
         } else if(
-          user_type == ADVISOR || 
-          user_type == ONLINECOURSE || 
-          user_type == JOB || 
-          user_type == PAIDPREMIUMGROUP || 
           user_type == INFLUENCERMARKETPLACE ||
           user_type == RESTAURANT ||
           user_type == HOSTEVENT ||
