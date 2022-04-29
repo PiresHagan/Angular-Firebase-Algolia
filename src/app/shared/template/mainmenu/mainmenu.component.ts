@@ -21,6 +21,12 @@ export class MainmenuComponent implements OnInit {
   isLoggedInUser: boolean = false;
   photoURL: string;
   displayName: string;
+  countryWiseCityData = new Map;
+  countryListArray = [];
+
+  // Predefined sequence of countries as shared by Sunny
+  countrySequenceData = ['USA', 'Canada', 'France', 'China', 'United Kingdom', 'Australia', 'Brazil', 'India', 'Italy', 'Agentina', 'Japan', 'Germany', 'South Korea', 'South Africa', 'Spain', 'Switzerland', 'United Arab Emirates', 'Chile', 'Costa Rica', 'Greece', 'Nigeria', 'Indonesia', 'Panama', 'Peru', 'Portugal'];
+
   constructor(
         private categoryService: CategoryService,
         private languageService: LanguageService,
@@ -68,9 +74,34 @@ export class MainmenuComponent implements OnInit {
 
   hideMegaMenu() {
     document.getElementById('mega-menu-section').style.display = 'none';
+    this.countryListArray = [];
   }
   showMegaMenu() {
     document.getElementById('mega-menu-section').style.display = 'block';
+    this.categories.forEach(category=> {
+      if(category?.title == "City"){
+        this.categoryListData[category.uid].child.subscribe((data) => {
+          
+          let countries = data.map(city => { 
+            let splittedData = city.title.split(", ");
+            return splittedData[splittedData.length - 1];
+          });
+          countries = [...this.countrySequenceData, ...countries].filter((country, index, self) => index === self.indexOf(country));
+          
+          countries.forEach(country => {
+            let cityArray = [];
+
+            data.forEach(city => {
+              if(city.title.includes(country))
+                cityArray.push({title: city.title, slug: city.slug})
+            });
+
+            cityArray = cityArray.sort((a, b) => (a.title > b.title) ? 1 : -1);
+            this.countryListArray = [...this.countryListArray, ...cityArray];
+          });
+        });
+      }
+    })
   }
   searchToggle(): void {
     this.searchVisible = !this.searchVisible;
