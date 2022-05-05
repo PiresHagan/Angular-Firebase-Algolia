@@ -1,0 +1,15 @@
+.coming-soon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(100vh - 205px);
+    h2{
+        font-size: 40px;
+    }
+}
+
+.onboarding-logo{
+    width: 160px;
+    height: auto;
+}

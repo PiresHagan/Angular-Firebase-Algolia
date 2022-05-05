@@ -13,6 +13,7 @@ import { EmailOtpComponent } from "./email-otp/email-otp.component";
 import { AddWebsiteComponent } from "./add-website/add-website.component";
 import { CompanyComponent } from "./company/company.component";
 import { PendingComponent } from "./pending/pending.component";
+import { ComingSoonComponent } from "./coming-soon/coming-soon.component";
 
 const routes: Routes = [
   {
@@ -103,6 +104,14 @@ const routes: Routes = [
     component: PendingComponent,
     data: {
       title: "Pending",
+    },
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "coming-soon",
+    component: ComingSoonComponent,
+    data: {
+      title: "Coming soon",
     },
     canActivate: [AuthGuard],
   },
