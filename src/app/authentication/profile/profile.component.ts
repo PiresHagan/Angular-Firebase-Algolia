@@ -112,6 +112,8 @@ export class ProfileComponent implements OnInit {
   }
 
   async submitForm() {
+    const user_type = this.profileForm.get("user_type").value;
+
     if (!this.currentUser) return;
 
     for (const i in this.profileForm.controls) {
@@ -126,10 +128,20 @@ export class ProfileComponent implements OnInit {
       });
       return;
     }
-    if (this.findInvalidControls().length == 0) {
+    if(
+      user_type == INFLUENCERMARKETPLACE ||
+      user_type == RESTAURANT ||
+      user_type == HOSTEVENT ||
+      user_type == POLITICIAN ||
+      user_type == INVESTMENT ||
+      user_type == VACATIONSRENTALS ||
+      user_type == SERVICES ) 
+    {
+      this.router.navigate(["auth/coming-soon"]);
+    } 
+    else if (this.findInvalidControls().length == 0) {
       try {
         this.isFormSaving = true;
-        const user_type = this.profileForm.get("user_type").value;
         const loggedInUser = this.authService.getLoginDetails();
         if (!loggedInUser) return;
         await this.userService.updateBasicDetails(this.currentUser.id, {
@@ -149,16 +161,6 @@ export class ProfileComponent implements OnInit {
           user_type == PAIDPREMIUMGROUP
         ) {
           this.router.navigate(["/auth/import-contact"]);
-        } else if(
-          user_type == INFLUENCERMARKETPLACE ||
-          user_type == RESTAURANT ||
-          user_type == HOSTEVENT ||
-          user_type == POLITICIAN ||
-          user_type == INVESTMENT ||
-          user_type == VACATIONSRENTALS ||
-          user_type == SERVICES ) 
-        {
-          this.router.navigate(["auth/coming-soon"]);
         } else if (user_type == COMPANY) {
           this.router.navigate(["auth/company"]);
         } else {
