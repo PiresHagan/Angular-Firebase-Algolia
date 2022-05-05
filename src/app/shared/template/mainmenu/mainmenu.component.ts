@@ -26,6 +26,8 @@ export class MainmenuComponent implements OnInit {
 
   // Predefined sequence of countries as shared by Sunny
   countrySequenceData = ['USA', 'Canada', 'France', 'China', 'United Kingdom', 'Australia', 'Brazil', 'India', 'Italy', 'Agentina', 'Japan', 'Germany', 'South Korea', 'South Africa', 'Spain', 'Switzerland', 'United Arab Emirates', 'Chile', 'Costa Rica', 'Greece', 'Nigeria', 'Indonesia', 'Panama', 'Peru', 'Portugal'];
+  countrySequenceDataFr = ['États-Unis', 'Canada', 'France', 'Chine', 'Royaume-Uni', 'Australie', 'Brésil', 'Inde', 'Italie', 'Agentina', 'Japon', 'Allemagne', 'Corée du Sud', 'Afrique du Sud', 'Espagne', 'Suisse', 'Emirats Arabes Unis', 'Chili', 'Costa Rica', 'Grèce', 'Nigeria', 'Indonésie', 'Panama', 'Pérou', 'Portugal'];
+  countrySequenceDataEs = ['Estados Unidos', 'Canadá', 'Francia', 'China', 'Reino Unido', 'Australia', 'Brasil', 'India', 'Italia', 'Agentina', 'Japón', 'Alemania', 'Corea del Sur', 'Sudáfrica', 'España', 'Suiza', 'Emiratos Arabes Unidos', 'Chile', 'Costa Rica', 'Grecia', 'Nigeria', 'Indonesia', 'Panamá', 'Perú', 'Portugal'];
 
   constructor(
         private categoryService: CategoryService,
@@ -79,15 +81,20 @@ export class MainmenuComponent implements OnInit {
   showMegaMenu() {
     document.getElementById('mega-menu-section').style.display = 'block';
     this.categories.forEach(category=> {
-      if(category?.title == "City"){
+      if(category?.title == "City" || category?.title == "Ciudad" || category?.title == "Ville"){
         this.categoryListData[category.uid].child.subscribe((data) => {
           
           let countries = data.map(city => { 
             let splittedData = city.title.split(", ");
             return splittedData[splittedData.length - 1];
           });
-          countries = [...this.countrySequenceData, ...countries].filter((country, index, self) => index === self.indexOf(country));
-          
+          if(this.selectedLanguage == "fr"){
+            countries = [...this.countrySequenceDataFr, ...countries].filter((country, index, self) => index === self.indexOf(country));
+          } else if(this.selectedLanguage == "es"){
+            countries = [...this.countrySequenceDataEs, ...countries].filter((country, index, self) => index === self.indexOf(country));
+          } else {
+            countries = [...this.countrySequenceData, ...countries].filter((country, index, self) => index === self.indexOf(country));
+          }
           countries.forEach(country => {
             let cityArray = [];
 
