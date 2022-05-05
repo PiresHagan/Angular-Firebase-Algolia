@@ -27,6 +27,7 @@ import { LanguageService } from '../shared/services/language.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CompanyComponent } from './company/company.component';
 import { PendingComponent } from './pending/pending.component';
+import { ComingSoonComponent } from './coming-soon/coming-soon.component';
 
 @NgModule({
     imports: [
@@ -54,7 +55,8 @@ import { PendingComponent } from './pending/pending.component';
         MaintenanceComponent,
         ImportContactComponent,
         CompanyComponent,
-        PendingComponent
+        PendingComponent,
+        ComingSoonComponent
     ],
     providers: [LanguageService],
 })

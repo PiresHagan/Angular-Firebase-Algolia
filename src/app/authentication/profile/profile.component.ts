@@ -14,6 +14,7 @@ import { UserService } from "../../shared/services/user.service";
 import { AuthService } from "src/app/shared/services/authentication.service";
 import { Language } from "src/app/shared/interfaces/language.type";
 import { User } from "src/app/shared/interfaces/user.type";
+import { ADVISOR, COMPANY, ECOMMERCE, FUNDRAISER, GUESTPOST, HOSTEVENT, INFLUENCERMARKETPLACE, INVESTMENT, JOB, ONLINECOURSE, PAIDPREMIUMGROUP, POLITICIAN, READER, RESTAURANT, SERVICES, VACATIONSRENTALS } from 'src/app/shared/constants/member-constant';
 
 @Component({
   selector: "app-profile",
@@ -111,6 +112,8 @@ export class ProfileComponent implements OnInit {
   }
 
   async submitForm() {
+    const user_type = this.profileForm.get("user_type").value;
+
     if (!this.currentUser) return;
 
     for (const i in this.profileForm.controls) {
@@ -125,10 +128,20 @@ export class ProfileComponent implements OnInit {
       });
       return;
     }
-    if (this.findInvalidControls().length == 0) {
+    if(
+      user_type == INFLUENCERMARKETPLACE ||
+      user_type == RESTAURANT ||
+      user_type == HOSTEVENT ||
+      user_type == POLITICIAN ||
+      user_type == INVESTMENT ||
+      user_type == VACATIONSRENTALS ||
+      user_type == SERVICES ) 
+    {
+      this.router.navigate(["auth/coming-soon"]);
+    } 
+    else if (this.findInvalidControls().length == 0) {
       try {
         this.isFormSaving = true;
-        const user_type = this.profileForm.get("user_type").value;
         const loggedInUser = this.authService.getLoginDetails();
         if (!loggedInUser) return;
         await this.userService.updateBasicDetails(this.currentUser.id, {
@@ -138,20 +151,17 @@ export class ProfileComponent implements OnInit {
         this.isFormSaving = false;
         localStorage.setItem("user_type", user_type);
         if (
-          user_type == "reader" ||
-          user_type == "fundraiser" ||
-          user_type == "ecommerce"  ||
-          user_type == "guest-post" ||
-          user_type == "ecommerce-store" ||
-          user_type == "member-reader" ||
-          user_type == "advisor" ||
-          user_type == "services" ||
-          user_type == "online-courses" ||
-          user_type == "paid-premium-group" ||
-          user_type == "jobs"
+          user_type == FUNDRAISER ||
+          user_type == ECOMMERCE  ||
+          user_type == GUESTPOST ||
+          user_type == READER ||
+          user_type == ADVISOR ||
+          user_type == ONLINECOURSE ||
+          user_type == JOB ||
+          user_type == PAIDPREMIUMGROUP
         ) {
           this.router.navigate(["/auth/import-contact"]);
-        } else if (user_type == "company") {
+        } else if (user_type == COMPANY) {
           this.router.navigate(["auth/company"]);
         } else {
           this.router.navigate(["/auth/website"]);
