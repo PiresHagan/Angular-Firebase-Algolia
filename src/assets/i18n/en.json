@@ -928,6 +928,14 @@
     "promoCode": "Do you have promo code:"
   },
   "comingSoon":"Coming Soon!",
+  "onboardingPopup": {
+    "congratulations": "Congratulations",
+    "msg":"Well done! You are all set."
+  },
+  "button": {
+    "skip": "Skip",
+    "ok": "Ok"
+  },
   "shareSocialMedia": "Share to your favourite social media platform!",
   "saveTo": "Save to",
   "typeName": "Type a name",

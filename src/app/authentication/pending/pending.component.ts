@@ -1,6 +1,7 @@
 import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 import { NzModalService } from "ng-zorro-antd";
 import { ToastrService } from "ngx-toastr";
 import { AuthService } from "src/app/shared/services/authentication.service";
@@ -33,7 +34,8 @@ export class PendingComponent implements OnInit {
     private userService: UserService,
     private modalService: NzModalService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public translate: TranslateService,
   ) {
     this.userType = localStorage.getItem("user_type");
     this.preferenceTypes = preferences;
@@ -77,9 +79,13 @@ export class PendingComponent implements OnInit {
   }
 
   done(): void {
+    let $congratulation = this.translate.instant("onboardingPopup.congratulations");
+    let $message = this.translate.instant("onboardingPopup.msg");
+    let $ok = this.translate.instant("button.ok");
     this.modalService.success({
-      nzTitle: "Congratulations",
-      nzContent: "Well done! You are all set.",
+      nzTitle: '<i>' + $congratulation + '<i>',
+      nzContent: '<i>' + $message + '<i>',
+      nzOkText: $ok,
       nzOnOk: () => {
         if (this.userService.userData?.isNewConsoleUser) {
           this.authService.redirectToConsole(
