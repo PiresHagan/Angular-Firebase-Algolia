@@ -881,5 +881,13 @@
   "pending": {
     "promoCode": "Avez-vous un code promotionnel:"
   },
-  "comingSoon": "À venir!"
+  "comingSoon": "À venir!",
+  "onboardingPopup": {
+    "congratulations": "Toutes nos félicitations",
+    "msg":"Bon travail! Vous êtes prêt."
+  },
+  "button": {
+    "skip": "Sauter",
+    "ok": "D'accord"
+  }
 }
