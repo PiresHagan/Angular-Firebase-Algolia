@@ -927,5 +927,13 @@
   "pending": {
     "promoCode": "Do you have promo code:"
   },
-  "comingSoon":"Coming Soon!"
+  "comingSoon":"Coming Soon!",
+  "onboardingPopup": {
+    "congratulations": "Congratulations",
+    "msg":"Well done! You are all set."
+  },
+  "button": {
+    "skip": "Skip",
+    "ok": "Ok"
+  }
 }

@@ -795,12 +795,12 @@
   "fundraiser": "Recaudador de fondos",
   "blogger": "Bloguera",
   "vlogger": "Vloguero",
-  "podcaster": "podcaster",
+  "podcaster": "Podcaster",
   "guest": "Invitado",
   "ecommerce": "Tienda de comercio electrónico",
   "guest-post": "Mensaje invitado",
   "member-reader": "Miembro/Lector",
-  "advisor": "asesor",
+  "advisor": "Asesor",
   "online-course": "Cursos en línea",
   "services": "Servicios",
   "job": "Trabajo",
@@ -880,5 +880,13 @@
   "pending": {
     "promoCode": "Tienes código promocional:"
   },
-  "comingSoon": "¡Próximamente!"
+  "comingSoon": "¡Próximamente!",
+  "onboardingPopup": {
+    "congratulations": "Felicidades",
+    "msg":"¡Bien hecho! Estas listo."
+  },
+  "button": {
+    "skip": "Saltear",
+    "ok": "De acuerdo"
+  }
 }
