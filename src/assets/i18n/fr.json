@@ -882,6 +882,14 @@
     "promoCode": "Avez-vous un code promotionnel:"
   },
   "comingSoon": "À venir!",
+  "onboardingPopup": {
+    "congratulations": "Toutes nos félicitations",
+    "msg":"Bon travail! Vous êtes prêt."
+  },
+  "button": {
+    "skip": "Sauter",
+    "ok": "D'accord"
+  },
   "shareSocialMedia": "Partagez sur votre plateforme de médias sociaux préférée!",
   "saveTo": "Enregistrer dans",
   "typeName": "Tapez un nom",
