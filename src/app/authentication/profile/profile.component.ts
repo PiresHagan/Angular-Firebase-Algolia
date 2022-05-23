@@ -135,7 +135,9 @@ export class ProfileComponent implements OnInit {
       user_type == POLITICIAN ||
       user_type == INVESTMENT ||
       user_type == VACATIONSRENTALS ||
-      user_type == SERVICES ) 
+      user_type == SERVICES ||
+      user_type == ONLINECOURSE ||
+      user_type == PAIDPREMIUMGROUP) 
     {
       this.router.navigate(["auth/coming-soon"]);
     } 
