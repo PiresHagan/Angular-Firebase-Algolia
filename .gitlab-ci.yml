@@ -1,4 +1,4 @@
-image: node:12.20.0-alpine
+image: node:14.18.0-alpine
 
 before_script:
   - npm i -g firebase-tools
