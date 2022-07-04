@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 import { NzModalService } from "ng-zorro-antd";
 import { ToastrService } from "ngx-toastr";
+import { READER } from "src/app/shared/constants/member-constant";
 import { AuthService } from "src/app/shared/services/authentication.service";
 import { UserService } from "src/app/shared/services/user.service";
 import { environment } from "src/environments/environment";
@@ -26,6 +27,8 @@ export class PendingComponent implements OnInit {
   userType: string;
   topics: string;
   code: string;
+  isPromocodeValid: boolean= false;
+  currentUser: any;
 
   constructor(
     private location: Location,
@@ -67,6 +70,7 @@ export class PendingComponent implements OnInit {
       (res) => {
         if (res.errors !== "true") {
           this.toast.success("Success!");
+          this.isPromocodeValid = true;
         } else {
           this.toast.error("Invalid Promo Code");
         }
@@ -79,6 +83,17 @@ export class PendingComponent implements OnInit {
   }
 
   done(): void {
+    this.userService.getCurrentUser().then((user) => {
+      this.userService.get(user.uid).subscribe((userDetails) => {
+        this.currentUser = userDetails;
+        if(this.isPromocodeValid === false){
+          this.userService.updateBasicDetails(this.currentUser.id, {
+            user_type: READER
+          });
+        }
+      });
+    })
+
     let $congratulation = this.translate.instant("onboardingPopup.congratulations");
     let $message = this.translate.instant("onboardingPopup.msg");
     let $ok = this.translate.instant("button.ok");
