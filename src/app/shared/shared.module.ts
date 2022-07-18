@@ -24,71 +24,74 @@ import { CharityDonateFormComponent } from './component/charity-donate-form/char
 import { CompanyLeadFormComponent } from './component/company-lead-form/company-lead-form.component';
 import { FundraiserDonateFormComponent } from './component/fundraiser-donate-form/fundraiser-donate-form.component';
 
-import { NgxStripeModule } from 'ngx-stripe';
-import { environment } from 'src/environments/environment';
-import { CloudinaryFeatureImgComponent } from './component/cloudinary-feature-img/cloudinary-feature-img.component';
+import { NgxStripeModule } from "ngx-stripe";
+import { environment } from "src/environments/environment";
+import { CloudinaryFeatureImgComponent } from "./component/cloudinary-feature-img/cloudinary-feature-img.component";
+import { SanitizedHtmlPipe } from "./pipes/sanitized-html.pipe";
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-    exports: [
-        CommonModule,
-        FormsModule,
-        HttpClientModule,
-        NgZorroAntdModule,
-        PerfectScrollbarModule,
-        SearchPipe,
-        ArticleInteractionComponent,
-        ArticleAvatarComponent,
-        CloudinaryImgComponent,
-        ShareButtonsComponent,
-        AdDirective,
-        QuicklinkModule,
-        CharityDonateFormComponent,
-        CompanyLeadFormComponent,
-        FundraiserDonateFormComponent,
-        CloudinaryFeatureImgComponent
-    ],
-    imports: [
-        RouterModule,
-        CommonModule,
-        NgZorroAntdModule,
-        FormsModule,
-        ReactiveFormsModule,
-        PerfectScrollbarModule,
-        QuicklinkModule,
-        CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
-        NgxStripeModule.forRoot(environment.stripePublishableKey),
-        TranslateModule.forChild({
-            useDefaultLang: true,
-            isolate: false,
-            loader: {
-                provide: TranslateLoader,
-                useFactory: (createTranslateLoader),
-                deps: [HttpClient]
-            }
-        })
-    ],
-    declarations: [
-        SearchPipe,
-        StripTagsPipe,
-        ImgSizePipe,
-        ArticleInteractionComponent,
-        ArticleAvatarComponent,
-        CloudinaryImgComponent,
-        ShareButtonsComponent,
-        AdDirective,
-        CharityDonateFormComponent,
-        CompanyLeadFormComponent,
-        FundraiserDonateFormComponent,
-        CloudinaryFeatureImgComponent
-    ],
-    providers: [
-        ThemeConstantService,
-        SeoService,
-    ]
+  exports: [
+    CommonModule,
+    FormsModule,
+    HttpClientModule,
+    NgZorroAntdModule,
+    PerfectScrollbarModule,
+    SearchPipe,
+    ArticleInteractionComponent,
+    ArticleAvatarComponent,
+    CloudinaryImgComponent,
+    ShareButtonsComponent,
+    AdDirective,
+    QuicklinkModule,
+    CharityDonateFormComponent,
+    CompanyLeadFormComponent,
+    FundraiserDonateFormComponent,
+    CloudinaryFeatureImgComponent,
+    SanitizedHtmlPipe,
+  ],
+  imports: [
+    RouterModule,
+    CommonModule,
+    NgZorroAntdModule,
+    FormsModule,
+    ReactiveFormsModule,
+    PerfectScrollbarModule,
+    QuicklinkModule,
+    CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
+    NgxStripeModule.forRoot(environment.stripePublishableKey),
+    TranslateModule.forChild({
+        useDefaultLang: true,
+        isolate: false,
+        loader: {
+            provide: TranslateLoader,
+            useFactory: (createTranslateLoader),
+            deps: [HttpClient]
+        }
+    }),
+  ],
+  declarations: [
+    SearchPipe,
+    StripTagsPipe,
+    ImgSizePipe,
+    ArticleInteractionComponent,
+    ArticleAvatarComponent,
+    CloudinaryImgComponent,
+    ShareButtonsComponent,
+    AdDirective,
+    CharityDonateFormComponent,
+    CompanyLeadFormComponent,
+    FundraiserDonateFormComponent,
+    CloudinaryFeatureImgComponent,
+    SanitizedHtmlPipe,
+  ],
+  providers: [
+    ThemeConstantService,
+    SeoService,
+  ]
 })
 
 export class SharedModule { }
