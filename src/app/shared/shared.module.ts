@@ -31,6 +31,7 @@ import { NgxStripeModule } from "ngx-stripe";
 import { environment } from "src/environments/environment";
 import { CloudinaryFeatureImgComponent } from "./component/cloudinary-feature-img/cloudinary-feature-img.component";
 import { FluidToolbarComponent } from "./component/fluid-toolbar/fluid-toolbar.component";
+import { SanitizedHtmlPipe } from "./pipes/sanitized-html.pipe";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -55,6 +56,7 @@ export function createTranslateLoader(http: HttpClient) {
     FundraiserDonateFormComponent,
     CloudinaryFeatureImgComponent,
     FluidToolbarComponent,
+    SanitizedHtmlPipe,
   ],
   imports: [
     RouterModule,
@@ -92,6 +94,7 @@ export function createTranslateLoader(http: HttpClient) {
     FundraiserDonateFormComponent,
     CloudinaryFeatureImgComponent,
     FluidToolbarComponent,
+    SanitizedHtmlPipe,
   ],
   providers: [ThemeConstantService, SeoService],
 })
