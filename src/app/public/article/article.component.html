@@ -381,7 +381,7 @@
                 </div>
               </div> -->
               <div class="big" *ngFor="let item of articleAds; trackBy:trackByArticleAdFn">
-                <span [ngClass]="{'not-active': article.author.type === 'company'}" [innerHTML]="item.elem"></span>
+                <span [ngClass]="{'not-active': article.author.type === 'company'}" [innerHTML]="item.elem | sanitizedHtml"></span>
                 <ng-container *ngIf="item.insertAd">
                   <div style="margin: 10px auto; background-color: #e0dddd; width: 100%; min-height: 100px;">
                     <div class="article-ad pw-in-article-container"

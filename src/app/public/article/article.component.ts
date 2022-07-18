@@ -112,7 +112,6 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
         this.articleAds = [{ elem: '<em>Parsing...</em>' }];
         this.article = artical[0];
         this.topics = this.article.topics;
-        // console.log(this.article)
 
         if (!this.article) {
           this.modal.error({
@@ -289,11 +288,17 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
 
         // creates item for partial view
         const tag = (c.tagName || 'span').toLowerCase();
-        const item: ArticleAdItem = {
-          elem: `<${tag}>${c.innerHTML || ''}</${tag}>`,
-          insertAd: false
-        };
 
+        // const item: ArticleAdItem = {
+        //   elem: `<${tag}>${c.innerHTML || ''}</${tag}>`,
+        //   insertAd: false
+        // };
+
+          const item: ArticleAdItem = {
+            elem: `${c.outerHTML || ''}`,
+            insertAd: false
+          };
+       
         // if paragraph, then count impact with innerText length
         if (tag === 'p') {
           impactValue += c.innerText.length || 0;
