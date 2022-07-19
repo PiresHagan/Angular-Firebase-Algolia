@@ -1,10 +1,99 @@
-<div class="special-icon" *ngIf="article?.author?.type==='company'">
-    <img src="assets/images/company-icon.png" style="max-width: 16px;"/>
-</div>
-<div class="special-icon" *ngIf="article?.author?.type==='charity'">
-    <img src="assets/images/charity-icon.png" />
+<!-- Logo for Blogger -->
+<div class="special-icon" *ngIf="userType==='blogger'">
+    <img src="assets/images/blogger.svg" style="max-width: 16px;" />
 </div>
 
-<div class="special-icon" *ngIf="article?.author?.type==='fundraiser'">
+<!-- Logo for Vlogger -->
+<div class="special-icon" *ngIf="userType==='vlogger'">
+    <img src="assets/images/vlogger.svg" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for Podcaster -->
+<div class="special-icon" *ngIf="userType==='podcaster'">
+    <img src="assets/images/podcaster.svg" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for Guest-Post -->
+<div class="special-icon" *ngIf="userType==='guest-post' || isGuestPostEnabled">
+    <img src="assets/images/guest-post.svg" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for Company -->
+<div class="special-icon" *ngIf="userType==='company'">
+    <img src="assets/images/company-icon.png" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for Charity -->
+<div class="special-icon" *ngIf="userType==='charity'">
+    <img src="assets/images/charity-icon.png" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for Fundraiser -->
+<div class="special-icon" *ngIf="userType==='fundraiser'">
     <img src="assets/images/fundraiser.svg" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for Ecommerce-Store -->
+<div class="special-icon" *ngIf="userType==='ecommerce'">
+    <img src="assets/images/ecommerce-store.svg" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for Member-Reader -->
+<div class="special-icon" *ngIf="userType==='member-reader'">
+    <img src="assets/images/member.svg" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for Advisor -->
+<div class="special-icon" *ngIf="userType==='advisor'">
+    <img src="assets/images/advisor.svg" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for Services -->
+<div class="special-icon" *ngIf="userType==='services'">
+    <img src="assets/images/services.svg" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for Online-Courses -->
+<div class="special-icon" *ngIf="userType==='online-course'">
+    <img src="assets/images/online-course.svg" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for Paid-Premium-Group -->
+<div class="special-icon" *ngIf="userType==='paid-premium-group'">
+    <img src="assets/images/paid.svg" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for Jobs -->
+<div class="special-icon" *ngIf="userType==='job'">
+    <img src="assets/images/jobs.svg" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for host -->
+<div class="special-icon" *ngIf="userType==='host'">
+    <img src="assets/images/restaurent.svg" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for Influencer-Marketing -->
+<div class="special-icon" *ngIf="userType==='influencer-marketing'">
+    <img src="assets/images/influencer-marketing.svg" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for politician -->
+<div class="special-icon" *ngIf="userType==='politician'">
+    <img src="assets/images/politician.svg" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for restaurent -->
+<div class="special-icon" *ngIf="userType==='restaurent'">
+    <img src="assets/images/restaurent.svg" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for Investment -->
+<div class="special-icon" *ngIf="userType==='investment'">
+    <img src="assets/images/investments.svg" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for Vacation Rentals -->
+<div class="special-icon" *ngIf="userType==='vacation-rentals'">
+    <img src="assets/images/vocational-rentals.svg" style="max-width: 16px;" />
 </div>
