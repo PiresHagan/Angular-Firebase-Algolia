@@ -202,7 +202,18 @@ export class AuthorService {
     else if (type == FUNDRAISER) {
       return this.http.post(environment.baseAPIDomain + `/api/v1/fundraisings/${authorId}/unfollow`, {}).subscribe();
     }
+  }
 
+  getAuthorTypeById(authorId: string) {
+    return this.afs.collection(this.authorsCollection, ref =>
+      ref.where('id', '==', authorId)
+    ).snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data();
+        return data;
+      });
+    })
+    );
   }
 
 }
