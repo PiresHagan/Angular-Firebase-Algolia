@@ -830,7 +830,7 @@
     "sms": "SMS"
   },
   "banner": {
-    "welcomeMTS": "Welcome to My Trending Stories",
+    "welcomeMTS": "Bienvenido a My Trending Stories", 
     "website": "Sitio web",
     "company": "My Trending Stories Compañía",
     "pending": "Pendiente 24h a 72h"
@@ -888,5 +888,6 @@
   "button": {
     "skip": "Saltear",
     "ok": "De acuerdo"
-  }
+  },
+  "noData": "Sin datos"
 }
