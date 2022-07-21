@@ -130,7 +130,7 @@
   "importName": "Nom",
   "importEmail": "Email",
   "import": "Importer",
-  "importContact": "Contact",
+  "importContact": "Contactez",
   "termsTitle": "Termes et conditions",
   "termsParagraph1": "Bienvenue dans My Trending Stories, une filiale d'annonces dans le monde entier. Veuillez lire ces conditions générales avant d'utiliser ou de soumettre du contenu sous quelque forme ou support que ce soit pour publication sur My Trending Stories.",
   "termsParagraph2": "En accédant ou en utilisant les Services, vous confirmez que vous avez lu, compris et accepté d'être lié par le présent Accord, et par la collecte et l'utilisation de vos informations comme indiqué dans My Trending Stories, que vous soyez ou non un utilisateur enregistré des Services . Le présent Accord s'applique à tous les visiteurs, utilisateurs et autres personnes qui accèdent aux Services («Utilisateurs»).",
@@ -890,6 +890,7 @@
     "skip": "Sauter",
     "ok": "D'accord"
   },
+  "noData": "Pas de données",
   "shareSocialMedia": "Partagez sur votre plateforme de médias sociaux préférée!",
   "saveTo": "Enregistrer dans",
   "typeName": "Tapez un nom",

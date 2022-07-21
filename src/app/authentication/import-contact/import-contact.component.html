@@ -65,8 +65,11 @@
               </ng-template>
 
               <nz-table #nzTable [nzData]="importedContact[provider.name]" nzTableLayout="fixed"
-                class="m-t-10 import-contact-tbl" [nzLoading]="provider.loading">
-
+                class="m-t-10 import-contact-tbl" [nzLoading]="provider.loading" [nzNoResult]="noResultTemplate">
+                <ng-template #noResultTemplate>
+                  <nz-empty [nzNotFoundImage]="defaultSvg" [nzNotFoundContent]="'noData' | translate">
+                  </nz-empty>
+                </ng-template>
                 <thead>
                   <tr>
                     <th class="import-contact-check-box-th" [nzChecked]="checked" [nzIndeterminate]="indeterminate"
