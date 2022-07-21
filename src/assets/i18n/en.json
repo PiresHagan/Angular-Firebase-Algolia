@@ -935,5 +935,6 @@
   "button": {
     "skip": "Skip",
     "ok": "Ok"
-  }
+  },
+  "noData": "No Data"
 }
