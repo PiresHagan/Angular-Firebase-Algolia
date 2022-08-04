@@ -1,0 +1,11 @@
+.absolute-center {
+  position: absolute;
+  left: 47%;
+  right: 50%;
+  transform: translateY(-10px);
+}
+
+
+::ng-deep .ant-checkbox-wrapper+.ant-checkbox-wrapper {
+  margin-left: unset !important;
+}

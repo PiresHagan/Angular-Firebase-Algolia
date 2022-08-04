@@ -1645,10 +1645,10 @@ cursor: pointer;
   width: 6px;
   }
   &::-webkit-scrollbar-track {
-  background: #eee; 
+  background: #eee;
   }
   &::-webkit-scrollbar-thumb {
-  background: #ff4020; 
+  background: #ff4020;
   border-radius:10px;
   }
   .dn-list-item{
@@ -1719,4 +1719,8 @@ cursor: pointer;
       }
     }
   }
+}
+
+.blue {
+  color: #042c99;
 }

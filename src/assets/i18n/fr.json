@@ -284,7 +284,7 @@
   "mtsTxt2": "Nous venons de tester la fonctionnalité d'avatar. Bien qu'il ne puisse pas montrer qu'il est téléchargé immédiatement:",
   "FAQImageUpload": "téléchargez l'image (elle affichera toujours un visage souriant)",
   "FAQBio": "écrivez votre bio **",
-  "FAQSave": "enregistrer",
+  "FAQSave": "Enregistrer",
   "FAQRedirectPage": "vous serez redirigé vers votre page avec votre avatar affiché.",
   "FAQEmail": "Si vous rencontrez toujours des difficultés, veuillez nous envoyer un e-mail à support@mytrendingstories.com",
   "howAddArticle": "Comment ajouter un article?",
@@ -881,5 +881,13 @@
   "pending": {
     "promoCode": "Avez-vous un code promotionnel:"
   },
-  "comingSoon": "À venir!"
+  "comingSoon": "À venir!",
+  "shareSocialMedia": "Partagez sur votre plateforme de médias sociaux préférée!",
+  "saveTo": "Enregistrer dans",
+  "typeName": "Tapez un nom",
+  "cancel": "Annuler",
+  "create": "Créer",
+  "add": "Ajouter",
+  "noPlaylistsYet": "Aucune liste de lecture pour le moment",
+  "createNewPlaylist": "Créer une nouvelle liste de lecture"
 }

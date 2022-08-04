@@ -31,6 +31,9 @@ import { NgxStripeModule } from "ngx-stripe";
 import { environment } from "src/environments/environment";
 import { CloudinaryFeatureImgComponent } from "./component/cloudinary-feature-img/cloudinary-feature-img.component";
 import { FluidToolbarComponent } from "./component/fluid-toolbar/fluid-toolbar.component";
+import { ShareButtonsDialogComponent } from './component/share-buttons-dialog/share-buttons-dialog.component';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { SanitizedHtmlPipe } from "./pipes/sanitized-html.pipe";
 
 export function createTranslateLoader(http: HttpClient) {
@@ -56,9 +59,12 @@ export function createTranslateLoader(http: HttpClient) {
     FundraiserDonateFormComponent,
     CloudinaryFeatureImgComponent,
     FluidToolbarComponent,
+    ShareButtonsDialogComponent,
     SanitizedHtmlPipe,
   ],
   imports: [
+    ShareButtonsModule,
+    ShareIconsModule,
     RouterModule,
     CommonModule,
     NgZorroAntdModule,
@@ -94,6 +100,7 @@ export function createTranslateLoader(http: HttpClient) {
     FundraiserDonateFormComponent,
     CloudinaryFeatureImgComponent,
     FluidToolbarComponent,
+    ShareButtonsDialogComponent,
     SanitizedHtmlPipe,
   ],
   providers: [ThemeConstantService, SeoService],

@@ -25,6 +25,7 @@ import { CharityService } from 'src/app/shared/services/charity.service';
 import { Fundraiser } from 'src/app/shared/interfaces/fundraiser.type';
 import { Charity } from 'src/app/shared/interfaces/charity.type';
 import { AdService } from 'src/app/shared/services/ad/ad.service';
+import { PlaylistService } from './services/playlist.service';
 
 @Component({
   selector: 'app-article',
@@ -60,7 +61,9 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   isShareVisible: boolean = false;
   donationPercentage: string = "0";
   donationList: any[];
-
+  files: any[] = [];
+  sharedUrl: string;
+  likedFiles = [];
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
@@ -79,9 +82,14 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
     public charityService: CharityService,
     private adService: AdService,
     private message: NzMessageService,
-  ) { }
+    private activatedRoute: ActivatedRoute,
+  ) {
+    this.sharedUrl = "";
+  }
 
   ngOnInit(): void {
+    this.getSharedURL();
+
     this.displayAd = environment.showAds.onArticlePage;
 
     this.route.queryParams.subscribe(params => {
@@ -99,7 +107,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
             break;
           }
         }
-      } 
+      }
     });
 
     this.route.paramMap.subscribe(params => {
@@ -108,10 +116,30 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
       const slug = params.get('slug');
       this.article = null;
 
-      this.articleService.getArtical(slug).subscribe(artical => {
+      this.articleService.getArtical(slug).subscribe((artical: any) => {
+        console.warn(artical);
+
         this.articleAds = [{ elem: '<em>Parsing...</em>' }];
         this.article = artical[0];
         this.topics = this.article.topics;
+        if(artical.type !== "text" && this.article.article_file) {
+          this.files = [];
+          if(this.article.article_file.others)
+          this.article.article_file.others.forEach(file => {
+            this.files.push(file);
+          });
+
+          if (this.getSharedURL()) {
+            this.files = this.files.filter(file => file.url === this.getSharedURL())
+            if (this.files.length) {
+              this.article.article_file.name = null;
+              this.article.article_file.url = null;
+              this.article.article_file.cloudinary_id = null;
+            } else {
+              this.article.article_file.others = [];
+            }
+          }
+        }
 
         if (!this.article) {
           this.modal.error({
@@ -133,6 +161,11 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
         this.articleType = this.article.type ? this.article.type : TEXT;
         this.articleLikes = this.article.likes_count;
         this.articleVicewCount = this.article.view_count;
+        if(this.article.type !== "text" && this.article.article_file) {
+          this.articleService.getLikedFiles(this.article.id).subscribe((res: any) => {
+            this.likedFiles = res.urls;
+          })
+        }
         this.insertAdsToArticle();
         this.setUserDetails();
 
@@ -174,6 +207,11 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
     // }
   }
 
+
+  getSharedURL() {
+    return this.activatedRoute.snapshot.queryParamMap.get('url');
+  }
+
   showMessage(type: string, message: string) {
     this.message.create(type, message, {
       nzDuration: 5000
@@ -183,7 +221,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   getCharityDetails() {
     this.charityService.getCharityBySlug(this.article.author.slug).subscribe(data => {
       this.charity = data[0];
-      
+
       if(this.charity.id){
         // Fetching charity donations
         this.charityService.getAllCharityDonation(this.charity.id).subscribe(data => {
@@ -241,7 +279,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
   ngAfterViewInit() { }
 
   /**
-   * Set user params 
+   * Set user params
    */
   async setUserDetails() {
 
@@ -298,7 +336,7 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
             elem: `${c.outerHTML || ''}`,
             insertAd: false
           };
-       
+
         // if paragraph, then count impact with innerText length
         if (tag === 'p') {
           impactValue += c.innerText.length || 0;
@@ -523,14 +561,6 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
       "services_exclude_natural": "",
       "services_compact": "facebook,twitter,mailto,pinterest_share,whatsapp,print,gmail,linkedin,google,messenger,more"
     }
-
-    addthis.init();
-    addthis.update('share', 'url', 'http://www.sourcen.com');
-    addthis.url = "http://www.sourcen.com";
-    addthis.toolbox(".addthis_toolbox");
-    addthis.toolbox('.addthis_toolbox')
-
-
   }
   handleOkMiddle(): void {
 
@@ -575,6 +605,41 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
 
   companyMoreInfo() {
     document.getElementById('firstName').focus();
+  }
+
+  likeOrUnlikeFile(url, isMainFile, i?) {
+    if(!this.isLoggedInUser) {
+      this.showModal();
+    } else {
+      if (this.isLiked(url)) {
+        const index = this.likedFiles.indexOf(url);
+        if (index > -1) {
+          this.likedFiles.splice(index, 1);
+        }
+        if(isMainFile) {
+          this.article.article_file.likes_count--;
+        } else {
+          this.article.article_file.others[i].likes_count--;
+        }
+        this.articleService.unlikeFile(this.article.id, url).subscribe();
+      } else {
+        this.likedFiles.push(url);
+        this.articleService.likeFile(this.article.id, url).subscribe();
+        if(isMainFile && this.article.article_file.likes_count) {
+          this.article.article_file.likes_count++;
+        } else if (isMainFile && !this.article.article_file.likes_count) {
+          this.article.article_file.likes_count = 1;
+        } else if (!isMainFile && this.article.article_file.others[i].likes_count) {
+            this.article.article_file.others[i].likes_count++;
+        } else {
+          this.article.article_file.others[i].likes_count = 1;
+        }
+      }
+    }
+  }
+
+  isLiked(url) {
+    return this.likedFiles.includes(url);
   }
 }
 
