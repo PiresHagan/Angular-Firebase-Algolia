@@ -286,7 +286,7 @@
   "mtsTxt2": "We have just tested the avatar feature. Although it may not show that it is uploaded right away:",
   "FAQImageUpload": "upload the image ( it will still show a smiley face)",
   "FAQBio": "write your bio**",
-  "FAQSave": "save",
+  "FAQSave": "Save",
   "FAQRedirectPage": "you will be redirected to your page with your avatar being displayed.",
   "FAQEmail": "If you are still experiencing any difficulties please email us at support@mytrendingstories.com",
   "howAddArticle": "How can I add an article?",
@@ -936,5 +936,13 @@
     "skip": "Skip",
     "ok": "Ok"
   },
-  "noData": "No Data"
+  "noData": "No Data",
+  "shareSocialMedia": "Share to your favourite social media platform!",
+  "saveTo": "Save to",
+  "typeName": "Type a name",
+  "cancel": "Cancel",
+  "create": "Create",
+  "add": "Add",
+  "noPlaylistsYet": "No playlists yet",
+  "createNewPlaylist": "Create a new playlist"
 }

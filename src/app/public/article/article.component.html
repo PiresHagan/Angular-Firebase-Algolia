@@ -261,7 +261,7 @@
               {{'liked' | translate}} <span class="like-count">{{articleLikes}}</span>
             </a>
             <a class="is-like"><span class="likes-count"><i class="fas fa-eye"></i>{{articleVicewCount}}</span></a>
-            <!-- 
+            <!--
                       <a class="is-bookmark" href=""><img src="assets/images/article/icon/bookmark.png" /></a>
                       <a class="is-dot" href=""><img src="assets/images/article/icon/more.png" /></a> -->
           </div>
@@ -269,7 +269,6 @@
             <h3>{{'shareArticle' | translate}}</h3>
             <!-- <div class="sharethis-inline-share-buttons"></div> -->
             <app-share-buttons></app-share-buttons>
-
           </div>
           <!-- <div class="is-influencer-btn" routerLink="/influencer">
                       <span>
@@ -328,8 +327,44 @@
           </div>
           <div class="is-body">
             <div *ngIf="articleType === VIDEO" class="main-video-sec">
-              <cl-video [public-id]="article.article_file.cloudinary_id" secure="true" controls="true"
+              <h5 *ngIf="article.article_file.name" class="font-weight-bold">{{article.article_file.name}}</h5>
+              <cl-video *ngIf="article.article_file.cloudinary_id" [public-id]="article.article_file.cloudinary_id" secure="true" controls="true"
                 class="cld-video"></cl-video>
+                <div class="row pt-3" *ngIf="article.article_file.name">
+                  <div class="col-auto align-self-center ml-4">
+                    <button  nz-button nzType="link" class="btn-share" (click)="likeOrUnlikeFile(article.article_file.url, true)">
+                      <i class="far fa-thumbs-up pr-2 text-20" [ngClass]="isLiked(article.article_file.url)? 'blue': ''"></i>
+                      <span class="font-weight-bold" [ngClass]="isLiked(article.article_file.url)? 'blue': ''">{{article.article_file.likes_count || 0}}</span>
+                    </button>
+                  </div>
+                  <div class="col-auto ml-4 mr-2">
+                    <app-share-buttons-dialog [url]="article.article_file.url"></app-share-buttons-dialog>
+                  </div>
+                  <div class="col-auto align-self-center">
+                    <app-save-to-playlist [isLoggedIn]="isLoggedInUser" [url]="article.article_file.url" [title]="article.article_file.name"></app-save-to-playlist>
+                  </div>
+                </div>
+                <div class="is-line" *ngIf="article.article_file.name"></div>
+                <div *ngFor="let file of files">
+                  <h5 class="font-weight-bold">{{file.name}}</h5>
+                  <cl-video [public-id]="file.cloudinary_id" secure="true" controls="true"
+                  class="cld-video"></cl-video>
+                  <div class="row pt-3" *ngIf="file.name">
+                    <div class="col-auto align-self-center ml-4">
+                      <button  nz-button nzType="link" class="btn-share" (click)="likeOrUnlikeFile(file.url, false, i)">
+                        <i class="far fa-thumbs-up pr-2 text-20" [ngClass]="isLiked(file.url)? 'blue': ''"></i>
+                        <span class="font-weight-bold" [ngClass]="isLiked(file.url)? 'blue': ''">{{file.likes_count || 0}}</span>
+                      </button>
+                    </div>
+                    <div class="col-auto ml-4 mr-2">
+                      <app-share-buttons-dialog [url]="file.url"></app-share-buttons-dialog>
+                    </div>
+                    <div class="col-auto align-self-center">
+                      <app-save-to-playlist [isLoggedIn]="isLoggedInUser" [url]="file.url" [title]="file.name"></app-save-to-playlist>
+                    </div>
+                  </div>
+                  <div class="is-line"></div>
+                </div>
               <div class="video-control">
                 <ul>
                   <li>
@@ -350,30 +385,52 @@
               </div>
             </div>
             <div *ngIf="articleType === AUDIO" class="main-audio-sec">
-              <cl-video [public-id]="article.article_file.cloudinary_id" resource-type="video" class="cld-audio-wave">
-                <cl-transformation flags="waveform"></cl-transformation>
-              </cl-video>
-              <cl-video [public-id]="article.article_file.cloudinary_id" secure="true" controls="true"
-                class="cld-audio"></cl-video>
-              <div class="video-control">
-                <ul>
-                  <li>
-                    <a>
-                      <article-interaction [article]="article"></article-interaction>
-                    </a>
-                  </li>
-                  <li>
-                    <a>
-                      <img src="assets/images/video/icon/point.png" alt="point" class="bullet">
-                      {{ getRelativeDate(article.published_at) }}
-                    </a>
-                  </li>
-                </ul>
-                <!-- <div class="btn-download">
-                                  <button class="video-download-btn"><img src="assets/images/video/icon/download.png" alt=""> Download</button>
-                              </div> -->
+              <h5 class="font-weight-bold" *ngIf="article.article_file.name">{{article.article_file.name}}</h5>
+              <img *ngIf="article.article_file.name" class="pb-4" src="../../../assets/imagess/wave.png" alt="">
+              <audio controls class="w-100" *ngIf="article.article_file.url">
+                <source [src]="article.article_file.url" type="audio/mpeg">
+                Your browser does not support the audio tag.
+              </audio>
+              <div class="row pt-3" *ngIf="article.article_file.name">
+                <div class="col-auto align-self-center ml-4">
+                  <button  nz-button nzType="link" class="btn-share" (click)="likeOrUnlikeFile(article.article_file.url, true)">
+                    <i class="far fa-thumbs-up pr-2 text-20" [ngClass]="isLiked(article.article_file.url)? 'blue': ''"></i>
+                    <span class="font-weight-bold" [ngClass]="isLiked(article.article_file.url)? 'blue': ''">{{article.article_file.likes_count || 0}}</span>
+                  </button>
+                </div>
+                <div class="col-auto ml-4 mr-2">
+                  <app-share-buttons-dialog [url]="article.article_file.url"></app-share-buttons-dialog>
+                </div>
+                <div class="col-auto align-self-center">
+                  <app-save-to-playlist [isLoggedIn]="isLoggedInUser" [url]="article.article_file.url" [title]="article.article_file.name"></app-save-to-playlist>
+                </div>
+              </div>
+              <div class="is-line" *ngIf="article.article_file.name"></div>
+              <div *ngFor="let file of files; index as i" class="pt-2">
+                <h5 class="font-weight-bold">{{file.name}}</h5>
+                <img class="pb-4" src="../../../assets/imagess/wave.png" alt="">
+                <audio controls class="w-100">
+                  <source [src]="file.url" type="audio/mpeg">
+                  Your browser does not support the audio tag.
+                </audio>
+                <div class="row pt-3">
+                  <div class="col-auto align-self-center ml-4">
+                    <button  nz-button nzType="link" class="btn-share" (click)="likeOrUnlikeFile(file.url, false, i)">
+                      <i class="far fa-thumbs-up pr-2 text-20" [ngClass]="isLiked(file.url)? 'blue': ''"></i>
+                      <span class="font-weight-bold" [ngClass]="isLiked(file.url)? 'blue': ''">{{file.likes_count || 0}}</span>
+                    </button>
+                  </div>
+                  <div class="col-auto ml-4 mr-2">
+                    <app-share-buttons-dialog [url]="file.url"></app-share-buttons-dialog>
+                  </div>
+                  <div class="col-auto align-self-center">
+                    <app-save-to-playlist [isLoggedIn]="isLoggedInUser" [url]="file.url" [title]="file.name"></app-save-to-playlist>
+                  </div>
+                </div>
+                <div class="is-line"></div>
               </div>
             </div>
+
             <div *ngIf="articleType === TEXT" class="is-paragraph big word-break">
               <!-- <div class="ql-container ql-snow" style="border-width: 0;">
                 <div class="ql-editor big" [ngClass]="{'not-active': article.author.type === 'company'}"
@@ -401,7 +458,7 @@
                     {{article?.author.fullname}}</span>
                 </a>
               </p>
-              
+
 
               <div class="xs-article-publish" *ngIf="(article.author.type != 'company') && (article.author.type != 'charity') && (article.author.type != 'fundraiser')">
                 <div class="xs-article-publisher-img">
@@ -485,7 +542,7 @@
             </div>
             <!-- Displaying Charity Donate button with progresss bar -->
             <div class="text-center pb-3 mt-4" *ngIf="article?.author?.type == 'charity'">
-                
+
               <nz-progress [nzPercent]="donationPercentage" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }">
               </nz-progress>
               <h5 class="mt-2">
@@ -542,7 +599,7 @@
               <button type="button" class="donation-btn mt-2" nz-button nzType="primary"
                 (click)="companyMoreInfo()">Donate Now
               </button>
-              
+
               <app-fundraiser-donate-form [fundraiser]="fundraiser" [fundraiserId]="article?.author?.id">
               </app-fundraiser-donate-form>
               <div class="pt-3 border-top">
@@ -572,8 +629,8 @@
 
             <div class="is-share is-line"
               *ngIf="!(article?.author?.type == 'fundraiser' || article?.author?.type == 'charity')">
-              <h2>{{'share' | translate}} - </h2>
-              <app-share-buttons></app-share-buttons>
+              <h2 *ngIf="article?.type == 'text'">{{'share' | translate}} - </h2>
+              <app-share-buttons *ngIf="article?.type == 'text'"></app-share-buttons>
             </div>
 
             <app-article-comments *ngIf="article" [article]="article"></app-article-comments>

@@ -13,12 +13,14 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { QuillModule } from 'ngx-quill';
 import { SimilarArticlesComponent } from './similar-articles/similar-articles.component';
 import { ArticleCommentsComponent } from './article-comments/article-comments.component';
+import { SaveToPlaylistComponent } from './save-to-playlist/save-to-playlist.component';
 
 @NgModule({
   declarations: [
     ArticleComponent,
     SimilarArticlesComponent,
     ArticleCommentsComponent,
+    SaveToPlaylistComponent,
   ],
   imports: [
     ArticleRoutingModule,
@@ -29,7 +31,7 @@ import { ArticleCommentsComponent } from './article-comments/article-comments.co
     SharedModule,
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } }),
     QuillModule.forRoot(),
-    
+
   ],
   exports:[
     ArticleCommentsComponent

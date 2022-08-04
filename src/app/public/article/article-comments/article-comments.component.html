@@ -8,7 +8,7 @@
 
     <div class="is-reply-sec">
       <a name="comments" href="#comments"></a>
-      <h2>{{'comments' | translate}}</h2>
+      <h2 *ngIf="articleComments.length">{{'comments' | translate}} ({{articleComments.length}})</h2>
       <div>
         <div class="is-comment is-line" *ngFor="let articleComment of articleComments; let i = index">
           <div class="is-comment-img">
