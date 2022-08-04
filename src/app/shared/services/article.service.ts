@@ -68,9 +68,9 @@ export class ArticleService {
     );
   }
   /**
-   * Get comments according article id 
-   * @param articleId 
-   * @param limit 
+   * Get comments according article id
+   * @param articleId
+   * @param limit
    */
   getArticaleComments(articleId: string, limit: number = 5) {
     return this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`, ref => ref
@@ -92,9 +92,9 @@ export class ArticleService {
 
   /**
    * Function is ise for getting the comments according to last received comment index.
-   * @param articleId 
-   * @param limit 
-   * @param lastCommentDoc 
+   * @param articleId
+   * @param limit
+   * @param lastCommentDoc
    */
   getArticleCommentNextPage(articleId: string, limit: number = 5, lastCommentDoc) {
     if (!limit) {
@@ -119,9 +119,9 @@ export class ArticleService {
   }
   /**
    * Create comment
-   * 
-   * @param articleId 
-   * @param commentDtails 
+   *
+   * @param articleId
+   * @param commentDtails
    */
 
   createComment(articleId: string, commentDtails: Comment) {
@@ -131,10 +131,10 @@ export class ArticleService {
 
   /**
    * Update existing comment.
-   * 
-   * @param articleId 
-   * @param commentid 
-   * @param commentDtails 
+   *
+   * @param articleId
+   * @param commentid
+   * @param commentDtails
    */
   updateComment(articleId: string, commentid: string, commentDtails: Comment) {
     return this.http.put(environment.baseAPIDomain + '/api/v1/articles/' + articleId + '/comments/' + commentid, commentDtails);
@@ -555,6 +555,18 @@ export class ArticleService {
     });
 
 
+  }
+
+  likeFile(articleId: string, fileUrl: string) {
+    return this.http.post(environment.baseAPIDomain + '/api/v1/articles/' + articleId + '/likeFile', {url: fileUrl});
+  }
+
+  unlikeFile(articleId: string, fileUrl: string) {
+    return this.http.post(environment.baseAPIDomain + '/api/v1/articles/' + articleId + '/unlikeFile', {url: fileUrl});
+  }
+
+  getLikedFiles(articleId: string) {
+    return this.http.post(environment.baseAPIDomain + '/api/v1/articles/' + articleId + '/likedFiles', {});
   }
 
   disLike(articleId: string, likerId) {

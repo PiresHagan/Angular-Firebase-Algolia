@@ -34,6 +34,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { LoadingInterceptor } from './incterceptors/loading.interceptor';
 import { ToastrModule } from 'ngx-toastr';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -73,6 +74,7 @@ registerLocaleData(en);
           timeOut: 3000,
           positionClass: 'toast-bottom-right',
         }),
+        FontAwesomeModule,
     ],
     exports: [],
     providers: [

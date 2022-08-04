@@ -25,6 +25,8 @@ export interface Article {
     article_file?: {
         url: string,
         name: string,
-        cloudinary_id: string
+        cloudinary_id: string,
+        others: any[];
+        likes_count: number;
     }
 }
