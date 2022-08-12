@@ -1,0 +1,10 @@
+<button nz-button nzType="link" class="btn-share" (click)="showModal()">
+  <i class="fa fa-share pr-2 text-20"></i>
+  <span class="font-weight-bold">{{'share' | translate}}</span>
+</button>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="{{'shareSocialMedia' | translate}}" (nzOnCancel)="close()" [nzOkText]="null"
+  [nzCancelText]="null">
+  <share-buttons [include]="['facebook','twitter','pinterest','linkedin', 'messenger','email','whatsapp', 'copy']"
+    [url]="sharedUrl">
+  </share-buttons>
+</nz-modal>

@@ -284,7 +284,7 @@
   "mtsTxt2": "Nous venons de tester la fonctionnalité d'avatar. Bien qu'il ne puisse pas montrer qu'il est téléchargé immédiatement:",
   "FAQImageUpload": "téléchargez l'image (elle affichera toujours un visage souriant)",
   "FAQBio": "écrivez votre bio **",
-  "FAQSave": "enregistrer",
+  "FAQSave": "Enregistrer",
   "FAQRedirectPage": "vous serez redirigé vers votre page avec votre avatar affiché.",
   "FAQEmail": "Si vous rencontrez toujours des difficultés, veuillez nous envoyer un e-mail à support@mytrendingstories.com",
   "howAddArticle": "Comment ajouter un article?",
@@ -804,5 +804,72 @@
   "SkypeOnboarding": "Écrivez l'identifiant Skype ici",
   "aboutPage": "Mytrendingstories est une plate-forme de médias sociaux qui se targue d'une valeur spécifique: redonner le pouvoir aux gens en permettant la liberté de parole et d'expression à travers diverses méthodes créatives telles que l'écriture, la vidéographie et l'audio.",
   "whatsappSkypeMissing": "Les détails de WhatsApp et de Skype sont manquants. Veuillez revenir en arrière et mettre à jour les détails.",
-  "search": "Rechercher"
+  "search": "Rechercher",
+  "socialmedia": {
+    "gmail": "Gmail",
+    "yahoo": "Yahoo",
+    "outlook": "Outlook",
+    "facebook": "Facebook",
+    "sms": "SMS"
+  },
+  "banner": {
+    "welcomeMTS": "Bienvenue à My Trending Stories",
+    "website": "Site Internet",
+    "company": "My Trending Stories Société",
+    "pending": "En attente 24h à 72h"
+  },
+  "placeholder": {
+    "enterURL": "Saisissez l'URL du site Web...",
+    "addCompanyURL": "Ajouter l'URL de l'entreprise",
+    "addPhoneNumber": "Ajouter un numéro de téléphone",
+    "areaCode": "Indicatif régional et numéro de téléphone",
+    "addHyperlinksIntoArticles": "Ajoutez des hyperliens dans vos articles",
+    "writeHere": "Ecrire ici",
+    "addCode": "Ajouter un code"
+  },
+  "website": {
+    "quote": "Générez jusqu'à 95% de revenus en plus avec Mytrendingstories Ads Network",
+    "ads": "Red de anuncios"
+  },
+  "heading": {
+    "mtsCompanyProfile": "Mytrendingstories Profil de la société"
+  },
+  "companyComponent": {
+    "freeMTSIcon": "GRATUIT si vous ajoutez Icône MTS sur votre site Web",
+    "perMonth": "par mois",
+    "notInterested": "Pas intéressé"
+  },
+  "error": {
+    "areaCode": "Please add your phone number",
+    "urlOrNotInterested": "Please add a URL or go with Not Interested",
+    "phoneOrNotInterested": "Please provide a valid phone number or go with Not Interested",
+    "preferencesRequired": "Preferences are required for submission",
+    "codeRequired": "Code is required for submission"
+  },
+  "answer": {
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "description": {
+    "blogger": "Quels sont vos sujets sur lesquels vous voulez écrire?",
+    "vlogger": "Avez-vous déjà une chaîne youtube ou une chaîne vidéo? Si oui quel est le lien",
+    "podcaster": "Avez-vous déjà un podcast? Si oui quel est le lien. Si non, pourquoi voulez-vous créer un podcast et quel sujet?",
+    "company": "Combien de messages d'invités par mois vous voulez ajouter sur Mytrendingstories",
+    "charity": "Avez-vous un site Web? Comment voulez-vous le monde avec votre charité",
+    "fundraiser": "Veuillez nous parler de votre collecte de fonds",
+    "ecommerce": "Avez-vous déjà du e-commerce, Quel produit ou service, Quel est votre budget mensuel ?",
+    "guest": "Combien de messages d'invités par mois vous voulez ajouter sur Mytrendingstories"
+  },
+  "pending": {
+    "promoCode": "Avez-vous un code promotionnel:"
+  },
+  "comingSoon": "À venir!",
+  "shareSocialMedia": "Partagez sur votre plateforme de médias sociaux préférée!",
+  "saveTo": "Enregistrer dans",
+  "typeName": "Tapez un nom",
+  "cancel": "Annuler",
+  "create": "Créer",
+  "add": "Ajouter",
+  "noPlaylistsYet": "Aucune liste de lecture pour le moment",
+  "createNewPlaylist": "Créer une nouvelle liste de lecture"
 }

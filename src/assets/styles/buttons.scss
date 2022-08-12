@@ -1,0 +1,29 @@
+.btn-prev {
+  font-family: "open_sansregular";
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: var(--color-alt-gray);
+  color: var(--color-black);
+  border-radius: 25px;
+  border: 0px;
+  outline: none;
+  padding: 10px 20px;
+}
+
+.btn-next {
+  font-family: "open_sansregular";
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-radius: 25px;
+  border: 0px;
+  outline: none;
+  padding: 10px 20px;
+}
+
+.btn-share {
+  border: unset;
+}

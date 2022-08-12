@@ -94,21 +94,21 @@ export class CategoryComponent implements OnInit {
           this.pageHeader = this.category?.title;
         }
 
-        this.authService.getAuthState().subscribe(user => {
-          if (user && !user.isAnonymous) {
-            this.isLoggedInUser = true;
-            this.setCategoryFollowing();
-          } else {
-            this.isLoggedInUser = false;
-            this.isFollowingCategory = false;
-          }
-        });
-
         this.seoService.updateMetaTags(this.category.meta || {});
       });
 
       this.getPageDetails();
 
+
+      this.authService.getAuthState().subscribe(user => {
+        if (user && !user.isAnonymous) {
+          this.isLoggedInUser = true;
+          this.setCategoryFollowing();
+        } else {
+          this.isLoggedInUser = false;
+          this.isFollowingCategory = false;
+        }
+      });
     });
 
     this.categoryskeletonData = new Array(20).fill({}).map((_i) => undefined);
