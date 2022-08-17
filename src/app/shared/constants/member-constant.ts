@@ -10,7 +10,6 @@ export const BLOGGER = 'blogger';
 export const VLOGGER = 'vlogger';
 export const PODCAST = 'podcaster';
 export const GUESTPOST = 'guest-post';
-export const READER = 'member-reader';
 export const ADVISOR = 'advisor';
 export const ONLINESTORE = 'online-store';
 export const PAIDPREMIUMGROUP = 'paid-premium-group';
