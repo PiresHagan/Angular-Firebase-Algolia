@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { TranslateService, LangChangeEvent } from "@ngx-translate/core";
 import { NzModalService } from "ng-zorro-antd";
 import { ToastrService } from "ngx-toastr";
-import { READER } from "src/app/shared/constants/member-constant";
+import { MEMBER } from "src/app/shared/constants/member-constant";
 import { AuthService } from "src/app/shared/services/authentication.service";
 import { UserService } from "src/app/shared/services/user.service";
 import { environment } from "src/environments/environment";
@@ -88,7 +88,7 @@ export class PendingComponent implements OnInit {
         this.currentUser = userDetails;
         if(this.isPromocodeValid === false){
           this.userService.updateBasicDetails(this.currentUser.id, {
-            user_type: READER
+            user_type: MEMBER
           });
         }
       });
