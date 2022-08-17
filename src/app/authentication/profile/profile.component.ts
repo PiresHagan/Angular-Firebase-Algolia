@@ -14,7 +14,7 @@ import { UserService } from "../../shared/services/user.service";
 import { AuthService } from "src/app/shared/services/authentication.service";
 import { Language } from "src/app/shared/interfaces/language.type";
 import { User } from "src/app/shared/interfaces/user.type";
-import { ADVISOR, COMPANY, ECOMMERCE, FUNDRAISER, GUESTPOST, HOSTEVENT, INFLUENCERMARKETPLACE, INVESTMENT, JOB, ONLINECOURSE, PAIDPREMIUMGROUP, POLITICIAN, READER, RESTAURANT, SERVICES, VACATIONSRENTALS } from 'src/app/shared/constants/member-constant';
+import { ADVISOR, COMPANY, ECOMMERCE, FUNDRAISER, GUESTPOST, HOSTEVENT, INFLUENCERMARKETPLACE, INVESTMENT, JOB, ONLINECOURSE, PAIDPREMIUMGROUP, POLITICIAN, MEMBER, RESTAURANT, SERVICES, VACATIONSRENTALS } from 'src/app/shared/constants/member-constant';
 
 @Component({
   selector: "app-profile",
@@ -156,7 +156,7 @@ export class ProfileComponent implements OnInit {
           user_type == FUNDRAISER ||
           user_type == ECOMMERCE  ||
           user_type == GUESTPOST ||
-          user_type == READER ||
+          user_type == MEMBER ||
           user_type == ADVISOR ||
           user_type == ONLINECOURSE ||
           user_type == JOB ||
