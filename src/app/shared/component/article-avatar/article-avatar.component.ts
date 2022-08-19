@@ -30,9 +30,7 @@ export class ArticleAvatarComponent implements OnInit {
   getUsertype(authorId){
     this.authorService.getAuthorTypeById(authorId).subscribe(data => {
       this.authorDetail = data;
-      if(this.authorDetail[0]?.user_type) {
-        return this.userType = this.authorDetail[0]?.user_type;
-      }
+      return this.userType = this.authorDetail[0]?.user_type ? this.authorDetail[0]?.user_type : this.authorDetail[0]?.type;
     })
   }
  
