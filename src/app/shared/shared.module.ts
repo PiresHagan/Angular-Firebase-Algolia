@@ -72,18 +72,16 @@ export function createTranslateLoader(http: HttpClient) {
     ReactiveFormsModule,
     PerfectScrollbarModule,
     QuicklinkModule,
-    CloudinaryModule.forRoot({ Cloudinary }, {
-      cloud_name: "mytrendingstories",
-    } as CloudinaryConfiguration),
+    CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
     NgxStripeModule.forRoot(environment.stripePublishableKey),
     TranslateModule.forChild({
-      useDefaultLang: true,
-      isolate: false,
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient],
-      },
+        useDefaultLang: true,
+        isolate: false,
+        loader: {
+            provide: TranslateLoader,
+            useFactory: (createTranslateLoader),
+            deps: [HttpClient]
+        }
     }),
   ],
   declarations: [
@@ -103,6 +101,9 @@ export function createTranslateLoader(http: HttpClient) {
     ShareButtonsDialogComponent,
     SanitizedHtmlPipe,
   ],
-  providers: [ThemeConstantService, SeoService],
+  providers: [
+    ThemeConstantService,
+    SeoService,
+  ]
 })
 export class SharedModule {}
