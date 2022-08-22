@@ -128,20 +128,7 @@ export class ProfileComponent implements OnInit {
       });
       return;
     }
-    if(
-      user_type == INFLUENCERMARKETPLACE ||
-      user_type == RESTAURANT ||
-      user_type == HOSTEVENT ||
-      user_type == POLITICIAN ||
-      user_type == INVESTMENT ||
-      user_type == VACATIONSRENTALS ||
-      user_type == SERVICES ||
-      user_type == ONLINECOURSE ||
-      user_type == PAIDPREMIUMGROUP) 
-    {
-      this.router.navigate(["auth/coming-soon"]);
-    } 
-    else if (this.findInvalidControls().length == 0) {
+    if (this.findInvalidControls().length == 0) {
       try {
         this.isFormSaving = true;
         const loggedInUser = this.authService.getLoginDetails();
@@ -160,6 +147,14 @@ export class ProfileComponent implements OnInit {
           user_type == ADVISOR ||
           user_type == ONLINECOURSE ||
           user_type == JOB ||
+          user_type == PAIDPREMIUMGROUP ||
+          user_type == INFLUENCERMARKETPLACE ||
+          user_type == RESTAURANT ||
+          user_type == HOSTEVENT ||
+          user_type == POLITICIAN ||
+          user_type == INVESTMENT ||
+          user_type == VACATIONSRENTALS ||
+          user_type == SERVICES ||
           user_type == PAIDPREMIUMGROUP
         ) {
           this.router.navigate(["/auth/import-contact"]);
