@@ -915,14 +915,25 @@
     "no": "No"
   },
   "description": {
-    "blogger": "What are the topics you want to write about?",
-    "vlogger": "Do you already have a YouTube channel or video channel? If yes what is the link?",
-    "podcaster": "Do you already have podcast? If yes what is the link? If not why do you want to create podcast and what is the subject?",
-    "company": "How much revenue you want to achieve this year? What is your monthly advertising budget per month?",
-    "charity": "Do you have a website? How do you want the world with you charity",
-    "fundraiser": "Please tell us about your fundraiser",
-    "ecommerce": "Do you already have e-commerce, What products or services? What is your monthly budget?",
-    "guest": "How many guest post a month you want to add on Mytrendingstories?"
+    "blogger": "Why are you Blogger?",
+    "vlogger": "Why are you Vlogger?",
+    "podcaster": "Why are you podcaster?",
+    "company": "What Kind of Company are you?",
+    "charity": "What Kind of Charity are you?",
+    "fundraiser": "What Kind of Fundraiser are you?",
+    "ecommerce": "What Kind of Ecommerce Store?",
+    "advisor": "What Kind of Advisor are you?",
+    "online-courses": "What Kind of Online Courses?",
+    "services": "What Kind of Service?",
+    "job": "What Kind of Job wanna offer?",
+    "host-event": "What Kind of Job wanna offer?",
+    "influencer-marketing": "Are you Influencer Marketing?Which Field?",
+    "paid-premium-group": "What Kind of Group you wanna promote?",
+    "restaurant": "What Kind of Restaurant are you?",
+    "politician": "What Kind of Politician are you?",
+    "investment": "What Kind of Investment you wanna offer?",
+    "vacations-rentals": "Why you wanna Host your places?",
+    "guest-post": "How many guest post a month you want to add on Mytrendingstories?"
   },
   "pending": {
     "promoCode": "Do you have promo code:"
