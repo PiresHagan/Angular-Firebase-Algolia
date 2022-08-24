@@ -869,14 +869,25 @@
     "no": "Non"
   },
   "description": {
-    "blogger": "Quels sont vos sujets sur lesquels vous voulez écrire?",
-    "vlogger": "Avez-vous déjà une chaîne youtube ou une chaîne vidéo? Si oui quel est le lien",
-    "podcaster": "Avez-vous déjà un podcast? Si oui quel est le lien. Si non, pourquoi voulez-vous créer un podcast et quel sujet?",
-    "company": "Combien de messages d'invités par mois vous voulez ajouter sur Mytrendingstories",
-    "charity": "Avez-vous un site Web? Comment voulez-vous le monde avec votre charité",
-    "fundraiser": "Veuillez nous parler de votre collecte de fonds",
-    "ecommerce": "Avez-vous déjà du e-commerce, Quel produit ou service, Quel est votre budget mensuel ?",
-    "guest": "Combien de messages d'invités par mois vous voulez ajouter sur Mytrendingstories"
+    "blogger": "Pourquoi êtes-vous Blogueur ?",
+    "vlogger": "Pourquoi êtes-vous Vlogger ?",
+    "podcaster": "Pourquoi es-tu Podcasteur ?",
+    "company": "Quel Type d'Entreprise êtes-vous ?",
+    "charity": "Quel Genre de Charité êtes-vous ?",
+    "fundraiser": "Quel Type de Collecteur de Fonds êtes-vous ?",
+    "ecommerce": "Quel Type de Magasin de Commerce Électronique ?",
+    "advisor": "Quel Type de conseiller êtes-vous ?",
+    "online-courses": "Quel Type de cours en ligne ?",
+    "services": "Quel Type de service ?",
+    "job": "Quel Type d'Emploi voulez-vous Offrir ?",
+    "host-event": "Quel Type d'Événement Souhaitez-vous Promouvoir ?",
+    "influencer-marketing": "Êtes-vous du Marketing d'Influence ? Quel Domaine ?",
+    "paid-premium-group": "Quel Type de Groupe Voulez-vous Promouvoir ?",
+    "restaurant": "Quel Genre de Restaurant êtes-vous ?",
+    "politician": "Quel Genre de Politicien êtes-vous ?",
+    "investment": "Quel Type d'Investissement voulez-vous Offrir ?",
+    "vacations-rentals": "Pourquoi Voulez-vous Héberger vos Lieux ?",
+    "guest-post": "Combien de messages d'invités par mois vous voulez ajouter sur Mytrendingstories"
   },
   "pending": {
     "promoCode": "Avez-vous un code promotionnel:"
