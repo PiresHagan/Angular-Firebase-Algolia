@@ -868,14 +868,25 @@
     "no": "No"
   },
   "description": {
-    "blogger": "¿Cuál es tu tema sobre el que quieres escribir?",
-    "vlogger": "¿Ya tienes canal de youtube o canal de video? si es asi cual es el link",
-    "podcaster": "¿Ya tienes podcast? Si es así, cuál es el enlace. Si no, ¿por qué quieres crear un podcast y qué tema?",
-    "company": "¿Cuántos ingresos quieres lograr este año? ¿Cuál es su presupuesto de publicidad mensual por mes?",
-    "charity": "¿Tienes sitio web? como quieres el mundo contigo caridad",
-    "fundraiser": "Cuéntenos sobre su recaudación de fondos",
-    "ecommerce": "¿Ya tienes e-commerce, qué producto o servicio, cuál es tu presupuesto mensual?",
-    "guest": "Cuántas publicaciones de invitados al mes desea agregar en Mytrendingstories"
+    "blogger": "¿Por qué eres Bloguero?",
+    "vlogger": "¿Por qué eres Vlogger?",
+    "podcaster": "¿Por qué eres Podcaster?",
+    "company": "¿Qué tipo de Empresa eres?",
+    "charity": "¿Qué tipo de Caridad eres?",
+    "fundraiser": "¿Qué tipo de Recaudador de Fondos eres?",
+    "ecommerce": "¿Qué tipo de Tienda de Comercio Electrónico?",
+    "advisor": "¿Qué tipo de Asesor eres?",
+    "online-courses": "¿Qué tipo de Cursos en Línea?",
+    "services": "¿Qué tipo de Servicio?",
+    "job": "¿Qué tipo de Trabajo Quiero ofrecer?",
+    "host-event": "¿Qué tipo de Evento Quieres Promocionar?",
+    "influencer-marketing": "¿Eres Influencer Marketing?¿En qué Campo?",
+    "paid-premium-group": "¿Qué tipo de Grupo Quieres Promocionar?",
+    "restaurant": "¿Qué tipo de Restaurante eres?",
+    "politician": "¿Qué tipo de Político eres?",
+    "investment": "¿Qué tipo de Inversión Quieres ofrecer?",
+    "vacations-rentals": "¿Por qué Quieres Alojar tus Lugares?",
+    "guest-post": "Cuántas publicaciones de invitados al mes desea agregar en Mytrendingstories"
   },
   "pending": {
     "promoCode": "Tienes código promocional:"
