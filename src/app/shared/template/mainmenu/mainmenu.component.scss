@@ -832,10 +832,25 @@
   }
 }
 @media screen and (min-width:1280px) and (max-width:1359px){
-  .megamenu-list{
-      padding-left: 10px !important;
-      
-  }
+    .mainmenu {
+        .layout{
+            .ant-layout-sider{
+                .ant-menu-item{
+                    padding: 0px 3px !important;
+                    font-size: 11px;
+                }
+                .megamenu-list{
+                    margin-left: 3px;
+                    padding: 0px 3px !important;
+                    >.megamenu-link{
+                        padding: 0px 5px !important;
+                    font-size: 11px;
+                    }
+                }
+            }
+        }
+        
+    }
 }
 @media screen and (min-width:1360px) and (max-width:1499px){
   .megamenu-list{
@@ -890,16 +905,49 @@
         
     }
 }
-@media screen and (min-width:1366px) and (max-width:1499px){
-  .mainmenu {
-      .layout{
-          .ant-layout-sider{
-              .ant-menu-item{
-                  padding: 0px 5px !important;
-                  font-size: 12px;
-              }
-          }
-      }
-      
-  }
+
+
+
+@media screen and (min-width:1280px) and (max-width:1359px){
+    .mainmenu {
+        .layout{
+            .ant-layout-sider{
+                .ant-menu-item{
+                    padding: 0px 3px !important;
+                    font-size: 11px;
+                }
+                .megamenu-list{
+                    margin-left: 3px;
+                    padding: 0px 3px !important;
+                    >.megamenu-link{
+                        padding: 0px 5px !important;
+                    font-size: 11px;
+                    }
+                }
+            }
+        }
+        
+    }
+}
+
+@media screen and (min-width:1360px) and (max-width:1499px){
+    .mainmenu {
+        .layout{
+            .ant-layout-sider{
+                .ant-menu-item{
+                    padding: 0px 5px !important;
+                    font-size: 12px;
+                }
+                .megamenu-list{
+                    margin-left: 5px;
+                    padding: 0px 5px !important;
+                    >.megamenu-link{
+                        padding: 0px 5px !important;
+                    font-size: 12px;
+                    }
+                }
+            }
+        }
+        
+    }
 }
