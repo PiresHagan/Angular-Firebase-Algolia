@@ -107,6 +107,7 @@ export class BackofficeArticleService {
     }
     let dataQuery = this.db.collection<Article[]>(`${this.articleCollection}`, ref => ref
       .where("author.id", "==", authorId)
+      .where('status', '==', ACTIVE)
       .orderBy('created_at', 'desc')
       .limit(limit)
     )

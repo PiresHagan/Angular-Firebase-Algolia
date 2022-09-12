@@ -117,8 +117,6 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
       this.article = null;
 
       this.articleService.getArtical(slug).subscribe((artical: any) => {
-        console.warn(artical);
-
         this.articleAds = [{ elem: '<em>Parsing...</em>' }];
         this.article = artical[0];
         this.topics = this.article.topics;
