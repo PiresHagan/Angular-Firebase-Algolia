@@ -28,6 +28,7 @@
                                         <div class="item-card-content">
                                             <div class="item-card-category cat-yellow">
                                                 <div class="is-avatar-dv">
+                                                    <div class="overlay-icon">
                                                     <img class="avatar" [src]="fundraiser?.logo.url"
                                                         [alt]="fundraiser?.logo?.alt"
                                                         onerror="this.src='assets/images/default-avatar.png'"
@@ -40,6 +41,8 @@
                                                             </cl-transformation>
                                                         </cl-image>
                                                     </ng-template>
+                                                    <app-article-avatar [article]="fundraiser"></app-article-avatar>
+                                                    </div>
                                                     <span class="item-card-author">{{ fundraiser?.title }}</span>
                                                 </div>
                                             </div>

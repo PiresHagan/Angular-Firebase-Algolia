@@ -19,7 +19,13 @@ export class ArticleAvatarComponent implements OnInit {
 
   ngOnInit(): void {
     this.authorId = this.article?.author?.id;
-    this.setUserType(this.article.author);
+    if(this.article?.type === FUNDRAISER){
+      this.userType = FUNDRAISER;
+    } else if (this.article?.type === CHARITY){
+      this.userType = CHARITY;
+    }else{
+      this.setUserType(this.article.author);
+    }
   }
 
   setUserType(author){
