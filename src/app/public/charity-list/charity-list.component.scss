@@ -224,13 +224,33 @@
       justify-content: center;
       min-height: 270px;
       div {
-        > img {
-          width: 70px;
-          height: 70px;
-          object-fit: contain;
-          border: 1px solid #eee;
-          border-radius: 100%;
-          background: #eee;
+        .icon-overlay{
+          max-width: 70px;
+          margin: auto;
+          position: relative;
+          .special-icon {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 30px;
+            height: 30px;
+            background: #000;
+            border: 1px solid #fff;
+            display: flex;
+            border-radius: 100%;
+            img {
+            max-width: 20px;
+            margin: auto;
+            }
+          }
+          > img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            border: 1px solid #eee;
+            border-radius: 100%;
+            background: #eee;
+          }
         }
         ::ng-deep cl-image{
           img{
