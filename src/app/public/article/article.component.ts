@@ -330,10 +330,10 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
         //   insertAd: false
         // };
 
-        const item: ArticleAdItem = {
-          elem: `${c.outerHTML || ''}`,
-          insertAd: false
-        };
+          const item: ArticleAdItem = {
+            elem: `${c.outerHTML || ''}`,
+            insertAd: false
+          };
 
         // if paragraph, then count impact with innerText length
         if (tag === 'p') {

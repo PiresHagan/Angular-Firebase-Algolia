@@ -7,5 +7,8 @@ export interface Member {
     lang?: string,
     avatar?: any,
     bio?: string,
+    type: string,
+    user_type?: string,
+    is_guest_post_enabled?: boolean,
     // stripe_status?: string
 }

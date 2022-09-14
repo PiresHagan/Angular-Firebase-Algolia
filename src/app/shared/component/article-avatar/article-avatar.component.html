@@ -13,11 +13,6 @@
     <img src="assets/images/podcaster.svg" style="max-width: 16px;" />
 </div>
 
-<!-- Logo for Guest-Post -->
-<div class="special-icon" *ngIf="userType==='guest-post' || isGuestPostEnabled">
-    <img src="assets/images/guest-post.svg" style="max-width: 16px;" />
-</div>
-
 <!-- Logo for Company -->
 <div class="special-icon" *ngIf="userType==='company'">
     <img src="assets/images/company-icon.png" style="max-width: 16px;" />
@@ -39,7 +34,7 @@
 </div>
 
 <!-- Logo for Member-Reader -->
-<div class="special-icon" *ngIf="userType==='member-reader'">
+<div class="special-icon" *ngIf="userType==='member'">
     <img src="assets/images/member.svg" style="max-width: 16px;" />
 </div>
 
@@ -96,4 +91,14 @@
 <!-- Logo for Vacation Rentals -->
 <div class="special-icon" *ngIf="userType==='vacation-rentals'">
     <img src="assets/images/vocational-rentals.svg" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for Authors -->
+<div class="special-icon" *ngIf="userType==='author'">
+    <img src="assets/images/author-icon.png" style="max-width: 16px;" />
+</div>
+
+<!-- Logo for Guest-Post -->
+<div class="special-icon" *ngIf="userType==='guest-post' || isGuestPostEnabled">
+    <img src="assets/images/guest-post.svg" style="max-width: 16px;" />
 </div>

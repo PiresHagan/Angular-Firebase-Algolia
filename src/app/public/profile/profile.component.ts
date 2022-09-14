@@ -12,6 +12,7 @@ import { AUTHOR, MEMBER, CHARITY, COMPANY, FUNDRAISER, MTS_ACCOUNT } from 'src/a
 import { NzModalService } from 'ng-zorro-antd';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
 import { AnalyticsService } from 'src/app/shared/services/analytics/analytics.service';
+import { Follower } from 'src/app/shared/interfaces/follower.type';
 
 @Component({
   selector: 'app-profile',
@@ -131,11 +132,24 @@ export class ProfileComponent implements OnInit {
     this.authorService.getFollowers_new(this.authorDetails.id, 14, null, this.lastVisibleFollower).subscribe((data) => {
       this.loadingMoreFollowers = false;
 
+      data.followers = this.filterFollowersWithAvatar(data.followers);
+
       this.followers = data.followers;
 
       this.lastVisibleFollower = data.lastVisible;
     });
   }
+
+  filterFollowersWithAvatar(followers: Array<Follower>) {
+    // currently hiding follwowers with no avatar for admin profile
+
+    if(Array.isArray(followers) && this.authorDetails && this.authorDetails.slug === 'my-trending-stories') {
+      return followers.filter((follower) => follower.avatar)
+    } else {
+      return followers
+    }
+  }
+
   getFollowingDetails() {
     // this.authorService.getFollowings(this.authorDetails.id).subscribe((following) => {
     //   this.subscribers = following;
@@ -271,6 +285,9 @@ export class ProfileComponent implements OnInit {
     this.loadingMoreFollowers = true;
     this.authorService.getFollowers_new(this.authorDetails.id, 14, action, this.lastVisibleFollower).subscribe((data) => {
       this.loadingMoreFollowers = false;
+
+      data.followers = this.filterFollowersWithAvatar(data.followers);
+
       let mergedData: any = [...this.followers, ...data.followers]
       this.followers = this.getDistinctArray(mergedData)
 

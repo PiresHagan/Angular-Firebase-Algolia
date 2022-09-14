@@ -9,15 +9,15 @@ export const ROUTES: SideNavInterface[] = [
         staff_only: false,
         submenu: []
     },
-    {
-        path: '/app/article/articles',
-        title: 'myArticles',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'crown',
-        staff_only: false,
-        submenu: []
-    },
+    // {
+    //     path: '/app/article/articles',
+    //     title: 'myArticles',
+    //     iconType: 'nzIcon',
+    //     iconTheme: 'outline',
+    //     icon: 'crown',
+    //     staff_only: false,
+    //     submenu: []
+    // },
     {
         path: '/app/campaign',
         title: 'CampManager',
