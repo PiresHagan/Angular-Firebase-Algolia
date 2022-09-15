@@ -63,6 +63,10 @@ export function createTranslateLoader(http: HttpClient) {
     FluidToolbarComponent,
     ShareButtonsDialogComponent,
     SanitizedHtmlPipe,
+    ShopProductAddReviewComponent,
+    ShopProductCardComponent,
+    StoreComponent,
+    ProductStarRatingComponent,
   ],
   imports: [
     ShareButtonsModule,
@@ -102,6 +106,10 @@ export function createTranslateLoader(http: HttpClient) {
     FluidToolbarComponent,
     ShareButtonsDialogComponent,
     SanitizedHtmlPipe,
+    ShopProductAddReviewComponent,
+    ShopProductCardComponent,
+    StoreComponent,
+    ProductStarRatingComponent,
   ],
   providers: [
     ThemeConstantService,
