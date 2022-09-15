@@ -73,7 +73,7 @@
              </h1>
                <div class="is-head">
                 <div class="post-avatar hidden-on-xs">
-                      <div>
+                      <div class="overlay-icon">
                         <img class="avatar" [src]="replaceImage(fundraiser.author.avatar?.url)"
                             [alt]="fundraiser.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
                             *ngIf="fundraiser && !(fundraiser?.author?.avatar?.cloudinary_id)">
@@ -87,6 +87,7 @@
                                 </cl-image>
                             </div>
                           </ng-container>
+                          <app-article-avatar [article]="fundraiser"></app-article-avatar>
                       </div>
                       <h2>{{ fundraiser?.author?.fullname }}</h2>
                   </div>

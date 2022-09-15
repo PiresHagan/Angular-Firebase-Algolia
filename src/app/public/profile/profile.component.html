@@ -254,6 +254,7 @@
                       <div class="item-card-content">
                         <div class="item-card-category  cat-yellow">
                           <div class="is-avatar-dv">
+                            <div class="overlay-icon">
                             <img class="avatar" [src]="replaceImage(article?.author?.avatar?.url)"
                               [alt]="article?.author?.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
                               *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg">
@@ -263,6 +264,9 @@
                                 </app-cloudinary-img>
                               </div>
                             </ng-template>
+                            <app-article-avatar [article]="article">
+                            </app-article-avatar>
+                          </div>
                             <span class="item-card-author">{{article?.author?.fullname}}</span>
                           </div>
                         </div>
@@ -480,15 +484,19 @@
                       <div class="item-card-content">
                         <div class="item-card-category  cat-yellow">
                           <div class="is-avatar-dv">
-                            <img class="avatar" [src]="replaceImage(article?.author?.avatar?.url)"
-                              [alt]="article?.author?.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
-                              *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg">
-                            <ng-template #CateAvatarCloudinoryImg>
-                              <div class="hide-feature-img">
-                                <app-cloudinary-img [article]="article">
-                                </app-cloudinary-img>
-                              </div>
-                            </ng-template>
+                            <div class="overlay-icon">
+                              <img class="avatar" [src]="replaceImage(article?.author?.avatar?.url)"
+                                [alt]="article?.author?.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
+                                *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg">
+                              <ng-template #CateAvatarCloudinoryImg>
+                                <div class="hide-feature-img">
+                                  <app-cloudinary-img [article]="article">
+                                  </app-cloudinary-img>
+                                </div>
+                              </ng-template>
+                              <app-article-avatar [article]="article">
+                              </app-article-avatar>
+                          </div>
                             <span class="item-card-author">{{article?.author?.fullname}}</span>
                           </div>
                         </div>

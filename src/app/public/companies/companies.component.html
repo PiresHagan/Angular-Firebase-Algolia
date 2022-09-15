@@ -13,16 +13,20 @@
                                         <a [routerLink]="['/companies',company.slug]">
                                             <div class="companies-box-item">
                                                 <div>
-                                                    <img [src]="company?.logo?.url" [alt]="company?.logo?.alt"
+                                                    <div class="icon-overlay">
+                                                        <img [src]="company?.logo?.url" [alt]="company?.logo?.alt"
                                                         onerror="this.src='assets/images/default-avatar.png'"
                                                         *ngIf="!(company.logo.cloudinary_id); else CompaniesCloudinaryImg" />
-                                                    <ng-template #CompaniesCloudinaryImg>
-                                                        <cl-image loading="lazy" public-id="{{company.logo.cloudinary_id}}"
-                                                            secure="true">
-                                                            <cl-transformation width="70" height="70" gravity="face" crop="thumb">
-                                                            </cl-transformation>
-                                                        </cl-image>
-                                                    </ng-template>
+                                                        <ng-template #CompaniesCloudinaryImg>
+                                                            <cl-image loading="lazy" public-id="{{company.logo.cloudinary_id}}"
+                                                                secure="true">
+                                                                <cl-transformation width="70" height="70" gravity="face" crop="thumb">
+                                                                </cl-transformation>
+                                                            </cl-image>
+                                                        </ng-template>
+                                                        <app-article-avatar [article]="company"></app-article-avatar>
+                                                    </div>
+                                                    
                                                     <h2 [ngStyle]="{'color': company?.color_code}">{{ company?.name }}</h2>
                                                     <p>{{ company?.bio }}</p>
                                                     <button type="button" class="is-read-more">

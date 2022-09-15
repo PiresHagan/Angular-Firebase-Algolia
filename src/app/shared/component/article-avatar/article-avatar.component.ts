@@ -23,7 +23,9 @@ export class ArticleAvatarComponent implements OnInit {
       this.userType = FUNDRAISER;
     } else if (this.article?.type === CHARITY){
       this.userType = CHARITY;
-    }else{
+    } else if (this.article?.type === COMPANY){
+      this.userType = COMPANY;
+    } else{
       this.setUserType(this.article.author);
     }
   }

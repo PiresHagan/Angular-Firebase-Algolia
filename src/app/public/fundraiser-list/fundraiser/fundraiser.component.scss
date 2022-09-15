@@ -116,6 +116,10 @@ hr {
 						border-radius: 100%;
 						object-fit: cover;
 					}
+					.overlay-icon{
+						position: relative;
+						
+					}
 					h2{
 						font-family: "josefin_sansregular";
 						display: block;
@@ -1144,10 +1148,11 @@ hr {
 					width: 45px;
 					height: 45px;
 					img{
-					  max-width: 26px !important;
+					  max-width: 26px;
 					  margin: auto;
 					}
 				  }
+			  
 			  }
 			 > img{
 				width: 120px;

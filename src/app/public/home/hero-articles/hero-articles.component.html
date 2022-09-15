@@ -25,16 +25,7 @@
                   </cl-image>
                 </div>
               </ng-container>
-
-              <div class="special-icon" *ngIf="article.author.type==='company'">
-                <img src="assets/images/company-icon.png" style="max-width: 22px;" alt="company-icon"/>
-              </div>
-              <div class="special-icon" *ngIf="article.author.type==='charity'">
-                <img src="assets/images/charity-icon.png" alt="company-icon"/>
-              </div>
-              <div class="special-icon" *ngIf="article.author.type==='fundraiser'">
-                <img src="assets/images/fundraiser.svg" style="max-width: 22px;" />
-              </div>
+              <app-article-avatar [article]="article"></app-article-avatar>
             </div>
             <span class="is-card-author">{{article.author.fullname}}
             </span>
@@ -128,15 +119,7 @@
                   </cl-image>
                 </div>
               </ng-container>
-              <div class="special-icon" *ngIf="article.author.type==='company'">
-                <img src="assets/images/company-icon.png" style="max-width: 22px;" alt="company-icon"/>
-              </div>
-              <div class="special-icon" *ngIf="article.author.type==='charity'">
-                <img src="assets/images/charity-icon.png" alt="charity-icon"/>
-              </div>
-              <div class="special-icon" *ngIf="article.author.type==='fundraiser'">
-                <img src="assets/images/fundraiser.svg" style="max-width: 22px;" />
-              </div>
+              <app-article-avatar [article]="article"></app-article-avatar>
             </div>
             <span class="is-card-author">{{article.author.fullname}}
             </span>
@@ -245,15 +228,7 @@
                       </cl-image>
                     </div>
                   </ng-container>
-                  <div class="special-icon" *ngIf="article.author.type==='company'">
-                    <img src="assets/images/company-icon.png" style="max-width: 22px;" alt="company-icon"/>
-                  </div>
-                  <div class="special-icon" *ngIf="article.author.type==='charity'">
-                    <img src="assets/images/charity-icon.png" alt="charity-icon"/>
-                  </div>
-                  <div class="special-icon" *ngIf="article.author.type==='fundraiser'">
-                    <img src="assets/images/fundraiser.svg" style="max-width: 22px;" />
-                  </div>
+                  <app-article-avatar [article]="article"></app-article-avatar>
                 </div>
                 <span class="is-card-author">{{article.author.fullname}}</span>
               </div>
