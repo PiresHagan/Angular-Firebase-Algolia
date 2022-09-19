@@ -18,7 +18,6 @@
         <nz-skeleton-element *ngIf="!charity" [nzLoading]="loading" nzType="avatar" class="custom-skeleton" [nzShape]="square" [nzActive]="true"></nz-skeleton-element>
       </div>
     </div>
-
   </div>
 </section>
 <section class="is-article-block"  *ngIf="charity">
@@ -47,7 +46,6 @@
                   </ul>
               </div>
           </div>
-         
       </div>
       <div class="article-full-img">
           <img *ngIf="charity" [src]='charity?.cover?.url' [alt]='charity?.cover?.alt'/>
@@ -60,23 +58,18 @@
                       <h3>{{'shareArticle' | translate}}</h3>
                       <app-share-buttons></app-share-buttons>
                   </div> -->
-
-                 
               </div>
           </div>
           <div class="is-main-article-content">
-              <!-- <div class="company-img  hidden-on-xs">
+              <div class="company-img  hidden-on-xs">
                   <img *ngIf="charity" [src]='charity?.logo?.url' [alt]='charity?.logo?.alt' 
                   onerror="this.src='assets/images/default-avatar.png'"
                   />
-                  <div class="special-icon" *ngIf="charity">
-                      <img src="assets/images/charity-icon.png" />
+                  <div class="overlay-icon" *ngIf="charity">
+                    <app-article-avatar [article]="charity"></app-article-avatar>
                   </div>
-              </div> -->
+              </div>
               <div class="is-content">
-                <h1 class="post-title" [ngStyle]="{'color': charity?.color_code}">
-                  {{ charity?.name }}
-               </h1>
                   <div class="is-head">
                     <div class="post-avatar hidden-on-xs">
                       <!-- <div>
@@ -94,7 +87,10 @@
                             </div>
                           </ng-container>
                       </div> -->
-                          <h2>{{ charity?.author?.fullname }}</h2>
+                          <!-- <h2>{{ charity?.author?.fullname }}</h2> -->
+                          <h1 class="post-title" [ngStyle]="{'color': charity?.color_code}">
+                            {{ charity?.name }}
+                         </h1>
                       </div>
                       <div class="media-section">
                           <div class="follow-btn  hidden-on-xs" *ngIf="!isFollowing" (click)="follow()">

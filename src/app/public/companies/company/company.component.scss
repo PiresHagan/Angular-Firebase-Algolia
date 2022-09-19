@@ -124,7 +124,7 @@ hr {
           display: flex;
           border-radius: 100%;
           img {
-            max-width: 38px;
+            max-width: 26px !important;
             margin: auto;
           }
         }
@@ -919,6 +919,19 @@ hr {
         width: 120px;
         margin: auto;
         position: relative;
+        ::ng-deep &.overlay-icon{
+          position: relative;
+            .special-icon{
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            img{
+              max-width: 26px;
+              margin: auto;
+            }
+            }
+          
+          }
        > img{
           width: 120px;
           height: 120px;

@@ -37,7 +37,12 @@
               <ul>
                   <li>
                       <div class="follow-btn">
-                          <a nz-button>Follow Fundraiser</a>
+                        <div class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                          <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="fundraiser img">{{ "followFundraiser" | translate }}</a>
+                        </div>
+                        <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                            <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="Fundraiser img">{{ "unfollowFundraiser" | translate }}</a>
+                        </div>
                       </div>
                       <!-- <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
                           <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowCompany" | translate }}</a>
@@ -61,19 +66,17 @@
             <app-fundraiser-follower-list *ngIf="fundraiserId" [fundraiserId]="fundraiserId"></app-fundraiser-follower-list>
          </div>
          <div class="is-main-article-content">
-            <!-- <div class="company-img hidden-on-xs">
+            <div class="company-img hidden-on-xs">
                <img *ngIf="fundraiser" [src]="fundraiser?.logo?.url" [alt]="fundraiser?.logo?.alt"  onerror="this.src='assets/images/default-avatar.png'"/>
-               <div class="special-icon" *ngIf="fundraiser">
-                <img src="assets/images/fundraiser.svg" style="max-width:28px;" />
+               <div class="overlay-icon" *ngIf="fundraiser">
+                <app-article-avatar [article]="fundraiser"></app-article-avatar>
               </div>
-              </div> -->
+              </div>
             <div class="is-content">
-              <h1 class="post-title">
-                {{ fundraiser?.title }}
-             </h1>
+              
                <div class="is-head">
                 <div class="post-avatar hidden-on-xs">
-                      <div class="overlay-icon">
+                      <!-- <div class="overlay-icon">
                         <img class="avatar" [src]="replaceImage(fundraiser.author.avatar?.url)"
                             [alt]="fundraiser.author.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'"
                             *ngIf="fundraiser && !(fundraiser?.author?.avatar?.cloudinary_id)">
@@ -89,15 +92,18 @@
                           </ng-container>
                           <app-article-avatar [article]="fundraiser"></app-article-avatar>
                       </div>
-                      <h2>{{ fundraiser?.author?.fullname }}</h2>
+                      <h2>{{ fundraiser?.author?.fullname }}</h2> -->
+                      <h1 class="post-title">
+                        {{ fundraiser?.title }}
+                     </h1>
                   </div>
                   <div class="media-section">
-                     <div class="follow-btn-sec">
+                     <div class="follow-btn-sec hidden-on-xs">
                       <div class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
-                        <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "followFundraiser" | translate }}</a>
+                        <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="fundraiser img">{{ "followFundraiser" | translate }}</a>
                       </div>
                       <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
-                          <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="company img">{{ "unfollowFundraiser" | translate }}</a>
+                          <a nz-button [nzLoading]="isUpdatingFollow"><img src="assets/images/company/follow-icon.png" alt="Fundraiser img">{{ "unfollowFundraiser" | translate }}</a>
                       </div>
                         <!-- <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
                             <a nz-button [nzLoading]="isUpdatingFollow">{{ "unfollowFundraiser" | translate }}</a>

@@ -262,7 +262,7 @@ export class FundraiserComponent implements OnInit {
     })
   }
 
-  async follow() { debugger
+  async follow() { 
     await this.setUserDetails();
     if (this.isLoggedInUser) {
       this.isUpdatingFollow = true;

@@ -28,9 +28,10 @@
   <div class="container">
     <div class="mobile-article-detail">
 
-      <div class="xs-company-img">
+      <div class="xs-company-img  overlay-icon">
         <img *ngIf="company" [src]='company?.logo?.url' [alt]='company?.logo?.alt'
           onerror="this.src='assets/images/default-avatar.png'" />
+          <app-article-avatar [article]="company"></app-article-avatar>
       </div>
       <div class="xs-article-author-detail">
         <div class="xs-article-name">
