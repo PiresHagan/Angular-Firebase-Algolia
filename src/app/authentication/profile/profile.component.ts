@@ -135,6 +135,7 @@ export class ProfileComponent implements OnInit {
         if (!loggedInUser) return;
         await this.userService.updateBasicDetails(this.currentUser.id, {
           user_type: user_type ? user_type : "",
+          type: user_type ? user_type : "",
           avatar: this.avatarData,
         });
         this.isFormSaving = false;

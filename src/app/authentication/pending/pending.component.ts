@@ -88,7 +88,8 @@ export class PendingComponent implements OnInit {
         this.currentUser = userDetails;
         if(this.isPromocodeValid === false){
           this.userService.updateBasicDetails(this.currentUser.id, {
-            user_type: MEMBER
+            user_type: MEMBER,
+            type: MEMBER,
           });
         }
       });
