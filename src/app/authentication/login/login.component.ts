@@ -171,6 +171,15 @@ export class LoginComponent implements OnInit {
 
   validatePassAndNext(userData) {
     if (this.isPassValidationApproved(userData.password)) { //TODO: Remove validation on password
+
+      if(this.memberDetails && this.memberDetails.hasOwnProperty("user_type") && !this.memberDetails.hasOwnProperty("type")) 
+      {
+        this.userService.updateBasicDetails(this.memberDetails.id, {
+          type: this.memberDetails.user_type,
+          user_type: this.memberDetails.user_type,
+        });
+      }
+
       if (this.isOnboardingProcessDone())
         this.navigateToUserProfile();
       else {
