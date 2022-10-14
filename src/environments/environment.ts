@@ -47,6 +47,7 @@ export const environment = {
     onHomePage: false
   },
   consoleURL: 'https://console.mytrendingstories.dev',
+  bookingURL: 'https://mts-bookings-dev.web.app',
 };
 
 /*

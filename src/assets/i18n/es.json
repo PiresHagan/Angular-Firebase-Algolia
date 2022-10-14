@@ -908,5 +908,11 @@
   "create": "Crear",
   "add": "Agregar",
   "noPlaylistsYet": "No hay listas de reproducción todavía",
-  "createNewPlaylist": "Crear una nueva lista de reproducción"
+  "createNewPlaylist": "Crear una nueva lista de reproducción",
+  "ecommerceHomeBannerText": "Bienvenido a la sección de Comercio Electrónico de Mytrendingstories",
+  "Bookingser" : "Reserva",
+  "Service": "Service",
+  "conSave": "Tus datos han sido enviados con éxito.",
+  "SimilarServices": "Servicios similares"
+
 }

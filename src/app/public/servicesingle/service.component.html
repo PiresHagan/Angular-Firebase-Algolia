@@ -1,0 +1,339 @@
+<section class="is-service-block" *ngIf="service">
+  <div class="container">
+    <div class="mobile-service-detail">
+      <h2 class="xs-service-title">
+        <span class="xs-service-category" [ngClass]="service.category.slug">{{service?.category.title}}</span><br>
+        {{service?.title}}
+      </h2>
+      <div class="xs-service-author-detail">
+        <div class="xs-service-name">
+          <a [routerLink]="[getServiceUrl(service),service?.author?.slug]" itemprop="url" *ngIf="service">
+            {{service?.author?.fullname}}
+          </a>
+        </div>
+
+        <div class="comment-section">
+          <ul>
+            <li *ngIf="serviceVicewCount">
+              <a class="is-like">
+                <span class="likes-count">
+                  <i class="fas fa-eye"></i>{{serviceVicewCount}}
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="is-like" *ngIf="!isLike" (click)="like()">
+                <i class="far fa-thumbs-up"></i>
+                {{'like' | translate}} <span class="like-count" *ngIf="serviceLikes">{{serviceLikes}}</span>
+              </a>
+              <a class="is-like" *ngIf="isLike" (click)="disLike()">
+                <i class="fas fa-heart"></i>
+                {{'liked' | translate}} <span class="like-count">{{serviceLikes}}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="xs-service-date">{{service?.published_at | date:'medium' }}</div>
+    </div>
+    <div class="service-full-img">
+      <img src="{{replaceImage(service?.image?.url)}}" alt="{{service.image.alt}}"
+        *ngIf="!(service.image.cloudinary_id); else serviceFullimg" />
+      <ng-template #serviceFullimg>
+        <cl-image loading="lazy" public-id="{{replaceImage(service.image.cloudinary_id)}}" secure="true">
+          <cl-transformation width="1500" height="400" gravity="face" crop="thumb">
+          </cl-transformation>
+        </cl-image>
+      </ng-template>
+    </div>
+    <div class="is-service-sec">
+      <div class="is-left-profile hidden-on-xs">
+        <div class="sticky-box">
+          <div class="is-profile">
+            <a [routerLink]="[getServiceUrl(service),service?.author?.slug]" itemprop="url" *ngIf="service">
+              <img class="avatar" src="{{replaceImage(service?.author?.avatar?.url)}}"
+                alt="{{service?.author?.avatar?.alt}}" onerror="this.src='assets/images/default-avatar.png'"
+                *ngIf="!(service.author.avatar.cloudinary_id); else authorImg" />
+              <ng-template #authorImg>
+                <cl-image loading="lazy" public-id="{{replaceImage(service.author.avatar.cloudinary_id)}}"
+                  secure="true">
+                  <cl-transformation width="140" height="140" gravity="face" crop="thumb">
+                  </cl-transformation>
+                </cl-image>
+              </ng-template>
+            </a>
+            <app-service-avatar [article]="service"></app-service-avatar>
+          </div>
+          
+          <div class="is-author-name-sec is-divider">
+            <span class="is-author-name" itemprop="author" itemscope="">
+              <a [routerLink]="[getServiceUrl(service),service?.author?.slug]" itemprop="url" *ngIf="service">
+                <span class="name" itemprop="name">
+                  {{service?.author?.fullname}}</span>
+              </a>
+              <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                <img src="assets/images/article/icon/follow.png" />
+                {{'followAuthor' | translate}}
+              </a>
+              <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                <img src="assets/images/article/icon/un-follow.png" />
+                {{'unfollowAuthor' | translate}}
+              </a>
+
+              <div class="login-popup" *ngIf="!isLoggedInUser">
+                <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()"
+                  (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
+                  <div class="popup-content">
+                    <div>
+                      <a [routerLink]="['/']" class="bg-logo">
+                        <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                      </a>
+                    </div>
+                    <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' |
+                        translate}}</a>
+                      {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
+                      {{'toContinue' | translate}}.</p>
+
+                  </div>
+                </nz-modal>
+              </div>
+            </span>
+          </div>
+         
+          <div class="is-like-sec is-divider">
+            <a class="is-like" *ngIf="!isLike" (click)="like()">
+              <i class="far fa-thumbs-up"></i>
+              {{'like' | translate}} <span class="like-count" *ngIf = "serviceLikes">{{serviceLikes}}</span>
+            </a>
+            <a class="is-like" *ngIf="isLike" (click)="disLike()">
+              <i class="fas fa-heart"></i>
+              {{'liked' | translate}} <span class="like-count">{{serviceLikes}}</span>
+            </a>
+            <a class="is-like"><span class="likes-count"><i class="fas fa-eye"></i>{{serviceVicewCount}}</span></a>           
+          </div>
+          <div class="left-media is-divider">
+            <section class="is-followers-sec" *ngIf="followers.length">
+              <div class="container">
+                <div class="is-comman-title">
+
+                  {{'profileFollowers' | translate}} {{folnum}}
+
+                </div>
+                <div class="is-followers-user">
+                  <div class="is-followers-item" *ngFor="let follower of followers">
+
+                    <a [routerLink]="['/',follower.slug]">
+                      <img src="{{replaceImage(follower?.avatar?.url)}}"
+                        onerror="this.src='assets/images/default-avatar.png'" alt="{{follower?.avatar?.alt}}" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <a href="{{bookingURL}}/?slug={{userSlug}}" itemprop="url" nz-button
+              class="is-see-more show-more" [nzType]="'primary'">
+              {{'Bookingser' | translate}}
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="is-main-service-content">
+        <div class="is-content">
+          <div class="is-head hidden-on-xs">
+            <h2>
+              <a itemprop="mainEntityOfPage" [routerLink]="['/',service?.slug]" *ngIf="service">
+                <span itemprop="headline">
+                  {{service?.title}}
+                </span>
+              </a>
+            </h2>
+            <div class="is-small-profile">
+              <div class="is-image">
+                <a [routerLink]="[getServiceUrl(service),service?.author?.slug]" itemprop="url" *ngIf="service">
+                  <img class="avatar" alt="{{service?.author?.avatar?.alt}}"
+                    src="{{replaceImage(service?.author?.avatar?.url)}}"
+                    onerror="this.src='assets/images/default-avatar.png'"
+                    *ngIf="!(service.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg" />
+                  <ng-template #CateAvatarCloudinoryImg>
+                    <div class="hide-feature-img d-inline-block">
+                      <app-cloudinary-img [article]="service"></app-cloudinary-img>
+                    </div>
+                  </ng-template>
+                  <span class="name" itemprop="name">
+                    {{service?.author.fullname}}</span>
+                </a>
+              </div>
+              <div class="is-date">
+                {{service?.published_at | date:'medium' }}
+                <a class="category" [routerLink]="['/category/',service?.category?.slug]" *ngIf="service"
+                  [ngClass]="service.category.slug">
+                  {{service?.category.title}}
+                </a>
+              </div>
+            </div>
+            <div class="city">
+              <h3>{{service?.country}} {{service?.city}}</h3>
+            </div>
+          </div>
+          <div class="is-body">
+            <div *ngIf="serviceType === VIDEO" class="main-video-sec">
+              <cl-video [public-id]="service.service_file.cloudinary_id" secure="true" controls="true"
+                class="cld-video"></cl-video>
+              <div class="video-control">
+                <ul>
+                  <li>
+                    <a>
+                      <service-interaction [article]="service"></service-interaction>
+                    </a>
+                  </li>
+                  <li>
+                    <a>
+                      <img src="assets/images/video/icon/point.png" alt="" class="bullet">
+                      {{ getRelativeDate(service.published_at) }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div *ngIf="serviceType === AUDIO" class="main-audio-sec">
+              <cl-video [public-id]="service.service_file.cloudinary_id" resource-type="video" class="cld-audio-wave">
+                <cl-transformation flags="waveform"></cl-transformation>
+              </cl-video>
+              <cl-video [public-id]="service.service_file.cloudinary_id" secure="true" controls="true"
+                class="cld-audio"></cl-video>
+              <div class="video-control">
+                <ul>
+                  <li>
+                    <a>
+                      <service-interaction [article]="service"></service-interaction>
+                    </a>
+                  </li>
+                  <li>
+                    <a>
+                      <img src="assets/images/video/icon/point.png" alt="" class="bullet">
+                      {{ getRelativeDate(service.published_at) }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div *ngIf="serviceType === TEXT" class="is-paragraph">
+              <p class="big " innerHTML="{{service?.content}}"></p>
+              <p class="hidden-on-xs">
+                {{'publishedBy' | translate}}
+                <a [routerLink]="['/profile/',service?.author?.slug]" target="_blank"
+                  title="  {{service?.author.fullname}}" *ngIf="service">
+                  <span class="name" itemprop="name">
+                    {{service?.author.fullname}}</span>
+                </a>
+              </p>
+              <div class="xs-service-publish">
+                <div class="xs-service-publisher-img">
+                  <a [routerLink]="[getServiceUrl(service),service?.author?.slug]" itemprop="url" *ngIf="service">
+                    <img class="avatar" alt="{{service?.author?.avatar?.alt}}"
+                      src="{{replaceImage(service?.author?.avatar?.url)}}"
+                      onerror="this.src='assets/images/default-avatar.png'"
+                      *ngIf="!(service.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg" />
+                    <ng-template #CateAvatarCloudinoryImg>
+                      <div class="hide-feature-img d-inline-block">
+                        <app-cloudinary-img [article]="service"></app-cloudinary-img>
+                      </div>
+                    </ng-template>
+                    <app-service-avatar [article]="service"></app-service-avatar>
+                  </a>
+                </div>
+                <div class="xs-articl-publisher-name">
+                  {{'WrittenBy' | translate}}
+                  <a [routerLink]="['/profile/',service?.author?.slug]" target="_blank"
+                    title="  {{service?.author.fullname}}" *ngIf="service">
+                    <span class="name" itemprop="name">
+                      {{service?.author.fullname}}</span>
+                  </a>
+                  <div>
+                    <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                      {{'followAuthor' | translate}}
+                    </a>
+                    <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                      {{'unfollowAuthor' | translate}}
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <p class="report-abuse-spin" *ngIf="isLoggedInUser">
+                <a class="comment-view-replies" (click)="reportAbuseService()">
+                  <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseServiceLoading"></nz-spin>
+                  {{'reportAbuseAuth' | translate}}
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="form-contactus">
+          <form class="form" [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+            <h2 class="align-center ">{{'getInTouch' | translate}}</h2>
+            <div class="form-group">
+              <nz-form-item>
+                <nz-form-control nzErrorTip="{{'serTitleErr' | translate}}">
+                  <input type="text" class="form-control" id="name" formControlName="fullname"
+                    placeholder="{{'contactFullName' | translate}}">
+                  <img src="assets/images/sign-up/user.png" />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div class="form-group">
+              <nz-form-item>
+                <nz-form-control nzErrorTip="{{'serTitsdleErr' | translate}}">
+                  <input type="text" class="form-control" id="email" formControlName="email"
+                    placeholder="{{'contactEmail' | translate}}">
+                  <img src="assets/images/sign-up/email.png" />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div class="form-group">
+              <nz-form-item>
+                <nz-form-control nzErrorTip="{{'serTitlsdaeErr' | translate}}">
+                  <input type="text" class="form-control" id="subject" formControlName="phonenumber"
+                    placeholder="{{'phoneNumber' | translate}}">
+                  <img src="assets/images/sign-up/24-hours-phone-service.png" />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div class="text-center">
+              <button type="submit" nz-button  [nzLoading]="isFormSaving" class="btn-submit">{{'contactSubmit' |
+                translate}}</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+      <div class="is-right-ad-section" [ngClass]="SlideRelatedService ? 'removeSlide' : 'openSlideService'">
+
+        <app-company-lead-form *ngIf="service?.author?.type == 'company'" [companyId]="service.author.id">
+        </app-company-lead-form>
+
+        <app-charity-donate-form *ngIf="service?.author?.type == 'charity'" [charityId]="service.author.id">
+        </app-charity-donate-form>
+
+        <app-similar-services *ngIf="service" [service]="service"></app-similar-services>
+
+        <div class="slide-service">
+          <button type="button" nz-button class="is-see-more show-more" [nzType]="'primary'" (click)="slideService()">
+            {{'ShowMore' | translate}}
+          </button>
+          <button type="button" nz-button class="is-see-more less-more" [nzType]="'primary'" (click)="slideService()">
+            {{'ShowLess' | translate}}
+          </button>
+        </div>
+
+        <div adItem id="playwire-test" type="playwire" adUnit="med_rect_atf" style="width: 300px; height: 600px;">
+        </div>
+
+        <div class="ads-box">
+          <div adItem id="div-gpt-ad-1599554597929-0" style="width: 300px; height: 600px;"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

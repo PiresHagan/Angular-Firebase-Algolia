@@ -15,7 +15,7 @@ export class AdService {
   }
 
   public displayAd(type: string, selectorId?: string): Promise<void> {
-    console.log(`Displaying ad ${type} and selector: ${selectorId}`);
+    // console.log(`Displaying ad ${type} and selector: ${selectorId}`);
 
     return new Promise(resolve => {
       ramp.addUnits([
@@ -28,7 +28,7 @@ export class AdService {
           ramp.displayUnits();
         });
 
-        console.log(ramp.getUnits());
+        // console.log(ramp.getUnits());
 
         resolve();
       }).catch((e) => {
@@ -37,7 +37,7 @@ export class AdService {
         });
 
         // catch errors
-        console.log('Error', e);
+        // console.log('Error', e);
         resolve();
       });
     });

@@ -51,7 +51,7 @@ export class OrderDetailsComponent {
           this.itemData = this.orderDetails.products;
 
           this.isDataLoading = false;
-          console.log(data);
+          // console.log(data);
         }, (error) => {
           this.goBack();
         })
@@ -82,7 +82,7 @@ export class OrderDetailsComponent {
   }
   checkOrderStatus() {
     this.storeService.getTrackingInfo(this.orderId).subscribe((trackingData) => {
-      console.log(trackingData);
+      // console.log(trackingData);
       let message = this.translate.instant('InOnTheWay')
       if (trackingData && trackingData['status_code'] == "NY") {
         message = this.translate.instant('InTransit');
