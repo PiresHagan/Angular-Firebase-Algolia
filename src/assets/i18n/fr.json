@@ -804,6 +804,7 @@
   "advisor": "Conseiller",
   "online-course": "Cours en ligne",
   "services": "Prestations de service",
+  "Service": "Service",
   "job": "Travail",
   "host-event": "Héberger l'événement",
   "influencer-marketing": "Marketing d'influence",
@@ -909,5 +910,9 @@
   "create": "Créer",
   "add": "Ajouter",
   "noPlaylistsYet": "Aucune liste de lecture pour le moment",
-  "createNewPlaylist": "Créer une nouvelle liste de lecture"
+  "createNewPlaylist": "Créer une nouvelle liste de lecture",
+  "ecommerceHomeBannerText": "Bienvenue dans la section E-commerce de Mytrendingstories",
+  "Bookingser" : "Réservation",
+  "conSave": "Vos données ont été envoyées avec succès.",
+  "SimilarServices": "Servicios similaires"
 }

@@ -28,9 +28,9 @@ export class BackofficeSocialSharingService {
         this.userService.getCurrentUser().then((user) => {
             this.currentUser = { id: user.uid, email: user.email, avatar: user.photoURL, fullname: user.displayName };
             if(this.currentUser.id) {
-                console.log('Sending auth token To Server', data);
+                // console.log('Sending auth token To Server', data);
                 this.http.post(`${environment.baseAPIDomain}/api/v1/users/${this.currentUser.id}/tokens/facebook`, { token: data.accessToken }).subscribe(result => {
-                    console.log(`Updated user notification_token for user : ${this.currentUser.id}`, result);
+                    // console.log(`Updated user notification_token for user : ${this.currentUser.id}`, result);
                 }, err => {
                     console.error(`Failed to update notification_token for user : ${this.currentUser.id}`, err);
                 })

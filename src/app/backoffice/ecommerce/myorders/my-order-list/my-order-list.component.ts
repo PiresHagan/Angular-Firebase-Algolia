@@ -54,7 +54,7 @@ export class MyOrderListComponent {
       this.ordersList = data;
       this.displayData = data;
       this.isDataLoading = false;
-      console.log(data);
+      // console.log(data);
     })
   }
 

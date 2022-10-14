@@ -56,8 +56,8 @@ export class TodayComponent implements OnInit {
       this.todayArticle = this.todayArticles.slice(start, end);
       this.total_pages = Math.ceil(this.total / per_page);
       this.total_pages = this.total_pages * 10;
-      console.log('total_pages', this.total_pages)
-      console.log('paginatedItems', this.trendingArticles)
+      // console.log('total_pages', this.total_pages)
+      // console.log('paginatedItems', this.trendingArticles)
     });
     
   }

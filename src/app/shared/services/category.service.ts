@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CategoryService {
   categoriesCollection: string = 'categories';
+  categoriesserCollection: string = 'categories_services';
   categoryDocument: string = 'category';
   funnelsCollection: string = 'funnels';
   topicsCollection: string = 'topics';
@@ -24,6 +25,18 @@ export class CategoryService {
 
   getAll(language: string = 'en') {
     return this.db.collection<Category[]>(this.categoriesCollection, ref => ref.where('lang', '==', language).orderBy('order', 'asc')).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const uid = a.payload.doc.id;
+          return { uid, ...data };
+        });
+      })
+    );
+  }
+
+  getAllser(language: string = 'en') {
+    return this.db.collection<Category[]>(this.categoriesserCollection, ref => ref.where('lang', '==', language).orderBy('order', 'asc')).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();

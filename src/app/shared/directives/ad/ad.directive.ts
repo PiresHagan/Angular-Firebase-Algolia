@@ -69,14 +69,14 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
         googletag.display(this.pointer);
         googletag.pubads().refresh([slot.ref]);
       } else {
-        console.log(`Slot was not found for ${this.pointer}`);
+        // console.log(`Slot was not found for ${this.pointer}`);
       }
     });
   }
 
   private displayPlaywireAd(c = 0): void {
     if (c >= 50) {
-      console.log(this);
+      // console.log(this);
       return;
     }
 
@@ -85,7 +85,7 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
         this.displayPlaywireAd(c + 1);
       });
 
-      console.log(`Element with ID: ${this.id} not found for playwire ad`);
+      // console.log(`Element with ID: ${this.id} not found for playwire ad`);
     } else {
       this.adService.displayAd(this.adUnit, this.id);
     }
@@ -109,7 +109,7 @@ export class AdDirective implements OnInit, AfterViewInit, OnDestroy {
         cb();
       });
     } else {
-      console.log(`Ramp not ready yet... `, new Date());
+      // console.log(`Ramp not ready yet... `, new Date());
 
       this.adService.wait(1000).then(() => {
         this.checkPlaywireAdScript(cb);

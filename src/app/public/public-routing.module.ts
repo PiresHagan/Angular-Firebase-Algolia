@@ -8,12 +8,20 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
   {
+    path: 'service',
+    loadChildren: () => import('./service/service.module').then(m => m.ServiceModule)
+  },
+  {
     path: 'category/:slug',
     loadChildren: () => import('./category/category.module').then(m => m.CategoryModule)
   },
   {
     path: 'article/:slug',
     loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)
+  },
+  {
+    path: 'service/:userSlug/:slug',
+    loadChildren: () => import('./servicesingle/service.module').then(m => m.ServiceModule)
   },
   {
     path: 'profile/:authorSlug',

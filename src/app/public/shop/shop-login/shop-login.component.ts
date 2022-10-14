@@ -206,7 +206,7 @@ export class ShopLoginComponent implements OnInit {
         }
       } catch (err) {
         this.isFormSaving = false;
-        console.log("err...", err);
+        // console.log("err...", err);
       }
     }
     else {

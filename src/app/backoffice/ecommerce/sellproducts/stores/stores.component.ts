@@ -153,7 +153,7 @@ export class StoresComponent {
         this.uplodedImage = fileObject;
       }).catch(() => {
         this.isPhotoChangeLoading = false;
-        console.log('Image not uploaded properly')
+        // console.log('Image not uploaded properly')
       });
     })
   }

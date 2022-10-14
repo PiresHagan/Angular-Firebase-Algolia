@@ -171,9 +171,9 @@ export class ProductService {
 
   updateProductViewCount(product: Product) {
     this.http.post(`${environment.baseAPIDomain}/api/v1/stores/${product.storeId}/products/${product.id}/view`, {}).subscribe(data => {
-      console.log(data);
+      // console.log(data);
     }, err => {
-      console.log(err);
+      // console.log(err);
     })
   }
 
