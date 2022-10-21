@@ -28,7 +28,7 @@
                 <app-search></app-search>
             </nz-drawer>
         </li> -->
-                <li class="megamenu-list  start-hover" id="mega-menu-header" (mouseenter)="showMegaMenu()"
+                <li class="megamenu-list  start-hover" id="mega-menu-header" (mouseenter)="showMoreMegaMenu()"
                     (mouseleave)="hideMegaMenu()">
                     <a class="megamenu-link">{{'More' | translate}} <i nz-icon nzType="down" nzTheme="outline"></i></a>
                     <div class="mega-body-sec" id="mega-menu-section">
@@ -51,17 +51,17 @@
                         </div>
                     </div>
                 </li>
-                <li class="megamenu-list city-dropdown start-hover" id="mega-menu-header" (mouseenter)="showMegaMenu()"
-                    (mouseleave)="hideMegaMenu()">
+                <li class="megamenu-list city-dropdown start-hover" id="mega-menu-header" (mouseenter)="showCityMegaMenu()"
+                    (mouseleave)="hideMegaMenuCity()">
                     <a class="megamenu-link">{{'city' | translate}} <i nz-icon nzType="down" nzTheme="outline"></i></a>
-                    <div class="mega-body-sec" id="mega-menu-section">
+                    <div class="mega-body-sec" id="mega-menu-section-city">
                         <div class="megamenu-body">
                             <div class="sub-catagories-sec">
                                 <div class="sub-catagories-list">
                                     <h3>{{'city' | translate}}</h3>
                                     <ng-container *ngFor="let item of (categories)">
                                         <ul *ngIf="(item?.title) == 'Ciudad' || (item?.title) == 'City' || (item?.title) == 'Ville'">
-                                            <li (click)="hideMegaMenu()"
+                                            <li (click)="hideMegaMenuCity()"
                                                 *ngFor="let topic of countryListArray"
                                                 nz-menu-item [routerLink]="['/category', item.slug]"
                                                 [queryParams]="{topic:topic.slug}" class="mega-menu-list-item">
@@ -105,10 +105,10 @@
                         </div>
                     </ng-container>
                 </li>
-                <li nz-submenu nzTitle="{{'city' | translate}}" class="xs-menu-item xs-city-menu" (click)="showMegaMenu()">
+                <li nz-submenu nzTitle="{{'city' | translate}}" class="xs-menu-item xs-city-menu" (click)="showMoreMegaMenu()">
                     <ng-container *ngFor="let item of (categories)">
                         <ul *ngIf="(item?.title) == 'Ciudad' || (item?.title) == 'City' || (item?.title) == 'Ville'">
-                            <li (click)="hideMegaMenu()"
+                            <li (click)="hideMenu()"
                                 *ngFor="let topic of countryListArray"
                                 nz-menu-item [routerLink]="['/category', item.slug]"
                                 [queryParams]="{topic:topic.slug}" class="mega-menu-list-item">

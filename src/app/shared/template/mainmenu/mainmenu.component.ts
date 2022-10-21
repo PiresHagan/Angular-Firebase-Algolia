@@ -78,8 +78,23 @@ export class MainmenuComponent implements OnInit {
     document.getElementById('mega-menu-section').style.display = 'none';
     this.countryListArray = [];
   }
-  showMegaMenu() {
+
+  hideMegaMenuCity() {
+    document.getElementById('mega-menu-section-city').style.display = 'none';
+    this.countryListArray = [];
+  }
+
+  showCityMegaMenu() {
+    document.getElementById('mega-menu-section-city').style.display = 'block';
+    this.megaMenuData();
+  }
+
+  showMoreMegaMenu() {
     document.getElementById('mega-menu-section').style.display = 'block';
+    this.megaMenuData();
+  }
+
+  megaMenuData() {
     this.categories.forEach(category=> {
       if(category?.title == "City" || category?.title == "Ciudad" || category?.title == "Ville"){
         this.categoryListData[category.uid].child.subscribe((data) => {
