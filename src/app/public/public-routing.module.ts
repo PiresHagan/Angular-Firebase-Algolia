@@ -83,7 +83,18 @@ const routes: Routes = [
     path: 'story/:slug',
     loadChildren: () => import('./story/story.module').then(m => m.StoryModule)
   },
-
+  {
+    path: 'subscribe/:user_type',
+    loadChildren: () => import('./subscribe-user-type/subscribe-user-type.module').then(m => m.SubscribeUserTypeModule)
+  },
+  {
+    path: 'abonnezvous/:user_type',
+    loadChildren: () => import('./subscribe-user-type/subscribe-user-type.module').then(m => m.SubscribeUserTypeModule)
+  },
+  {
+    path: 'suscribete/:user_type',
+    loadChildren: () => import('./subscribe-user-type/subscribe-user-type.module').then(m => m.SubscribeUserTypeModule)
+  },
   {
     path: ':userSlug/:slug',
     loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)
