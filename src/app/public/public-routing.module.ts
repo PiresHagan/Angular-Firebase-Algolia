@@ -85,15 +85,24 @@ const routes: Routes = [
   },
   {
     path: 'subscribe/:user_type',
-    loadChildren: () => import('./subscribe-user-type/subscribe-user-type.module').then(m => m.SubscribeUserTypeModule)
+    loadChildren: () => import('./subscribe-user-type/subscribe-user-type.module').then(m => m.SubscribeUserTypeModule),
+    data: {
+      lang: 'en'
+    }
   },
   {
     path: 'abonnezvous/:user_type',
-    loadChildren: () => import('./subscribe-user-type/subscribe-user-type.module').then(m => m.SubscribeUserTypeModule)
+    loadChildren: () => import('./subscribe-user-type/subscribe-user-type.module').then(m => m.SubscribeUserTypeModule),
+    data: {
+      lang: 'fr'
+    }
   },
   {
     path: 'suscribete/:user_type',
-    loadChildren: () => import('./subscribe-user-type/subscribe-user-type.module').then(m => m.SubscribeUserTypeModule)
+    loadChildren: () => import('./subscribe-user-type/subscribe-user-type.module').then(m => m.SubscribeUserTypeModule),
+    data: {
+      lang: 'es'
+    }
   },
   {
     path: ':userSlug/:slug',
