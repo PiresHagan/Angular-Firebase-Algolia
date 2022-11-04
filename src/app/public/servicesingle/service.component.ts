@@ -49,6 +49,9 @@ export class ServiceComponent implements OnInit, AfterViewInit {
   serviceForm: any;
   isFormSaving:boolean=false;
   bookingURL: string;
+  files: any[] = [];
+  sharedUrl: string;
+
   constructor(
     private serviceService: ServiceService,
     private route: ActivatedRoute,
@@ -64,8 +67,9 @@ export class ServiceComponent implements OnInit, AfterViewInit {
     private analyticsService: AnalyticsService,
     private modalService: NzModalService,
     private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute,
   ) { 
-
+    this.sharedUrl = "";
     this.serviceForm = this.formBuilder.group({
       fullname: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(70)]],
       email: ['', [Validators.required, Validators.email,]],
@@ -91,8 +95,27 @@ export class ServiceComponent implements OnInit, AfterViewInit {
 
       });
 
-      this.serviceService.getService(slug).subscribe(artical => {
-        this.service = artical[0];
+      this.serviceService.getService(slug).subscribe((service: any) => {
+        this.service = service[0];
+        if(service.type !== "text" && this.service.service_file) {
+          this.files = [];
+          if(this.service.service_file.others)
+          this.service.service_file.others.forEach(file => {
+            this.files.push(file);
+          });
+
+          if (this.getSharedURL()) {
+            this.files = this.files.filter(file => file.url === this.getSharedURL())
+            if (this.files.length) {
+              this.service.service_file.name = null;
+              this.service.service_file.url = null;
+              this.service.service_file.cloudinary_id = null;
+            } else {
+              this.service.service_file.others = [];
+            }
+          }
+        }
+
         if (!this.service) {
           this.modal.error({
             nzTitle: this.translate.instant('URL404'),
@@ -136,6 +159,10 @@ export class ServiceComponent implements OnInit, AfterViewInit {
       
       
     });
+  }
+
+  getSharedURL() {
+    return this.activatedRoute.snapshot.queryParamMap.get('url');
   }
 
   onSubmit(){
@@ -298,7 +325,7 @@ export class ServiceComponent implements OnInit, AfterViewInit {
       this.serviceService.like(this.service.id, this.getUserDetails());
       this.serviceLikes++
       const service = this.service;
-      this.analyticsService.logEvent('liked_service', {
+      console.log('liked_service', {
         service_id: service.id,
         service_title: service.title,
         service_language: service.lang,
@@ -335,7 +362,7 @@ export class ServiceComponent implements OnInit, AfterViewInit {
     }
   }
   setLike() {
-
+    console.log("asd"+this.service.id +this.getUserDetails().id);
     this.serviceService.isLikedByUser(this.service.id, this.getUserDetails().id).subscribe((data) => {
       if (data) {
         this.isLike = true;

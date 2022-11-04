@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServiceComponent } from './service.component';
-
 import { ServiceRoutingModule } from './service-routing.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
@@ -21,7 +20,9 @@ import { NgAisModule } from 'angular-instantsearch';
     ServiceRoutingModule,
     SharedModule,
     NgAisModule.forRoot(),
-    TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } })
+    TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } }),
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ServiceModule { }

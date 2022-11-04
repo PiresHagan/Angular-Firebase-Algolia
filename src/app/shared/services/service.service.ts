@@ -44,6 +44,8 @@ export class ServiceService {
     if (!limit) {
       limit = 10;
     }
+    if (categorySlug==null) 
+    console.log(categorySlug);
     let dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
     .where('lang', "==", lang)
     .where('status', "==", ACTIVE)
@@ -115,16 +117,17 @@ export class ServiceService {
       limit = 10;
     }
     let dataQuery1 = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
-    .where(searchfield, "==", searchValue)
+    .where(searchfield, ">=", searchValue)
     .where('lang', "==", lang)
     .where('status', "==", ACTIVE)
+    .orderBy(searchfield, 'desc')
     .orderBy('published_at', 'desc')
     .limit(limit)
     )
     if (categorySlug) {
       dataQuery1 = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
         .where("category.slug", "==", categorySlug)
-        .where(searchfield, "==", searchValue)
+        .where(searchfield, ">=", searchValue)
         .where('lang', "==", lang)
         .where('status', "==", ACTIVE)
         .orderBy('published_at', 'desc')
@@ -137,7 +140,7 @@ export class ServiceService {
         if (categorySlug){
           dataQuery1 = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
             .where("category.slug", "==", categorySlug)
-            .where(searchfield, "==", searchValue)
+            .where(searchfield, ">=", searchValue)
             .where('lang', "==", lang)
             .where('status', "==", ACTIVE)
             .orderBy('published_at', 'desc')
@@ -147,7 +150,7 @@ export class ServiceService {
         else  {
         dataQuery1 = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
         .where('lang', "==", lang)
-        .where(searchfield, "==", searchValue)
+        .where(searchfield, ">=", searchValue)
         .where('status', "==", ACTIVE)
         .orderBy('published_at', 'desc')
         .limit(limit)
