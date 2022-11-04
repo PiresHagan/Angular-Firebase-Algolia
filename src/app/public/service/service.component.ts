@@ -5,6 +5,7 @@ import { CategoryService } from 'src/app/shared/services/category.service';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
 import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -15,6 +16,8 @@ import { ActivatedRoute } from '@angular/router';
 export class ServiceComponent implements OnInit {
 
   selectedLanguage: string = '';
+  form : FormGroup;
+  form1 : FormGroup;
   slugWiseData = {};
   selectedcategory: any;
   categories: any;
@@ -26,7 +29,7 @@ export class ServiceComponent implements OnInit {
   lastVisible: any = null;
   showResult: boolean = false;
   searchres:any;
-  searchfield: any;
+  searchfield: any = "title";
   isSearch : boolean = false;
   isCountry: boolean = false;
 
@@ -38,6 +41,7 @@ export class ServiceComponent implements OnInit {
     private categoryService: CategoryService,
     private languageService: LanguageService,
     private seoService: SeoService,
+    private fb: FormBuilder
     
   ) { }
 
@@ -49,6 +53,12 @@ export class ServiceComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      category: [null],
+    });
+    this.form1 = this.fb.group({
+      serviceserchform: "",
+    });
     window.addEventListener('scroll', this.scrollEvent, true);
     this.seoService.updateTagsWithData(this.homeDocument);
     
@@ -72,7 +82,6 @@ export class ServiceComponent implements OnInit {
     });
 
   }
- 
   scrollEvent = (event: any): void => {
 
     let documentElement = event.target.documentElement ? event.target.documentElement : event.target;
@@ -105,7 +114,8 @@ export class ServiceComponent implements OnInit {
   }
 
   getService(nav = ''){
-
+    console.log(this.searchfield);
+    console.log(this.selectedcategory);
     if(nav == 'next'){
       this.serviceService.getServicessearch(20 ,nav, this.lastVisible,this.selectedcategory,  this.selectedLanguage,this.searchres,this.searchfield).subscribe((data) => {
         this.services = [...this.services, ...data.serviceList];
@@ -127,9 +137,9 @@ export class ServiceComponent implements OnInit {
   }
   
   resetSearch(){
-    this.searchres = ""
+    this.form.reset();
+    this.form1.reset();
     this.getPageDetails()
-    this.isSearch=false
   }
 
   replaceImage(url) {
@@ -151,12 +161,12 @@ export class ServiceComponent implements OnInit {
 
   getPageDetails(catslug = null) {
 
-    this.searchfield = "title"
     this.selectedcategory=catslug
     this.serviceService.getServices(20, '', this.lastVisible,this.selectedcategory,  this.selectedLanguage).subscribe((data) => {
       this.services = data.serviceList;
       this.lastVisible = data.lastVisible;
       this.loading = false;
+      console.log(this.services);
     });
   }
 }

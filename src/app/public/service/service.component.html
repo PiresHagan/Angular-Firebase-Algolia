@@ -25,7 +25,7 @@
                         <tr>
                             <td>
                                 <nz-form-item>
-                                    <nz-form-control>
+                                    <nz-form-control >
                                         <select class="round" #selectList (change)="getsearchfield(selectList.value) ">
                                             <option value="title">{{ 'artTitle' | translate }} </option>
                                             <option value="city">{{ 'city' | translate }} </option>
@@ -35,13 +35,13 @@
                                 </nz-form-item>
                             </td>
                             <td>
-                                <nz-form-item *ngIf="!isCountry">
-                                    <input type="text" nz-input
+                                <nz-form-item *ngIf="!isCountry" [formGroup]="form1">
+                                    <input type="text" formControlName="serviceserchform" nz-input
                                         placeholder=" {{ 'search' | translate }} {{ 'services' | translate }}"
                                         [(ngModel)]="searchres" />
                                 </nz-form-item>
-                                <nz-form-item class="round" *ngIf="isCountry" >
-                                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="country" [(ngModel)]="searchres">
+                                <nz-form-item class="round" *ngIf="isCountry" [formGroup]="form1">
+                                    <nz-select nzShowSearch nzAllowClear formControlName="serviceserchform" nzPlaceHolder="country" [(ngModel)]="searchres">
                                       <nz-option nzValue="AF" nzLabel="Afghanistan"></nz-option>
                                       <nz-option nzValue="AX" nzLabel="Aland Islands"></nz-option>
                                       <nz-option nzValue="AL" nzLabel="Albania"></nz-option>
@@ -299,7 +299,7 @@
                             </td>
                             <td>
                                 <nz-form-item>
-                                    <nz-form-control>
+                                    <nz-form-control >
                                         <button nz-button nzType="primary" nzSize="large" nzSearch
                                             (click)="getService()" [disabled]="!searchres ?true:false">{{'search' |
                                             translate}}</button>
@@ -311,9 +311,9 @@
                             <td>
 
                                 <nz-form-item>
-                                    <nz-form-control>
-                                        <select class="minimal" #selectLista
-                                            (change)="getPageDetails(selectLista.value) ">
+                                    <nz-form-control [formGroup]="form">
+                                        <select class="minimal" id="dropdown" #selectLista
+                                            (change)="getPageDetails(selectLista.value) " formControlName="category">
                                             <option value="null" selected="true" disabled="disabled">{{ 'artCategoryErr' | translate }}</option>
                                             <option *ngFor="let cat of categories" value="{{cat.slug}}">
                                                 {{cat.title}}</option>

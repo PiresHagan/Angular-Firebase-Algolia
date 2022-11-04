@@ -25,6 +25,7 @@ export interface Service {
     service_file?: {
         url: string,
         name: string,
-        cloudinary_id: string
+        cloudinary_id: string,
+        others: any[]
     }
 }

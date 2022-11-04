@@ -177,8 +177,22 @@
           </div>
           <div class="is-body">
             <div *ngIf="serviceType === VIDEO" class="main-video-sec">
-              <cl-video [public-id]="service.service_file.cloudinary_id" secure="true" controls="true"
+              <h5 *ngIf="service.service_file.name" class="font-weight-bold">{{service.service_file.name}}</h5>
+              <cl-video *ngIf="service.service_file.cloudinary_id" [public-id]="service.service_file.cloudinary_id" secure="true" controls="true"
                 class="cld-video"></cl-video>
+                <div class="row pt-3" *ngIf="service.service_file.name">                  
+                                  
+                </div>
+                <div class="is-line" *ngIf="service.service_file.name"></div>
+                <div *ngFor="let file of files">
+                  <h5 class="font-weight-bold">{{file.name}}</h5>
+                  <cl-video [public-id]="file.cloudinary_id" secure="true" controls="true"
+                  class="cld-video"></cl-video>
+                  <div class="row pt-3" *ngIf="file.name">                   
+                                      
+                  </div>
+                  <div class="is-line"></div>
+                </div>
               <div class="video-control">
                 <ul>
                   <li>
@@ -196,25 +210,43 @@
               </div>
             </div>
             <div *ngIf="serviceType === AUDIO" class="main-audio-sec">
-              <cl-video [public-id]="service.service_file.cloudinary_id" resource-type="video" class="cld-audio-wave">
-                <cl-transformation flags="waveform"></cl-transformation>
-              </cl-video>
-              <cl-video [public-id]="service.service_file.cloudinary_id" secure="true" controls="true"
-                class="cld-audio"></cl-video>
-              <div class="video-control">
-                <ul>
-                  <li>
-                    <a>
-                      <service-interaction [article]="service"></service-interaction>
-                    </a>
-                  </li>
-                  <li>
-                    <a>
-                      <img src="assets/images/video/icon/point.png" alt="" class="bullet">
-                      {{ getRelativeDate(service.published_at) }}
-                    </a>
-                  </li>
-                </ul>
+              <h5 class="font-weight-bold" *ngIf="service.service_file.name">{{service.service_file.name}}</h5>
+              <img *ngIf="service.service_file.name" class="pb-4" src="../../../assets/imagess/wave.png" alt="">
+              <audio controls class="w-100" *ngIf="service.service_file.url">
+                <source [src]="service.service_file.url" type="audio/mpeg">
+                Your browser does not support the audio tag.
+              </audio>
+              <div class="row pt-3" *ngIf="service.service_file.name">
+                <div class="col-auto align-self-center ml-4">
+                 
+                </div>
+                <div class="col-auto ml-4 mr-2">
+                 
+                </div>
+                <div class="col-auto align-self-center">
+                  
+                </div>
+              </div>
+              <div class="is-line" *ngIf="service.service_file.name"></div>
+              <div *ngFor="let file of files; index as i" class="pt-2">
+                <h5 class="font-weight-bold">{{file.name}}</h5>
+                <img class="pb-4" src="../../../assets/imagess/wave.png" alt="">
+                <audio controls class="w-100">
+                  <source [src]="file.url" type="audio/mpeg">
+                  Your browser does not support the audio tag.
+                </audio>
+                <div class="row pt-3">
+                  <div class="col-auto align-self-center ml-4">
+                    
+                  </div>
+                  <div class="col-auto ml-4 mr-2">
+                    
+                  </div>
+                  <div class="col-auto align-self-center">
+                    
+                  </div>
+                </div>
+                <div class="is-line"></div>
               </div>
             </div>
             <div *ngIf="serviceType === TEXT" class="is-paragraph">
