@@ -29,6 +29,8 @@ export class SubscribeUserTypeComponent implements OnInit {
         this.landingPageData = data[0];
       });
     });
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.add('remove-header-footer');
   }
 
   replaceImage(url) {
@@ -41,4 +43,8 @@ export class SubscribeUserTypeComponent implements OnInit {
     return latestURL;
   }
 
+  ngOnDestroy() {
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.remove('remove-header-footer');
+  }
 }
