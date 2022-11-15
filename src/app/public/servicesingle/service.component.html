@@ -302,6 +302,9 @@
         </div>
         <div class="form-contactus">
           <form class="form" [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+            <nz-alert class="m-b-10" nzType="error" nzDescription="{{'invalidCaptchaErr' | translate}}" nzShowIcon *ngIf="invalidCaptcha"></nz-alert>
+
+        <nz-alert class="m-b-10" nzType="success" nzMessage="{{'leadAddSuccess' | translate}}" nzShowIcon *ngIf="addLeadSuccess"></nz-alert>
             <h2 class="align-center ">{{'getInTouch' | translate}}</h2>
             <div class="form-group">
               <nz-form-item>
@@ -331,9 +334,13 @@
                 </nz-form-control>
               </nz-form-item>
             </div>
+            <div>
+              <div #recaptcha class="m-b-10">Loading Captcha...</div>
+  
             <div class="text-center">
               <button type="submit" nz-button  [nzLoading]="isFormSaving" class="btn-submit">{{'contactSubmit' |
                 translate}}</button>
+            </div>
             </div>
           </form>
         </div>
