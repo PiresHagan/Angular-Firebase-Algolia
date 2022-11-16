@@ -51,6 +51,22 @@ export class ServiceComponent implements OnInit, AfterViewInit {
   bookingURL: string;
   files: any[] = [];
   sharedUrl: string;
+  
+  recaptchaElement;
+  isCaptchaElementReady: boolean = false;
+  isCapchaScriptLoaded: boolean = false;
+  captchaToken: string;
+  capchaObject;
+  invalidCaptcha: boolean = false;
+  addLeadSuccess: boolean = false;
+
+  @ViewChild('recaptcha') set SetThing(e: ServiceComponent) {
+    this.isCaptchaElementReady = true;
+    this.recaptchaElement = e;
+    if (this.isCaptchaElementReady && this.isCapchaScriptLoaded) {
+      this.renderReCaptcha();
+    }
+  }
 
   constructor(
     private serviceService: ServiceService,
@@ -75,6 +91,7 @@ export class ServiceComponent implements OnInit, AfterViewInit {
       email: ['', [Validators.required, Validators.email,]],
       phonenumber: ['', [Validators.required , Validators.pattern('[- +()0-9]+')]],
     });
+    
   }
 
   ngOnInit(): void {
@@ -92,6 +109,7 @@ export class ServiceComponent implements OnInit, AfterViewInit {
           this.followers = data.followers;
         });
         this.setUserDetails();
+        this.addRecaptchaScript();
 
       });
 
@@ -172,6 +190,24 @@ export class ServiceComponent implements OnInit, AfterViewInit {
       this.serviceForm.controls[i].updateValueAndValidity();
     }
     if (this.findInvalidControls().length == 0) {
+      try {
+        if (this.captchaToken) {
+          this.isFormSaving = true;
+          this.invalidCaptcha = false;
+          this.authService.validateCaptcha(this.captchaToken).subscribe((success) => {
+            this.saveDataOnServer();
+          }, (error) => {
+            window['grecaptcha'].reset(this.capchaObject);
+            this.isFormSaving = false;
+            this.invalidCaptcha = true;
+          });
+        } else {
+          this.invalidCaptcha = true;
+        }
+      } catch (err) {
+        this.isFormSaving = false;
+      }
+  /*   
       this.isFormSaving = true;
       const serviceData = {
         fullname: this.serviceForm.get('fullname').value,  
@@ -186,9 +222,65 @@ export class ServiceComponent implements OnInit, AfterViewInit {
         this.showError();
         this.isFormSaving = false
       })
-
+*/
   }
 }
+saveDataOnServer() {
+  const serviceData = {
+    fullname: this.serviceForm.get('fullname').value,  
+    email: this.serviceForm.get('email').value,  
+    phonenumber: this.serviceForm.get('phonenumber').value,     
+   }
+  this.serviceService.createContact(this.service.id, serviceData).then(data => {
+    this.serviceForm.reset();
+    this.addLeadSuccess = true;
+    this.isFormSaving = false;
+    setTimeout(() => {
+      this.addLeadSuccess = false;
+    }, 5000);
+    window['grecaptcha'].reset(this.capchaObject);
+  }).catch((error) => {
+    this.isFormSaving = false;
+  });
+}
+
+addRecaptchaScript() {
+  window['grecaptchaCallback'] = () => {
+    this.isCapchaScriptLoaded = true;
+    if (this.isCapchaScriptLoaded && this.isCaptchaElementReady)
+      this.renderReCaptcha();
+    return;
+  }
+
+  (function (d, s, id, obj) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {
+      obj.isCapchaScriptLoaded = true;
+      if (obj.isCapchaScriptLoaded && obj.isCaptchaElementReady)
+        obj.renderReCaptcha(); return;
+    }
+    js = d.createElement(s); js.id = id;
+    js.src = "https://www.google.com/recaptcha/api.js?onload=grecaptchaCallback&render=explicit";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'recaptcha-jssdk', this));
+}
+
+renderReCaptcha() {
+  if (!this.recaptchaElement || this.capchaObject)
+    return;
+
+  this.capchaObject = window['grecaptcha'].render(this.recaptchaElement.nativeElement, {
+    'sitekey': environment.captchaKey,
+    'callback': (response) => {
+      this.invalidCaptcha = false;
+      this.captchaToken = response;
+    },
+    'expired-callback': () => {
+      this.captchaToken = '';
+    }
+  });
+}
+
   findInvalidControls() {
     const invalid = [];
     const controls = this.serviceForm.controls;
