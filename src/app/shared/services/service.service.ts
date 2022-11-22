@@ -44,6 +44,82 @@ export class ServiceService {
     if (!limit) {
       limit = 10;
     }
+    let dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
+    .where('lang', "==", lang)
+    .where('status', "==", ACTIVE)
+    .orderBy('published_at', 'desc')
+    .limit(limit)
+    )
+    if (categorySlug) {
+      if(categorySlug.split(" ")[0]!= "subcategory")
+      dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
+        .where("category.slug", "==", categorySlug)
+        .where('lang', "==", lang)
+        .where('status', "==", ACTIVE)
+        .orderBy('published_at', 'desc')
+        .limit(limit)
+      )
+      else{
+        console.log(categorySlug.substring(10))
+        dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
+        .where("topic_list", "array-contains-any", [categorySlug.substring(12)])
+        .where('lang', "==", lang)
+        .where('status', "==", ACTIVE)
+        .orderBy('published_at', 'desc')
+        .limit(limit)
+      )
+      }
+    }
+
+    switch (navigation) {
+      case 'next':
+        if (categorySlug)
+        if(categorySlug.split[0]!= "subcategory")
+          dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
+            .where("category.slug", "==", categorySlug)
+            .where('lang', "==", lang)
+            .where('status', "==", ACTIVE)
+            .orderBy('published_at', 'desc')
+            .limit(limit)
+            .startAfter(lastVisible))
+          else{
+            dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
+        .where("topic_list", "array-contains-any", [categorySlug.substring(10)])
+        .where('lang', "==", lang)
+        .where('status', "==", ACTIVE)
+        .orderBy('published_at', 'desc')
+        .limit(limit)
+        .startAfter(lastVisible))
+        break;
+          }
+        else   
+        dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
+        .where('lang', "==", lang)
+        .where('status', "==", ACTIVE)
+        .orderBy('published_at', 'desc')
+        .limit(limit)
+        .startAfter(lastVisible))
+        break;
+    }
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        serviceList: actions.map(a => {
+
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+        lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+      }
+    })
+    );
+  }
+
+
+  getServicessub( limit: number = 10, navigation: string = "first", lastVisible = null ,categorySlug: string = null,lang: string = 'en') {
+    if (!limit) {
+      limit = 10;
+    }
     if (categorySlug==null) 
     console.log(categorySlug);
     let dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
@@ -54,7 +130,7 @@ export class ServiceService {
     )
     if (categorySlug) {
       dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
-        .where("category.slug", "==", categorySlug)
+      .where("topic_list", "array-contains-any", [categorySlug])
         .where('lang', "==", lang)
         .where('status', "==", ACTIVE)
         .orderBy('published_at', 'desc')
@@ -66,7 +142,7 @@ export class ServiceService {
       case 'next':
         if (categorySlug)
           dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
-            .where("category.slug", "==", categorySlug)
+          .where("topic_list", "array-contains-any", [categorySlug])
             .where('lang', "==", lang)
             .where('status', "==", ACTIVE)
             .orderBy('published_at', 'desc')
@@ -118,6 +194,7 @@ export class ServiceService {
     }
     let dataQuery1 = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
     .where(searchfield, ">=", searchValue)
+    .where(searchfield, "<=", searchValue + '\uf8ff')
     .where('lang', "==", lang)
     .where('status', "==", ACTIVE)
     .orderBy(searchfield, 'desc')
@@ -126,10 +203,12 @@ export class ServiceService {
     )
     if (categorySlug) {
       dataQuery1 = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
-        .where("category.slug", "==", categorySlug)
         .where(searchfield, ">=", searchValue)
+        .where(searchfield, "<=", searchValue + '\uf8ff')
+        .where("category.slug", "==", categorySlug)
         .where('lang', "==", lang)
         .where('status', "==", ACTIVE)
+        .orderBy(searchfield, 'desc')
         .orderBy('published_at', 'desc')
         .limit(limit)
       )

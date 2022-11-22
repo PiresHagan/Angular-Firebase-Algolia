@@ -25,7 +25,7 @@
                         <tr>
                             <td>
                                 <nz-form-item>
-                                    <nz-form-control >
+                                    <nz-form-control>
                                         <select class="round" #selectList (change)="getsearchfield(selectList.value) ">
                                             <option value="title">{{ 'artTitle' | translate }} </option>
                                             <option value="city">{{ 'city' | translate }} </option>
@@ -299,7 +299,7 @@
                             </td>
                             <td>
                                 <nz-form-item>
-                                    <nz-form-control >
+                                    <nz-form-control>
                                         <button nz-button nzType="primary" nzSize="large" nzSearch
                                             (click)="getService()" [disabled]="!searchres ?true:false">{{'search' |
                                             translate}}</button>
@@ -312,14 +312,12 @@
 
                                 <nz-form-item>
                                     <nz-form-control [formGroup]="form">
-                                        <select class="minimal" id="dropdown" #selectLista
-                                            (change)="getPageDetails(selectLista.value) " formControlName="category">
-                                            <option value="null" selected="true" disabled="disabled">{{ 'artCategoryErr' | translate }}</option>
-                                            <option *ngFor="let cat of categories" value="{{cat.slug}}">
-                                                {{cat.title}}</option>
-                                        </select>
+                                        <nz-tree-select style="width: 250px" [(ngModel)]="value" [nzNodes]="nodes"
+                                            (ngModelChange)="onChange($event)" nzPlaceHolder="Please select" formControlName="category">
+                                        </nz-tree-select>
                                     </nz-form-control>
                                 </nz-form-item>
+
                             </td>
 
                         </tr>
