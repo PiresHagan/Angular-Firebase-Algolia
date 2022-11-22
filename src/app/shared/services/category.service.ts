@@ -6,6 +6,7 @@ import { Category } from '../interfaces/category.type';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Subategory } from '../interfaces/subCategory';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ import { environment } from 'src/environments/environment';
 export class CategoryService {
   categoriesCollection: string = 'categories';
   categoriesserCollection: string = 'categories_services';
+  topicollection: string = 'topics';
   categoryDocument: string = 'category';
   funnelsCollection: string = 'funnels';
   topicsCollection: string = 'topics';
@@ -37,6 +39,17 @@ export class CategoryService {
 
   getAllser(language: string = 'en') {
     return this.db.collection<Category[]>(this.categoriesserCollection, ref => ref.where('lang', '==', language).orderBy('order', 'asc')).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const uid = a.payload.doc.id;
+          return { uid, ...data };
+        });
+      })
+    );
+  }
+  getAllsubser(cat: Category ) {
+    return this.db.collection<Subategory[]>(this.topicollection, ref => ref.where('category', '==', cat.id)).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
