@@ -23,3 +23,7 @@ export const POLITICIAN = 'politician';
 export const HOSTEVENT = 'host-event';
 export const RESTAURANT = 'restaurant';
 export const VACATIONSRENTALS = 'vacations-rentals';
+
+export const PROVIDER = 'provider';
+export const CUSTOMER_SERVICE = 'customer-service'
+export const CUSTOMER_SERVICE_ADMIN = 'customer-service-admin'
