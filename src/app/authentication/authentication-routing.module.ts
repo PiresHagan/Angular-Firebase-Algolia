@@ -14,6 +14,7 @@ import { AddWebsiteComponent } from "./add-website/add-website.component";
 import { CompanyComponent } from "./company/company.component";
 import { PendingComponent } from "./pending/pending.component";
 import { ComingSoonComponent } from "./coming-soon/coming-soon.component";
+import { RestrictProfileGuard } from "../shared/guard/restrict-profile.guard";
 
 const routes: Routes = [
   {
@@ -81,7 +82,7 @@ const routes: Routes = [
     data: {
       title: "Complete your profile",
     },
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RestrictProfileGuard],
   },
   {
     path: "import-contact",
