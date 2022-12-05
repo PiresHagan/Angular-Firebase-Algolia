@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { Language } from 'src/app/shared/interfaces/language.type';
 import { UserService } from 'src/app/shared/services/user.service';
+import{ PROVIDER, CUSTOMER_SERVICE, CUSTOMER_SERVICE_ADMIN} from 'src/app/shared/constants/member-constant'
 
 @Component({
   selector: 'app-login',
@@ -310,6 +311,11 @@ export class LoginComponent implements OnInit {
   isOnboardingProcessDone() {
     const memberDetails = this.memberDetails;
     const userDetails = this.userDetails;
+    if(memberDetails.user_type && 
+      ((memberDetails.user_type == PROVIDER) ||  (memberDetails.user_type == CUSTOMER_SERVICE)
+      || (memberDetails.user_type == CUSTOMER_SERVICE_ADMIN))) {
+        return true;
+      }
     if (
       !memberDetails.bio || !memberDetails.avatar || !memberDetails.user_type
       || !userDetails.interests || userDetails.interests.length == 0 || !memberDetails.avatar.url
