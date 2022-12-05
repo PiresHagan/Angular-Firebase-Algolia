@@ -18,6 +18,12 @@
       float: left;
       img {
         width: 100%;
+        border:1px solid #eee;
+      }
+      ::ng-deep cl-image{
+        img{
+          border:1px solid #eee;
+        }
       }
     }
     .is-author-profile-info {
@@ -331,6 +337,15 @@
             font-weight: bold;
             display: inline-block;
           }
+          .hide-feature-img{
+            ::ng-deep cl-image{
+              img{
+                border:1px solid #eee;
+                border-radius: 100%;
+              }
+            }
+          }
+
         }
 
         .item-card-title {
