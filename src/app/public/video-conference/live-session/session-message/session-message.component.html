@@ -1,0 +1,16 @@
+<div class="message-wrapper">
+    <div class="message-from-me-info" *ngIf="message_from_me && !message_from_boot">
+        <strong class="message-from-me">You</strong>
+        <p class="message-from-me-body">{{message.text}}</p>
+        <p class="message-from-me-time">{{message.sent_at}}</p>
+    </div>
+    <div class="message-from-user-info" *ngIf="!message_from_me && !message_from_boot">
+        <strong class="message-from-user">{{message.from_user_name}}</strong>
+        <p class="message-from-user-body">{{message.text}}</p>
+        <p class="message-from-user-time">{{message.sent_at}}</p>
+    </div>
+    <div class="message-from-boot-info" *ngIf="message_from_boot">
+        <p class="message-from-boot-body">{{message.text}}</p>
+        <p class="message-from-boot-time">{{message.sent_at}}</p>
+    </div>
+</div>

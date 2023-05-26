@@ -976,6 +976,8 @@
   "ecommerceHomeBannerText": "Welcome To Mytrendingstories E-commerce Section",
   "conSave": "Your data has been sent successfully.",
   "Bookingser": "Booking",
-  "SimilarServices": "Similar Services"
- 
+  "SimilarServices": "Similar Services",
+  "LiveSessionsText":"Live Sessions",
+  "videoConferenceTitle":"Live Sessions"
+
 }

@@ -12,6 +12,14 @@ const routes: Routes = [
     loadChildren: () => import('./service/service.module').then(m => m.ServiceModule)
   },
   {
+    path: 'video-conference',
+    loadChildren: () => import('./video-conference/video-conference.module').then(m => m.VideoConferenceModule)
+  },
+  {
+    path: 'video-conference/:lsessionid',
+    loadChildren: () => import('./video-conference/video-conference.module').then(m => m.VideoConferenceModule)
+  },
+  {
     path: 'category/:slug',
     loadChildren: () => import('./category/category.module').then(m => m.CategoryModule)
   },

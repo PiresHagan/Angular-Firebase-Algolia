@@ -1,0 +1,51 @@
+.participant_waited_wrapper{
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    padding-left: 1em;
+}
+.participant_waited_info{
+    padding-left: 1em;
+}
+.participant_waited-profile-img{
+    width: 50px;
+    height: 50px;
+    line-height: 140px;
+    margin: 0px 10px 0px -25px;
+    border-radius: 8px;
+}
+
+.participant_waited_name{
+    font-size: 14px;
+    line-height: 0;
+    /* margin: 10px 10px; */
+    /* padding-top: 55px; */
+    /* margin-top: 56px; */
+    margin-left: 10px;
+    text-align: center;
+    /* text-align: center; */
+    vertical-align: middle;
+}
+
+.session-owner-actions-btns{
+    position: relative;
+    float: right;
+    width: fit-content;
+    margin-left: 50px;
+}
+
+.btn-admit-user{
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    background: #ff4020;
+    color: white;
+}
+
+.btn-remove-user{
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    background: #c5bfbd;
+    color: black;
+}
