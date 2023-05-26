@@ -1,0 +1,98 @@
+.message-wrapper{
+    display: flex;
+    gap: 10px;
+    margin: 0px;
+    width: 100%;
+}
+.message-from-user-info{ 
+    width: 100%;
+}
+.message-from-user{
+    font-weight: 600;
+    color: #ede0e0;
+    margin-right: 10px;
+    color: #2aca3e!important;
+}
+.message-from-user-body{
+    background-color: #dde0e5;
+    color: #6c6565;
+    border-radius: 10px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 60px;
+    padding: 10px 15px;
+    width: 100%;
+    margin: 0px;
+    width: fit-content;
+    min-width: 48%;
+}
+.message-from-user-time{
+    color: #ede0e0;
+    margin-right: 10px;
+    display: none;
+}
+
+.message-from-me-info{ 
+    width: 100%;
+
+    direction: rtl;
+}
+.message-from-me{
+    font-weight: 600;
+    color: #ede0e0;
+    margin-right: 10px;
+    color: #2a5dca!important;
+}
+.message-from-me-body{
+    background-color: #ffc9c04d;
+    color: #464242;
+    border-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 60px;
+    border-bottom-left-radius: 10px;
+    padding: 10px 15px;
+    width: 100%;
+    margin: 0px;
+    text-align: left;
+    width: fit-content;
+    min-width: 48%;
+}
+.message-from-me-time{
+    color: #ede0e0;
+    margin-right: 10px;
+    display: none;
+}
+
+.message-from-boot-info{ 
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+    vertical-align: middle;
+}
+.message-from-boot{
+    font-weight: 600;
+    color: #ede0e0;
+    margin-right: 10px;
+    color: #d69c9c!important;
+}
+.message-from-boot-body{
+    background-color: #6eef564d;
+    border-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding: 10px 10px;
+    width: 100%;
+    margin: 0px;
+    text-align: center;
+    width: fit-content;
+    min-width: 48%;
+}
+.message-from-boot-time{
+    color: #ede0e0;
+    margin-right: 10px;
+    display: none;
+}

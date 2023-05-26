@@ -75,7 +75,7 @@
                     </div>
                 </li>
 
-                
+
             </ul>
 
             <ul nz-menu [nzMode]="'inline'" class="hidden-on-lg mobile-mega-menu">
@@ -90,7 +90,7 @@
                         {{item.title}}</li>
 
                 </ng-container>
-                
+
                 <li nz-submenu nzTitle="{{'More' | translate}}" class="xs-menu-item">
                     <ng-container *ngFor="let item of (categories)">
                         <div [ngClass]="item.slug">
@@ -118,7 +118,7 @@
                     </ng-container>
                 </li>
 
-                
+
                 <li class="h-auto line-height-normal" nz-menu-item *ngIf="!isLoggedInUser">
                     <a class="is-login-link" (click)="routeLogin()">
                         {{'login' | translate }}

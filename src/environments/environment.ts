@@ -9,6 +9,9 @@ export const environment = {
   production: false,
   captchaKey: '6LfMnKoZAAAAALeLCs7H9LL9MhOy3EmcwtchxUf-',
   baseAPIDomain: 'https://us-central1-my-trending-stories-dev.cloudfunctions.net',
+  agoraConfiguration:{
+    appid:'113b0649c5e6430ab2eddb3f7696a12f'
+  },
   algolia: {
     applicationId: 'N7WFUORZZU',
     apiKey: '6f5d2e637debb45f0078b85091532c42',

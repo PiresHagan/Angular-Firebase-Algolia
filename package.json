@@ -43,6 +43,8 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "@stripe/stripe-js": "^1.8.0",
+    "agora-rtc-sdk-ng": "^4.17.2",
+    "agora-rtm-sdk": "^1.6.0-205",
     "algoliasearch": "^3.35.1",
     "angular-instantsearch": "^2.3.0",
     "cloudinary-core": "^2.10.3",
