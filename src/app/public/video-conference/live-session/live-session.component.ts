@@ -1,6 +1,8 @@
-import { HostListener, Component, OnInit,OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { HostListener, Component, OnInit,OnDestroy, ViewChild, ElementRef,AfterViewChecked } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 import { Location } from "@angular/common";
+import { TranslateService } from '@ngx-translate/core';
 import { VC_Message, VC_Participant, VideoConferenceSession } from 'src/app/shared/interfaces/video-conference-session.type';
 import {environment} from 'src/environments/environment';
 import {AuthService} from 'src/app/shared/services/authentication.service';
@@ -12,10 +14,12 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
-import AgoraRTC, { ConnectionState, IAgoraRTCClient, IAgoraRTCRemoteUser, ICameraVideoTrack, ILocalAudioTrack, ILocalTrack, ILocalVideoTrack, IMicrophoneAudioTrack } from 'agora-rtc-sdk-ng';
+import AgoraRTC, {ConnectionState, IAgoraRTCClient, IAgoraRTCRemoteUser, ICameraVideoTrack, ILocalAudioTrack, ILocalTrack, ILocalVideoTrack, IMicrophoneAudioTrack } from 'agora-rtc-sdk-ng';
 import AgoraRTM, { RtmChannel, RtmClient, RtmMessage, RtmTextMessage } from 'agora-rtm-sdk';
 import { Member } from 'src/app/shared/interfaces/member.type';
 import { VideoConferenceService } from 'src/app/shared/services/video-conference.service';
+import { Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-live-session',
@@ -23,58 +27,34 @@ import { VideoConferenceService } from 'src/app/shared/services/video-conference
   styleUrls: ['./live-session.component.scss']
 })
 export class LiveSessionComponent implements OnInit, OnDestroy {
+  private ngUnsubscribe = new Subject<void>();
+  @ViewChild('messages') private messagesElement: ElementRef;
+  @ViewChild('current_stream_user_container') private current_stream_user_containerElement:ElementRef;
+  session_ended_in_diff_in_secs: number=0;
+  session_started_in_diff_in_secs: number=0;
+  current_lsession_is_started: boolean=true;
+  isLoading=true;
+  is_fullSceen:boolean=false;
+
   async ngOnDestroy() {
-    console.log("start ... destroy");
     if(this.current_lsession_is_ended)
       return;
 
     try{
       await this.leaveStream();
-      console.log("leaving Stream ... destroy");
       await this.leaveChannel();
-      console.log("leaving channel ... destroy");
-    return true;
     }
     catch(err){
-      console.log('error in destroy:'  + err);
+    }
+    finally{
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.complete();
+        return true;
     }
 }
   isMessageSended: boolean;
   added_current_user: boolean=false;
   current_user_joined_streem: boolean=false;
-  @HostListener('window:beforeunload .... beforeUnloadHandler', ['$event'])
-  async beforeUnloadHandler(event: Event) {
-    if(this.current_lsession_is_ended)
-      return;
-    console.log("start ... before unload");
-    try{
-      await this.leaveStream();
-      console.log("leaving Stream ... before unload");
-      await this.leaveChannel();
-      console.log("leaving channel ... before unload");
-    return true;
-    }
-    catch(err){
-      console.log('error in before unload:'  + err);
-    }
-  };
-  @HostListener('window:unload', [ '$event' ])
-  async unloadHandler(event) {
-    console.log("start ... unload");
-    if(this.current_lsession_is_ended)
-      return;
-    try{
-      await this.leaveStream();
-      console.log("leaving Stream ... unload");
-      await this.leaveChannel();
-      console.log("leaving channel ... unload");
-    return true;
-    }
-    catch(err){
-      console.log('error in unload:'  + err);
-    }
-  }
-
   lsessionid: string;
   current_lsession:VideoConferenceSession=null;
   current_vcParticipant:VC_Participant=null;
@@ -86,16 +66,16 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
   sessionMessages: VC_Message[] = [];
   current_lsession_is_ended:boolean=false;
   agora_APP_ID = environment.agoraConfiguration.appid;
-  rtm_client: any= null;
+  rtm_client: RtmClient= null;
   rtm_token : any;
-  rtm_uid : string = String(Math.floor(Math.random() * 10000));
-  stream_users: any[] = [];
+  rtm_uid : string;
+  stream_users: VC_Participant[] = null;
   current_stream_user: any = null;
   can_user_join_stream:boolean = false;
   local_tracks: any;
   local_screen_tracks: any;
-  rtc_channel : any;
-  rtc_client: IAgoraRTCClient|null = null;
+  rtm_channel : RtmChannel;
+  rtc_client: IAgoraRTCClient = null;
   mic_btn_class: string="active";
   camera_btn_class: string="active";
   sharing_screen: boolean=false;
@@ -110,104 +90,120 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
   last_pasrticipant_visible:any;
   last_pasrticipantWaitlist_visible:any;
   messageForm: FormGroup;
+  Participants_Translate = '';
+  WaitingList_Translate='';
+  Messages_Translate='';
+  is_recording_enabled:boolean=false;
+  is_recording_started:boolean=false;
+  onClickTimer:any;
+  preventOneClick:boolean=true;
 
   constructor(
-    private route: ActivatedRoute,
+    private activeRoute: ActivatedRoute,
     private authService:AuthService,
     private location: Location,
     private fb: FormBuilder,
+    public translate: TranslateService,
     private message: NzMessageService,
     private videoConferenceService:VideoConferenceService,
+    private route: Router,
+    private datePipe: DatePipe,
+    private elRef:ElementRef
   ) {
-
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    AgoraRTC.setLogLevel(4);
+    this.Participants_Translate = this.translate.instant("Participants");
+    this.WaitingList_Translate = this.translate.instant("WaitingList");
+    this.Messages_Translate = this.translate.instant("Messages");
+    this.activeRoute.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(params => {
       this.lsessionid = params.get('lsessionid');
-      console.log('lsessionid: '+ this.lsessionid);
     });
     this.messageForm = this.fb.group({
       user_message: [null, [Validators.required]]
     });
     this.setFormData();
-    //const loggedInUser = this.authService.getLoginDetails();
-    this.authService.getAuthState().subscribe(async (user) => {
+    this.authService.getAuthState().pipe(takeUntil(this.ngUnsubscribe)).subscribe(async (user) => {
+      this.isLoading=true;
       if (!user) return;
       const cloggedInUser = await this.authService.getLoggedInUserDetails();
       if (!cloggedInUser) return;
       this.loggedInUser = cloggedInUser;
-      //this.rtm_uid = this.loggedInUser.id;
       if(this.current_lsession_is_ended) {
-        this.showMessage("error", 'This Session has been ended ');
+        this.showMessage(this.translate.instant("ErrorMessageTitle"), this.translate.instant("ThisSessionHasBeenEnded"));
+        this.isLoading=false;
         return;
       }
-      this.videoConferenceService.getSessionById(this.lsessionid).subscribe(async (data)=>{
+      this.videoConferenceService.getSessionById(this.lsessionid).pipe(takeUntil(this.ngUnsubscribe)).subscribe(async (data)=>{
         if (!data) return;
         this.current_lsession = data;
         if(this.current_lsession.is_started==false){
-          this.showMessage("error", 'This Session is not started ');
+          this.current_lsession_is_started =false;
+          this.showMessage(this.translate.instant("ErrorMessageTitle"), this.translate.instant("ThisSessionIsNotStarted"));
+          this.isLoading=false;
           return;
         }
         if(this.current_lsession_is_ended || this.current_lsession.is_ended==true){
-          this.showMessage("error", 'This Session has been ended ');
+          this.showMessage(this.translate.instant("ErrorMessageTitle"), this.translate.instant("ThisSessionHasBeenEnded"));
+          this.isLoading=false;
           return;
         }
         let current_lsession_start_time: Date= new Date(this.current_lsession?.start_time);
         let current_lsession_end_time: Date= new Date(this.current_lsession?.end_time);
         let current_date_time: Date = new Date();
         if(current_lsession_start_time > current_date_time){
-          let diff_in_secs = Math.floor((current_lsession_start_time.getTime() - current_date_time.getTime()) / 1000);
-          this.showMessage("error", 'This Session Will start after: ' + this.ShowTimeDiffrence(diff_in_secs));
+          this.current_lsession_is_started =false;
+          this.session_started_in_diff_in_secs = Math.floor((current_lsession_start_time.getTime() - current_date_time.getTime()) / 1000);
+          this.showMessage(this.translate.instant("ErrorMessageTitle"), this.translate.instant("ThisSessionWillStartAfter") + ' : ' + this.ShowTimeDiffrence(this.session_started_in_diff_in_secs));
+          this.isLoading=false;
           return;
         }
         if(current_lsession_end_time <= current_date_time){
-          let diff_in_secs = Math.floor((current_date_time.getTime() - current_lsession_end_time.getTime()) / 1000);
-          this.showMessage("error", 'This Session has been ended before: ' + this.ShowTimeDiffrence(diff_in_secs));
+          this.current_lsession_is_started =false;
+          this.session_ended_in_diff_in_secs = Math.floor((current_date_time.getTime() - current_lsession_end_time.getTime()) / 1000);
+          this.showMessage(this.translate.instant("ErrorMessageTitle"), this.translate.instant("ThisSessionHasBeenEndedBefore") + ' : ' + this.ShowTimeDiffrence(this.session_ended_in_diff_in_secs));
           if(this.loggedInUser.id == this.current_lsession.owner_id){
             this.current_lsession_is_ended =true;
             this.current_lsession.is_ended=true;
             this.current_lsession.ended_at=new Date();
-            let ending_message='has Ended the session at ' + new Date().toDateString() + ' ... because it has been expired!! ';
+            let ending_message=this.translate.instant("hasEndedTheSessionAt") + " : " + new Date().toDateString() + ', ' + this.translate.instant("becauseItHasBeenExpired") + ' ... ';
             await this.sendLeavingMessage(ending_message);
             await this.videoConferenceService.endVideoConferenceById(this.current_lsession.id, this.current_lsession, this.sessionParticipants, this.sessionParticipantsWaitlist);
           }
+          this.isLoading=false;
           return;
         }
-
-        if(!this.rtm_client || this.rtm_client == null){
-          await this.InitSession();
-        }
+        this.current_lsession_is_started =true;
         if(this.loggedInUser.id == this.current_lsession.owner_id){
           if(!this.added_current_user){
             this.is_current_user_owner = true;
             this.addCurrentUserToCurrentSession('owner');
-            let welcominging_message='has started the session ';
-            this.sendWelcomMessage(welcominging_message);
           }
         }
         else{
           if(!this.added_current_user){
             this.is_current_user_owner = false;
             this.addCurrentUserToCurrentSession();
-            let welcominging_message='has asked to join this session ';
-            this.sendWelcomMessage(welcominging_message);
           }
         }
         await this.getCurrentSessionMessages();
         await this.getSessionOnWaitParticipants();
         await this.getCurrentSessionParticipants();
+        this.isLoading = false;
       });
     });
   }
 
+  ngAfterViewChecked() {
+  }
   async addCurrentUserToCurrentSession(type:string='participant'){
     if(this.current_lsession.is_started==false){
-      this.showMessage("error", 'This Session is not started ');
+      this.showMessage(this.translate.instant('ErrorMessageTitle'), this.translate.instant('ThisSessionIsNotStarted'));
       return;
     }
     if(this.current_lsession_is_ended || this.current_lsession.is_ended==true){
-      this.showMessage("error", 'This Session has been ended ');
+      this.showMessage(this.translate.instant('ErrorMessageTitle'), this.translate.instant('ThisSessionHasBeenEnded'));
       return;
     }
     this.added_current_user=true;
@@ -231,20 +227,40 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
           canceled_at:null,
           camera_on:true,
           mic_on:true,
-          screen_share_on:false
+          screen_share_on:false,
+          uid:String(Math.floor(Math.random() * 10000))
           };
           try{
               this.videoConferenceService
                 .addSessionParticipant(this.lsessionid, finalObject)
-                .subscribe((result: any) => {
-                  console.log(JSON.stringify(result));
-                  console.log("success", "user added succesfully");
+                .pipe(take(1))
+                .subscribe(async (result: any) => {
+                  if(result && result.status != 'error'){
+                    let welcominging_message=this.translate.instant('hasStartedTheSession');
+                    this.sendWelcomMessage(welcominging_message);
+                  }
+                  else{
+                    await this.videoConferenceService.getSessionParticipantByID(this.lsessionid, result.participantId)
+                    .pipe(take(1))
+                    .subscribe(async (result_of_getting_participant: VC_Participant) => {
+                      if(result_of_getting_participant){
+                        result_of_getting_participant.is_online=true;
+                        result_of_getting_participant.camera_on=true;
+                        result_of_getting_participant.mic_on=true;
+                        await this.videoConferenceService.updateSessionParticipant(this.lsessionid, result.participantId, result_of_getting_participant)
+                        .pipe(take(1))
+                          .subscribe((result_of_update_participant: any) => {
+                            let welcominging_message=this.translate.instant('hasJoinedThisSession');
+                            this.sendWelcomMessage(welcominging_message);
+                          }, error=> {
+                          });
+                      }
+                    });
+                  }
                 }, error=> {
-                  console.log(JSON.stringify(JSON.stringify(error)));
                 });
               }
               catch(er){
-                console.log(JSON.stringify(JSON.stringify(er)));
               }
       }
     }
@@ -267,16 +283,38 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
           canceled_at:null,
           camera_on:true,
           mic_on:true,
-          screen_share_on:false
+          screen_share_on:false,
+          uid:String(Math.floor(Math.random() * 10000))
           };
           try{
               this.videoConferenceService
                     .addSessionParticipant(this.lsessionid, finalObject)
-                    .subscribe((result: any) => {
+                    .pipe(take(1))
+                    .subscribe(async (result: any) => {
                       this.messageForm.reset();
                       this.isMessageSended = false;
-                      console.log(result);
-                      console.log("success", "user added succesfully");
+                      if(result && result.status != 'error'){
+                        let welcominging_message=this.translate.instant('hasAskedToJoinThisSession');
+                        this.sendWelcomMessage(welcominging_message);
+                      }
+                      else{
+                        await this.videoConferenceService.getSessionParticipantByID(this.lsessionid, result.participantId)
+                        .pipe(take(1))
+                        .subscribe(async (result_of_getting_participant: VC_Participant) => {
+                          if(result_of_getting_participant){
+                            result_of_getting_participant.is_online=true;
+                            result_of_getting_participant.camera_on=true;
+                            result_of_getting_participant.mic_on=true;
+                            await this.videoConferenceService.updateSessionParticipant(this.lsessionid, result.participantId, result_of_getting_participant)
+                            .pipe(take(1))
+                              .subscribe((result_of_update_participant: any) => {
+                                let welcominging_message=this.translate.instant('hasAskedToJoinThisSession');
+                                this.sendWelcomMessage(welcominging_message);
+                              }, error=> {
+                              });
+                          }
+                        });
+                      }
                     }, error=> {
                       this.showMessage("error", JSON.stringify(error));
                       this.isMessageSended = false;
@@ -292,13 +330,6 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
     }
     await this.getSessionOnWaitParticipants();
     await  this.getCurrentSessionParticipants();
-    if(type=='owner'){
-      if(this.can_user_join_stream && !this.current_user_joined_streem){
-        this.joinStream();
-        //this.current_stream_user= this.rtm_uid; //this.loggedInUser.id;
-        //this.maximizeStreamUserScreen(this.current_stream_user);
-      }
-  }
     this.added_current_user=true;
 }
 
@@ -306,24 +337,17 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
   setFormData() {
 
   }
-
-  async InitSessionTesting(){
-    console.log('InitSessionTesting started .... ');
-    this.can_user_join_stream = true;
-    this.stream_users.push(this.loggedInUser.id);
-  }
-
-  async joinStreamTesting(){
-    console.log("joinStreamTesting started ....");
-    this.stream_users.push(this.loggedInUser.id);
-    console.log("joined ...... ");
+  scrollMessagesToBottom():void{
+    try {
+      this.messagesElement.nativeElement.scrollTop = this.messagesElement?.nativeElement?.scrollHeight;
+    } catch(err) {}
   }
 
   getCurrentSessionInfo(){
-    console.log('getCurrentSessionInfo')
-    this.videoConferenceService.getSessionById(this.lsessionid).subscribe((data)=>{
+    this.videoConferenceService.getSessionById(this.lsessionid)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe((data)=>{
       this.current_lsession = data;
-      console.log('current_lsession: ' + this.current_lsession.name);
     });
   }
   async getCurrentSessionMessages(){
@@ -333,11 +357,16 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
     if(this.current_lsession_is_ended || this.current_lsession.is_ended==true){
       return;
     }
-    await this.videoConferenceService.getSessionMessages(this.lsessionid, 1000, 'first', this.last_message_visible).subscribe((data)=>{
+    await this.videoConferenceService.getSessionMessages(this.lsessionid, 1000, 'first', this.last_message_visible)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe((data)=>{
       this.sessionMessages = data.messages;
       this.last_message_visible=data.lastVisible;
       this.session_messagesCount = this.sessionMessages.length;
-    })
+      setTimeout(() => {
+        this.scrollMessagesToBottom();
+      }, 1000);
+      })
   }
   async getCurrentSessionParticipants(){
     if(this.current_lsession.is_started==false){
@@ -346,31 +375,67 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
     if(this.current_lsession_is_ended || this.current_lsession.is_ended==true){
       return;
     }
-    await this.videoConferenceService.getSessionParticipants(this.lsessionid, 1000, 'first', this.last_pasrticipant_visible).subscribe((data)=>{
-      this.sessionParticipants = data.participants;
-      this.last_pasrticipant_visible=data.lastVisible;
-      this.session_participantsCount = this.sessionParticipants.length;
-      if(this.rtm_client && this.rtm_client!=null && this.loggedInUser && this.loggedInUser!=null){
-        this.sessionParticipants.map(sp=>{
-          if(sp.user_id==this.loggedInUser.id){
-                  this.current_vcParticipant = sp;
-                  this.current_vcParticipant_id = sp.id;
-                  //if(this.loggedInUser.id != this.current_lsession.owner_id)
-                  {
-                    if(this.current_vcParticipant.asked_to_join==true && this.current_vcParticipant.is_approved){
-                        if(this.can_user_join_stream && !this.current_user_joined_streem){
-                          if(this.current_lsession.is_started && !this.current_lsession.is_ended){
-                            this.joinStream();
-                          //this.current_stream_user= this.rtm_uid; //this.loggedInUser.id;
-                          //this.maximizeStreamUserScreen(this.current_stream_user);
-                          }
-                        }
+    this.videoConferenceService.getSessionParticipants(this.lsessionid, 1000, 'first', this.last_pasrticipant_visible)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((data) => {
+        this.sessionParticipants = data.participants;
+        this.last_pasrticipant_visible = data.lastVisible;
+        let old_session_participantsCount = this.session_participantsCount;
+        this.session_participantsCount = this.sessionParticipants.length;
+        if (this.loggedInUser && this.loggedInUser != null) {
+          this.sessionParticipants.map(sp => {
+            if (sp.user_id == this.loggedInUser.id) {
+              this.current_vcParticipant = sp;
+              this.current_vcParticipant_id = sp.id;
+              if (this.loggedInUser.id != this.current_lsession.owner_id) {
+                if (this.current_vcParticipant.asked_to_join == true && this.current_vcParticipant.is_approved) {
+                  if (this.current_lsession.is_started && !this.current_lsession.is_ended) {
+                    if (!this.rtm_client || this.rtm_client == null) {
+                      this.InitSession(sp.uid);
                     }
                   }
+                }
+              }
+              else {
+                if (!this.rtm_client || this.rtm_client == null) {
+                  this.InitSession(sp.uid);
+                }
+              }
+            }
+          });
+          if (this.rtm_client) {
+            if (this.stream_users == null || this.stream_users.length == 0) {
+              this.stream_users = this.sessionParticipants;
+            }
+            else {
+              this.sessionParticipants.forEach(p => {
+                let p_found_index = this.stream_users.findIndex(x => x.user_id == p.user_id);
+                if (p_found_index >= 0) {
+                  let p_found: VC_Participant = this.stream_users[p_found_index];
+                  if (p_found) {
+                    this.stream_users[p_found_index].asked_to_join = p.asked_to_join;
+                    this.stream_users[p_found_index].asked_to_join_at = p.asked_to_join_at;
+                    this.stream_users[p_found_index].is_approved = p.is_approved;
+                    this.stream_users[p_found_index].approved_at = p.approved_at;
+                    this.stream_users[p_found_index].joinded_at = p.joinded_at;
+                    this.stream_users[p_found_index].is_joined = p.is_joined;
+                    this.stream_users[p_found_index].is_online = p.is_online;
+                    this.stream_users[p_found_index].leaved_at = p.leaved_at;
+                    this.stream_users[p_found_index].is_canceled = p.is_canceled;
+                    this.stream_users[p_found_index].canceled_at = p.canceled_at;
+                    this.stream_users[p_found_index].camera_on = p.camera_on;
+                    this.stream_users[p_found_index].mic_on = p.mic_on;
+                    this.stream_users[p_found_index].screen_share_on = p.screen_share_on;
+                  }
+                }
+                else {
+                  this.stream_users.push(p);
+                }
+              });
+            }
           }
-        });
-      }
-    })
+        }
+      })
   }
   async getSessionOnWaitParticipants (){
     if(this.current_lsession.is_started==false){
@@ -379,54 +444,45 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
     if(this.current_lsession_is_ended || this.current_lsession.is_ended==true){
       return;
     }
-    await this.videoConferenceService.getSessionOnWaitParticipants(this.lsessionid, 1000, 'first', this.last_pasrticipantWaitlist_visible).subscribe((data)=>{
+    await this.videoConferenceService.getSessionOnWaitParticipants(this.lsessionid, 1000, 'first', this.last_pasrticipantWaitlist_visible)
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe((data)=>{
       this.sessionParticipantsWaitlist = data.participants;
       this.last_pasrticipantWaitlist_visible=data.lastVisible;
       this.session_waitlist_participantsCount = this.sessionParticipantsWaitlist.length;
     })
   }
 
-  async InitSession(){
+  async InitSession(rtm_id_:string){
+    this.rtm_uid=rtm_id_;
     if(this.current_lsession.is_started==false){
-      this.showMessage("error", 'This Session is not started ');
+      this.showMessage(this.translate.instant('ErrorMessageTitle'), this.translate.instant('ThisSessionIsNotStarted'));
       return;
     }
     if(this.current_lsession_is_ended==true || this.current_lsession.is_ended==true){
-      this.showMessage("error", 'This Session has been ended ');
+      this.showMessage(this.translate.instant('ErrorMessageTitle'), this.translate.instant('ThisSessionHasBeenEnded'));
       return;
     }
-    console.log('Init Session started .... ');
     try{
+      this.stream_users=this.sessionParticipants;
         this.rtm_client = await AgoraRTM.createInstance(this.agora_APP_ID);
-        //await this.rtm_client.login({ rtm_uid_,rtm_token_});
         await this.rtm_client.login({ uid:this.rtm_uid, token:this.rtm_token});
         await this.rtm_client.addOrUpdateLocalUserAttributes({ name: this.loggedInUser.fullname});
-        this.rtc_channel = await this.rtm_client.createChannel(this.lsessionid);
-        await this.rtc_channel.join();
+        this.rtm_channel = await this.rtm_client.createChannel(this.lsessionid);
+        await this.rtm_channel.join();
         this.rtc_client = await AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
-
         this.rtc_client.on('connection-state-change',async (curState : ConnectionState, revState : ConnectionState)=>{
-          console.log("STATE: ",curState);
           if (curState == "CONNECTED"){
               this.can_user_join_stream = true;
+              await this.joinStream();
           }
         })
 
-
         await this.rtc_client.join(this.agora_APP_ID, this.lsessionid, null, this.rtm_uid);
-        console.log("rtc_client uid: ",this.rtc_client.uid);
-
         this.rtc_client.on("user-published", async (user: IAgoraRTCRemoteUser, mediaType: "audio"|"video")=>{
-          console.log("JOIINED");
           await this.rtc_client?.subscribe(user, mediaType);
-          let player = this.stream_users.indexOf(user.uid);
-          console.log("joined: ",user.uid,this.rtm_uid,this.stream_users,player);
-          if ((player === -1) && (this.current_stream_user != user.uid)) {
-            //if(user.uid!=this.loggedInUser.id)
-              this.stream_users.push(user.uid);
-          }
           if (mediaType === "video") {
-            user.videoTrack?.play(`user-${user.uid}`);
+            user.videoTrack?.play(`user-${user.uid}`,{fit: "fill"});
           }
           if (mediaType === "audio") {
             user.audioTrack?.play();
@@ -434,78 +490,78 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
         });
 
         let user_lefted = async (user: IAgoraRTCRemoteUser) =>{
-          console.log("lefting: " + user.uid);
-          let ind = this.stream_users.indexOf(user.uid);
-          if (ind != -1){
-            this.stream_users.splice(ind,1);
-          }
-          else if (this.current_stream_user == user.uid){
-            this.current_stream_user = null;
-          }
+          this.UserLeft(user.uid);
         };
         this.rtc_client.on("user-left", user_lefted);
 
     }
     catch(err){
-      console.log(err);
     }
-    /*if(this.can_user_join_stream){
-      await this.joinStream();
-    }*/
   }
 
-  async sendWelcomMessage(msg:string='has Joined The Session'){
-    msg= msg + ' at ' + new Date().toDateString();
+  async JoinInitiatedSession(rtm_id_:string){
+    this.rtm_uid=rtm_id_;
+    await this.joinStream();
+  }
+
+  async sendWelcomMessage(msg:string=this.translate.instant('hasJoinedThisSession')){
+    const sendingDate = this.datePipe.transform(new Date(), 'MM-dd-yyyy hh:mm:ss');
+    msg= msg + ' at ' + sendingDate;
     let finalObject:VC_Message = {
       from_user_id : "-1",
       from_user_name: "boot",
-      text: `${this.loggedInUser.fullname}  ${msg} ..... `,
+      text: `${this.loggedInUser.fullname}  ${msg}`,
       sent_at: new Date(),
       type: "-1"
       };
     this.videoConferenceService
           .addSessionMessage(this.lsessionid, finalObject)
+          .pipe(takeUntil(this.ngUnsubscribe))
           .subscribe((result: any) => {
             this.messageForm.reset();
-            console.warn(result);
-            console.log("success", "welcome message sended succesfully");
-            this.showMessage("success", "welcome message sended succesfully");
             this.isMessageSended = false;
           }, error=> {
-            this.showMessage("error", error.message);
             this.isMessageSended = false;
           });
   }
 
-  async sendLeavingMessage(msg:string='has Left The Session'){
+  async sendLeavingMessage(msg:string=this.translate.instant('hasLeftTheSession')){
+    const sendingDate = this.datePipe.transform(new Date(), 'MM-dd-yyyy hh:mm:ss');
+    msg= msg + ' at ' + sendingDate;
     let finalObject:VC_Message = {
       from_user_id : "-1",
       from_user_name: "boot",
-      text: `${this.loggedInUser.fullname}  ${msg} ..... `,
+      text: `${this.loggedInUser.fullname}  ${msg}`,
       sent_at: new Date(),
       type: "-1"
       };
     this.videoConferenceService
           .addSessionMessage(this.lsessionid, finalObject)
+          .pipe(takeUntil(this.ngUnsubscribe))
           .subscribe((result: any) => {
             this.messageForm.reset();
-            console.warn(result);
-            console.log("success", "leaving message sended succesfully");
-            this.showMessage("success", "leaving message sended succesfully");
+            this.showMessage(this.translate.instant('success'), this.translate.instant('leavingMessageSendedSuccesfully'));
             this.isMessageSended = false;
           }, error=> {
-            this.showMessage("error", error.message);
             this.isMessageSended = false;
           });
   }
-
+  TriggerSendMessage(event:KeyboardEvent){
+     if (event.key === 'Enter') {
+      if (!event.shiftKey) {
+        event.preventDefault();
+        this.SendMessage();
+      }
+    }
+  }
   SendMessage(){
     if (!this.loggedInUser) {
-      console.log('log in.... ');
       return;
     }
-    console.log('Sending Message.... ');
     this.submitForm();
+    setTimeout(() => {
+      this.scrollMessagesToBottom();
+    }, 1000);
   };
 
   submitForm() {
@@ -513,14 +569,8 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
       this.messageForm.controls[i].markAsDirty();
       this.messageForm.controls[i].updateValueAndValidity();
     }
-    /*if (this.findInvalidControls().length) {
-      this.showWarning();
-      return;
-    }*/
-
     if (this.messageForm.valid) {
       let messageFormObject = this.messageForm.getRawValue();
-      console.log(JSON.stringify(messageFormObject));
       let finalObject:VC_Message = {
         from_user_id : this.loggedInUser.id,
         from_user_name: this.loggedInUser.fullname,
@@ -530,14 +580,11 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
         };
       this.videoConferenceService
             .addSessionMessage(this.lsessionid, finalObject)
+            .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((result: any) => {
               this.messageForm.reset();
-              console.warn(result);
-              console.log("success", "message sended succesfully");
-              this.showMessage("success", "message sended succesfully");
               this.isMessageSended = false;
             }, error=> {
-              this.showMessage("error", error.message);
               this.isMessageSended = false;
             });
     }
@@ -546,68 +593,96 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
     this.message.create(type, message);
   }
 
-  ShowTimeDiffrence(diff_in_secs:number):string{
+  ShowTimeDiffrence(diff_in_secs_:number, is_elapsed:boolean=false):string{
     let res:string='';
+    let diff_in_secs:number=diff_in_secs_;
     if(diff_in_secs<60){
       if(diff_in_secs ==0 || diff_in_secs==1)
-        res= diff_in_secs + ' second';
+        res= diff_in_secs + ' ' + this.translate.instant('Second');
       else
-      res= diff_in_secs + ' secondes';
+        res= Math.round(diff_in_secs) + ' ' + this.translate.instant('Seconds');
     }
     else {
-      let diff_in_minutes = diff_in_secs/60;
+      let diff_in_minutes:number = diff_in_secs/60;
       if(diff_in_minutes<60){
         if(diff_in_minutes ==0 || diff_in_minutes==1)
-        res= diff_in_minutes + ' minute';
+          res= diff_in_minutes + ' ' + this.translate.instant('Minute');
         else
-        res= diff_in_minutes + ' minutes';
+          res= Math.floor(diff_in_minutes) + ' ' + this.translate.instant('Minutes');
+        diff_in_secs = (diff_in_minutes-Math.floor(diff_in_minutes))*60;
+        if(diff_in_secs !=0)
+        {
+          if(diff_in_secs==1)
+            res += ' && ' + diff_in_secs + ' ' + this.translate.instant('Second');
+          else if(Math.floor(diff_in_secs)!=0)
+            res += ' && ' + Math.floor(diff_in_secs) + ' ' + this.translate.instant('Seconds');
+        }
       }
       else{
-        let diff_in_hours = diff_in_minutes/60;
+        let diff_in_hours:number = diff_in_minutes/60;
         if(diff_in_hours ==0 || diff_in_hours==1)
-          res= diff_in_hours + 'hour';
-        else
-          res= diff_in_hours + ' hours';
+          res= diff_in_hours + ' ' + this.translate.instant('Hour');
+        else if(Math.floor(diff_in_hours)!=0)
+          res= Math.floor(diff_in_hours) + ' ' + this.translate.instant('Hours');
+       diff_in_minutes = (diff_in_hours-Math.floor(diff_in_hours))*60;
+       if(diff_in_minutes<60){
+        if(diff_in_minutes!=0){
+          if(diff_in_minutes==1)
+            res += ' && ' + diff_in_minutes + ' ' + this.translate.instant('Minute');
+          else if(Math.floor(diff_in_minutes)!=0)
+            res += ' && ' + Math.floor(diff_in_minutes) + ' ' + this.translate.instant('Minutes');
+          diff_in_secs =( diff_in_minutes-Math.floor(diff_in_minutes))*60;
+          if(diff_in_secs!=0){
+            if(diff_in_secs==1)
+              res += ' && ' + diff_in_secs + ' ' + this.translate.instant('Second');
+            else
+              res += ' && ' + Math.floor(diff_in_secs) + ' ' + this.translate.instant('Seconds');
+          }
+        }
       }
+      }
+    }
+    if(is_elapsed){
+      let current_lsession_start_time: Date= new Date(this.current_lsession?.start_time);
+      let current_date_time: Date = new Date();
+      this.session_started_in_diff_in_secs = Math.floor((current_lsession_start_time.getTime() - current_date_time.getTime()) / 1000);
     }
     return res;
   }
 
   async joinStream(){
     if(this.current_lsession.is_started==false){
-      this.showMessage("error", 'This Session is not started ');
+      this.showMessage(this.translate.instant('ErrorMessageTitle'), this.translate.instant('ThisSessionIsNotStarted'));
       return;
     }
     if(this.current_lsession_is_ended || this.current_lsession.is_ended==true){
-      this.showMessage("error", 'This Session has been ended ');
+      this.showMessage(this.translate.instant('ErrorMessageTitle'), this.translate.instant('ThisSessionHasBeenEnded'));
       return;
     }
-    console.log("current_user_joined_streem .... ");
     if(this.current_user_joined_streem) return;
     try{
       this.current_user_joined_streem=true;
-      console.log("join stream ....");
-      this.stream_users.push(this.rtm_uid);
-      this.local_tracks = await AgoraRTC.createMicrophoneAndCameraTracks(
-        {},
+      this.local_tracks=[];
+      this.local_tracks[0] = await AgoraRTC.createMicrophoneAudioTrack({}).catch((err)=>{
+      })
+      this.local_tracks[1] = await AgoraRTC.createCameraVideoTrack(
         {
           encoderConfig: "720p_6",
           optimizationMode: "motion"
         }
-      );
-      this.local_tracks[1].play(`user-${this.rtm_uid}`);
+      ).catch((err)=>{
+      });
+      this.local_tracks[1].play(`user-${this.rtm_uid}`,{fit: "fill"});
       await this.rtc_client?.publish([this.local_tracks[0], this.local_tracks[1]]);
-      console.log("joined and pubished");
     }
     catch(err){
       this.current_user_joined_streem=false;
-      console.warn("error in joinStream ..." + err);
     }
   };
 
   getTrack(i:any){
     let track;
-    if (i == this.rtm_uid){
+    if (i == this.current_vcParticipant?.uid){
       track = this.local_tracks[1];
       if (this.local_screen_tracks){
         track = this.local_screen_tracks;
@@ -622,41 +697,82 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
     return track;
   }
 
-  minimizeScreen(u:any){
-    let isUserExistsInStream_users:boolean = this.stream_users?this.stream_users.some((obj)=>obj == this.current_stream_user):false;
-    this.current_stream_user= null;
-    if(!isUserExistsInStream_users)
+  FullSceenToggle(u:any){
+    this.preventOneClick = true;
+    clearTimeout(this.onClickTimer);
+    const elem = this.current_stream_user_containerElement.nativeElement;
+    if(!this.is_fullSceen)
     {
-      this.stream_users.push(u);
-      let track_stream = this.local_tracks;
-      track_stream = this.getTrack(u);
-      setTimeout(() => {
-        track_stream.play(`user-${u}`);
-      })
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+      }
+      this.is_fullSceen=true;
     }
+    else{
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+      this.is_fullSceen=false;
+    }
+  }
+
+  minimizeScreen(u:any){
+    this.onClickTimer = 0;
+    this.preventOneClick = false;
+    let delay = 250;
+    this.onClickTimer = setTimeout(() => {
+      if(!this.preventOneClick){
+        let isUserExistsInStream_users:VC_Participant = this.stream_users?this.stream_users.find(obj=>obj.uid == u.uid):null;
+        if(!isUserExistsInStream_users)
+        {
+          this.stream_users.push(u);
+          let track_stream =  this.getTrack(u.uid);
+          this.current_stream_user= null;
+          this.preventOneClick = true;
+          setTimeout(() => {
+            track_stream.play(`user-${u.uid}`,{fit: "fill"});
+          },delay)
+        }
+      }
+    }, delay);
   };
   maximizeStreamUserScreen(u:any){
     let track_stream = this.local_tracks;
     let track_box = this.local_screen_tracks;
-    track_stream = this.getTrack(u);
+    track_stream = this.getTrack(u.uid);
     track_stream.stop();
     let x = this.current_stream_user;
     this.current_stream_user = u;
-    let index = this.stream_users.indexOf(u);
+    let index = this.stream_users.findIndex(o=>o.uid==u.uid);
     if (index != - 1){
       this.stream_users.splice(index,1);
     }
     if (x != null) {
-      track_box = this.getTrack(x);
+      track_box = this.getTrack(x.uid);
       track_box.stop();
       this.stream_users.push(x);
     }
     setTimeout(() => {
       if (x != null)
-        track_box.play(`user-${x}`);
-      track_stream.play(`user-${u}`);
+        track_box.play(`user-${x.uid}`,{fit: "fill"});
+        track_stream.play(`user-${u.uid}`,{fit: "fill"});
     })
   };
+
+  makeFullScreen(u:any){
+    let elemId = `user-container-` + u.uid;
+    let celem = document.getElementById(elemId);
+    let elem= celem.querySelector('video') as HTMLVideoElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    }
+  }
 
   toggleParticipants(){
     this.show_participants = !this.show_participants;
@@ -666,18 +782,17 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
   }
 
   async leaveStream (){
-    console.log("leaving stream.... started");
     if(!this.current_user_joined_streem)
       return;
     try{
       this.sharing_screen = false;
-      if (this.current_stream_user == this.rtm_uid)
+      if (this.current_stream_user && this.current_stream_user.uid == this.rtm_uid)
         this.current_stream_user = null;
       for (let i = 0; this.local_tracks.length > i; i++) {
         this.local_tracks[i].stop();
         this.local_tracks[i].close();
       }
-      let ind = this.stream_users.indexOf(this.rtm_uid);
+      let ind = this.stream_users.findIndex(o=>o.uid== this.rtm_uid);
       if (ind != -1){
         this.stream_users.splice(ind,1);
       }
@@ -687,31 +802,60 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
         this.local_screen_tracks.close();
         await this.rtc_client?.unpublish([this.local_screen_tracks]);
       }
-      console.log('leaving stream ... ended');
     }
     catch(er){
-      console.log('error in leaving stream' + er);
-      console.log(er);
+    }
+    finally{
+      this.rtc_client.leave();
+      this.ngUnsubscribe.next();
+      this.ngUnsubscribe.complete();
     }
   };
 
-  leaveChannel() {
+  async leaveAllStream (){
+    this.leaveStream();
+    this.leaveChannel();
+  }
+
+  async startRecording() {
+  }
+
+  stopRecording() {
+  }
+
+  downloadRecording(){
+  }
+
+  clearRecording(){
+  }
+
+  async leaveChannel() {
     if(!this.current_user_joined_streem)
       return;
-    console.log("leaving channel.... started");
     try{
-      this.rtc_client?.leave();
-      this.rtc_channel.leave();
-      this.rtm_client.logout();
+      await this.rtc_client?.leave();
+      await this.rtm_channel.leave();
+      await this.rtm_client.logout();
       this.rtm_client=null;
       this.rtc_client=null;
-      this.rtc_channel=null;
-      this.sendLeavingMessage();
-      console.log("leaving channel.... ended");
+      this.rtm_channel=null;
+      await this.sendLeavingMessage();
+
+      this.current_vcParticipant.camera_on=false;
+        this.current_vcParticipant.mic_on=false;
+        this.current_vcParticipant.screen_share_on=false;
+        this.current_vcParticipant.is_online=false;
+        this.current_vcParticipant.leaved_at=new Date();
+
+        await this.videoConferenceService.updateSessionParticipant(this.current_lsession.id, this.current_vcParticipant.id, this.current_vcParticipant)
+        .pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe((result: any) => {
+            this.current_user_joined_streem=false;
+          }, error=> {
+          });
       return true;
     }
     catch(er){
-      console.log('error in leaving channel' + er);
       return false;
     }
   };
@@ -723,20 +867,15 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
       if(this.current_vcParticipant !=null)
       {
         this.current_vcParticipant.mic_on=true;
-        //this.current_vcParticipant.camera_on=false;
-        //this.current_vcParticipant.screen_share_on=false;
         try{
           this.videoConferenceService
             .updateSessionParticipant(this.lsessionid, this.current_vcParticipant.id, this.current_vcParticipant)
+            .pipe(take(1))
             .subscribe((result: any) => {
-              console.warn(result);
-              console.log("success", "user updated succesfully");
             }, error=> {
-              this.showMessage("error", error);
             });
           }
           catch(er){
-            this.showMessage("error", er);
           }
       }
     } else {
@@ -745,20 +884,15 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
       if(this.current_vcParticipant !=null)
       {
         this.current_vcParticipant.mic_on=false;
-        //this.current_vcParticipant.camera_on=false;
-        //this.current_vcParticipant.screen_share_on=false;
         try{
           this.videoConferenceService
             .updateSessionParticipant(this.lsessionid, this.current_vcParticipant.id, this.current_vcParticipant)
+            .pipe(take(1))
             .subscribe((result: any) => {
-              console.warn(result);
-              console.log("success", "user updated succesfully");
             }, error=> {
-              this.showMessage("error", error);
             });
           }
           catch(er){
-            this.showMessage("error", er);
           }
       }
     }
@@ -770,21 +904,17 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
       this.camera_btn_class="active";
       if(this.current_vcParticipant !=null)
       {
-        //this.current_vcParticipant.mic_on=false;
         this.current_vcParticipant.camera_on=true;
         this.current_vcParticipant.screen_share_on=false;
         try{
           this.videoConferenceService
             .updateSessionParticipant(this.lsessionid, this.current_vcParticipant.id, this.current_vcParticipant)
+            .pipe(take(1))
             .subscribe((result: any) => {
-              console.warn(result);
-              console.log("success", "user updated succesfully");
             }, error=> {
-              this.showMessage("error", error);
             });
           }
           catch(er){
-            this.showMessage("error", er);
           }
       }
     } else {
@@ -792,58 +922,64 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
       this.camera_btn_class="notactive";
       if(this.current_vcParticipant !=null)
       {
-        //this.current_vcParticipant.mic_on=false;
         this.current_vcParticipant.camera_on=false;
         this.current_vcParticipant.screen_share_on=false;
         try{
           this.videoConferenceService
             .updateSessionParticipant(this.lsessionid, this.current_vcParticipant.id, this.current_vcParticipant)
+            .pipe(take(1))
             .subscribe((result: any) => {
-              console.warn(result);
-              console.log("success", "user updated succesfully");
             }, error=> {
-              this.showMessage("error", error);
             });
           }
           catch(er){
-            this.showMessage("error", er);
           }
       }
     }
   };
   async toggleScreen(){
     if (this.sharing_screen == false) {
-      this.sharing_screen = true;
-      this.screen_btn_class="active";
-      this.camera_btn_class="notactive";
-      this.camera_btn_display="none";
-      this.local_screen_tracks = await AgoraRTC.createScreenVideoTrack(
-        {
-          encoderConfig: "720p_3",
-          optimizationMode: "detail"
+      try{
+        this.local_screen_tracks = await AgoraRTC.createScreenVideoTrack(
+          {
+            encoderConfig: "720p_3",
+            optimizationMode: "detail"
+          }
+        );
+        this.local_screen_tracks.on('track-ended', async () => {
+          this.sharing_screen =true;
+          await this.toggleScreen();
+        });
+        if(this.local_screen_tracks){
+          this.sharing_screen = true;
+          this.screen_btn_class="active";
+          this.camera_btn_class="notactive";
+          this.camera_btn_display="none";
+          this.local_tracks[1].stop();
+          this.local_screen_tracks.play(`user-${this.rtm_uid}`,{fit: "fill"});
+          await this.rtc_client?.unpublish(this.local_tracks[1]);
+          await this.rtc_client?.publish(this.local_screen_tracks).then(()=>{
+            if(this.current_vcParticipant !=null)
+            {
+              this.current_vcParticipant.camera_on=false;
+              this.current_vcParticipant.screen_share_on=true;
+              try{
+                this.videoConferenceService
+                  .updateSessionParticipant(this.lsessionid, this.current_vcParticipant.id, this.current_vcParticipant)
+                  .pipe(take(1))
+                  .subscribe((result: any) => {
+                  }, error=> {
+                  });
+                }
+                catch(er){
+                }
+            }
+          });
         }
-      );
-      this.local_tracks[1].stop();
-      this.local_screen_tracks.play(`user-${this.rtm_uid}`,{fit: "contain"});
-      await this.rtc_client?.unpublish([this.local_tracks[1]]);
-      await this.rtc_client?.publish([this.local_screen_tracks]);if(this.current_vcParticipant !=null)
-      {
-        //this.current_vcParticipant.mic_on=false;
-        this.current_vcParticipant.camera_on=false;
-        this.current_vcParticipant.screen_share_on=true;
-        try{
-          this.videoConferenceService
-            .updateSessionParticipant(this.lsessionid, this.current_vcParticipant.id, this.current_vcParticipant)
-            .subscribe((result: any) => {
-              console.warn(result);
-              console.log("success", "user updated succesfully");
-            }, error=> {
-              this.showMessage("error", error);
-            });
-          }
-          catch(er){
-            this.showMessage("error", er);
-          }
+      }
+      catch(cse){
+        this.sharing_screen =true;
+        await this.toggleScreen();
       }
     } else {
       this.sharing_screen = false;
@@ -852,85 +988,118 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
       this.camera_btn_display="block";
       this.local_screen_tracks.stop();
       this.local_screen_tracks.close();
-      this.local_tracks[1].play(`user-${this.rtm_uid}`);
-      await this.rtc_client?.unpublish([this.local_screen_tracks]);
-      await this.rtc_client?.publish([this.local_tracks[1]]);
-      this.local_screen_tracks = null;if(this.current_vcParticipant !=null)
-      {
-        //this.current_vcParticipant.mic_on=false;
-        this.current_vcParticipant.camera_on=true;
-        this.current_vcParticipant.screen_share_on=false;
-        try{
-          this.videoConferenceService
-            .updateSessionParticipant(this.lsessionid, this.current_vcParticipant.id, this.current_vcParticipant)
-            .subscribe((result: any) => {
-              console.warn(result);
-              console.log("success", "user updated succesfully");
-            }, error=> {
-              this.showMessage("error", error);
-            });
-          }
-          catch(er){
-            this.showMessage("error", er);
-          }
-      }
+      this.local_tracks[1].play(`user-${this.rtm_uid}`,{fit: "fill"});
+      await this.rtc_client?.unpublish(this.local_screen_tracks);
+      await this.rtc_client?.publish(this.local_tracks[1]).then(()=>{
+        this.local_screen_tracks = null;
+        if(this.current_vcParticipant !=null)
+        {
+          this.current_vcParticipant.camera_on=true;
+          this.current_vcParticipant.screen_share_on=false;
+          try{
+            this.videoConferenceService
+              .updateSessionParticipant(this.lsessionid, this.current_vcParticipant.id, this.current_vcParticipant)
+              .pipe(take(1))
+              .subscribe((result: any) => {
+              }, error=> {
+              });
+            }
+            catch(er){
+            }
+        }
+      });
     }
   }
   async EndSession(){
     if(!this.is_current_user_owner) return;
-    console.log("start ... End Session");
     try{
-      await this.leaveStream();
-      console.log("leaving Stream ... End Session");
-      await this.leaveChannel();
-      console.log("leaving channel ... End Session");
-      let ending_message='has Ended the session at ' + new Date().toDateString();
-      this.current_user_joined_streem=false;
-      this.current_lsession_is_ended =true;
-      this.current_lsession.is_ended=true;
-      this.current_lsession.ended_at=new Date();
-      await this.sendLeavingMessage(ending_message);
-      await this.videoConferenceService.endVideoConferenceById(this.current_lsession.id, this.current_lsession, this.sessionParticipants, this.sessionParticipantsWaitlist);
-      console.log(" End Session ... Done ...");
-      //this.location.back();
+      await this.leaveStream().then(async ()=>{
+        await this.leaveChannel().then(async ()=>{
+          let ending_message='has Ended the session at ' + new Date().toDateString();
+          this.current_lsession.ended_at=new Date();
+          this.current_lsession.is_ended=true;
+          await this.sendLeavingMessage(ending_message).then(async ()=>{
+            await this.videoConferenceService.endVideoConferenceById(this.current_lsession.id, this.current_lsession, this.sessionParticipants, this.sessionParticipantsWaitlist)
+            .then((response)=>{
+              if(response.is_ended==false){
+                this.current_user_joined_streem=false;
+                this.current_lsession_is_ended =true;
+                this.current_lsession_is_ended=true;
+                this.location.back();
+              }
+            })
+            .catch((error)=>{
+            })
+          });
+        });
+      });
     return true;
     }
     catch(err){
-      console.log('error in End Session:'  + err);
+    }
+    finally{
+      this.ngUnsubscribe.next();
+      this.ngUnsubscribe.complete();
+      this.justgoBack();
+      return true;
     }
   }
   async LeaveSession(){
     if(!this.current_user_joined_streem) return;
     if(this.is_current_user_owner) return;
-    console.log("start ... Leave Session");
     try{
       await this.leaveStream();
-      console.log("leaving Stream ... Leave Session");
       await this.leaveChannel();
-      console.log("leaving channel ... Leave Session");
-      let leaving_message='has Left the session at' + new Date().toDateString();
-      await this.sendLeavingMessage(leaving_message);
-      this.current_vcParticipant.camera_on=false;
-      this.current_vcParticipant.mic_on=false;
-      this.current_vcParticipant.screen_share_on=false;
-      this.current_vcParticipant.is_online=false;
-      this.current_vcParticipant.leaved_at=new Date();
-      await this.videoConferenceService.updateSessionParticipant(this.current_lsession.id, this.current_vcParticipant.id, this.current_vcParticipant);
-      this.current_user_joined_streem=false;
-    return true;
     }
     catch(err){
-      console.log('error in Leave Session:'  + err);
+    }
+    finally{
+      this.ngUnsubscribe.next();
+      this.ngUnsubscribe.complete();
+      this.justgoBack();
+      return true;
     }
   }
+
+  async UserLeft(uid:any){
+    let p_found_index = this.stream_users.findIndex(x => x.uid == uid);
+    if (p_found_index > 0) {
+      let p_found: VC_Participant = this.stream_users[p_found_index];
+      if (p_found) {
+        try{
+          p_found.camera_on=false;
+          p_found.mic_on=false;
+          p_found.screen_share_on=false;
+          p_found.is_online=false;
+          p_found.leaved_at=new Date();
+          this.videoConferenceService
+            .updateSessionParticipant(this.lsessionid, p_found.id, p_found)
+            .pipe(take(1))
+            .subscribe((result: any) => {
+            }, error=> {
+            });
+          return true;
+        }
+        catch(err){
+        }
+      }
+    }
+
+  }
+
   async goBack(){
-    console.log("back .... ");
     try{
       await this.LeaveSession();
-      this.location.back();
+      this.route.navigate(["./video-conference"]);
     }
     catch(err){
-      console.log(err);
+    }
+  }
+  async justgoBack(){
+    try{
+      this.route.navigate(["./video-conference"]);
+    }
+    catch(err){
     }
   }
 

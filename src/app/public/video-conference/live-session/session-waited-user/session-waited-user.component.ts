@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from "src/app/shared/services/user.service";
 import { VC_Message, VC_Participant, VideoConferenceSession } from 'src/app/shared/interfaces/video-conference-session.type';
 import { VideoConferenceService } from 'src/app/shared/services/video-conference.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-session-waited-user',
@@ -50,11 +51,9 @@ export class SessionWaitedUserComponent implements OnInit {
       };
     this.videoConferenceService
           .updateSessionParticipant(this.lsessionid, this.participantid, finalObject)
+          .pipe(take(1))
           .subscribe((result: any) => {
-            console.warn(result);
-            console.log("success", "user approved succesfully");
           }, error=> {
-            console.log("error", error);
           });
   }
 
@@ -72,11 +71,9 @@ export class SessionWaitedUserComponent implements OnInit {
       };
     this.videoConferenceService
           .updateSessionParticipant(this.lsessionid, this.participantid, finalObject)
+          .pipe(take(1))
           .subscribe((result: any) => {
-            console.warn(result);
-            console.log("success", "user cancelled succesfully");
           }, error=> {
-            console.log("error", error);
           });
   }
 

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { createTranslateLoader, SharedModule } from 'src/app/shared/shared.module';
 import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -21,6 +22,7 @@ import { SessionWaitedUserComponent } from './live-session/session-waited-user/s
     NgZorroAntdModule,
     VideoConferenceRoutingModule,
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } }),
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class VideoConferenceModule { }

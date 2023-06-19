@@ -173,7 +173,7 @@ export class LoginComponent implements OnInit {
   validatePassAndNext(userData) {
     if (this.isPassValidationApproved(userData.password)) { //TODO: Remove validation on password
 
-      if(this.memberDetails && this.memberDetails.hasOwnProperty("user_type") && !this.memberDetails.hasOwnProperty("type")) 
+      if(this.memberDetails && this.memberDetails.hasOwnProperty("user_type") && !this.memberDetails.hasOwnProperty("type"))
       {
         this.userService.updateBasicDetails(this.memberDetails.id, {
           type: this.memberDetails.user_type,
@@ -274,9 +274,9 @@ export class LoginComponent implements OnInit {
     } else {
       this.errorMessage = this.invalidCaptchaErr;
       this.invalidCaptcha = true;
-      this.resetCaptcha();
     }
   }
+
 
   isPassValidationApproved(passWord) {
     /* const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,30}$/;
@@ -311,7 +311,7 @@ export class LoginComponent implements OnInit {
   isOnboardingProcessDone() {
     const memberDetails = this.memberDetails;
     const userDetails = this.userDetails;
-    if(memberDetails.user_type && 
+    if(memberDetails.user_type &&
       ((memberDetails.user_type == PROVIDER) ||  (memberDetails.user_type == CUSTOMER_SERVICE)
       || (memberDetails.user_type == CUSTOMER_SERVICE_ADMIN))) {
         return true;
