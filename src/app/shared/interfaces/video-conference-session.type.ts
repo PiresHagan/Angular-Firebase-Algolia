@@ -42,4 +42,5 @@ export interface VC_Participant {
     mic_on?:boolean;
     camera_on?:boolean;
     screen_share_on?:boolean;
+    uid?:string;
 }

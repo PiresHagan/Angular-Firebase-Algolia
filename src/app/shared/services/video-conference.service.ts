@@ -75,8 +75,8 @@ export class VideoConferenceService {
       .where('is_ended','==',false)
       .where(searchfield, ">=", searchTerm)
       .where(searchfield, "<", endCode + '\uf8ff')
-      .orderBy('start_time', 'desc')
       .orderBy(searchfield, 'desc')
+      .orderBy('start_time', 'desc')
       .limit(limit)
     )
     switch (navigation) {
@@ -86,8 +86,8 @@ export class VideoConferenceService {
       .where('is_ended','==',false)
         .where(searchfield, ">=", searchTerm)
         .where(searchfield, "<", endCode + '\uf8ff')
-        .orderBy('start_time', 'desc')
         .orderBy(searchfield, 'desc')
+        .orderBy('start_time', 'desc')
           .limit(limit)
           .startAfter(lastVisible))
         break;
@@ -115,9 +115,8 @@ export class VideoConferenceService {
   }
 
   endVideoConferenceById(sessionId: string, session:VideoConferenceSession, sessionParticipants:VC_Participant[], sessionParticipantsWaitlist:VC_Participant[]){
-    return new Promise((resolve, reject) => {
+    return new Promise<VideoConferenceSession>((resolve, reject) => {
       this.http.put(environment.baseAPIDomain+'/api/v1/videoConference/'+sessionId,session).subscribe((response) => {
-        console.log('session updated 0000:' + sessionId);
         sessionParticipants.forEach(element => {
           if(element.is_online){
             element.camera_on=false;
@@ -125,8 +124,8 @@ export class VideoConferenceService {
             element.screen_share_on=false;
             element.is_online=false;
             element.leaved_at=new Date();
-            this.http.put(environment.baseAPIDomain + '/api/v1/videoConference/' + sessionId + '/participants/' + element.id, element).subscribe((response1)=>{
-              console.log('session Participant updated:' + element.id);
+            this.http.put(environment.baseAPIDomain + '/api/v1/videoConference/' + sessionId + '/participants/' + element.id, element)
+            .subscribe((response1)=>{
             });
           }
         });
@@ -137,12 +136,12 @@ export class VideoConferenceService {
             element.screen_share_on=false;
             element.is_online=false;
             element.leaved_at=new Date();
-            this.http.put(environment.baseAPIDomain + '/api/v1/videoConference/' + sessionId + '/participants/' + element.id, element).subscribe((response1)=>{
-              console.log('session Participant updated:' + element.id);
+            this.http.put(environment.baseAPIDomain + '/api/v1/videoConference/' + sessionId + '/participants/' + element.id, element)
+            .subscribe((response1)=>{
             });
-            resolve(response);
           }
         });
+        resolve(response);
       }, (error) => {
         reject(error)
       })
@@ -226,7 +225,12 @@ export class VideoConferenceService {
     );
   }
   getSessionParticipantByID(sessionId: string, participantId: string): Observable<VC_Participant> {
-    return this.db.doc(`${this.videoConferenceCollection}/${sessionId}/${this.videoConferenceParticipantsCollection}/${participantId}`).valueChanges();
+    return this.db.doc<VC_Participant>(`${this.videoConferenceCollection}/${sessionId}/${this.videoConferenceParticipantsCollection}/${participantId}`)
+    .valueChanges()
+    .pipe(take(1),
+    map(participant => {
+      return participant;
+    }));
   }
   getSessionOnWaitParticipants(sessionId, limit: number = 10, navigation: string = "first", lastVisible = null) {
     if (!limit) {

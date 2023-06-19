@@ -1,5 +1,27 @@
+.container {
+  width: 100%;
+  max-width: 100%;
+}
+.lsession-content{
+  width: 94%;
+  max-width: 100%;
+  margin-left: 3%;
+  margin-top: 10px;
+}
+.search-region-title{
+  text-align: center;
+  padding-top: 20px;
+  margin-top: 10px;
+}
+.search-region-title h1{
+  font-weight: 500;
+}
+.margin-l-5{
+  margin-left: 5px;
+}
 .session-main{
-    margin: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
     ::ng-deep .ant-tabs-bar{
         padding: 0px;
         margin-top: 0px;
@@ -119,13 +141,10 @@
             }
         }
     }
-    margin-left: 50px;
-    margin-right: 50px;
 }
 
 .session-main .main-session-banner {
-  background-size: cover !important;
-  height: 232px;
+  height: 300px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -138,27 +157,27 @@
     z-index: 1;
 }
 
-.session-main .main-session-banner .session-banner-content h2 {
+.session-main .main-session-banner .session-banner-content h1 {
     font-family: "josefin_sanssemibold";
-    font-size: 38px;
-    line-height: 38px;
     text-align: center;
-    position: relative;
     color: #fff;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: xxx-large;
 }
 
-.session-main .main-session-banner .session-banner-content p {
+.session-main .main-session-banner .session-banner-content h2 {
     font-family: "josefin_sanslight";
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 27px;
+    font-weight: 500;
     text-align: center;
     color: #fff;
+    font-size: xx-large;
 }
 
+.center-box-list{
+  background-color: white;
+  margin: 5px;
+  padding: 0px;
+}
 .session-main .main-session-banner .session-banner-content ul {
     margin: 0px;
     padding: 0px;
@@ -175,15 +194,37 @@
     color: #FFFFFF;
     font-family: "josefin_sanslight";
 }
+.search-menu-header{
+  margin-top: 20px;
+}
+.selectforsearch{
+  width: 100%;
+  height: 40px;
+}
 
+.lsession-box{
+  text-align: justify;
+}
 .session-main .main-session-banner .session-banner-content ul li img {
     margin-right: 10px;
+}
+.lsession-image{
+  max-width: 100%;
+  max-height: 100%;
+}
+.colr-lightslategray{
+  border-color: lightslategray;
+}
+
+.black-btn{
+  background:#252424;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
 }
 .red-btn{
     background:#e2dfdf;
     color: #ff563a;
-    width: 100px;
-    height: 40px;
     border: none;
     cursor: pointer;
 }
@@ -192,5 +233,8 @@
 {
   text-align: center;
   vertical-align: middle;
-  padding: 10px
+  padding: 10px;
+}
+.empty-data{
+  min-height: 250px;
 }

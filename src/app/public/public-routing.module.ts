@@ -8,10 +8,6 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
   {
-    path: 'service',
-    loadChildren: () => import('./service/service.module').then(m => m.ServiceModule)
-  },
-  {
     path: 'video-conference',
     loadChildren: () => import('./video-conference/video-conference.module').then(m => m.VideoConferenceModule)
   },
@@ -20,8 +16,8 @@ const routes: Routes = [
     loadChildren: () => import('./video-conference/video-conference.module').then(m => m.VideoConferenceModule)
   },
   {
-    path: 'politician',
-    loadChildren: () => import('./politician/politician.module').then(m => m.PoliticianModule)
+    path: 'service',
+    loadChildren: () => import('./service/service.module').then(m => m.ServiceModule)
   },
   {
     path: 'category/:slug',

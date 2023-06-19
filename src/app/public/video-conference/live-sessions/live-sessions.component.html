@@ -1,77 +1,75 @@
-   <div class="container">
-    <div class="session-main">
-        <div class="main-session-banner" style="background: url('assets/images/video-conference/sessions-web-header.png');">
-            <div class="session-banner-content">
-                <!--<h2>My Trending Stories</h2>-->
-                <!--<p>{{'LiveSessionsText' | translate}}</p>-->
-            </div>
-        </div>
+<div class="container">
+  <div class="session-main">
+      <div class="main-session-banner" style="background: url('assets/images/website.png') no-repeat center;">
+          <div class="session-banner-content">
+              <h1>My Trending Stories</h1>
+              <h1>{{'LiveSessionsText' | translate}}</h1>
+          </div>
+      </div>
 
-        <div class="lsession-content">
-            <div class="mega-menu-header">
-                <div class="container">
-                    <div class="lsessions-header">
-                        <table>
-                            <tr>
-                                <td>
-                                    <nz-form-item>
-                                        <nz-form-control >
-                                            <select class="round" #selectList (change)="getsearchfield(selectList.value) ">
-                                                <option value="name">{{ 'sessionTitle' }} </option>
-                                                <option value="description">{{ 'sessionDescription' }} </option>
-                                            </select>
-                                        </nz-form-control>
-                                    </nz-form-item>
-                                </td>
-                                <td>
-                                    <nz-form-item >
-                                        <input type="text"  nz-input
-                                            placeholder=" {{ 'search' }} {{ 'liveSessions' }}"
-                                            #searchres  (change)="getsearchres(searchres.value) "/>
-                                    </nz-form-item>
-                                </td>
-                                <td>
-                                    <nz-form-item>
-                                        <nz-form-control >
-                                            <button nz-button nzType="primary" nzSize="large" nzSearch
-                                                (click)="liveSessionssearch()" >{{'search'}}</button>
-                                            <button class="m-l-10" nz-button nzType="primary" nzSize="large" nzSearch
-                                                (click)="resetSearch()">{{'Reset'}}</button>
-                                        </nz-form-control>
-                                    </nz-form-item>
-                                </td>
-                            </tr>
-                        </table>
+      <div class="lsession-content">
+        <div class="search-region-title">
+          <h1>{{'search'|translate}} {{'SessionsText'|translate}}</h1>
+        </div>
+          <div nz-row class="search-menu-header">
+            <div nz-col nzFlex="auto">
+              <nz-form-item>
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                  <input type="text"  nz-input class="colr-lightslategray"
+                  placeholder=" {{ 'SearchLiveSessions' |translate }}" (keyup.enter)="liveSessionssearch()"
+                  #searchres  (change)="getsearchres(searchres.value)" [value]="searchresValue"/>
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                  <span nz-icon nzType="search"></span>
+                </ng-template>
+            </nz-form-item>
+            </div>
+            <div nz-col nzFlex="100px">
+              <nz-form-item>
+                <nz-form-control >
+                    <button nz-button nzType="primary" class="margin-l-5" nzSize="small" nzSearch (click)="liveSessionssearch()" >
+                        <span nz-icon nzType="search"></span>
+                        {{'search'|translate}}
+                      </button>
+                </nz-form-control>
+            </nz-form-item>
+            </div>
+            <div nz-col nzFlex="100px">
+              <nz-form-item>
+                <nz-form-control >
+                    <button nz-button nzType="primary" class="margin-l-5 black-btn" nzSize="small" nzSearch
+                        (click)="resetSearch()">{{'reset'|translate}}</button>
+                </nz-form-control>
+            </nz-form-item>
+            </div>
+          </div>
+          <nz-empty class="empty-data" nzNotFoundImage="simple" *ngIf="vcLiveSessionsData?.length==0" [nzNotFoundContent]="contentTpl">
+            <ng-template #contentTpl>
+                <span>{{'NoLiveSessionFound' | translate}} </span>
+            </ng-template>
+          </nz-empty>
+          <nz-skeleton [nzLoading]="sessionLoading" *ngIf="!vcLiveSessionsData">
+          </nz-skeleton>
+          <div nz-row [nzGutter]="[16, 16]" class="center-box-list" *ngIf="vcLiveSessionsData">
+            <div nz-col class="gutter-row standard-col mb-3" [nzSpan]="6"  nzXs="24" nzSm="12" nzMd="8" nzLg="6" nzXXl="6" nzXl="6" *ngFor="let lsession of vcLiveSessionsData">
+                <div class="lsession-box">
+                    <a [routerLink]="['/video-conference',lsession.id]">
+                        <img class="lsession-image" width="300" height="178" [src]="lsession.image.url" alt="lsession.image.alt" onerror="this.src='./assets/images/video-conference/sessions-web-sumbnail.png';" >
+                    </a>
+                    <div class="lsession-box-content">
+                            <h2>
+                               {{lsession?.name}}
+                            </h2>
+                            <p>
+                                {{lsession?.description}}
+                            </p>
+                            <button  class="lsession-fix-btn red-btn join-btn" type="button" nz-button [nzType]="'default'" [disabled]="(lsession?.is_started && lsession?.is_started==false) || (lsession?.is_ended &&lsession?.is_ended==true)" [routerLink]="['/video-conference',lsession.id]">
+                              {{'JoinNow' | translate}}
+                            </button>
                     </div>
                 </div>
             </div>
-
-            <nz-tabset class="page-header-tab">
-                <nz-tab nzTitle="Live Sessions">
-                    <div nz-row [nzGutter]="15" class="center-box-list">
-                        <div nz-col class="gutter-row standard-col mb-3"   nzXs="24" nzSm="12" nzMd="8" nzLg="8" *ngFor="let lsession of vcLiveSessionsData">
-                            <div class="lsession-box">
-                                <a [routerLink]="['/video-conference',lsession.id]">
-                                    <img [src]="lsession.image.url" alt="lsession.image.alt" onerror="this.src='./assets/images/video-conference/sessions-web-sumbnail.png';" >
-                                </a>
-                                <div class="lsession-box-content">
-                                        <h2>
-                                           {{lsession?.name}}
-                                        </h2>
-                                        <p>
-                                            {{lsession?.description}}
-                                        </p>
-                                    <div class="lsession-fix-btn">
-                                        <button type="button" nz-button [nzType]="'default'" [disabled]="(lsession?.is_started && lsession?.is_started==false) || (lsession?.is_ended &&lsession?.is_ended==true)" class="red-btn join-btn" [routerLink]="['/video-conference',lsession.id]">
-                                            Join Now
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </nz-tab>
-            </nz-tabset>
         </div>
-    </div>
+      </div>
+  </div>
 </div>
