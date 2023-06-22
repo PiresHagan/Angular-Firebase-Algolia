@@ -52,6 +52,21 @@ export class AuthService {
 
     })
   }
+  getLoggedInUser(uid: string = '') {
+    return new Promise<any>((resolve) => {
+        if (!uid && this.loggedInUser) {
+            uid = this.loggedInUser.uid
+        }
+        if (uid) {
+            this.get(uid).subscribe((userData) => {
+                resolve(userData)
+            })
+        } else {
+            resolve(null)
+        }
+
+    })
+}
 
   sendPasswordResetEmail(email) {
     return new Promise<any>((resolve, reject) => {

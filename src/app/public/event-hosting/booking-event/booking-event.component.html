@@ -1,0 +1,300 @@
+<section class="is-article-block" *ngIf="event">
+  <div class="container">
+    <div class="mobile-article-detail">
+      <h2 class="xs-article-title">
+        {{ event.event_name }}
+      </h2>
+
+      <div class="xs-article-author-detail">
+        <div class="xs-article-name">
+          <a [routerLink]="['/']" itemprop="url" *ngIf="event">
+            {{ host.fullname }}</a
+          >
+        </div>
+      </div>
+      <div class="xs-article-date">
+        {{ event?.published_at | date: "medium" }}
+      </div>
+    </div>
+    <div class="article-full-img">
+      <img src="{{ event.cover?.url }}" alt="{{ event.cover?.alt }}" />
+    </div>
+    <div class="is-article-sec">
+      <div class="is-left-profile hidden-on-xs">
+        <div class="sticky-box">
+          <div class="is-profile">
+            <a [routerLink]="['/', host.slug]" itemprop="url" *ngIf="event">
+              <img
+                class="avatar"
+                src="{{ host.avatar?.url }}"
+                alt="{{ host.avatar?.alt }}"
+                onerror="this.src='assets/images/default-avatar.png'"
+                *ngIf="!host.avatar.cloudinary_id; else authorImg"
+              />
+              <ng-template #authorImg>
+                <cl-image
+                  loading="lazy"
+                  public-id="{{ replaceImage(host.avatar.cloudinary_id) }}"
+                  secure="true"
+                >
+                  <cl-transformation
+                    width="140"
+                    height="140"
+                    gravity="face"
+                    crop="thumb"
+                  >
+                  </cl-transformation>
+                </cl-image>
+              </ng-template>
+            </a>
+            <div class="is-author-name-sec is-divider">
+              <span class="is-author-name" itemprop="author" itemscope="">
+                <a [routerLink]="['/', host.slug]" itemprop="url" *ngIf="event">
+                  <span class="name" itemprop="name"> {{ host.fullname }}</span>
+                </a>
+              </span>
+            </div>
+            <div class="box">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="box-part text-center">
+                      <i
+                        nz-icon
+                        *ngIf="
+                          event.first_group_type == 'Male' ||
+                          event.first_group_type == 'Mix'
+                        "
+                        nzType="man"
+                        nzTheme="outline"
+                        style="font-size: 30px"
+                      ></i>
+                      <i
+                        nz-icon
+                        *ngIf="
+                          event.first_group_type == 'Female' ||
+                          event.first_group_type == 'Mix'
+                        "
+                        nzType="woman"
+                        nzTheme="outline"
+                        style="font-size: 30px"
+                      ></i>
+
+                      <div class="text">
+                        <nz-badge
+                          nzStandalone
+                          [nzOverflowCount]="99"
+                          [nzStyle]="{
+                            color: '#999',
+                            boxShadow: '0 0 0 1px #d9d9d9 inset'
+                          }"
+                          [nzCount]="event.first_group_size"
+                        ></nz-badge>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="box-part text-center">
+                      <i
+                        nz-icon
+                        *ngIf="
+                          event.second_group_type === 'Male' ||
+                          event.second_group_type === 'Mix'
+                        "
+                        nzType="man"
+                        nzTheme="outline"
+                        style="font-size: 30px"
+                      ></i>
+                      <i
+                        nz-icon
+                        *ngIf="
+                          event.second_group_type === 'Female' ||
+                          event.second_group_type === 'Mix'
+                        "
+                        nzType="woman"
+                        nzTheme="outline"
+                        style="font-size: 30px"
+                      ></i>
+
+                      <div class="text">
+                        <nz-badge
+                          nzStandalone
+                          [nzOverflowCount]="99"
+                          [nzStyle]="{
+                            color: '#999',
+                            boxShadow: '0 0 0 1px #d9d9d9 inset'
+                          }"
+                          [nzCount]="event.second_group_size"
+                        ></nz-badge>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="is-main-article-content">
+        <div class="is-content">
+          <div class="is-head hidden-on-xs">
+            <h2>
+              <a
+                itemprop="mainEntityOfPage"
+                [routerLink]="[
+                  '/event-hosting/' + event.event_type + '/' + event.event_slug
+                ]"
+                *ngIf="event"
+              >
+                <span itemprop="headline">
+                  {{ event?.event_name }}
+                  <nz-badge
+                    nzStandalone
+                    [nzOverflowCount]="999999999"
+                    [nzCount]="event.host_fee"
+                  ></nz-badge>
+                </span>
+              </a>
+            </h2>
+            <div class="is-small-profile">
+              <div class="is-image">
+                <a [routerLink]="['/', host.slug]" itemprop="url" *ngIf="event">
+                  <img
+                    class="avatar"
+                    alt="{{ host.avatar?.alt }}"
+                    src="{{ replaceImage(host.avatar?.url) }}"
+                    onerror="this.src='assets/images/default-avatar.png'"
+                    *ngIf="
+                      !host.avatar.cloudinary_id;
+                      else CateAvatarCloudinoryImg
+                    "
+                  />
+                  <ng-template #CateAvatarCloudinoryImg>
+                    <div class="hide-feature-img d-inline-block">
+                      <app-cloudinary-img
+                        [article]="event"
+                      ></app-cloudinary-img>
+                    </div>
+                  </ng-template>
+                  <span class="name" itemprop="name"> {{ host.fullname }}</span>
+                </a>
+              </div>
+              <div class="is-date">
+                {{ event.published_at | date: "medium" }}
+                <a
+                  class="category"
+                  [routerLink]="['/event-hosting/', event.event_type]"
+                  *ngIf="event"
+                  [ngClass]="event.event_type"
+                >
+                  {{ event.event_type }}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="is-body">
+            <div class="main-video-sec">
+              <div class="col-md-12 col-lg-12 align-center">
+                <form
+                  class="form"
+                  [formGroup]="joinEventGroup"
+                  nz-form
+                  (ngSubmit)="book()"
+                >
+                  <h3>{{ 'BookForEvent' | translate }}</h3>
+                  <nz-form-item>
+                    <nz-form-label nzRequired>{{
+                      'Group' | translate
+                    }}</nz-form-label>
+                    <nz-form-control
+                      nzErrorTip="{{ 'EventGroupIsRequired' | translate }}"
+                    >
+                      <nz-select
+                        #groupTypeList
+                        formControlName="group_type"
+                        nzAllowClear
+                        nzPlaceHolder="{{'SelectEventGroup' |translate}}"
+                        ngModel
+                        (ngModelChange)="onGroupTypeChange(groupTypeList.value)"
+                      >
+                        <nz-option
+                          *ngFor="let item of event_groups"
+                          [nzValue]="item.value"
+                          [nzLabel]="item.label"
+                        >
+                        </nz-option>
+                      </nz-select>
+                    </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                    <nz-form-label nzRequired>{{
+                      "GroupToChoose" | translate
+                    }}</nz-form-label>
+                    <nz-form-control
+                      nzErrorTip="{{ 'GroupIsRequired' | translate }}"
+                    >
+                      <nz-select
+                        #joinedGroupList
+                        formControlName="joined_group"
+                        nzAllowClear
+                        nzPlaceHolder="{{ 'SelectYourGroup' | translate }}"
+                      >
+                        <nz-option
+                          *ngFor="let item of groupList"
+                          [nzValue]="item.id"
+                          [nzLabel]="item.group_name"
+                        >
+                        </nz-option>
+                      </nz-select>
+                    </nz-form-control>
+                    <nz-alert style="margin-top: 10px;" nzType="info" nzMessage="{{'FeeNote' | translate : { host_fee: event.host_fee} }}" class="m-b-10" nzShowIcon></nz-alert>
+    
+                    <button
+                      nz-button
+                      type="submit"
+                      [nzLoading]="isFormSaving"
+                      class="login-form-button"
+                      [nzType]="'primary'"
+                    >
+                      {{ "Join" | translate }}
+                    </button>
+                  </nz-form-item>
+                  <!-- <div class="form-group">
+                                <input type="text" class="form-control" id="name" placeholder="{{'contactFullName' | translate}}">
+                                <img src="assets/images/sign-up/user.png" />
+                              </div>
+                        
+                              <div class="form-group">
+                                <input type="text" class="form-control" id="email" placeholder="{{'contactEmail' | translate}}">
+                                <img src="assets/images/sign-up/email.png" />
+                              </div>
+                              <div class="form-group">
+                                  <input type="text" class="form-control" id="subject" placeholder="{{'contactSubject' | translate}}">
+                                  <img src="assets/images/sign-up/email.png" />
+                                </div>
+                                <div class="form-group">
+                                  <textarea class="form-control" id="message" placeholder="{{'contactMessage' | translate}}">Message</textarea>
+                                  <img src="assets/images/sign-up/email.png" />
+                                </div>
+                              <div class="text-center">
+                                  <button type="submit" class="btn-submit">{{'contactSubmit' | translate}}</button>
+                              </div> -->
+                </form>
+                <a
+                  [routerLink]="[
+                    '/groups/new',
+                    event.event_type,
+                    event.event_slug
+                  ]"
+                  >{{ "NewGroup" | translate }}</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

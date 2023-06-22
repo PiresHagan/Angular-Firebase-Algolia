@@ -112,6 +112,16 @@ const routes: Routes = [
       lang: 'es'
     }
   },
+
+  {
+    path:'event-hosting',
+    loadChildren:() => import('./event-hosting/event-hosting.module').then(m => m.EventHostingModule)
+  },
+  {
+    path:'groups',
+    loadChildren:() => import('./groups/groups.module').then(m => m.GroupsModule)
+  },
+
   {
     path: ':userSlug/:slug',
     loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)

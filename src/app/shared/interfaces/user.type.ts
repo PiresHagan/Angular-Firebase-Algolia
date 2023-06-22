@@ -25,4 +25,5 @@ export interface User {
     biography?: string
     whatsapp?: string;
     skype?: string;
+    user_type?: string;
 }

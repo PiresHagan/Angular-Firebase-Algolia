@@ -1,0 +1,229 @@
+<section class="bg-white">
+  <div class="container-fluid">
+    <div class="title-row">
+      <div class="is-comman-title">
+        {{ eventType | translate }} {{ "events" | translate }}
+      </div>
+      <section class="is-cat-box-card-main">
+        <div class="cat-box">
+          <div class="container">
+            <!--Searching-->
+      <div class="alert alert-primary" role="alert">
+        <div class="mega-menu-header">
+          <div class="container">
+            <div>
+              <div class="row">
+              
+                  <div class="col-lg-2">
+                    <nz-form-item>
+                      <nz-form-control>
+                        <select
+                          class="round"
+                          #selectList
+                          (change)="getsearchfield(selectList.value)"
+                        >
+                          <option value="name">{{'Name'|translate}}</option>
+                          <option value="location">{{'Location'|translate}}</option>                        </select>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col-lg-3" *ngIf="isCountry">
+                    <nz-form-item>
+                        <nz-select
+                          #countryList
+                          nzShowSearch
+                          nzAllowClear
+                          [nzPlaceHolder]="'SelectCountry' | translate"
+                          ngModel
+                          (ngModelChange)="onCountryChange(countryList.value)"
+                        >
+                          <nz-option
+                            *ngFor="let item of country_list"
+                            [nzValue]="item"
+                            [nzLabel]="item | translate"
+                          >
+                          </nz-option>
+                        </nz-select>
+                    </nz-form-item>
+                  </div>
+                  <div class="col-lg-3" *ngIf="isCountry">
+                    <nz-form-item>
+                      <nz-select
+                      #cityList
+                      nzShowSearch
+                      nzAllowClear
+                      [nzPlaceHolder]="'SelectCity' | translate"
+                      ngModel
+                      (ngModelChange)="onCityChange(cityList.value)"
+                    >
+                      <nz-option
+                        *ngFor="let item of city_list"
+                        [nzValue]="item"
+                        [nzLabel]="item | translate"
+                      >
+                      </nz-option>
+                    </nz-select>
+                    </nz-form-item>
+                  </div>
+                <div class="col-lg-3" *ngIf="!isCountry">
+                  <nz-form-item>
+                    <nz-form-control>
+                      <input
+                        nz-input
+                        #name_input
+                        placeholder="{{ 'groupName' | translate }} "
+                        id="group_name"
+                        type="text"
+                        value=""
+                        ngModel
+                        (keyup)="onNameChange($event)"
+                      />
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              
+                  <div class="col-lg-2">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <button nz-button nzType="primary" nzSize="large" nzSearch
+                                (click)="getEvents()">{{'search' |
+                                translate}}</button>
+                        </nz-form-control></nz-form-item></div>
+                        <div class="col-lg-1">
+                          <nz-form-item>
+                              <nz-form-control>    
+                        <button class="m-l-10" nz-button nzType="primary" nzSize="large" nzSearch
+                                (click)="resetSearch()">{{'Reset' | translate}}</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                  </div>
+
+              </div>
+            <!-- <a style="margin-left: 45%; 
+            margin-right: auto;" (click)="getMyEvents()">{{'MyEvents' | translate}}</a> -->
+          </div>
+        </div>
+
+        <!--
+        </div>
+        -->
+</div></div>
+      <br />
+
+      <!--Searching-->
+      <nz-empty
+      nzNotFoundImage="simple"
+      *ngIf="!events?.length"
+      [nzNotFoundContent]="contentTpl"
+    >
+      <ng-template #contentTpl>
+        <span>{{ "NoEvents" | translate }} </span>
+      </ng-template>
+    </nz-empty>
+            <div class="cat-box-gallery">
+              <div class="row article-row">
+                <nz-skeleton
+                  [nzLoading]="loading"
+                  [nzActive]="loading"
+                ></nz-skeleton>
+                
+                <div
+                  class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5"
+                  *ngFor="let event of events"
+                >
+                  <div class="item-card item-card-life-and-styles">
+                    <a
+                      [routerLink]="[
+                        '/event-hosting',
+                        event.event_type,
+                        event.event_slug
+                      ]"
+                    >
+                      <div class="item-card-image">
+                        <img
+                          [src]="event.cover?.url"
+                          [alt]="event.cover?.alt"
+                        />
+
+                        <div class="comment-right">
+                          <div class="article-comment-info">
+                            <div class="comment-section">
+                              <ul>
+                                <li>
+                                  <a href="#">
+                                    <i class="fas fa-heart"></i>
+                                    {{event.like_count}}
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="#" *ngIf="event.comments_count">
+                                    <i class="fa fa-comment"></i>
+                                    {{event.comments_count}}
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="item-card-content">
+                        <div class="item-card-title">
+                          <h4 class="item-long-title">
+                            {{ event.event_name }}
+                          </h4>
+                        </div>
+                        <div class="item-card-texte">
+                          <p>
+                            <span
+                              ><i
+                                nz-icon
+                                nzType="clock-circle"
+                                nzTheme="outline"
+                              ></i
+                            ></span>
+                            <span>{{
+                              event.scheduled_date | date: "medium"
+                            }}</span>
+                            <br />
+                            <span
+                              ><i nz-icon nzType="team" nzTheme="outline"></i
+                            ></span>
+                            <span
+                              >{{ event.first_group_type | translate }} ({{
+                                event.first_group_size
+                              }}) X
+                              {{ event.second_group_type | translate }} ({{
+                                event.second_group_size
+                              }})</span
+                            >
+                            <span
+                              ><i nz-icon nzType="map" nzTheme="outline"></i
+                            ></span>
+                            <br />
+                            <span
+                              >{{ event.city |translate }}, {{ event.country | translate}}</span
+                            >
+                          </p>
+                          <div class="category-article-readmore">
+                            <button type="button" class="is-read-more">
+                              {{ "View" | translate }}
+                              <img
+                                src="assets/images/read-more-icon-black.png"
+                                alt="Read More"
+                              />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>

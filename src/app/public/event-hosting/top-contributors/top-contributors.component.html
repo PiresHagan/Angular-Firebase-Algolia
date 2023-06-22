@@ -1,0 +1,63 @@
+<section class="is-follower-member">
+
+    <div class="container">
+        
+        <div class="is-member">
+    
+            <div class="row"> <div class="col-lg-3 col-sm-6">
+            <div class="is-member-item" *ngFor="let member of memberList" [ngClass]="showTooltip"
+                (mouseover)="showTooltip='is-show-hover'" (mouseout)="showTooltip=''">
+
+                <a [routerLink]="['/',member.slug]" class="is-profile-img-link">
+                    <img [src]="replaceImage(member?.avatar?.url)!= unknown ? replaceImage(member?.avatar?.url) : DefaultAvatar"
+                        class="is-profile" [alt]="member?.avatar?.alt" >
+                        <ng-template #authorCloudinoryImg>
+                            <div class="cloudinary-img">
+                                <cl-image  loading="lazy" public-id="{{replaceImage(member.avatar.cloudinary_id)}}" secure="true">
+                                    <cl-transformation width="50" height="50" gravity="face" crop="thumb">
+                                    </cl-transformation>
+                                    <cl-transformation radius="25">
+                                    </cl-transformation>
+                                  </cl-image>
+                            </div>
+                        </ng-template>
+                </a>
+<!--
+                <div class="is-member-hover">
+                    <div class="is-member-profile-header">
+                        <h3>{{member?.fullname}} </h3>
+                        <img class="is-profile-hover-img"
+                            [src]="group?.avatar?.url!= unknown ? group?.avatar?.url : DefaultAvatar"
+                            [alt]="group?.avatar?.alt"  *ngIf="!(group.avatar.cloudinary_id); else authorAvatarCloudinoryImg" />
+                            <ng-template #authorAvatarCloudinoryImg>
+                                <div class="cloudinary-img">
+                                    <cl-image  loading="lazy" public-id="{{group.avatar.cloudinary_id}}" secure="true">
+                                        <cl-transformation width="60" height="60" gravity="face" crop="thumb">
+                                        </cl-transformation>
+                                        <cl-transformation radius="100">
+                                        </cl-transformation>
+                                      </cl-image>
+                                </div>
+                            </ng-template>
+                    </div>
+                    <div class="is-member-profile-body">
+                        <p class="author-bio">
+                            {{group?.group_size}} {{group?.group_type}}
+                        </p>
+                         <div class="is-profile-tag">
+                            <span class="is-tag is-red">Entertainment</span>
+                            <span class="is-tag is-purple">Opinion</span>
+                            <span class="is-tag is-yellow">Life and Styles</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+-->
+        </div>
+       
+    </div></div></div>
+        <hr/>
+
+    </div>
+</section>
