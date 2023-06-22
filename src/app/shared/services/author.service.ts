@@ -215,5 +215,18 @@ export class AuthorService {
     })
     );
   }
+  getAuthorById(authoId: string) {
+    return this.afs.collection(this.authorsCollection, ref =>
+      ref.where('id', '==', authoId)
+    ).snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data();
+        return data;
+      });
+    })
+    );
+
+  }
+
 
 }

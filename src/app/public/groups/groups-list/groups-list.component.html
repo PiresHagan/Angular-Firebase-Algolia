@@ -1,0 +1,165 @@
+<section class="is-article-block">
+  <div class="container">
+    <div class="article-full-img">
+      <img [src]="getCoverImage()" alt="cover" />
+      <div class="centered"><h1> {{title}} {{"Groups" | translate}}</h1></div>
+    </div>
+
+    <div class="container">
+      <!--Searching-->
+      <div class="alert alert-primary" role="alert">
+        <div class="mega-menu-header">
+          <div class="container">
+            <div class="shopping-header">
+              <table>
+                <tr>
+                  <td>
+                    <nz-form-item>
+                      <nz-form-control>
+                        <select
+                          class="round"
+                          #selectList
+                          (change)="getsearchfield(selectList.value)"
+                        >
+                          <option value="name">{{'Title' | translate}}</option>
+                          <option value="size">{{'Size' | translate}}</option>
+                          <option value="type">{{'Type'| translate}}</option>
+                          <option value="subscription">{{'Subscription' | translate}}</option>
+                        </select>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </td>
+                  <td *ngIf="isType">
+                    <nz-form-item>
+                        <nz-select
+                          #group_type_list
+                          nzAllowClear
+                          [nzPlaceHolder]="'GroupType' | translate"
+                          ngModel
+                        (ngModelChange)="onTypeChange(group_type_list.value)"
+                        >
+                          <nz-option
+                            *ngFor="let item of groupTypes"
+                            [nzValue]="item"
+                            [nzLabel]="item | translate"
+                          >
+                          </nz-option>
+                        </nz-select>
+                    </nz-form-item>
+                  </td>
+                  <td *ngIf="isSubscription">
+                    <nz-form-item>
+                        <nz-select
+                          #group_package_list
+                          nzAllowClear
+                          [nzPlaceHolder]="'GroupPackage' | translate"
+                          ngModel
+                        (ngModelChange)="onSubscriptionChange(group_package_list.value)"
+                        >
+                          <nz-option
+                            *ngFor="let item of groupPackages"
+                            [nzValue]="item.price"
+                            [nzLabel]="item.price+'/'+ 'year'|translate"
+                          >
+                          </nz-option>
+                        </nz-select>
+                    </nz-form-item>
+                  </td>
+                <td *ngIf="isName">
+                  <nz-form-item>
+                    <nz-form-control>
+                      <input
+                        nz-input
+                        #name_input
+                        [nzPlaceHolder]="'groupName' | translate"
+                        id="group_name"
+                        type="text"
+                        value=""
+                        ngModel
+                        (keyup)="onNameChange($event)"
+                      />
+                    </nz-form-control>
+                  </nz-form-item>
+                </td>
+                <td *ngIf="isSize">
+                  <nz-form-item>
+                    <nz-form-control>
+                      <nz-select
+                        #group_size_list
+                        nzAllowClear
+                        [nzPlaceHolder]="'GroupSize' | translate"
+                        ngModel
+                        (ngModelChange)="onSizeChange(group_size_list.value)"
+                      >
+                        <nz-option
+                          *ngFor="let item of groupSizes"
+                          [nzValue]="item"
+                          [nzLabel]="item | translate"
+                        >
+                        </nz-option>
+                      </nz-select>
+                    </nz-form-control>
+                  </nz-form-item>
+                </td>
+                  <td>
+                    <nz-form-item>
+                        <nz-form-control>
+                            <button nz-button nzType="primary" nzSize="large" nzSearch
+                                (click)="getGroups()">{{'search' |
+                                translate}}</button>
+                            <button class="m-l-10" nz-button nzType="primary" nzSize="large" nzSearch
+                                (click)="resetSearch()">{{'Reset' | translate}}</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </td>
+
+                </tr>
+              </table>
+            
+            
+            </div>
+            <a style="margin-left: 40%;
+            margin-right: 5%;" (click)="getMyGroups()">{{"MyGroups" |translate}}</a>
+             <a (click)="addNewGroup()">{{"NewGroup" |translate}}</a>
+          </div>
+        </div>
+
+        <!--
+          
+        -->
+      </div>
+
+      <br />
+
+      <!--Searching-->
+      <nz-empty
+      nzNotFoundImage="simple"
+      *ngIf="!groupList?.length && !loading"
+      [nzNotFoundContent]="contentTpl"
+    >
+      <ng-template #contentTpl>
+        <span>{{ "NoGroups" | translate }} </span>
+      </ng-template>
+    </nz-empty>
+      <nz-skeleton [nzLoading]="loading" [nzActive]="loading"></nz-skeleton>
+
+      <div class="row" style="text-align: center">
+        <div
+          class="col-12 col-sm-12 col-md-4 col-lg-3 custom-col-5"
+          *ngFor="let group of groupList"
+        >
+          <a [routerLink]="['/groups/details/', group.group_slug]">
+            <nz-avatar
+              [nzSize]="200"
+              nzIcon="user"
+              [nzSrc]="group.avatar?.url"
+            ></nz-avatar>
+            <h3>{{ group.group_name }}</h3>
+          </a>
+        </div>
+      </div>
+      <!-- <app-top-contributors></app-top-contributors>
+-->
+    </div>
+  </div>
+</section>

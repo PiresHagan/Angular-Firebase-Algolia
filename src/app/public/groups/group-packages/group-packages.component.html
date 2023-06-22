@@ -1,0 +1,110 @@
+<div class="container">
+    <nz-spin
+      [nzSpinning]="isUpgradingPlan"
+      nzTip="{'UpgradingSubscription'|translate}"
+    >
+      <div class="row">
+        <div class="is-comman-title">{{ "GroupEventsPackages" | translate }}</div>
+  
+        <div class="col-4" *ngFor="let package of packages;">
+          <div class="package-box">
+            <div
+              class="package-img"
+             style="background-color: #382d2d;"
+            >
+              <div class="package-detail">
+                <h2>
+                  <span>${{commafy(package.price)}}</span>
+                  <span></span>
+                </h2>
+              </div>
+            </div>
+            <button
+              nz-button
+              nzType="primary"
+              class="is-see-more"
+              nz-popconfirm
+              nzPopconfirmTitle="Are you sure you want to upgrade to this plan?"
+              (nzOnConfirm)="upgradeGroupSubscription(package)"
+              nzPopconfirmPlacement="bottom"
+              [disabled]="
+                currentGroupSubscription?.external_id == package.external_id
+              "
+            >
+              {{ "Subscribe" | translate }}
+            </button>
+          </div>
+        </div>
+        <!-- <div class="col-4">
+          <div class="package-box">
+            <div
+              class="package-img"
+              style="
+                background: url(assets/images/campaign/contributor.jpeg) center
+                  center no-repeat;
+              "
+            >
+              <div class="package-detail">
+                <h2>
+                  <span>{{ "YearlyGroupEventDescription" | translate }}</span>
+                  <span></span>
+                </h2>
+                <p>{{ yearly_package.price }}$</p>
+              </div>
+            </div>
+            <button
+              nz-button
+              nzType="primary"
+              class="is-see-more"
+              nz-popconfirm
+              nzPopconfirmTitle="Are you sure you want to upgrade to this plan?"
+              (nzOnConfirm)="upgradeGroupSubscription(yearly_package)"
+              nzPopconfirmPlacement="bottom"
+              [disabled]="
+                currentGroupSubscription?.external_id == yearly_package.id
+              "
+            >
+              {{ "Subscribe" | translate }}
+            </button>
+          </div>
+        </div>
+  
+        <div class="col-4">
+          <div class="package-box">
+            <div
+              class="package-img"
+              style="
+                background: url(assets/images/campaign/contributor.jpeg) center
+                  center no-repeat;
+              "
+            >
+              <div class="package-detail">
+                <h2>
+                  <span>{{ "ForeverGroupEventDescription" | translate }}</span>
+                  <span></span>
+                </h2>
+                <p>{{ forever_price }}$</p>
+              </div>
+            </div>
+            <button
+              nz-button
+              nzType="primary"
+              class="is-see-more"
+              nz-popconfirm
+              nzPopconfirmTitle="Are you sure you want to upgrade to this plan?"
+              (nzOnConfirm)="upgradeGroupSubscription(yearly_package)"
+              nzPopconfirmPlacement="bottom"
+              [disabled]="
+                currentGroupSubscription?.external_id == yearly_package.id
+              "
+            >
+              {{ "Subscribe" | translate }}
+            </button>
+          </div>
+        </div> -->
+      </div>
+    </nz-spin>
+  </div>
+  
+  <app-group-billing></app-group-billing>
+  

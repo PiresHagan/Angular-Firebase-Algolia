@@ -1,0 +1,274 @@
+<section class="">
+  <div class="">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-sm-12 bg-white">
+        <div class="is-signup-form-main">
+          <div class="is-form">
+            <nz-card>
+              <h2 class="m-t-20">{{ "CreateGroup" | translate }}</h2>
+              <p class="m-b-30">{{ "CreateGroupDescription" | translate }}</p>
+              <form
+                nz-form
+                (ngSubmit)="submitForm()"
+                [formGroup]="addGroupForm"
+                class="login-form"
+                
+              >
+                <nz-form-item>
+                  <div class="media">
+                    <nz-avatar [nzSize]="130" nzIcon="user" [nzSrc]="iconImage?.url"></nz-avatar>
+                    <div class="profile-upload-txt">
+                      <nz-upload
+                        nzName="avatar"
+                        [nzShowUploadList]="false"
+                        (nzChange)="handleAvatarChange($event)"
+                      >
+                        <button
+                          type="button"
+                          nz-button
+                          nzType="primary"
+                          [nzLoading]="isIconLoading"
+                        >
+                          <i nz-icon nzType="upload"></i>
+                          <span>{{ "upload" | translate }}</span>
+                        </button>
+                      </nz-upload>
+                      <h5>{{ "changeAvatar" | translate }}</h5>
+                      <p>
+                        {{ "recommendedDim" | translate }}: 120x120
+                        {{ "maxfile" | translate }}: 5MB
+                      </p>
+                    </div>
+                  </div>
+                </nz-form-item>
+                <nz-form-item class="m-b-5">
+                  <nz-form-label nzRequired>{{
+                    "GroupName" | translate
+                  }}</nz-form-label>
+                  <nz-form-control
+                    nzErrorTip="{{ 'EventName' | translate }} {{
+                      'required' | translate
+                    }}"
+                  >
+                    <input
+                      nz-input
+                      placeholder="{{ 'GroupName' | translate }} "
+                      formControlName="group_name"
+                      type="text"
+                      value=""
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+                
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <nz-form-item class="m-b-5">
+                      <nz-form-label nzRequired>{{
+                        "GroupType" | translate
+                      }}</nz-form-label>
+                      <nz-form-control>
+                        <nz-select
+                          formControlName="group_type"
+                          nzAllowClear
+                          [nzPlaceHolder]="'SelectGroupType' | translate"
+                        >
+                          <nz-option
+                            *ngFor="let item of groupTypes; let i = index"
+                            [nzValue]="item"
+                            [nzLabel]="item | translate"
+                          >
+                          </nz-option>
+                        </nz-select>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <nz-form-item class="m-b-5">
+                      <nz-form-label nzRequired>{{
+                        "GroupSize" | translate
+                      }}</nz-form-label>
+                      <nz-form-control>
+                        <nz-select
+                          formControlName="group_size"
+                          nzAllowClear
+                          [nzPlaceHolder]="'SelectGroupSize' | translate"
+                        >
+                          <nz-option
+                            *ngFor="let item of groupSizes"
+                            [nzValue]="item"
+                            [nzLabel]="item"
+                          >
+                          </nz-option>
+                        </nz-select>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                </div>
+
+                <div class="m-b-5">
+                  <nz-form-label nzRequired>{{ "GroupMembers" | translate }}</nz-form-label>
+                  <nz-input-group [nzAddOnAfter]="suffixIconButton">
+                    <input
+                      type="text"
+                      style="padding: 0.55rem 0.2rem"
+                      id="member_contact"
+                      nz-input
+                      placeholder="{{'MemberContact'|translate}}"
+                      #member_contact
+                    />
+                  </nz-input-group>
+                  <ng-template #suffixIconButton>
+                    <button
+                      style="
+                        padding: 0.65rem 0.55rem;
+                        background-color: blue;
+                        width: 40px;
+                      "
+                      (click)="addMember(member_contact.value)"
+                      nz-button
+                      nzType="primary"
+                      [nzLoading]="lookingForMember"
+                      type="button"
+                    >
+                      <i nz-icon nzType="plus"></i>
+                    </button>
+                  </ng-template>
+                  <span *ngIf="showError" style="color: red">{{
+                    errorMessage | translate
+                  }}</span>
+                  <div class="clearfix"></div>
+                  <br />
+                  <div>
+                    <ul>
+                      <li style="list-style: none;"
+                        *ngFor="
+                          let item of memberList;
+                          let index = index;
+                          trackBy: trackItem
+                        "
+                      >
+                        <span style="margin: 5px;">  <nz-avatar [nzSize]="30" nzIcon="user" [nzSrc]="item?.avatar?.url"></nz-avatar></span>
+                        <span
+                          *ngIf="item.id == userDetails.id"
+                          nz-tooltip
+                          nzTooltipTitle="GroupCreator|translate"
+                          style="margin: 5px;"
+                          >{{ item.fullname }}</span
+                        >
+                        <span style="margin: 5px;" *ngIf="item.id != userDetails.id">{{
+                          item.fullname
+                        }}</span>
+
+                        <a
+                          style="margin: 5px"
+                          (click)="deleteMember(item.id)"
+                          *ngIf="item.id != userDetails.id"
+                          ><i
+                            nz-icon
+                            nzType="close"
+                            nzTheme="outline"
+                            style="color: red"
+                          ></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <nz-form-item>
+                      <nz-form-label>{{
+                        "CoverImage" | translate
+                      }}</nz-form-label>
+                      <nz-form-control>
+                        <nz-upload
+                          nzType="drag"
+                          [nzMultiple]="false"
+                          (nzChange)="handleCoverImageChange($event)"
+                          [nzLimit]="1"
+                          [nzBeforeUpload]="beforeUpload"
+                          [nzShowUploadList]="false"
+                        >
+                          <ng-container *ngIf="!coverImage?.url">
+                            <div *ngIf="!isCoverImageUploading">
+                              <p class="ant-upload-drag-icon">
+                                <i nz-icon nzType="inbox"></i>
+                              </p>
+                              <p class="ant-upload-text">
+                                {{ "artImageMessage1" | translate }}
+                              </p>
+                              <p class="ant-upload-hint">
+                                {{ "artImageMessage2" | translate }}
+                              </p>
+                              <p class="ant-upload-hint" style="color: red">
+                                {{ "CoverImageRequired" | translate }}
+                              </p>
+                              <div class="ant-upload-text">
+                                {{ "artImageUpload" | translate }}
+                              </div>
+                            </div>
+                            <i
+                              class="upload-icon"
+                              *ngIf="isCoverImageUploading"
+                              nz-icon
+                              [nzType]="
+                                isCoverImageUploading ? 'loading' : 'plus'
+                              "
+                            ></i>
+                          </ng-container>
+                          <img
+                            *ngIf="coverImage"
+                            [src]="coverImage?.url"
+                            style="width: 100%"
+                          />
+                        </nz-upload>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                </div>
+                <app-group-packages (selectedPackage)="upgradeGroupSubscription($event)"></app-group-packages>
+                <nz-form-item class="m-b-5">
+                  <nz-form-label nzRequired>{{
+                    "GroupSubscription" | translate
+                  }}</nz-form-label>
+                  <label><b>{{subscription}}</b></label>
+                   <!-- <nz-form-control style="display: none;">
+                    <nz-select
+                      formControlName="group_subscribtions"
+                      nzAllowClear
+                      [nzPlaceHolder]="'SelectGroupSubscriptions' | translate"
+                    >
+                      <nz-option
+                        *ngFor="let item of groupSubscribtions"
+                        [nzValue]="item.value"
+                        [nzLabel]="item.label | translate"
+                      >
+                      </nz-option>
+                    </nz-select>
+                  </nz-form-control> -->
+                </nz-form-item>
+                <div class="clearfix"></div>
+
+                <nz-form-item>
+                  <nz-form-control>
+                    <div class="text-center mt-4">
+                      <button
+                        nz-button
+                        class="login-form-button is-login-btn"
+                        [nzType]="'primary'"
+                        [nzLoading]="isSaving"
+                      >
+                        {{ "CreateBtn" | translate }}
+                      </button>
+                    </div>
+                  </nz-form-control>
+                </nz-form-item>
+              
+              </form>
+            </nz-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

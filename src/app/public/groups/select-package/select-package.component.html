@@ -1,0 +1,42 @@
+<div class="container">
+    <nz-spin
+      [nzSpinning]="isUpgradingPlan"
+      nzTip="{{'UpgradingSubscription'|translate}}"
+    >
+      <div class="row">
+        <div class="is-comman-title">{{ "HostEventsPackages" | translate }}</div>
+        <div class="col-4" *ngFor="let package of packages;">
+          <div class="package-box">
+            <div
+              class="package-img"
+             style="background-color: #382d2d;"
+            >
+              <div class="package-detail">
+                <h2>
+                  <span>${{commafy(package.price)}}</span>
+                  <span></span>
+                </h2>
+              </div>
+            </div>
+            <button
+              nz-button
+              nzType="primary"
+              class="is-see-more"
+              nz-popconfirm
+              nzPopconfirmTitle="Are you sure you want to upgrade to this plan?"
+              (nzOnConfirm)="upgradeGroupSubscription(package)"
+              nzPopconfirmPlacement="bottom"
+              [disabled]="
+                currentGroupSubscription?.package_type == package.price
+              "
+            >
+              {{ "Subscribe" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </nz-spin>
+  </div>
+  
+  <app-group-billing></app-group-billing>
+  

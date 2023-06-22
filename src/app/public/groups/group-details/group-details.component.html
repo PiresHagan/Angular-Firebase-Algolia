@@ -1,0 +1,55 @@
+<section class="is-article-block">
+  <nz-skeleton [nzLoading]="loading" [nzActive]="loading"></nz-skeleton>
+  <div class="container" *ngIf="!loading">
+    <div class="article-full-img">
+      <img src="{{ group?.cover?.url }}" alt="{{ group.cover.alt }}" />
+      <div class="centered"><h1>{{group.group_name}}</h1></div>
+    </div>
+
+    <div class="container">
+      <a
+                itemprop="mainEntityOfPage"
+                [routerLink]="['/groups']"
+              >
+                <span itemprop="headline">
+                  <i class="fas fa-angle-left"></i>
+                  {{'BackToGroups' | translate}}
+                </span>
+              </a>
+      <div class="group_avatar" style="text-align: center">
+        <ul>
+          <li>
+            <nz-avatar
+              [nzSize]="200"
+              nzIcon="user"
+              [nzSrc]="group.avatar?.url"
+            ></nz-avatar>
+          </li>
+          <li>
+            <h3>{{ group.group_name }}</h3>
+          </li>
+        </ul>
+      </div>
+      <hr />
+
+      <app-top-contributors
+        [memberList]="group.Members"
+        [groupSize]="group.Members.length"
+      ></app-top-contributors>
+      <div *ngIf="canChangeSubscription">
+        <app-select-package [groupId]="group.id"></app-select-package>
+      </div>
+      <div class="row justify-content-center">
+
+      <div class="col-lg-8 col-sm-12 bg-white">
+
+      <app-article-comments
+      [event]="group"
+      [rate_count]="group.rating_count"
+      [rate_sum]="group.rating_sum"
+      [isLoggedInUser]="isLoggedInUser"
+    ></app-article-comments>
+    </div></div>
+    </div>
+  </div>
+</section>

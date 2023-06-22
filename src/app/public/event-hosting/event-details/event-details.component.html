@@ -1,0 +1,367 @@
+<section class="is-article-block" *ngIf="event">
+  <div class="container">
+    <div class="mobile-article-detail">
+      <h2 class="xs-article-title">
+        <span class="xs-article-category" [ngClass]="event.event_type"
+          >{{event.event_type}}</span
+        ><br />
+        {{ event.event_name }}
+      </h2>
+      <div class="xs-article-author-detail">
+        <div class="xs-article-name">
+          <a [routerLink]="['/']" itemprop="url" *ngIf="event">{{ host.fullname }}</a>
+        </div>
+      </div>
+      <div class="xs-article-date">
+        {{ event?.published_at | date: "medium" }}
+      </div>
+    </div>
+    <div class="article-full-img">
+      <img src="{{ event.cover?.url }}" alt="{{ event.cover?.alt }}" />
+    </div>
+    <div class="is-article-sec">
+      <div class="is-left-profile hidden-on-xs">
+        <div class="sticky-box">
+          <div class="is-profile">
+            <a [routerLink]="['/', host?.slug]" itemprop="url" *ngIf="event">
+              <img
+                class="avatar"
+                src="{{ host.avatar?.url }}"
+                alt="{{ host.avatar?.alt }}"
+                onerror="this.src='assets/images/default-avatar.png'"
+                *ngIf="!host.avatar.cloudinary_id; else authorImg"
+              />
+              <ng-template #authorImg>
+                <cl-image
+                  loading="lazy"
+                  public-id="{{ replaceImage(host.avatar.cloudinary_id) }}"
+                  secure="true"
+                >
+                  <cl-transformation
+                    width="140"
+                    height="140"
+                    gravity="face"
+                    crop="thumb"
+                  >
+                  </cl-transformation>
+                </cl-image>
+              </ng-template>
+            </a>
+            <app-article-avatar [article]="event"></app-article-avatar>
+            <div class="is-author-name-sec is-divider">
+              <span class="is-author-name" itemprop="author" itemscope="">
+                <a [routerLink]="['/', host.slug]" itemprop="url" *ngIf="event">
+                  <span class="name" itemprop="name"> {{ host.fullname }}</span>
+                </a>
+              </span>
+            </div>
+            
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4 col-sm-6" style="margin-bottom: 2px; "*ngFor="let follower of followers">
+               <nz-avatar
+               [nzSize]="65"
+               nzIcon="user"
+               [nzSrc]="follower.avatar?.url"
+             ></nz-avatar>
+              </div>
+            </div>
+     </div>
+        </div>
+      </div>
+      <div class="is-main-article-content">
+        <div class="is-content">
+          <div class="is-head hidden-on-xs">
+            <h2>
+              <a
+                itemprop="mainEntityOfPage"
+                [routerLink]="['/event-hosting/' + event.event_type + '/' + event.event_slug]"
+                *ngIf="event"
+              >
+                <span itemprop="headline">
+                  {{ event?.event_name }}
+                </span>
+              </a>
+            </h2>
+            <div class="is-small-profile">
+              <div class="is-image">
+                <a [routerLink]="['/', host.slug]" itemprop="url" *ngIf="event">
+                  <img
+                    class="avatar"
+                    alt="{{ host.avatar?.alt }}"
+                    src="{{ replaceImage(host.avatar?.url) }}"
+                    onerror="this.src='assets/images/default-avatar.png'"
+                    *ngIf="
+                      !host.avatar.cloudinary_id;
+                      else CateAvatarCloudinoryImg
+                    "
+                  />
+                  <ng-template #CateAvatarCloudinoryImg>
+                    <div class="hide-feature-img d-inline-block">
+                      <app-cloudinary-img
+                        [article]="event"
+                      ></app-cloudinary-img>
+                    </div>
+                  </ng-template>
+                  <span class="name" itemprop="name"> {{ host.fullname }}</span>
+                </a>
+                
+              </div>
+              <div class="is-date">
+                {{ event.published_at | date: "medium" }}
+                <a
+                  class="category"
+                  [routerLink]="['/event-hosting/', event?.event_type]"
+                  *ngIf="event"
+                  [ngClass]="event.event_type"
+                >
+                  {{ event.event_type }}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="is-body">
+            <div class="main-video-sec">
+              <cl-video
+                [public-id]="event.video.cloudinary_id"
+                secure="true"
+                controls="true"
+                class="cld-video"
+              ></cl-video>
+              <div class="video-control">
+                <ul>
+                  <li>
+                    <a>
+                      <article-interaction
+                        [article]="event"
+                      ></article-interaction>
+                    </a>
+                  </li>
+                  <li>
+                    <a>
+                      <img
+                        src="assets/images/video/icon/point.png"
+                        alt=""
+                        class="bullet"
+                      />
+                      {{ getRelativeDate(event.published_at) }}
+                    </a>
+                  </li>
+                </ul>
+                <!-- <div class="btn-download">
+                                    <button class="video-download-btn"><img src="assets/images/video/icon/download.png" alt=""> Download</button>
+                                </div> -->
+              </div>
+            </div>
+            <div class="centered-container">
+              <div class="row vertical-center" *ngIf="canBook">
+                <a [routerLink]="['/event-hosting/book/', event.event_slug]">
+                  <button
+                    type="button"
+                    nz-button
+                    class="is-see-more less-more"
+                    [nzType]="'primary'"
+                  >
+                    {{ "BookForEvent" | translate }}
+                  </button>
+                </a>
+                <hr />
+              </div>
+              <div class="row vertical-center" *ngIf="!canBook">
+                <p>{{ getRelativeDate(event.scheduled_date) }}</p>
+              <hr/>
+              </div>
+              <div class="box">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                      <div class="box-part text-center">
+                        <i
+                          nz-icon
+                          *ngIf="
+                            (event.first_group_type == 'Male' ||
+                            event.first_group_type == 'Mix')&&
+                            !event.first_joind_group
+                          "
+                          nzType="man"
+                          nzTheme="outline"
+                          style="font-size: 65px"
+                        ></i>
+                        <i
+                          nz-icon
+                          *ngIf="
+                            (event.first_group_type == 'Female' ||
+                            event.first_group_type == 'Mix')&&
+                            !event.first_joind_group
+                          "
+                          nzType="woman"
+                          nzTheme="outline"
+                          style="font-size: 65px"
+                        ></i>
+                        <div *ngIf="event.first_joind_group">
+                        <a [routerLink]="['/groups/details', event.first_joind_group.group_slug]" itemprop="url">
+                          <nz-avatar
+                            [nzSize]="110"
+                            nzIcon="user"
+                            [nzSrc]="event.first_joind_group?.avatar?.url"
+                          ></nz-avatar>
+                          </a>
+                          <!--<h3>{{event.first_joind_group.group_name}}</h3>-->
+                        </div>
+                        <div class="title" *ngIf="!event.first_joind_group">
+                          <h4>{{ event.first_group_type | translate}}</h4>
+                        </div>
+
+                        <div class="text" *ngIf="!event.first_joind_group">
+                          <span >
+                            {{ event.first_group_size }}
+                            {{ "members" | translate }}</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                      <div class="box-part text-center">
+                        <i
+                          nz-icon
+                          *ngIf="
+                            (event.second_group_type === 'Male' ||
+                            event.second_group_type === 'Mix') &&
+                            !event.second_joind_group
+                          "
+                          nzType="man"
+                          nzTheme="outline"
+                          style="font-size: 65px"
+                        ></i>
+                        <i
+                          nz-icon
+                          *ngIf="
+                            (event.second_group_type === 'Female' ||
+                            event.second_group_type === 'Mix') &&
+                            !event.second_joind_group
+                          "
+                          nzType="woman"
+                          nzTheme="outline"
+                          style="font-size: 65px"
+                        ></i>
+                        <div *ngIf="event.second_joind_group">
+                          <a [routerLink]="['/groups/details', event.second_joind_group.group_slug]" itemprop="url">
+                          <nz-avatar
+                            [nzSize]="110"
+                            nzIcon="user"
+                            [nzSrc]="event.second_joind_group?.avatar?.url"
+                          ></nz-avatar>
+                        </a>
+                          <!--<h3>{{event.first_joind_group.group_name}}</h3>-->
+                        </div>
+                        <div class="title" *ngIf="!event.second_joind_group">
+                          <h4 >{{ event.second_group_type |translate }}</h4>
+                        </div>
+
+                        <div class="text" *ngIf="!event.second_joind_group">
+                          <span
+                            >{{ event.second_group_size }}
+                            {{ "members" | translate }}</span
+                          >         
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr />
+
+            <app-article-comments
+              [event]="event"
+              [rate_count]="event.rating_count"
+              [rate_sum]="event.rating_sum"
+              [isLoggedInUser]="isLoggedInUser"
+            ></app-article-comments>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="is-right-ad-section"
+        [ngClass]="SlideRelatedArticle ? 'removeSlide' : 'openSlideArticle'"
+      >
+      <!--similar articles-->
+      <div class="related-article-sec" *ngIf="similarEventsList.length">
+        <h2>{{ "SimilarEvents" | translate }}</h2>
+    
+        <div *ngFor="let SimilarEvent of similarEventsList">
+            <a [routerLink]="['/event_hosting/'+SimilarEvent.event_type+'/'+SimilarEvent.event_slug]">
+                <div class="related-video">
+                    <div class="thumbnail-video">
+                        <img 
+                            [src]="replaceImage(SimilarEvent.cover?.url)" 
+                            [alt]="SimilarEvent.cover?.alt"
+                            *ngIf="!(SimilarEvent.cover?.cloudinary_id); else similarVideoCloudinary" 
+                        />
+                        <ng-template #similarVideoCloudinary>
+                            <cl-image loading="lazy" public-id="{{SimilarEvent.cover.cloudinary_id}}" secure="true">
+                                <cl-transformation width="120" height="100" gravity="face" crop="thumb">
+                                </cl-transformation>
+                            </cl-image>
+                        </ng-template>
+                        <div class="overlay-detail">
+                            <!-- <span class="time">5:08</span> -->
+                            <div class="play-btn">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="related-video-detail">
+                        <h2>{{ SimilarEvent.event_name }}</h2>
+                        <p>{{ SimilarEvent.first_group_type |translate }} X {{SimilarEvent.second_group_type| translate}}</p>
+                        <p>{{ SimilarEvent.city |translate }}, {{SimilarEvent.country |translate}}</p>
+    
+                        <ul>
+                            <li>
+                                <a>
+                                    <article-interaction [article]="SimilarEvent"></article-interaction>
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                <img src="assets/images/video/icon/point.png" alt="" class="bullet">
+                                {{ getRelativeDate(SimilarEvent.published_at) }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+               
+            </a>
+        </div>
+    </div>
+      <!--End similar articles-->
+        <div class="slide-article" *ngIf="similarEventsList.length">
+          <button
+            type="button"
+            nz-button
+            class="is-see-more show-more"
+            [nzType]="'primary'"
+            (click)="slideArticle()"
+          >
+            {{ "ShowMore" | translate }}
+          </button>
+          <button
+            type="button"
+            nz-button
+            class="is-see-more less-more"
+            [nzType]="'primary'"
+            (click)="slideArticle()"
+          >
+            {{ "ShowLess" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
