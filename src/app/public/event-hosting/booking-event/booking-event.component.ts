@@ -106,7 +106,7 @@ export class BookingEventComponent implements OnInit {
         this.host_fee= this.event.host_fee;
         if (!this.event.first_joind_group) {
           this.event_groups.push({
-            'label': this.translate.instant('FirstGroup') + ' - ' + this.event.first_group_type + ' (' + this.event.first_group_size + ')',
+            'label': this.translate.instant('FirstGroup') + ' - ' + this.translate.instant(this.event.first_group_type) + ' (' + this.event.first_group_size + ')',
             'value': 0,
             'type': this.event.first_group_type,
             'size': this.event.second_group_size
@@ -114,7 +114,7 @@ export class BookingEventComponent implements OnInit {
         }
         if (!this.event.second_joind_group) {
           this.event_groups.push({
-            'label': this.translate.instant('SecondGroup') + ' - ' + this.event.second_group_type + ' (' + this.event.second_group_size + ')',
+            'label': this.translate.instant('SecondGroup') + ' - ' + this.translate.instant(this.event.second_group_type) + ' (' + this.event.second_group_size + ')',
             'value': 1,
             'type': this.event.second_group_type,
             'size': this.event.second_group_size

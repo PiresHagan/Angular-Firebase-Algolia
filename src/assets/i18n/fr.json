@@ -1018,7 +1018,7 @@
   "GroupType":"Type de groupe",
   "GroupSize":"Taille de groupe",
   "GroupMembers":"Les membres du groupe",
-  "MemberContact":"Entrer le contact du membre (email, whatsapp ou skype)",
+  "MemberContact":"Entrer le contact du membre (nom d'utilisateur, e-mail, whatsapp ou skype)",
   "GroupCreator":"Créateur de groupe",
   "CreateBtn":"Créer",
   "MyGroups":"Mes groupes",
@@ -1056,7 +1056,9 @@
   "Subscription":"Abonnement",
   "HostBillingNote":"Vous pouvez mettre à jour vos informations de facturation ou ajouter un mode de paiement en cliquant sur le bouton 'Mettre à jour la facturation' ci-dessous. En cas de problème avec l'adresse de facturation ou la date d'expiration, appuyez ou cliquez sur 'Mettre à jour la facturation', puis mettez à jour les informations de paiement. Si vous changez de mode de paiement, utilisez un mode de paiement valide dans votre pays ou région avec de l'argent disponible dessus. Nous n'allons rien facturer lors de la mise à jour des informations de paiement.",
   "FeeNote":"Attention, s'inscrire à un événement nécessite de s'acquitter des frais de l'événement qui s'élèvent à {{host_fee}}",
-  "NoGroups":"Sin grupos"
+  "NoGroups":"Aucun groupe",
+  "FirstGroup":"Premier groupe",
+  "SecondGroup":"Deuxième groupe"
  
   
 }

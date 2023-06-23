@@ -75,7 +75,7 @@ export class AddGroupComponent implements OnInit {
     });
     this.setUserDetails();
     this.createForm();
-    this.subscription='NoSubscription' +"/"+'Free';
+    this.subscription= this.translate.instant('NoSubscription') +"/"+this.translate.instant('Free');
   }
   upgradeGroupSubscription(selectedPackage){
     this.selectedPackage=selectedPackage;
@@ -107,6 +107,10 @@ export class AddGroupComponent implements OnInit {
           this.showErrorMessage('FailedSubscription');
         });
       }
+      else if(this.event_slug!=null)
+      this.router.navigateByUrl("/event-hosting/book/"+this.event_slug);
+    else
+    this.router.navigateByUrl("/groups");
       
     })
     .catch((err) => {

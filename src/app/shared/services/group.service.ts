@@ -177,7 +177,7 @@ export class GroupsService {
           .where("MemberIds", "array-contains", userId)
           .where("group_type", "==", group_type)
           .where("group_size", "==", group_size)
-          .where("subscription",">=",host_fee)
+          .where("subscription",">=",host_fee/10)
       )
       .snapshotChanges()
       .pipe(
