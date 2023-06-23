@@ -1,4 +1,3 @@
-import { group } from "console";
 import { ArticleImage } from "./article-image.type";
 import { Group } from "./group.type";
 

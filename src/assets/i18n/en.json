@@ -1079,7 +1079,7 @@
   "GroupType":"Group Type",
   "GroupSize":"Group Size",
   "GroupMembers":"Group Members",
-  "MemberContact":"input member contact (email, whatsapp or skype)",
+  "MemberContact":"input member contact (username, email, whatsapp or skype)",
   "GroupCreator":"Group Creator",
   "CreateBtn":"Create",
   "MyGroups":"My Groups",
@@ -1117,6 +1117,8 @@
   "year":"Year",
   "Subscription":"Subscription",
   "FeeNote":"Attention, joining to an event requires to pay fees of the event which equal {{host_fee}}",
-  "NoGroups":"No groups"
+  "NoGroups":"No groups",
+  "FirstGroup":"First group",
+  "SecondGroup":"Second group"
 
 }
