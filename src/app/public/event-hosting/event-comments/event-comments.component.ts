@@ -34,6 +34,13 @@ export class ArticleCommentsComponent implements OnInit {
   isReportAbuseLoading: boolean = false;
   rating: number = 0;
   total_rating: number = 0;
+  canReply: boolean = false;
+  canRate: boolean = false;
+  isAdmin: boolean = false;
+  isReply: boolean = false;
+  commentedReply: string;
+  replies: any;
+
 
   @ViewChild('commentSection') private myScrollContainer: ElementRef;
   @ViewChild('commentReplySection') private commentReplyContainer: ElementRef;
@@ -52,7 +59,6 @@ export class ArticleCommentsComponent implements OnInit {
   }
 
   async setUserDetails() {
-
     this.authService.getAuthState().subscribe(async (user) => {
       if (!user) {
         this.userDetails = null;
@@ -60,8 +66,17 @@ export class ArticleCommentsComponent implements OnInit {
         return;
       }
       this.userDetails = await this.authService.getLoggedInUserDetails();
+      
       if (this.userDetails) {
         this.isLoggedInUser = true;
+        // is the loggedIn user admin => he can delete comment (inappropriate ones)
+        if(this.userDetails.type ==="staff"){
+          this.isAdmin=true;
+        }
+        // can the user comment? =>he should be host and one of the groups
+        this.canReply = this.eventService.canCommentEvent(this.userDetails.id, this.event);
+        // can the user rate? => he/she should be just the groups
+        this.canRate = this.eventService.canUserRateEvent(this.userDetails.id, this.event);
       } else {
         this.userDetails = null;
         this.isLoggedInUser = false;
@@ -136,13 +151,35 @@ export class ArticleCommentsComponent implements OnInit {
         published_on: this.activeComment ? this.activeComment['published_on'] : new Date().toISOString(),
         replied_on: this.activeComment ? this.activeComment['replied_on'] : (this.replyMessage ? this.replyMessage : ''),
         message: this.messageDetails,
-        author: this.getUserDetails(),
-        rating: this.rating
+        author: this.getUserDetails()
 
       };
+      let _replies=[];
+      let data={};
+      if(!this.isReply){
+        commentData['rating']=this.rating;
+      }
+      else{
+        if(this.replies== null)
+        {
+          _replies.push(commentData);
+        }
+        else{
+          
+          this.replies.push(commentData);
+          _replies = this.replies;
+          
+        }
+        data["replies"]=_replies;
+        this.updateCommentOnServer(this.commentedReply, data);
+        return;
+      }
+        
+      
       if (this.editedCommentId) {
         this.updateCommentOnServer(this.editedCommentId, commentData);
-      } else {
+      }
+       else if(!this.isReply){
         commentData['likes_count'] = 0;
         this.saveCommentOnServer(commentData);
       }
@@ -160,11 +197,22 @@ export class ArticleCommentsComponent implements OnInit {
         commented_by_user_name: this.getUserDetails().fullname,
         commented_by_user_id: this.getUserDetails().id,
       });
+      if(this.rating!=null && this.rating>0){
       this.rate_count += 1;
       this.rate_sum += this.rating;
+      }
 
     }
   }
+  deleteComment(commentId: string){
+    this.isReportAbuseLoading=true;
+      this.eventService.deleteEventComment(this.event.id, commentId).subscribe(() => {
+        this.isReportAbuseLoading=false;
+      }, () => {
+        this.showWarningMessage("CantDeleteComment");
+      })
+  }
+  
   showWarningMessage(message) {
     let $message = this.translate.instant(message);
     this.modal.warning({
@@ -194,14 +242,12 @@ export class ArticleCommentsComponent implements OnInit {
   }
 
   updateCommentOnServer(editedCommentId, commentData) {
-    this.editedCommentId = '';
-
     this.eventService.updateEventComment(this.event.id, editedCommentId, commentData).subscribe(() => {
       this.isFormSaving = false;
       this.messageDetails = '';
       this.showCommentSavedMessage();
       this.newComment();
-
+      this.isReply=false;
     }, () => {
 
       this.isFormSaving = false;
@@ -233,8 +279,11 @@ export class ArticleCommentsComponent implements OnInit {
     }, 500)
   }
 
-  replyComment(commentData) {
+  replyComment(commentId,commentData,replies) {
     this.replyMessage = commentData.message;
+    this.isReply=true;
+    this.commentedReply = commentId;
+    this.replies = replies;
     this.scrollToEditCommentSection();
   }
 

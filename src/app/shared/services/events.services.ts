@@ -343,7 +343,7 @@ export class EventsService {
     commentDtails: Comment
   ) {
     return this.http.put(
-      environment.baseAPIDomain +
+     environment.baseAPIDomain +
         "/api/v1/hostevents/" +
         articleId +
         "/comments/" +
@@ -351,6 +351,15 @@ export class EventsService {
       commentDtails
     );
     // return this.db.collection(`${this.articleCollection}/${articleId}/${this.articleCommentsCollection}`).doc(commentid).set(commentDtails)
+  }
+  deleteEventComment(areticleId:string, commentId:string){
+    return this.http.delete(
+      environment.baseAPIDomain +
+        "/api/v1/hostevents/" +
+        areticleId +
+        "/comments/" +
+        commentId
+    );
   }
    /**
    * like existing comment.
@@ -446,4 +455,22 @@ export class EventsService {
         })
       );
   }
+  canUserRateEvent(userId : string, event: Event){
+    if(event.first_joind_group?.MemberIds.includes(userId))
+    {
+     return true;
+ 
+    }
+    if(event.second_joind_group?.MemberIds.includes(userId)){
+     return true;
+    }
+    return false;
+   }
+   canCommentEvent(userId: string, event: Event){
+     if(event.owner.id===userId)
+       return true;
+     if(this.canUserRateEvent(userId, event))
+       return true;
+     return false;
+   }
 }

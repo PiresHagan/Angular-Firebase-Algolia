@@ -10,6 +10,7 @@ import { of } from "rxjs";
 import { Member } from "../interfaces/member.type";
 import { AngularFireStorage } from "@angular/fire/storage";
 import { Group } from "../interfaces/group.type";
+import { Event } from "../interFaces/event.type";
 import { GroupConstant } from "../constants/group-constants";
 
 
@@ -397,6 +398,7 @@ export class GroupsService {
       commentDtails
     );
   }
+
   /**
    * Update existing comment.
    *
@@ -576,4 +578,108 @@ export class GroupsService {
       })
     }));
   }
+  getEventFirstGroupJoined(userId : string, group: Group){
+    try{
+    const eventsCollection = "events";
+    // who can rate are members of groups work in an event and the host of the event
+    // get all events where the joined as first group
+
+
+    // get all events where they joined as second group
+    
+      let dataQuery = this.db.collection<Event>(`${eventsCollection}`, (ref) =>
+    ref
+      .where("second_joind_group.id","==",group.id)
+    //  .where("first_joind_group.MemberIds", "array-contains", userId)
+     
+  );
+  return  dataQuery.snapshotChanges().pipe(
+    map((actions) => {
+      return {
+        eventList: actions.map((a) => {
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { ...data };
+        })
+      };
+    })
+  );
+
+  }
+  catch(e){
+    console.error(e);
+  }
+   }
+  
+  getEventSecondGroupJoined(userId : string, group: Group){
+    try{
+    const eventsCollection = "events";
+    // who can rate are members of groups work in an event and the host of the event
+    // get all events where the joined as first group
+
+
+    // get all events where they joined as second group
+    
+      let dataQuery = this.db.collection(`${eventsCollection}`, (ref) =>
+    ref
+      .where("second_joind_group.MemberIds", "array-contains", userId)
+      .where("first_joind_group.id", "==", group.id)
+  );
+  return  dataQuery.snapshotChanges().pipe(
+    map((actions) => {
+      return {
+        eventList: actions.map((a) => {
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return {...data };
+        })
+      };
+    })
+  );
+
+  }
+  catch(e){
+    console.error(e);
+  }
+   }
+ canRate(userId: string, group: Group){
+  this.getEventFirstGroupJoined(userId, group).subscribe((data)=>{
+    // check if these events has the user joined in the second team?
+    for(let i=0;  i< data.eventList.length;i++) {
+      if(data.eventList[i].second_joind_group!=null && data.eventList[i].second_joind_group.MemberIds.includes(userId))
+        return true;
+      else if(data.eventList[i].owner.id == userId)
+        return true;
+       }
+    
+      // check other list of events where they joined as a second group
+      this.getEventSecondGroupJoined(userId, group).subscribe((data2)=>{
+        // check if these events has the user joined in the second team?
+        for(let i=0;  i< data2.eventList.length;i++) {
+          if(data2.eventList[i].first_joind_group!=null && data2.eventList[i].first_joind_group.MemberIds.includes(userId))
+            return true
+          else if(data2.eventList[i].owner.id == userId)
+            return true;
+        }
+   
+   
+});
+});
+return false;
 }
+ 
+   canComment(userId: string, group: Group){
+     if(group.MemberIds.includes(userId))
+       return true;
+     else return this.canRate(userId, group);       
+   }
+   deleteGroupComment(areticleId:string, commentId:string){
+    return this.http.delete(
+      environment.baseAPIDomain +
+        "/api/v1/groups/" +
+        areticleId +
+        "/comments/" +
+        commentId
+    );
+   }
+ }

@@ -38,7 +38,13 @@ export class ArticleCommentsComponent implements OnInit {
   isCommentSavedSuccessfully: boolean = false;
   isReportAbuseLoading: boolean = false;
   rating: number=0;
-  
+  canReply: boolean = false;
+  canRate: boolean = false;
+  isAdmin: boolean = false;
+  isReply: boolean = false;
+  commentedReply: string;
+  replies: any;
+
   @ViewChild('commentSection') private myScrollContainer: ElementRef;
   @ViewChild('commentReplySection') private commentReplyContainer: ElementRef;
   constructor(
@@ -52,7 +58,6 @@ export class ArticleCommentsComponent implements OnInit {
   ngOnInit(): void {
     
     this.getEventComments(this.event.id);
-    console.log("comment event",this.eventComments);
     this.setUserDetails();
   }
 
@@ -67,6 +72,14 @@ export class ArticleCommentsComponent implements OnInit {
       this.userDetails = await this.authService.getLoggedInUserDetails();
       if (this.userDetails) {
         this.isLoggedInUser = true;
+        if(this.userDetails.type ==="staff"){
+          this.isAdmin=true;
+        }
+        // can the user comment? =>he should be host and one of the groups
+         this.canReply = this.groupService.canComment(this.userDetails.id,this.event);
+        //canCommentEvent(this.userDetails.id, this.event);
+        // can the user rate? => he/she should be just the groups
+         this.canRate = this.groupService.canRate(this.userDetails.id, this.event);
       } else {
         this.userDetails = null;
         this.isLoggedInUser = false;
@@ -144,14 +157,34 @@ export class ArticleCommentsComponent implements OnInit {
    */
   saveComments(form: NgForm) {
     if (form.valid) {
+      this.isFormSaving = true;
       const commentData = {
         published_on: this.activeComment ? this.activeComment['published_on'] : new Date().toISOString(),
         replied_on: this.activeComment ? this.activeComment['replied_on'] : (this.replyMessage ? this.replyMessage : ''),
         message: this.messageDetails,
-        rating: this.rating,
         author: this.getUserDetails()
 
       };
+      let _replies=[];
+      let data={};
+      if(!this.isReply){
+        commentData['rating']=this.rating;
+      }
+      else{
+        if(this.replies== null)
+        {
+          _replies.push(commentData);
+        }
+        else{
+          
+          this.replies.push(commentData);
+          _replies = this.replies;
+          
+        }
+        data["replies"]=_replies;
+        this.updateCommentOnServer(this.commentedReply, data);
+        return;
+      }
       if (this.editedCommentId) {
         this.updateCommentOnServer(this.editedCommentId, commentData);
       } else {
@@ -192,6 +225,7 @@ export class ArticleCommentsComponent implements OnInit {
       this.messageDetails = '';
       this.showCommentSavedMessage();
       this.newComment();
+      this.isFormSaving = false;
     }, () => {
 
       this.isFormSaving = false;
@@ -207,14 +241,12 @@ export class ArticleCommentsComponent implements OnInit {
   }
 
   updateCommentOnServer(editedCommentId, commentData) {
-    this.editedCommentId = '';
-
     this.groupService.updateGroupComment(this.event.id, editedCommentId, commentData).subscribe(() => {
-      this.isFormSaving = false;
       this.messageDetails = '';
       this.showCommentSavedMessage();
       this.newComment();
-
+      this.isReply=false;
+      this.isFormSaving = false;
     }, () => {
 
       this.isFormSaving = false;
@@ -246,9 +278,20 @@ export class ArticleCommentsComponent implements OnInit {
     }, 500)
   }
 
-  replyComment(commentData) {
+  replyComment(commentId,commentData,replies) {
     this.replyMessage = commentData.message;
+    this.isReply=true;
+    this.commentedReply = commentId;
+    this.replies = replies;
     this.scrollToEditCommentSection();
+  }
+  deleteComment(commentId: string){
+    this.isReportAbuseLoading=true;
+      this.groupService.deleteGroupComment(this.event.id, commentId).subscribe(() => {
+        this.isReportAbuseLoading=false;
+      }, () => {
+        this.showWarningMessage("CantDeleteComment");
+      })
   }
 
   /**

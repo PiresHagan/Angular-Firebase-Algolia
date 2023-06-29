@@ -83,39 +83,62 @@
                         "ng-reflect-ng-if": "3"
                       }--></a
                 >
-                <!--
-                <a class="comment-view-replies" *ngIf="isLoggedInUser"
-                    (click)="replyComment(articleComment.id,articleComment)">
-                    {{'reply' | translate}}</a>
-                <span *ngIf="isLoggedInUser && userDetails?.id===articleComment?.author?.id">
-                    / </span><a class="comment-view-replies"
-                    *ngIf="isLoggedInUser && userDetails?.id===articleComment?.author?.id"
-                    (click)="editComment(articleComment.id,articleComment)">
-                    {{'edit' | translate}}</a> <span
-                    *ngIf="isLoggedInUser  && userDetails?.id!==articleComment?.author?.id">
-                    / </span>
-                    -->
+                <a class="right-sec comment-view-replies" *ngIf="canReply"
+                (click)="replyComment(articleComment.id,articleComment,articleComment.replies)">
+                <i class="fa fa-reply" aria-hidden="true"></i></a>
+                  <a class="comment-view-replies right-sec"
+                *ngIf="isAdmin"
+                
+                nz-popconfirm
+                nzPopconfirmTitle="{{'SureToDeleteComment'|translate}}"
+                (nzOnConfirm)="deleteComment(articleComment.id)">
+                <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseLoading">
+                </nz-spin>
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </a>
               </div>
               <div class="clearfix"></div>
             </div>
             <div class="replied-comment">
-              <blockquote
-                *ngIf="articleComment.replied_on"
-                innerHTML="{{ articleComment.replied_on }}"
-              ></blockquote>
+              
               <div innerHTML="{{ articleComment.message }}"></div>
             </div>
+            <div  class="is-comment is-line reply-padding" *ngFor="let reply of articleComment.replies; let i = index">
+              <div class="is-comment-img">
+                  <img class="avatar" src="{{replaceImage(reply?.author?.avatar?.url)}}"
+                  alt="{{reply?.author?.slug}}" />
+              </div>
+              <div class="is-comment-detail">
+                  <div class="comment-flex-container">
+                  <div class="left-flex-box">
+                  <h4 class="is-comment-user-name">
+                      {{reply?.author?.fullname}}
+                      <small class="comment-date"
+                      >
+                      <i>
+                        {{ reply?.published_on | date: "medium" }}</i></small>
+                   </h4>
+                  </div>
+                  
+                  <div class="clearfix"></div>
+                   </div>
+                   <div class="replied-comment">
+                      <div innerHTML="{{reply.message}}"></div>
+                      </div>
+                      
+              </div>
+              </div>
           </div>
         </div>
-        <!--
+        
         <div *ngIf="lastCommentDoc">
           <a (click)="loadMoreComments()" *ngIf="!isCommentsLoading"
             ><span>{{ "moreComments" | translate }}</span></a
           >
           <nz-spin nzSimple *ngIf="isCommentsLoading"></nz-spin>
         </div>
--->
-        <div class="comment-reply-form" #commentReplySection>
+
+        <div class="comment-reply-form" #commentReplySection *ngIf="canReply">
           <div class="form-group">
             <h2>{{ "replyHere" | translate }}...</h2>
           </div>
@@ -132,6 +155,7 @@
                 </div>
                 <app-product-star-rating-group
                   [rating]="0"
+                  *ngIf="canRate&&!isReply"
                   (starRateEvent)="setRate($event)"
                 ></app-product-star-rating-group>
                 <quill-editor
@@ -168,16 +192,7 @@
                 >
                   {{ "send" | translate }}
                 </button>
-                <button
-                  class="m-5"
-                  nz-button
-                  nzType="primary"
-                  *ngIf="editedCommentId || replyMessage"
-                  (click)="newComment()"
-                  [nzLoading]="isFormSaving"
-                >
-                  {{ "newCom" | translate }}
-                </button>
+               
               </div>
 
               <div

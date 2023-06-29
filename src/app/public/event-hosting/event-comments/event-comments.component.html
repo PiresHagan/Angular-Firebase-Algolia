@@ -1,134 +1,168 @@
+
 <div class="p-rating-sec">
-    <div class="overall-rating">
-      <div class="p-rating" *ngIf="rate_count && rate_sum && rate_count!=0">
-        {{ rate_sum/rate_count | number: "1.0-1" }}
-      </div>
-      <div class="p-rating-list">
-        <ul class="rating-list">
-          <app-product-star-rating
-            *ngIf="rate_count && rate_sum && rate_count!=0" 
-            [rating]="rate_sum / rate_count"
-          ></app-product-star-rating>
-        </ul>
-      </div>
+  <div class="overall-rating">
+    <div class="p-rating" *ngIf="rate_count && rate_sum && rate_count!=0">
+      {{ rate_sum/rate_count | number: "1.0-1" }}
     </div>
+    <div class="p-rating-list">
+      <ul class="rating-list">
+        <app-product-star-rating
+          *ngIf="rate_count && rate_sum && rate_count!=0" 
+          [rating]="rate_sum / rate_count"
+        ></app-product-star-rating>
+      </ul>
+    </div>
+  </div>
 </div>
 <div class="is-comment-sec" #commentSection>
-   
+ 
 
-    <div class="is-middle-ad-section" style="margin:30px 0px;">
-        <div class="is-reply-sec">
-        <a name="comments" href="#comments"></a>
-        <h2>{{'comments' | translate}}</h2>
-        <div>
-            <div class="is-comment is-line" *ngFor="let articleComment of eventComments; let i = index">
-            <div class="is-comment-img">
-                <img class="avatar" src="{{replaceImage(articleComment?.author?.avatar?.url)}}"
-                alt="{{articleComment?.author?.slug}}" />
-            </div>
-            <div class="is-comment-detail">
-                <div class="comment-flex-container">
-                <div class="left-flex-box">
-                <h4 class="is-comment-user-name">
-                    {{articleComment?.author?.fullname}}
-                    <small class="comment-date"
-                    >
-                    <span>
-                        <app-product-star-rating
-                          *ngIf="articleComment?.rating > 0"
-                          [rating]="articleComment.rating"
-                        ></app-product-star-rating>
-                      </span>
-                    <i>
-                      {{ articleComment?.published_on | date: "medium" }}</i
-                    ></small>
-                 </h4>
-                </div>
-                <div class="right-flex-box">
-                    <a class="is-like"  
-                    [ngClass]="{
-                        'filled-icon':(isLoggedInUser&&(articleComment?.users_like!=null && articleComment?.users_like.indexOf(userDetails?.id)>=0)||(isLoggedInUser && (userDetails?.id==articleComment?.author?.id))),
-                        'not-filled-icon': !((isLoggedInUser&&(articleComment?.users_like!=null && articleComment?.users_like.indexOf(userDetails?.id)>=0))||(isLoggedInUser && (userDetails?.id==articleComment?.author?.id)))
-                     }"
-                    >
-                        <span class="likes-count ng-star-inserted" (click)="likeComment(articleComment)"><i class="fa fa-light fa-heart"></i> {{articleComment?.likes_count}}</span>
+  <div class="is-middle-ad-section" style="margin:30px 0px;">
+      <div class="is-reply-sec">
+      <a name="comments" href="#comments"></a>
+      <h2>{{'comments' | translate}}</h2>
+      <div>
+          <div class="is-comment is-line" *ngFor="let articleComment of eventComments; let i = index">
+          <div class="is-comment-img">
+              <img class="avatar" src="{{replaceImage(articleComment?.author?.avatar?.url)}}"
+              alt="{{articleComment?.author?.slug}}" />
+          </div>
+          <div class="is-comment-detail">
+              <div class="comment-flex-container">
+              <div class="left-flex-box">
+              <h4 class="is-comment-user-name">
+                  {{articleComment?.author?.fullname}}
+                  <small class="comment-date"
+                  >
+                  <span>
+                      <app-product-star-rating
+                        *ngIf="articleComment?.rating > 0"
+                        [rating]="articleComment.rating"
+                      ></app-product-star-rating>
+                    </span>
+                  <i>
+                    {{ articleComment?.published_on | date: "medium" }}</i
+                  ></small>
+               </h4>
+              </div>
+              <div class="right-flex-box">
+                  <a class="is-like"  
+                  [ngClass]="{
+                      'filled-icon':(isLoggedInUser&&(articleComment?.users_like!=null && articleComment?.users_like.indexOf(userDetails?.id)>=0)||(isLoggedInUser && (userDetails?.id==articleComment?.author?.id))),
+                      'not-filled-icon': !((isLoggedInUser&&(articleComment?.users_like!=null && articleComment?.users_like.indexOf(userDetails?.id)>=0))||(isLoggedInUser && (userDetails?.id==articleComment?.author?.id)))
+                   }"
+                  >
+                      <span class="likes-count ng-star-inserted" (click)="likeComment(articleComment)"><i class="fa fa-light fa-heart"></i> {{articleComment?.likes_count}}</span>
+                      
+                  </a>
+                  <a class="right-sec comment-view-replies" *ngIf="canReply"
+                (click)="replyComment(articleComment.id,articleComment,articleComment.replies)">
+                <i class="fa fa-reply" aria-hidden="true"></i></a>
+                  <a class="comment-view-replies right-sec"
+                *ngIf="isAdmin"
+                
+                nz-popconfirm
+                nzPopconfirmTitle="{{'SureToDeleteComment'|translate}}"
+                (nzOnConfirm)="deleteComment(articleComment.id)">
+                <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseLoading">
+                </nz-spin>
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </a>
+                                  </div>
+              <div class="clearfix"></div>
+               </div>
+               <div class="replied-comment">
+                  <div innerHTML="{{articleComment.message}}"></div>
+                  </div>
+                  <div  class="is-comment is-line reply-padding" *ngFor="let reply of articleComment.replies; let i = index">
+                    <div class="is-comment-img">
+                        <img class="avatar" src="{{replaceImage(reply?.author?.avatar?.url)}}"
+                        alt="{{reply?.author?.slug}}" />
+                    </div>
+                    <div class="is-comment-detail">
+                        <div class="comment-flex-container">
+                        <div class="left-flex-box">
+                        <h4 class="is-comment-user-name">
+                            {{reply?.author?.fullname}}
+                            <small class="comment-date"
+                            >
+                            <i>
+                              {{ reply?.published_on | date: "medium" }}</i></small>
+                         </h4>
+                        </div>
                         
-                    </a>
-                                    </div>
-                <div class="clearfix"></div>
-                 </div>
-                 <div class="replied-comment">
-                    <blockquote *ngIf="articleComment.replied_on" innerHTML="{{articleComment.replied_on}}">
-                    </blockquote>
-                    <div innerHTML="{{articleComment.message}}"></div>
+                        <div class="clearfix"></div>
+                         </div>
+                         <div class="replied-comment">
+                            <div innerHTML="{{reply.message}}"></div>
+                            </div>
+                            
                     </div>
-
-            </div>
-            </div>
-
-            <div class="comment-reply-form" #commentReplySection>
-            <div class="form-group">
-                <h2>{{'replyHere' | translate}}...</h2>
-            </div>
-            <div [ngClass]="{'replay-container-wrapper':replyMessage}">
-
-                <form #commentForm="ngForm" class="comment_reply" *ngIf="isLoggedInUser"
-                (ngSubmit)="saveComments(commentForm)">
-                <app-product-star-rating-group
-                  [rating]="0"
-                  (starRateEvent)="setRate($event)"
-                ></app-product-star-rating-group>
-                <div class="form-group">
-
-                    <div class="reply-container">
-                    <blockquote innerHTML="{{replyMessage}}"></blockquote>
                     </div>
+          </div>
+          </div>
 
-                    <quill-editor [style]="{height: '500px'}" [placeholder]="''" [minLength]="10"
-                    [maxLength]="400" name="message" [(ngModel)]="messageDetails" #messageInput="ngModel">
-                    <div quill-editor-toolbar>
-                        <span class="ql-formats">
-                        <button class="ql-bold"></button>
-                        <button class="ql-italic"></button>
-                        <button class="ql-underline"></button>
-                        <button class=" ql-link"></button>
-                        </span>
+          <div class="comment-reply-form" #commentReplySection *ngIf="canReply">
+          <div class="form-group">
+              <h2>{{'replyHere' | translate}}...</h2>
+          </div>
+          <div [ngClass]="{'replay-container-wrapper':replyMessage}" >
 
-                    </div>
-                    </quill-editor>
-                    <div>
-                  
-                </div>
-                    <div style="color: red;" *ngIf="!messageInput.valid">
-                    {{'comLengthMessage' | translate}}
+              <form #commentForm="ngForm" class="comment_reply"
+              (ngSubmit)="saveComments(commentForm)">
+              <app-product-star-rating-group
+                [rating]="0"
+                *ngIf="canRate&&!isReply"
+                (starRateEvent)="setRate($event)"
+              ></app-product-star-rating-group>
+              <div class="form-group">
 
-                    </div>
-                </div>
-                <!--
-                <div class="form-group">
                   <div class="reply-container">
-                    <label>{{"Tips"|translate}}</label>
-                    <input type="number" id="tip"/>
-                    </div>
-                </div>
-              -->
+                  <blockquote innerHTML="{{replyMessage}}"></blockquote>
+                  </div>
 
-                <div class="m-t-10">
-                    <button class="m-5" nz-button nzType="primary" [nzLoading]="isFormSaving"
-                    [disabled]="!commentForm.valid || !messageInput.value">{{'send' | translate}}</button>
-                    <button class="m-5" nz-button nzType="primary" *ngIf="editedCommentId || replyMessage"
-                    (click)="newComment()" [nzLoading]="isFormSaving">{{'newCom' | translate}}</button>
+                  <quill-editor [style]="{height: '500px'}" [placeholder]="''" [minLength]="10"
+                  [maxLength]="400" name="message" [(ngModel)]="messageDetails" #messageInput="ngModel">
+                  <div quill-editor-toolbar>
+                      <span class="ql-formats">
+                      <button class="ql-bold"></button>
+                      <button class="ql-italic"></button>
+                      <button class="ql-underline"></button>
+                      <button class=" ql-link"></button>
+                      </span>
 
-                </div>
+                  </div>
+                  </quill-editor>
+                  <div>
+                
+              </div>
+                  <div style="color: red;" *ngIf="!messageInput.valid">
+                  {{'comLengthMessage' | translate}}
+
+                  </div>
+              </div>
+              <!--
+              <div class="form-group">
+                <div class="reply-container">
+                  <label>{{"Tips"|translate}}</label>
+                  <input type="number" id="tip"/>
+                  </div>
+              </div>
+            -->
+
+              <div class="m-t-10">
+                  <button class="m-5" nz-button nzType="primary" [nzLoading]="isFormSaving"
+                  [disabled]="!commentForm.valid || !messageInput.value">{{'send' | translate}}</button>
+              </div>
 
 
 
-                <div class="hidden comment_form_success" *ngIf="isCommentSavedSuccessfully">
-                    <p class="text-success">
-                    <b>{{'successMsg' | translate}}</b>
-                    </p>
-                </div>
-                </form>
+              <div class="hidden comment_form_success" *ngIf="isCommentSavedSuccessfully">
+                  <p class="text-success">
+                  <b>{{'successMsg' | translate}}</b>
+                  </p>
+              </div>
+              </form>
 
 
 
@@ -136,17 +170,17 @@
 
 
 
-            </div>
+          </div>
 
 
 
-            <div *ngIf="!isLoggedInUser"><a
-                [routerLink]="['/auth/login/']"><span>{{'login' | translate}}</span></a>
-                / <a [routerLink]="['/auth/signup/']"><span>{{'signUp' | translate}}</span></a>
-                {{'forAddCom' | translate}}.
-            </div>
-            </div>
+          <div *ngIf="!isLoggedInUser"><a
+              [routerLink]="['/auth/login/']"><span>{{'login' | translate}}</span></a>
+              / <a [routerLink]="['/auth/signup/']"><span>{{'signUp' | translate}}</span></a>
+              {{'forAddCom' | translate}}.
+          </div>
+          </div>
 
-        </div>
-    </div>
+      </div>
+  </div>
 </div>

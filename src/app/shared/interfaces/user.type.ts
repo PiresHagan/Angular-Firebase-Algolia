@@ -16,6 +16,7 @@ export interface User {
     notification?: UserNotification,
     displayName?: string,
     slug?: string,
+    type?: string,
 
 
     photoURL?: string,
