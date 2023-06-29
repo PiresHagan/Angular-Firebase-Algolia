@@ -1036,6 +1036,8 @@
   "avatarImageRequired":"Se requiere imagen de avatar",
   "MemberNumberNotMatchGroupSizeOf":"El número de miembro no coincide con el tamaño del grupo seleccionado",
   "LogInFirst":"Por favor inicie sesión/regístrese antes de la interacción",
+  "CantLikeYourComment":"No puedes darle me gusta a tu propio comentario.",
+  "AlreadyLikedComment":"Solo puedes darle me gusta a un comentario una vez, ya le diste me gusta a este",
   "NoSubscription":"Sin subscripción",
   "Title":"Título",
   "Size":"Tamaño",
@@ -1049,7 +1051,8 @@
   "Location":"Ubicación",
   "Name":"apellido",
   "Female":"Mujer",
-  "Male":"Masculino",
+  "Male":"Hombre",
+  "Mix":"Mixto",
   "BackToGroups":"Volver a la lista de grupos",
   "year":"Año",
   "Subscription":"Suscripción",
@@ -1057,9 +1060,7 @@
   "FeeNote":"Atención, unirse a un evento requiere pagar tarifas del evento que equivalen {{host_fee}}",
   "NoGroups":"Sin grupos",
   "FirstGroup":"Primer grupo",
-  "SecondGroup":"segundo grupo"
-
-
-  
-  
+  "SecondGroup":"segundo grupo",
+  "CantDeleteComment":"Algo salió mal, por favor póngase en contacto con soporte",
+  "SureToDeleteComment":"¿Está seguro de que desea eliminar este comentario y sus respuestas?" 
 }

@@ -458,3 +458,18 @@
         }
     }
 }
+ 
+.right-sec{
+  padding-left: 3px;
+  padding-right: 3px;
+  font-size: 15px !important;
+}
+
+@media screen and (min-width: 700px) {
+  .reply-padding {
+    padding-left: 0%;
+    background-color: aliceblue;
+   
+  }
+
+}
