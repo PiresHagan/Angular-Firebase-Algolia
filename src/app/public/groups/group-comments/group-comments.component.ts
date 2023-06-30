@@ -9,7 +9,7 @@ import { GroupsService } from 'src/app/shared/services/group.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { Group } from 'src/app/shared/interfaces/group.type';
-import { DOCUMENT } from '@angular/common'; 
+import { DOCUMENT } from '@angular/common';
 
 import { ConstantPool } from '@angular/compiler';
 import { Console } from 'console';
@@ -37,7 +37,7 @@ export class ArticleCommentsComponent implements OnInit {
   isCommentsLoading: boolean = false;
   isCommentSavedSuccessfully: boolean = false;
   isReportAbuseLoading: boolean = false;
-  rating: number=0;
+  rating: number = 0;
   canReply: boolean = false;
   canRate: boolean = false;
   isAdmin: boolean = false;
@@ -56,7 +56,7 @@ export class ArticleCommentsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+
     this.getEventComments(this.event.id);
     this.setUserDetails();
   }
@@ -72,21 +72,66 @@ export class ArticleCommentsComponent implements OnInit {
       this.userDetails = await this.authService.getLoggedInUserDetails();
       if (this.userDetails) {
         this.isLoggedInUser = true;
-        if(this.userDetails.type ==="staff"){
-          this.isAdmin=true;
+        if (this.userDetails.type === "staff") {
+          this.isAdmin = true;
         }
         // can the user comment? =>he should be host and one of the groups
-         this.canReply = this.groupService.canComment(this.userDetails.id,this.event);
+
         //canCommentEvent(this.userDetails.id, this.event);
         // can the user rate? => he/she should be just the groups
-         this.canRate = this.groupService.canRate(this.userDetails.id, this.event);
+        this.canRateFunction(this.userDetails.id, this.event);
+        
       } else {
         this.userDetails = null;
         this.isLoggedInUser = false;
       }
     })
   }
+  canRateFunction(userId: string, group: Group) {
+    if(!this.canCommentFunction(userId,group)){
+    this.groupService.getEventFirstGroupJoined(userId, group).subscribe((data) => {
+      // check if these events has the user joined in the second team?
+      for (let i = 0; i < data.eventList.length; i++) {
+        if (data.eventList[i].second_joind_group != null && data.eventList[i].second_joind_group.MemberIds.includes(userId)) {
+          this.canRate = true;
+          this.canReply=true;
+        }
+        else if (data.eventList[i].owner.id == userId)
+          this.canRate = true;
+          this.canReply = true;
+      }
 
+      // check other list of events where they joined as a second group
+      if (!this.canRate) {
+        this.groupService.getEventSecondGroupJoined(userId, group).subscribe((data2) => {
+          // check if these events has the user joined in the second team?
+          for (let i = 0; i < data2.eventList.length; i++) {
+            if (data2.eventList[i].first_joind_group != null && data2.eventList[i].first_joind_group.MemberIds.includes(userId)) {
+              this.canRate = true;
+              this.canReply = true;
+            }
+            else if (data2.eventList[i].owner.id == userId) {
+              this.canRate = true;
+              this.canReply = true;
+            }
+          }
+
+          this.canRate = false;
+        });
+      }
+    });
+  }
+  else{
+    this.canReply = true;
+    this.canRate = false;
+  }
+  }
+
+  canCommentFunction(userId: string, group: Group) {
+    if (group.MemberIds.includes(userId))
+      return true;
+    else return false;
+  }
 
   /**
    * Get Article comments using Article Id
@@ -94,61 +139,50 @@ export class ArticleCommentsComponent implements OnInit {
    */
 
   getEventComments(articleId) {
-    console.log('id',articleId);
-    try{
-    this.groupService.getGroupComments(articleId).subscribe(({ commentList, lastCommentDoc }) => {
-      this.eventComments = commentList;
-      console.log("Comment",commentList);
-      console.log(articleId);
-      console.log('comments',commentList);
-      this.lastCommentDoc = lastCommentDoc
-    })
+    try {
+      this.groupService.getGroupComments(articleId).subscribe(({ commentList, lastCommentDoc }) => {
+        this.eventComments = commentList;
+        this.lastCommentDoc = lastCommentDoc
+      })
+    }
+    catch (e) {
+      console.log(e);
+    }
   }
-  catch(e){
-    console.log(e);
-  }
-  }
-  likeComment(commentData){
+  likeComment(commentData) {
     // get comment count and update comment
-   // check user comment
-   if(this.userDetails==null)
-    {
+    // check user comment
+    if (this.userDetails == null) {
       this.showWarningMessage("LogInFirst");
       return;
     }
-   if(this.userDetails?.id === commentData?.author?.id)
-    {
+    if (this.userDetails?.id === commentData?.author?.id) {
       this.showWarningMessage("CantLikeYourComment");
       return;
     }
-    
+
     let likes = [];
-    if(commentData['users_like']!=null)
+    if (commentData['users_like'] != null)
       likes = commentData['users_like'];
-    if(likes.indexOf(this.userDetails.id)==-1)
-      {
-        likes.push(this.userDetails.id);
-        if(commentData['likes_count']==null)
-        commentData['likes_count']=0;
-        commentData['likes_count'] = commentData['likes_count']+1;
-        commentData['users_like']=likes;
-      }
-    else
-      {
-        this.showWarningMessage("AlreadyLikedComment");
-        return;
-      }
+    if (likes.indexOf(this.userDetails.id) == -1) {
+      likes.push(this.userDetails.id);
+      if (commentData['likes_count'] == null)
+        commentData['likes_count'] = 0;
+      commentData['likes_count'] = commentData['likes_count'] + 1;
+      commentData['users_like'] = likes;
+    }
+    else {
+      this.showWarningMessage("AlreadyLikedComment");
+      return;
+    }
 
-   
-
-    console.log('comment',commentData);
     this.groupService.updateGroupComment(this.event.id, commentData.id, commentData).subscribe(() => {
       this.messageDetails = '';
       this.showCommentSavedMessage();
       this.newComment();
 
     }, () => {
-      
+
     })
   }
   /**
@@ -165,30 +199,29 @@ export class ArticleCommentsComponent implements OnInit {
         author: this.getUserDetails()
 
       };
-      let _replies=[];
-      let data={};
-      if(!this.isReply){
-        commentData['rating']=this.rating;
+      let _replies = [];
+      let data = {};
+      if (!this.isReply) {
+        commentData['rating'] = this.rating;
       }
-      else{
-        if(this.replies== null)
-        {
+      else {
+        if (this.replies == null) {
           _replies.push(commentData);
         }
-        else{
-          
+        else {
+
           this.replies.push(commentData);
           _replies = this.replies;
-          
+
         }
-        data["replies"]=_replies;
+        data["replies"] = _replies;
         this.updateCommentOnServer(this.commentedReply, data);
         return;
       }
       if (this.editedCommentId) {
         this.updateCommentOnServer(this.editedCommentId, commentData);
       } else {
-        commentData['likes_count']=0;
+        commentData['likes_count'] = 0;
         this.saveCommentOnServer(commentData);
       }
 
@@ -204,7 +237,7 @@ export class ArticleCommentsComponent implements OnInit {
         commented_by_user_name: this.getUserDetails().fullname,
         commented_by_user_id: this.getUserDetails().id,
       });
-      this.rate_count+=1;
+      this.rate_count += 1;
       this.rate_sum += this.rating;
 
     }
@@ -215,13 +248,13 @@ export class ArticleCommentsComponent implements OnInit {
       nzTitle: $message,
     });
   }
-  setRate(rate: number){
+  setRate(rate: number) {
     this.rating = rate;
   }
   saveCommentOnServer(commentData) {
     this.isFormSaving = true;
-    this.groupService.createGroupComment(this.event.id ,commentData).subscribe(() => {
-    
+    this.groupService.createGroupComment(this.event.id, commentData).subscribe(() => {
+
       this.messageDetails = '';
       this.showCommentSavedMessage();
       this.newComment();
@@ -245,7 +278,7 @@ export class ArticleCommentsComponent implements OnInit {
       this.messageDetails = '';
       this.showCommentSavedMessage();
       this.newComment();
-      this.isReply=false;
+      this.isReply = false;
       this.isFormSaving = false;
     }, () => {
 
@@ -261,13 +294,13 @@ export class ArticleCommentsComponent implements OnInit {
   }
 
   loadMoreComments() {
-   /* this.isCommentsLoading = true;
-    this.articleService.getEventCommentNextPage(this.event.id, 5, this.lastCommentDoc).subscribe(({ commentList, lastCommentDoc }) => {
-      this.lastCommentDoc = lastCommentDoc
-      this.eventComments = [...this.eventComments, ...commentList];
-      this.isCommentsLoading = false;
-
-    })*/
+    /* this.isCommentsLoading = true;
+     this.articleService.getEventCommentNextPage(this.event.id, 5, this.lastCommentDoc).subscribe(({ commentList, lastCommentDoc }) => {
+       this.lastCommentDoc = lastCommentDoc
+       this.eventComments = [...this.eventComments, ...commentList];
+       this.isCommentsLoading = false;
+ 
+     })*/
   }
 
   showCommentSavedMessage() {
@@ -278,20 +311,20 @@ export class ArticleCommentsComponent implements OnInit {
     }, 500)
   }
 
-  replyComment(commentId,commentData,replies) {
+  replyComment(commentId, commentData, replies) {
     this.replyMessage = commentData.message;
-    this.isReply=true;
+    this.isReply = true;
     this.commentedReply = commentId;
     this.replies = replies;
     this.scrollToEditCommentSection();
   }
-  deleteComment(commentId: string){
-    this.isReportAbuseLoading=true;
-      this.groupService.deleteGroupComment(this.event.id, commentId).subscribe(() => {
-        this.isReportAbuseLoading=false;
-      }, () => {
-        this.showWarningMessage("CantDeleteComment");
-      })
+  deleteComment(commentId: string) {
+    this.isReportAbuseLoading = true;
+    this.groupService.deleteGroupComment(this.event.id, commentId).subscribe(() => {
+      this.isReportAbuseLoading = false;
+    }, () => {
+      this.showWarningMessage("CantDeleteComment");
+    })
   }
 
   /**

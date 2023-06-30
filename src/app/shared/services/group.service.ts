@@ -578,7 +578,7 @@ export class GroupsService {
       })
     }));
   }
-  getEventFirstGroupJoined(userId : string, group: Group){
+   getEventFirstGroupJoined(userId : string, group: Group){
     try{
     const eventsCollection = "events";
     // who can rate are members of groups work in an event and the host of the event
@@ -611,7 +611,7 @@ export class GroupsService {
   }
    }
   
-  getEventSecondGroupJoined(userId : string, group: Group){
+   getEventSecondGroupJoined(userId : string, group: Group){
     try{
     const eventsCollection = "events";
     // who can rate are members of groups work in an event and the host of the event
@@ -642,37 +642,7 @@ export class GroupsService {
     console.error(e);
   }
    }
- canRate(userId: string, group: Group){
-  this.getEventFirstGroupJoined(userId, group).subscribe((data)=>{
-    // check if these events has the user joined in the second team?
-    for(let i=0;  i< data.eventList.length;i++) {
-      if(data.eventList[i].second_joind_group!=null && data.eventList[i].second_joind_group.MemberIds.includes(userId))
-        return true;
-      else if(data.eventList[i].owner.id == userId)
-        return true;
-       }
-    
-      // check other list of events where they joined as a second group
-      this.getEventSecondGroupJoined(userId, group).subscribe((data2)=>{
-        // check if these events has the user joined in the second team?
-        for(let i=0;  i< data2.eventList.length;i++) {
-          if(data2.eventList[i].first_joind_group!=null && data2.eventList[i].first_joind_group.MemberIds.includes(userId))
-            return true
-          else if(data2.eventList[i].owner.id == userId)
-            return true;
-        }
-   
-   
-});
-});
-return false;
-}
- 
-   canComment(userId: string, group: Group){
-     if(group.MemberIds.includes(userId))
-       return true;
-     else return this.canRate(userId, group);       
-   }
+
    deleteGroupComment(areticleId:string, commentId:string){
     return this.http.delete(
       environment.baseAPIDomain +
