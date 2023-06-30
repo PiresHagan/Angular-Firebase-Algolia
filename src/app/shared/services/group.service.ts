@@ -10,7 +10,6 @@ import { of } from "rxjs";
 import { Member } from "../interfaces/member.type";
 import { AngularFireStorage } from "@angular/fire/storage";
 import { Group } from "../interfaces/group.type";
-import { Event } from "../interFaces/event.type";
 import { GroupConstant } from "../constants/group-constants";
 
 
