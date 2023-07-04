@@ -588,8 +588,7 @@ export class GroupsService {
     
       let dataQuery = this.db.collection<Event>(`${eventsCollection}`, (ref) =>
     ref
-      .where("second_joind_group.id","==",group.id)
-    //  .where("first_joind_group.MemberIds", "array-contains", userId)
+      .where("first_joind_group.id","==",group.id)
      
   );
   return  dataQuery.snapshotChanges().pipe(
@@ -621,8 +620,7 @@ export class GroupsService {
     
       let dataQuery = this.db.collection(`${eventsCollection}`, (ref) =>
     ref
-      .where("second_joind_group.MemberIds", "array-contains", userId)
-      .where("first_joind_group.id", "==", group.id)
+      .where("second_joind_group.id", "==", group.id)
   );
   return  dataQuery.snapshotChanges().pipe(
     map((actions) => {

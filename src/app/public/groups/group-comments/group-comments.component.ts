@@ -95,10 +95,12 @@ export class ArticleCommentsComponent implements OnInit {
         if (data.eventList[i].second_joind_group != null && data.eventList[i].second_joind_group.MemberIds.includes(userId)) {
           this.canRate = true;
           this.canReply=true;
+          return;
         }
         else if (data.eventList[i].owner.id == userId)
           this.canRate = true;
           this.canReply = true;
+          return;
       }
 
       // check other list of events where they joined as a second group
@@ -113,6 +115,7 @@ export class ArticleCommentsComponent implements OnInit {
             else if (data2.eventList[i].owner.id == userId) {
               this.canRate = true;
               this.canReply = true;
+              return;
             }
           }
 
