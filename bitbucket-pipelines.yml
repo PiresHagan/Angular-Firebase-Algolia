@@ -1,0 +1,76 @@
+image: node:16.14.0
+
+pipelines:
+  branches:
+    dev:
+      - step:
+          name: Setup & Build
+          script:
+            - npm install
+            - npm run build
+          artifacts:
+            - dist/**
+
+      - step:
+          name: Deploy to Firebase
+          deployment: test
+          script:
+            - pipe: atlassian/firebase-deploy:0.2.1
+              variables:
+                FIREBASE_TOKEN: $FIREBASE_TOKEN
+                PROJECT_ID: $FIREBASE_PROJECT_DEV
+    
+    test:
+      - step:
+          name: Setup & Build
+          script:
+            - npm install
+            - npm run build
+          artifacts:
+            - dist/**
+
+      - step:
+          name: Deploy to Firebase
+          deployment: test
+          script:
+            - pipe: atlassian/firebase-deploy:0.2.1
+              variables:
+                FIREBASE_TOKEN: $FIREBASE_TOKEN
+                PROJECT_ID: $FIREBASE_PROJECT_DEV
+      
+    preprod:
+      - step:
+          name: Setup & Build
+          script:
+            - npm install
+            - npm run build_prod
+          artifacts:
+            - dist/**
+
+      - step:
+          name: Deploy to Firebase
+          deployment: production
+          script:
+            - pipe: atlassian/firebase-deploy:0.2.1
+              variables:
+                FIREBASE_TOKEN: $FIREBASE_TOKEN
+                PROJECT_ID: $FIREBASE_PROJECT_PROD
+    
+    master:
+      - step:
+          name: Setup & Build
+          script:
+            - npm install
+            - npm run build_prod
+          artifacts:
+            - dist/**
+
+      - step:
+          name: Deploy to Firebase
+          deployment: production
+          script:
+            - pipe: atlassian/firebase-deploy:0.2.1
+              variables:
+                FIREBASE_TOKEN: $FIREBASE_TOKEN
+                PROJECT_ID: $FIREBASE_PROJECT_PROD
+           
