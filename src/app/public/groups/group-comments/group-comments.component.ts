@@ -111,6 +111,7 @@ export class ArticleCommentsComponent implements OnInit {
             if (data2.eventList[i].first_joind_group != null && data2.eventList[i].first_joind_group.MemberIds.includes(userId)) {
               this.canRate = true;
               this.canReply = true;
+              return;
             }
             else if (data2.eventList[i].owner.id == userId) {
               this.canRate = true;
@@ -118,8 +119,6 @@ export class ArticleCommentsComponent implements OnInit {
               return;
             }
           }
-
-          this.canRate = false;
         });
       }
     });
