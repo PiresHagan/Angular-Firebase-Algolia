@@ -1,0 +1,33 @@
+.bookings-container{
+  padding: 16px;
+}
+.services td button{
+  margin-right: 5px;
+}
+.booking-loading{
+  text-align: center;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 80px 50px;
+  margin: 20px 0;
+  width: 100%;
+}
+form input{
+  width: 100%;
+  padding: 4px;
+}
+.formTime input{
+  padding: 8px 5px;
+}
+.ant-card-head {
+  padding: 0 8px !important;
+}
+.time-card>div{
+  padding: 0 8px !important;
+}
+.time-del{
+  display: flex;
+  justify-content: center;
+  float: right;
+}

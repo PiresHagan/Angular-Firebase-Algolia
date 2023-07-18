@@ -1123,5 +1123,27 @@
   "FirstGroup":"First group",
   "SecondGroup":"Second group",
   "CantDeleteComment":"Something went wrong, please contact support",
-  "SureToDeleteComment":"Are you sure you want to delete this comment and its replies?"
+  "SureToDeleteComment":"Are you sure you want to delete this comment and its replies?",
+  "Mytrendingstories Blogger": "Mytrendingstories Blogger",
+  "Mytrendingstories Advisor": "Mytrendingstories Advisor",
+  "Mytrendingstories Charity": "Mytrendingstories Charity",
+  "Mytrendingstories Company": "Mytrendingstories Company",
+  "Mytrendingstories Ecommerce": "Mytrendingstories Ecommerce",
+  "Mytrendingstories Fundraiser": "Mytrendingstories Fundraiser",
+  "Mytrendingstories Guest Post": "Mytrendingstories Guest Post",
+  "Mytrendingstories Host": "Mytrendingstories Host",
+  "Mytrendingstories Influencer Marketing": "Mytrendingstories Influencer Marketing",
+  "Mytrendingstories Investment": "Mytrendingstories Investment",
+  "Mytrendingstories Job": "Mytrendingstories Job",
+  "Mytrendingstories Online Course": "Mytrendingstories Online Course",
+  "Mytrendingstories Paid Premium Group": "Mytrendingstories Paid Premium Group",
+  "Mytrendingstories Podcaster": "Mytrendingstories Podcaster",
+  "Mytrendingstories Politician": "Mytrendingstories Politician",
+  "Mytrendingstories Restaurant": "Mytrendingstories Restaurant",
+  "Mytrendingstories Service": "Mytrendingstories Service",
+  "Mytrendingstories Vacation Rental": "Mytrendingstories Vacation Rental",
+  "Mytrendingstories Vlogger": "Mytrendingstories Vlogger",
+  "Mytrendingstories Academy": "Mytrendingstories Academy",
+  "agenyNonMTSUrlErr": "You have to input a valid MyTrendingStories URL"
+
 }

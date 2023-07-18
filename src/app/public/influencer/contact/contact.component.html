@@ -1,0 +1,37 @@
+<div class="bookings-container">
+  <nz-card>
+
+    <nz-table #basicTable [nzData]="contact" class="services">
+      <thead>
+        <tr>
+          <th>URL</th>
+          <th>Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="servicesLoading" class="booking-loading">
+          <td colspan="5">
+            <nz-spin nzSimple></nz-spin>
+          </td>
+        </tr>
+        <tr *ngFor="let data of basicTable.data ">
+          <td>{{ data.submiturl }}</td>
+          <td>{{ data.created_at }}</td>
+          <td>
+            <div *ngIf="!data.status">
+             Bending...
+            </div>
+            <div *ngIf="data.status">
+              <span> {{data.status}}</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+
+
+
+
+    </nz-table>
+  </nz-card>
+</div>

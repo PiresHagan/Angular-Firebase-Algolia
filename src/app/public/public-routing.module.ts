@@ -79,6 +79,10 @@ const routes: Routes = [
     path: 'charities',
     loadChildren: () => import('./charity-list/charity-list.module').then(m => m.CharityListModule)
   },
+  {
+    path: 'influencer',
+    loadChildren: () => import('./influencer/influencer.module').then(m => m.InfluencerModule)
+  },
   // {
   //   path: '**',
   //   component: HomeComponent,
