@@ -53,7 +53,6 @@ export class InfluencerContactComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
-    console.log("asd")
     await this.sleep(5000);
     this.getUser()
 
@@ -97,7 +96,6 @@ export class InfluencerContactComponent implements OnInit {
     this.servicesLoading = true;
     this.influencerService.getcontactbyUser(this.userDetails.slug).subscribe( (res: any )=>{
       this.servicesLoading = false;
-      console.log(res)
       this.contact = res.serviceList;
     });
   }

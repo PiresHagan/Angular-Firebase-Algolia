@@ -65,13 +65,11 @@ export class InfluencerComponent implements OnInit {
     window.addEventListener('scroll', this.scrollEvent, true);
     this.selectedLanguage = this.languageService.getSelectedLanguage();
     this.categories = this.categoryService.getAll(this.selectedLanguage);
-    console.log(this.categories)
     this.influencerService.getInfluencer().subscribe((data) => {
 
       this.influencers = data.serviceList;
       this.lastVisible = data.lastVisible;
       this.loading = false;
-      console.log(data.serviceList);
 
     });
 
@@ -83,7 +81,6 @@ export class InfluencerComponent implements OnInit {
         this.userService.getMember(this.userDetails.id).subscribe((userDetails) => {
           this.currentUser = userDetails;
         })
-        console.log(this.userDetails);
       } else {
         this.isLoggedInUser = false;
       }
@@ -95,7 +92,6 @@ export class InfluencerComponent implements OnInit {
     });
     this.categoryService.getAll(this.selectedLanguage).subscribe((data) => {
       this.categories = data;
-      console.log(this.categories);
     });
   }
 
@@ -161,7 +157,6 @@ export class InfluencerComponent implements OnInit {
       this.influencers = data.serviceList;
       this.lastVisible = data.lastVisible;
       this.loading = false;
-      console.log(data.serviceList);
 
     });
   }
@@ -196,12 +191,10 @@ export class InfluencerComponent implements OnInit {
     this.loading = true;
     this.listcatcon.reset();
 
-    console.log(this.searcher);
     this.influencerService.getInfluencerserchtitle(this.searcher).subscribe((data) => {
       this.influencers = data.serviceList;
       this.lastVisible = data.lastVisible;
       this.loading = false;
-      console.log(data.serviceList);
 
     });
   }
@@ -223,7 +216,6 @@ export class InfluencerComponent implements OnInit {
 
   handleURL() {
     this.isOkLoading = true;
-    console.log(this.submitedURL)
     // if(this.first_name==null && this.last_name ==null&& this.phone_number ==null&& this.email ==null&& this.note==null){
     //   this.showError("all fields is required");
     //   this.isOkLoading = false;
