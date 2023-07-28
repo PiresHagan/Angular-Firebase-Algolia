@@ -1084,6 +1084,17 @@
   "Mytrendingstories Vacation Rental": "Mytrendingstories Locations De Vacances",
   "Mytrendingstories Vlogger": "Mytrendingstories Vlogger",
   "Mytrendingstories Academy": "Mytrendingstories Académie",
-  "noInfdet":"Pas de données d'influenceurs"
+  "noInfdet":"Pas de données d'influenceurs",
+  "rateservice" : "Évaluez ce service",
+  "terrible":"terrible",
+  "bad":"mauvais",
+  "normal":"normal",
+  "good":"bien",
+  "wonderful":"merveilleux",
+  "pendingInf":"En attente",
+  "accept":"Accepté",
+  "reject":"Rejeté"
+
+
 
 }

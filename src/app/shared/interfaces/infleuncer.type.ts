@@ -36,4 +36,6 @@ export interface Infleuncer {
         url?: string;
         alt?: string;
     }
+    rating_sum?:any;
+    rating_count?:any;
 }

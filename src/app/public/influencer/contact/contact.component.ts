@@ -36,6 +36,9 @@ export class InfluencerContactComponent implements OnInit {
   endTime: Date | null = null
   deleteTimeLoading: boolean = false;
   defaultOpenValue = new Date(0, 0, 0, 0, 0, 0);
+  starRating = 0; 
+  tooltips = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+  value = 0;
 
   userDetails: any;
   influencerId: any;
@@ -107,6 +110,14 @@ export class InfluencerContactComponent implements OnInit {
       this.userDetails = await this.authService.getLoggedInUserDetails();
 
     });
+  }
+
+  ratingClick(influencerId,contactId){
+    const data={
+      userId : this.userDetails.id,
+      rating: this.value
+    }
+    this.influencerService.rateInfluencer(influencerId,contactId,data).then();
   }
 
 

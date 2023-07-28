@@ -20,10 +20,16 @@
           <td>{{ data.created_at }}</td>
           <td>
             <div *ngIf="!data.status">
-             Bending...
+              {{'pendingInf' | translate}}
             </div>
             <div *ngIf="data.status">
-              <span> {{data.status}}</span>
+              <span> {{data.status | translate}}</span>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="data.status=='accept'">
+              <nz-rate [ngModel]="data.rating?data.rating:0" [nzTooltips]="tooltips" (ngModelChange)="ratingClick(data.parentId,data.id)" [nzDisabled]="data.userId"></nz-rate>
+
             </div>
           </td>
         </tr>

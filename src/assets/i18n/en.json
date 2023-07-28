@@ -1144,6 +1144,16 @@
   "Mytrendingstories Vacation Rental": "Mytrendingstories Vacation Rental",
   "Mytrendingstories Vlogger": "Mytrendingstories Vlogger",
   "Mytrendingstories Academy": "Mytrendingstories Academy",
-  "agenyNonMTSUrlErr": "You have to input a valid MyTrendingStories URL"
+  "agenyNonMTSUrlErr": "You have to input a valid MyTrendingStories URL",
+  "rateservice" : "Rate this Service",
+  "terrible":"terrible",
+  "bad":"bad",
+  "normal":"normal",
+  "good":"good",
+  "wonderful":"wonderful",
+  "pendingInf":"Pending",
+  "accept":"Accepted",
+  "reject":"Rejected"
+
 
 }

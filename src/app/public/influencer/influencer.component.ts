@@ -36,6 +36,8 @@ export class InfluencerComponent implements OnInit {
   lastVisible: any = null;
   isLoggedInUser: boolean = false;
   isSearch: boolean;
+  tooltips = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+
   topicList: any;
   listcatcon: FormControl;
   currentUser: any;

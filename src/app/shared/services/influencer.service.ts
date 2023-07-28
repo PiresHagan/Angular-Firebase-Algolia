@@ -55,17 +55,16 @@ export class InfluencerService {
     );
   }
   getcontactbyUser(user) {
-    console.log(user)
     let dataQuery = this.db.collectionGroup(`${this.contactCollection}`, ref => ref
       .where('user.slug','==',user)
       .orderBy('created_at', 'desc'));
       return dataQuery.snapshotChanges().pipe(map(actions => {
         return {
           serviceList: actions.map(a => {
-  
+            const parentId = a.payload.doc.ref.parent.parent?.id;
             const data: any = a.payload.doc.data();
             const id = a.payload.doc.id;
-            return { id, ...data };
+            return { id, ...data ,parentId};
           }),
         }
       })
@@ -169,17 +168,8 @@ export class InfluencerService {
     );
   }
 
-  getOnBoardingCategories(lang: string) {
-    return new Promise((resolve, reject) => {
-      this.http.get(environment.baseAPIDomain + `/api/v1/onBoarding/${lang}/getTopCategories`, {}).subscribe((response: any) => {
-        resolve(response)
-      }, (error) => {
-        reject(error)
-      })
-    })
-  }
+
   submitURL(infulencerId, data) {
-    console.log(data);
     return new Promise((resolve, reject) => {
       this.http.post(environment.baseAPIDomain + '/api/v1/influencer/submiturl/' + infulencerId, data).subscribe((response: any) => {
         resolve(response);
@@ -300,6 +290,17 @@ export class InfluencerService {
         topic_id: topicId
       }).subscribe((response) => {
         resolve(response)
+      }, (error) => {
+        reject(error)
+      })
+    })
+  }
+
+  rateInfluencer(infulencerId,contactId, data){
+    return new Promise((resolve, reject) => {
+      this.http.post(environment.baseAPIDomain + '/api/v1/influencer/rateInfluencer/' + infulencerId + "/" + contactId, data).subscribe((response: any) => {
+        resolve(response);
+
       }, (error) => {
         reject(error)
       })
