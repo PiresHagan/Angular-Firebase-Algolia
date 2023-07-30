@@ -5,9 +5,10 @@ import * as firebase from 'firebase/app';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { VC_Message, VC_Participant, VideoConferenceSession } from 'src/app/shared/interfaces/video-conference-session.type';
+import { StripeCustomer, Customer, VC_Message, VC_Participant, VideoConferenceSession } from 'src/app/shared/interfaces/video-conference-session.type';
 import { take, map } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { VideoConferenceConstant } from 'src/app/shared/constants/video-conference-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,9 @@ export class VideoConferenceService {
   private videoConferenceCollection = 'video-conference';
   private videoConferenceMessagesCollection = 'messages';
   private videoConferenceParticipantsCollection = 'participants';
+  private subscriptionsCollection="video-conference-subscriptions";
+  private packageCollection = 'video-conference-packages';
+  private package_cycle_Collection = 'package-cycle';
 
   constructor(private http: HttpClient,
     public db: AngularFirestore,
@@ -32,6 +36,7 @@ export class VideoConferenceService {
     let dataQuery = this.db.collection<VideoConferenceSession[]>(`${this.videoConferenceCollection}`, ref => ref
       .where('is_started','==',true)
       .where('is_ended','==',false)
+      .where('is_private','==',false)
       .orderBy('start_time', 'desc')
       .limit(limit)
     )
@@ -40,6 +45,7 @@ export class VideoConferenceService {
         dataQuery = this.db.collection<VideoConferenceSession[]>(`${this.videoConferenceCollection}`, ref => ref
         .where('is_started','==',true)
       .where('is_ended','==',false)
+      .where('is_private','==',false)
       .orderBy('start_time', 'desc')
           .limit(limit)
           .startAfter(lastVisible))
@@ -73,6 +79,7 @@ export class VideoConferenceService {
     let dataQuery = this.db.collection<VideoConferenceSession[]>(`${this.videoConferenceCollection}`, ref => ref
     .where('is_started','==',true)
       .where('is_ended','==',false)
+      .where('is_private','==',false)
       .where(searchfield, ">=", searchTerm)
       .where(searchfield, "<", endCode + '\uf8ff')
       .orderBy(searchfield, 'desc')
@@ -84,6 +91,7 @@ export class VideoConferenceService {
         dataQuery = this.db.collection<VideoConferenceSession[]>(`${this.videoConferenceCollection}`, ref => ref
         .where('is_started','==',true)
       .where('is_ended','==',false)
+      .where('is_private','==',false)
         .where(searchfield, ">=", searchTerm)
         .where(searchfield, "<", endCode + '\uf8ff')
         .orderBy(searchfield, 'desc')
@@ -239,6 +247,7 @@ export class VideoConferenceService {
     let dataQuery = this.db.collection(this.videoConferenceCollection).doc(sessionId).collection(`${this.videoConferenceParticipantsCollection}`, ref => ref
     .where("asked_to_join","==", true)
     .where("is_approved","==", false)
+    .where("is_canceled","==", false)
     .orderBy("joinded_at","asc")
     .limit(limit)
     )
@@ -247,6 +256,7 @@ export class VideoConferenceService {
         dataQuery = this.db.collection(this.videoConferenceCollection).doc(sessionId).collection(`${this.videoConferenceParticipantsCollection}`, ref => ref
         .where("asked_to_join","==", true)
         .where("is_approved","==", false)
+        .where("is_canceled","==", false)
         .limit(limit)
           .startAfter(lastVisible))
         break;
@@ -281,5 +291,61 @@ export class VideoConferenceService {
     return this.http.delete(environment.baseAPIDomain + '/api/v1/videoConference/' + sessionId + '/participants/' + participantId);
   }
 
+  getPackages() {
+    return this.db.collection(this.packageCollection, ref => ref.orderBy('ordr', 'asc')).valueChanges()
+  }
+  getPackage_cycles(packageId:string) {
+    return this.db.collection(this.packageCollection).doc(packageId).collection(this.package_cycle_Collection, ref=>ref.orderBy('ordr', 'asc')).valueChanges();
+  }
+
+  createVideoConferenceCustomer(ownerId: string, postData:Customer) {
+    let s: StripeCustomer = {
+      name: postData.firstName +' ' + postData.lastName,
+      address:{
+        city: postData.city,
+        country: postData.countryRegion,
+        postal_code:postData.zipPostal,
+        state:postData.state
+      },
+      email: postData.email,
+      phone: postData.phone
+    }
+    return this.http.post(environment.baseAPIDomain + '/api/v1/videoConference/customers/' + ownerId + '/createcustomer', s)
+  }
+
+  createVideoConferenceSubscription(ownerId: string, postData: { external_id: string, paymentMethodId: string, customer_type: string, packageId: string, package_type:string}) {
+    return this.http.post(environment.baseAPIDomain + `/api/v1/videoConference/${ownerId}/subscriptions`, postData)
+  }
+
+  updateVideoConferencePackageSubscription(ownerId: string, subscriptionId: string, postData: { external_id: string, paymentMethodId: string, packageId: string, package_type:string }) {
+    return this.http.put(environment.baseAPIDomain + `/api/v1/videoConference/${ownerId}/subscriptions/${subscriptionId}`, postData)
+  }
+
+  cancelVideoConferencePackageSubscription(ownerId: string, subscriptionId: string) {
+    return this.http.delete(environment.baseAPIDomain + `/api/v1/videoConference/${ownerId}/subscriptions/${subscriptionId}`)
+  }
+  updateBilling(ownerId: string) {
+    return this.http.post(environment.baseAPIDomain +`/api/v1/videoConference/sessions/${ownerId}/customer`, {
+      redirectUrl: window && window.location && window.location.href || '',
+    })
+  }
+
+  getPaymentMethod(customer_id: string) {
+    return this.http.get(environment.baseAPIDomain +`/api/v1/videoConference/${customer_id}/methods`)
+  }
+
+  getVideoConferenceSubscription(ownerId: string) {
+    let dataQuery = this.db.collection(`${this.subscriptionsCollection}`, ref => ref
+      .where("customer_id", "==", ownerId)
+      .where("status", "==", VideoConferenceConstant.STATUS_ACTIVE)
+    );
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data: any = a.payload.doc.data();
+        return data;
+
+      })
+    }));
+  }
 }
 

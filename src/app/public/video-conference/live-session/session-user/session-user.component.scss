@@ -19,6 +19,7 @@
   border-radius: 50%;
   position: relative;
   top: 15px;
+  z-index: 1000;
 }
 .participant-offline-icon{
   background-color: #ff1100;
@@ -28,6 +29,7 @@
   border-radius: 50%;
   position: relative;
   top: 15px;
+  z-index: 1000;
 }
 .participant_name{
     font-size: 14px;

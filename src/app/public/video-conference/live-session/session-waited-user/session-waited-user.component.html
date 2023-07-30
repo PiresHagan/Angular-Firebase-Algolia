@@ -1,6 +1,7 @@
 <div class="participant_waited_wrapper">
     <div class="participant_waited_info">
-        <img class="participant_waited-profile-img" src="{{avatarData?.url}}" alt="{{avatarData?.alt}}" width="50px" height="50px"/>
+        <img *ngIf="avatarData" class="participant_waited-profile-img" src="{{avatarData?.url}}" alt="{{avatarData?.alt}}" width="50px" height="50px"/>
+        <nz-avatar *ngIf="!avatarData" class="participant-profile-img" [nzSize]="50" nzIcon="user"></nz-avatar>
         <strong class="participant_waited_name">
             {{session_waited_participant?.user_name}}
         </strong>

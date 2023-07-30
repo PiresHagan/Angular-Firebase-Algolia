@@ -2,7 +2,8 @@
     <div class="participant_info">
         <span class="participant-online-icon" *ngIf="session_participant?.is_online == true"></span>
         <span class="participant-offline-icon" *ngIf="session_participant?.is_online == false"></span>
-        <img class="participant-profile-img" src="{{avatarData?.url}}" alt="{{avatarData?.alt}}" width="50px" height="50px"/>
+        <img *ngIf="avatarData" class="participant-profile-img" src="{{avatarData?.url}}" alt="{{avatarData?.alt}}" width="50px" height="50px"/>
+        <nz-avatar *ngIf="!avatarData" class="participant-profile-img" [nzSize]="50" nzIcon="user"></nz-avatar>
         <strong class="participant_name">
             {{session_participant?.user_name}}
         </strong>

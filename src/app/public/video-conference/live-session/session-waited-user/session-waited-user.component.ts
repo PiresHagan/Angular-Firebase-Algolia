@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { UserService } from "src/app/shared/services/user.service";
 import { VC_Message, VC_Participant, VideoConferenceSession } from 'src/app/shared/interfaces/video-conference-session.type';
 import { VideoConferenceService } from 'src/app/shared/services/video-conference.service';
-import { take } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-session-waited-user',
@@ -10,10 +11,14 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./session-waited-user.component.scss']
 })
 
-export class SessionWaitedUserComponent implements OnInit {
+export class SessionWaitedUserComponent implements OnInit, OnDestroy {
   @Input() session_waited_participant!:VC_Participant;
+  private ngUnsubscribe = new Subject<void>();
   @Input() lsessionid!:string;
   @Input() participantid!:string;
+  @Input() isFreeSession!:boolean;
+  @Input() session_participantsCount!:number;
+  @Output() onAdmitUserFired = new EventEmitter<boolean>();
 
   avatarUrl: string = "";
   memberDetails;
@@ -26,7 +31,7 @@ export class SessionWaitedUserComponent implements OnInit {
   ngOnInit(): void {
     if(!this.session_waited_participant)
       return;
-    this.userService.getMember(this.session_waited_participant.user_id).subscribe((memberDetails) => {
+    this.userService.getMember(this.session_waited_participant.user_id).pipe(takeUntil(this.ngUnsubscribe)).subscribe((memberDetails) => {
       this.avatarUrl = memberDetails?.avatar?.url;
       if (memberDetails?.avatar && memberDetails?.avatar?.url)
         this.avatarData = {
@@ -37,7 +42,16 @@ export class SessionWaitedUserComponent implements OnInit {
     });
   }
 
+  async ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
   admitUser():void{
+    if(this.isFreeSession && this.session_participantsCount>=2){
+      this.onAdmitUserFired.emit(true);
+      return;
+    }
     let finalObject:VC_Participant = {
       ... this.session_waited_participant,
       is_approved:true,

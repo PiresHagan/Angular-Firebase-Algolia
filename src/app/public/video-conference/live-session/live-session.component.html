@@ -1,5 +1,35 @@
 <nz-spin nzTip="Please wait..." [nzSpinning]="isLoading">
 <div *ngIf="!isLoading" class="container">
+  <div *ngIf="!loggedInUser" class="not-loggedin-session-wrapper">
+    <div  class="not-loggedin-session-wrapper-warn">
+      <h1>
+        {{"YouAreNotLoggedIn" | translate}}
+      </h1>
+      <h2>
+        {{"ToJoinThisSessionPleaseLoginOrTypeYourNameAndClickJoin" | translate}}
+      </h2>
+      <div nz-row class="user-name-container">
+        <div nz-col nzFlex="auto">
+          <nz-form-item>
+            <nz-input-group >
+              <input type="text"  nz-input class="colr-lightslategray"
+              placeholder=" {{ 'YourName' |translate }}" (keyup.enter)="liveSessionsJoin()"
+              #userName  (change)="getUserName(userName.value)" [value]="userNameValue"/>
+            </nz-input-group>
+        </nz-form-item>
+        </div>
+        <div nz-col nzFlex="100px">
+          <nz-form-item>
+            <nz-form-control >
+                <button nz-button nzType="primary" class="margin-l-5" nzSize="medium" (click)="liveSessionsJoin()" >
+                    {{'JoinNow'|translate}}
+                  </button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </div>
+  </div>
   <div *ngIf="current_lsession_is_ended" class="ended-live-session-wrapper">
     <div  class="ended-live-session-wrapper-warn">
       <h1>
@@ -17,16 +47,13 @@
       </h2>
     </div>
   </div>
-  <div *ngIf="!current_lsession_is_ended && current_lsession_is_started==true" nz-row class="live-session-wrapper">
-      <div class="live-session-stream-wrapper" nz-col nzXs="24" nzSm="24" nzMd="15" nzLg="15" nzXl="15" nzXXl="15" >
-          <section id="stream__container">
+  <div *ngIf="loggedInUser && !current_lsession_is_ended && current_lsession_is_started==true" nz-row class="live-session-wrapper">
+      <div [ngClass]="{'hidden': hideVideosContainer === true, 'live-session-stream-wrapper' : true }" nz-col nzXs="{{p_nzXs}}" nzSm="{{p_nzSm}}" nzMd="{{p_nzMd}}" nzLg="{{p_nzLg}}" nzXl="{{p_nzXl}}" nzXXl="{{p_nzXXl}}" >
+          <section id="stream-container"#allStreamsContainer>
             <div class="session-header-title">
               <p>{{current_lsession?.name}}</p>
-              <button *ngIf="(is_recording_enabled && !is_recording_started)" (click)="startRecording()">{{"StartRecording" | translate}}</button>
-              <button *ngIf="(is_recording_enabled && is_recording_started)" (click)="stopRecording()">{{"StopRecording"| translate}}</button>
-              <button *ngIf="(is_recording_enabled && is_recording_started)" (click)="downloadRecording()">{{"downloadRecording"| translate}}</button>
-              <button *ngIf="(is_recording_enabled && is_recording_started)" (click)="clearRecording()">{{"clearRecording"| translate}}</button>
-              <a *ngIf="(is_recording_enabled && is_recording_started)" id="download-video" download="record-test.webm">Download Video</a>
+              <span id="videoTimer" *ngIf="is_recording_enabled && is_recording_started && !videoBlobUrl"> {{ videoRecordedTime }} </span>
+
             </div>
               <div id="stream-box">
                 <div class="video-container" #current_stream_user_container *ngIf="current_stream_user && current_stream_user?.is_online" (click)="minimizeScreen(current_stream_user)" (dblclick)="FullSceenToggle(current_stream_user)" id="user-container-{{ current_stream_user.uid }}">
@@ -97,9 +124,9 @@
                 </div>
               </div>
               <div *ngIf="current_user_joined_streem" class="stream-actions" nz-row>
-                <div nz-col nzSpan="16">
+                <div nz-col nzSpan="20">
                   <div nz-row nzJustify="start">
-                    <div class="stream-action" nz-col nzXs="7" nzXs="6" nzSm="5" nzMd="4" nzLg="3" nzXl="3" nzXXl="2">
+                    <div class="stream-action" nz-col nzXs="4" nzSm="4" nzMd="2" nzLg="2" nzXl="2" nzXXl="2">
                       <button id="camera-btn" class="{{camera_btn_class}}" (click)="toggleCamera()">
                         <svg *ngIf="camera_btn_class=='active'"
                           xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +150,7 @@
                       <span class="btn-title-span" *ngIf="camera_btn_class!='active'">{{"CameraOn" | translate}}</span>
                     </div>
 
-                    <div class="stream-action" nz-col nzXs="7" nzXs="6" nzSm="5" nzMd="4" nzLg="3" nzXl="3" nzXXl="2">
+                    <div class="stream-action" nz-col nzXs="4" nzSm="4" nzMd="2" nzLg="2" nzXl="2" nzXXl="2">
                       <button id="mic-btn" class="{{mic_btn_class}}" (click)="toggleMic()">
                         <svg *ngIf="mic_btn_class=='active'"
                           xmlns="http://www.w3.org/2000/svg"
@@ -145,7 +172,7 @@
                       <span class="btn-title-span" *ngIf="mic_btn_class!='active'">{{"MicUnMute" |translate}}</span>
                     </div>
 
-                    <div class="stream-action" nz-col nzXs="7" nzXs="6" nzSm="5" nzMd="4" nzLg="3" nzXl="3" nzXXl="2">
+                    <div class="stream-action" nz-col nzXs="4" nzSm="4" nzMd="2" nzLg="2" nzXl="2" nzXXl="2">
                       <button id="screen-btn" class="{{screen_btn_class}}" (click)="toggleScreen()">
                         <svg *ngIf="screen_btn_class=='active'"
                           xmlns="http://www.w3.org/2000/svg"
@@ -160,19 +187,117 @@
                         <svg *ngIf="screen_btn_class!='active'"
                          width="24"
                         height="24"
-                        viewBox="0 0 24 24"
+                        viewBox="0 0 21 21"
                         xmlns="http://www.w3.org/2000/svg">
-                        <path d="M28,22H11.41L30,3.41,28.59,2l-2,2H4A2,2,0,0,0,2,6V22H4V6H24.59L2,28.59,3.41,30l6-6H12v4H8v2H24V28H20V24h8a2,2,0,0,0,2-2V9H28ZM18,28H14V24h4Z"/><rect class="cls-1" data-name="&lt;Transparent Rectangle&gt;" height="32" id="_Transparent_Rectangle_" width="32"/>
+                        <g xmlns="http://www.w3.org/2000/svg" fill="none" fill-rule="evenodd" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" transform="translate(4 2)">
+                          <path d="m8.5 2.5-1.978-2-2.022 2"/>
+                          <path d="m6.5.5v9"/>
+                          <path d="m3.5 4.5h-1c-1.1045695 0-2 .8954305-2 2v7c0 1.1045695.8954305 2 2 2h8c1.1045695 0 2-.8954305 2-2v-7c0-1.1045695-.8954305-2-2-2h-1"/>
+                        </g>
                         </svg>
                       </button>
                       <span class="btn-title-span" *ngIf="screen_btn_class!='active'">{{"ScreenShare"|translate}}</span>
                       <span class="btn-title-span" *ngIf="screen_btn_class=='active'">{{"ScreenShareCancel"|translate}}</span>
                     </div>
+                    <div class="stream-action" nz-col nzXs="4" nzSm="4" nzMd="2" nzLg="2" nzXl="2" nzXXl="2">
+                      <button id="chat-btn" (click)="toggleMessages()">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path xmlns="http://www.w3.org/2000/svg" d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22C17.5228 22 22 17.5228 22 12C22 10.1786 21.513 8.47087 20.6622 7"
+                            stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+                          <path xmlns="http://www.w3.org/2000/svg" d="M8 12H8.009M11.991 12H12M15.991 12H16" stroke="#1C274C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </button>
+                      <span class="btn-title-span">{{"chat"|translate}}</span>
+                    </div>
+                    <div class="stream-action" nz-col nzXs="4" nzSm="4" nzMd="2" nzLg="2" nzXl="2" nzXXl="2">
+                      <button id="chat-btn" (click)="toggleParticipants()">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 1097 1024"
+                          fill="none"
+                        >
+                          <path xmlns="http://www.w3.org/2000/svg" d="M338.857143 512q-92.571429 2.857143-151.428572 73.142857H110.857143q-46.857143 0-78.857143-23.142857T0 494.285714q0-201.714286 70.857143-201.714285 3.428571 0 24.857143 12t55.714285 24.285714T219.428571 341.142857q38.285714 0 76-13.142857-2.857143 21.142857-2.857142 37.714286 0 79.428571 46.285714 146.285714z m612 364q0 68.571429-41.714286 108.285714t-110.857143 39.714286H298.857143q-69.142857 0-110.857143-39.714286T146.285714 876q0-30.285714 2-59.142857t8-62.285714T171.428571 692.571429t24.571429-55.714286 35.428571-46.285714 48.857143-30.571429T344 548.571429q5.714286 0 24.571429 12.285714t41.714285 27.428571 61.142857 27.428572 77.142858 12.285714 77.142857-12.285714 61.142857-27.428572 41.714286-27.428571 24.571428-12.285714q34.857143 0 63.714286 11.428571t48.857143 30.571429 35.428571 46.285714 24.571429 55.714286 15.142857 62 8 62.285714 2 59.142857zM365.714286 146.285714q0 60.571429-42.857143 103.428572t-103.428572 42.857143-103.428571-42.857143-42.857143-103.428572 42.857143-103.428571T219.428571 0t103.428572 42.857143 42.857143 103.428571z m402.285714 219.428572q0 90.857143-64.285714 155.142857T548.571429 585.142857 393.428571 520.857143 329.142857 365.714286t64.285714-155.142857T548.571429 146.285714t155.142857 64.285715T768 365.714286z m329.142857 128.571428q0 44.571429-32 67.714286t-78.857143 23.142857h-76.571428q-58.857143-70.285714-151.428572-73.142857 46.285714-66.857143 46.285715-146.285714 0-16.571429-2.857143-37.714286 37.714286 13.142857 76 13.142857 33.714286 0 68-12.285714t55.714285-24.285714 24.857143-12q70.857143 0 70.857143 201.714285z m-73.142857-348q0 60.571429-42.857143 103.428572t-103.428571 42.857143-103.428572-42.857143-42.857143-103.428572 42.857143-103.428571 103.428572-42.857143 103.428571 42.857143 42.857143 103.428571z"/>
+                        </svg>
+                      </button>
+                      <span class="btn-title-span">{{Participants_Translate}}</span>
+                    </div>
+                    <div *ngIf="(is_recording_enabled && !is_recording_started)" class="stream-action" nz-col nzXs="4" nzSm="4" nzMd="2" nzLg="2" nzXl="2" nzXXl="2">
+                      <button id="record-btn" class="record-stream-action" (click)="startRecording()" >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path fill="#fff"
+                            d="M11.9688 2C6.44875 2 1.96875 6.48 1.96875 12C1.96875 17.52 6.44875 22 11.9688 22C17.4888 22 21.9688 17.52 21.9688 12C21.9688 6.48 17.4988 2 11.9688 2ZM11.9987 16.23C9.65875 16.23 7.76875 14.34 7.76875 12C7.76875 9.66 9.65875 7.77 11.9987 7.77C14.3387 7.77 16.2287 9.66 16.2287 12C16.2287 14.34 14.3387 16.23 11.9987 16.23Z"
+                          />
+                        </svg>
+                      </button>
+                      <span class="btn-title-span">{{"StartRecording"|translate}}</span>
+                    </div>
+                    <div *ngIf="(is_recording_enabled && !is_recording_started)" class="stream-action" nz-col nzXs="4" nzSm="4" nzMd="2" nzLg="2" nzXl="2" nzXXl="2">
+                      <button id="record-btn" class="record-stream-action" (click)="startRecording()" >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path fill="#fff"
+                            d="M11.9688 2C6.44875 2 1.96875 6.48 1.96875 12C1.96875 17.52 6.44875 22 11.9688 22C17.4888 22 21.9688 17.52 21.9688 12C21.9688 6.48 17.4988 2 11.9688 2ZM11.9987 16.23C9.65875 16.23 7.76875 14.34 7.76875 12C7.76875 9.66 9.65875 7.77 11.9987 7.77C14.3387 7.77 16.2287 9.66 16.2287 12C16.2287 14.34 14.3387 16.23 11.9987 16.23Z"
+                          />
+                        </svg>
+                      </button>
+                      <span class="btn-title-span">{{"StartRecording"|translate}}</span>
+                    </div>
+                    <div *ngIf="(is_recording_enabled && is_recording_started)" class="stream-action" nz-col nzXs="4" nzSm="4" nzMd="2" nzLg="2" nzXl="2" nzXXl="2">
+                      <button id="stop-record-btn" class="stop-record-stream-action" (click)="stopRecording()">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path fill="#fff"
+                            d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"
+                          />
+                        </svg>
+                      </button>
+                      <span class="btn-title-span">{{"StopRecording"|translate}}</span>
+                    </div>
+                    <div *ngIf="(is_recording_enabled && !is_recording_started && videoBlobUrl)" class="stream-action" nz-col nzXs="4" nzSm="4" nzMd="2" nzLg="2" nzXl="2" nzXXl="2">
+                      <button id="download-record-btn" class="{{download_record_btn_class}}" (click)="downloadRecording()">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 -1.5 35 35"
+                          fill="#000000"
+                        >
+                          <path
+                            d="M29.426 15.535c0 0 0.648-8.743-7.361-9.74-6.866-0.701-8.955 5.679-8.955 5.679s-2.067-1.988-4.873-0.364c-2.51 1.55-2.067 4.388-2.067 4.388s-5.576 1.083-5.576 6.768c0.125 5.677 6.055 5.734 6.055 5.734h11.351l-5-5h3v-6h4v6h3l-5 5h10.467c0 0 5.52 0.006 6.295-5.395 0.369-5.906-5.336-7.070-5.336-7.070z"
+                          />
+                        </svg>
+                      </button>
+                      <span class="btn-title-span">{{"downloadRecording"|translate}}</span>
+                    </div>
                   </div>
                 </div>
-                <div nz-col nzSpan="8">
+                <div nz-col nzSpan="4">
                   <div class="end_stream_action" nz-row nzJustify="end">
-                    <div nz-col nzXs="16" nzSm="12" nzMd="6" nzLg="4" nzXl="4">
+                    <div nz-col>
                       <button *ngIf="is_current_user_owner"
                       id="end-session-btn"
                       class="end-session-btn"
@@ -192,14 +317,22 @@
             </section>
       </div>
 
-      <nz-tabset class="messages-participants-container" nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" nzXl="8" nzXXl="8">
-        <nz-tab nzTitle="{{Participants_Translate + ' (' + session_participantsCount + ')'}}" class="live-session-participants-header">
-            <div class="live-session-participants-wrapper">
+      <nz-tabset *ngIf="participantsSelected || messagesSelected" nzCentered class="messages-participants-container" nz-col nzXs="{{m_nzXs}}" nzSm="{{m_nzSm}}" nzMd="{{m_nzMd}}" nzLg="{{m_nzLg}}" nzXl="{{m_nzXl}}" nzXXl="{{m_nzXXl}}">
+        <nz-tab *ngIf="participantsSelected" [nzTitle]="participantsTitleTemplate" [ngClass]="{'hidden': hideParticipantsContainer === true, 'live-session-participants-header' : true }">
+          <ng-template #participantsTitleTemplate>
+            <button *ngIf="isDeviceSmall" class="arrow-back-btn" id="participants-back-btn" (click)="toggleParticipants()">
+              <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" width="24px" height="24px">
+                <path d="M17.71 20.29a1 1 0 1 1-1.41 1.41l-9-9a1 1 0 0 1 0-1.41l9-9a1 1 0 0 1 1.41 1.41L9.41 12Z" fill="#000000" class="color000 svgShape"></path>
+              </svg>
+            </button>
+            {{Participants_Translate + ' (' + session_participantsCount + ')'}}
+          </ng-template>
+          <div class="live-session-participants-wrapper">
               <div class="live-session-participants-waitlist-section" *ngIf="is_current_user_owner">
                 <p class="live-session-participants-waitlist-title">{{WaitingList_Translate + ' ( ' +  session_waitlist_participantsCount +')'}}</p>
                 <div class="live-session-participants-waitlist-body">
                     <div nz-row *ngFor="let partisipantWaited_item of (sessionParticipantsWaitlist)">
-                        <app-session-waited-user nz-col class="gutter-row standard-col mb-3" [nzSpan]="24" [lsessionid]="lsessionid" [participantid]="partisipantWaited_item.id" [session_waited_participant]="partisipantWaited_item"></app-session-waited-user>
+                        <app-session-waited-user nz-col class="gutter-row standard-col mb-3" [nzSpan]="24" (onAdmitUserFired)="AdmitUserFiredHandle($event)" [lsessionid]="lsessionid" [participantid]="partisipantWaited_item.id" [session_waited_participant]="partisipantWaited_item" [isFreeSession]="isFreeSession" [session_participantsCount]="session_participantsCount"></app-session-waited-user>
                     </div>
                 </div>
               </div>
@@ -213,12 +346,20 @@
               </div>
           </div>
         </nz-tab>
-        <nz-tab *ngIf="current_lsession?.is_chat==true" nzTitle="{{Messages_Translate+ ' (' + session_messagesCount + ')'}}" class="live-session-messages-header">
+        <nz-tab *ngIf="current_lsession?.is_chat==true && messagesSelected" [nzTitle]="messagesTitleTemplate" [ngClass]="{'hidden': hideMessagesContainer === true, 'live-session-messages-header' : true }">
+          <ng-template #messagesTitleTemplate>
+            <button *ngIf="isDeviceSmall" class="arrow-back-btn" id="messages-back-btn" (click)="toggleMessages()">
+              <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" width="24px" height="24px">
+                <path d="M17.71 20.29a1 1 0 1 1-1.41 1.41l-9-9a1 1 0 0 1 0-1.41l9-9a1 1 0 0 1 1.41 1.41L9.41 12Z" fill="#000000" class="color000 svgShape"></path>
+              </svg>
+            </button>
+            {{Messages_Translate+ ' (' + session_messagesCount + ')'}}
+          </ng-template>
           <div class="live-session-messages-wrapper">
             <div id="live-session-messages-section">
                 <div #messages id="messages" class="live-session-messages-body">
                     <div class="live-session-messages-info" *ngFor="let message_item of (sessionMessages)">
-                        <app-session-message [message]="message_item"></app-session-message>
+                        <app-session-message [message]="message_item" [csessionid]="lsessionid"></app-session-message>
                     </div>
                 </div>
                 <form id="message_form" *ngIf="current_user_joined_streem" class="live-session-messages-form" [formGroup]="messageForm" nz-form (ngSubmit)="SendMessage()">
@@ -237,8 +378,29 @@
                 </form>
             </div>
           </div>
-      </nz-tab>
+        </nz-tab>
     </nz-tabset>
   </div>
+  <div class="subscription-dialog"  *ngIf="showSubscriptionDialog">
+    <nz-modal
+        [(nzVisible)]="isVisible"
+        nzTitle="My Trending Stories"
+        (nzOnCancel)="handleCancel()"
+        (nzOnOk)="handleOk()"
+        [nzOkLoading]="isOkLoading"
+        >
+        <div class="popup-content">
+            <div>
+                <a [routerLink]="['/']" class="bg-logo">
+                    <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                </a>
+            </div>
+            <p class="text-black">{{'LimitedFreeAccount' | translate}}.</p>
+            <p>{{'toContinue' | translate}} {{'subscriptionRequest' | translate}}</p>
+            <a routerLink="/video-conference/vc/subscription">{{'subscription' | translate}}</a>
+
+        </div>
+        </nz-modal>
+</div>
 </div>
 </nz-spin>

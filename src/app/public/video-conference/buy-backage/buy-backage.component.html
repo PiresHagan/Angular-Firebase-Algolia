@@ -1,0 +1,98 @@
+<div class="container">
+  <nz-card>
+    <br />
+    <nz-steps [nzCurrent]="nzCurrent">
+      <nz-step nzTitle="{{'Payment' | translate}}"></nz-step>
+      <nz-step nzTitle="{{'ProductDetails' | translate}}"></nz-step>
+    </nz-steps>
+    <br />
+    <nz-divider></nz-divider>
+    <nz-skeleton *ngIf="nzCurrent==0" [nzLoading]="ispaymentMethodLoading" [nzActive]="ispaymentMethodLoading"  class="payment">
+      <app-video-conference-billing></app-video-conference-billing>
+      <button
+        nz-button nzType="primary"
+        class="back-btn" [routerLink]="['/video-conference/vc/subscription']">
+        {{'Cancel' | translate}}
+      </button>
+      <button
+        nz-button nzType="primary"
+        class="next-btn" (click)="goNextToPaymentPage()">
+        {{'Next' | translate}}
+        <span nz-icon nzType="arrow-right" nzTheme="outline"></span>
+      </button>
+    </nz-skeleton>
+    <nz-skeleton *ngIf="nzCurrent==1" [nzLoading]="isLoading" [nzActive]="isLoading"  class="product-details-card">
+      <nz-spin
+        [nzSpinning]="isUpgradingPlan"
+        nzTip="{{'UpgradingSubscription'|translate}}"
+      >
+      <div class="row">
+        <div class="card-title"> {{'ChooseYourPlan' | translate}}</div>
+        <div class="col-12 col-sm-4 col-md-3 mb-2" *ngFor="let package of videoConferencePackages">
+          <div class="package-box" (click)="selectPackagePlan(package?.id)">
+            <div [ngClass]="{'package-card': package?.id!=backageplanid, 'package-card-selected' : package?.id==backageplanid }">
+                <div class="package-detail">
+                  <p class="package-name">
+                      {{package.title}}
+                      <svg class="f-r" *ngIf="package?.id==backageplanid" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                        <path d="M15.8333 4.75L7.12499 13.4583L3.16666 9.5" stroke="#EF442B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                  </p>
+                  <p class="package-title">
+                    {{package.subtitle}}
+                  </p>
+                  <p class="package-price" *ngIf="package?.price && package?.price>0"> ${{package.price}} <span class="package-price-unit">/{{"Month"|translate}}</span></p>
+                  <p class="package-price" *ngIf="!package?.price || package?.price==0"> ${{"Free" | translate}}</p>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="card-title"> {{'ChooseYourSubscriptionCycle' | translate}}</div>
+        <div class="col-12 col-sm-4 col-md-3 mb-2" *ngFor="let packageCycle of videoConferencePackageCycles">
+        <div class="package-box" (click)="selectPackageCycle(packageCycle)">
+          <div [ngClass]="{'package-card': packageCycle?.id!=backageCycleId, 'package-card-selected' : packageCycle?.id==backageCycleId }">
+              <div class="package-detail">
+                <p class="package-name">
+                    {{packageCycle.title}}
+                    <svg class="f-r" *ngIf="packageCycle?.id==backageCycleId" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                      <path d="M15.8333 4.75L7.12499 13.4583L3.16666 9.5" stroke="#EF442B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </p>
+                <p class="package-title">
+                  {{packageCycle.subtitle}}
+                </p>
+                <p class="package-price" *ngIf="packageCycle?.monthly_price && packageCycle?.monthly_price>0"> ${{packageCycle.monthly_price}} <span class="package-price-unit"> {{"MonthlyCost"|translate}}</span></p>
+                <p class="package-price" *ngIf="!packageCycle?.monthly_price || packageCycle?.monthly_price<=0"> ${{packageCycle.price}} <span class="package-price-unit"> {{"MonthlyCost"|translate}}</span></p>
+                <p class="package-price" *ngIf="packageCycle?.monthly_price && packageCycle?.monthly_price>0"> ${{packageCycle.price}}  {{"BilledAnnually"|translate}} </p>
+                <p class="package-price" *ngIf="!packageCycle?.monthly_price || packageCycle?.monthly_price<=0"> ${{packageCycle.price}}  {{"BilledMonthly"|translate}} </p>
+              </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="row error" *ngIf="backageplanidOrbackageCycleIdNotSelected">
+        <p class="error-text" *ngIf="!backageplanid">
+          {{"ChooseYourPlanError" | translate}}
+        </p>
+        <p class="error-text" *ngIf="!backageCycleId">
+          {{"ChooseYourSubscriptionCycleError" | translate}}
+        </p>
+      </div>
+      <button
+        nz-button nzType="primary"
+        class="back-btn"(click)="goBack()">
+        {{'Back' | translate}}
+      </button>
+      <button
+        nz-button nzType="primary"
+        class="next-btn"
+        (click)="upgradeVideoConferenceSubscription()">
+        {{'ContinueToPayment' | translate}}
+        <span nz-icon nzType="arrow-right" nzTheme="outline"></span>
+      </button>
+    </nz-spin>
+    </nz-skeleton>
+  </nz-card>
+</div>

@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-sm-12 col-md-6 subscription-title-container">
+      <div class="subscription-title-subcontainer">
+        <span>
+          {{'LetsConnectWith'|translate}}
+        </span>
+        <h1>
+          My Trending Stories
+        </h1>
+        <h2>
+          {{'VideoConference'|translate}}
+        </h2>
+      </div>
+    </div>
+    <div class="col col-sm-12 col-md-6 subscription-pic-container">
+      <img class="subscription-pic" src="assets/images/video-conference/subscription-title-pic.png" alt="">
+    </div>
+  </div>
+  <div class="row">
+    <div class="is-comman-title"> {{'PlanPricingForBusiness' | translate}}</div>
+    <div class="col-12 col-sm-4 col-md-3 mb-2" *ngFor="let package of videoConferencePackages">
+      <div class="package-box">
+          <div class="package-card">
+              <div class="package-detail">
+                <p class="package-name">
+                    {{package.title}}
+                </p>
+                <p class="package-title">
+                  {{package.subtitle}}
+                </p>
+                <p class="package-price" *ngIf="package?.price && package?.price>0"> ${{package.price}} <span class="package-price-unit">/{{"Month"|translate}}</span></p>
+                <p class="package-price" *ngIf="!package?.price || package?.price==0"> ${{"Free" | translate}}</p>
+              </div>
+          </div>
+          <div class="package-description-container">
+              <p class="package-description-title"> {{package.name}} {{'includes'|translate}}:</p>
+              <ul>
+                <li class="package-description"  *ngFor="let desc of package.description">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                    <path d="M15.8333 4.75L7.12499 13.4583L3.16666 9.5" stroke="#00C514" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  {{desc}}
+                </li>
+              </ul>
+          </div>
+          <button *ngIf="package?.price && package?.price>0"
+              nz-button nzType="primary"
+              class="buy-backage-button"
+              [routerLink]="['/video-conference/buy-package',package.id]"
+          >
+              {{'BuyNow' | translate}}
+          </button>
+          <button *ngIf="!package?.price || package?.price==0"
+              nz-button nzType="primary"
+              class="buy-backage-button"
+              [routerLink]="['/video-conference']"
+          >
+              {{'GetStart' | translate}}
+          </button>
+      </div>
+    </div>
+  </div>
+</div>

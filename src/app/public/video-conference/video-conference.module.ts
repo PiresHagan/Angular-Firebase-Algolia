@@ -12,10 +12,23 @@ import { SessionUserComponent } from './live-session/session-user/session-user.c
 import { SessionMessageComponent } from './live-session/session-message/session-message.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SessionWaitedUserComponent } from './live-session/session-waited-user/session-waited-user.component';
-
+import { VideoConferenceBillingComponent } from './video-conference-billing/video-conference-billing.component';
+import { VideoConferencePackageComponent } from './video-conference-package/video-conference-package.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
+import { BuyBackageComponent } from './buy-backage/buy-backage.component';
 
 @NgModule({
-  declarations: [LiveSessionsComponent, LiveSessionComponent, SessionUserComponent, SessionMessageComponent, SessionWaitedUserComponent],
+  declarations: [
+    LiveSessionsComponent,
+    LiveSessionComponent,
+    SessionUserComponent,
+    SessionMessageComponent,
+    SessionWaitedUserComponent,
+    SubscriptionComponent,
+    BuyBackageComponent,
+    VideoConferenceBillingComponent,
+    VideoConferencePackageComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -23,6 +36,8 @@ import { SessionWaitedUserComponent } from './live-session/session-waited-user/s
     VideoConferenceRoutingModule,
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } }),
   ],
-  providers: [DatePipe]
+  providers: [
+    DatePipe
+  ]
 })
 export class VideoConferenceModule { }

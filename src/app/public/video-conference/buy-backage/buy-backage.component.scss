@@ -1,0 +1,137 @@
+.container {
+  margin-bottom: 20px;
+  font-family: Josefin Sans;
+}
+.card-title{
+  color: #000;
+  font-weight: bold;
+  font-size: 24px;
+  width: 100%;
+  text-align: left;
+  font-family: "josefin_sanssemibold";
+  position: relative;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.package-box{
+  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.05);
+  color: #000;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+  .package-card{
+    color: #000;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #EF442B;
+    border-radius: 10px;
+  }
+  .package-card-selected{
+    color: #000;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #EF442B;
+    border-radius: 10px;
+    background-color: rgba(239, 68, 43, 0.03);
+  }
+}
+.package-detail{
+  position: relative;
+  z-index: 1;
+  padding: 10px;
+  h2{
+      font-size: 24px;
+      margin: 0px;
+      color: #000;
+      span{
+          color: #000;
+          font-size: 18px;
+          display: block;
+          padding-top: 20px;
+          position: relative;
+      }
+  }
+}
+.package-name{
+  font-size: 18px;
+    margin: 0px;
+    font-weight: 500;
+  margin: 0px;
+  color: #000;
+}
+.package-title{
+  font-size: 16px;
+  margin: 0px;
+  font-weight: 500;
+  color: #000;
+}
+.package-price{
+  font-size: 16px;
+  margin: 0px;
+  color: #000;
+}
+.package-price-unit{
+  color: #000;
+  font-family: Josefin Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.next-btn{
+  font-size: 16px;
+  font-family: Josefin Sans;
+  font-style: normal;
+  font-weight: 500;
+  border: 0px;
+  color: #fff;
+  background-color: #FF4020;
+  font-family: "josefin_sansregular";
+  border-radius: 55px;
+  display: inline-flex;
+  align-items: center;
+  outline: none;
+  justify-content: center;
+  margin: 10px 30px;
+}
+.back-btn{
+  font-size: 16px;
+  font-family: Josefin Sans;
+  font-style: normal;
+  font-weight: 500;
+  border: 0px;
+  color: #000000;
+  background-color: #b3b2b2;
+  font-family: "josefin_sansregular";
+  border-radius: 55px;
+  display: inline-flex;
+  align-items: center;
+  outline: none;
+  justify-content: center;
+  margin: 10px 30px;
+}
+.f-r{
+  float: right;
+}
+.error-text{
+  color:red;
+}
+.login-content {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  .bg-logo {
+    display: inline-block;
+    max-width: 150px;
+    margin-bottom: 25px;
+    img {
+      max-width: 100%;
+    }
+  }
+  .text-black{
+    font-size: 18px;
+  }
+}
+[nz-form-label] {
+  overflow: visible;
+}

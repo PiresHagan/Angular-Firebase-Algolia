@@ -1,4 +1,4 @@
-import { HostListener, Component, OnInit,OnDestroy, ViewChild, ElementRef,AfterViewChecked } from '@angular/core';
+import { HostListener, Component, OnInit,OnDestroy, ViewChild, ChangeDetectorRef,ElementRef,AfterViewChecked } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { Location } from "@angular/common";
@@ -8,9 +8,10 @@ import {environment} from 'src/environments/environment';
 import {AuthService} from 'src/app/shared/services/authentication.service';
 import { NzMessageService } from "ng-zorro-antd/message";
 
+import { DomSanitizer } from '@angular/platform-browser';
+
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from "@angular/forms";
@@ -30,28 +31,18 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
   @ViewChild('messages') private messagesElement: ElementRef;
   @ViewChild('current_stream_user_container') private current_stream_user_containerElement:ElementRef;
+  @ViewChild('allStreamsContainer') private streamContainerElement:ElementRef;
+  innerScreenWidth: any;
+  isDeviceSmall: boolean=false;
+  hideParticipantsContainer: boolean=false;
+  hideMessagesContainer: boolean=false;
+  hideVideosContainer: boolean=false;
   session_ended_in_diff_in_secs: number=0;
   session_started_in_diff_in_secs: number=0;
   current_lsession_is_started: boolean=true;
   isLoading=true;
   is_fullSceen:boolean=false;
-
-  async ngOnDestroy() {
-    if(this.current_lsession_is_ended)
-      return;
-
-    try{
-      await this.leaveStream();
-      await this.leaveChannel();
-    }
-    catch(err){
-    }
-    finally{
-        this.ngUnsubscribe.next();
-        this.ngUnsubscribe.complete();
-        return true;
-    }
-}
+  userNameValue: string='';
   isMessageSended: boolean;
   added_current_user: boolean=false;
   current_user_joined_streem: boolean=false;
@@ -59,7 +50,7 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
   current_lsession:VideoConferenceSession=null;
   current_vcParticipant:VC_Participant=null;
   current_vcParticipant_id:any=null;
-  loggedInUser: Member;
+  loggedInUser: any;
   is_current_user_owner:boolean=false;
   sessionParticipantsWaitlist: VC_Participant[] = [];
   sessionParticipants: VC_Participant[] = [];
@@ -82,7 +73,20 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
   screen_btn_class: string ="notactive";
   camera_btn_display: string;
   show_participants: boolean;
-  show_messages: boolean;
+  messagesSelected: boolean = false;
+  participantsSelected: boolean = false;
+  p_nzXs:number = 24;
+  p_nzSm:number =24;
+  p_nzMd:number =24;
+  p_nzLg:number =24;
+  p_nzXl:number =24;
+  p_nzXXl:number =24;
+  m_nzXs:number = 24;
+  m_nzSm:number =24;
+  m_nzMd:number =24;
+  m_nzLg:number =24;
+  m_nzXl:number =24;
+  m_nzXXl:number =24;
   session_messagesCount:number = 0;
   session_participantsCount: number=0;
   session_waitlist_participantsCount: number=0;
@@ -97,6 +101,18 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
   is_recording_started:boolean=false;
   onClickTimer:any;
   preventOneClick:boolean=true;
+  audioRecordedTime;
+  videoRecordedTime;
+  audioBlobUrl;
+  videoBlobUrl;
+  audioBlob;
+  videoBlob;
+  audioName;
+  videoName;
+  isFreeSession:boolean=false;
+  showSubscriptionDialog: boolean = false;
+  isVisible = false;
+  isOkLoading = false;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -106,14 +122,80 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private message: NzMessageService,
     private videoConferenceService:VideoConferenceService,
-    private route: Router,
+    private router: Router,
     private datePipe: DatePipe,
-    private elRef:ElementRef
-  ) {
-  }
+    private sanitizer: DomSanitizer
+  ){ }
 
+   async ngOnDestroy() {
+    if(this.current_lsession_is_ended)
+      return;
+    try{
+      await this.leaveStream();
+    }
+    catch(err){}
+    try{
+      await this.leaveChannel();
+    }
+    catch(err){}
+    finally{
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.complete();
+        return true;
+    }
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerScreenWidth = window.innerWidth;
+    if(this.innerScreenWidth<1024){
+      this.isDeviceSmall=true;
+      if(this.participantsSelected){
+        this.hideParticipantsContainer = false;
+        this.hideMessagesContainer = true;
+        this.hideVideosContainer = true;
+      }
+      else if(this.messagesSelected){
+        this.hideParticipantsContainer = true;
+        this.hideMessagesContainer = false;
+        this.hideVideosContainer = true;
+      }
+      else{
+        this.hideParticipantsContainer = true;
+        this.hideMessagesContainer = true;
+        this.hideVideosContainer = false;
+      }
+    }
+    else{
+      this.isDeviceSmall=false;
+      this.hideParticipantsContainer = false;
+      this.hideMessagesContainer = false;
+      this.hideVideosContainer = false;
+    }
+  }
   ngOnInit(): void {
-    AgoraRTC.setLogLevel(4);
+    this.innerScreenWidth = window.innerWidth;
+    if(this.innerScreenWidth<1024){
+      this.isDeviceSmall=true;
+      this.hideParticipantsContainer = true;
+      this.hideMessagesContainer = true;
+      this.hideVideosContainer = false;
+    }
+    else{
+      this.isDeviceSmall=false;
+      this.hideParticipantsContainer = false;
+      this.hideMessagesContainer = false;
+      this.hideVideosContainer = false;
+    }
+    AgoraRTC.setLogLevel(3);
+    /*
+    AgoraRTC.setLogLevel(number);
+    0: DEBUG. Output all API logs.
+    1: INFO. Output logs of the INFO, WARNING and ERROR level.
+    2: WARNING. Output logs of the WARNING and ERROR level.
+    3: ERROR. Output logs of the ERROR level.
+    4: NONE. Do not output any log.*
+    */
+    //window.addEventListener('unload', this.unloadHandler, true);
     this.Participants_Translate = this.translate.instant("Participants");
     this.WaitingList_Translate = this.translate.instant("WaitingList");
     this.Messages_Translate = this.translate.instant("Messages");
@@ -126,72 +208,33 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
     this.setFormData();
     this.authService.getAuthState().pipe(takeUntil(this.ngUnsubscribe)).subscribe(async (user) => {
       this.isLoading=true;
-      if (!user) return;
-      const cloggedInUser = await this.authService.getLoggedInUserDetails();
-      if (!cloggedInUser) return;
-      this.loggedInUser = cloggedInUser;
-      if(this.current_lsession_is_ended) {
-        this.showMessage(this.translate.instant("ErrorMessageTitle"), this.translate.instant("ThisSessionHasBeenEnded"));
-        this.isLoading=false;
-        return;
-      }
-      this.videoConferenceService.getSessionById(this.lsessionid).pipe(takeUntil(this.ngUnsubscribe)).subscribe(async (data)=>{
-        if (!data) return;
-        this.current_lsession = data;
-        if(this.current_lsession.is_started==false){
-          this.current_lsession_is_started =false;
-          this.showMessage(this.translate.instant("ErrorMessageTitle"), this.translate.instant("ThisSessionIsNotStarted"));
-          this.isLoading=false;
-          return;
-        }
-        if(this.current_lsession_is_ended || this.current_lsession.is_ended==true){
-          this.showMessage(this.translate.instant("ErrorMessageTitle"), this.translate.instant("ThisSessionHasBeenEnded"));
-          this.isLoading=false;
-          return;
-        }
-        let current_lsession_start_time: Date= new Date(this.current_lsession?.start_time);
-        let current_lsession_end_time: Date= new Date(this.current_lsession?.end_time);
-        let current_date_time: Date = new Date();
-        if(current_lsession_start_time > current_date_time){
-          this.current_lsession_is_started =false;
-          this.session_started_in_diff_in_secs = Math.floor((current_lsession_start_time.getTime() - current_date_time.getTime()) / 1000);
-          this.showMessage(this.translate.instant("ErrorMessageTitle"), this.translate.instant("ThisSessionWillStartAfter") + ' : ' + this.ShowTimeDiffrence(this.session_started_in_diff_in_secs));
-          this.isLoading=false;
-          return;
-        }
-        if(current_lsession_end_time <= current_date_time){
-          this.current_lsession_is_started =false;
-          this.session_ended_in_diff_in_secs = Math.floor((current_date_time.getTime() - current_lsession_end_time.getTime()) / 1000);
-          this.showMessage(this.translate.instant("ErrorMessageTitle"), this.translate.instant("ThisSessionHasBeenEndedBefore") + ' : ' + this.ShowTimeDiffrence(this.session_ended_in_diff_in_secs));
-          if(this.loggedInUser.id == this.current_lsession.owner_id){
-            this.current_lsession_is_ended =true;
-            this.current_lsession.is_ended=true;
-            this.current_lsession.ended_at=new Date();
-            let ending_message=this.translate.instant("hasEndedTheSessionAt") + " : " + new Date().toDateString() + ', ' + this.translate.instant("becauseItHasBeenExpired") + ' ... ';
-            await this.sendLeavingMessage(ending_message);
-            await this.videoConferenceService.endVideoConferenceById(this.current_lsession.id, this.current_lsession, this.sessionParticipants, this.sessionParticipantsWaitlist);
-          }
-          this.isLoading=false;
-          return;
-        }
-        this.current_lsession_is_started =true;
-        if(this.loggedInUser.id == this.current_lsession.owner_id){
-          if(!this.added_current_user){
-            this.is_current_user_owner = true;
-            this.addCurrentUserToCurrentSession('owner');
-          }
+      if (!user) {
+        let currSessionUserLS = localStorage.getItem(this.lsessionid);
+        if(currSessionUserLS){
+          this.loggedInUser = JSON.parse(currSessionUserLS);
+          this.JoinSessionNow();
         }
         else{
-          if(!this.added_current_user){
-            this.is_current_user_owner = false;
-            this.addCurrentUserToCurrentSession();
-          }
+          this.isLoading=false;
+          return;
         }
-        await this.getCurrentSessionMessages();
-        await this.getSessionOnWaitParticipants();
-        await this.getCurrentSessionParticipants();
-        this.isLoading = false;
-      });
+      }
+      const cloggedInUser = await this.authService.getLoggedInUserDetails();
+      if (!cloggedInUser) {
+        let currSessionUserLS = localStorage.getItem(this.lsessionid);
+        if(currSessionUserLS){
+          this.loggedInUser = JSON.parse(currSessionUserLS);
+          this.JoinSessionNow();
+        }
+        else{
+          this.isLoading=false;
+          return;
+        }
+      }
+      else{
+        this.loggedInUser = cloggedInUser;
+        this.JoinSessionNow();
+      }
     });
   }
 
@@ -203,6 +246,7 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
       return;
     }
     if(this.current_lsession_is_ended || this.current_lsession.is_ended==true){
+      this.current_lsession_is_ended=true;
       this.showMessage(this.translate.instant('ErrorMessageTitle'), this.translate.instant('ThisSessionHasBeenEnded'));
       return;
     }
@@ -342,7 +386,25 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
       this.messagesElement.nativeElement.scrollTop = this.messagesElement?.nativeElement?.scrollHeight;
     } catch(err) {}
   }
-
+  async loadSubscriptions() {
+    const cloggedInUser = await this.authService.getLoggedInUser();
+    if(cloggedInUser == null || cloggedInUser.customerId == null)
+    {
+      this.isFreeSession=true;
+    }
+    else{
+      this.videoConferenceService.getVideoConferenceSubscription(cloggedInUser.customerId).subscribe((data) => {
+        if(data && data.length>0){
+          this.isFreeSession=false;
+        }
+        else{
+          this.isFreeSession=true;
+        }
+        }, err => {
+          this.isFreeSession=true;
+      });
+    }
+  }
   getCurrentSessionInfo(){
     this.videoConferenceService.getSessionById(this.lsessionid)
     .pipe(takeUntil(this.ngUnsubscribe))
@@ -454,13 +516,18 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
   }
 
   async InitSession(rtm_id_:string){
+    console.log('InitSession')
     this.rtm_uid=rtm_id_;
     if(this.current_lsession.is_started==false){
       this.showMessage(this.translate.instant('ErrorMessageTitle'), this.translate.instant('ThisSessionIsNotStarted'));
       return;
     }
     if(this.current_lsession_is_ended==true || this.current_lsession.is_ended==true){
+      this.current_lsession_is_ended=true;
       this.showMessage(this.translate.instant('ErrorMessageTitle'), this.translate.instant('ThisSessionHasBeenEnded'));
+      return;
+    }
+    if(!this.streamContainerElement || !this.streamContainerElement.nativeElement){
       return;
     }
     try{
@@ -482,7 +549,7 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
         this.rtc_client.on("user-published", async (user: IAgoraRTCRemoteUser, mediaType: "audio"|"video")=>{
           await this.rtc_client?.subscribe(user, mediaType);
           if (mediaType === "video") {
-            user.videoTrack?.play(`user-${user.uid}`,{fit: "fill"});
+            user.videoTrack?.play(`user-${user.uid}`,{fit: "contain"});
           }
           if (mediaType === "audio") {
             user.audioTrack?.play();
@@ -496,6 +563,7 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
 
     }
     catch(err){
+      console.log(err)
     }
   }
 
@@ -656,7 +724,11 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
       return;
     }
     if(this.current_lsession_is_ended || this.current_lsession.is_ended==true){
+      this.current_lsession_is_ended=true;
       this.showMessage(this.translate.instant('ErrorMessageTitle'), this.translate.instant('ThisSessionHasBeenEnded'));
+      return;
+    }
+    if(!this.streamContainerElement || !this.streamContainerElement.nativeElement){
       return;
     }
     if(this.current_user_joined_streem) return;
@@ -672,7 +744,7 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
         }
       ).catch((err)=>{
       });
-      this.local_tracks[1].play(`user-${this.rtm_uid}`,{fit: "fill"});
+      this.local_tracks[1].play(`user-${this.rtm_uid}`,{fit: "contain"});
       await this.rtc_client?.publish([this.local_tracks[0], this.local_tracks[1]]);
     }
     catch(err){
@@ -689,9 +761,7 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
       }
     }
     else{
-      let o = this.rtc_client?.remoteUsers.find((value) => {
-        return (value.uid == i);
-      });
+      let o = this.rtc_client?.remoteUsers.find(ru => ru.uid == i);
       track = o?.videoTrack;
     }
     return track;
@@ -736,33 +806,33 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
           this.current_stream_user= null;
           this.preventOneClick = true;
           setTimeout(() => {
-            track_stream.play(`user-${u.uid}`,{fit: "fill"});
+            track_stream.play(`user-${u.uid}`,{fit: "contain"});
           },delay)
         }
       }
     }, delay);
   };
   maximizeStreamUserScreen(u:any){
-    let track_stream = this.local_tracks;
-    let track_box = this.local_screen_tracks;
-    track_stream = this.getTrack(u.uid);
+    let delay=250;
+    let track_stream = this.getTrack(u.uid);
     track_stream.stop();
     let x = this.current_stream_user;
-    this.current_stream_user = u;
+    if (x != null) {
+      let track_box = this.getTrack(x.uid);
+      track_box.stop();
+      this.stream_users.push(x);
+      setTimeout(() => {
+          track_box.play(`user-${x.uid}`,{fit: "contain"});
+      }, delay);
+    }
     let index = this.stream_users.findIndex(o=>o.uid==u.uid);
     if (index != - 1){
       this.stream_users.splice(index,1);
     }
-    if (x != null) {
-      track_box = this.getTrack(x.uid);
-      track_box.stop();
-      this.stream_users.push(x);
-    }
+    this.current_stream_user = u;
     setTimeout(() => {
-      if (x != null)
-        track_box.play(`user-${x.uid}`,{fit: "fill"});
-        track_stream.play(`user-${u.uid}`,{fit: "fill"});
-    })
+      track_stream.play(`user-${u.uid}`,{fit: "contain"});
+    }, delay);
   };
 
   makeFullScreen(u:any){
@@ -775,15 +845,105 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
   }
 
   toggleParticipants(){
-    this.show_participants = !this.show_participants;
+    this.messagesSelected = false;
+    this.participantsSelected = !this.participantsSelected;
+    if(!this.messagesSelected && !this.participantsSelected){
+      this.p_nzXs = 24;
+      this.p_nzSm =24;
+      this.p_nzMd =24;
+      this.p_nzLg =24;
+      this.p_nzXl =24;
+      this.p_nzXXl =24;
+      this.m_nzXs = 0;
+      this.m_nzSm =0;
+      this.m_nzMd =0;
+      this.m_nzLg =0;
+      this.m_nzXl =0;
+      this.m_nzXXl =0;
+    }
+    else{
+      this.p_nzXs = 24;
+      this.p_nzSm =24;
+      this.p_nzMd =24;
+      this.p_nzLg =15;
+      this.p_nzXl =15;
+      this.p_nzXXl =15;
+      this.m_nzXs = 24;
+      this.m_nzSm =24;
+      this.m_nzMd =24;
+      this.m_nzLg =8;
+      this.m_nzXl =8;
+      this.m_nzXXl =8;
+    }
+    if(this.isDeviceSmall){
+      if(this.participantsSelected){
+        this.hideParticipantsContainer = false;
+        this.hideMessagesContainer = true;
+        this.hideVideosContainer = true;
+      }
+      else{
+        this.hideParticipantsContainer = true;
+        this.hideMessagesContainer = true;
+        this.hideVideosContainer = false;
+      }
+    }
+    else{
+      this.hideParticipantsContainer = false;
+      this.hideMessagesContainer = false;
+      this.hideVideosContainer = false;
+    }
   };
   toggleMessages(){
-    this.show_messages = !this.show_messages;
+    this.participantsSelected=false;
+    this.messagesSelected = !this.messagesSelected;
+    if(!this.messagesSelected && !this.participantsSelected){
+      this.p_nzXs = 24;
+      this.p_nzSm =24;
+      this.p_nzMd =24;
+      this.p_nzLg =24;
+      this.p_nzXl =24;
+      this.p_nzXXl =24;
+      this.m_nzXs = 0;
+      this.m_nzSm =0;
+      this.m_nzMd =0;
+      this.m_nzLg =0;
+      this.m_nzXl =0;
+      this.m_nzXXl =0;
+    }
+    else{
+      this.p_nzXs = 24;
+      this.p_nzSm =24;
+      this.p_nzMd =24;
+      this.p_nzLg =15;
+      this.p_nzXl =15;
+      this.p_nzXXl =15;
+      this.m_nzXs = 24;
+      this.m_nzSm =24;
+      this.m_nzMd =24;
+      this.m_nzLg =8;
+      this.m_nzXl =8;
+      this.m_nzXXl =8;
+    }
+    if(this.isDeviceSmall){
+      if(this.messagesSelected){
+        this.hideParticipantsContainer = true;
+        this.hideMessagesContainer = false;
+        this.hideVideosContainer = true;
+      }
+      else{
+        this.hideParticipantsContainer = true;
+        this.hideMessagesContainer = true;
+        this.hideVideosContainer = false;
+      }
+    }
+    else{
+      this.hideParticipantsContainer = false;
+      this.hideMessagesContainer = false;
+      this.hideVideosContainer = false;
+    }
   }
 
   async leaveStream (){
-    if(!this.current_user_joined_streem)
-      return;
     try{
       this.sharing_screen = false;
       if (this.current_stream_user && this.current_stream_user.uid == this.rtm_uid)
@@ -805,8 +965,12 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
     }
     catch(er){
     }
-    finally{
+    try{
       this.rtc_client.leave();
+    }
+    catch(er){
+    }
+    finally{
       this.ngUnsubscribe.next();
       this.ngUnsubscribe.complete();
     }
@@ -817,46 +981,68 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
     this.leaveChannel();
   }
 
-  async startRecording() {
+  startRecording() {
+    this.is_recording_started=true;
+  }
+
+  abortRecording() {
   }
 
   stopRecording() {
+    this.is_recording_started=false;
+    this.videoBlobUrl={url:'test'}
   }
 
   downloadRecording(){
+    this._downloadFile(this.videoBlob, 'video/mp4', this.videoName);
   }
 
   clearRecording(){
+    this.videoBlobUrl = null;
+  }
+
+  _downloadFile(data: any, type: string, filename: string): any {
+    const blob = new Blob([data], { type: type });
+    const url = window.URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.download = filename;
+    anchor.href = url;
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
   }
 
   async leaveChannel() {
-    if(!this.current_user_joined_streem)
-      return;
     try{
+      //localStorage.removeItem(this.lsessionid);
       await this.rtc_client?.leave();
       await this.rtm_channel.leave();
       await this.rtm_client.logout();
-      this.rtm_client=null;
-      this.rtc_client=null;
-      this.rtm_channel=null;
+    }
+    catch(er){
+    }
+    this.rtm_client=null;
+    this.rtc_client=null;
+    this.rtm_channel=null;
+    try{
       await this.sendLeavingMessage();
-
+    }
+    catch(er){
+    }
+    try{
       this.current_vcParticipant.camera_on=false;
         this.current_vcParticipant.mic_on=false;
         this.current_vcParticipant.screen_share_on=false;
         this.current_vcParticipant.is_online=false;
         this.current_vcParticipant.leaved_at=new Date();
-
         await this.videoConferenceService.updateSessionParticipant(this.current_lsession.id, this.current_vcParticipant.id, this.current_vcParticipant)
         .pipe(takeUntil(this.ngUnsubscribe))
           .subscribe((result: any) => {
             this.current_user_joined_streem=false;
           }, error=> {
           });
-      return true;
     }
     catch(er){
-      return false;
     }
   };
 
@@ -956,7 +1142,7 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
           this.camera_btn_class="notactive";
           this.camera_btn_display="none";
           this.local_tracks[1].stop();
-          this.local_screen_tracks.play(`user-${this.rtm_uid}`,{fit: "fill"});
+          this.local_screen_tracks.play(`user-${this.rtm_uid}`,{fit: "contain"});
           await this.rtc_client?.unpublish(this.local_tracks[1]);
           await this.rtc_client?.publish(this.local_screen_tracks).then(()=>{
             if(this.current_vcParticipant !=null)
@@ -988,7 +1174,7 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
       this.camera_btn_display="block";
       this.local_screen_tracks.stop();
       this.local_screen_tracks.close();
-      this.local_tracks[1].play(`user-${this.rtm_uid}`,{fit: "fill"});
+      this.local_tracks[1].play(`user-${this.rtm_uid}`,{fit: "contain"});
       await this.rtc_client?.unpublish(this.local_screen_tracks);
       await this.rtc_client?.publish(this.local_tracks[1]).then(()=>{
         this.local_screen_tracks = null;
@@ -1086,21 +1272,145 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
     }
 
   }
+  AdmitUserFiredHandle(isWantAddmition:boolean){
+    if(isWantAddmition){
+    if(this.isFreeSession && this.session_participantsCount>=2){
+      this.showSubscriptionDialog=true;
+      this.showModal();
+    }
+  }
+}
 
+  showModal(): void {
+    this.isVisible = true;
+  }
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.router.navigate(["vc/subscription"]);
+      this.isOkLoading = false;
+    }, 30000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
   async goBack(){
     try{
       await this.LeaveSession();
-      this.route.navigate(["./video-conference"]);
+      this.router.navigate(["./video-conference"]);
     }
     catch(err){
     }
   }
   async justgoBack(){
     try{
-      this.route.navigate(["./video-conference"]);
+      this.router.navigate(["./video-conference"]);
     }
     catch(err){
     }
   }
 
+  getUserName(userName:any){
+    this.userNameValue = userName;
+  }
+
+  isEmptyOrSpaces(str){
+    return str === null || str.match(/^ *$/) !== null;
+  }
+
+  liveSessionsJoin(){
+    if(this.isEmptyOrSpaces(this.userNameValue)){
+      return;
+    }
+    let currSessionUserLS = localStorage.getItem(this.lsessionid);
+    if(currSessionUserLS){
+      this.loggedInUser = JSON.parse(currSessionUserLS)
+    }
+    else{
+      this.loggedInUser = {
+        id :String(Math.floor(Math.random() * 10000)),
+        fullname: this.userNameValue,
+        slug: false,
+        created_at: new Date().toDateString(),
+        updated_at: '',
+        lang: '',
+        avatar: '',
+        bio: '',
+        type: '',
+        user_type: '',
+        is_guest_post_enabled: false
+      };
+      localStorage.setItem(this.lsessionid, JSON.stringify(this.loggedInUser));
+    }
+    this.JoinSessionNow();
+  }
+  JoinSessionNow():void {
+    this.isLoading=true;
+    this.loadSubscriptions();
+    if(this.current_lsession_is_ended) {
+      this.showMessage(this.translate.instant("ErrorMessageTitle"), this.translate.instant("ThisSessionHasBeenEnded"));
+      this.isLoading=false;
+      return;
+    }
+    this.videoConferenceService.getSessionById(this.lsessionid).pipe(takeUntil(this.ngUnsubscribe)).subscribe(async (data)=>{
+      if (!data) return;
+      this.current_lsession = data;
+      if(this.current_lsession.is_started==false){
+        this.current_lsession_is_started =false;
+        this.showMessage(this.translate.instant("ErrorMessageTitle"), this.translate.instant("ThisSessionIsNotStarted"));
+        this.isLoading=false;
+        return;
+      }
+      if(this.current_lsession_is_ended || this.current_lsession.is_ended==true){
+        this.current_lsession_is_ended=true;
+        this.showMessage(this.translate.instant("ErrorMessageTitle"), this.translate.instant("ThisSessionHasBeenEnded"));
+        this.isLoading=false;
+        return;
+      }
+      let current_lsession_start_time: Date= new Date(this.current_lsession?.start_time);
+      let current_lsession_end_time: Date= new Date(this.current_lsession?.end_time);
+      let current_date_time: Date = new Date();
+      if(current_lsession_start_time > current_date_time){
+        this.current_lsession_is_started =false;
+        this.session_started_in_diff_in_secs = Math.floor((current_lsession_start_time.getTime() - current_date_time.getTime()) / 1000);
+        this.showMessage(this.translate.instant("ErrorMessageTitle"), this.translate.instant("ThisSessionWillStartAfter") + ' : ' + this.ShowTimeDiffrence(this.session_started_in_diff_in_secs));
+        this.isLoading=false;
+        return;
+      }
+      if(current_lsession_end_time <= current_date_time){
+        this.current_lsession_is_started =false;
+        this.session_ended_in_diff_in_secs = Math.floor((current_date_time.getTime() - current_lsession_end_time.getTime()) / 1000);
+        this.showMessage(this.translate.instant("ErrorMessageTitle"), this.translate.instant("ThisSessionHasBeenEndedBefore") + ' : ' + this.ShowTimeDiffrence(this.session_ended_in_diff_in_secs));
+        if(this.loggedInUser.id == this.current_lsession.owner_id){
+          this.current_lsession_is_ended =true;
+          this.current_lsession.is_ended=true;
+          this.current_lsession.ended_at=new Date();
+          let ending_message=this.translate.instant("hasEndedTheSessionAt") + " : " + new Date().toDateString() + ', ' + this.translate.instant("becauseItHasBeenExpired") + ' ... ';
+          await this.sendLeavingMessage(ending_message);
+          await this.videoConferenceService.endVideoConferenceById(this.current_lsession.id, this.current_lsession, this.sessionParticipants, this.sessionParticipantsWaitlist);
+        }
+        this.isLoading=false;
+        return;
+      }
+      this.current_lsession_is_started =true;
+      if(this.loggedInUser.id == this.current_lsession.owner_id){
+        if(!this.added_current_user){
+          this.is_current_user_owner = true;
+          this.addCurrentUserToCurrentSession('owner');
+        }
+      }
+      else{
+        if(!this.added_current_user){
+          this.is_current_user_owner = false;
+          this.addCurrentUserToCurrentSession();
+        }
+      }
+      await this.getCurrentSessionMessages();
+      await this.getSessionOnWaitParticipants();
+      await this.getCurrentSessionParticipants();
+      this.isLoading = false;
+    });
+  }
 }
+
