@@ -22,6 +22,7 @@ export interface Article {
     created_at?: string;
     published_at?: string;
     type?: string;
+    sections?:Section[],
     article_file?: {
         url: string,
         name: string,
@@ -30,3 +31,13 @@ export interface Article {
         likes_count: number;
     }
 }
+interface OtherFile {
+    name: string;
+    url: string;
+    cloudinary_id: string;
+    likes_count?: number;
+  }
+  interface Section{
+    title: string;
+    files: OtherFile[];
+  }

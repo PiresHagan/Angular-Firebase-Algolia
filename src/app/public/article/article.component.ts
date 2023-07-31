@@ -635,7 +635,36 @@ export class ArticleComponent implements OnInit, AfterViewInit, AfterViewChecked
       }
     }
   }
-
+  /**
+   * function to like/dislike sections file (added file for Podcaster)
+   */
+  likeOrUnlikeSectionFile(url, sectionIdx ,fileIdx) {
+    if(!this.isLoggedInUser) {
+      this.showModal();
+    } else {
+      if (this.isLiked(url)) {
+        const index = this.likedFiles.indexOf(url);
+        if(this.article.sections[sectionIdx].files[fileIdx].likes_count)
+          this.article.sections[sectionIdx].files[fileIdx].likes_count--;
+        this.articleService.unlikeFile(this.article.id, url).subscribe();
+        if (index > -1) {
+          this.likedFiles.splice(index, 1);
+        }
+      }
+        else{
+          if(!this.article.sections[sectionIdx].files[fileIdx].likes_count)
+              {
+                this.article.sections[sectionIdx].files[fileIdx].likes_count = 1;
+              }
+          else{
+            this.article.sections[sectionIdx].files[fileIdx].likes_count++;
+          }
+          this.likedFiles.push(url);
+          this.articleService.likeFile(this.article.id, url).subscribe();
+      }
+    }
+    }
+  
   isLiked(url) {
     return this.likedFiles.includes(url);
   }

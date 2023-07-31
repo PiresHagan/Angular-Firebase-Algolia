@@ -540,6 +540,65 @@
                 </a>
               </p>
             </div>
+               <!--Displaying Added sctions by Podcaster-->
+               <div *ngIf="article?.sections?.length>0">
+                <div *ngFor="let section of article.sections; index as sectionIdx">
+                  <h5 *ngIf="section.title" class="font-weight-bold">{{section.title}}</h5>
+              
+                  <div *ngIf="articleType === VIDEO" class="main-video-sec">
+                  <div *ngFor="let file of section.files; index as fileIdx">   
+                    <cl-video *ngIf="file.cloudinary_id" [public-id]="file.cloudinary_id" secure="true" controls="true"
+                    class="cld-video"></cl-video>
+                    <div class="row pt-3" *ngIf="file.name">
+                      <div class="col-auto align-self-center ml-4">
+                        <button  nz-button nzType="link" class="btn-share" (click)="likeOrUnlikeSectionFile(file.url,sectionIdx,fileIdx )">
+                          <i class="far fa-thumbs-up pr-2 text-20" [ngClass]="isLiked(file.url)? 'blue': ''"></i>
+                          <span class="font-weight-bold" [ngClass]="isLiked(file.url)? 'blue': ''">{{file.likes_count || 0}}</span>
+
+                        </button>
+                      </div>
+                      <div class="col-auto ml-4 mr-2">
+                        <app-share-buttons-dialog [url]="file.url"></app-share-buttons-dialog>
+                      </div>
+                      <div class="col-auto align-self-center">
+                        <app-save-to-playlist [isLoggedIn]="isLoggedInUser" [url]="file.url" [title]="file.name"></app-save-to-playlist>
+                      </div>
+                    </div>
+                    <div class="is-line" *ngIf="file.name"></div>
+                </div>
+              </div>
+    
+                <div *ngIf="articleType === AUDIO" class="main-audio-sec">
+                 
+                  <div *ngFor="let file of section.files; index as fileIdx" class="pt-2">
+                    <h5 class="font-weight-bold">{{file.name}}</h5>
+                    <img class="pb-4" src="../../../assets/imagess/wave.png" alt="">
+                    <audio controls class="w-100">
+                      <source [src]="file.url" type="audio/mpeg">
+                      Your browser does not support the audio tag.
+                    </audio>
+                    <div class="row pt-3">
+                      <div class="col-auto align-self-center ml-4">
+                        <button  nz-button nzType="link" class="btn-share" (click)="likeOrUnlikeSectionFile(file.url,sectionIdx,fileIdx )">
+                          <i class="far fa-thumbs-up pr-2 text-20" [ngClass]="isLiked(file.url)? 'blue': ''"></i>
+                          <span class="font-weight-bold" [ngClass]="isLiked(file.url)? 'blue': ''">{{file.likes_count || 0}}</span>
+                        </button>
+                      </div>
+                      <div class="col-auto ml-4 mr-2">
+                        <app-share-buttons-dialog [url]="file.url"></app-share-buttons-dialog>
+                      </div>
+                      <div class="col-auto align-self-center">
+                        <app-save-to-playlist [isLoggedIn]="isLoggedInUser" [url]="file.url" [title]="file.name"></app-save-to-playlist>
+                      </div>
+                    </div>
+                    <div class="is-line"></div>
+                  </div>
+                </div>
+              
+                </div>
+               </div>
+              
+              <!--End Displaying Added Sections by Podcaster-->
             <!-- Displaying Charity Donate button with progresss bar -->
             <div class="text-center pb-3 mt-4" *ngIf="article?.author?.type == 'charity'">
 
