@@ -15,6 +15,13 @@ export interface VideoConferenceSession {
   is_ended?: boolean;
   ended_at?:any;
   description?: any;
+  invitees?:any;
+  companyId?:any;
+  lead_email?:any;
+  lead_first_name?: any;
+  lead_last_name?: any;
+  serviceId?: any;
+  politicianId?: any;
 }
 export interface VC_Message {
 id?:any;

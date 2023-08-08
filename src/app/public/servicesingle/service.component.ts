@@ -51,7 +51,7 @@ export class ServiceComponent implements OnInit, AfterViewInit {
   bookingURL: string;
   files: any[] = [];
   sharedUrl: string;
-  
+
   recaptchaElement;
   isCaptchaElementReady: boolean = false;
   isCapchaScriptLoaded: boolean = false;
@@ -59,6 +59,7 @@ export class ServiceComponent implements OnInit, AfterViewInit {
   capchaObject;
   invalidCaptcha: boolean = false;
   addLeadSuccess: boolean = false;
+  serviceId: string;
 
   @ViewChild('recaptcha') set SetThing(e: ServiceComponent) {
     this.isCaptchaElementReady = true;
@@ -84,14 +85,14 @@ export class ServiceComponent implements OnInit, AfterViewInit {
     private modalService: NzModalService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-  ) { 
+  ) {
     this.sharedUrl = "";
     this.serviceForm = this.formBuilder.group({
       fullname: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(70)]],
       email: ['', [Validators.required, Validators.email,]],
       phonenumber: ['', [Validators.required , Validators.pattern('[- +()0-9]+')]],
     });
-    
+
   }
 
   ngOnInit(): void {
@@ -143,8 +144,7 @@ export class ServiceComponent implements OnInit, AfterViewInit {
 
           return;
         }
-        const serviceId = this.service.id;
-
+        this.serviceId = this.service.id;
         this.serviceType = this.service.type ? this.service.type : TEXT;
         this.serviceLikes = this.service.likes_count;
         this.serviceVicewCount = this.service.view_count;
@@ -170,12 +170,12 @@ export class ServiceComponent implements OnInit, AfterViewInit {
           summary: this.service.summary || rawText.substring(0, 70),
         });
 
-        this.serviceService.updateViewCount(serviceId);
+        this.serviceService.updateViewCount(this.serviceId);
       });
 
       this.setLanguageNotification();
-      
-      
+
+
     });
   }
 
@@ -207,12 +207,12 @@ export class ServiceComponent implements OnInit, AfterViewInit {
       } catch (err) {
         this.isFormSaving = false;
       }
-  /*   
+  /*
       this.isFormSaving = true;
       const serviceData = {
-        fullname: this.serviceForm.get('fullname').value,  
-        email: this.serviceForm.get('email').value,  
-        phonenumber: this.serviceForm.get('phonenumber').value,     
+        fullname: this.serviceForm.get('fullname').value,
+        email: this.serviceForm.get('email').value,
+        phonenumber: this.serviceForm.get('phonenumber').value,
        }
        this.serviceService.createContact(this.service.id , serviceData).then(() => {
          this.showSuccess()
@@ -227,9 +227,9 @@ export class ServiceComponent implements OnInit, AfterViewInit {
 }
 saveDataOnServer() {
   const serviceData = {
-    fullname: this.serviceForm.get('fullname').value,  
-    email: this.serviceForm.get('email').value,  
-    phonenumber: this.serviceForm.get('phonenumber').value,     
+    fullname: this.serviceForm.get('fullname').value,
+    email: this.serviceForm.get('email').value,
+    phonenumber: this.serviceForm.get('phonenumber').value,
    }
   this.serviceService.createContact(this.service.id, serviceData).then(data => {
     this.serviceForm.reset();
@@ -323,7 +323,7 @@ renderReCaptcha() {
   ngAfterViewInit() { }
 
   /**
-   * Set user params 
+   * Set user params
    */
   async setUserDetails() {
 
@@ -534,6 +534,10 @@ renderReCaptcha() {
   SlideRelatedService: boolean = false;
   slideService() {
     this.SlideRelatedService = !this.SlideRelatedService;
+  }
+
+  serviceMoreInfo() {
+    document.getElementById('firstName').focus();
   }
 }
 

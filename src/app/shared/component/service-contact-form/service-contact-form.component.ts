@@ -2,19 +2,19 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd';
 import { environment } from 'src/environments/environment';
-import { CompanyService } from 'src/app/shared/services/company.service';
+import { ServiceService } from 'src/app/shared/services/service.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { differenceInDays, differenceInHours, differenceInMinutes, differenceInSeconds } from 'date-fns';
 import { GetInTouchService } from 'src/app/shared/services/getInTouch.service';
 
 @Component({
-  selector: 'app-company-lead-form',
-  templateUrl: './company-lead-form.component.html',
-  styleUrls: ['./company-lead-form.component.scss']
+  selector: 'app-service-contact-form',
+  templateUrl: './service-contact-form.component.html',
+  styleUrls: ['./service-contact-form.component.scss']
 })
-export class CompanyLeadFormComponent implements OnInit {
+export class ServiceContactFormComponent implements OnInit {
 
-  @Input() companyId: string;
+  @Input() serviceId!: string;
 
   addLeadForm: FormGroup;
   addLeadMeetingForm: FormGroup;
@@ -65,7 +65,7 @@ export class CompanyLeadFormComponent implements OnInit {
       { text:"0 hr 40 min" ,value:40}
   ];
 
-  @ViewChild('recaptcha') set SetThing(e: CompanyLeadFormComponent) {
+  @ViewChild('recaptcha') set SetThing(e: ServiceContactFormComponent) {
     this.isCaptchaElementReady = true;
     this.recaptchaElement = e;
     if (this.isCaptchaElementReady && this.isCapchaScriptLoaded) {
@@ -77,12 +77,13 @@ export class CompanyLeadFormComponent implements OnInit {
     private modalService: NzModalService,
     private authService: AuthService,
     private fb: FormBuilder,
-    private companyService: CompanyService,
+    private serviceService: ServiceService,
     private getInTouchService: GetInTouchService
   ) { }
 
   ngOnInit(): void {
-
+    if(!this.serviceId)
+      return;
     this.addLeadForm = this.fb.group({
       first_name: [null, [Validators.required]],
       last_name: [null, [Validators.required]],
@@ -137,7 +138,8 @@ export class CompanyLeadFormComponent implements OnInit {
   }
 
   saveDataOnServer(formData) {
-    this.companyService.createCompanyLead(this.companyId, formData).then(data => {
+    const serviceContactData ={...formData, fullname:formData.first_name + ' ' + formData.last_name}
+    this.serviceService.createContact(this.serviceId, serviceContactData).then(data => {
       this.addLeadForm.reset();
       this.addLeadSuccess = true;
       this.isFormSaving = false;
@@ -391,7 +393,7 @@ export class CompanyLeadFormComponent implements OnInit {
   }
 
   saveMeetingDataOnServer(data) {
-    this.getInTouchService.addSessionForCompanyLead(this.companyId, data).then(data => {
+    this.getInTouchService.addSessionForServiceContact(this.serviceId, data).then(data => {
       this.addLeadMeetingSuccess = true;
       this.isMeetingFormSaving = false;
       setTimeout(() => {

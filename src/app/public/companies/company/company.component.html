@@ -162,8 +162,8 @@
                               <div class="item-card item-card-life-and-styles">
                                 <a [routerLink]="['/',article.author.slug,article.slug]">
                                   <div class="item-card-image">
-                                    <img [src]="replaceImage(article.image.url)" [alt]="article?.image?.alt"
-                                      *ngIf="!(article.image.cloudinary_id); else CateCloudinoryImg">
+                                    <img [src]="replaceImage(article?.image?.url)" [alt]="article?.image?.alt"
+                                      *ngIf="!(article?.image?.cloudinary_id); else CateCloudinoryImg">
                                     <ng-template #CateCloudinoryImg>
                                       <div class="hide-avatar">
                                         <app-cloudinary-feature-img [article]="article"></app-cloudinary-feature-img>
@@ -642,8 +642,8 @@
         </div>
       </div>
       <div class="is-right-ad-section">
-        <div class="cmpy-subs-status" 
-          *ngIf="!currentPublicProfileSubscription || currentPublicProfileSubscription?.status != 'active'" 
+        <div class="cmpy-subs-status"
+          *ngIf="!currentPublicProfileSubscription || currentPublicProfileSubscription?.status != 'active'"
           (click)='openCompanySubscription()'
         >
           <h5>{{ 'CompanyWebsite' | translate }} : <span class="txt-primary ptr-cursor">N/A</span></h5>

@@ -2,19 +2,19 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd';
 import { environment } from 'src/environments/environment';
-import { CompanyService } from 'src/app/shared/services/company.service';
+import { PoliticianService } from 'src/app/shared/services/politician.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { differenceInDays, differenceInHours, differenceInMinutes, differenceInSeconds } from 'date-fns';
 import { GetInTouchService } from 'src/app/shared/services/getInTouch.service';
 
 @Component({
-  selector: 'app-company-lead-form',
-  templateUrl: './company-lead-form.component.html',
-  styleUrls: ['./company-lead-form.component.scss']
+  selector: 'app-politician-contact-form',
+  templateUrl: './politician-contact-form.component.html',
+  styleUrls: ['./politician-contact-form.component.scss']
 })
-export class CompanyLeadFormComponent implements OnInit {
+export class PoliticianContactFormComponent implements OnInit {
 
-  @Input() companyId: string;
+  @Input() politicianId: string;
 
   addLeadForm: FormGroup;
   addLeadMeetingForm: FormGroup;
@@ -65,7 +65,7 @@ export class CompanyLeadFormComponent implements OnInit {
       { text:"0 hr 40 min" ,value:40}
   ];
 
-  @ViewChild('recaptcha') set SetThing(e: CompanyLeadFormComponent) {
+  @ViewChild('recaptcha') set SetThing(e: PoliticianContactFormComponent) {
     this.isCaptchaElementReady = true;
     this.recaptchaElement = e;
     if (this.isCaptchaElementReady && this.isCapchaScriptLoaded) {
@@ -77,7 +77,7 @@ export class CompanyLeadFormComponent implements OnInit {
     private modalService: NzModalService,
     private authService: AuthService,
     private fb: FormBuilder,
-    private companyService: CompanyService,
+    private politicianService: PoliticianService,
     private getInTouchService: GetInTouchService
   ) { }
 
@@ -137,7 +137,7 @@ export class CompanyLeadFormComponent implements OnInit {
   }
 
   saveDataOnServer(formData) {
-    this.companyService.createCompanyLead(this.companyId, formData).then(data => {
+    this.politicianService.createContact(this.politicianId, formData).then(data => {
       this.addLeadForm.reset();
       this.addLeadSuccess = true;
       this.isFormSaving = false;
@@ -391,7 +391,7 @@ export class CompanyLeadFormComponent implements OnInit {
   }
 
   saveMeetingDataOnServer(data) {
-    this.getInTouchService.addSessionForCompanyLead(this.companyId, data).then(data => {
+    this.getInTouchService.addSessionForPoliticianLead(this.politicianId, data).then(data => {
       this.addLeadMeetingSuccess = true;
       this.isMeetingFormSaving = false;
       setTimeout(() => {
@@ -403,3 +403,4 @@ export class CompanyLeadFormComponent implements OnInit {
   }
 
 }
+

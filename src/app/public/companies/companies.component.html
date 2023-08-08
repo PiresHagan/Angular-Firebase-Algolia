@@ -16,7 +16,7 @@
                                                     <div class="icon-overlay">
                                                         <img [src]="company?.logo?.url" [alt]="company?.logo?.alt"
                                                         onerror="this.src='assets/images/default-avatar.png'"
-                                                        *ngIf="!(company.logo.cloudinary_id); else CompaniesCloudinaryImg" />
+                                                        *ngIf="!(company?.logo?.cloudinary_id); else CompaniesCloudinaryImg" />
                                                         <ng-template #CompaniesCloudinaryImg>
                                                             <cl-image loading="lazy" public-id="{{company.logo.cloudinary_id}}"
                                                                 secure="true">
@@ -26,7 +26,7 @@
                                                         </ng-template>
                                                         <app-article-avatar [article]="company"></app-article-avatar>
                                                     </div>
-                                                    
+
                                                     <h2 [ngStyle]="{'color': company?.color_code}">{{ company?.name }}</h2>
                                                     <p>{{ company?.bio }}</p>
                                                     <button type="button" class="is-read-more">
@@ -58,8 +58,8 @@
                                                                 </a>
                                                             </div>
                                                             <p class="text-black">
-                                                                {{'Please' | translate}}, 
-                                                                <a routerLink="/auth/login">{{'logInTitle' | translate}}</a> 
+                                                                {{'Please' | translate}},
+                                                                <a routerLink="/auth/login">{{'logInTitle' | translate}}</a>
                                                                 {{'or' | translate}}
                                                                 <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
                                                                 {{'toContinue' | translate}}.
@@ -79,6 +79,6 @@
                 </ais-instantsearch>
             </div>
         </div>
-      
+
     </div>
 </section>

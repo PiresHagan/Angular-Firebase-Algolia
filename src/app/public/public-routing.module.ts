@@ -12,6 +12,10 @@ const routes: Routes = [
     loadChildren: () => import('./video-conference/video-conference.module').then(m => m.VideoConferenceModule)
   },
   {
+    path: 'politician',
+    loadChildren: () => import('./politician/politician.module').then(m => m.PoliticianModule)
+  },
+  {
     path: 'video-conference/:lsessionid',
     loadChildren: () => import('./video-conference/video-conference.module').then(m => m.VideoConferenceModule)
   },

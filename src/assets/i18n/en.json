@@ -1200,5 +1200,16 @@
   "subscription":"Subscription",
   "LimitedFreeAccount":"Limited Free Account",
   "subscriptionRequest":"Please Subscribe to MTS Video Conference",
-  "PricingAndsubscription":"Pricing and Subscription"
+  "PricingAndsubscription":"Pricing and Subscription",
+  "ScheduleSession": "Schedule Session",
+  "StartTime": "Start time",
+  "SessionDuration": "Session Duration",
+  "addLeadMeetingFormTitle":"Schedule meeting with Company Owner",
+  "leadMeetingAddedSuccess":"Schedule meeting with Company Owner is done Successfully",
+  "Submit": "Submit",
+  "EndTime":"End time",
+  "addServiceContactMeetingFormTitle":"Schedule meeting with Service Owner",
+  "serviceContactMeetingAddedSuccess":"Schedule meeting with Service Owner is done Successfully",
+  "addPoliticianContactMeetingFormTitle":"Schedule meeting with Politician",
+  "politicianContactMeetingAddedSuccess":"Schedule meeting with Politician is done Successfully"
 }

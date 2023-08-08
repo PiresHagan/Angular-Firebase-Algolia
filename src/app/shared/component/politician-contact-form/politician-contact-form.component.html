@@ -1,0 +1,120 @@
+<div class="company-form" *ngIf="politicianId">
+  <h2>{{ "addLeadFormTitle" | translate }}</h2>
+
+  <form nz-form [formGroup]="addLeadForm" class="lead-form" (ngSubmit)="submitForm()">
+      <nz-alert class="m-b-10" nzType="error" nzDescription="{{'invalidCaptchaErr' | translate}}" nzShowIcon *ngIf="invalidCaptcha"></nz-alert>
+
+      <nz-alert class="m-b-10" nzType="success" nzMessage="{{'leadAddSuccess' | translate}}" nzShowIcon *ngIf="addLeadSuccess"></nz-alert>
+
+      <nz-form-item>
+          <nz-form-control nzErrorTip="{{'leadFirstNameError' | translate}}">
+              <input type="text" nz-input formControlName="first_name" placeholder="{{'leadInputFirstName' | translate}}" id="firstName">
+          </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+          <nz-form-control nzErrorTip="{{'leadLastNameError' | translate}}">
+              <input type="text" nz-input formControlName="last_name" placeholder="{{'leadInputLastName' | translate}}" id="lastName">
+          </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+          <nz-form-control nzErrorTip="{{'leadFirstNameError' | translate}}">
+              <input type="email" nz-input formControlName="email" placeholder="{{'leadInputEmail' | translate}}" id="email">
+          </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+          <nz-form-control nzErrorTip="{{'leadMobileError' | translate}}">
+              <input type="number" nz-input formControlName="mobile_number" placeholder="{{'leadInputPhoneNumber' | translate}}" id="phoneNumber">
+          </nz-form-control>
+      </nz-form-item>
+
+      <div>
+          <div #recaptcha class="m-b-10">Loading Captcha...</div>
+
+          <nz-form-item>
+              <nz-form-control>
+                  <div class="text-center">
+                      <button nz-button class="is-login-btn" [nzLoading]="isFormSaving" [nzType]="'primary'">
+                          {{"leadSubmit" | translate}}
+                      </button>
+                  </div>
+              </nz-form-control>
+          </nz-form-item>
+      </div>
+  </form>
+  <div class="create-meeting-dialog"  *ngIf="showCreateMeetingDialog">
+    <nz-modal
+      [(nzVisible)]="isVisible"
+      [nzTitle]="modalTitle"
+      [nzFooter]="modalFooter"
+      (nzOnCancel)="handleCancel()"
+      [nzOkLoading]="isOkLoading"
+      >
+      <ng-template #modalTitle>{{ "addPoliticianContactMeetingFormTitle" | translate }}</ng-template>
+      <div class="popup-content">
+        <form nz-form [formGroup]="addLeadMeetingForm" class="lead-meeting-form" (ngSubmit)="submitAddLeadMeetingForm()">
+            <nz-form-item>
+              <nz-form-label nzFor="date" nzRequired>{{'ScheduleSession'| translate}}</nz-form-label>
+              <nz-form-control nzErrorTip="{{'PleaseInputField'| translate}}">
+                <nz-date-picker formControlName="date" nzFormat="dd/MM/yyyy"
+                defaultValue="today" placeholder="{{'ScheduleSession' | translate}}"
+                [nzDisabledDate]="disabledDate"
+                style="width: 100%;"
+                (ngModelChange)="sheduleDateChanged($event)"
+                nzPlaceHolder="{{'ScheduleSession'| translate}}">
+                </nz-date-picker>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-label nzFor="start_time" nzRequired>{{'StartTime'| translate}}</nz-form-label>
+              <nz-form-control nzErrorTip="{{'PleaseInputField'| translate}}">
+                <nz-time-picker nzShowTime formControlName="start_time" nzFormat="HH:mm"
+                [nzDefaultOpenValue]="defaultStartTimeOpenValue"
+                [nzDisabledHours]= "disabledHours"
+                [nzDisabledMinutes]="disabledMinutes"
+                [nzMinuteStep]="15"
+                (ngModelChange)="startTimeChanged($event)" (nzInputReadOnly)=true
+                style="width: 100%;"
+                nzPlaceHolder="{{'StartTime'| translate}}">
+                </nz-time-picker>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-label nzFor="duration" nzRequired>{{'SessionDuration'| translate}}</nz-form-label>
+              <nz-form-control nzErrorTip="{{'PleaseInputField'| translate}}">
+                <nz-select formControlName="duration"
+                  nzPlaceHolder="{{'SessionDuration'| translate}}" class="w-100" (ngModelChange)="durationChanged($event)">
+                  <nz-option *ngFor="let durationItem of freeSessionDurationList"
+                  [nzLabel]="durationItem.text"
+                  [nzValue]="durationItem.value">
+                </nz-option>
+              </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item style="display: none;">
+              <nz-form-label nzFor="end_time" nzRequired>{{'EndTime'| translate}}</nz-form-label>
+              <nz-form-control nzDisableAutoTips nzErrorTip="{{'PleaseInputField'| translate}}" >
+                <nz-time-picker nzDisabled nzInputReadOnly [nzDisabled]=true
+                formControlName="end_time" nzFormat="HH:mm"
+                [nzDefaultOpenValue]="defaultEndTimeOpenValue" nzAllowEmpty=false
+                  nzPlaceHolder="{{'EndTime'| translate}}">
+                </nz-time-picker>
+              </nz-form-control>
+            </nz-form-item>
+        </form>
+      </div>
+      <ng-template #modalFooter>
+        <button nz-button nzType="default" class="cancel-btn" (click)="handleCancel()">{{ "cancel" | translate }}</button>
+        <button nz-button class="submit-btn" (click)="handleOk()" [nzLoading]="isFormSaving" [nzType]="'primary'">
+          {{"Submit" | translate}}
+        </button>
+        <nz-alert class="m-b-10" nzType="success" nzMessage="{{'politicianContactMeetingAddedSuccess' | translate}}" nzShowIcon *ngIf="addLeadMeetingSuccess"></nz-alert>
+      </ng-template>
+    </nz-modal>
+</div>
+</div>

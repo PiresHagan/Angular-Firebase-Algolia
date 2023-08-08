@@ -13,7 +13,7 @@ import { Article } from 'src/app/shared/interfaces/article.type';
 import { UserService } from 'src/app/shared/services/user.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
 
-interface PublicProfileSubscription { 
+interface PublicProfileSubscription {
   created_at: string,
   customer_id: string,
   external_id: string,
@@ -73,7 +73,7 @@ export class CompanyComponent implements OnInit {
         this.companyService.getCompanyPublicProfileSubscription(this.companyId).subscribe((data) => {
           this.currentPublicProfileSubscription = data[0];
         });
-    
+
 
          // Fetching company article
         this.articleService.getArticlesByUser(this.companyId,  2, null, this.lastArticleIndex).subscribe((data) => {
@@ -200,4 +200,15 @@ export class CompanyComponent implements OnInit {
   companyMoreInfo() {
     document.getElementById('firstName').focus();
   }
+
+  replaceImage(url) {
+    let latestURL = url
+    if (url) {
+      latestURL = latestURL.replace('https://mytrendingstories.com/', "https://assets.mytrendingstories.com/")
+        .replace('http://cdn.mytrendingstories.com/', "https://cdn.mytrendingstories.com/")
+        .replace('https://abc2020new.com/', "https://assets.mytrendingstories.com/");
+    }
+    return latestURL;
+  }
+
 }

@@ -64,7 +64,7 @@
             </a>
             <app-service-avatar [article]="service"></app-service-avatar>
           </div>
-          
+
           <div class="is-author-name-sec is-divider">
             <span class="is-author-name" itemprop="author" itemscope="">
               <a [routerLink]="[getServiceUrl(service),service?.author?.slug]" itemprop="url" *ngIf="service">
@@ -99,7 +99,7 @@
               </div>
             </span>
           </div>
-         
+
           <div class="is-like-sec is-divider">
             <a class="is-like" *ngIf="!isLike" (click)="like()">
               <i class="far fa-thumbs-up"></i>
@@ -109,7 +109,7 @@
               <i class="fas fa-heart"></i>
               {{'liked' | translate}} <span class="like-count">{{serviceLikes}}</span>
             </a>
-            <a class="is-like"><span class="likes-count"><i class="fas fa-eye"></i>{{serviceVicewCount}}</span></a>           
+            <a class="is-like"><span class="likes-count"><i class="fas fa-eye"></i>{{serviceVicewCount}}</span></a>
           </div>
           <div class="left-media is-divider">
             <section class="is-followers-sec" *ngIf="followers.length">
@@ -180,16 +180,16 @@
               <h5 *ngIf="service.service_file.name" class="font-weight-bold">{{service.service_file.name}}</h5>
               <cl-video *ngIf="service.service_file.cloudinary_id" [public-id]="service.service_file.cloudinary_id" secure="true" controls="true"
                 class="cld-video"></cl-video>
-                <div class="row pt-3" *ngIf="service.service_file.name">                  
-                                  
+                <div class="row pt-3" *ngIf="service.service_file.name">
+
                 </div>
                 <div class="is-line" *ngIf="service.service_file.name"></div>
                 <div *ngFor="let file of files">
                   <h5 class="font-weight-bold">{{file.name}}</h5>
                   <cl-video [public-id]="file.cloudinary_id" secure="true" controls="true"
                   class="cld-video"></cl-video>
-                  <div class="row pt-3" *ngIf="file.name">                   
-                                      
+                  <div class="row pt-3" *ngIf="file.name">
+
                   </div>
                   <div class="is-line"></div>
                 </div>
@@ -218,13 +218,13 @@
               </audio>
               <div class="row pt-3" *ngIf="service.service_file.name">
                 <div class="col-auto align-self-center ml-4">
-                 
+
                 </div>
                 <div class="col-auto ml-4 mr-2">
-                 
+
                 </div>
                 <div class="col-auto align-self-center">
-                  
+
                 </div>
               </div>
               <div class="is-line" *ngIf="service.service_file.name"></div>
@@ -237,13 +237,13 @@
                 </audio>
                 <div class="row pt-3">
                   <div class="col-auto align-self-center ml-4">
-                    
+
                   </div>
                   <div class="col-auto ml-4 mr-2">
-                    
+
                   </div>
                   <div class="col-auto align-self-center">
-                    
+
                   </div>
                 </div>
                 <div class="is-line"></div>
@@ -301,48 +301,13 @@
           </div>
         </div>
         <div class="form-contactus">
-          <form class="form" [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
-            <nz-alert class="m-b-10" nzType="error" nzDescription="{{'invalidCaptchaErr' | translate}}" nzShowIcon *ngIf="invalidCaptcha"></nz-alert>
-
-        <nz-alert class="m-b-10" nzType="success" nzMessage="{{'leadAddSuccess' | translate}}" nzShowIcon *ngIf="addLeadSuccess"></nz-alert>
-            <h2 class="align-center ">{{'getInTouch' | translate}}</h2>
-            <div class="form-group">
-              <nz-form-item>
-                <nz-form-control nzErrorTip="{{'serTitleErr' | translate}}">
-                  <input type="text" class="form-control" id="name" formControlName="fullname"
-                    placeholder="{{'contactFullName' | translate}}">
-                  <img src="assets/images/sign-up/user.png" />
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-
-            <div class="form-group">
-              <nz-form-item>
-                <nz-form-control nzErrorTip="{{'serTitsdleErr' | translate}}">
-                  <input type="text" class="form-control" id="email" formControlName="email"
-                    placeholder="{{'contactEmail' | translate}}">
-                  <img src="assets/images/sign-up/email.png" />
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-            <div class="form-group">
-              <nz-form-item>
-                <nz-form-control nzErrorTip="{{'serTitlsdaeErr' | translate}}">
-                  <input type="text" class="form-control" id="subject" formControlName="phonenumber"
-                    placeholder="{{'phoneNumber' | translate}}">
-                  <img src="assets/images/sign-up/24-hours-phone-service.png" />
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-            <div>
-              <div #recaptcha class="m-b-10">Loading Captcha...</div>
-  
-            <div class="text-center">
-              <button type="submit" nz-button  [nzLoading]="isFormSaving" class="btn-submit">{{'contactSubmit' |
-                translate}}</button>
-            </div>
-            </div>
-          </form>
+          <div>
+            <button class="request-info-btn" (click)="serviceMoreInfo()">
+              Request More Info
+              <img src="assets/images/read-more-icon.png" alt="">
+            </button>
+          </div>
+          <app-service-contact-form *ngIf="serviceId" [serviceId]="serviceId"></app-service-contact-form>
         </div>
 
       </div>

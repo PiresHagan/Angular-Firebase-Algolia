@@ -1141,5 +1141,16 @@
   "subscription":"Souscription",
   "LimitedFreeAccount":"Compte gratuit limité",
   "subscriptionRequest":"Veuillez vous abonner à la vidéoconférence MTS",
-  "PricingAndsubscription":"Tarification et abonnement"
+  "PricingAndsubscription":"Tarification et abonnement",
+  "ScheduleSession": "Planifier une session",
+  "StartTime": "Heure de début",
+  "SessionDuration": "Durée de la session",
+  "addLeadMeetingFormTitle":"Planifier une réunion avec le propriétaire de l'entreprise",
+  "leadMeetingAddedSuccess":"La réunion planifiée avec le propriétaire de l'entreprise a été effectuée avec succès",
+  "Submit": "Soumettre",
+  "EndTime":"Heure de fin",
+  "addServiceContactMeetingFormTitle":"Planifier une réunion avec le propriétaire du service",
+  "serviceContactMeetingAddedSuccess":"Planifier une réunion avec le propriétaire du service est terminé avec succès",
+  "addPoliticianContactMeetingFormTitle":"Planifier une réunion avec un politicien",
+  "politicianContactMeetingAddedSuccess":"La réunion planifiée avec le politicien est terminée avec succès"
 }

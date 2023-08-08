@@ -1,7 +1,8 @@
 
 export interface Contact {
-    fullname?: string;
-    email?: string;
-    phonenumber?: string;
-    
+  fullname?: string;
+  firstname?: string;
+  lastname?: string;
+  email?: string;
+  phonenumber?: string;
 }

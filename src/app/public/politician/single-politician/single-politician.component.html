@@ -7,7 +7,7 @@
               {{politician?.author?.fullname}}
             </a>
           </div>
-  
+
           <div class="comment-section">
             <ul>
               <li *ngIf="politicianVicewCount">
@@ -60,7 +60,7 @@
               </a>
               <app-service-avatar [article]="politician"></app-service-avatar>
             </div>
-            
+
             <div class="is-author-name-sec is-divider">
               <span class="is-author-name" itemprop="author" itemscope="">
                 <a [routerLink]="[getServiceUrl(politician),politician?.author?.slug]" itemprop="url" *ngIf="politician">
@@ -75,7 +75,7 @@
                   <img src="assets/images/article/icon/un-follow.png" />
                   {{'unfollowAuthor' | translate}}
                 </a>
-  
+
                 <div class="login-popup" *ngIf="!isLoggedInUser">
                   <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()"
                     (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
@@ -89,13 +89,13 @@
                           translate}}</a>
                         {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
                         {{'toContinue' | translate}}.</p>
-  
+
                     </div>
                   </nz-modal>
                 </div>
               </span>
             </div>
-           
+
             <div class="is-like-sec is-divider">
               <a class="is-like" *ngIf="!isLike" (click)="like()">
                 <i class="far fa-thumbs-up"></i>
@@ -105,19 +105,19 @@
                 <i class="fas fa-heart"></i>
                 {{'liked' | translate}} <span class="like-count">{{politicianLikes}}</span>
               </a>
-              <a class="is-like"><span class="likes-count"><i class="fas fa-eye"></i>{{politicianVicewCount}}</span></a>           
+              <a class="is-like"><span class="likes-count"><i class="fas fa-eye"></i>{{politicianVicewCount}}</span></a>
             </div>
             <div class="left-media is-divider">
               <section class="is-followers-sec" *ngIf="followers.length">
                 <div class="container">
                   <div class="is-comman-title">
-  
+
                     {{'profileFollowers' | translate}} {{folnum}}
-  
+
                   </div>
                   <div class="is-followers-user">
                     <div class="is-followers-item" *ngFor="let follower of followers">
-  
+
                       <a [routerLink]="['/',follower.slug]">
                         <img src="{{replaceImage(follower?.avatar?.url)}}"
                           onerror="this.src='assets/images/default-avatar.png'" alt="{{follower?.avatar?.alt}}" />
@@ -172,16 +172,16 @@
                 <h5 *ngIf="politician.politician_file.name" class="font-weight-bold">{{politician.politician_file.name}}</h5>
                 <cl-video *ngIf="politician.politician_file.cloudinary_id" [public-id]="politician.politician_file.cloudinary_id" secure="true" controls="true"
                   class="cld-video"></cl-video>
-                  <div class="row pt-3" *ngIf="politician.politician_file.name">                  
-                                    
+                  <div class="row pt-3" *ngIf="politician.politician_file.name">
+
                   </div>
                   <div class="is-line" *ngIf="politician.politician_file.name"></div>
                   <div *ngFor="let file of files">
                     <h5 class="font-weight-bold">{{file.name}}</h5>
                     <cl-video [public-id]="file.cloudinary_id" secure="true" controls="true"
                     class="cld-video"></cl-video>
-                    <div class="row pt-3" *ngIf="file.name">                   
-                                        
+                    <div class="row pt-3" *ngIf="file.name">
+
                     </div>
                     <div class="is-line"></div>
                   </div>
@@ -210,13 +210,13 @@
                 </audio>
                 <div class="row pt-3" *ngIf="politician.politician_file.name">
                   <div class="col-auto align-self-center ml-4">
-                   
+
                   </div>
                   <div class="col-auto ml-4 mr-2">
-                   
+
                   </div>
                   <div class="col-auto align-self-center">
-                    
+
                   </div>
                 </div>
                 <div class="is-line" *ngIf="politician.politician_file.name"></div>
@@ -229,13 +229,13 @@
                   </audio>
                   <div class="row pt-3">
                     <div class="col-auto align-self-center ml-4">
-                      
+
                     </div>
                     <div class="col-auto ml-4 mr-2">
-                      
+
                     </div>
                     <div class="col-auto align-self-center">
-                      
+
                     </div>
                   </div>
                   <div class="is-line"></div>
@@ -293,61 +293,26 @@
             </div>
           </div>
           <div class="form-contactus">
-            <form class="form" [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
-              <nz-alert class="m-b-10" nzType="error" nzDescription="{{'invalidCaptchaErr' | translate}}" nzShowIcon *ngIf="invalidCaptcha"></nz-alert>
-  
-          <nz-alert class="m-b-10" nzType="success" nzMessage="{{'leadAddSuccess' | translate}}" nzShowIcon *ngIf="addLeadSuccess"></nz-alert>
-              <h2 class="align-center ">{{'getInTouch' | translate}}</h2>
-              <div class="form-group">
-                <nz-form-item>
-                  <nz-form-control nzErrorTip="{{'serTitleErr' | translate}}">
-                    <input type="text" class="form-control" id="name" formControlName="fullname"
-                      placeholder="{{'contactFullName' | translate}}">
-                    <img src="assets/images/sign-up/user.png" />
-                  </nz-form-control>
-                </nz-form-item>
-              </div>
-  
-              <div class="form-group">
-                <nz-form-item>
-                  <nz-form-control nzErrorTip="{{'serTitsdleErr' | translate}}">
-                    <input type="text" class="form-control" id="email" formControlName="email"
-                      placeholder="{{'contactEmail' | translate}}">
-                    <img src="assets/images/sign-up/email.png" />
-                  </nz-form-control>
-                </nz-form-item>
-              </div>
-              <div class="form-group">
-                <nz-form-item>
-                  <nz-form-control nzErrorTip="{{'serTitlsdaeErr' | translate}}">
-                    <input type="text" class="form-control" id="subject" formControlName="phonenumber"
-                      placeholder="{{'phoneNumber' | translate}}">
-                    <img src="assets/images/sign-up/24-hours-phone-service.png" />
-                  </nz-form-control>
-                </nz-form-item>
-              </div>
-              <div>
-                <div #recaptcha class="m-b-10">Loading Captcha...</div>
-    
-              <div class="text-center">
-                <button type="submit" nz-button  [nzLoading]="isFormSaving" class="btn-submit">{{'contactSubmit' |
-                  translate}}</button>
-              </div>
-              </div>
-            </form>
+            <div>
+              <button class="request-info-btn" (click)="politicianMoreInfo()">
+                Request More Info
+                <img src="assets/images/read-more-icon.png" alt="">
+              </button>
+            </div>
+            <app-politician-contact-form *ngIf="politicianId" [politicianId]="politicianId"></app-politician-contact-form>
           </div>
-  
+
         </div>
         <div class="is-right-ad-section" [ngClass]="SlideRelatedService ? 'removeSlide' : 'openSlideService'">
-  
+
           <app-company-lead-form *ngIf="politician?.author?.type == 'company'" [companyId]="politician.author.id">
           </app-company-lead-form>
-  
+
           <app-charity-donate-form *ngIf="politician?.author?.type == 'charity'" [charityId]="politician.author.id">
           </app-charity-donate-form>
-  
+
           <app-similar-services *ngIf="politician" [service]="politician"></app-similar-services>
-  
+
           <div class="slide-service">
             <button type="button" nz-button class="is-see-more show-more" [nzType]="'primary'" (click)="slideService()">
               {{'ShowMore' | translate}}
@@ -356,15 +321,15 @@
               {{'ShowLess' | translate}}
             </button>
           </div>
-  
+
           <div adItem id="playwire-test" type="playwire" adUnit="med_rect_atf" style="width: 300px; height: 600px;">
           </div>
-  
+
           <div class="ads-box">
             <div adItem id="div-gpt-ad-1599554597929-0" style="width: 300px; height: 600px;"></div>
           </div>
         </div>
       </div>
-  
+
     </div>
   </section>

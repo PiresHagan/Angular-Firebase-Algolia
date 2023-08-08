@@ -442,7 +442,7 @@ hr {
           }
         }
 
-        
+
       }
     }
 
@@ -809,7 +809,7 @@ hr {
   }
   .is-followers-sec {
     background: #fff;
-    
+
     .is-followers-user {
       display: flex;
       justify-content: center;
@@ -839,9 +839,36 @@ hr {
   .form-contactus{
     height: 100%;
     justify-content: center;
+    margin: 50px;
+    padding: 40px;
+  }
+  .form-contactus-prev{
+    height: 100%;
+    justify-content: center;
     margin: 90px;
     padding: 39px;
     background-color: #3a68bb;
+  }
+
+  .request-info-btn{
+    background: #FF4020;
+  border-radius: 5px;
+  padding: 8px 15px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 26px;
+  text-align: center;
+  justify-content: center;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  border:0px;
+  width:100%;
+  cursor: pointer;
+    img{
+      margin-left: 10px;
+    }
   }
 
   .service-related {
@@ -1102,7 +1129,7 @@ padding-bottom: 40px;
       left: 0px;
       width: 100%;
       height: 30px;
-      white-space: nowrap; 
+      white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       box-sizing: border-box;
@@ -1158,7 +1185,7 @@ padding-bottom: 40px;
       line-height: normal;
     }
   }
-  
+
 }
 .sr-bar-with-ads {
   display: flex;
@@ -1357,7 +1384,7 @@ padding-bottom: 40px;
         width: 50px;
         height: 50px;
         border-radius: 100%;
-        
+
         img {
           width: 50px;
           height: 50px;
@@ -1377,9 +1404,9 @@ padding-bottom: 40px;
           }
         }
       }
-      
+
     }
-  
+
   }
   .sr-service-sec-item.ads-main {
     width: 50%;
@@ -1394,7 +1421,7 @@ padding-bottom: 40px;
       margin: auto;
     }
   }
-  
+
 }
 ::ng-deep .ais-Pagination-list{
   .ais-Pagination-item{
@@ -1609,7 +1636,7 @@ padding-bottom: 40px;
   .sr-brand {
     margin-top: 50px;
   }
-}	
+}
 }
 
 @media screen and (min-width:993px) and (max-width:1200px) {
@@ -2144,7 +2171,7 @@ margin: auto;
         .is-profile {
           .special-icon {
             position: absolute;
-            
+
           }
         }
       }
