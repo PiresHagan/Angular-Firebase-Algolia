@@ -112,10 +112,10 @@ export class InfluencerContactComponent implements OnInit {
     });
   }
 
-  ratingClick(influencerId,contactId){
+  ratingClick(influencerId,contactId,e){
     const data={
       userId : this.userDetails.id,
-      rating: this.value
+      rating: e
     }
     this.influencerService.rateInfluencer(influencerId,contactId,data).then();
   }
