@@ -1211,5 +1211,7 @@
   "addServiceContactMeetingFormTitle":"Schedule meeting with Service Owner",
   "serviceContactMeetingAddedSuccess":"Schedule meeting with Service Owner is done Successfully",
   "addPoliticianContactMeetingFormTitle":"Schedule meeting with Politician",
-  "politicianContactMeetingAddedSuccess":"Schedule meeting with Politician is done Successfully"
+  "politicianContactMeetingAddedSuccess":"Schedule meeting with Politician is done Successfully",
+  "unfollowHostEvent":"Unfollow host event",
+  "followHostEvent":"Follow host event"
 }

@@ -9,7 +9,8 @@ import { HttpClient } from "@angular/common/http";
 import { Event } from "../interfaces/event.type";
 import { environment } from "src/environments/environment";
 import { AngularFireStorage } from "@angular/fire/storage";
-import { of } from "rxjs";
+import { Observable, of } from "rxjs";
+import * as firebase from "firebase";
 
 @Injectable({
   providedIn: "root",
@@ -75,7 +76,9 @@ export class EventsService {
       })
     );
   }
-
+  getEventById(eventId: string): Observable<any> {
+    return this.db.doc(`${this.eventsCollection}/${eventId}`).valueChanges();
+  }
   getEventsByTypeSearch(
     limit: number = 10,
     navigation: string = "first",
@@ -473,4 +476,39 @@ export class EventsService {
        return true;
      return false;
    }
-}
+   //#region sidebar actions for hostevent
+    async like(eventId: string, likerData) {
+     return this.http.post(environment.baseAPIDomain + '/api/v1/hostevents/' + eventId + '/like', likerData).subscribe(() => { });
+    }
+    async disLike(eventId: string, likerId) {
+      return this.http.post(environment.baseAPIDomain + '/api/v1/hostevents/' + eventId + '/unlike', {}).subscribe(() => { }); 
+    }
+    isLikedByUser(eventId: string, likerId) {
+      return this.db.collection(this.eventsCollection).doc(eventId).collection('likes').doc(likerId).valueChanges();
+    }
+    updateViewCount(eventId: string) {
+      const increment = firebase.default.firestore.FieldValue.increment(1);
+      const eventRef = this.db.collection(this.eventsCollection).doc(eventId);
+      eventRef.update({ view_count: increment })
+    }
+    likeCount(eventId: string) {
+      const increment = firebase.default.firestore.FieldValue.increment(1);
+      const eventRef = this.db.collection(this.eventsCollection).doc(eventId);
+      eventRef.update({ likes_count: increment })
+    }
+    disLikeCount(eventId: string) {
+      const increment = firebase.default.firestore.FieldValue.increment(-1);
+      const eventRef = this.db.collection(this.eventsCollection).doc(eventId);
+      eventRef.update({ likes_count: increment })
+    }
+    updateEventAbuse(articleId: string) {
+      return new Promise<any>((resolve, reject) => {
+        this.db.collection(`${this.eventsCollection}`).doc(`${articleId}`).update({ is_abused: true }).then(() => {
+          resolve();
+        })
+      })
+    }
+  
+    //#endregion
+  }
+

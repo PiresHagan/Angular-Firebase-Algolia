@@ -58,7 +58,38 @@
             
           </div>
           <div class="container">
-            <div class="row">
+            <div class="is-like-sec is-divider">
+              
+              <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                <span class="likes-count">
+                  <i class="fa fa-users" aria-hidden="true"></i>
+                </span>
+                {{'followHostEvent' | translate}}
+              </a>
+              <a  *ngIf="isFollowing" (click)="unfollow()">
+                <span class="likes-count">
+                  <i class="fa fa-users" aria-hidden="true"></i>
+                </span>
+                {{'unfollowHostEvent' | translate}}
+              </a>
+          </div>
+          <div class="is-like-sec is-divider">
+                  <a class="is-like" *ngIf="articleVicewCount">
+                    <span class="likes-count">
+                      <i class="fas fa-eye"></i>{{articleVicewCount || 0}}
+                    </span>
+                  </a>
+                  <a class="is-like" *ngIf="!isLike" (click)="like()">
+                    <i class="far fa-thumbs-up"></i>
+                    {{'like' | translate}} <span class="like-count">{{event.likes_count || 0}}</span>
+                  </a>
+                  <a class="is-like" *ngIf="isLike" (click)="disLike()">
+                    <i class="fas fa-heart"></i>
+                    {{'liked' | translate}} <span class="like-count">{{event.likes_count || 0}}</span>
+                  </a>
+            
+        </div>
+            <div class="row is-divider">
               <div class="col-lg-4 col-sm-6" style="margin-bottom: 2px; "*ngFor="let follower of followers">
                <nz-avatar
                [nzSize]="65"
@@ -67,7 +98,16 @@
              ></nz-avatar>
               </div>
             </div>
-     </div>
+            
+          <div class="left-media is-divider">
+            <h3>{{'shareArticle' | translate}}</h3>
+            <!-- <div class="sharethis-inline-share-buttons"></div> -->
+            <app-share-buttons></app-share-buttons>
+          </div>
+            
+
+    
+          </div>
         </div>
       </div>
       <div class="is-main-article-content">
@@ -273,8 +313,15 @@
                 </div>
               </div>
             </div>
+            
             <hr />
-
+            <p class="report-abuse-spin" *ngIf="isLoggedInUser">
+              <a class="comment-view-replies" (click)="reportAbuseEvent()">
+                <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseArticleLoading"></nz-spin>
+                {{'reportAbuseAuth' | translate}}
+              </a>
+            </p>
+            <hr />
             <app-article-comments
               [event]="event"
               [rate_count]="event.rating_count"
@@ -364,4 +411,6 @@
       </div>
     </div>
   </div>
+
+
 </section>

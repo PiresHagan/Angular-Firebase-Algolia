@@ -152,13 +152,13 @@
                                 <li>
                                   <a href="#">
                                     <i class="fas fa-heart"></i>
-                                    {{event.like_count}}
+                                    {{event.likes_count || 0}}
                                   </a>
                                 </li>
                                 <li>
                                   <a href="#" *ngIf="event.comments_count">
                                     <i class="fa fa-comment"></i>
-                                    {{event.comments_count}}
+                                    {{event.comments_count || 0}}
                                   </a>
                                 </li>
                               </ul>

@@ -1152,5 +1152,7 @@
   "addServiceContactMeetingFormTitle":"Planifier une réunion avec le propriétaire du service",
   "serviceContactMeetingAddedSuccess":"Planifier une réunion avec le propriétaire du service est terminé avec succès",
   "addPoliticianContactMeetingFormTitle":"Planifier une réunion avec un politicien",
-  "politicianContactMeetingAddedSuccess":"La réunion planifiée avec le politicien est terminée avec succès"
+  "politicianContactMeetingAddedSuccess":"La réunion planifiée avec le politicien est terminée avec succès",
+  "unfollowHostEvent":"Ne plus suivre l'événement organisateur",
+  "followHostEvent":"suivre l'événement organisateur"
 }

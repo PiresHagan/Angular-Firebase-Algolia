@@ -34,5 +34,7 @@ export interface Event {
     };
     second_joind_group?: Group;
     first_joind_group?: Group;
+    likes_count?: number;
+    view_count?: number;
 
 }

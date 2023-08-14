@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import 'firebase/storage';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { STAFF, AUTHOR, MEMBER, COMPANY, CHARITY, FUNDRAISER } from '../constants/member-constant';
+import { STAFF, AUTHOR, MEMBER, COMPANY, CHARITY, FUNDRAISER, HOSTEVENT } from '../constants/member-constant';
 
 
 
@@ -176,7 +176,7 @@ export class AuthorService {
   }
 
   follow(authorId: string, type: string = null, followerData = { 'newsletter_time': 'alltime' }) {
-    if (!type || type == STAFF || type == AUTHOR || type == MEMBER)
+    if (!type || type == STAFF || type == AUTHOR || type == MEMBER || type==HOSTEVENT)
       return this.http.post(environment.baseAPIDomain + `/api/v1/members/${authorId}/follow`, followerData).subscribe();
     else if (type == COMPANY) {
       return this.http.post(environment.baseAPIDomain + `/api/v1/companies/${authorId}/follow`, followerData).subscribe();
@@ -191,7 +191,7 @@ export class AuthorService {
   }
 
   unfollow(authorId: string, type: string = null) {
-    if (!type || type == STAFF || type == AUTHOR || type == MEMBER)
+    if (!type || type == STAFF || type == AUTHOR || type == MEMBER || type==HOSTEVENT)
       return this.http.post(environment.baseAPIDomain + `/api/v1/members/${authorId}/unfollow`, {}).subscribe();
     else if (type == COMPANY) {
       return this.http.post(environment.baseAPIDomain + `/api/v1/companies/${authorId}/unfollow`, {}).subscribe();
