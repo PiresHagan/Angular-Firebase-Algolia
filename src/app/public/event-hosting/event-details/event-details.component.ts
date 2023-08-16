@@ -179,7 +179,7 @@ like() {
 
       this.eventsService.getEventById(this.event.id).subscribe(event => {
         this.event = event;
-        console.log('event',event);
+        // this.isLike = true;
       });
         const event = this.event;
         this.analyticsService.logEvent('liked_hostevent', {
@@ -205,7 +205,7 @@ disLike() {
     this.eventsService.disLike(this.event.id, this.getUserDetails().id);
     this.eventsService.getEventById(this.event.id).subscribe(event => {
       this.event = event;
-      console.log('event',event)
+      // this.isLike = false;
     });
     const event = this.event;
     this.analyticsService.logEvent('unliked_hostevent', {
