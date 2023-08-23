@@ -28,6 +28,7 @@ export class EventDetailsComponent implements OnInit {
   host;
   isFollowing: boolean = false;
   isLike: boolean = false;
+  isAbused: boolean = false;
   lastVisibleFollower;
   followers=[];
   searchOptions=[];
@@ -124,6 +125,7 @@ export class EventDetailsComponent implements OnInit {
         this.getUserDetails();
         this.setFollowOrNot();
         this.setLike();
+        this.setAbused();
       } else {
         this.userDetails = null;
         this.isLoggedInUser = false;
@@ -179,7 +181,6 @@ like() {
 
       this.eventsService.getEventById(this.event.id).subscribe(event => {
         this.event = event;
-        // this.isLike = true;
       });
         const event = this.event;
         this.analyticsService.logEvent('liked_hostevent', {
@@ -205,7 +206,6 @@ disLike() {
     this.eventsService.disLike(this.event.id, this.getUserDetails().id);
     this.eventsService.getEventById(this.event.id).subscribe(event => {
       this.event = event;
-      // this.isLike = false;
     });
     const event = this.event;
     this.analyticsService.logEvent('unliked_hostevent', {
@@ -227,6 +227,15 @@ setLike() {
       this.isLike = true;
     } else {
       this.isLike = false;
+    }
+  });
+}
+setAbused(){
+  this.eventsService.isAbusedByUser(this.event.id, this.getUserDetails().id).subscribe((data) => {
+    if (data) {
+      this.isAbused = true;
+    } else {
+      this.isAbused = false;
     }
   });
 }
@@ -275,11 +284,12 @@ showSameFollowerMessage() {
 }
 reportAbuseEvent() {
   this.isReportAbuseArticleLoading = true;
-  this.eventsService.updateEventAbuse(this.event.id).then(() => {
+  this.eventsService.updateEventAbuse(this.event.id, this.userDetails).subscribe(() => { 
     this.isReportAbuseArticleLoading = false;
     this.showAbuseSuccessMessage();
-    // console.log('Your suggestion saved successfully.')
-  })
+    this.isAbused = true;
+  });
+  
 }
 showAbuseSuccessMessage() {
 

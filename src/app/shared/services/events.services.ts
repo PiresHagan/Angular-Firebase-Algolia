@@ -486,6 +486,9 @@ export class EventsService {
     isLikedByUser(eventId: string, likerId) {
       return this.db.collection(this.eventsCollection).doc(eventId).collection('likes').doc(likerId).valueChanges();
     }
+    isAbusedByUser(eventId: string, likerId) {
+      return this.db.collection(this.eventsCollection).doc(eventId).collection('abused').doc(likerId).valueChanges();
+    }
     updateViewCount(eventId: string) {
       const increment = firebase.default.firestore.FieldValue.increment(1);
       const eventRef = this.db.collection(this.eventsCollection).doc(eventId);
@@ -501,12 +504,9 @@ export class EventsService {
       const eventRef = this.db.collection(this.eventsCollection).doc(eventId);
       eventRef.update({ likes_count: increment })
     }
-    updateEventAbuse(articleId: string) {
-      return new Promise<any>((resolve, reject) => {
-        this.db.collection(`${this.eventsCollection}`).doc(`${articleId}`).update({ is_abused: true }).then(() => {
-          resolve();
-        })
-      })
+    updateEventAbuse(eventId: string, user) {
+      return this.http.post(environment.baseAPIDomain+ '/api/v1/hostevents/' + eventId + '/abuse',user); 
+
     }
   
     //#endregion

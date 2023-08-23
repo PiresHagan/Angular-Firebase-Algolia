@@ -286,13 +286,13 @@
             </div>
             
             <hr />
-            <p class="report-abuse-spin" *ngIf="isLoggedInUser">
+            <p class="report-abuse-spin" *ngIf="isLoggedInUser&&!isAbused">
               <a class="comment-view-replies" (click)="reportAbuseEvent()">
                 <nz-spin nzSimple [nzSize]="'small'" *ngIf="isReportAbuseArticleLoading"></nz-spin>
                 {{'reportAbuseAuth' | translate}}
               </a>
             </p>
-            <hr />
+         <hr *ngIf="!isAbused" />
             <app-article-comments
               [event]="event"
               [rate_count]="event.rating_count"
