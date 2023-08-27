@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LanguageService } from 'src/app/shared/services/language.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { AuthService } from 'src/app/shared/services/authentication.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-today',
@@ -19,7 +21,8 @@ export class TodayComponent implements OnInit {
   constructor(
     private articleService: ArticleService,
     public translate: TranslateService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private authService: AuthService,
   ) { }
   switchLang(lang: string) {
     this.translate.use(lang);
@@ -60,6 +63,14 @@ export class TodayComponent implements OnInit {
       // console.log('paginatedItems', this.trendingArticles)
     });
     
+  }
+
+  public createStory()
+  {
+    this.authService.redirectToConsole(
+      `${environment.consoleURL}/article/articles`,
+      {}
+    );
   }
 
 }

@@ -219,18 +219,21 @@ export class AuthService {
   }
 
   redirectToConsole(url: string, queryParams: object) {
-    this.isLoading = true;
-    const body = {
-      uid: this.loggedInUser.uid
-    }
-    this.http.post(`${environment.baseAPIDomain}/api/v1/authshared/getSharedToken`, body).subscribe((data: any) => {
-      if (data.token) {
-        window.open(`${url}?token=${data.token}&queryParams=${JSON.stringify(queryParams)}`, '_self');
+    if(this.loggedInUser && this.loggedInUser.uid)
+    {
+      this.isLoading = true;
+      const body = {
+        uid: this.loggedInUser.uid
       }
-      this.isLoading = false;
-    }, err => {
-      this.isLoading = false;
-    })
+      this.http.post(`${environment.baseAPIDomain}/api/v1/authshared/getSharedToken`, body).subscribe((data: any) => {
+        if (data.token) {
+          window.open(`${url}?token=${data.token}&queryParams=${JSON.stringify(queryParams)}`, '_self');
+        }
+        this.isLoading = false;
+      }, err => {
+        this.isLoading = false;
+      })
+    }
   }
 
   revokeAllSessions() {

@@ -129,7 +129,7 @@
           <div *ngIf="!todayArticle?.length" class="box-center">
             <nz-result [nzIcon]="'crown'" [nzTitle]="'PublishStories' | translate ">
               <div nz-result-extra>
-                <button nz-button nzType="primary" routerLink="/app/article">{{'CreateStory' | translate}}</button>
+                <button nz-button nzType="primary" (click)="createStory()">{{'CreateStory' | translate}}</button>
               </div>
             </nz-result>
           </div>
