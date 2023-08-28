@@ -9,6 +9,7 @@ import * as firebase from 'firebase/app';
 import { STAFF, MEMBER } from "../constants/member-constant";
 import { MessagingService } from "./messaging.service";
 import { AnalyticsService } from "./analytics/analytics.service";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class AuthService {
   constructor(
     public afAuth: AngularFireAuth,
     public db: AngularFirestore,
+    private router: Router,
     private http: HttpClient,
     private messagingService: MessagingService,
     private analyticsService: AnalyticsService,
@@ -233,6 +235,9 @@ export class AuthService {
       }, err => {
         this.isLoading = false;
       })
+    }
+    else{
+      this.router.navigate(["auth/login"]);
     }
   }
 
