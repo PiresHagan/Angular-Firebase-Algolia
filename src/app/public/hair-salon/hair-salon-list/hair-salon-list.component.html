@@ -1,0 +1,129 @@
+<div class="container">
+  <div class="hairSalon-main">
+      <div class="main-hairSalon-banner" style="background: url('assets/images/hair-salon/hair-salon-list-main.png') no-repeat center; background-size: cover;">
+          <div class="hairSalon-banner-content">
+              <h1>{{'BarberShopText' | translate}}</h1>
+          </div>
+          <div class="hair-slaon-back-container">
+            <a class="back-button" [routerLink]="['/hair-salon']"> <span nz-icon nzType="left" nzTheme="outline"></span> {{'Back' | translate}}</a>
+          </div>
+      </div>
+
+      <div class="hairSalon-content">
+        <div class="search-region-title">
+          <h1>{{'search'|translate}} {{'BarberShopText'|translate}}</h1>
+        </div>
+          <div nz-row class="search-menu-header">
+            <div nz-col nzFlex="200px" class="mr-2">
+              <nz-form-item>
+                <nz-form-control>
+                  <select class="search-select-card" #selectList (change)="getsearchfield(selectList.value)">
+                    <option value="name">{{'Name'|translate}}</option>
+                    <option value="location">{{'Location'|translate}}</option>
+                    <option value="type">{{'HairSalonType'|translate}}</option>
+                    <option value="serviceDeliverType">{{'ServiceDeliverType'|translate}}</option>
+                  </select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-col nzFlex="auto" class="mr-2" *ngIf="isSearchByCountry">
+              <nz-form-item>
+                  <nz-select #countryList nzShowSearch nzAllowClear [nzPlaceHolder]="'SelectCountry' | translate" ngModel
+                    (ngModelChange)="onCountryChange(countryList.value)">
+                    <nz-option *ngFor="let c of countriesList | keyvalue" [nzValue]="c.value.countryName" [nzLabel]="c.value.countryName"></nz-option>
+                  </nz-select>
+              </nz-form-item>
+            </div>
+            <div nz-col nzFlex="auto" class="mr-2" *ngIf="isSearchByCountry">
+              <nz-form-item>
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                  <input type="text"  nz-input class="colr-lightslategray"
+                  placeholder=" {{ 'SelectCity' |translate }}" (keyup.enter)="hairSalonssearch()"
+                  #citySearchres  (change)="onCityChange(citySearchres.value)" [value]="citySearchresValue"/>
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                  <span nz-icon nzType="search"></span>
+                </ng-template>
+              </nz-form-item>
+            </div>
+            <div nz-col nzFlex="auto" class="mr-2" *ngIf="isSearchByName">
+              <nz-form-item>
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                  <input type="text"  nz-input class="colr-lightslategray"
+                  placeholder=" {{ 'SearchHairSalon' |translate }}" (keyup.enter)="hairSalonssearch()"
+                  #searchres  (change)="getsearchres(searchres.value)" [value]="nameSearchTerm"/>
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                  <span nz-icon nzType="search"></span>
+                </ng-template>
+              </nz-form-item>
+            </div>
+            <div nz-col nzFlex="auto" class="mr-2" *ngIf="isSearchByhairSalonType">
+              <nz-form-item>
+                <nz-select #hairSalonTypeList nzShowSearch nzAllowClear [nzPlaceHolder]="'SelectHairSalonType' | translate" ngModel
+                    (ngModelChange)="onHairSalonTypeChange(hairSalonTypeList.value)">
+                    <nz-option *ngFor="let c of hairSalonTypesList | keyvalue" [nzValue]="c.value" [nzLabel]="c.value"></nz-option>
+                </nz-select>
+              </nz-form-item>
+            </div>
+            <div nz-col nzFlex="auto" class="mr-2" *ngIf="isSearchByhairSalonDeliverServicesType">
+              <nz-form-item>
+                <nz-select #hairSalonDeliverServicesTypeList nzShowSearch nzAllowClear [nzPlaceHolder]="'SelectHairSalonDeliverServicesType' | translate" ngModel
+                    (ngModelChange)="onServiceDeliverTypeChange(hairSalonDeliverServicesTypeList.value)">
+                    <nz-option *ngFor="let c of hairSalonDeliverServicesTypesList | keyvalue" [nzValue]="c.value" [nzLabel]="c.value"></nz-option>
+                </nz-select>
+              </nz-form-item>
+            </div>
+            <div nz-col nzFlex="100px">
+              <nz-form-item>
+                <nz-form-control >
+                    <button nz-button nzType="primary" class="margin-l-5" nzSize="small" nzSearch (click)="hairSalonssearch()" >
+                        <span nz-icon nzType="search"></span>
+                        {{'search'|translate}}
+                      </button>
+                </nz-form-control>
+            </nz-form-item>
+            </div>
+            <div nz-col nzFlex="100px">
+              <nz-form-item>
+                <nz-form-control >
+                    <button nz-button nzType="primary" class="margin-l-5 black-btn" nzSize="small" nzSearch
+                        (click)="resetSearch()">{{'reset'|translate}}</button>
+                </nz-form-control>
+            </nz-form-item>
+            </div>
+          </div>
+          <nz-empty class="empty-data" nzNotFoundImage="simple" *ngIf="hairSalonsData?.length==0" [nzNotFoundContent]="contentTpl">
+            <ng-template #contentTpl>
+                <span>{{'NoLiveSessionFound' | translate}} </span>
+            </ng-template>
+          </nz-empty>
+          <nz-skeleton [nzLoading]="hairSalonLoading" *ngIf="!hairSalonsData">
+          </nz-skeleton>
+          <div nz-row [nzGutter]="[16, 16]" class="center-box-list" *ngIf="hairSalonsData">
+            <div nz-col class="gutter-row standard-col mb-3" [nzSpan]="6"  nzXs="24" nzSm="12" nzMd="8" nzLg="6" nzXXl="6" nzXl="6" *ngFor="let hairSalon of hairSalonsData">
+                <div class="hairSalon-box">
+                    <a [routerLink]="['/hair-salon/hair-salon-details',hairSalon.id]">
+                        <img class="hairSalon-image" width="309" height="162" [src]="hairSalon?.cover?.url" alt="hairSalon?.cover?.alt" onerror="this.src='./assets/images/hair-salon/hair-salon-home-main.png';" >
+                    </a>
+                    <div class="hairSalon-box-content">
+                            <span class="hair-salon-name">
+                               {{hairSalon?.name}}
+                            </span>
+                            <span calss="hair-salon-price">
+                              {{hairSalon?.price}}
+                           </span>
+                           <div class="hair-salon-view-btns-container">
+                            <a  class="hair-salon-view-btn" [nzType]="'default'" [routerLink]="['/hair-salon/hair-salon-details',hairSalon.id]">
+                              {{'View' | translate}}
+                              <span class="hair-salon-view-next-arrow" nz-icon nzType="arrow-right" nzTheme="outline"></span>
+                            </a>
+                          </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+      </div>
+  </div>
+</div>

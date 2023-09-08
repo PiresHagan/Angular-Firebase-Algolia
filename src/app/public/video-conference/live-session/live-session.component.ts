@@ -243,11 +243,13 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
   async addCurrentUserToCurrentSession(type:string='participant'){
     if(this.current_lsession.is_started==false){
       this.showMessage(this.translate.instant('ErrorMessageTitle'), this.translate.instant('ThisSessionIsNotStarted'));
+      this.isLoading=false;
       return;
     }
     if(this.current_lsession_is_ended || this.current_lsession.is_ended==true){
       this.current_lsession_is_ended=true;
       this.showMessage(this.translate.instant('ErrorMessageTitle'), this.translate.instant('ThisSessionHasBeenEnded'));
+      this.isLoading=false;
       return;
     }
     this.added_current_user=true;
@@ -409,14 +411,17 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
     this.videoConferenceService.getSessionById(this.lsessionid)
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe((data)=>{
-      this.current_lsession = data;
+      if(data && data.length>0)
+        this.current_lsession = data[0];
     });
   }
   async getCurrentSessionMessages(){
     if(this.current_lsession.is_started==false){
+      this.isLoading=false;
       return;
     }
     if(this.current_lsession_is_ended || this.current_lsession.is_ended==true){
+      this.isLoading=false;
       return;
     }
     await this.videoConferenceService.getSessionMessages(this.lsessionid, 1000, 'first', this.last_message_visible)
@@ -432,9 +437,11 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
   }
   async getCurrentSessionParticipants(){
     if(this.current_lsession.is_started==false){
+      this.isLoading=false;
       return;
     }
     if(this.current_lsession_is_ended || this.current_lsession.is_ended==true){
+      this.isLoading=false;
       return;
     }
     this.videoConferenceService.getSessionParticipants(this.lsessionid, 1000, 'first', this.last_pasrticipant_visible)
@@ -501,9 +508,11 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
   }
   async getSessionOnWaitParticipants (){
     if(this.current_lsession.is_started==false){
+      this.isLoading=false;
       return;
     }
     if(this.current_lsession_is_ended || this.current_lsession.is_ended==true){
+      this.isLoading=false;
       return;
     }
     await this.videoConferenceService.getSessionOnWaitParticipants(this.lsessionid, 1000, 'first', this.last_pasrticipantWaitlist_visible)
@@ -520,11 +529,13 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
     this.rtm_uid=rtm_id_;
     if(this.current_lsession.is_started==false){
       this.showMessage(this.translate.instant('ErrorMessageTitle'), this.translate.instant('ThisSessionIsNotStarted'));
+      this.isLoading=false;
       return;
     }
     if(this.current_lsession_is_ended==true || this.current_lsession.is_ended==true){
       this.current_lsession_is_ended=true;
       this.showMessage(this.translate.instant('ErrorMessageTitle'), this.translate.instant('ThisSessionHasBeenEnded'));
+      this.isLoading=false;
       return;
     }
     if(!this.streamContainerElement || !this.streamContainerElement.nativeElement){
@@ -721,11 +732,13 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
   async joinStream(){
     if(this.current_lsession.is_started==false){
       this.showMessage(this.translate.instant('ErrorMessageTitle'), this.translate.instant('ThisSessionIsNotStarted'));
+      this.isLoading=false;
       return;
     }
     if(this.current_lsession_is_ended || this.current_lsession.is_ended==true){
       this.current_lsession_is_ended=true;
       this.showMessage(this.translate.instant('ErrorMessageTitle'), this.translate.instant('ThisSessionHasBeenEnded'));
+      this.isLoading=false;
       return;
     }
     if(!this.streamContainerElement || !this.streamContainerElement.nativeElement){
@@ -1355,7 +1368,8 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
     }
     this.videoConferenceService.getSessionById(this.lsessionid).pipe(takeUntil(this.ngUnsubscribe)).subscribe(async (data)=>{
       if (!data) return;
-      this.current_lsession = data;
+      if(data && data.length>0)
+        this.current_lsession = data[0];
       if(this.current_lsession.is_started==false){
         this.current_lsession_is_started =false;
         this.showMessage(this.translate.instant("ErrorMessageTitle"), this.translate.instant("ThisSessionIsNotStarted"));
@@ -1382,14 +1396,20 @@ export class LiveSessionComponent implements OnInit, OnDestroy {
         this.current_lsession_is_started =false;
         this.session_ended_in_diff_in_secs = Math.floor((current_date_time.getTime() - current_lsession_end_time.getTime()) / 1000);
         this.showMessage(this.translate.instant("ErrorMessageTitle"), this.translate.instant("ThisSessionHasBeenEndedBefore") + ' : ' + this.ShowTimeDiffrence(this.session_ended_in_diff_in_secs));
+
         if(this.loggedInUser.id == this.current_lsession.owner_id){
           this.current_lsession_is_ended =true;
           this.current_lsession.is_ended=true;
+          this.isLoading=false;
           this.current_lsession.ended_at=new Date();
           let ending_message=this.translate.instant("hasEndedTheSessionAt") + " : " + new Date().toDateString() + ', ' + this.translate.instant("becauseItHasBeenExpired") + ' ... ';
           await this.sendLeavingMessage(ending_message);
-          await this.videoConferenceService.endVideoConferenceById(this.current_lsession.id, this.current_lsession, this.sessionParticipants, this.sessionParticipantsWaitlist);
+          await this.videoConferenceService.endVideoConferenceById(this.current_lsession.id, this.current_lsession, this.sessionParticipants, this.sessionParticipantsWaitlist).finally(()=>{
+            this.current_lsession_is_ended = true;
+            this.isLoading=false;
+          })
         }
+        this.current_lsession_is_ended = true;
         this.isLoading=false;
         return;
       }

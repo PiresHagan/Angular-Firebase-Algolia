@@ -1,0 +1,116 @@
+.container {
+  width: 100%;
+  max-width: 100%;
+}
+.margin-l-5{
+  margin-left: 5px;
+}
+.container-main{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.container-main .main-container-banner {
+  height: 576px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.container-main .main-container-banner .main-banner-content {
+    position: relative;
+    z-index: 1;
+    left: 100px;
+}
+
+.container-main .main-container-banner .main-banner-content h1 {
+    font-family: "josefin_sanssemibold";
+    text-align: center;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: xxx-large;
+}
+
+.container-main .main-container-banner .main-banner-content h2 {
+    font-family: "josefin_sanslight";
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    font-size: xx-large;
+    margin: 10px;
+}
+.container-main .main-container-title{
+  vertical-align: middle;
+  text-align: center;
+  margin-top: 25px;
+}
+
+.container-main .main-container-title p{
+  color: #000;
+  font-family: "josefin_sanslight";
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.container-main .second-banner-content{
+  height: 461px;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-left: 15%;
+}
+.container-main .main-container-btns{
+  margin: 50px;
+    text-align: center;
+}
+
+.black-btn{
+  background:#252424;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+.red-btn{
+    background:#e2dfdf;
+    color: #ff563a;
+    border: none;
+    cursor: pointer;
+}
+.next-btn
+{
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px;
+  width: 151px;
+  height: 58px;
+  flex-shrink: 0;
+  border-radius: 1px;
+  background: #FF4020;
+  color: #FFF;
+  font-family: "josefin_sanslight";
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.hair-slaon-back-container{
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+a.back-button {
+  color: #fff;
+  font-size: 16px;
+  margin-top: 40px;
+  display: inline-block;
+  img {height: 12px;}
+}

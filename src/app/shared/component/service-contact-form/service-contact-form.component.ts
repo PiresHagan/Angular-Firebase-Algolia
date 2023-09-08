@@ -6,6 +6,11 @@ import { ServiceService } from 'src/app/shared/services/service.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { differenceInDays, differenceInHours, differenceInMinutes, differenceInSeconds } from 'date-fns';
 import { GetInTouchService } from 'src/app/shared/services/getInTouch.service';
+import { TranslateService } from '@ngx-translate/core';
+import { LeadType } from 'src/app/shared/interfaces/lead.type';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { error } from 'console';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-service-contact-form',
@@ -15,12 +20,13 @@ import { GetInTouchService } from 'src/app/shared/services/getInTouch.service';
 export class ServiceContactFormComponent implements OnInit {
 
   @Input() serviceId!: string;
+  @Input() meeting_settings: any;
 
   addLeadForm: FormGroup;
   addLeadMeetingForm: FormGroup;
   addLeadSuccess: boolean = false;
   isFormSaving: boolean = false;
-
+  serviceLeadsMeetingsdata:any[];
   recaptchaElement;
   isCaptchaElementReady: boolean = false;
   isCapchaScriptLoaded: boolean = false;
@@ -35,6 +41,8 @@ export class ServiceContactFormComponent implements OnInit {
   sessionObject:any=null;
   today =  new Date();
   defaultStartTimeOpenValue = new Date();
+  lmSession: any;
+  timeZoneValue;
   disabledHours(): number[]{
     var hours = [];
     let currentDate =  new Date();
@@ -78,12 +86,15 @@ export class ServiceContactFormComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private serviceService: ServiceService,
+    private clipboard: Clipboard,
+    public translate: TranslateService,
     private getInTouchService: GetInTouchService
   ) { }
 
   ngOnInit(): void {
     if(!this.serviceId)
       return;
+    this.lmSession=null;
     this.addLeadForm = this.fb.group({
       first_name: [null, [Validators.required]],
       last_name: [null, [Validators.required]],
@@ -101,10 +112,19 @@ export class ServiceContactFormComponent implements OnInit {
       end_time: null
     };
     this.addRecaptchaScript();
-
+    this.getInTouchService.getServiceContactSessions(this.serviceId, null, null).subscribe((clmdata) => {
+     if(clmdata && clmdata.sessionList && clmdata.sessionList.length>0){
+       this.serviceLeadsMeetingsdata = clmdata.sessionList;
+     }
+   }, err => {
+     this.isMeetingFormSaving = false;
+   });
+   const tempDate = new Date().toString();
+   this.timeZoneValue = new Date().toString().slice(tempDate.lastIndexOf('GMT'), tempDate.length - 1);
   }
 
   submitForm() {
+    this.isFormSaving = true;
     for (const i in this.addLeadForm.controls) {
       this.addLeadForm.controls[i].markAsDirty();
       this.addLeadForm.controls[i].updateValueAndValidity();
@@ -112,21 +132,19 @@ export class ServiceContactFormComponent implements OnInit {
 
     if (this.findInvalidControls().length == 0) {
       try {
-        this.isFormSaving = true;
-        this.invalidCaptcha = false;
-        this.saveDataOnServer(this.addLeadForm.value);
         if (this.captchaToken) {
-          this.isFormSaving = true;
           this.invalidCaptcha = false;
-          this.authService.validateCaptcha(this.captchaToken).subscribe((success) => {
+          this.authService.validateCaptcha(this.captchaToken).pipe(take(1)).subscribe((success) => {
+            window['grecaptcha'].reset(this.capchaObject);
             this.saveDataOnServer(this.addLeadForm.value);
           }, (error) => {
             window['grecaptcha'].reset(this.capchaObject);
+            this.addLeadSuccess = false;
             this.isFormSaving = false;
-            this.invalidCaptcha = true;
           });
         } else {
-          this.invalidCaptcha = true;
+          this.addLeadSuccess = false;
+          this.isFormSaving = false;
         }
       } catch (err) {
         this.isFormSaving = false;
@@ -138,20 +156,39 @@ export class ServiceContactFormComponent implements OnInit {
   }
 
   saveDataOnServer(formData) {
+    this.lmSession=null;
     const serviceContactData ={...formData, fullname:formData.first_name + ' ' + formData.last_name}
-    this.serviceService.createContact(this.serviceId, serviceContactData).then(data => {
-      this.addLeadForm.reset();
-      this.addLeadSuccess = true;
-      this.isFormSaving = false;
-      this.showModal(formData);
-      setTimeout(() => {
+    let contactFoundData:LeadType = null;
+    this.getInTouchService.getServiceContacts(this.serviceId).pipe(take(1)).subscribe(res=>{
+      if(res && res.contactsList && res.contactsList.length>0){
+        if(!contactFoundData)
+          contactFoundData = res.contactsList.find(contact=> contact.email == formData.email);
+      }
+      else{
+        contactFoundData = null;
+      }
+      if(contactFoundData){
+        this.addLeadSuccess = true;
+        this.isFormSaving = false;
+        this.showModal(formData);
+      }
+      else{
+        this.serviceService.createContact(this.serviceId, serviceContactData).then(data => {
+          this.addLeadSuccess = true;
+          this.isFormSaving = false;
+          this.showModal(formData);
+        }
+        ).catch((error) => {
+          this.addLeadSuccess = false;
+            this.isFormSaving = false;
+          });
+        }
+      }), error =>{
         this.addLeadSuccess = false;
-      }, 5000);
-      window['grecaptcha'].reset(this.capchaObject);
-    }).catch((error) => {
-      this.isFormSaving = false;
-    });
+        this.isFormSaving = false;
+      };
   }
+
 
   addRecaptchaScript() {
     window['grecaptchaCallback'] = () => {
@@ -174,20 +211,39 @@ export class ServiceContactFormComponent implements OnInit {
     }(document, 'script', 'recaptcha-jssdk', this));
   }
 
+  copyToClipboardWithParameter(elem: HTMLElement): void {
+    let text: string='';
+    if (elem.children){
+      for (let j=0; j<elem.children.length; j++)
+      {
+        text += elem.children[j].textContent + '\n' || '';
+      }
+    }
+    else{
+      text = elem.textContent || '';
+    }
+    const successful = this.clipboard.copy(text);
+  }
+
   renderReCaptcha() {
     if (!this.recaptchaElement || this.capchaObject)
       return;
 
-    this.capchaObject = window['grecaptcha'].render(this.recaptchaElement.nativeElement, {
-      'sitekey': environment.captchaKey,
-      'callback': (response) => {
-        this.invalidCaptcha = false;
-        this.captchaToken = response;
-      },
-      'expired-callback': () => {
-        this.captchaToken = '';
+      try{
+        this.capchaObject = window['grecaptcha']?.render(this.recaptchaElement.nativeElement, {
+          'sitekey': environment.captchaKey,
+          'callback': (response) => {
+            this.invalidCaptcha = false;
+            this.captchaToken = response;
+          },
+          'expired-callback': () => {
+            this.captchaToken = '';
+          }
+        });
       }
-    });
+      catch(err){
+
+      }
   }
 
   public findInvalidControls() {
@@ -225,8 +281,6 @@ export class ServiceContactFormComponent implements OnInit {
       currentDate.setMilliseconds(0);
       this.sessionObject.date=currentDate;
       this.addLeadMeetingForm.controls['date'].setValue(currentDate);
-      this.sessionObject.start_time=currentDate;
-      this.addLeadMeetingForm.controls['start_time'].setValue(currentDate);
     }
     else{
       let hh = result.getHours();
@@ -250,8 +304,256 @@ export class ServiceContactFormComponent implements OnInit {
       result.setSeconds(0);
       result.setMilliseconds(0);
       this.sessionObject.date=result;
-      this.sessionObject.start_time=result;
-      this.addLeadMeetingForm.controls['start_time'].setValue(result);
+    }
+    this.disabledHours = () =>{
+      var hours = [];
+      const lsDate = new Date(this.sessionObject.date);
+      let dayOflsDate = lsDate.getDay();
+      let currentDate =  new Date();
+      let hh=currentDate.getHours();
+      if(currentDate.setHours(0,0,0,0) == lsDate.setHours(0,0,0,0)){
+        for(var i =0; i < hh; i++){
+            hours.push(i);
+        }
+      }
+      else{
+        hh =0;
+      }
+      /*for(var i=hh; i<24; i++){
+        if(this.serviceLeadsMeetingsdata && this.serviceLeadsMeetingsdata.length>0){
+          for(var j=0; j<this.serviceLeadsMeetingsdata.length; j++){
+            let c = this.serviceLeadsMeetingsdata[j];
+            const mDate = new Date(c.date);
+            if(mDate.setHours(0,0,0,0) == lsDate.setHours(0,0,0,0)){
+              let s1= new Date (c.start_time);
+              let e1= new Date (c.end_time);
+              if(i>=s1.getHours() && i<=e1.getHours() && !hours.includes(i)){
+                hours.push(i);
+              }
+            }
+          }
+        }
+      }*/
+      if(dayOflsDate==0){
+        if(this.meeting_settings.day0_startTime == null){
+          for(var i=hh; i<24; i++){
+            if(!hours.includes(i)){
+              hours.push(i);
+            }
+          }
+        }
+        else{
+          let sd1= new Date (this.meeting_settings.day0_startTime);
+          let ed1= new Date (this.meeting_settings.day0_endTime);
+          let sh1 = sd1.getHours();
+          let sm1 = sd1.getMinutes();
+          let eh1 = ed1.getHours();
+          let em1 = ed1.getMinutes();
+          for(var i=hh; i<24; i++){
+            if((i>=sh1 && i<=eh1 && em1 != 0) || (i>=sh1 && i<eh1 && em1 == 0)){
+            }
+            else{
+              if(!hours.includes(i)){
+                hours.push(i);
+              }
+            }
+          }
+        }
+      }
+      else if(dayOflsDate==1){
+        if(this.meeting_settings.day1_startTime == null){
+          for(var i=hh; i<24; i++){
+            if(!hours.includes(i)){
+              hours.push(i);
+            }
+          }
+        }
+        else{
+          let sd1= new Date (this.meeting_settings.day1_startTime);
+          let ed1= new Date (this.meeting_settings.day1_endTime);
+          let sh1 = sd1.getHours();
+          let sm1 = sd1.getMinutes();
+          let eh1 = ed1.getHours();
+          let em1 = ed1.getMinutes();
+          for(var i=hh; i<24; i++){
+            if((i>=sh1 && i<=eh1 && em1 != 0) || (i>=sh1 && i<eh1 && em1 == 0)){
+            }
+            else{
+              if(!hours.includes(i)){
+                hours.push(i);
+              }
+            }
+          }
+        }
+      }
+      else if(dayOflsDate==2){
+        if(this.meeting_settings.day2_startTime == null){
+          for(var i=hh; i<24; i++){
+            if(!hours.includes(i)){
+              hours.push(i);
+            }
+          }
+        }
+        else{
+          let sd1= new Date (this.meeting_settings.day2_startTime);
+          let ed1= new Date (this.meeting_settings.day2_endTime);
+          let sh1 = sd1.getHours();
+          let sm1 = sd1.getMinutes();
+          let eh1 = ed1.getHours();
+          let em1 = ed1.getMinutes();
+          for(var i=hh; i<24; i++){
+            if((i>=sh1 && i<=eh1 && em1 != 0) || (i>=sh1 && i<eh1 && em1 == 0)){
+            }
+            else{
+              if(!hours.includes(i)){
+                hours.push(i);
+              }
+            }
+          }
+        }
+      }
+      else if(dayOflsDate==3){
+        if(this.meeting_settings.day3_startTime == null){
+          for(var i=hh; i<24; i++){
+            if(!hours.includes(i)){
+              hours.push(i);
+            }
+          }
+        }
+        else{
+          let sd1= new Date (this.meeting_settings.day3_startTime);
+          let ed1= new Date (this.meeting_settings.day3_endTime);
+          let sh1 = sd1.getHours();
+          let sm1 = sd1.getMinutes();
+          let eh1 = ed1.getHours();
+          let em1 = ed1.getMinutes();
+          for(var i=hh; i<24; i++){
+            if((i>=sh1 && i<=eh1 && em1 != 0) || (i>=sh1 && i<eh1 && em1 == 0)){
+            }
+            else{
+              if(!hours.includes(i)){
+                hours.push(i);
+              }
+            }
+          }
+        }
+      }
+      else if(dayOflsDate==4){
+        if(this.meeting_settings.day4_startTime == null){
+          for(var i=hh; i<24; i++){
+            if(!hours.includes(i)){
+              hours.push(i);
+            }
+          }
+        }
+        else{
+          let sd1= new Date (this.meeting_settings.day4_startTime);
+          let ed1= new Date (this.meeting_settings.day4_endTime);
+          let sh1 = sd1.getHours();
+          let sm1 = sd1.getMinutes();
+          let eh1 = ed1.getHours();
+          let em1 = ed1.getMinutes();
+          for(var i=hh; i<24; i++){
+            if((i>=sh1 && i<=eh1 && em1 != 0) || (i>=sh1 && i<eh1 && em1 == 0)){
+            }
+            else{
+              if(!hours.includes(i)){
+                hours.push(i);
+              }
+            }
+          }
+        }
+      }
+      else if(dayOflsDate==5){
+        if(this.meeting_settings.day5_startTime == null){
+          for(var i=hh; i<24; i++){
+            if(!hours.includes(i)){
+              hours.push(i);
+            }
+          }
+        }
+        else{
+          let sd1= new Date (this.meeting_settings.day5_startTime);
+          let ed1= new Date (this.meeting_settings.day5_endTime);
+          let sh1 = sd1.getHours();
+          let sm1 = sd1.getMinutes();
+          let eh1 = ed1.getHours();
+          let em1 = ed1.getMinutes();
+          for(var i=hh; i<24; i++){
+            if((i>=sh1 && i<=eh1 && em1 != 0) || (i>=sh1 && i<eh1 && em1 == 0)){
+            }
+            else{
+              if(!hours.includes(i)){
+                hours.push(i);
+              }
+            }
+          }
+        }
+      }
+      else if(dayOflsDate==6){
+        if(this.meeting_settings.day6_startTime == null){
+          for(var i=hh; i<24; i++){
+            if(!hours.includes(i)){
+              hours.push(i);
+            }
+          }
+        }
+        else{
+          let sd1= new Date (this.meeting_settings.day6_startTime);
+          let ed1= new Date (this.meeting_settings.day6_endTime);
+          let sh1 = sd1.getHours();
+          let sm1 = sd1.getMinutes();
+          let eh1 = ed1.getHours();
+          let em1 = ed1.getMinutes();
+          for(var i=hh; i<24; i++){
+            if((i>=sh1 && i<=eh1 && em1 != 0) || (i>=sh1 && i<eh1 && em1 == 0)){
+            }
+            else{
+              if(!hours.includes(i)){
+                hours.push(i);
+              }
+            }
+          }
+        }
+      }
+      return hours;
+    }
+
+    this.disabledMinutes = (hour) =>{
+    var minutes= [];
+    const lsDate = new Date(this.sessionObject.date);
+    let currentDate =  new Date();
+    let hh=currentDate.getHours();
+    let mm = currentDate.getMinutes();
+    if(currentDate.setHours(0,0,0,0) === lsDate.setHours(0,0,0,0)){
+      if(hh==hour)
+      {
+        for(var i =0; i < mm; i++){
+          minutes.push(i);
+        }
+      }
+    }
+
+    const lsDate_ = new Date(this.sessionObject.date);
+    for(var i=hh; i<24; i++){
+      if(this.serviceLeadsMeetingsdata && this.serviceLeadsMeetingsdata.length>0){
+        for(var j=0; j<this.serviceLeadsMeetingsdata.length; j++){
+          let c = this.serviceLeadsMeetingsdata[j];
+          const mDate = new Date(c.date);
+          const lsDate_1 = new Date(lsDate_);
+          if(mDate.setHours(0,0,0,0) == lsDate_1.setHours(0,0,0,0)){
+            let s1= new Date (c.start_time);
+            let e1= new Date (c.end_time);
+            if(i==s1.getHours()){
+              for(var i = s1.getMinutes(); i <= e1.getMinutes(); i++){
+                minutes.push(i);
+              }
+            }
+          }
+        }
+      }
+    }
+    return minutes;
     }
   }
 
@@ -313,7 +615,7 @@ export class ServiceContactFormComponent implements OnInit {
   }
 
   checkStartDate(result:Date):boolean{
-    let start_time_value:Date = result;
+    let start_time_value:Date = new Date(result);
       let hh=start_time_value.getHours();
       let mm = start_time_value.getMinutes();
       if(hh>23 || mm>59 || start_time_value == null || this.disabledHours().find(h=>h==hh) || this.disabledMinutes(hh).find(m=>m==mm))
@@ -327,27 +629,66 @@ export class ServiceContactFormComponent implements OnInit {
       return true;
   }
   showModal(data:any): void {
-    this.sessionObject.lead_email=data.email;
-    this.sessionObject.lead_first_name=data.first_name;
-    this.sessionObject.lead_last_name=data.last_name;
-    this.sessionObject.email=data.email;
-    this.showCreateMeetingDialog=true;
-    this.isVisible = true;
-    this.addLeadMeetingFormInit(data);
+    this.sessionObject = {
+      lead_email: data.email,
+      lead_first_name: data.first_name,
+      lead_last_name: data.last_name,
+      email:data.email,
+      date: null,
+      duration: null,
+      start_time: null,
+      end_time: null
+    };
+    this.lmSession=null;
+    this.getInTouchService.getServiceContactSessions(this.serviceId, null, data.email).pipe(take(1)).subscribe((clmdata) => {
+      if(clmdata && clmdata.sessionList && clmdata.sessionList.length>0){
+        this.lmSession = clmdata.sessionList[0];
+        this.lmSession.link = 'video-conference/' + this.lmSession.id;
+        this.showCreateMeetingDialog=true;
+        this.isVisible = true;
+      }
+      else{
+        this.addLeadMeetingFormInit(data);
+        this.showCreateMeetingDialog=true;
+        this.isVisible = true;
+      }
+    }, err => {
+      this.showCreateMeetingDialog=true;
+      this.isVisible = true;
+      this.addLeadMeetingFormInit(data);
+    });
   }
   handleOk(): void {
     this.isOkLoading = true;
+    this.isMeetingFormSaving = true;
     this.submitAddLeadMeetingForm();
-    setTimeout(() => {
-      this.isVisible = false;
-      this.isOkLoading = false;
-      this.showCreateMeetingDialog=false;
-    }, 2000);
   }
 
   handleCancel(): void {
     this.isVisible = false;
+    this.isOkLoading = false;
     this.showCreateMeetingDialog=false;
+    this.isMeetingFormSaving = false;
+    this.lmSession=null;
+    this.sessionObject = {
+      lead_email: null,
+      lead_first_name: null,
+      lead_last_name: null,
+      email:null,
+      date: null,
+      duration: null,
+      start_time: null,
+      end_time: null
+    };
+    this.addLeadForm.reset();
+    this.addLeadForm = this.fb.group({
+      first_name: [null, [Validators.required]],
+      last_name: [null, [Validators.required]],
+      email: [null, [Validators.email, Validators.required]],
+      mobile_number: [null, [Validators.required]]
+    });
+    if(this.addLeadMeetingForm)
+      this.addLeadMeetingForm.reset();
   }
 
   addLeadMeetingFormInit(data:any): void {
@@ -392,13 +733,36 @@ export class ServiceContactFormComponent implements OnInit {
     }
   }
 
-  saveMeetingDataOnServer(data) {
-    this.getInTouchService.addSessionForServiceContact(this.serviceId, data).then(data => {
+  saveMeetingDataOnServer(meetingData) {
+    if(!this.isMeetingFormSaving) return;
+    meetingData.name = this.translate.instant('ServiceLeadMeetingName') + ' ' + meetingData.lead_first_name;
+    meetingData.link = location.origin + '/video-conference';
+    meetingData.description = meetingData.lead_first_name + ' ' + this.translate.instant('ServiceLeadMeetingDescription');
+    this.getInTouchService.addSessionForServiceContact(this.serviceId, meetingData).then(data => {
       this.addLeadMeetingSuccess = true;
-      this.isMeetingFormSaving = false;
-      setTimeout(() => {
-        this.addLeadMeetingSuccess = false;
-      }, 5000);
+      this.addLeadMeetingSuccess = false;
+      this.sessionObject = {
+        lead_email: null,
+        lead_first_name: null,
+        lead_last_name: null,
+        email:null,
+        date: null,
+        duration: null,
+        start_time: null,
+        end_time: null
+      };
+      this.getInTouchService.getServiceContactSessions(this.serviceId, null, meetingData.email).pipe(take(1)).subscribe((clmdata) => {
+        if(clmdata && clmdata.sessionList && clmdata.sessionList.length>0){
+          this.lmSession = clmdata.sessionList[0];
+          if(!this.lmSession.link)
+            this.lmSession.link = 'video-conference/' + this.lmSession.id;
+          this.showCreateMeetingDialog=true;
+          this.isVisible = true;
+        }
+        this.isMeetingFormSaving = false;
+      }, err => {
+        this.isMeetingFormSaving = false;
+      });
     }).catch((error) => {
       this.isMeetingFormSaving = false;
     });

@@ -114,8 +114,8 @@ export class VideoConferenceService {
     );
   }
 
-  getSessionById(sessionId: string): Observable<VideoConferenceSession> {
-    return this.db.doc(`${this.videoConferenceCollection}/${sessionId}`).valueChanges();
+  getSessionById(sessionId: string): Observable<any> {
+    return this.db.collection(`${this.videoConferenceCollection}`, ref => ref.where('id', '==', sessionId)).valueChanges();
   }
 
   updateVideoConferenceById(sessionId: string, session:VideoConferenceSession):Observable<VideoConferenceSession>{

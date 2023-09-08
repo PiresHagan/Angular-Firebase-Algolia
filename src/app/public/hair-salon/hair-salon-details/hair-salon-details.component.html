@@ -1,0 +1,856 @@
+<section class="is-article-block" *ngIf="hairsalon">
+  <div class="container">
+    <div class="mobile-article-detail">
+      <h2 class="xs-article-title">
+        <span class="xs-article-category" [ngClass]="hairsalon.hairsalon_type"
+          >{{hairsalon.hairsalon_type}}</span
+        ><br />
+        {{ hairsalon.name }}
+      </h2>
+      <div class="xs-article-author-detail">
+        <div class="xs-article-name">
+          <a [routerLink]="['/']" itemprop="url" *ngIf="hairsalon && owner">{{ owner?.fullname }}</a>
+        </div>
+      </div>
+      <div class="xs-article-date">
+        {{ hairsalon?.published_at | date: "medium" }}
+      </div>
+    </div>
+    <div class="main-hairSalon-banner"
+     [ngStyle]="{'background-image': 'url(' + hairsalon.cover?.url + ')',
+     'background-size': 'cover',
+     'background-position': 'center',
+     'background-color':' #d3d3d37d',
+     'background-repeat': 'no-repeat'}">
+     <div class="hair-slaon-back-container">
+       <a class="back-button" [routerLink]="['/hair-salon/hair-salon-list']"> <span nz-icon nzType="left" nzTheme="outline"></span> {{'Back' | translate}}</a>
+     </div>
+    </div>
+    <div class="is-article-sec">
+      <div class="is-left-profile hidden-on-xs">
+        <div class="sticky-box">
+          <div class="is-profile">
+            <a [routerLink]="['/', owner?.slug]" itemprop="url" *ngIf="hairsalon && owner">
+              <img
+                class="avatar"
+                src="{{ owner?.avatar?.url }}"
+                alt="{{ owner?.avatar?.alt }}"
+                onerror="this.src='assets/images/default-avatar.png'"
+                *ngIf="!owner?.avatar.cloudinary_id; else authorImg"
+              />
+              <ng-template #authorImg>
+                <cl-image
+                  loading="lazy"
+                  public-id="{{ replaceImage(owner?.avatar.cloudinary_id) }}"
+                  secure="true"
+                >
+                  <cl-transformation
+                    width="140"
+                    height="140"
+                    gravity="face"
+                    crop="thumb"
+                  >
+                  </cl-transformation>
+                </cl-image>
+              </ng-template>
+            </a>
+            <div class="is-author-name-sec is-divider">
+              <span class="is-author-name" itemprop="author" itemscope="">
+                <a [routerLink]="['/', owner?.slug]" itemprop="url" *ngIf="hairsalon && owner">
+                  <span class="name" itemprop="name"> {{ owner?.fullname }}</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+          <div class="container">
+            <div class="row flex-col">
+              <span class="followers-count"> {{'Followers' |translate}}: {{ followers.length }}</span>
+              <hr class="hr-left"/>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-sm-4 m-10 t-al-c" *ngFor="let follower of followers">
+               <nz-avatar
+               [nzSize]="50"
+               nzIcon="user"
+               [nzSrc]="follower.avatar?.url"
+             ></nz-avatar>
+              </div>
+            </div>
+            <div  class="row flex-col">
+              <div class="views-likes-section">
+                <ul>
+                  <li *ngIf="hairSalonViewCount">
+                    <a class="is-like">
+                      <span class="likes-count">
+                        <i class="fas fa-eye"></i>{{hairSalonViewCount}}
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="row flex-col mt-50">
+              <span class="service-types-title"> {{'ServicesCanBeViaTextOrVideoOrAudio' |translate}}</span>
+              <hr class="hr-left"/>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-sm-6 m-10 t-al-c" (click)="toggleTextArticls()">
+               <div class="service-type-container">
+                <svg class="service-type-container-svg-child-text" xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 40" fill="none">
+                  <path d="M31.4794 12.6601L20.5996 0.660348C20.4126 0.453167 20.1844 0.287414 19.9295 0.173748C19.6746 0.0600818 19.3987 0.00101959 19.1197 0.000359946H5.11991C4.45542 -0.0075661 3.79588 0.115478 3.17894 0.362466C2.56201 0.609454 1.99977 0.975548 1.52434 1.43984C1.0489 1.90414 0.669576 2.45754 0.408029 3.06844C0.146482 3.67934 0.00783261 4.33578 0 5.00027V34.9997C0.00783261 35.6642 0.146482 36.3207 0.408029 36.9316C0.669576 37.5425 1.0489 38.0959 1.52434 38.5602C1.99977 39.0245 2.56201 39.3905 3.17894 39.6375C3.79588 39.8845 4.45542 40.0076 5.11991 39.9996H26.8795C27.544 40.0076 28.2035 39.8845 28.8205 39.6375C29.4374 39.3905 29.9996 39.0245 30.4751 38.5602C30.9505 38.0959 31.3298 37.5425 31.5914 36.9316C31.8529 36.3207 31.9916 35.6642 31.9994 34.9997V14.0001C31.9981 13.5044 31.8128 13.0269 31.4794 12.6601ZM19.9996 6.00025L25.4795 12.0001H21.4796C21.2702 11.9875 21.0654 11.9333 20.8771 11.8406C20.6889 11.748 20.5209 11.6187 20.3832 11.4605C20.2454 11.3022 20.1405 11.1181 20.0747 10.9189C20.0088 10.7197 19.9833 10.5094 19.9996 10.3002V6.00025ZM26.8795 35.9997H5.11991C4.98066 36.0078 4.84118 35.9884 4.70946 35.9425C4.57775 35.8965 4.45639 35.8251 4.35234 35.7322C4.2483 35.6393 4.16361 35.5268 4.10313 35.4011C4.04266 35.2754 4.00759 35.139 3.99993 34.9997V5.00027C4.00759 4.861 4.04266 4.7246 4.10313 4.59891C4.16361 4.47322 4.2483 4.3607 4.35234 4.2678C4.45639 4.1749 4.57775 4.10345 4.70946 4.05754C4.84118 4.01164 4.98066 3.99218 5.11991 4.00029H15.9997V10.3002C15.9674 11.7734 16.5192 13.1996 17.5346 14.2674C18.55 15.3353 19.9466 15.9582 21.4196 16.0001H27.9995V34.9997C27.9918 35.139 27.9568 35.2754 27.8963 35.4011C27.8358 35.5268 27.7511 35.6393 27.6471 35.7322C27.543 35.8251 27.4217 35.8965 27.29 35.9425C27.1582 35.9884 27.0188 36.0078 26.8795 35.9997Z" fill="black"/>
+                  <rect x="7.396" y="26.792" width="17.2072" height="4.52822" fill="black"/>
+                  <rect x="7.396" y="18.6416" width="17.2072" height="4.52822" fill="black"/>
+                  </svg>
+                </div>
+                <p class="service-type-container-title">
+                  {{'Text' | translate}}
+                </p>
+              </div>
+
+              <div class="col-lg-3 col-sm-6 m-10 t-al-c" (click)="toggleVideoArticls()">
+                <div class="service-type-container">
+                 <svg class="service-type-container-svg-child-video" xmlns="http://www.w3.org/2000/svg" width="32" height="23" viewBox="0 0 32 23" fill="none">
+                  <path d="M21.7143 22.8571H2.28571C1.67951 22.8571 1.09812 22.6163 0.66947 22.1877C0.240816 21.759 0 21.1776 0 20.5714V2.28571C0 1.67951 0.240816 1.09812 0.66947 0.66947C1.09812 0.240816 1.67951 0 2.28571 0H21.7143C22.3205 0 22.9019 0.240816 23.3305 0.66947C23.7592 1.09812 24 1.67951 24 2.28571V6.92571L30.1943 2.50286C30.3649 2.38141 30.5655 2.30915 30.7744 2.29398C30.9832 2.27882 31.1922 2.32131 31.3785 2.41684C31.5649 2.51236 31.7214 2.65724 31.831 2.83566C31.9406 3.01408 31.999 3.21918 32 3.42857V19.4286C31.999 19.638 31.9406 19.8431 31.831 20.0215C31.7214 20.1999 31.5649 20.3448 31.3785 20.4403C31.1922 20.5358 30.9832 20.5783 30.7744 20.5632C30.5655 20.548 30.3649 20.4757 30.1943 20.3543L24 15.9314V20.5714C24 21.1776 23.7592 21.759 23.3305 22.1877C22.9019 22.6163 22.3205 22.8571 21.7143 22.8571Z" fill="black"/>
+                  </svg>
+                 </div>
+                 <p class="service-type-container-title">
+                   {{'Video' | translate}}
+                 </p>
+               </div>
+
+               <div class="col-lg-3 col-sm-6 m-10 t-al-c" (click)="toggleAudioArticls()">
+                <div class="service-type-container">
+                 <svg class="service-type-container-svg-child-audio" xmlns="http://www.w3.org/2000/svg" width="32" height="34" viewBox="0 0 32 34" fill="none">
+                  <path d="M23.919 0.830997C24.2787 1.25651 24.4763 1.79499 24.4763 2.3523V31.5394C24.4764 31.9884 24.3481 32.428 24.1065 32.8064C23.8648 33.1849 23.52 33.4863 23.1127 33.6751C22.7053 33.8639 22.2524 33.9323 21.8075 33.8721C21.3626 33.812 20.9441 33.6258 20.6016 33.3356L11.2497 25.4165H4.23629C3.11276 25.4165 2.03524 24.9702 1.24078 24.1758C0.446322 23.3813 0 22.3038 0 21.1803V12.7077C0 11.5841 0.446322 10.5066 1.24078 9.71216C2.03524 8.91771 3.11276 8.47138 4.23629 8.47138H11.2497L20.6034 0.556109C21.0799 0.153353 21.6968 -0.0437358 22.3185 0.00816306C22.9403 0.0600619 23.5159 0.356701 23.919 0.83288V0.830997ZM28.4377 10.6178C28.7574 10.4233 29.1412 10.3636 29.5048 10.4519C29.8684 10.5401 30.1821 10.7691 30.377 11.0885C31.4578 12.8583 32 14.839 32 17.0004C32 19.1638 31.4578 21.1445 30.377 22.9143C30.2832 23.0779 30.1574 23.2211 30.0073 23.3353C29.8572 23.4496 29.6857 23.5326 29.503 23.5794C29.3202 23.6263 29.13 23.6361 28.9434 23.6082C28.7568 23.5803 28.5777 23.5153 28.4167 23.417C28.2556 23.3188 28.1159 23.1893 28.0058 23.0361C27.8956 22.883 27.8173 22.7093 27.7754 22.5254C27.7335 22.3414 27.7288 22.151 27.7618 21.9652C27.7947 21.7794 27.8645 21.6022 27.9671 21.4438C28.7729 20.1221 29.1758 18.6517 29.1758 17.0004C29.1758 15.3511 28.7729 13.8807 27.9671 12.5589C27.7726 12.2393 27.7129 11.8555 27.8012 11.4919C27.8894 11.1283 28.1184 10.8146 28.4377 10.6197V10.6178Z" fill="black"/>
+                  </svg>
+                 </div>
+                 <p class="service-type-container-title">
+                   {{'Audio' | translate}}
+                 </p>
+               </div>
+            </div>
+     </div>
+        </div>
+      </div>
+      <div class="is-main-article-content">
+        <div class="is-content">
+          <div class="is-head hidden-on-xs">
+            <span itemprop="headline">
+              {{ hairsalon?.name }}
+            </span>
+            <div class="following-section">
+              <ul>
+                <li>
+                  <div class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
+                    <a nz-button [nzLoading]="isUpdatingFollow">
+                      <img src="assets/images/hair-salon/follow-icon.png" alt="follow">{{ "followHairSalon" | translate }}
+                    </a>
+                  </div>
+                  <div class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
+                    <a nz-button [nzLoading]="isUpdatingFollow">
+                      <img src="assets/images/hair-salon/follow-icon.png" alt="unfollow">{{ "unfollowHairSalon" | translate }}
+                    </a>
+                  </div>
+                </li>
+              </ul>
+              <div class="login-popup" *ngIf="!isLoggedInUser">
+                <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()"
+                  (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
+                  <div class="popup-content">
+                    <div>
+                      <a [routerLink]="['/']" class="bg-logo">
+                        <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                      </a>
+                    </div>
+                    <p class="text-black">{{'Please' | translate}}, <a routerLink="/auth/login">{{'logInTitle' |
+                        translate}}</a> {{'or' | translate}} <a routerLink="/auth/signup">{{'signUp' | translate}}</a>
+                      {{'toContinue' | translate}}.</p>
+
+                  </div>
+                </nz-modal>
+              </div>
+              <div class="subscription-dialog"  *ngIf="showSubscriptionDialog">
+                <nz-modal
+                    [(nzVisible)]="isSubscriptionDialogVisible"
+                    nzTitle="My Trending Stories"
+                    (nzOnCancel)="handleSubscriptionDialogCancel()"
+                    (nzOnOk)="handleSubscriptionDialogOk()"
+                    [nzOkLoading]="isSubscriptionDialogOkLoading"
+                    >
+                    <div class="popup-content">
+                        <div class="popup-content-home-card">
+                            <a [routerLink]="['/']" class="bg-logo">
+                                <img src="assets/images/logo/logo-circle.png" alt="My Trending Stories">
+                            </a>
+                        </div>
+                        <p>{{'MakeWebsiteAndContactVisible' | translate}}</p>
+                        <a href="#" (click)="handleSubscriptionDialogOk()">{{'subscription' | translate}}</a>
+
+                    </div>
+                    </nz-modal>
+            </div>
+            </div>
+          </div>
+
+          <div class="is-body">
+            <div class="main-video-sec">
+              <cl-video
+                [public-id]="hairsalon.video?.cloudinary_id"
+                secure="true"
+                controls="true"
+                class="cld-video"
+                style="width: 100%; height: 100%;"
+              ></cl-video>
+            </div>
+            <div class="col-auto ml-4 mr-2">
+              <div class="row">
+                <div class="col-auto p-t-10">
+                  <a class="is-like" *ngIf="!isLike" (click)="like()">
+                    <i class="far fa-thumbs-up"></i>
+                    {{'like' | translate}} <span class="like-count" *ngIf="hairSalonLikes">{{serviceLikes}}</span>
+                  </a>
+                  <a class="is-like" *ngIf="isLike" (click)="disLike()">
+                    {{'liked' | translate}} <span class="like-count">{{hairSalonLikes}}</span>
+                  </a>
+                </div>
+                <div>
+                  <app-share-buttons-dialog [url]="hairsalon.video.url"></app-share-buttons-dialog>
+                </div>
+              </div>
+              <div class="row hr-row"><hr/></div>
+            </div>
+            <div class="centered-container">
+              <div class="box">
+                <div class="container">
+                  <div class="bg-white" *ngIf="currentPublicProfileSubscription && currentPublicProfileSubscription.status == 'active' && hairSalonAllServicesList && hairSalonAllServicesList.length">
+                    <div class="is-comman-title">
+                      {{'HairSalonServices' | translate}}
+                    </div>
+                    <div class="is-cat-box-card-main">
+                      <div class="cat-box">
+                        <div class="cat-box-gallery">
+                          <div class="container">
+                            <div *ngIf="hairSalonAllServicesList && hairSalonAllServicesList.length" class="row article-row">
+                              <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-20" *ngFor="let hairSalonService of hairSalonAllServicesList">
+                                <div *ngIf="hairSalonAllServiceSelectedId != hairSalonService.id" class="item-card item-card-life-and-styles service-card">
+                                  <div class="item-card-content">
+                                    <div class="item-card-title service-card-title" (click)="selectHairSalonService(hairSalonService)">
+                                      <span class="item-long-title-price">${{hairSalonService.price}}</span>
+                                      <h4 class="item-long-title">{{hairSalonService.name}}</h4>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div *ngIf="hairSalonAllServiceSelectedId == hairSalonService.id" class="item-card item-card-life-and-styles service-card-selected">
+                                  <div class="item-card-content">
+                                    <div class="item-card-title service-card-title" (click)="selectHairSalonService(hairSalonService)">
+                                      <span class="item-long-title-price">${{hairSalonService.price}}</span>
+                                      <h4 class="item-long-title">{{hairSalonService.name}}</h4>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="!hairSalonAllServicesList || !hairSalonAllServicesList.length" class="m-t-10">
+                                {{'NoHairSalonAllServices' | translate}}
+                              </div>
+                            </div>
+                            <div *ngIf="!hairSalonAllServicesList ||!hairSalonAllServicesList.length" class="m-t-10">
+                              {{'NoHairSalonAllServices' | translate}}
+                            </div>
+                            <div *ngIf="hairSalonAllServiceSelectedId" class="row article-row mt-20">
+                              <div class="col-12 mt-20 mb-20">
+                                <div class="service-deliver-type-card-header row article-row" *ngIf="hairSalonAllServiceSelected && hairSalonAllServiceSelected.service_deliver_type && hairSalonServiceSelectedReceiveTypeList && hairSalonServiceSelectedReceiveTypeList.length">
+                                  <span class="service-deliver-type-card-header-title">{{"YouWillReceiveTheServiceAt" | translate}}:</span>
+                                </div>
+                                <div *ngIf="hairSalonAllServiceSelected && hairSalonAllServiceSelected.service_deliver_type && hairSalonServiceSelectedReceiveTypeList && hairSalonServiceSelectedReceiveTypeList.length" class="row article-row">
+                                  <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-20" *ngFor="let hairSalonServiceReceiveType of hairSalonServiceSelectedReceiveTypeList">
+                                    <div class="service-deliver-type-card" *ngIf="hairSalonServiceReceiveTypeSelected != hairSalonServiceReceiveType">
+                                      <div class="item-card-title service-deliver-type-card-title" (click)="selectHairSalonServiceReceiveType(hairSalonServiceReceiveType)">
+                                        <span class="service-deliver-type-card-title-price">${{hairSalonServiceReceiveType.price}}</span>
+                                        <h4 class="item-long-title">{{hairSalonServiceReceiveType.type}}</h4>
+                                      </div>
+                                    </div>
+                                    <div class="service-deliver-type-card-selected" *ngIf="hairSalonServiceReceiveTypeSelected == hairSalonServiceReceiveType">
+                                      <div class="item-card-title service-deliver-type-card-title" (click)="selectHairSalonServiceReceiveType(hairSalonServiceReceiveType)">
+                                        <span class="service-deliver-type-card-title-price">${{hairSalonServiceReceiveType.price}}</span>
+                                        <h4 class="item-long-title">{{hairSalonServiceReceiveType.type}}</h4>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row client-address-card-header" *ngIf="hairSalonServiceReceiveTypeSelected.type == hairSalonServiceReceiveTypeAtClientAddress">
+                                  <span class="client-address-card-header-title">{{"PleaseEnterYourAddress" | translate}}</span>
+                                  <nz-input-group [nzSuffix]="suffixIconAddress">
+                                    <input type="text"  nz-input class="colr-lightslategray"
+                                    placeholder=" {{ 'PleaseEnterYourAddress' |translate }}" (keyup.enter)="setclientReceiveAddress(clientAddress.value)"
+                                    #clientAddress  (change)="setclientReceiveAddress(clientAddress.value)" [value]="hairSalonServiceClientReceiveAddressSelected"/>
+                                  </nz-input-group>
+                                  <ng-template #suffixIconAddress>
+                                    <span nz-icon nzType="home"></span>
+                                  </ng-template>
+                                </div>
+                                <div class="date-picker-card-header">
+                                  <span class="date-picker-card-header-title">{{"FindTheTimeToBook" | translate}}</span>
+                                </div>
+                                <div class="row date-picker-card">
+                                  <nz-date-picker nzInline [(ngModel)]="bookingDate" [nzDisabledDate]="disabledDate" (ngModelChange)="onBookingDateChange($event)"></nz-date-picker>
+                                </div>
+                                <div class="row" *ngIf="bookingDate && bookingDate!=null">
+                                  <div class="col-12">
+                                    <div class="service-duration-card-header">
+                                      <span class="service-duration-card-header-title">{{"BookingDuration" | translate}}</span>
+                                    </div>
+                                    <div class="service-duration-card">
+                                      <span class="service-duration-card-title">{{hairSalonAllServiceSelected.duration}} {{"MINS" | translate}}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-12 mt-20">
+                                    <div class="service-time-card-header">
+                                      <span class="service-time-card-header-title">{{"WhatTimeWorksBest" | translate}}</span>
+                                    </div>
+                                  </div>
+                                  <div class="col-12 mt-20" *ngFor="let timeSlot of hairSalonServicesTimeSlotsList">
+                                    <div *ngIf="timeSlot.startTime != selectedTimeSlot?.startTime && timeSlot.endTime != selectedTimeSlot?.endTime" class=" row service-time-slot-card"  (click)="selectHairSalonServiceTimeSlot(timeSlot)">
+                                      <span class="service-time-card-title">{{timeSlot.friendlyStartTime}}</span>
+                                    </div>
+                                    <div *ngIf="timeSlot.startTime == selectedTimeSlot?.startTime && timeSlot.endTime == selectedTimeSlot?.endTime"class=" row service-time-slot-card-selected"  (click)="selectHairSalonServiceTimeSlot(timeSlot)">
+                                      <span class="service-time-card-title">{{timeSlot.friendlyStartTime}}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row" *ngIf="selectedTimeSlot">
+                                  <div class="col-12 mt-20">
+                                    <div class="user-info-card-header">
+                                      <span class="user-info-card-header-title">{{"YouShouldEnterYourPersonalInfoOrSignInTitle" | translate}}
+                                       <a *ngIf="!userDetails" routerLink="/auth/login"> {{'logInTitle' |translate}}</a>
+                                       <p *ngIf="!userDetails">{{'or' | translate}}</p>
+                                       <a *ngIf="!userDetails" routerLink="/auth/signup">{{'signUp' | translate}}</a>
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div class="col-12 mt-20">
+                                    <div class=" row user-info-card">
+                                      <span class="user-info-title">{{'FirstName' | translate}}</span>
+                                      <input type="text" nz-input #first_name [ngModel] [value]="first_nameValue" (change)="onUserFNInputChange(first_name.value)" placeholder="{{'FirstName' | translate}}">
+                                      <p class="user-info-card-required-p">*</p>
+                                    </div>
+                                  </div>
+                                  <div class="col-12 mt-20">
+                                    <div class=" row user-info-card">
+                                      <span class="user-info-title">{{'LastName' | translate}}</span>
+                                      <input type="text" nz-input #last_name [ngModel] [value]="last_nameValue" (change)="onUserLNInputChange(last_name.value)" placeholder="{{'LastName' | translate}}">
+                                      <p class="user-info-card-required-p">*</p>
+                                    </div>
+                                  </div>
+                                  <div class="col-12 mt-20">
+                                    <div class=" row user-info-card">
+                                      <span class="user-info-title">{{'Email' | translate}}</span>
+                                      <input type="email" email="true" [email]="true" nz-input #email [ngModel] [value]="emailValue" (change)="onUserEmailInputChange(email.value)" placeholder="{{'Email' | translate}}">
+                                      <p class="user-info-card-required-p">*</p>
+                                    </div>
+                                  </div>
+                                  <div class="col-12 mt-20">
+                                    <div class=" row user-info-card">
+                                      <span class="user-info-title">{{'Phone' | translate}}</span>
+                                      <input type="number" nz-input #mobile_number [ngModel] [value]="mobile_numberValue" (change)="onUserMNInputChange(mobile_number.value)" placeholder="{{'Phone' | translate}}">
+                                      <p class="user-info-card-required-p">*</p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-12 mt-20">
+                                    <div class=" row service-continue-to-payment-card">
+                                      <button
+                                      type="button"
+                                      nz-button
+                                      class="continue-to-payment"
+                                      [nzType]="'primary'"
+                                      [disabled]="!this.hairsalon || !this.selectHairSalonService|| !this.bookingDate || !this.selectedTimeSlot"
+                                      (click)="ContinueToServicePayment()"
+                                    >
+                                      {{ "ContinueToPayment" | translate }}
+                                    </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="bg-white" *ngIf="showTextArticls || showAudioArticls || showVideoArticls">
+                    <div class="is-comman-title">
+                      {{'HairSalonArticles' | translate}}
+                    </div>
+                    <div class="is-cat-box-card-main">
+                      <div class="cat-box">
+                        <div class="cat-box-gallery">
+                          <div class="container">
+                            <div>
+                              <div *ngIf="showTextArticls" nzTitle="{{'text' | translate}}">
+                                <div *ngIf="textArticles.length" class="row article-row">
+                                  <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-20" *ngFor="let article of textArticles"
+                                    [ngClass]="article?.category?.slug">
+                                    <div class="item-card item-card-life-and-styles">
+                                      <a [routerLink]="['/',article.author.slug,article.slug]">
+                                        <div class="item-card-image">
+                                          <img [src]="replaceImage(article?.image?.url)" [alt]="article?.image?.alt"
+                                            *ngIf="!(article?.image?.cloudinary_id); else CateCloudinoryImg">
+                                          <ng-template #CateCloudinoryImg>
+                                            <div class="hide-avatar">
+                                              <app-cloudinary-feature-img [article]="article"></app-cloudinary-feature-img>
+                                            </div>
+                                          </ng-template>
+                                          <h3 class="is-category-title">{{article?.category?.title}}</h3>
+                                          <div class="article-image-icon" *ngIf="article.type==='audio'">
+                                            <i class="fas fa-play"></i>
+                                          </div>
+                                          <div class="article-image-icon" *ngIf="article.type==='video'">
+                                            <i class="fas fa-play"></i>
+                                          </div>
+                                          <div class="article-image-icon"
+                                            *ngIf="!(article.type==='audio' || article.type==='video')">
+                                            <i class="fas fa-angle-right"></i>
+                                          </div>
+                                          <div class="comment-right">
+                                            <div class="article-comment-info">
+                                              <div class="comment-section">
+                                                <ul>
+                                                  <li *ngIf="article.view_count">
+                                                    <a href="#">
+                                                      <i class="fas fa-eye"></i>
+                                                      {{article.view_count}}
+                                                    </a>
+                                                  </li>
+                                                  <li *ngIf="article.likes_count">
+                                                    <a href="#">
+                                                      <i class="fas fa-heart"></i>
+                                                      {{article.likes_count}}
+                                                    </a>
+                                                  </li>
+                                                  <li *ngIf="article.comments_count">
+                                                    <a href="#">
+                                                      <i class="fa fa-comment"></i>
+                                                      {{article.comments_count}}
+                                                    </a>
+                                                  </li>
+                                                </ul>
+                                              </div>
+                                              <div class="clearfix"></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="item-card-content">
+                                          <div class="item-card-category  cat-yellow">
+                                            <div class="is-avatar-dv">
+                                              <div class="overlay-icon">
+                                              <img class="avatar" [src]="replaceImage(article?.author?.avatar?.url)"
+                                                [alt]="article?.author?.avatar?.alt"
+                                                onerror="this.src='assets/images/default-avatar.png'"
+                                                *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg">
+                                              <ng-template #CateAvatarCloudinoryImg>
+                                                <div class="hide-feature-img">
+                                                  <app-cloudinary-img [article]="article">
+                                                  </app-cloudinary-img>
+                                                </div>
+                                              </ng-template>
+                                              <app-article-avatar [article]="article">
+                                              </app-article-avatar>
+                                            </div>
+                                              <span class="item-card-author">{{article?.author?.fullname}}</span>
+                                            </div>
+                                          </div>
+                                          <div class="item-card-title">
+                                            <h4 class="item-long-title">{{article.title}}</h4>
+                                          </div>
+                                          <div class="item-card-texte">
+                                            <p>{{article.excerpt}}</p>
+                                            <div class="category-article-readmore">
+                                              <div *ngIf="article.type==='audio'">
+                                                <button type="button" class="is-read-more">{{'ListenNow' | translate }} <img
+                                                    src="assets/images/read-more-icon-black.png" alt="Listen Now" /></button>
+                                              </div>
+                                              <div *ngIf="article.type==='video'">
+                                                <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                                                    src="assets/images/read-more-icon-black.png" alt="Watch Now" /></button>
+                                              </div>
+                                              <div *ngIf="!(article.type==='audio' || article.type==='video')">
+                                                <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                                                    src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                              </div>
+                                              <div class="article-icon-main">
+                                                <div class="article-icon" *ngIf="article.type==='audio'">
+                                                  <i class="fas fa-volume-down"></i>
+                                                </div>
+                                                <div class="article-icon" *ngIf="article.type==='video'">
+                                                  <i class="fas fa-video"></i>
+                                                </div>
+                                                <div class="article-icon"
+                                                  *ngIf="!(article.type==='audio' || article.type==='video')">
+                                                  <i class="far fa-file-alt"></i>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <div *ngIf="lastArticleIndex" class="w-100 mt-2">
+                                    <a (click)="loadMoreArticle()" class="load-more-btn"><span>{{'loadMore' |
+                                        translate}}</span></a>
+                                    <!-- <nz-spin nzSimple *ngIf="loadingMoreFollowers"></nz-spin> -->
+                                  </div>
+                                  <div *ngIf="!textArticles.length" class="m-t-10">
+                                    {{'artNoArt' | translate}}
+                                  </div>
+                                </div>
+                                <div *ngIf="!textArticles.length" class="m-t-10">
+                                  {{'NoTextArticle' | translate}}
+                                </div>
+                              </div>
+
+                              <div *ngIf="showVideoArticls" nzTitle="{{'Video' | translate}}">
+                                <div *ngIf="videoArticles.length" class="row article-row">
+                                  <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-20" *ngFor="let article of videoArticles"
+                                    [ngClass]="article?.category?.slug">
+                                    <div class="item-card item-card-life-and-styles">
+                                      <a [routerLink]="['/',article.author.slug,article.slug]">
+                                        <div class="item-card-image">
+                                          <img [src]="replaceImage(article?.image?.url)" [alt]="article?.image?.alt"
+                                            *ngIf="!(article?.image?.cloudinary_id); else CateCloudinoryImg">
+                                          <ng-template #CateCloudinoryImg>
+                                            <div class="hide-avatar">
+                                              <app-cloudinary-feature-img [article]="article"></app-cloudinary-feature-img>
+                                            </div>
+                                          </ng-template>
+                                          <h3 class="is-category-title">{{article?.category?.title}}</h3>
+                                          <div class="article-image-icon" *ngIf="article.type==='audio'">
+                                            <i class="fas fa-play"></i>
+                                          </div>
+                                          <div class="article-image-icon" *ngIf="article.type==='video'">
+                                            <i class="fas fa-play"></i>
+                                          </div>
+                                          <div class="article-image-icon"
+                                            *ngIf="!(article.type==='audio' || article.type==='video')">
+                                            <i class="fas fa-angle-right"></i>
+                                          </div>
+                                          <div class="comment-right">
+                                            <div class="article-comment-info">
+                                              <div class="comment-section">
+                                                <ul>
+                                                  <li *ngIf="article.view_count">
+                                                    <a href="#">
+                                                      <i class="fas fa-eye"></i>
+                                                      {{article.view_count}}
+                                                    </a>
+                                                  </li>
+                                                  <li *ngIf="article.likes_count">
+                                                    <a href="#">
+                                                      <i class="fas fa-heart"></i>
+                                                      {{article.likes_count}}
+                                                    </a>
+                                                  </li>
+                                                  <li *ngIf="article.comments_count">
+                                                    <a href="#">
+                                                      <i class="fa fa-comment"></i>
+                                                      {{article.comments_count}}
+                                                    </a>
+                                                  </li>
+                                                </ul>
+                                              </div>
+                                              <div class="clearfix"></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="item-card-content">
+                                          <div class="item-card-category  cat-yellow">
+                                            <div class="is-avatar-dv">
+                                              <div class="overlay-icon">
+                                              <img class="avatar" [src]="replaceImage(article?.author?.avatar?.url)"
+                                                [alt]="article?.author?.avatar?.alt"
+                                                onerror="this.src='assets/images/default-avatar.png'"
+                                                *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg">
+                                              <ng-template #CateAvatarCloudinoryImg>
+                                                <div class="hide-feature-img">
+                                                  <app-cloudinary-img [article]="article">
+                                                  </app-cloudinary-img>
+                                                </div>
+                                              </ng-template>
+                                              <app-article-avatar [article]="article">
+                                              </app-article-avatar>
+                                            </div>
+                                              <span class="item-card-author">{{article?.author?.fullname}}</span>
+                                            </div>
+                                          </div>
+                                          <div class="item-card-title">
+                                            <h4 class="item-long-title">{{article.title}}</h4>
+                                          </div>
+                                          <div class="item-card-texte">
+                                            <p>{{article.excerpt}}</p>
+                                            <div class="category-article-readmore">
+                                              <div *ngIf="article.type==='audio'">
+                                                <button type="button" class="is-read-more">{{'ListenNow' | translate }} <img
+                                                    src="assets/images/read-more-icon-black.png" alt="Listen Now" /></button>
+                                              </div>
+                                              <div *ngIf="article.type==='video'">
+                                                <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                                                    src="assets/images/read-more-icon-black.png" alt="Watch Now" /></button>
+                                              </div>
+                                              <div *ngIf="!(article.type==='audio' || article.type==='video')">
+                                                <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                                                    src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                              </div>
+                                              <div class="article-icon-main">
+                                                <div class="article-icon" *ngIf="article.type==='audio'">
+                                                  <i class="fas fa-volume-down"></i>
+                                                </div>
+                                                <div class="article-icon" *ngIf="article.type==='video'">
+                                                  <i class="fas fa-video"></i>
+                                                </div>
+                                                <div class="article-icon"
+                                                  *ngIf="!(article.type==='audio' || article.type==='video')">
+                                                  <i class="far fa-file-alt"></i>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <div *ngIf="lastArticleIndex" class="w-100 mt-2">
+                                    <a (click)="loadMoreArticle()" class="load-more-btn"><span>{{'loadMore' |
+                                        translate}}</span></a>
+                                    <!-- <nz-spin nzSimple *ngIf="loadingMoreFollowers"></nz-spin> -->
+                                  </div>
+                                  <div *ngIf="!videoArticles.length" class="m-t-10">
+                                    {{'artNoArt' | translate}}
+                                  </div>
+                                </div>
+                                <div *ngIf="!videoArticles.length" class="m-t-10">
+                                  {{'NoVideo' | translate}}
+                                </div>
+                              </div>
+                              <div *ngIf="showAudioArticls" nzTitle="{{'Audio' | translate}}">
+                                <div *ngIf="audioArticles.length" class="row article-row">
+                                  <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-20" *ngFor="let article of audioArticles"
+                                    [ngClass]="article?.category?.slug">
+                                    <div class="item-card item-card-life-and-styles">
+                                      <a [routerLink]="['/',article.author.slug,article.slug]">
+                                        <div class="item-card-image">
+                                          <img [src]="replaceImage(article?.image?.url)" [alt]="article?.image?.alt"
+                                            *ngIf="!(article?.image?.cloudinary_id); else CateCloudinoryImg">
+                                          <ng-template #CateCloudinoryImg>
+                                            <div class="hide-avatar">
+                                              <app-cloudinary-feature-img [article]="article"></app-cloudinary-feature-img>
+                                            </div>
+                                          </ng-template>
+                                          <h3 class="is-category-title">{{article?.category?.title}}</h3>
+                                          <div class="article-image-icon" *ngIf="article.type==='audio'">
+                                            <i class="fas fa-play"></i>
+                                          </div>
+                                          <div class="article-image-icon" *ngIf="article.type==='video'">
+                                            <i class="fas fa-play"></i>
+                                          </div>
+                                          <div class="article-image-icon"
+                                            *ngIf="!(article.type==='audio' || article.type==='video')">
+                                            <i class="fas fa-angle-right"></i>
+                                          </div>
+                                          <div class="comment-right">
+                                            <div class="article-comment-info">
+                                              <div class="comment-section">
+                                                <ul>
+                                                  <li *ngIf="article.view_count">
+                                                    <a href="#">
+                                                      <i class="fas fa-eye"></i>
+                                                      {{article.view_count}}
+                                                    </a>
+                                                  </li>
+                                                  <li *ngIf="article.likes_count">
+                                                    <a href="#">
+                                                      <i class="fas fa-heart"></i>
+                                                      {{article.likes_count}}
+                                                    </a>
+                                                  </li>
+                                                  <li *ngIf="article.comments_count">
+                                                    <a href="#">
+                                                      <i class="fa fa-comment"></i>
+                                                      {{article.comments_count}}
+                                                    </a>
+                                                  </li>
+                                                </ul>
+                                              </div>
+                                              <div class="clearfix"></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="item-card-content">
+                                          <div class="item-card-category  cat-yellow">
+                                            <div class="is-avatar-dv">
+                                              <div class="overlay-icon">
+                                              <img class="avatar" [src]="replaceImage(article?.author?.avatar?.url)"
+                                                [alt]="article?.author?.avatar?.alt"
+                                                onerror="this.src='assets/images/default-avatar.png'"
+                                                *ngIf="!(article.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg">
+                                              <ng-template #CateAvatarCloudinoryImg>
+                                                <div class="hide-feature-img">
+                                                  <app-cloudinary-img [article]="article">
+                                                  </app-cloudinary-img>
+                                                </div>
+                                              </ng-template>
+                                              <app-article-avatar [article]="article">
+                                              </app-article-avatar>
+                                            </div>
+                                              <span class="item-card-author">{{article?.author?.fullname}}</span>
+                                            </div>
+                                          </div>
+                                          <div class="item-card-title">
+                                            <h4 class="item-long-title">{{article.title}}</h4>
+                                          </div>
+                                          <div class="item-card-texte">
+                                            <p>{{article.excerpt}}</p>
+                                            <div class="category-article-readmore">
+                                              <div *ngIf="article.type==='audio'">
+                                                <button type="button" class="is-read-more">{{'ListenNow' | translate }} <img
+                                                    src="assets/images/read-more-icon-black.png" alt="Listen Now" /></button>
+                                              </div>
+                                              <div *ngIf="article.type==='video'">
+                                                <button type="button" class="is-read-more">{{'WatchNow' | translate }}<img
+                                                    src="assets/images/read-more-icon-black.png" alt="Watch Now" /></button>
+                                              </div>
+                                              <div *ngIf="!(article.type==='audio' || article.type==='video')">
+                                                <button type="button" class="is-read-more">{{'readMore' | translate }} <img
+                                                    src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
+                                              </div>
+                                              <div class="article-icon-main">
+                                                <div class="article-icon" *ngIf="article.type==='audio'">
+                                                  <i class="fas fa-volume-down"></i>
+                                                </div>
+                                                <div class="article-icon" *ngIf="article.type==='video'">
+                                                  <i class="fas fa-video"></i>
+                                                </div>
+                                                <div class="article-icon"
+                                                  *ngIf="!(article.type==='audio' || article.type==='video')">
+                                                  <i class="far fa-file-alt"></i>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <div *ngIf="lastArticleIndex" class="w-100 mt-2">
+                                    <a (click)="loadMoreArticle()" class="load-more-btn"><span>{{'loadMore' |
+                                        translate}}</span></a>
+                                    <!-- <nz-spin nzSimple *ngIf="loadingMoreFollowers"></nz-spin> -->
+                                  </div>
+                                  <div *ngIf="!audioArticles.length" class="m-t-10">
+                                    {{'artNoArt' | translate}}
+                                  </div>
+                                </div>
+                                <div *ngIf="!audioArticles.length" class="m-t-10">
+                                  {{'NoAudio' | translate}}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr />
+          </div>
+        </div>
+      </div>
+
+      <div class="is-right-ad-section" [ngClass]="SlideRelatedArticle ? 'removeSlide' : 'openSlideArticle'">
+        <div *ngIf="currentPublicProfileSubscription && currentPublicProfileSubscription.status == 'active'" class="hair-salon-info-fetails-card">
+          <h5 *ngIf="!hairsalon.website || hairsalon?.website?.length == 0">{{ 'HairSalonWebsite' | translate }} : <span class="txt-primary">N/A</span></h5>
+          <h5 *ngIf="hairsalon.website && hairsalon?.website?.length != 0">
+            {{ 'HairSalonWebsite' | translate }} : <a href="{{ getExactExternalHttpLink(hairsalon.website) }}" target="_blank"> {{'ClickHere' | translate}} </a>
+          </h5>
+          <h6>{{ 'HairSalonPhone' | translate }} : {{ hairsalon.phone }}</h6>
+          <h6>{{ 'HairSalonCountry' | translate }} : {{ hairsalon.country }}</h6>
+          <h6>{{ 'HairSalonCity' | translate }} : {{ hairsalon.city }}</h6>
+          <h6>{{ 'HairSalonAddress' | translate }} : {{ hairsalon.address }}</h6>
+        </div>
+        <div *ngIf="currentPublicProfileSubscription && currentPublicProfileSubscription.status == 'active'" >
+          <button class="request-info-btn" (click)="hairSalonMoreInfo()">
+            {{'RequestMoreInfo' | translate}}
+            <img src="assets/images/read-more-icon.png" alt="">
+          </button>
+        </div>
+        <div *ngIf="isRequestMoreInfo && currentPublicProfileSubscription && currentPublicProfileSubscription.status == 'active'">
+          <app-hair-salon-lead-form *ngIf="hairSalonId" [hairSalonId]="hairSalonId"></app-hair-salon-lead-form>
+        </div>
+      <!--similar hair salons-->
+      <div class="related-article-sec" *ngIf="similarHairSalonsList.length">
+        <h2>{{ "SimilarHairSalons" | translate }}</h2>
+
+        <div *ngFor="let SimilarHairSalon of similarHairSalonsList">
+            <a [routerLink]="['/hair-salon/hair-salon-details',SimilarHairSalon.id]">
+                <div class="related-video">
+                    <div class="thumbnail-video">
+                        <img
+                            [src]="replaceImage(SimilarHairSalon.cover?.url)"
+                            [alt]="SimilarHairSalon.cover?.alt"
+                            *ngIf="!(SimilarHairSalon.cover?.cloudinary_id); else similarVideoCloudinary"
+                        />
+                        <ng-template #similarVideoCloudinary>
+                            <cl-image loading="lazy" public-id="{{SimilarHairSalon.cover.cloudinary_id}}" secure="true">
+                                <cl-transformation width="120" height="100" gravity="face" crop="thumb">
+                                </cl-transformation>
+                            </cl-image>
+                        </ng-template>
+                        <div class="overlay-detail">
+                            <div class="play-btn">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="related-salon-detail">
+                        <h2>{{ SimilarHairSalon.name }}</h2>
+                        <p>{{ SimilarHairSalon.presentation }}</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+            </a>
+        </div>
+    </div>
+      <!--End similar hair salons-->
+        <div class="slide-article" *ngIf="similarHairSalonsList.length">
+          <button
+            type="button"
+            nz-button
+            class="is-see-more show-more"
+            [nzType]="'primary'"
+            (click)="slideArticle()"
+          >
+            {{ "ShowMore" | translate }}
+          </button>
+          <button
+            type="button"
+            nz-button
+            class="is-see-more less-more"
+            [nzType]="'primary'"
+            (click)="slideArticle()"
+          >
+            {{ "ShowLess" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

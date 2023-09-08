@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="container-main">
+      <div class="main-container-banner" style="background: url('assets/images/hair-salon/hair-salon-home-main.png') no-repeat center; background-size: cover;">
+          <div class="main-banner-content">
+              <h1>{{'TheBestHairCutText' | translate}}</h1>
+              <h1>{{'YouWillEverGetText' | translate}}</h1>
+          </div>
+          <div class="hair-slaon-back-container">
+            <a class="back-button" [routerLink]="['/']"> <span nz-icon nzType="left" nzTheme="outline"></span> {{'Back' | translate}}</a>
+          </div>
+      </div>
+      <div class="main-container-title">
+        <p>{{'BarborShopHairShopText' | translate}}</p>
+      </div>
+      <div class="second-banner-content"  style="background: url('assets/images/hair-salon/hair-salon-home-second.png') no-repeat center; background-size: cover;">
+      </div>
+      <div class="main-container-btns">
+        <button nz-button nzType="primary" class="margin-l-5 next-btn" nzSize="medium" nzSearch [routerLink]="['/hair-salon/hair-salon-list']" >
+          {{'Next'|translate}}
+          <span nz-icon nzType="arrow-right" nzTheme="outline"></span>
+        </button>
+      </div>
+  </div>
+</div>

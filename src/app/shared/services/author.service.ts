@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import 'firebase/storage';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { STAFF, AUTHOR, MEMBER, COMPANY, CHARITY, FUNDRAISER, HOSTEVENT } from '../constants/member-constant';
+import { STAFF, AUTHOR, MEMBER, COMPANY, CHARITY, FUNDRAISER, HOSTEVENT, HAIRSALON } from '../constants/member-constant';
 
 
 
@@ -19,6 +19,7 @@ export class AuthorService {
   fundraisersCollection = 'fundraisings';
   private followersCollection: string = 'followers';
   private followingsCollection: string = 'followings';
+  hairSalonCollection = 'hair-salon';
 
   constructor(private afs: AngularFirestore, private http: HttpClient) { }
 
@@ -76,6 +77,9 @@ export class AuthorService {
     else if (type == FUNDRAISER) {
       return this.afs.collection(this.fundraisersCollection).doc(authorId).collection(this.followersCollection).doc(followerId).valueChanges();
     }
+    else if (type == HAIRSALON) {
+      return this.afs.collection(this.hairSalonCollection).doc(authorId).collection(this.followersCollection).doc(followerId).valueChanges();
+    }
   }
 
   getAllFollowersByAuthorType(authorId: string, type: string) {
@@ -89,6 +93,9 @@ export class AuthorService {
     }
     else if (type == FUNDRAISER) {
       return this.afs.collection(this.fundraisersCollection).doc(authorId).collection(this.followersCollection).valueChanges();
+    }
+    else if (type == HAIRSALON) {
+      return this.afs.collection(this.hairSalonCollection).doc(authorId).collection(this.followersCollection).valueChanges();
     }
   }
 

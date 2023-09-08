@@ -17,11 +17,16 @@ export interface VideoConferenceSession {
   description?: any;
   invitees?:any;
   companyId?:any;
+  company?:any;
+  lead_id?:any;
   lead_email?:any;
   lead_first_name?: any;
   lead_last_name?: any;
   serviceId?: any;
+  service?: any;
   politicianId?: any;
+  politician?: any;
+  link?: any;
 }
 export interface VC_Message {
 id?:any;

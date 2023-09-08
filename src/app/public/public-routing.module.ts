@@ -12,6 +12,10 @@ const routes: Routes = [
     loadChildren: () => import('./video-conference/video-conference.module').then(m => m.VideoConferenceModule)
   },
   {
+    path: 'hair-salon',
+    loadChildren: () => import('./hair-salon/hair-salon.module').then(m => m.HairSalonModule)
+  },
+  {
     path: 'politician',
     loadChildren: () => import('./politician/politician.module').then(m => m.PoliticianModule)
   },

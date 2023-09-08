@@ -1,0 +1,353 @@
+.container {
+  width: 100%;
+  max-width: 100%;
+}
+.lhairSalon-content{
+  width: 94%;
+  max-width: 100%;
+  margin-left: 3%;
+  margin-top: 10px;
+}
+.search-region-title{
+  text-align: center;
+  padding-top: 20px;
+  margin-top: 10px;
+}
+.search-region-title h1{
+  font-weight: 500;
+}
+select {
+  background-color: white;
+  display: inline-block;
+  font: inherit;
+  line-height: 1.5em;
+  padding: 2px 2px;
+  width: 200px;
+  height: 30px;
+  margin: 0;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.margin-l-5{
+  margin-left: 5px;
+}
+.mr-2{
+  margin-right: 2px;
+}
+.hairSalon-main{
+  margin-left: 6%;
+  margin-right: 6%;
+  width: 88%;
+    ::ng-deep .ant-tabs-bar{
+        padding: 0px;
+        margin-top: 0px;
+        border-color: #ff563a;
+        .ant-tabs-tab{
+            font-family: "josefin_sansregular";
+            color:#000;
+            font-size: 16px;
+            margin: 0px;
+            border:1px solid transparent;
+            &.ant-tabs-tab-active{
+                background: #ff563a;
+                border:1px solid #ff563a;
+                color: #fff;
+            }
+            &:hover{
+                background: #ff563a;
+                border:1px solid #ff563a;
+                color: #fff;
+            }
+        }
+        .ant-tabs-ink-bar-animated{
+            display: none !important;
+        }
+
+    }
+    ::ng-deep  .page-header-tab{
+        background: #fff;
+        border: 1px solid #eee;
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
+        .ant-tabs-tabpane{
+            padding: 0px 10px;
+            .ant-card{
+                border: 1px solid #ccc;
+                border-width: 0px 0px 1px 0px;
+                border-radius: 0px;
+                &:last-child{
+                    border-bottom: 0px;
+                }
+            }
+            .ant-card-head{
+                padding:0px;
+                border: 0px;
+                position: relative;
+                font-family: "josefin_sanssemibold";
+                &::after{
+                    content: '';
+                    position: absolute;
+                    bottom: 0px;
+                    left: 0px;
+                    width:50px;
+                    height: 2px;
+                    background: #ff563a;
+                }
+            }
+            .ant-card-body{
+                padding: 25px 0px;
+                .ant-input{
+                    border:1px solid #ccc;
+                    font-family: "josefin_sansregular";
+                }
+                .ant-form-item-label{
+                    label{
+                        font-family: "josefin_sansregular";
+                        color: #000;
+                    }
+                }
+                .ant-form-item{
+                    .ant-picker{
+                        border-color: #ccc;
+                    }
+                }
+                .login-form{
+                   ::ng-deep .ant-list-item-meta{
+                        .ant-list-item-meta-content{
+                            .ant-list-item-meta-title{
+                                h5{
+                                    font-family: "josefin_sansregular";
+                                }
+                                p{
+                                    font-family: "open_sansregular";
+                                    color: #868686;
+                                    font-size: 13px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .media{
+            align-items: center;
+            .profile-upload-txt{
+                padding-left: 30px;
+                .ant-btn{
+                    .anticon{
+                        svg{
+                            font-size:18px;
+                        }
+                    }
+                }
+                h5{
+                    font-size: 14px;
+                    margin-bottom: 0px;
+                    margin-top: 15px;
+                }
+                p{
+                    font-size: 12px;
+                    font-weight: normal;
+                    font-family: "open_sansregular";
+                    color: #000;
+                    line-height: 18px;
+                    margin: 0px;
+                }
+
+            }
+        }
+    }
+}
+
+.hairSalon-content{
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
+}
+
+.hairSalon-main .main-hairSalon-banner {
+  height: 405px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hairSalon-main .main-hairSalon-banner .hairSalon-banner-content {
+    position: relative;
+    z-index: 1;
+    height: 79px;
+    flex-shrink: 0;
+}
+
+.hairSalon-main .main-hairSalon-banner .hairSalon-banner-content h1 {
+  color: #FFF;
+  text-align: center;
+  font-family: "josefin_sanslight";
+  font-size: 54px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 74px;
+}
+
+.hairSalon-main .main-hairSalon-banner .hairSalon-banner-content h2 {
+    font-family: "josefin_sanslight";
+    font-weight: 600;
+    text-align: center;
+    color: #ff4020;
+    font-size: xx-large;
+    margin: 10px;
+}
+.hairSalon-main .main-hairSalon-banner .hairSalon-banner-content-pricing{
+  position: absolute;
+  bottom: 0px;
+  margin: 0px;
+}
+.hairSalon-main .main-hairSalon-banner .hairSalon-banner-content-pricing h2,a {
+  font-family: "josefin_sanslight";
+  font-weight: 600;
+  text-align: center;
+  vertical-align: bottom;
+  color: #ff4020;
+  font-size: xx-large;
+  margin: 0px;
+}
+.center-box-list{
+  background-color: white;
+  margin: 15px !important;
+  padding: 0px;
+}
+.hairSalon-main .main-hairSalon-banner .hairSalon-banner-content ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+.hairSalon-main .main-hairSalon-banner .hairSalon-banner-content ul li {
+    list-style: none;
+    display: inline-block;
+    padding: 0px 20px;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 27px;
+    text-align: center;
+    color: #FFFFFF;
+    font-family: "josefin_sanslight";
+}
+.search-menu-header{
+  margin-top: 20px;
+}
+.selectforsearch{
+  width: 100%;
+  height: 40px;
+}
+
+.lhairSalon-box{
+  text-align: justify;
+  background: #FFF;
+  box-shadow: 0px 4px 34px 0px rgba(0, 0, 0, 0.05);
+  width: 309px;
+  height: 281px;
+  flex-shrink: 0;
+}
+.hairSalon-main .main-hairSalon-banner .hairSalon-banner-content ul li img {
+    margin-right: 10px;
+}
+.lhairSalon-image{
+  max-width: 100%;
+  max-height: 100%;
+}
+.colr-lightslategray{
+  border-color: lightslategray;
+}
+
+.black-btn{
+  background:#252424;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+.red-btn{
+    background:#e2dfdf;
+    color: #ff563a;
+    border: none;
+    cursor: pointer;
+}
+
+.join-btn
+{
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px;
+}
+.empty-data{
+  min-height: 250px;
+}
+.hairSalon-box-content{
+  margin: 10px 0px;
+  .hair-salon-name{
+    color: #000;
+    font-family: "josefin_sanslight";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  .hair-salon-price{
+    color: #000;
+    font-family: "josefin_sanslight";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    float: right;
+    margin-right: 10px;
+  }
+  .hair-salon-view-container-span{
+    color: #000;
+    font-family: "josefin_sanslight";
+    font-style: normal;
+    line-height: normal;
+    float: right;
+    margin-right: 0px;
+  }
+}
+.hair-salon-view-btns-container{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  .hair-salon-view-btn{
+    color: #000;
+    font-family: "josefin_sanslight";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    cursor: pointer;
+  }
+  .hair-salon-view-next-arrow{
+    width: 19.824px;
+    height: 11.75px;
+    color: #000;
+    cursor: pointer;
+  }
+  .anticon {
+    margin-right: 6px;
+    font-size: 18px;
+  }
+}
+
+.hair-slaon-back-container{
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+a.back-button {
+  color: #fff;
+  font-size: 16px;
+  margin-top: 40px;
+  display: inline-block;
+  img {height: 12px;}
+}

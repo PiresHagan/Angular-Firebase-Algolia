@@ -39,6 +39,7 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { SanitizedHtmlPipe } from "./pipes/sanitized-html.pipe";
 import { ServiceContactFormComponent } from './component/service-contact-form/service-contact-form.component';
 import { PoliticianContactFormComponent } from './component/politician-contact-form/politician-contact-form.component';
+import { HairSalonLeadFormComponent} from './component/hair-salon-lead-form/hair-salon-lead-form.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -70,7 +71,8 @@ export function createTranslateLoader(http: HttpClient) {
     StoreComponent,
     ProductStarRatingComponent,
     ServiceContactFormComponent,
-    PoliticianContactFormComponent
+    PoliticianContactFormComponent,
+    HairSalonLeadFormComponent
   ],
   imports: [
     ShareButtonsModule,
@@ -116,6 +118,7 @@ export function createTranslateLoader(http: HttpClient) {
     ProductStarRatingComponent,
     ServiceContactFormComponent,
     PoliticianContactFormComponent,
+    HairSalonLeadFormComponent
   ],
   providers: [
     ThemeConstantService,

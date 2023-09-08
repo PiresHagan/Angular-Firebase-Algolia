@@ -6,6 +6,10 @@ import { PoliticianService } from 'src/app/shared/services/politician.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { differenceInDays, differenceInHours, differenceInMinutes, differenceInSeconds } from 'date-fns';
 import { GetInTouchService } from 'src/app/shared/services/getInTouch.service';
+import { TranslateService } from '@ngx-translate/core';
+import { LeadType } from 'src/app/shared/interfaces/lead.type';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-politician-contact-form',
@@ -15,12 +19,13 @@ import { GetInTouchService } from 'src/app/shared/services/getInTouch.service';
 export class PoliticianContactFormComponent implements OnInit {
 
   @Input() politicianId: string;
+  @Input() meeting_settings: any;
 
   addLeadForm: FormGroup;
   addLeadMeetingForm: FormGroup;
   addLeadSuccess: boolean = false;
   isFormSaving: boolean = false;
-
+  politicianLeadsMeetingsdata:any[];
   recaptchaElement;
   isCaptchaElementReady: boolean = false;
   isCapchaScriptLoaded: boolean = false;
@@ -35,6 +40,8 @@ export class PoliticianContactFormComponent implements OnInit {
   sessionObject:any=null;
   today =  new Date();
   defaultStartTimeOpenValue = new Date();
+  lmSession: any;
+  timeZoneValue;
   disabledHours(): number[]{
     var hours = [];
     let currentDate =  new Date();
@@ -77,12 +84,14 @@ export class PoliticianContactFormComponent implements OnInit {
     private modalService: NzModalService,
     private authService: AuthService,
     private fb: FormBuilder,
+    private clipboard: Clipboard,
+    public translate: TranslateService,
     private politicianService: PoliticianService,
     private getInTouchService: GetInTouchService
   ) { }
 
   ngOnInit(): void {
-
+    this.lmSession=null;
     this.addLeadForm = this.fb.group({
       first_name: [null, [Validators.required]],
       last_name: [null, [Validators.required]],
@@ -100,10 +109,19 @@ export class PoliticianContactFormComponent implements OnInit {
       end_time: null
     };
     this.addRecaptchaScript();
-
+    this.getInTouchService.getPoliticianContactSessions(this.politicianId, null, null).subscribe((clmdata) => {
+     if(clmdata && clmdata.sessionList && clmdata.sessionList.length>0){
+       this.politicianLeadsMeetingsdata = clmdata.sessionList;
+     }
+   }, err => {
+     this.isMeetingFormSaving = false;
+   });
+   const tempDate = new Date().toString();
+   this.timeZoneValue = new Date().toString().slice(tempDate.lastIndexOf('GMT'), tempDate.length - 1);
   }
 
   submitForm() {
+    this.isFormSaving = true;
     for (const i in this.addLeadForm.controls) {
       this.addLeadForm.controls[i].markAsDirty();
       this.addLeadForm.controls[i].updateValueAndValidity();
@@ -111,13 +129,10 @@ export class PoliticianContactFormComponent implements OnInit {
 
     if (this.findInvalidControls().length == 0) {
       try {
-        this.isFormSaving = true;
-        this.invalidCaptcha = false;
-        this.saveDataOnServer(this.addLeadForm.value);
         if (this.captchaToken) {
-          this.isFormSaving = true;
           this.invalidCaptcha = false;
-          this.authService.validateCaptcha(this.captchaToken).subscribe((success) => {
+          this.authService.validateCaptcha(this.captchaToken).pipe(take(1)).subscribe((success) => {
+            window['grecaptcha'].reset(this.capchaObject);
             this.saveDataOnServer(this.addLeadForm.value);
           }, (error) => {
             window['grecaptcha'].reset(this.capchaObject);
@@ -125,6 +140,7 @@ export class PoliticianContactFormComponent implements OnInit {
             this.invalidCaptcha = true;
           });
         } else {
+          this.isFormSaving = false;
           this.invalidCaptcha = true;
         }
       } catch (err) {
@@ -137,18 +153,36 @@ export class PoliticianContactFormComponent implements OnInit {
   }
 
   saveDataOnServer(formData) {
-    this.politicianService.createContact(this.politicianId, formData).then(data => {
-      this.addLeadForm.reset();
-      this.addLeadSuccess = true;
+    this.lmSession=null;
+    let contactFoundData:LeadType = null;
+    this.getInTouchService.getPoliticianContacts(this.politicianId).pipe(take(1)).subscribe(res=>{
+      if(res && res.contactsList && res.contactsList.length>0){
+        if(!contactFoundData)
+          contactFoundData = res.contactsList.find(contact=> contact.email == formData.email);
+      }
+      else{
+        contactFoundData = null;
+      }
+      if(contactFoundData){
+        this.addLeadSuccess = true;
+        this.isFormSaving = false;
+        this.showModal(formData);
+      }
+      else{
+        this.politicianService.createContact(this.politicianId, formData).then(data => {
+          this.addLeadSuccess = true;
+          this.isFormSaving = false;
+          this.showModal(formData);
+        }
+        ).catch((error) => {
+          this.addLeadSuccess = false;
+          this.isFormSaving = false;
+        });
+      }
+    }), error =>{
+      this.addLeadSuccess = false;
       this.isFormSaving = false;
-      this.showModal(formData);
-      setTimeout(() => {
-        this.addLeadSuccess = false;
-      }, 5000);
-      window['grecaptcha'].reset(this.capchaObject);
-    }).catch((error) => {
-      this.isFormSaving = false;
-    });
+    };
   }
 
   addRecaptchaScript() {
@@ -175,17 +209,21 @@ export class PoliticianContactFormComponent implements OnInit {
   renderReCaptcha() {
     if (!this.recaptchaElement || this.capchaObject)
       return;
+    try{
+      this.capchaObject = window['grecaptcha']?.render(this.recaptchaElement.nativeElement, {
+        'sitekey': environment.captchaKey,
+        'callback': (response) => {
+          this.invalidCaptcha = false;
+          this.captchaToken = response;
+        },
+        'expired-callback': () => {
+          this.captchaToken = '';
+        }
+      });
+    }
+    catch(err){
 
-    this.capchaObject = window['grecaptcha'].render(this.recaptchaElement.nativeElement, {
-      'sitekey': environment.captchaKey,
-      'callback': (response) => {
-        this.invalidCaptcha = false;
-        this.captchaToken = response;
-      },
-      'expired-callback': () => {
-        this.captchaToken = '';
-      }
-    });
+    }
   }
 
   public findInvalidControls() {
@@ -223,8 +261,6 @@ export class PoliticianContactFormComponent implements OnInit {
       currentDate.setMilliseconds(0);
       this.sessionObject.date=currentDate;
       this.addLeadMeetingForm.controls['date'].setValue(currentDate);
-      this.sessionObject.start_time=currentDate;
-      this.addLeadMeetingForm.controls['start_time'].setValue(currentDate);
     }
     else{
       let hh = result.getHours();
@@ -248,8 +284,238 @@ export class PoliticianContactFormComponent implements OnInit {
       result.setSeconds(0);
       result.setMilliseconds(0);
       this.sessionObject.date=result;
-      this.sessionObject.start_time=result;
-      this.addLeadMeetingForm.controls['start_time'].setValue(result);
+    }
+    this.disabledHours = () =>{
+      var hours = [];
+      const lsDate = new Date(this.sessionObject.date);
+      let dayOflsDate = lsDate.getDay();
+      let currentDate =  new Date();
+      let hh=currentDate.getHours();
+      if(currentDate.setHours(0,0,0,0) == lsDate.setHours(0,0,0,0)){
+        for(var i =0; i < hh; i++){
+            hours.push(i);
+        }
+      }
+      else{
+        hh =0;
+      }
+      if(dayOflsDate==0){
+        if(this.meeting_settings.day0_startTime == null){
+          for(var i=hh; i<24; i++){
+            if(!hours.includes(i)){
+              hours.push(i);
+            }
+          }
+        }
+        else{
+          let sd1= new Date (this.meeting_settings.day0_startTime);
+          let ed1= new Date (this.meeting_settings.day0_endTime);
+          let sh1 = sd1.getHours();
+          let sm1 = sd1.getMinutes();
+          let eh1 = ed1.getHours();
+          let em1 = ed1.getMinutes();
+          for(var i=hh; i<24; i++){
+            if((i>=sh1 && i<=eh1 && em1 != 0) || (i>=sh1 && i<eh1 && em1 == 0)){
+            }
+            else{
+              if(!hours.includes(i)){
+                hours.push(i);
+              }
+            }
+          }
+        }
+      }
+      else if(dayOflsDate==1){
+        if(this.meeting_settings.day1_startTime == null){
+          for(var i=hh; i<24; i++){
+            if(!hours.includes(i)){
+              hours.push(i);
+            }
+          }
+        }
+        else{
+          let sd1= new Date (this.meeting_settings.day1_startTime);
+          let ed1= new Date (this.meeting_settings.day1_endTime);
+          let sh1 = sd1.getHours();
+          let sm1 = sd1.getMinutes();
+          let eh1 = ed1.getHours();
+          let em1 = ed1.getMinutes();
+          for(var i=hh; i<24; i++){
+            if((i>=sh1 && i<=eh1 && em1 != 0) || (i>=sh1 && i<eh1 && em1 == 0)){
+            }
+            else{
+              if(!hours.includes(i)){
+                hours.push(i);
+              }
+            }
+          }
+        }
+      }
+      else if(dayOflsDate==2){
+        if(this.meeting_settings.day2_startTime == null){
+          for(var i=hh; i<24; i++){
+            if(!hours.includes(i)){
+              hours.push(i);
+            }
+          }
+        }
+        else{
+          let sd1= new Date (this.meeting_settings.day2_startTime);
+          let ed1= new Date (this.meeting_settings.day2_endTime);
+          let sh1 = sd1.getHours();
+          let sm1 = sd1.getMinutes();
+          let eh1 = ed1.getHours();
+          let em1 = ed1.getMinutes();
+          for(var i=hh; i<24; i++){
+            if((i>=sh1 && i<=eh1 && em1 != 0) || (i>=sh1 && i<eh1 && em1 == 0)){
+            }
+            else{
+              if(!hours.includes(i)){
+                hours.push(i);
+              }
+            }
+          }
+        }
+      }
+      else if(dayOflsDate==3){
+        if(this.meeting_settings.day3_startTime == null){
+          for(var i=hh; i<24; i++){
+            if(!hours.includes(i)){
+              hours.push(i);
+            }
+          }
+        }
+        else{
+          let sd1= new Date (this.meeting_settings.day3_startTime);
+          let ed1= new Date (this.meeting_settings.day3_endTime);
+          let sh1 = sd1.getHours();
+          let sm1 = sd1.getMinutes();
+          let eh1 = ed1.getHours();
+          let em1 = ed1.getMinutes();
+          for(var i=hh; i<24; i++){
+            if((i>=sh1 && i<=eh1 && em1 != 0) || (i>=sh1 && i<eh1 && em1 == 0)){
+            }
+            else{
+              if(!hours.includes(i)){
+                hours.push(i);
+              }
+            }
+          }
+        }
+      }
+      else if(dayOflsDate==4){
+        if(this.meeting_settings.day4_startTime == null){
+          for(var i=hh; i<24; i++){
+            if(!hours.includes(i)){
+              hours.push(i);
+            }
+          }
+        }
+        else{
+          let sd1= new Date (this.meeting_settings.day4_startTime);
+          let ed1= new Date (this.meeting_settings.day4_endTime);
+          let sh1 = sd1.getHours();
+          let sm1 = sd1.getMinutes();
+          let eh1 = ed1.getHours();
+          let em1 = ed1.getMinutes();
+          for(var i=hh; i<24; i++){
+            if((i>=sh1 && i<=eh1 && em1 != 0) || (i>=sh1 && i<eh1 && em1 == 0)){
+            }
+            else{
+              if(!hours.includes(i)){
+                hours.push(i);
+              }
+            }
+          }
+        }
+      }
+      else if(dayOflsDate==5){
+        if(this.meeting_settings.day5_startTime == null){
+          for(var i=hh; i<24; i++){
+            if(!hours.includes(i)){
+              hours.push(i);
+            }
+          }
+        }
+        else{
+          let sd1= new Date (this.meeting_settings.day5_startTime);
+          let ed1= new Date (this.meeting_settings.day5_endTime);
+          let sh1 = sd1.getHours();
+          let sm1 = sd1.getMinutes();
+          let eh1 = ed1.getHours();
+          let em1 = ed1.getMinutes();
+          for(var i=hh; i<24; i++){
+            if((i>=sh1 && i<=eh1 && em1 != 0) || (i>=sh1 && i<eh1 && em1 == 0)){
+            }
+            else{
+              if(!hours.includes(i)){
+                hours.push(i);
+              }
+            }
+          }
+        }
+      }
+      else if(dayOflsDate==6){
+        if(this.meeting_settings.day6_startTime == null){
+          for(var i=hh; i<24; i++){
+            if(!hours.includes(i)){
+              hours.push(i);
+            }
+          }
+        }
+        else{
+          let sd1= new Date (this.meeting_settings.day6_startTime);
+          let ed1= new Date (this.meeting_settings.day6_endTime);
+          let sh1 = sd1.getHours();
+          let sm1 = sd1.getMinutes();
+          let eh1 = ed1.getHours();
+          let em1 = ed1.getMinutes();
+          for(var i=hh; i<24; i++){
+            if((i>=sh1 && i<=eh1 && em1 != 0) || (i>=sh1 && i<eh1 && em1 == 0)){
+            }
+            else{
+              if(!hours.includes(i)){
+                hours.push(i);
+              }
+            }
+          }
+        }
+      }
+      return hours;
+    }
+
+    this.disabledMinutes = (hour) =>{
+    var minutes= [];
+    let lsDate = new Date(this.sessionObject.date);
+    let currentDate =  new Date();
+    let hh=currentDate.getHours();
+    let mm = currentDate.getMinutes();
+    if(currentDate.setHours(0,0,0,0) === lsDate.setHours(0,0,0,0)){
+      if(hh==hour)
+      {
+        for(var i =0; i < mm; i++){
+          minutes.push(i);
+        }
+      }
+    }
+    const lsDate_ = new Date(this.sessionObject.date);
+      if(this.politicianLeadsMeetingsdata && this.politicianLeadsMeetingsdata.length>0){
+        for(var j=0; j<this.politicianLeadsMeetingsdata.length; j++){
+          let c = this.politicianLeadsMeetingsdata[j];
+          const mDate = new Date(c.date);
+          const lsDate_1 = new Date(lsDate_);
+          if(mDate.setHours(0,0,0,0) == lsDate_1.setHours(0,0,0,0)){
+            let s1= new Date (c.start_time);
+            let e1= new Date (c.end_time);
+           if(s1.getHours() == hour){
+            for(var i = s1.getMinutes(); i <= e1.getMinutes(); i++){
+              minutes.push(i);
+            }
+           }
+          }
+        }
+      }
+    return minutes;
     }
   }
 
@@ -311,7 +577,7 @@ export class PoliticianContactFormComponent implements OnInit {
   }
 
   checkStartDate(result:Date):boolean{
-    let start_time_value:Date = result;
+    let start_time_value:Date = new Date(result);
       let hh=start_time_value.getHours();
       let mm = start_time_value.getMinutes();
       if(hh>23 || mm>59 || start_time_value == null || this.disabledHours().find(h=>h==hh) || this.disabledMinutes(hh).find(m=>m==mm))
@@ -325,27 +591,79 @@ export class PoliticianContactFormComponent implements OnInit {
       return true;
   }
   showModal(data:any): void {
-    this.sessionObject.lead_email=data.email;
-    this.sessionObject.lead_first_name=data.first_name;
-    this.sessionObject.lead_last_name=data.last_name;
-    this.sessionObject.email=data.email;
-    this.showCreateMeetingDialog=true;
-    this.isVisible = true;
-    this.addLeadMeetingFormInit(data);
+    this.sessionObject = {
+      lead_email: data.email,
+      lead_first_name: data.first_name,
+      lead_last_name: data.last_name,
+      email:data.email,
+      date: null,
+      duration: null,
+      start_time: null,
+      end_time: null
+    };
+    this.lmSession=null;
+    this.getInTouchService.getPoliticianContactSessions(this.politicianId, null, data.email).pipe(take(1)).subscribe((clmdata) => {
+      if(clmdata && clmdata.sessionList && clmdata.sessionList.length>0){
+        this.lmSession = clmdata.sessionList[0];
+        this.lmSession.link = 'video-conference/' + this.lmSession.id;
+        this.showCreateMeetingDialog=true;
+        this.isVisible = true;
+      }
+      else{
+        this.addLeadMeetingFormInit(data);
+        this.showCreateMeetingDialog=true;
+        this.isVisible = true;
+      }
+    }, err => {
+      this.showCreateMeetingDialog=true;
+      this.isVisible = true;
+      this.addLeadMeetingFormInit(data);
+    });
+  }
+
+  showError(errorMessage) {
+    const msg = this.translate.instant(errorMessage);
+    this.modalService.error({
+      nzTitle: "<i>" + msg + "</i>",
+    });
+  }
+  showWarningMessage(message) {
+    let $message = this.translate.instant(message);
+    this.modalService.warning({
+      nzTitle: $message,
+    });
   }
   handleOk(): void {
     this.isOkLoading = true;
+    this.isMeetingFormSaving = true;
     this.submitAddLeadMeetingForm();
-    setTimeout(() => {
-      this.isVisible = false;
-      this.isOkLoading = false;
-      this.showCreateMeetingDialog=false;
-    }, 2000);
   }
 
   handleCancel(): void {
     this.isVisible = false;
+    this.isOkLoading = false;
     this.showCreateMeetingDialog=false;
+    this.isMeetingFormSaving = false;
+    this.lmSession=null;
+    this.sessionObject = {
+      lead_email: null,
+      lead_first_name: null,
+      lead_last_name: null,
+      email:null,
+      date: null,
+      duration: null,
+      start_time: null,
+      end_time: null
+    };
+    this.addLeadForm.reset();
+    this.addLeadForm = this.fb.group({
+      first_name: [null, [Validators.required]],
+      last_name: [null, [Validators.required]],
+      email: [null, [Validators.email, Validators.required]],
+      mobile_number: [null, [Validators.required]]
+    });
+    if(this.addLeadMeetingForm)
+      this.addLeadMeetingForm.reset();
   }
 
   addLeadMeetingFormInit(data:any): void {
@@ -358,6 +676,20 @@ export class PoliticianContactFormComponent implements OnInit {
       end_time: [this.sessionObject.end_time, [Validators.required]],
       duration: [this.sessionObject.duration, [Validators.required]]
     });
+  }
+
+  copyToClipboardWithParameter(elem: HTMLElement): void {
+    let text: string='';
+    if (elem.children){
+      for (let j=0; j<elem.children.length; j++)
+      {
+        text += elem.children[j].textContent + '\n' || '';
+      }
+    }
+    else{
+      text = elem.textContent || '';
+    }
+    const successful = this.clipboard.copy(text);
   }
 
   public findInvalidLeadMeetingControls() {
@@ -390,13 +722,37 @@ export class PoliticianContactFormComponent implements OnInit {
     }
   }
 
-  saveMeetingDataOnServer(data) {
-    this.getInTouchService.addSessionForPoliticianLead(this.politicianId, data).then(data => {
+  saveMeetingDataOnServer(meetingData) {
+    if(!this.isMeetingFormSaving) return;
+    meetingData.name = this.translate.instant('PoliticianLeadMeetingName') + ' ' + meetingData.lead_first_name;
+    meetingData.link = location.origin + '/video-conference';
+    meetingData.description = meetingData.lead_first_name + ' ' + this.translate.instant('PoliticianLeadMeetingDescription');
+    this.getInTouchService.addSessionForPoliticianLead(this.politicianId, meetingData).then(data => {
       this.addLeadMeetingSuccess = true;
-      this.isMeetingFormSaving = false;
-      setTimeout(() => {
-        this.addLeadMeetingSuccess = false;
-      }, 5000);
+      this.addLeadMeetingSuccess = false;
+      this.sessionObject = {
+        lead_email: null,
+        lead_first_name: null,
+        lead_last_name: null,
+        email:null,
+        date: null,
+        duration: null,
+        start_time: null,
+        end_time: null
+      };
+      this.getInTouchService.getPoliticianContactSessions(this.politicianId, null, meetingData.email).pipe(take(1)).subscribe((clmdata) => {
+        if(clmdata && clmdata.sessionList && clmdata.sessionList.length>0){
+          this.lmSession = clmdata.sessionList[0];
+          if(!this.lmSession.link)
+          if(!this.lmSession.link)
+            this.lmSession.link = 'video-conference/' + this.lmSession.id;
+          this.showCreateMeetingDialog=true;
+          this.isVisible = true;
+        }
+        this.isMeetingFormSaving = false;
+      }, err => {
+        this.isMeetingFormSaving = false;
+      });
     }).catch((error) => {
       this.isMeetingFormSaving = false;
     });

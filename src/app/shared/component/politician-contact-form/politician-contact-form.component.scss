@@ -90,3 +90,24 @@ nz-alert {
   font-family: "josefin_sanssemibold";
   font-size: 16px;
 }
+
+.title{
+  font-weight: 500;
+  padding: 2px;
+}
+.info{
+  font-weight: 600;
+  margin: 5px;
+  padding: 2px;
+}
+.invitation-info{
+  line-height: 30px;
+  font-weight: 500;
+  margin: 1px 5px 1px 10px;
+  padding: 0px;
+}
+.invitation-info-conatiner{
+  border: 2px #e9d9d9 solid;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}

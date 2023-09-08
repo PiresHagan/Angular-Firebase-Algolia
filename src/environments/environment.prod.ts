@@ -16,6 +16,7 @@ export const environment = {
       textArticles: 'prod_text_articles_',
       audioArticles: 'prod_audio_article_',
       videoArticles: 'prod_video_article_',
+      hair_salon:'prod_hair_salon_',
     },
   },
   facebook: {

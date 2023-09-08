@@ -23,6 +23,7 @@ export const environment = {
       textArticles: 'dev_text_articles_',
       audioArticles: 'dev_audio_article_',
       videoArticles: 'dev_video_article_',
+      hair_salon:'dev_hair_salon_',
     },
   },
   facebook: {
