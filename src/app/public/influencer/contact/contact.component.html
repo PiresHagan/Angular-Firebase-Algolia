@@ -28,7 +28,7 @@
           </td>
           <td>
             <div *ngIf="data.status=='accept'">
-              <nz-rate [ngModel]="data.rating?data.rating:0" [nzTooltips]="tooltips" (ngModelChange)="ratingClick(data.parentId,data.id,$event)" [nzDisabled]="data.userId"></nz-rate>
+              <nz-rate [ngModel]="data.rating?data.rating:0" [nzTooltips]="tooltips" (ngModelChange)="ratingClick(data.parentId,data.id,$event)" [nzDisabled]="data.userId || disabled"></nz-rate>
 
             </div>
           </td>

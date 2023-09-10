@@ -13,7 +13,8 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class InfluencerContactComponent implements OnInit {
   isloadingAccept = false;
-  isloadingReject= false;
+  isloadingReject = false;
+  disabled = false;
   servicesLoading: boolean = true;
   contact: any;
   isVisible: boolean = false;
@@ -36,7 +37,7 @@ export class InfluencerContactComponent implements OnInit {
   endTime: Date | null = null
   deleteTimeLoading: boolean = false;
   defaultOpenValue = new Date(0, 0, 0, 0, 0, 0);
-  starRating = 0; 
+  starRating = 0;
   tooltips = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
   value = 0;
 
@@ -59,13 +60,13 @@ export class InfluencerContactComponent implements OnInit {
     await this.sleep(5000);
     this.getUser()
 
-    
+
   }
-   sleep = async (milliseconds) => {
+  sleep = async (milliseconds) => {
     await new Promise(resolve => {
-        return setTimeout(resolve, milliseconds)
+      return setTimeout(resolve, milliseconds)
     });
-};
+  };
 
   ngAfterViewChecked() {
     this.cdr.detectChanges();
@@ -88,8 +89,8 @@ export class InfluencerContactComponent implements OnInit {
     });
   }
 
-  getUser () {
-    this.authService.getLoggedInUserDetails().then( (user:any) => {
+  getUser() {
+    this.authService.getLoggedInUserDetails().then((user: any) => {
 
       this.userDetails = user
       this.getContact()
@@ -97,7 +98,7 @@ export class InfluencerContactComponent implements OnInit {
   }
   getContact(): void {
     this.servicesLoading = true;
-    this.influencerService.getcontactbyUser(this.userDetails.slug).subscribe( (res: any )=>{
+    this.influencerService.getcontactbyUser(this.userDetails.slug).subscribe((res: any) => {
       this.servicesLoading = false;
       this.contact = res.serviceList;
     });
@@ -112,12 +113,15 @@ export class InfluencerContactComponent implements OnInit {
     });
   }
 
-  ratingClick(influencerId,contactId,e){
-    const data={
-      userId : this.userDetails.id,
+  ratingClick(influencerId, contactId, e) {
+    this.disabled = true
+    const data = {
+      userId: this.userDetails.id,
       rating: e
     }
-    this.influencerService.rateInfluencer(influencerId,contactId,data).then();
+    this.influencerService.rateInfluencer(influencerId, contactId, data).then(() => {
+      this.disabled = false;
+    });
   }
 
 

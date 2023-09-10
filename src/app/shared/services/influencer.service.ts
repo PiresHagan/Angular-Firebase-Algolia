@@ -56,24 +56,24 @@ export class InfluencerService {
   }
   getcontactbyUser(user) {
     let dataQuery = this.db.collectionGroup(`${this.contactCollection}`, ref => ref
-      .where('user.slug','==',user)
+      .where('user.slug', '==', user)
       .orderBy('created_at', 'desc'));
-      return dataQuery.snapshotChanges().pipe(map(actions => {
-        return {
-          serviceList: actions.map(a => {
-            const parentId = a.payload.doc.ref.parent.parent?.id;
-            const data: any = a.payload.doc.data();
-            const id = a.payload.doc.id;
-            return { id, ...data ,parentId};
-          }),
-        }
-      })
-      );
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        serviceList: actions.map(a => {
+          const parentId = a.payload.doc.ref.parent.parent?.id;
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data, parentId };
+        }),
+      }
+    })
+    );
 
-    
- 
+
+
   }
-  getInfluencerByCat( catigory = null, sercher = null,limit: number = 10, navigation: string = "first", lastVisible = null) {
+  getInfluencerByCat(catigory = null, sercher = null, limit: number = 10, navigation: string = "first", lastVisible = null) {
     if (!limit) {
       limit = 10;
     }
@@ -105,35 +105,35 @@ export class InfluencerService {
       })
       );
     }
-    else{
+    else {
       let dataQuery = this.db.collection<Infleuncer[]>(`${this.infleuncerCollection}`, ref => ref
-      .where("category.slug", "==", catigory)
-      .where("title" , "==" , sercher)
-      .orderBy('created_at', 'desc')
-      .limit(limit)
-    )
-    switch (navigation) {
-      case 'next':
-        dataQuery = this.db.collection<Infleuncer[]>(`${this.infleuncerCollection}`, ref => ref
-          .where("category.slug", "==", catigory)
-          .where("title" , "==" , sercher)
-          .orderBy('created_at', 'desc')
-          .limit(limit)
-          .startAfter(lastVisible))
-        break;
-    }
-    return dataQuery.snapshotChanges().pipe(map(actions => {
-      return {
-        serviceList: actions.map(a => {
-
-          const data: any = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        }),
-        lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+        .where("category.slug", "==", catigory)
+        .where("title", "==", sercher)
+        .orderBy('created_at', 'desc')
+        .limit(limit)
+      )
+      switch (navigation) {
+        case 'next':
+          dataQuery = this.db.collection<Infleuncer[]>(`${this.infleuncerCollection}`, ref => ref
+            .where("category.slug", "==", catigory)
+            .where("title", "==", sercher)
+            .orderBy('created_at', 'desc')
+            .limit(limit)
+            .startAfter(lastVisible))
+          break;
       }
-    })
-    );
+      return dataQuery.snapshotChanges().pipe(map(actions => {
+        return {
+          serviceList: actions.map(a => {
+
+            const data: any = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          }),
+          lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
+        }
+      })
+      );
     }
   }
 
@@ -171,7 +171,7 @@ export class InfluencerService {
 
   submitURL(infulencerId, data) {
     return new Promise((resolve, reject) => {
-      this.http.post(environment.baseAPIDomain + '/api/v1/influencer/submiturl/' + infulencerId, data).subscribe((response: any) => {
+      this.http.post(environment.baseAPIDomain + '/api/v1/payment/submiturl', data).subscribe((response: any) => {
         resolve(response);
 
       }, (error) => {
@@ -296,7 +296,7 @@ export class InfluencerService {
     })
   }
 
-  rateInfluencer(infulencerId,contactId, data){
+  rateInfluencer(infulencerId, contactId, data) {
     return new Promise((resolve, reject) => {
       this.http.post(environment.baseAPIDomain + '/api/v1/influencer/rateInfluencer/' + infulencerId + "/" + contactId, data).subscribe((response: any) => {
         resolve(response);
