@@ -1,0 +1,668 @@
+.page-title {
+  color: #000;
+  padding: 30px 0px 10px 0px;
+  font-weight: bold;
+  font-size: 28px;
+  width: 100%;
+  text-align: center;
+  font-family: "josefin_sanssemibold";
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.subHeadingJobs {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 14px;
+  letter-spacing: 0em;
+  text-align: center;
+  background: #C8ECE0;
+  padding: 8px 13px;
+  border-radius: 20px;
+}
+
+.mainHeadingJobs {
+  font-size: 54px;
+  font-weight: 700;
+  line-height: 74px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+
+
+.jobsButtonBox{
+  margin-top: 50px;
+  text-align: center;
+}
+
+.loginButtonJob {
+  background: #ff4020;
+  color: #fff;
+  display: inline-block;
+  width: 120px;
+  height: 40px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: center;
+  padding-top: 10px;
+  margin-right: 20px;
+  &:hover {
+    background: #ff563a;
+    color: #fff;
+  }
+}
+
+
+
+.signupButtonJob {
+  background: #000;
+  color: #fff;
+  display: inline-block;
+  width: 120px;
+  height: 40px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: center;
+  padding-top: 10px;
+  &:hover {
+    background: #201f1f;
+    color: #fff;
+  }
+}
+
+.jobsSearchSection{
+  padding-bottom: 200px;
+  overflow-x: hidden;
+}
+
+
+.heroBannerImage {
+  margin-left: 50px;
+  display: block;
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+
+::ng-deep .jobsBox {
+  background: #fff;
+  text-align: center;
+  padding: 15px;
+  box-shadow: 0px 4px 34px 0px #0000000D;
+
+  h5 {
+    margin-top: 20px;
+    img{
+      max-width: 20px;
+    }
+  }
+}
+
+
+
+.searchBar {
+  position: relative;
+}
+
+.searchBar input {
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  border: 1px solid #CACACA;
+  margin-bottom: 20px;
+}
+
+.searchBar img {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+
+
+
+::ng-deep .ais-SearchBox-form {
+	display: block;
+	position: relative;
+  }
+
+  ::ng-deep .ais-SearchBox-submit {
+	padding: 0;
+	overflow: visible;
+	font: inherit;
+	line-height: normal;
+	color: inherit;
+	background: none;
+	border: 0;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	margin: 0px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	position: absolute;
+	z-index: 1;
+	width: 20px;
+	height: 20px;
+	top: 50%;
+	right: 0.3rem;
+	transform: translateY(-50%);
+  }
+  
+  ::ng-deep .ais-SearchBox-form {
+	::ng-deep .ais-SearchBox-input {
+	  border: 1px solid #cacaca;
+	  width: 100%;
+	  border-radius: 0;
+    padding: 7px 10px 4px 20px;
+	  outline: none;
+	  font-family: "josefin_sanslight";
+	  font-size: 18px;
+	  box-sizing: border-box;
+  
+	  &::-webkit-input-placeholder {
+		color: #acaaaa;
+	  }
+  
+	  &:-ms-input-placeholder {
+		color: #acaaaa;
+	  }
+  
+	  &::placeholder {
+		color: #acaaaa;
+	  }
+	}
+  
+	.ais-SearchBox-submit {
+	  max-width: 100%;
+	  position: absolute;
+	  top: 20px;
+    right: 10px;
+	  left: auto;
+	  outline: none;
+  
+	  .ais-SearchBox-submitIcon {
+		width: 20px;
+		height: 20px;
+  
+		path {
+		  fill: #cacaca;
+		}
+	  }
+	}
+  
+	.ais-SearchBox-reset {
+	  right: 50px;
+	  outline: none;
+	  position: absolute;
+	  top: 21px;
+	  border: 0px;
+	  background: transparent;
+  
+	  .ais-SearchBox-resetIcon {
+		width: 14px;
+		height: 14px;
+  
+		path {
+		  fill: #cacaca;
+		}
+	  }
+	}
+  }
+
+
+  .sr-article-sec {
+    padding-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+
+    .sr-article-sec-item {
+      width: 25%;
+      padding: 0px 15px;
+      box-sizing: border-box;
+      margin-bottom: 35px;
+      cursor: pointer;
+
+      .sr-article-img {
+        position: relative;
+        display: flex;
+        min-height: 220px;
+
+        &:before {
+          content: '';
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          background: rgba(0, 0, 0, 0.5);
+        }
+
+        >img {
+          width: 100%;
+          object-fit: cover;
+          height: 220px;
+        }
+
+        .article-image-icon {
+          width: 50px;
+          height: 50px;
+          display: flex;
+          border-radius: 100%;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 1;
+
+          i {
+            margin: auto;
+            font-size: 24px;
+            color: #fff;
+          }
+        }
+
+        .cloudinary-img {
+          ::ng-deep cl-image {
+            img {
+              width: 100%;
+            }
+          }
+        }
+
+      }
+
+      .is-read-more {
+        background: transparent;
+        border: 0px;
+        display: flex;
+        align-items: center;
+        font-family: "josefin_sansregular";
+        outline: none;
+        position: relative;
+        cursor: pointer;
+        padding: 0px;
+
+        &:before {
+          content: '';
+          position: absolute;
+          bottom: 0px;
+          left: 0px;
+          width: 100%;
+          height: 1px;
+          background: #000;
+        }
+
+        img {
+          margin-left: 10px;
+        }
+      }
+
+      .sr-article-detail {
+        display: flex;
+        align-items: center;
+        width: calc(100% - 30px);
+        margin: -30px auto 0px auto;
+        padding: 10px;
+        box-sizing: border-box;
+        background: #fff;
+        border: 1px solid #f1f1f1;
+        z-index: 3;
+        position: relative;
+        box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
+
+        .sr-article-txt {
+          font-family: 'josefin_sansregular';
+          font-size: 13px;
+          padding-right: 15px;
+          width: calc(100% - 45px);
+
+          h2 {
+            font-family: 'josefin_sansregular';
+            font-size: 13px;
+            margin: 0px;
+            line-height: 19px;
+            word-break: break-all;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            height: 37px;
+            overflow: hidden;
+            word-break: break-word;
+          }
+
+          .category-article-readmore {
+            display: flex;
+            align-items: center;
+            padding-top: 10px;
+
+            .is-read-more {
+              color: #000;
+              font-size: 13px;
+
+              &:before {
+                background: #000;
+              }
+            }
+
+            .article-icon-main {
+              flex: 1;
+              justify-content: flex-end;
+              display: flex;
+
+              .article-icon {
+                width: 35px;
+                height: 35px;
+                background: #fff;
+                display: flex;
+                border-radius: 100%;
+
+                i {
+                  color: #000;
+                  font-size: 18px;
+                  margin: auto;
+                }
+              }
+            }
+          }
+        }
+
+        .sr-avtar {
+          width: 50px;
+          height: 50px;
+          border-radius: 100%;
+
+          img {
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            object-fit: cover;
+          }
+
+          &.bg-black {
+            background: #000;
+            display: flex;
+
+            img {
+              max-width: 28px;
+              margin: auto;
+              width: auto;
+              height: auto;
+              object-fit: unset;
+              border-radius: unset;
+            }
+          }
+        }
+
+      }
+
+    }
+
+    .sr-article-sec-item.ads-main {
+      width: 50%;
+      background: #f6f7fa;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      font-family: 'josefin_sansregular';
+      font-size: 18px;
+      float: left;
+
+      .ads {
+        margin: auto;
+      }
+    }
+
+  }
+
+
+
+  ::ng-deep .autocomplete-box {
+    .ais-Hits {
+      background: #fff;
+      border: 1px solid #cacaca;
+      position: relative;
+      z-index: 4;
+      padding: 20px;
+      border-top: 0px;
+      max-height: 300px;
+      overflow-y: auto;
+  
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+  
+      &::-webkit-scrollbar-track {
+        background: #eee;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 10px;
+      }
+  
+      ul {
+        padding: 0px;
+        margin: 0px;
+  
+        >li {
+          list-style: none;
+  
+          a {
+            color: #000;
+            font-size: 14px;
+            padding: 4px 5px;
+            display: block;
+            &.highlightResultBlack{
+              color: #000;
+            }
+            &.highlightResult{
+              color: #0079d0;
+            }
+            &:hover {
+              background: #eee;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  ::ng-deep .ais-SearchBox-form {
+    ::ng-deep .ais-SearchBox-input {
+      border: 1px solid #cacaca;
+      width: 100%;
+      border-radius: 40px;
+      padding: 15px 10px 13px 20px;
+      outline: none;
+      font-family: 'josefin_sanslight';
+      font-size: 18px;
+      box-sizing: border-box;
+  
+      &::-webkit-input-placeholder {
+        color: #acaaaa;
+      }
+  
+      &:-ms-input-placeholder {
+        color: #acaaaa;
+      }
+  
+      &::placeholder {
+        color: #acaaaa;
+      }
+    }
+  
+    .ais-SearchBox-submit {
+      max-width: 100%;
+      position: absolute;
+      top: 29px;
+      right: 20px;
+      left: auto;
+      outline: none;
+  
+      .ais-SearchBox-submitIcon {
+        width: 20px;
+        height: 20px;
+  
+        path {
+          fill: #cacaca;
+        }
+      }
+    }
+  
+    .ais-SearchBox-reset {
+      right: 50px;
+      outline: none;
+      position: absolute;
+      top: 21px;
+      border: 0px;
+      background: transparent;
+  
+      .ais-SearchBox-resetIcon {
+        width: 14px;
+        height: 14px;
+  
+        path {
+          fill: #cacaca;
+        }
+      }
+    }
+  }
+
+
+  .sr-bar-with-ads {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;    
+    height: 125px;
+
+    .ads {
+      background: #f6f7fa;
+      width: 114px;
+      height: 104px;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      font-family: 'josefin_sansregular';
+      font-size: 18px;
+      color: #fff;
+
+      &.btn {
+        background: #ff4121;
+      }
+
+      span {
+        margin: auto;
+      }
+    }
+
+    .sr-bar {
+      width: 100%;
+      padding: 0px;
+
+      .sr-box {
+        position: relative;
+
+        .sr-input-bar {
+          border: 1px solid #cacaca;
+          width: 100%;
+          border-radius: 40px;
+          padding: 15px 10px 13px 20px;
+          outline: none;
+          font-family: 'josefin_sanslight';
+          font-size: 18px;
+          box-sizing: border-box;
+
+          &::-webkit-input-placeholder {
+            color: #acaaaa;
+          }
+
+          &:-ms-input-placeholder {
+            color: #acaaaa;
+          }
+
+          &::placeholder {
+            color: #acaaaa;
+          }
+        }
+
+        img {
+          max-width: 100%;
+          position: absolute;
+          top: 14px;
+          right: 20px;
+        }
+      }
+    }
+  }
+  
+  ::ng-deep .Show-autocomplete-box {
+    .ais-SearchBox-form {
+      .ais-SearchBox-input {
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+      }
+    }
+  }
+
+
+  .ais-SearchBox-reset {
+    display: none!important;
+}
+
+
+@media screen and (max-width: 767px) {
+  
+
+  .jobsBox{
+    margin-bottom: 20px;
+  }
+  .mainHeadingJobs{
+    font-size: 34px;
+    line-height: 44px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+  }
+  .heroBannerImage {
+    width: 100%;
+    margin-left: 0px;
+}
+
+.contentTop{
+  margin-top: 30px;
+}
+
+.contentTop > div{
+  flex-direction: column;
+}
+
+}
+
+@media screen and (max-width:993px){
+  .mainHeadingJobs{
+    font-size:36px;
+    line-height: 44px;
+  }
+
+}
+
+@media screen and (max-width:500px){
+  
+  .mainHeadingJobs{
+    font-size:34px;
+    line-height: 44px;
+
+  }
+
+
+}

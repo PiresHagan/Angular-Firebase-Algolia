@@ -1,0 +1,83 @@
+<section class="jobsBannerSection">
+  <div class="container h-100">
+    <div class="row h-70 align-items-end justify-content-center">
+      <div class="col-lg-6 col-md-10">
+        <h1 class="mainHeadingJobs">{{'jobsSearchCompanyHeading' | translate}}</h1>
+
+      </div>
+    </div>
+    <div class="row h-30 align-items-center">
+      <div class="col-md-12">
+        <a class="jobsBannerBackButton" [routerLink]="['/jobs']"> <img src="../../../assets/images/jobs/leftArrow.svg" /> {{'artGoBackbtn' | translate}}</a>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="jobsSearchSection">
+  <div class="container">
+    <ais-instantsearch [config]="config">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="page-title">
+            {{'jobsSearchCompany' | translate}}
+          </div>
+        </div>
+        <div class="col">
+          <div class="searchBar">
+            <input type="search" placeholder="{{'SearchJobs' | translate}}" [(ngModel)]="searchQuery" (input)="applySearchFilter()" (ngModelChange)="applySearchFilter()" />
+            <img src="../../../assets/images/jobs/search.png" />
+          </div>
+        </div>
+        <div *ngIf="!checkUserLogin" class="col-md-3">
+
+          <div class="jobslinksButton">
+            <a href="/auth/login" class="loginButtonJob">{{'login' | translate}}</a>
+            <a href="/auth/signup" class="signupButtonJob">{{'signUp' | translate}}</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="jobSection">
+        <ais-hits>
+          <ng-template let-hits="hits">
+            <div class="row">
+              <div *ngFor="let vacancies of filteredJobs" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                <div class="item-card item-card-life-and-styles">
+
+                  <div class="jobCard">
+                    <div class="jobsCardHeader">
+                      <div>
+                        <img src="{{ vacancies.logo.url }}" />
+
+                      </div>
+                      <div>
+                        <p class="">{{ vacancies.companyName }}</p>
+                        <span class="jobDate">{{vacancies.created_at | date: 'MMM dd yyyy'}}</span>
+                      </div>
+                    </div>
+                    <div class="jobsCardbody">
+                      <h3 class="jobTitle">{{ vacancies.jobTitle }}</h3>
+                      <span class="jobType">{{ vacancies.jobType }}</span>
+                      <div class="jobDesc" innerHTML="{{vacancies.jobRequirements}}"></div>
+                    </div>
+                    <div class="jobsCardFooter">
+                      <div class="jobSalary">${{vacancies.salary}}<span>/{{'jobsSalaryMonth' | translate}}</span></div>
+                      <div class="jobLink"><a [routerLink]="['/job-detail',vacancies.id]">{{'jobsView' | translate}}</a></div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+
+          </ng-template>
+        </ais-hits>
+        <ais-configure [searchParameters]="{ hitsPerPage: 16 }"></ais-configure>
+        <div class="jobs-pagination">
+          <ais-pagination></ais-pagination>
+        </div>
+      </div>
+    </ais-instantsearch>
+  </div>
+</section>

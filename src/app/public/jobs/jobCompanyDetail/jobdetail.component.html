@@ -1,0 +1,111 @@
+<section class="jobsBannerSection">
+  <div class="container h-100">
+    <div class="row h-70 align-items-end justify-content-center">
+      <div class="col-md-6 ">
+
+
+      </div>
+    </div>
+    <div class="row h-30 align-items-center">
+      <div class="col-md-12">
+        <a class="jobsBannerBackButton" (click)="goBack($event)">
+          <img src="../../../assets/images/jobs/leftArrow.svg" />
+          {{ 'artGoBackbtn' | translate }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="detailSection">
+  <div class="container">
+    <nz-skeleton [nzLoading]="!job">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="companyTop">
+            <div class="companyIcon">
+              <div class="companyLogo"><img *ngIf="job" [src]='job?.logo?.url' [alt]='job?.logo?.alt'
+                  onerror="this.src='../../../assets/images/jobs/companyLogo.png'" /></div>
+              <span class="icon"><img src="../../../assets/images/jobs/iconuser.png" /></span>
+              <h3 *ngIf="job">{{job?.companyName}}</h3>
+              <p>Jobs can be Via text or Video or Audio</p>
+            </div>
+          </div>
+          <div class="companyBottom">
+            <div class="commChannel">
+              <div>
+                <div class="imageBox">
+                  <img src="../../../assets/images/jobs/document.png" />
+                </div>
+                <span>Text</span>
+              </div>
+              <div *ngIf="job?.video">
+                <div class="imageBox">
+                  <img src="../../../assets/images/jobs/video.svg" />
+                </div>
+                <span>Video</span>
+              </div>
+              <div>
+                <div class="imageBox">
+                  <img src="../../../assets/images/jobs/audio.svg" />
+                </div>
+                <span>Audio</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="">
+            <div class="contentTop">
+              <div>
+                <h2 *ngIf="job" class="jobTitle">{{job?.jobTitle}}</h2>
+                <span *ngIf="job">{{job?.created_at | date: 'MMM dd yyyy' }} </span>
+              </div>
+            </div>
+            <div class="pointers  jobDescription" innerHTML="{{job?.jobRequirements}}">
+            </div>
+            <hr *ngIf="!job?.video" />
+            <div *ngIf="job?.video" class="videoSection">
+              <div class="videoWrapper">
+
+                <video controls [src]='job?.video?.url'
+                  onerror="this.src='../../../assets/images/jobs/video.png'"></video>
+
+              </div>
+              <!-- <div class="socialSharing">             
+              <div class="likeBox">
+                <a href="#">
+                  <img src="../../../assets/images/jobs/bx_bx-like.svg" />
+                  <span>2.5k </span>
+                </a>
+              </div>
+              <div class="sharingBox">
+                <a href="#">
+                  <img src="../../../assets/images/jobs/bx_bx-share.svg" />
+                  <span>Share </span>
+                </a>
+              </div>
+            </div> -->
+            </div>
+            <div>
+              <div class="member mt-4">
+                <div class="memberDetail">
+                  <img src={{userDetail?.avatar?.url}} />
+                  <span>{{userDetail?.fullname}}</span>
+                </div>
+                <div class="salary">${{job?.salary}} <span>/{{'jobsSalaryMonth' | translate}}</span> </div>
+              </div>
+              <div class="jobDetails">
+                <h4>{{job?.jobTitle}} </h4>
+                <p class="jobType">{{job?.jobType}} </p>
+                <p class="jobDescription" innerHTML="{{job?.jobRequirements}}"></p>
+                <!-- <a class="btnBook">Book Appointment</a> -->
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </nz-skeleton>
+  </div>
+</section>

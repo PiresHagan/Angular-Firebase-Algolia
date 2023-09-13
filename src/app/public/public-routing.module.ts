@@ -52,6 +52,34 @@ const routes: Routes = [
     loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)
   },
   {
+    path: 'jobs',
+    loadChildren: () => import('./jobs/jobs.module').then(m => m.JobsModule)
+  },
+  {
+    path: 'job/search-by-company',
+    loadChildren: () => import('./jobs/jobsearchbyCompany/jobSearchByCompany.module').then(m => m.jobSearchByCompanyModule)
+  },
+  {
+    path: 'job-detail/:id',
+    loadChildren: () => import('./jobs/jobCompanyDetail/jobdetail.module').then(m => m.JobDetailModule)
+  },
+  {
+    path: 'jobs/candidate-detail',
+    loadChildren: () => import('./jobs/jobCandidateDetail/jobCandidateDetail.module').then(m => m.jobCandidateDetailModule)
+  },
+  {
+    path: 'job/search-by-categories',
+    loadChildren: () => import('./jobs/jobsearchbyCategories/jobsearchbyCategories.module').then(m => m.jobsearchbyCategoriesModule)
+  },
+  {
+    path: 'job/search-by-candidates',
+    loadChildren: () => import('./jobs/jobsearchbyCandidates/jobsearchbyCandidates.module').then(m => m.jobsearchbyCandidatesModule)
+  },
+  {
+    path: 'job/joblist',
+    loadChildren: () => import('./jobs/jobsList/jobsList.module').then(m => m.jobListModule)
+  },
+  {
     path: 'terms',
     loadChildren: () => import('./terms/terms.module').then(m => m.TermsModule)
   },
@@ -90,15 +118,7 @@ const routes: Routes = [
   {
     path: 'influencer',
     loadChildren: () => import('./influencer/influencer.module').then(m => m.InfluencerModule)
-  },
-  // {
-  //   path: '**',
-  //   component: HomeComponent,
-  //   data: {
-  //     title: 'Home',
-  //     headerDisplay: 'none'
-  //   }
-  // },
+  },  
   {
     path: 'story/:slug',
     loadChildren: () => import('./story/story.module').then(m => m.StoryModule)

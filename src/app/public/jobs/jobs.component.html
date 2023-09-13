@@ -1,0 +1,67 @@
+<section class="jobsBannerSection">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6 justify-content-center">
+        <h4 class="subHeadingJobs">{{'jobsSubHeading' | translate}}</h4>
+        <h1 class="mainHeadingJobs">{{'jobsMainHeading' | translate}}</h1>
+        <div *ngIf="!checkUserLogin" class="jobsButtonBox">
+          <a href="/auth/login" class="loginButtonJob">{{'login' | translate}}</a>
+          <a href="/auth/signup" class="signupButtonJob">{{'signUp' | translate}}</a>
+        </div>
+
+      </div>
+      <div class="col-md-6">
+        <img class="heroBannerImage" src="../../../assets/images/jobs/jobs-banner.png" />
+      </div>
+    </div>
+  </div>
+</section>
+<section class="jobsSearchSection">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-12 col-sm-12">
+        <div class="page-title">          
+          {{'jobsWhoAreYou' | translate}}
+        </div>
+        
+        <div class="jobsBoxes">
+          <div class="row">
+            <div class="col-md-3">
+              <a [routerLink]="['/job/search-by-company']">
+                <div class="jobsBox">
+                  <div class="iconBox"><img src="../../../assets/images/jobs/company-icon.png" /></div>
+                  <h5>{{'jobsCompany' | translate}} <img src="../../../assets/images/jobs/rightArrowIcon.svg" /></h5>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-3">
+              <a  [routerLink]="['/job/search-by-candidates']">
+                <div class="jobsBox">
+                  <div class="iconBox"><img src="../../../assets/images/jobs/candidates-icon.svg" /></div>
+                  <h5>{{'jobsCandidates' | translate}} <img src="../../../assets/images/jobs/rightArrowIcon.svg" /></h5>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-3">
+              <a  [routerLink]="['/job/joblist']">
+                <div class="jobsBox">
+                  <div class="iconBox"><img src="../../../assets/images/jobs/jobs-icon.png" /></div>
+                  <h5>{{'Find Jobs' | translate}} <img src="../../../assets/images/jobs/rightArrowIcon.svg" /></h5>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-3">
+              <a [routerLink]="['/job/search-by-categories']" >
+                <div class="jobsBox">
+                  <div class="iconBox"><img src="../../../assets/images/jobs/categories-icon.svg" /></div>
+                  <h5>{{'jobsCategories' | translate}} <img src="../../../assets/images/jobs/rightArrowIcon.svg" /></h5>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

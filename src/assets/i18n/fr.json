@@ -1213,6 +1213,25 @@
   "PoliticianLeadMeetingDescription": "a programmé une réunion pour obtenir plus d'informations sur le Politician",
   "ServiceLeadMeetingName":"Réunion de service avec",
   "ServiceLeadMeetingDescription":"a planifié une réunion pour obtenir plus d'informations sur le service",
-  "TimeZone": "Fuseau horaire"
+  "TimeZone": "Fuseau horaire",
+  "jobsSubHeading" : "Restez connecté pour obtenir un emploi à venir avec My Trending Stories Jobs",
+  "jobsMainHeading" : "Explorez plus de 100 000 emplois",
+  "jobsWhoAreYou" : "Qui es-tu?",
+  "jobsCompany" : "Entreprise",
+  "jobsCandidates" : "Candidats",
+  "jobsCategories" : "Catégories",
+  "jobsSearchCompanyHeading" : "Trouvez votre emploi avec l'entreprise sélectionnée",
+  "jobsSearchCompany" : "Rechercher par entreprise",
+  "jobsSalaryMonth" : "mois",
+  "jobsView":"Voir",
+  "jobsSearchCategoriesHeading" : "Trouver des candidats avec des catégories",
+  "jobsSearchCategories": "Page de liste des catégories d'emploi",
+  "JobsSearchCandidatesHeading" : "Trouvez des candidats avec de bonnes compétences clés",
+  "jobsSearchCandidates" : "Recherche par candidats",
+  "jobsSearchCategoriesPostedText" : "Nouvelles offres publiées",
+  "JobsListMainHeading" : "Rechercher des candidats avec des catégories",
+  "JobsList" : "Page de liste des catégories d'emploi",
+  "Jobs":"Emplois",
+  "SearchJobs" :"Recherche de travail"
 
 }

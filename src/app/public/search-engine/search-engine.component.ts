@@ -62,6 +62,12 @@ export class SearchEngineComponent implements OnInit {
     routing: true
   };
 
+  vacanciesConfig = {
+    indexName: environment.algolia.index.vacancies,
+    searchClient,
+    routing: true
+  };
+
   //public OrderIndex = 0;
   articleBrand1 = [
     { "brandName": "" },
@@ -94,6 +100,7 @@ export class SearchEngineComponent implements OnInit {
     this.textArticleConfig.indexName = environment.algolia.index.textArticles + this.selectedLanguage;
     this.audioArticleConfig.indexName = environment.algolia.index.audioArticles + this.selectedLanguage;
     this.videoArticleConfig.indexName = environment.algolia.index.videoArticles + this.selectedLanguage;
+    this.vacanciesConfig.indexName = environment.algolia.index.vacancies + this.selectedLanguage;
 
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.selectedLanguage = this.languageService.getSelectedLanguage();
@@ -105,6 +112,7 @@ export class SearchEngineComponent implements OnInit {
       this.textArticleConfig.indexName = environment.algolia.index.textArticles + this.selectedLanguage;
       this.audioArticleConfig.indexName = environment.algolia.index.audioArticles + this.selectedLanguage;
       this.videoArticleConfig.indexName = environment.algolia.index.videoArticles + this.selectedLanguage;
+      this.vacanciesConfig.indexName = environment.algolia.index.vacancies + this.selectedLanguage;
     });
 
     this.cacheService.getBrands().subscribe(brands => {
