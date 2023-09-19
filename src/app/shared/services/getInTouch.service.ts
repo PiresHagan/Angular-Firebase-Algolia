@@ -20,6 +20,8 @@ export class GetInTouchService {
   private politicainContactsCollection ='contact';
   serviceCollection: string = 'services';
   serviceContactsCollection: string = 'contact';
+  jobsCollection: string = 'jobs';
+  jobsContactsCollection: string = 'contact';
 
   constructor(private http: HttpClient,
     public db: AngularFirestore,
@@ -201,6 +203,65 @@ export class GetInTouchService {
     else{
       dataQuery = this.db.collection<VideoConferenceSession[]>(`${this.videoConferenceCollection}`, ref => ref
         .where('politicianId','==',politicianId)
+        .where('is_private','==',true)
+        .orderBy('start_time', 'desc')
+      );
+    }
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        sessionList: actions.map(a => {
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+      }
+    })
+    );
+  }
+
+  addSessionForJobCompanyLead(jobId: string, contactSessionData:VideoConferenceSession) {
+    return new Promise((resolve, reject) => {
+      this.http.post(environment.baseAPIDomain + `/api/v1/getInTouch/${jobId}/getInTouchCreateJobMeeting`, contactSessionData).subscribe((response) => {
+        resolve(response)
+      }, (error) => {
+        reject(error)
+      })
+    })
+  }
+  getJobCompanyContacts(jobId) {
+    let dataQuery = this.db.collection<LeadType[]>(this.jobsCollection).doc(jobId).collection(`${this.jobsContactsCollection}`);
+    return dataQuery.snapshotChanges().pipe(map(actions => {
+      return {
+        contactsList: actions.map(a => {
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }),
+      }
+    })
+    );
+  }
+  getJobCompanyContactSessions(jobId, leadId, leadEmail) {
+    let dataQuery: AngularFirestoreCollection<unknown>;
+    if(leadId){
+      dataQuery = this.db.collection<VideoConferenceSession[]>(`${this.videoConferenceCollection}`, ref => ref
+        .where('jobId','==',jobId)
+        .where('lead_id','==',leadId)
+        .where('is_private','==',true)
+        .orderBy('start_time', 'desc')
+      );
+    }
+    else if(leadEmail){
+      dataQuery = this.db.collection<VideoConferenceSession[]>(`${this.videoConferenceCollection}`, ref => ref
+        .where('jobId','==',jobId)
+        .where('lead_email','==',leadEmail)
+        .where('is_private','==',true)
+        .orderBy('start_time', 'desc')
+      );
+    }
+    else{
+      dataQuery = this.db.collection<VideoConferenceSession[]>(`${this.videoConferenceCollection}`, ref => ref
+        .where('jobId','==',jobId)
         .where('is_private','==',true)
         .orderBy('start_time', 'desc')
       );

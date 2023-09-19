@@ -1,0 +1,112 @@
+:host ::ng-deep .ant-alert-icon {
+  top: 7px;
+  font-size: 20px;
+  left: 25px;
+}
+
+nz-alert {
+  text-align: center;
+}
+
+.job-company-form {
+  box-shadow: 0px 0px 9px 10px rgba(0, 0, 0, 0.02);
+  padding: 20px;
+  border: 1px solid #168cd2;
+  margin-bottom: 20px;
+  background: #168cd2;
+  border-radius: 5px;
+  margin-top: 20px;
+  color: #fff;
+
+  >h2 {
+    font-family: "josefin_sanssemibold";
+    text-align: center;
+    display: block;
+    font-size: 22px;
+    color: #fff;
+    line-height: 35px;
+  }
+
+  .form-row {
+    margin-bottom: 10px;
+
+    .input-box {
+      border: 0px;
+      background: #f4f8f7;
+      outline: none;
+      font-family: "josefin_sanslight";
+      font-size: 16px;
+      color: #000;
+      padding: 5px;
+      line-height: 1.5;
+      width: 100%;
+    }
+
+    .is-see-more {
+      margin: auto;
+    }
+  }
+
+  .ant-btn-primary {
+    background-color: black;
+    border-color: black;
+    color: #fff;
+    border-radius: 20px;
+
+  }
+
+  ::ng-deep .ant-form-item-has-error .ant-form-item-explain,
+  .ant-form-item-has-error .ant-form-item-split {
+    color: white;
+  }
+}
+
+.create-meeting-dialog{
+  min-width: 200px;
+}
+.popup-content {
+  align-items: center;
+  .bg-logo {
+    display: inline-block;
+    max-width: 90px;
+    margin-right: 20px;
+    img {
+      max-width: 100%;
+    }
+  }
+}
+
+.submit-btn {
+  padding: 10px 20px;
+  color: #fff;
+  background: #ff4020;
+  font-family: "josefin_sanssemibold";
+  font-size: 16px;
+}
+.cancel-btn {
+  padding: 10px 20px;
+  color: #fff;
+  background: #363534;
+  font-family: "josefin_sanssemibold";
+  font-size: 16px;
+}
+.title{
+  font-weight: 500;
+  padding: 2px;
+}
+.info{
+  font-weight: 600;
+  margin: 5px;
+  padding: 2px;
+}
+.invitation-info{
+  line-height: 30px;
+  font-weight: 500;
+  margin: 1px 5px 1px 10px;
+  padding: 0px;
+}
+.invitation-info-conatiner{
+  border: 2px #e9d9d9 solid;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}

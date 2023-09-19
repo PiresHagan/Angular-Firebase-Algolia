@@ -8,6 +8,7 @@ import { createTranslateLoader } from 'src/app/shared/shared.module';
 import { JobDetailRoutingModule } from './jobdetail-routing.module';
 import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -20,7 +21,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     NzSkeletonModule,
     JobDetailRoutingModule,
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } }),
-  
+    SharedModule
+
   ]
 })
 export class JobDetailModule { }

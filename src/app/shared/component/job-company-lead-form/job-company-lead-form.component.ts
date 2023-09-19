@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd';
 import { environment } from 'src/environments/environment';
-import { CompanyService } from 'src/app/shared/services/company.service';
+import { JobsService } from 'src/app/shared/services/jobs.service';
 import { AuthService } from 'src/app/shared/services/authentication.service';
 import { differenceInDays, differenceInHours, differenceInMinutes, differenceInSeconds } from 'date-fns';
 import { GetInTouchService } from 'src/app/shared/services/getInTouch.service';
@@ -12,13 +12,13 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { take } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-company-lead-form',
-  templateUrl: './company-lead-form.component.html',
-  styleUrls: ['./company-lead-form.component.scss']
+  selector: 'app-job-company-lead-form',
+  templateUrl: './job-company-lead-form.component.html',
+  styleUrls: ['./job-company-lead-form.component.scss']
 })
-export class CompanyLeadFormComponent implements OnInit {
+export class JobCompanyLeadFormComponent implements OnInit {
 
-  @Input() companyId: string;
+  @Input() jobId: string;
   @Input() meeting_settings: any;
 
   addLeadForm: FormGroup;
@@ -72,7 +72,7 @@ export class CompanyLeadFormComponent implements OnInit {
       { text:"0 hr 40 min" ,value:40}
   ];
 
-  @ViewChild('recaptcha') set SetThing(e: CompanyLeadFormComponent) {
+  @ViewChild('recaptcha') set SetThing(e: JobCompanyLeadFormComponent) {
     this.isCaptchaElementReady = true;
     this.recaptchaElement = e;
     if (this.isCaptchaElementReady && this.isCapchaScriptLoaded) {
@@ -85,7 +85,7 @@ export class CompanyLeadFormComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     public translate: TranslateService,
-    private companyService: CompanyService,
+    private jobsService: JobsService,
     private clipboard: Clipboard,
     private getInTouchService: GetInTouchService
   ) { }
@@ -109,7 +109,7 @@ export class CompanyLeadFormComponent implements OnInit {
       end_time: null
     };
     this.addRecaptchaScript();
-     this.getInTouchService.getCompanyLeadSessions(this.companyId, null, null).subscribe((clmdata) => {
+     this.getInTouchService.getJobCompanyContactSessions(this.jobId, null, null).subscribe((clmdata) => {
       if(clmdata && clmdata.sessionList && clmdata.sessionList.length>0){
         this.companyLeadsMeetingsdata = clmdata.sessionList;
       }
@@ -153,64 +153,36 @@ export class CompanyLeadFormComponent implements OnInit {
   }
 
   saveDataOnServer(formData) {
-    let leadFoundData:LeadType = null;
     this.lmSession=null;
-    if(!this.isFormSaving) return;
-    this.getInTouchService.getCompanyLeads(this.companyId).pipe(take(1)).subscribe(res=>{
-      if(res && res.monthlyLeadsList && res.monthlyLeadsList.length>0){
-        const monthlyLeadsList_length = res.monthlyLeadsList.length;
-        let counter = 0;
-        res.monthlyLeadsList.forEach(monthlyLead => {
-          counter++;
-          if(!leadFoundData){
-            this.getInTouchService.getCompanyLeadsOfMonth(this.companyId, monthlyLead.id).pipe(take(1)).subscribe((leadsData) => {
-              if(leadsData && leadsData.leadsList && leadsData.leadsList.length>0){
-                if(!leadFoundData)
-                  leadFoundData = leadsData.leadsList.find(lead=> lead.email == formData.email);
-              }
-              else{
-              }
-              if(leadFoundData){
-                this.addLeadSuccess = true;
-                this.isFormSaving = false;
-                this.showModal(formData);
-              }
-              else{
-                if(counter == monthlyLeadsList_length){
-                  this.companyService.createCompanyLead(this.companyId, formData).then(data => {
-                    this.addLeadSuccess = true;
-                    this.isFormSaving = false;
-                    this.showModal(formData);
-                  })
-                  .catch((error) => {
-                      this.addLeadSuccess = false;
-                      this.isFormSaving = false;
-                  });
-                }
-              }
-            }, error => {
-              this.addLeadSuccess = false;
-              this.isFormSaving = false;
-            });
-          }
-        });
+    let contactFoundData:LeadType = null;
+    this.getInTouchService.getJobCompanyContacts(this.jobId).pipe(take(1)).subscribe(res=>{
+      if(res && res.contactsList && res.contactsList.length>0){
+        if(!contactFoundData)
+          contactFoundData = res.contactsList.find(contact=> contact.email == formData.email);
       }
       else{
-        this.companyService.createCompanyLead(this.companyId, formData).then(data => {
+        contactFoundData = null;
+      }
+      if(contactFoundData){
+        this.addLeadSuccess = true;
+        this.isFormSaving = false;
+        this.showModal(formData);
+      }
+      else{
+        this.jobsService.createContact(this.jobId, formData).then(data => {
           this.addLeadSuccess = true;
           this.isFormSaving = false;
           this.showModal(formData);
-        })
-        .catch((error) => {
-            this.addLeadSuccess = false;
-            this.isFormSaving = false;
+        }
+        ).catch((error) => {
+          this.addLeadSuccess = false;
+          this.isFormSaving = false;
         });
       }
     }), error =>{
-      console.log('res.monthlyLeadsList error: ', error)
       this.addLeadSuccess = false;
       this.isFormSaving = false;
-    }
+    };
   }
 
   addRecaptchaScript() {
@@ -675,7 +647,7 @@ export class CompanyLeadFormComponent implements OnInit {
       end_time: null
     };
     this.lmSession=null;
-    this.getInTouchService.getCompanyLeadSessions(this.companyId, null, data.email).subscribe((clmdata) => {
+    this.getInTouchService.getJobCompanyContactSessions(this.jobId, null, data.email).subscribe((clmdata) => {
       if(clmdata && clmdata.sessionList && clmdata.sessionList.length>0){
         this.lmSession = clmdata.sessionList[0];
         this.lmSession.link = 'video-conference/' + this.lmSession.id;
@@ -773,7 +745,7 @@ export class CompanyLeadFormComponent implements OnInit {
     meetingData.name = this.translate.instant('CompanyLeadMeetingName') + ' ' + meetingData.lead_first_name;
     meetingData.link = location.origin + '/video-conference';
     meetingData.description = meetingData.lead_first_name + ' ' + this.translate.instant('CompanyLeadMeetingDescription');
-    this.getInTouchService.addSessionForCompanyLead(this.companyId, meetingData).then(data => {
+    this.getInTouchService.addSessionForJobCompanyLead(this.jobId, meetingData).then(data => {
       this.addLeadMeetingSuccess = true;
         this.addLeadMeetingSuccess = false;
         this.sessionObject = {
@@ -786,7 +758,7 @@ export class CompanyLeadFormComponent implements OnInit {
           start_time: null,
           end_time: null
         };
-      this.getInTouchService.getCompanyLeadSessions(this.companyId, null, meetingData.email).pipe(take(1)).subscribe((clmdata) => {
+      this.getInTouchService.getJobCompanyContactSessions(this.jobId, null, meetingData.email).pipe(take(1)).subscribe((clmdata) => {
         if(clmdata && clmdata.sessionList && clmdata.sessionList.length>0){
           this.lmSession = clmdata.sessionList[0];
           if(!this.lmSession.link)

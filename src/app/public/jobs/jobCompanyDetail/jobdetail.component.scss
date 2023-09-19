@@ -15,7 +15,7 @@ a {
 		img {height: 12px;
 	}
 }
-} 
+}
 .page-title {
 		color: "#000";
 		padding: 30px 0px 10px 0px;
@@ -284,10 +284,35 @@ a {
 	.member{
 		flex-direction: column;
 	}
-	
+
 
 	.jobsBannerSection{
 		height:250px;
 	  }
-	
+
+}
+
+.request-info-btn{
+  background: #FF4020;
+border-radius: 5px;
+padding: 8px 15px;
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 26px;
+text-align: center;
+justify-content: center;
+color: #FFFFFF;
+display: flex;
+align-items: center;
+border:0px;
+width:100%;
+cursor: pointer;
+  img{
+    margin-left: 10px;
+  }
+}
+.col-center-400{
+  width: 400px;
+  text-align: center;
 }

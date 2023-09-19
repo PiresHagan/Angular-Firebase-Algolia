@@ -7,7 +7,7 @@ import { LanguageService } from 'src/app/shared/services/language.service';
 import { SeoService } from 'src/app/shared/services/seo/seo.service';
 import { JobsService } from '../../../shared/services/jobs.service';
 import { UserService } from '../../../shared/services/user.service';
-import { Job } from '../../../shared/interfaces/job.type'; 
+import { Job } from '../../../shared/interfaces/job.type';
 import { User } from '../../../shared/interfaces/user.type';
 
 @Component({
@@ -20,8 +20,9 @@ export class JobDetailComponent implements OnInit {
   private jobDetailDocument = "jobdetail";
   selectedLanguage: string = "";
   job:Job;
+  jobId:any;
   userDetail:User;
-  
+
 
 
   constructor(
@@ -41,6 +42,7 @@ export class JobDetailComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.selectedLanguage = this.langService.getSelectedLanguage();
       const id = params.get('id');
+      this.jobId = id;
       this.jobService.getJobById(id).subscribe(data => {
         this.job = data[0];
 
@@ -51,17 +53,21 @@ export class JobDetailComponent implements OnInit {
           console.log("user data", this.userDetail);
         })
 
-        
-      });      
+
+      });
     });
   }
 
 
   goBack(event: Event): void {
-    event.preventDefault(); 
+    event.preventDefault();
     this.location.back();
     this.location.back();
   }
 
-  
+  jobCompanyMoreInfo() {
+    document.getElementById('firstName').focus();
+  }
+
+
 }

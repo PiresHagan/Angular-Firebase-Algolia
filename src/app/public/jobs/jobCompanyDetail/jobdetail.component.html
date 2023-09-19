@@ -71,7 +71,7 @@
                   onerror="this.src='../../../assets/images/jobs/video.png'"></video>
 
               </div>
-              <!-- <div class="socialSharing">             
+              <!-- <div class="socialSharing">
               <div class="likeBox">
                 <a href="#">
                   <img src="../../../assets/images/jobs/bx_bx-like.svg" />
@@ -103,7 +103,15 @@
             </div>
 
           </div>
-
+          <div class="col-center-400">
+            <div>
+              <button class="request-info-btn" (click)="jobCompanyMoreInfo()">
+                Request More Info
+                <img src="assets/images/read-more-icon.png" alt="">
+              </button>
+            </div>
+            <app-job-company-lead-form *ngIf="jobId" [jobId]="jobId" [meeting_settings]="job.meeting_settings"></app-job-company-lead-form>
+          </div>
         </div>
       </div>
     </nz-skeleton>

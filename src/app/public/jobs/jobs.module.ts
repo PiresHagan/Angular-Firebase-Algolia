@@ -8,6 +8,7 @@ import { JobsRoutingModule } from './jobs-routing.module';
 import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { NgAisModule } from 'angular-instantsearch';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { NgAisModule } from 'angular-instantsearch';
     FormsModule,
     NgAisModule.forRoot(),
     TranslateModule.forChild({ useDefaultLang: true, isolate: false, loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] } }),
-  
+    SharedModule
+
   ]
 })
 export class JobsModule { }

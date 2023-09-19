@@ -27,6 +27,10 @@ export interface VideoConferenceSession {
   politicianId?: any;
   politician?: any;
   link?: any;
+  jobId?: any;
+  job?: any;
+  job_companyId?:any;
+  job_company?:any;
 }
 export interface VC_Message {
 id?:any;

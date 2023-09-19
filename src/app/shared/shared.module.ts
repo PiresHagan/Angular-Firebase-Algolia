@@ -40,6 +40,7 @@ import { SanitizedHtmlPipe } from "./pipes/sanitized-html.pipe";
 import { ServiceContactFormComponent } from './component/service-contact-form/service-contact-form.component';
 import { PoliticianContactFormComponent } from './component/politician-contact-form/politician-contact-form.component';
 import { HairSalonLeadFormComponent} from './component/hair-salon-lead-form/hair-salon-lead-form.component';
+import { JobCompanyLeadFormComponent } from './component/job-company-lead-form/job-company-lead-form.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -72,7 +73,8 @@ export function createTranslateLoader(http: HttpClient) {
     ProductStarRatingComponent,
     ServiceContactFormComponent,
     PoliticianContactFormComponent,
-    HairSalonLeadFormComponent
+    HairSalonLeadFormComponent,
+    JobCompanyLeadFormComponent
   ],
   imports: [
     ShareButtonsModule,
@@ -118,7 +120,8 @@ export function createTranslateLoader(http: HttpClient) {
     ProductStarRatingComponent,
     ServiceContactFormComponent,
     PoliticianContactFormComponent,
-    HairSalonLeadFormComponent
+    HairSalonLeadFormComponent,
+    JobCompanyLeadFormComponent
   ],
   providers: [
     ThemeConstantService,
