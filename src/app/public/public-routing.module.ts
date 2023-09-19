@@ -35,10 +35,7 @@ const routes: Routes = [
     path: 'article/:slug',
     loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)
   },
-  {
-    path: 'service/:userSlug/:slug',
-    loadChildren: () => import('./servicesingle/service.module').then(m => m.ServiceModule)
-  },
+
   {
     path: 'profile/:authorSlug',
     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
@@ -118,7 +115,7 @@ const routes: Routes = [
   {
     path: 'influencer',
     loadChildren: () => import('./influencer/influencer.module').then(m => m.InfluencerModule)
-  },  
+  },
   {
     path: 'story/:slug',
     loadChildren: () => import('./story/story.module').then(m => m.StoryModule)
@@ -146,12 +143,12 @@ const routes: Routes = [
   },
 
   {
-    path:'event-hosting',
-    loadChildren:() => import('./event-hosting/event-hosting.module').then(m => m.EventHostingModule)
+    path: 'event-hosting',
+    loadChildren: () => import('./event-hosting/event-hosting.module').then(m => m.EventHostingModule)
   },
   {
-    path:'groups',
-    loadChildren:() => import('./groups/groups.module').then(m => m.GroupsModule)
+    path: 'groups',
+    loadChildren: () => import('./groups/groups.module').then(m => m.GroupsModule)
   },
 
   {

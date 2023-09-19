@@ -1,0 +1,47 @@
+<section class="bg-white">
+    <div class="container-fluid">
+        <div class="title-row">
+
+            <div class="is-comman-title">
+                {{pageHeader| translate}}
+            </div>
+            <section class="is-cat-box-card-main">
+                <div class="cat-box">
+                    <div class="container">
+                        <div class="cat-box-gallery">
+                            <div class="row article-row">
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5" *ngFor="let article of categories;
+                                let indexOfelement=index;">
+                                    <div class="item-card item-card-life-and-styles">
+                                        <a [routerLink]="['/service/category/',article.slug]">
+                                            <div class="item-card-image">
+
+                                                <img [src]="replaceImage(eventImages[indexOfelement])" [alt]="eventImages[indexOfelement]">
+
+                                                <div class="article-image-icon">
+                                                    <i class="fas fa-angle-right"></i>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="item-card-content">
+
+                                                <div class="item-card-title">
+                                                    <h4 class="item-long-title">{{article.title}}</h4>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+        </div>
+    </div>
+</section>

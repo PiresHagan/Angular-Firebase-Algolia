@@ -25,7 +25,8 @@
                         <tr>
                             <td>
                                 <nz-form-item>
-                                    <nz-form-control >
+                                    <nz-form-control>
+
                                         <select class="round" #selectList (change)="getsearchfield(selectList.value) ">
                                             <option value="title">{{ 'artTitle' | translate }} </option>
                                             <option value="city">{{ 'city' | translate }} </option>
@@ -36,275 +37,278 @@
                             </td>
                             <td>
                                 <nz-form-item *ngIf="!isCountry" [formGroup]="form1">
-                                    <input type="text" formControlName="serviceserchform" nz-input
-                                        placeholder=" {{ 'search' | translate }} {{ 'services' | translate }}"
-                                        [(ngModel)]="searchres" />
+                                    <div>
+                                        <div class="search">
+                                            <input class="searchTerm" type="text" formControlName="serviceserchform" nz-input placeholder=" {{ 'search' | translate }} {{ 'services' | translate }}" [(ngModel)]="searchres" />
+                                            <button type="submit" class="searchButton">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </nz-form-item>
                                 <nz-form-item class="round" *ngIf="isCountry" [formGroup]="form1">
                                     <nz-select nzShowSearch nzAllowClear formControlName="serviceserchform" nzPlaceHolder="country" [(ngModel)]="searchres">
-                                      <nz-option nzValue="AF" nzLabel="Afghanistan"></nz-option>
-                                      <nz-option nzValue="AX" nzLabel="Aland Islands"></nz-option>
-                                      <nz-option nzValue="AL" nzLabel="Albania"></nz-option>
-                                      <nz-option nzValue="DZ" nzLabel="Algeria"></nz-option>
-                                      <nz-option nzValue="AS" nzLabel="American Samoa"></nz-option>
-                                      <nz-option nzValue="AD" nzLabel="Andorra"></nz-option>
-                                      <nz-option nzValue="AO" nzLabel="Angola"></nz-option>
-                                      <nz-option nzValue="AI" nzLabel="Anguilla"></nz-option>
-                                      <nz-option nzValue="AQ" nzLabel="Antarctica"></nz-option>
-                                      <nz-option nzValue="AG" nzLabel="Antigua and Barbuda"></nz-option>
-                                      <nz-option nzValue="AR" nzLabel="Argentina"></nz-option>
-                                      <nz-option nzValue="AM" nzLabel="Armenia"></nz-option>
-                                      <nz-option nzValue="AW" nzLabel="Aruba"></nz-option>
-                                      <nz-option nzValue="AU" nzLabel="Australia"></nz-option>
-                                      <nz-option nzValue="AT" nzLabel="Austria"></nz-option>
-                                      <nz-option nzValue="AZ" nzLabel="Azerbaijan"></nz-option>
-                                      <nz-option nzValue="BS" nzLabel="Bahamas"></nz-option>
-                                      <nz-option nzValue="BH" nzLabel="Bahrain"></nz-option>
-                                      <nz-option nzValue="BD" nzLabel="Bangladesh"></nz-option>
-                                      <nz-option nzValue="BB" nzLabel="Barbados"></nz-option>
-                                      <nz-option nzValue="BY" nzLabel="Belarus"></nz-option>
-                                      <nz-option nzValue="BE" nzLabel="Belgium"></nz-option>
-                                      <nz-option nzValue="BZ" nzLabel="Belize"></nz-option>
-                                      <nz-option nzValue="BJ" nzLabel="Benin"></nz-option>
-                                      <nz-option nzValue="BM" nzLabel="Bermuda"></nz-option>
-                                      <nz-option nzValue="BT" nzLabel="Bhutan"></nz-option>
-                                      <nz-option nzValue="BO" nzLabel="Bolivia"></nz-option>
-                                      <nz-option nzValue="BQ" nzLabel="Bonaire, Sint Eustatius and Saba"></nz-option>
-                                      <nz-option nzValue="BA" nzLabel="Bosnia and Herzegovina"></nz-option>
-                                      <nz-option nzValue="BW" nzLabel="Botswana"></nz-option>
-                                      <nz-option nzValue="BV" nzLabel="Bouvet Island"></nz-option>
-                                      <nz-option nzValue="BR" nzLabel="Brazil"></nz-option>
-                                      <nz-option nzValue="IO" nzLabel="British Indian Ocean Territory"></nz-option>
-                                      <nz-option nzValue="BN" nzLabel="Brunei Darussalam"></nz-option>
-                                      <nz-option nzValue="BG" nzLabel="Bulgaria"></nz-option>
-                                      <nz-option nzValue="BF" nzLabel="Burkina Faso"></nz-option>
-                                      <nz-option nzValue="BI" nzLabel="Burundi"></nz-option>
-                                      <nz-option nzValue="KH" nzLabel="Cambodia"></nz-option>
-                                      <nz-option nzValue="CM" nzLabel="Cameroon"></nz-option>
-                                      <nz-option nzValue="CA" nzLabel="Canada"></nz-option>
-                                      <nz-option nzValue="CV" nzLabel="Cape Verde"></nz-option>
-                                      <nz-option nzValue="KY" nzLabel="Cayman Islands"></nz-option>
-                                      <nz-option nzValue="CF" nzLabel="Central African Republic"></nz-option>
-                                      <nz-option nzValue="TD" nzLabel="Chad"></nz-option>
-                                      <nz-option nzValue="CL" nzLabel="Chile"></nz-option>
-                                      <nz-option nzValue="CN" nzLabel="China"></nz-option>
-                                      <nz-option nzValue="CX" nzLabel="Christmas Island"></nz-option>
-                                      <nz-option nzValue="CC" nzLabel="Cocos (Keeling) Islands"></nz-option>
-                                      <nz-option nzValue="CO" nzLabel="Colombia"></nz-option>
-                                      <nz-option nzValue="KM" nzLabel="Comoros"></nz-option>
-                                      <nz-option nzValue="CG" nzLabel="Congo"></nz-option>
-                                      <nz-option nzValue="CD" nzLabel="Congo, Democratic Republic of the Congo"></nz-option>
-                                      <nz-option nzValue="CK" nzLabel="Cook Islands"></nz-option>
-                                      <nz-option nzValue="CR" nzLabel="Costa Rica"></nz-option>
-                                      <nz-option nzValue="CI" nzLabel="Cote D'Ivoire"></nz-option>
-                                      <nz-option nzValue="HR" nzLabel="Croatia"></nz-option>
-                                      <nz-option nzValue="CU" nzLabel="Cuba"></nz-option>
-                                      <nz-option nzValue="CW" nzLabel="Curacao"></nz-option>
-                                      <nz-option nzValue="CY" nzLabel="Cyprus"></nz-option>
-                                      <nz-option nzValue="CZ" nzLabel="Czech Republic"></nz-option>
-                                      <nz-option nzValue="DK" nzLabel="Denmark"></nz-option>
-                                      <nz-option nzValue="DJ" nzLabel="Djibouti"></nz-option>
-                                      <nz-option nzValue="DM" nzLabel="Dominica"></nz-option>
-                                      <nz-option nzValue="DO" nzLabel="Dominican Republic"></nz-option>
-                                      <nz-option nzValue="EC" nzLabel="Ecuador"></nz-option>
-                                      <nz-option nzValue="EG" nzLabel="Egypt"></nz-option>
-                                      <nz-option nzValue="SV" nzLabel="El Salvador"></nz-option>
-                                      <nz-option nzValue="GQ" nzLabel="Equatorial Guinea"></nz-option>
-                                      <nz-option nzValue="ER" nzLabel="Eritrea"></nz-option>
-                                      <nz-option nzValue="EE" nzLabel="Estonia"></nz-option>
-                                      <nz-option nzValue="ET" nzLabel="Ethiopia"></nz-option>
-                                      <nz-option nzValue="FK" nzLabel="Falkland Islands (Malvinas)"></nz-option>
-                                      <nz-option nzValue="FO" nzLabel="Faroe Islands"></nz-option>
-                                      <nz-option nzValue="FJ" nzLabel="Fiji"></nz-option>
-                                      <nz-option nzValue="FI" nzLabel="Finland"></nz-option>
-                                      <nz-option nzValue="FR" nzLabel="France"></nz-option>
-                                      <nz-option nzValue="GF" nzLabel="French Guiana"></nz-option>
-                                      <nz-option nzValue="PF" nzLabel="French Polynesia"></nz-option>
-                                      <nz-option nzValue="TF" nzLabel="French Southern Territories"></nz-option>
-                                      <nz-option nzValue="GA" nzLabel="Gabon"></nz-option>
-                                      <nz-option nzValue="GM" nzLabel="Gambia"></nz-option>
-                                      <nz-option nzValue="GE" nzLabel="Georgia"></nz-option>
-                                      <nz-option nzValue="DE" nzLabel="Germany"></nz-option>
-                                      <nz-option nzValue="GH" nzLabel="Ghana"></nz-option>
-                                      <nz-option nzValue="GI" nzLabel="Gibraltar"></nz-option>
-                                      <nz-option nzValue="GR" nzLabel="Greece"></nz-option>
-                                      <nz-option nzValue="GL" nzLabel="Greenland"></nz-option>
-                                      <nz-option nzValue="GD" nzLabel="Grenada"></nz-option>
-                                      <nz-option nzValue="GP" nzLabel="Guadeloupe"></nz-option>
-                                      <nz-option nzValue="GU" nzLabel="Guam"></nz-option>
-                                      <nz-option nzValue="GT" nzLabel="Guatemala"></nz-option>
-                                      <nz-option nzValue="GG" nzLabel="Guernsey"></nz-option>
-                                      <nz-option nzValue="GN" nzLabel="Guinea"></nz-option>
-                                      <nz-option nzValue="GW" nzLabel="Guinea-Bissau"></nz-option>
-                                      <nz-option nzValue="GY" nzLabel="Guyana"></nz-option>
-                                      <nz-option nzValue="HT" nzLabel="Haiti"></nz-option>
-                                      <nz-option nzValue="HM" nzLabel="Heard Island and Mcdonald Islands"></nz-option>
-                                      <nz-option nzValue="VA" nzLabel="Holy See (Vatican City State)"></nz-option>
-                                      <nz-option nzValue="HN" nzLabel="Honduras"></nz-option>
-                                      <nz-option nzValue="HK" nzLabel="Hong Kong"></nz-option>
-                                      <nz-option nzValue="HU" nzLabel="Hungary"></nz-option>
-                                      <nz-option nzValue="IS" nzLabel="Iceland"></nz-option>
-                                      <nz-option nzValue="IN" nzLabel="India"></nz-option>
-                                      <nz-option nzValue="ID" nzLabel="Indonesia"></nz-option>
-                                      <nz-option nzValue="IR" nzLabel="Iran, Islamic Republic of"></nz-option>
-                                      <nz-option nzValue="IQ" nzLabel="Iraq"></nz-option>
-                                      <nz-option nzValue="IE" nzLabel="Ireland"></nz-option>
-                                      <nz-option nzValue="IM" nzLabel="Isle of Man"></nz-option>
-                                      <nz-option nzValue="IL" nzLabel="Israel"></nz-option>
-                                      <nz-option nzValue="IT" nzLabel="Italy"></nz-option>
-                                      <nz-option nzValue="JM" nzLabel="Jamaica"></nz-option>
-                                      <nz-option nzValue="JP" nzLabel="Japan"></nz-option>
-                                      <nz-option nzValue="JE" nzLabel="Jersey"></nz-option>
-                                      <nz-option nzValue="JO" nzLabel="Jordan"></nz-option>
-                                      <nz-option nzValue="KZ" nzLabel="Kazakhstan"></nz-option>
-                                      <nz-option nzValue="KE" nzLabel="Kenya"></nz-option>
-                                      <nz-option nzValue="KI" nzLabel="Kiribati"></nz-option>
-                                      <nz-option nzValue="KP" nzLabel="Korea, Democratic People's Republic of"></nz-option>
-                                      <nz-option nzValue="KR" nzLabel="Korea, Republic of"></nz-option>
-                                      <nz-option nzValue="XK" nzLabel="Kosovo"></nz-option>
-                                      <nz-option nzValue="KW" nzLabel="Kuwait"></nz-option>
-                                      <nz-option nzValue="KG" nzLabel="Kyrgyzstan"></nz-option>
-                                      <nz-option nzValue="LA" nzLabel="Lao People's Democratic Republic"></nz-option>
-                                      <nz-option nzValue="LV" nzLabel="Latvia"></nz-option>
-                                      <nz-option nzValue="LB" nzLabel="Lebanon"></nz-option>
-                                      <nz-option nzValue="LS" nzLabel="Lesotho"></nz-option>
-                                      <nz-option nzValue="LR" nzLabel="Liberia"></nz-option>
-                                      <nz-option nzValue="LY" nzLabel="Libyan Arab Jamahiriya"></nz-option>
-                                      <nz-option nzValue="LI" nzLabel="Liechtenstein"></nz-option>
-                                      <nz-option nzValue="LT" nzLabel="Lithuania"></nz-option>
-                                      <nz-option nzValue="LU" nzLabel="Luxembourg"></nz-option>
-                                      <nz-option nzValue="MO" nzLabel="Macao"></nz-option>
-                                      <nz-option nzValue="MK" nzLabel="Macedonia, the Former Yugoslav Republic of"></nz-option>
-                                      <nz-option nzValue="MG" nzLabel="Madagascar"></nz-option>
-                                      <nz-option nzValue="MW" nzLabel="Malawi"></nz-option>
-                                      <nz-option nzValue="MY" nzLabel="Malaysia"></nz-option>
-                                      <nz-option nzValue="MV" nzLabel="Maldives"></nz-option>
-                                      <nz-option nzValue="ML" nzLabel="Mali"></nz-option>
-                                      <nz-option nzValue="MT" nzLabel="Malta"></nz-option>
-                                      <nz-option nzValue="MH" nzLabel="Marshall Islands"></nz-option>
-                                      <nz-option nzValue="MQ" nzLabel="Martinique"></nz-option>
-                                      <nz-option nzValue="MR" nzLabel="Mauritania"></nz-option>
-                                      <nz-option nzValue="MU" nzLabel="Mauritius"></nz-option>
-                                      <nz-option nzValue="YT" nzLabel="Mayotte"></nz-option>
-                                      <nz-option nzValue="MX" nzLabel="Mexico"></nz-option>
-                                      <nz-option nzValue="FM" nzLabel="Micronesia, Federated States of"></nz-option>
-                                      <nz-option nzValue="MD" nzLabel="Moldova, Republic of"></nz-option>
-                                      <nz-option nzValue="MC" nzLabel="Monaco"></nz-option>
-                                      <nz-option nzValue="MN" nzLabel="Mongolia"></nz-option>
-                                      <nz-option nzValue="ME" nzLabel="Montenegro"></nz-option>
-                                      <nz-option nzValue="MS" nzLabel="Montserrat"></nz-option>
-                                      <nz-option nzValue="MA" nzLabel="Morocco"></nz-option>
-                                      <nz-option nzValue="MZ" nzLabel="Mozambique"></nz-option>
-                                      <nz-option nzValue="MM" nzLabel="Myanmar"></nz-option>
-                                      <nz-option nzValue="NA" nzLabel="Namibia"></nz-option>
-                                      <nz-option nzValue="NR" nzLabel="Nauru"></nz-option>
-                                      <nz-option nzValue="NP" nzLabel="Nepal"></nz-option>
-                                      <nz-option nzValue="NL" nzLabel="Netherlands"></nz-option>
-                                      <nz-option nzValue="AN" nzLabel="Netherlands Antilles"></nz-option>
-                                      <nz-option nzValue="NC" nzLabel="New Caledonia"></nz-option>
-                                      <nz-option nzValue="NZ" nzLabel="New Zealand"></nz-option>
-                                      <nz-option nzValue="NI" nzLabel="Nicaragua"></nz-option>
-                                      <nz-option nzValue="NE" nzLabel="Niger"></nz-option>
-                                      <nz-option nzValue="NG" nzLabel="Nigeria"></nz-option>
-                                      <nz-option nzValue="NU" nzLabel="Niue"></nz-option>
-                                      <nz-option nzValue="NF" nzLabel="Norfolk Island"></nz-option>
-                                      <nz-option nzValue="MP" nzLabel="Northern Mariana Islands"></nz-option>
-                                      <nz-option nzValue="NO" nzLabel="Norway"></nz-option>
-                                      <nz-option nzValue="OM" nzLabel="Oman"></nz-option>
-                                      <nz-option nzValue="PK" nzLabel="Pakistan"></nz-option>
-                                      <nz-option nzValue="PW" nzLabel="Palau"></nz-option>
-                                      <nz-option nzValue="PS" nzLabel="Palestinian Territory, Occupied"></nz-option>
-                                      <nz-option nzValue="PA" nzLabel="Panama"></nz-option>
-                                      <nz-option nzValue="PG" nzLabel="Papua New Guinea"></nz-option>
-                                      <nz-option nzValue="PY" nzLabel="Paraguay"></nz-option>
-                                      <nz-option nzValue="PE" nzLabel="Peru"></nz-option>
-                                      <nz-option nzValue="PH" nzLabel="Philippines"></nz-option>
-                                      <nz-option nzValue="PN" nzLabel="Pitcairn"></nz-option>
-                                      <nz-option nzValue="PL" nzLabel="Poland"></nz-option>
-                                      <nz-option nzValue="PT" nzLabel="Portugal"></nz-option>
-                                      <nz-option nzValue="PR" nzLabel="Puerto Rico"></nz-option>
-                                      <nz-option nzValue="QA" nzLabel="Qatar"></nz-option>
-                                      <nz-option nzValue="RE" nzLabel="Reunion"></nz-option>
-                                      <nz-option nzValue="RO" nzLabel="Romania"></nz-option>
-                                      <nz-option nzValue="RU" nzLabel="Russian Federation"></nz-option>
-                                      <nz-option nzValue="RW" nzLabel="Rwanda"></nz-option>
-                                      <nz-option nzValue="BL" nzLabel="Saint Barthelemy"></nz-option>
-                                      <nz-option nzValue="SH" nzLabel="Saint Helena"></nz-option>
-                                      <nz-option nzValue="KN" nzLabel="Saint Kitts and Nevis"></nz-option>
-                                      <nz-option nzValue="LC" nzLabel="Saint Lucia"></nz-option>
-                                      <nz-option nzValue="MF" nzLabel="Saint Martin"></nz-option>
-                                      <nz-option nzValue="PM" nzLabel="Saint Pierre and Miquelon"></nz-option>
-                                      <nz-option nzValue="VC" nzLabel="Saint Vincent and the Grenadines"></nz-option>
-                                      <nz-option nzValue="WS" nzLabel="Samoa"></nz-option>
-                                      <nz-option nzValue="SM" nzLabel="San Marino"></nz-option>
-                                      <nz-option nzValue="ST" nzLabel="Sao Tome and Principe"></nz-option>
-                                      <nz-option nzValue="SA" nzLabel="Saudi Arabia"></nz-option>
-                                      <nz-option nzValue="SN" nzLabel="Senegal"></nz-option>
-                                      <nz-option nzValue="RS" nzLabel="Serbia"></nz-option>
-                                      <nz-option nzValue="CS" nzLabel="Serbia and Montenegro"></nz-option>
-                                      <nz-option nzValue="SC" nzLabel="Seychelles"></nz-option>
-                                      <nz-option nzValue="SL" nzLabel="Sierra Leone"></nz-option>
-                                      <nz-option nzValue="SG" nzLabel="Singapore"></nz-option>
-                                      <nz-option nzValue="SX" nzLabel="Sint Maarten"></nz-option>
-                                      <nz-option nzValue="SK" nzLabel="Slovakia"></nz-option>
-                                      <nz-option nzValue="SI" nzLabel="Slovenia"></nz-option>
-                                      <nz-option nzValue="SB" nzLabel="Solomon Islands"></nz-option>
-                                      <nz-option nzValue="SO" nzLabel="Somalia"></nz-option>
-                                      <nz-option nzValue="ZA" nzLabel="South Africa"></nz-option>
-                                      <nz-option nzValue="GS" nzLabel="South Georgia and the South Sandwich Islands"></nz-option>
-                                      <nz-option nzValue="SS" nzLabel="South Sudan"></nz-option>
-                                      <nz-option nzValue="ES" nzLabel="Spain"></nz-option>
-                                      <nz-option nzValue="LK" nzLabel="Sri Lanka"></nz-option>
-                                      <nz-option nzValue="SD" nzLabel="Sudan"></nz-option>
-                                      <nz-option nzValue="SR" nzLabel="Suriname"></nz-option>
-                                      <nz-option nzValue="SJ" nzLabel="Svalbard and Jan Mayen"></nz-option>
-                                      <nz-option nzValue="SZ" nzLabel="Swaziland"></nz-option>
-                                      <nz-option nzValue="SE" nzLabel="Sweden"></nz-option>
-                                      <nz-option nzValue="CH" nzLabel="Switzerland"></nz-option>
-                                      <nz-option nzValue="SY" nzLabel="Syrian Arab Republic"></nz-option>
-                                      <nz-option nzValue="TW" nzLabel="Taiwan, Province of China"></nz-option>
-                                      <nz-option nzValue="TJ" nzLabel="Tajikistan"></nz-option>
-                                      <nz-option nzValue="TZ" nzLabel="Tanzania, United Republic of"></nz-option>
-                                      <nz-option nzValue="TH" nzLabel="Thailand"></nz-option>
-                                      <nz-option nzValue="TL" nzLabel="Timor-Leste"></nz-option>
-                                      <nz-option nzValue="TG" nzLabel="Togo"></nz-option>
-                                      <nz-option nzValue="TK" nzLabel="Tokelau"></nz-option>
-                                      <nz-option nzValue="TO" nzLabel="Tonga"></nz-option>
-                                      <nz-option nzValue="TT" nzLabel="Trinidad and Tobago"></nz-option>
-                                      <nz-option nzValue="TN" nzLabel="Tunisia"></nz-option>
-                                      <nz-option nzValue="TR" nzLabel="Turkey"></nz-option>
-                                      <nz-option nzValue="TM" nzLabel="Turkmenistan"></nz-option>
-                                      <nz-option nzValue="TC" nzLabel="Turks and Caicos Islands"></nz-option>
-                                      <nz-option nzValue="TV" nzLabel="Tuvalu"></nz-option>
-                                      <nz-option nzValue="UG" nzLabel="Uganda"></nz-option>
-                                      <nz-option nzValue="UA" nzLabel="Ukraine"></nz-option>
-                                      <nz-option nzValue="AE" nzLabel="United Arab Emirates"></nz-option>
-                                      <nz-option nzValue="GB" nzLabel="United Kingdom"></nz-option>
-                                      <nz-option nzValue="US" nzLabel="United States"></nz-option>
-                                      <nz-option nzValue="UM" nzLabel="United States Minor Outlying Islands"></nz-option>
-                                      <nz-option nzValue="UY" nzLabel="Uruguay"></nz-option>
-                                      <nz-option nzValue="UZ" nzLabel="Uzbekistan"></nz-option>
-                                      <nz-option nzValue="VU" nzLabel="Vanuatu"></nz-option>
-                                      <nz-option nzValue="VE" nzLabel="Venezuela"></nz-option>
-                                      <nz-option nzValue="VN" nzLabel="Viet Nam"></nz-option>
-                                      <nz-option nzValue="VG" nzLabel="Virgin Islands, British"></nz-option>
-                                      <nz-option nzValue="VI" nzLabel="Virgin Islands, U.s."></nz-option>
-                                      <nz-option nzValue="WF" nzLabel="Wallis and Futuna"></nz-option>
-                                      <nz-option nzValue="EH" nzLabel="Western Sahara"></nz-option>
-                                      <nz-option nzValue="YE" nzLabel="Yemen"></nz-option>
-                                      <nz-option nzValue="ZM" nzLabel="Zambia"></nz-option>
-                                      <nz-option nzValue="ZW" nzLabel="Zimbabwe"></nz-option>
+                                        <nz-option nzValue="AF" nzLabel="Afghanistan"></nz-option>
+                                        <nz-option nzValue="AX" nzLabel="Aland Islands"></nz-option>
+                                        <nz-option nzValue="AL" nzLabel="Albania"></nz-option>
+                                        <nz-option nzValue="DZ" nzLabel="Algeria"></nz-option>
+                                        <nz-option nzValue="AS" nzLabel="American Samoa"></nz-option>
+                                        <nz-option nzValue="AD" nzLabel="Andorra"></nz-option>
+                                        <nz-option nzValue="AO" nzLabel="Angola"></nz-option>
+                                        <nz-option nzValue="AI" nzLabel="Anguilla"></nz-option>
+                                        <nz-option nzValue="AQ" nzLabel="Antarctica"></nz-option>
+                                        <nz-option nzValue="AG" nzLabel="Antigua and Barbuda"></nz-option>
+                                        <nz-option nzValue="AR" nzLabel="Argentina"></nz-option>
+                                        <nz-option nzValue="AM" nzLabel="Armenia"></nz-option>
+                                        <nz-option nzValue="AW" nzLabel="Aruba"></nz-option>
+                                        <nz-option nzValue="AU" nzLabel="Australia"></nz-option>
+                                        <nz-option nzValue="AT" nzLabel="Austria"></nz-option>
+                                        <nz-option nzValue="AZ" nzLabel="Azerbaijan"></nz-option>
+                                        <nz-option nzValue="BS" nzLabel="Bahamas"></nz-option>
+                                        <nz-option nzValue="BH" nzLabel="Bahrain"></nz-option>
+                                        <nz-option nzValue="BD" nzLabel="Bangladesh"></nz-option>
+                                        <nz-option nzValue="BB" nzLabel="Barbados"></nz-option>
+                                        <nz-option nzValue="BY" nzLabel="Belarus"></nz-option>
+                                        <nz-option nzValue="BE" nzLabel="Belgium"></nz-option>
+                                        <nz-option nzValue="BZ" nzLabel="Belize"></nz-option>
+                                        <nz-option nzValue="BJ" nzLabel="Benin"></nz-option>
+                                        <nz-option nzValue="BM" nzLabel="Bermuda"></nz-option>
+                                        <nz-option nzValue="BT" nzLabel="Bhutan"></nz-option>
+                                        <nz-option nzValue="BO" nzLabel="Bolivia"></nz-option>
+                                        <nz-option nzValue="BQ" nzLabel="Bonaire, Sint Eustatius and Saba"></nz-option>
+                                        <nz-option nzValue="BA" nzLabel="Bosnia and Herzegovina"></nz-option>
+                                        <nz-option nzValue="BW" nzLabel="Botswana"></nz-option>
+                                        <nz-option nzValue="BV" nzLabel="Bouvet Island"></nz-option>
+                                        <nz-option nzValue="BR" nzLabel="Brazil"></nz-option>
+                                        <nz-option nzValue="IO" nzLabel="British Indian Ocean Territory"></nz-option>
+                                        <nz-option nzValue="BN" nzLabel="Brunei Darussalam"></nz-option>
+                                        <nz-option nzValue="BG" nzLabel="Bulgaria"></nz-option>
+                                        <nz-option nzValue="BF" nzLabel="Burkina Faso"></nz-option>
+                                        <nz-option nzValue="BI" nzLabel="Burundi"></nz-option>
+                                        <nz-option nzValue="KH" nzLabel="Cambodia"></nz-option>
+                                        <nz-option nzValue="CM" nzLabel="Cameroon"></nz-option>
+                                        <nz-option nzValue="CA" nzLabel="Canada"></nz-option>
+                                        <nz-option nzValue="CV" nzLabel="Cape Verde"></nz-option>
+                                        <nz-option nzValue="KY" nzLabel="Cayman Islands"></nz-option>
+                                        <nz-option nzValue="CF" nzLabel="Central African Republic"></nz-option>
+                                        <nz-option nzValue="TD" nzLabel="Chad"></nz-option>
+                                        <nz-option nzValue="CL" nzLabel="Chile"></nz-option>
+                                        <nz-option nzValue="CN" nzLabel="China"></nz-option>
+                                        <nz-option nzValue="CX" nzLabel="Christmas Island"></nz-option>
+                                        <nz-option nzValue="CC" nzLabel="Cocos (Keeling) Islands"></nz-option>
+                                        <nz-option nzValue="CO" nzLabel="Colombia"></nz-option>
+                                        <nz-option nzValue="KM" nzLabel="Comoros"></nz-option>
+                                        <nz-option nzValue="CG" nzLabel="Congo"></nz-option>
+                                        <nz-option nzValue="CD" nzLabel="Congo, Democratic Republic of the Congo"></nz-option>
+                                        <nz-option nzValue="CK" nzLabel="Cook Islands"></nz-option>
+                                        <nz-option nzValue="CR" nzLabel="Costa Rica"></nz-option>
+                                        <nz-option nzValue="CI" nzLabel="Cote D'Ivoire"></nz-option>
+                                        <nz-option nzValue="HR" nzLabel="Croatia"></nz-option>
+                                        <nz-option nzValue="CU" nzLabel="Cuba"></nz-option>
+                                        <nz-option nzValue="CW" nzLabel="Curacao"></nz-option>
+                                        <nz-option nzValue="CY" nzLabel="Cyprus"></nz-option>
+                                        <nz-option nzValue="CZ" nzLabel="Czech Republic"></nz-option>
+                                        <nz-option nzValue="DK" nzLabel="Denmark"></nz-option>
+                                        <nz-option nzValue="DJ" nzLabel="Djibouti"></nz-option>
+                                        <nz-option nzValue="DM" nzLabel="Dominica"></nz-option>
+                                        <nz-option nzValue="DO" nzLabel="Dominican Republic"></nz-option>
+                                        <nz-option nzValue="EC" nzLabel="Ecuador"></nz-option>
+                                        <nz-option nzValue="EG" nzLabel="Egypt"></nz-option>
+                                        <nz-option nzValue="SV" nzLabel="El Salvador"></nz-option>
+                                        <nz-option nzValue="GQ" nzLabel="Equatorial Guinea"></nz-option>
+                                        <nz-option nzValue="ER" nzLabel="Eritrea"></nz-option>
+                                        <nz-option nzValue="EE" nzLabel="Estonia"></nz-option>
+                                        <nz-option nzValue="ET" nzLabel="Ethiopia"></nz-option>
+                                        <nz-option nzValue="FK" nzLabel="Falkland Islands (Malvinas)"></nz-option>
+                                        <nz-option nzValue="FO" nzLabel="Faroe Islands"></nz-option>
+                                        <nz-option nzValue="FJ" nzLabel="Fiji"></nz-option>
+                                        <nz-option nzValue="FI" nzLabel="Finland"></nz-option>
+                                        <nz-option nzValue="FR" nzLabel="France"></nz-option>
+                                        <nz-option nzValue="GF" nzLabel="French Guiana"></nz-option>
+                                        <nz-option nzValue="PF" nzLabel="French Polynesia"></nz-option>
+                                        <nz-option nzValue="TF" nzLabel="French Southern Territories"></nz-option>
+                                        <nz-option nzValue="GA" nzLabel="Gabon"></nz-option>
+                                        <nz-option nzValue="GM" nzLabel="Gambia"></nz-option>
+                                        <nz-option nzValue="GE" nzLabel="Georgia"></nz-option>
+                                        <nz-option nzValue="DE" nzLabel="Germany"></nz-option>
+                                        <nz-option nzValue="GH" nzLabel="Ghana"></nz-option>
+                                        <nz-option nzValue="GI" nzLabel="Gibraltar"></nz-option>
+                                        <nz-option nzValue="GR" nzLabel="Greece"></nz-option>
+                                        <nz-option nzValue="GL" nzLabel="Greenland"></nz-option>
+                                        <nz-option nzValue="GD" nzLabel="Grenada"></nz-option>
+                                        <nz-option nzValue="GP" nzLabel="Guadeloupe"></nz-option>
+                                        <nz-option nzValue="GU" nzLabel="Guam"></nz-option>
+                                        <nz-option nzValue="GT" nzLabel="Guatemala"></nz-option>
+                                        <nz-option nzValue="GG" nzLabel="Guernsey"></nz-option>
+                                        <nz-option nzValue="GN" nzLabel="Guinea"></nz-option>
+                                        <nz-option nzValue="GW" nzLabel="Guinea-Bissau"></nz-option>
+                                        <nz-option nzValue="GY" nzLabel="Guyana"></nz-option>
+                                        <nz-option nzValue="HT" nzLabel="Haiti"></nz-option>
+                                        <nz-option nzValue="HM" nzLabel="Heard Island and Mcdonald Islands"></nz-option>
+                                        <nz-option nzValue="VA" nzLabel="Holy See (Vatican City State)"></nz-option>
+                                        <nz-option nzValue="HN" nzLabel="Honduras"></nz-option>
+                                        <nz-option nzValue="HK" nzLabel="Hong Kong"></nz-option>
+                                        <nz-option nzValue="HU" nzLabel="Hungary"></nz-option>
+                                        <nz-option nzValue="IS" nzLabel="Iceland"></nz-option>
+                                        <nz-option nzValue="IN" nzLabel="India"></nz-option>
+                                        <nz-option nzValue="ID" nzLabel="Indonesia"></nz-option>
+                                        <nz-option nzValue="IR" nzLabel="Iran, Islamic Republic of"></nz-option>
+                                        <nz-option nzValue="IQ" nzLabel="Iraq"></nz-option>
+                                        <nz-option nzValue="IE" nzLabel="Ireland"></nz-option>
+                                        <nz-option nzValue="IM" nzLabel="Isle of Man"></nz-option>
+                                        <nz-option nzValue="IL" nzLabel="Israel"></nz-option>
+                                        <nz-option nzValue="IT" nzLabel="Italy"></nz-option>
+                                        <nz-option nzValue="JM" nzLabel="Jamaica"></nz-option>
+                                        <nz-option nzValue="JP" nzLabel="Japan"></nz-option>
+                                        <nz-option nzValue="JE" nzLabel="Jersey"></nz-option>
+                                        <nz-option nzValue="JO" nzLabel="Jordan"></nz-option>
+                                        <nz-option nzValue="KZ" nzLabel="Kazakhstan"></nz-option>
+                                        <nz-option nzValue="KE" nzLabel="Kenya"></nz-option>
+                                        <nz-option nzValue="KI" nzLabel="Kiribati"></nz-option>
+                                        <nz-option nzValue="KP" nzLabel="Korea, Democratic People's Republic of"></nz-option>
+                                        <nz-option nzValue="KR" nzLabel="Korea, Republic of"></nz-option>
+                                        <nz-option nzValue="XK" nzLabel="Kosovo"></nz-option>
+                                        <nz-option nzValue="KW" nzLabel="Kuwait"></nz-option>
+                                        <nz-option nzValue="KG" nzLabel="Kyrgyzstan"></nz-option>
+                                        <nz-option nzValue="LA" nzLabel="Lao People's Democratic Republic"></nz-option>
+                                        <nz-option nzValue="LV" nzLabel="Latvia"></nz-option>
+                                        <nz-option nzValue="LB" nzLabel="Lebanon"></nz-option>
+                                        <nz-option nzValue="LS" nzLabel="Lesotho"></nz-option>
+                                        <nz-option nzValue="LR" nzLabel="Liberia"></nz-option>
+                                        <nz-option nzValue="LY" nzLabel="Libyan Arab Jamahiriya"></nz-option>
+                                        <nz-option nzValue="LI" nzLabel="Liechtenstein"></nz-option>
+                                        <nz-option nzValue="LT" nzLabel="Lithuania"></nz-option>
+                                        <nz-option nzValue="LU" nzLabel="Luxembourg"></nz-option>
+                                        <nz-option nzValue="MO" nzLabel="Macao"></nz-option>
+                                        <nz-option nzValue="MK" nzLabel="Macedonia, the Former Yugoslav Republic of"></nz-option>
+                                        <nz-option nzValue="MG" nzLabel="Madagascar"></nz-option>
+                                        <nz-option nzValue="MW" nzLabel="Malawi"></nz-option>
+                                        <nz-option nzValue="MY" nzLabel="Malaysia"></nz-option>
+                                        <nz-option nzValue="MV" nzLabel="Maldives"></nz-option>
+                                        <nz-option nzValue="ML" nzLabel="Mali"></nz-option>
+                                        <nz-option nzValue="MT" nzLabel="Malta"></nz-option>
+                                        <nz-option nzValue="MH" nzLabel="Marshall Islands"></nz-option>
+                                        <nz-option nzValue="MQ" nzLabel="Martinique"></nz-option>
+                                        <nz-option nzValue="MR" nzLabel="Mauritania"></nz-option>
+                                        <nz-option nzValue="MU" nzLabel="Mauritius"></nz-option>
+                                        <nz-option nzValue="YT" nzLabel="Mayotte"></nz-option>
+                                        <nz-option nzValue="MX" nzLabel="Mexico"></nz-option>
+                                        <nz-option nzValue="FM" nzLabel="Micronesia, Federated States of"></nz-option>
+                                        <nz-option nzValue="MD" nzLabel="Moldova, Republic of"></nz-option>
+                                        <nz-option nzValue="MC" nzLabel="Monaco"></nz-option>
+                                        <nz-option nzValue="MN" nzLabel="Mongolia"></nz-option>
+                                        <nz-option nzValue="ME" nzLabel="Montenegro"></nz-option>
+                                        <nz-option nzValue="MS" nzLabel="Montserrat"></nz-option>
+                                        <nz-option nzValue="MA" nzLabel="Morocco"></nz-option>
+                                        <nz-option nzValue="MZ" nzLabel="Mozambique"></nz-option>
+                                        <nz-option nzValue="MM" nzLabel="Myanmar"></nz-option>
+                                        <nz-option nzValue="NA" nzLabel="Namibia"></nz-option>
+                                        <nz-option nzValue="NR" nzLabel="Nauru"></nz-option>
+                                        <nz-option nzValue="NP" nzLabel="Nepal"></nz-option>
+                                        <nz-option nzValue="NL" nzLabel="Netherlands"></nz-option>
+                                        <nz-option nzValue="AN" nzLabel="Netherlands Antilles"></nz-option>
+                                        <nz-option nzValue="NC" nzLabel="New Caledonia"></nz-option>
+                                        <nz-option nzValue="NZ" nzLabel="New Zealand"></nz-option>
+                                        <nz-option nzValue="NI" nzLabel="Nicaragua"></nz-option>
+                                        <nz-option nzValue="NE" nzLabel="Niger"></nz-option>
+                                        <nz-option nzValue="NG" nzLabel="Nigeria"></nz-option>
+                                        <nz-option nzValue="NU" nzLabel="Niue"></nz-option>
+                                        <nz-option nzValue="NF" nzLabel="Norfolk Island"></nz-option>
+                                        <nz-option nzValue="MP" nzLabel="Northern Mariana Islands"></nz-option>
+                                        <nz-option nzValue="NO" nzLabel="Norway"></nz-option>
+                                        <nz-option nzValue="OM" nzLabel="Oman"></nz-option>
+                                        <nz-option nzValue="PK" nzLabel="Pakistan"></nz-option>
+                                        <nz-option nzValue="PW" nzLabel="Palau"></nz-option>
+                                        <nz-option nzValue="PS" nzLabel="Palestinian Territory, Occupied"></nz-option>
+                                        <nz-option nzValue="PA" nzLabel="Panama"></nz-option>
+                                        <nz-option nzValue="PG" nzLabel="Papua New Guinea"></nz-option>
+                                        <nz-option nzValue="PY" nzLabel="Paraguay"></nz-option>
+                                        <nz-option nzValue="PE" nzLabel="Peru"></nz-option>
+                                        <nz-option nzValue="PH" nzLabel="Philippines"></nz-option>
+                                        <nz-option nzValue="PN" nzLabel="Pitcairn"></nz-option>
+                                        <nz-option nzValue="PL" nzLabel="Poland"></nz-option>
+                                        <nz-option nzValue="PT" nzLabel="Portugal"></nz-option>
+                                        <nz-option nzValue="PR" nzLabel="Puerto Rico"></nz-option>
+                                        <nz-option nzValue="QA" nzLabel="Qatar"></nz-option>
+                                        <nz-option nzValue="RE" nzLabel="Reunion"></nz-option>
+                                        <nz-option nzValue="RO" nzLabel="Romania"></nz-option>
+                                        <nz-option nzValue="RU" nzLabel="Russian Federation"></nz-option>
+                                        <nz-option nzValue="RW" nzLabel="Rwanda"></nz-option>
+                                        <nz-option nzValue="BL" nzLabel="Saint Barthelemy"></nz-option>
+                                        <nz-option nzValue="SH" nzLabel="Saint Helena"></nz-option>
+                                        <nz-option nzValue="KN" nzLabel="Saint Kitts and Nevis"></nz-option>
+                                        <nz-option nzValue="LC" nzLabel="Saint Lucia"></nz-option>
+                                        <nz-option nzValue="MF" nzLabel="Saint Martin"></nz-option>
+                                        <nz-option nzValue="PM" nzLabel="Saint Pierre and Miquelon"></nz-option>
+                                        <nz-option nzValue="VC" nzLabel="Saint Vincent and the Grenadines"></nz-option>
+                                        <nz-option nzValue="WS" nzLabel="Samoa"></nz-option>
+                                        <nz-option nzValue="SM" nzLabel="San Marino"></nz-option>
+                                        <nz-option nzValue="ST" nzLabel="Sao Tome and Principe"></nz-option>
+                                        <nz-option nzValue="SA" nzLabel="Saudi Arabia"></nz-option>
+                                        <nz-option nzValue="SN" nzLabel="Senegal"></nz-option>
+                                        <nz-option nzValue="RS" nzLabel="Serbia"></nz-option>
+                                        <nz-option nzValue="CS" nzLabel="Serbia and Montenegro"></nz-option>
+                                        <nz-option nzValue="SC" nzLabel="Seychelles"></nz-option>
+                                        <nz-option nzValue="SL" nzLabel="Sierra Leone"></nz-option>
+                                        <nz-option nzValue="SG" nzLabel="Singapore"></nz-option>
+                                        <nz-option nzValue="SX" nzLabel="Sint Maarten"></nz-option>
+                                        <nz-option nzValue="SK" nzLabel="Slovakia"></nz-option>
+                                        <nz-option nzValue="SI" nzLabel="Slovenia"></nz-option>
+                                        <nz-option nzValue="SB" nzLabel="Solomon Islands"></nz-option>
+                                        <nz-option nzValue="SO" nzLabel="Somalia"></nz-option>
+                                        <nz-option nzValue="ZA" nzLabel="South Africa"></nz-option>
+                                        <nz-option nzValue="GS" nzLabel="South Georgia and the South Sandwich Islands"></nz-option>
+                                        <nz-option nzValue="SS" nzLabel="South Sudan"></nz-option>
+                                        <nz-option nzValue="ES" nzLabel="Spain"></nz-option>
+                                        <nz-option nzValue="LK" nzLabel="Sri Lanka"></nz-option>
+                                        <nz-option nzValue="SD" nzLabel="Sudan"></nz-option>
+                                        <nz-option nzValue="SR" nzLabel="Suriname"></nz-option>
+                                        <nz-option nzValue="SJ" nzLabel="Svalbard and Jan Mayen"></nz-option>
+                                        <nz-option nzValue="SZ" nzLabel="Swaziland"></nz-option>
+                                        <nz-option nzValue="SE" nzLabel="Sweden"></nz-option>
+                                        <nz-option nzValue="CH" nzLabel="Switzerland"></nz-option>
+                                        <nz-option nzValue="SY" nzLabel="Syrian Arab Republic"></nz-option>
+                                        <nz-option nzValue="TW" nzLabel="Taiwan, Province of China"></nz-option>
+                                        <nz-option nzValue="TJ" nzLabel="Tajikistan"></nz-option>
+                                        <nz-option nzValue="TZ" nzLabel="Tanzania, United Republic of"></nz-option>
+                                        <nz-option nzValue="TH" nzLabel="Thailand"></nz-option>
+                                        <nz-option nzValue="TL" nzLabel="Timor-Leste"></nz-option>
+                                        <nz-option nzValue="TG" nzLabel="Togo"></nz-option>
+                                        <nz-option nzValue="TK" nzLabel="Tokelau"></nz-option>
+                                        <nz-option nzValue="TO" nzLabel="Tonga"></nz-option>
+                                        <nz-option nzValue="TT" nzLabel="Trinidad and Tobago"></nz-option>
+                                        <nz-option nzValue="TN" nzLabel="Tunisia"></nz-option>
+                                        <nz-option nzValue="TR" nzLabel="Turkey"></nz-option>
+                                        <nz-option nzValue="TM" nzLabel="Turkmenistan"></nz-option>
+                                        <nz-option nzValue="TC" nzLabel="Turks and Caicos Islands"></nz-option>
+                                        <nz-option nzValue="TV" nzLabel="Tuvalu"></nz-option>
+                                        <nz-option nzValue="UG" nzLabel="Uganda"></nz-option>
+                                        <nz-option nzValue="UA" nzLabel="Ukraine"></nz-option>
+                                        <nz-option nzValue="AE" nzLabel="United Arab Emirates"></nz-option>
+                                        <nz-option nzValue="GB" nzLabel="United Kingdom"></nz-option>
+                                        <nz-option nzValue="US" nzLabel="United States"></nz-option>
+                                        <nz-option nzValue="UM" nzLabel="United States Minor Outlying Islands"></nz-option>
+                                        <nz-option nzValue="UY" nzLabel="Uruguay"></nz-option>
+                                        <nz-option nzValue="UZ" nzLabel="Uzbekistan"></nz-option>
+                                        <nz-option nzValue="VU" nzLabel="Vanuatu"></nz-option>
+                                        <nz-option nzValue="VE" nzLabel="Venezuela"></nz-option>
+                                        <nz-option nzValue="VN" nzLabel="Viet Nam"></nz-option>
+                                        <nz-option nzValue="VG" nzLabel="Virgin Islands, British"></nz-option>
+                                        <nz-option nzValue="VI" nzLabel="Virgin Islands, U.s."></nz-option>
+                                        <nz-option nzValue="WF" nzLabel="Wallis and Futuna"></nz-option>
+                                        <nz-option nzValue="EH" nzLabel="Western Sahara"></nz-option>
+                                        <nz-option nzValue="YE" nzLabel="Yemen"></nz-option>
+                                        <nz-option nzValue="ZM" nzLabel="Zambia"></nz-option>
+                                        <nz-option nzValue="ZW" nzLabel="Zimbabwe"></nz-option>
                                     </nz-select>
                                 </nz-form-item>
                             </td>
                             <td>
                                 <nz-form-item>
-                                    <nz-form-control >
-                                        <button nz-button nzType="primary" nzSize="large" nzSearch
-                                            (click)="getService()" [disabled]="!searchres ?true:false">{{'search' |
+                                    <nz-form-control>
+                                        <button nz-button nzType="primary" nzSize="large" nzSearch (click)="getService()" [disabled]="!searchres ?true:false">{{'search' |
                                             translate}}</button>
-                                        <button class="m-l-10" nz-button nzType="primary" nzSize="large" nzSearch
-                                            (click)="resetSearch()">{{'Reset' | translate}}</button>
+                                        <button class="m-l-10" nz-button nzType="primary" nzSize="large" nzSearch (click)="resetSearch()">{{'Reset' | translate}}</button>
                                     </nz-form-control>
                                 </nz-form-item>
                             </td>
@@ -312,8 +316,7 @@
 
                                 <nz-form-item>
                                     <nz-form-control [formGroup]="form">
-                                        <select class="minimal" id="dropdown" #selectLista
-                                            (change)="getPageDetails(selectLista.value) " formControlName="category">
+                                        <select class="minimal" id="dropdown" #selectLista (change)="getPageDetails(selectLista.value) " formControlName="category">
                                             <option value="null" selected="true" disabled="disabled">{{ 'artCategoryErr' | translate }}</option>
                                             <option *ngFor="let cat of categories" value="{{cat.slug}}">
                                                 {{cat.title}}</option>
@@ -336,15 +339,12 @@
                 <div class="container">
                     <div class="cat-box-gallery">
                         <div class="row" *ngIf="!services">
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5"
-                                *ngFor="let service of categoryskeletonData">
-                                <nz-skeleton *ngIf="!services" [nzAvatar]="true" [nzParagraph]="{ rows: 6 }"
-                                    class="custom-skeleton card-skeleton"></nz-skeleton>
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5" *ngFor="let service of categoryskeletonData">
+                                <nz-skeleton *ngIf="!services" [nzAvatar]="true" [nzParagraph]="{ rows: 6 }" class="custom-skeleton card-skeleton"></nz-skeleton>
                             </div>
                         </div>
                         <div class="row service-row">
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5" *ngFor="let service of services"
-                                [ngClass]="service.category.slug">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 custom-col-5" *ngFor="let service of services" [ngClass]="service.category.slug">
                                 <div class="item-card item-card-life-and-styles">
                                     <a [routerLink]="['/service',service.author.slug,service.slug]">
                                         <div class="item-card-image">
@@ -389,11 +389,7 @@
                                             <div class="item-card-category  cat-yellow">
                                                 <div class="is-avatar-dv">
                                                     <div class="overlay-icon">
-                                                        <img class="avatar"
-                                                            [src]="replaceImage(service.author?.avatar?.url)"
-                                                            [alt]="service.author?.avatar?.alt"
-                                                            onerror="this.src='assets/images/default-avatar.png'"
-                                                            *ngIf="!(service.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg" />
+                                                        <img class="avatar" [src]="replaceImage(service.author?.avatar?.url)" [alt]="service.author?.avatar?.alt" onerror="this.src='assets/images/default-avatar.png'" *ngIf="!(service.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg" />
                                                         <ng-template #CateAvatarCloudinoryImg>
                                                             <div class="hide-feature-img">
                                                                 <app-cloudinary-img [article]="service">
@@ -413,21 +409,15 @@
                                                 <div class="category-service-readmore">
                                                     <div *ngIf="service.type==='audio'">
                                                         <button type="button" class="is-read-more">{{'ListenNow' |
-                                                            translate }} <img
-                                                                src="assets/images/read-more-icon-black.png"
-                                                                alt="Listen Now" /></button>
+                                                            translate }} <img src="assets/images/read-more-icon-black.png" alt="Listen Now" /></button>
                                                     </div>
                                                     <div *ngIf="service.type==='video'">
                                                         <button type="button" class="is-read-more">{{'WatchNow' |
-                                                            translate }}<img
-                                                                src="assets/images/read-more-icon-black.png"
-                                                                alt="Watch Now" /></button>
+                                                            translate }}<img src="assets/images/read-more-icon-black.png" alt="Watch Now" /></button>
                                                     </div>
                                                     <div *ngIf="!(service.type==='audio' || service.type==='video')">
                                                         <button type="button" class="is-read-more">{{'readMore' |
-                                                            translate }} <img
-                                                                src="assets/images/read-more-icon-black.png"
-                                                                alt="Read More" /></button>
+                                                            translate }} <img src="assets/images/read-more-icon-black.png" alt="Read More" /></button>
                                                     </div>
                                                     <div class="service-icon-main">
                                                         <div class="service-icon" *ngIf="service.type==='audio'">
@@ -436,8 +426,7 @@
                                                         <div class="service-icon" *ngIf="service.type==='video'">
                                                             <i class="fas fa-video"></i>
                                                         </div>
-                                                        <div class="service-icon"
-                                                            *ngIf="!(service.type==='audio' || service.type==='video')">
+                                                        <div class="service-icon" *ngIf="!(service.type==='audio' || service.type==='video')">
                                                             <i class="far fa-file-alt"></i>
                                                         </div>
 

@@ -37,8 +37,7 @@
       <div class="xs-service-date">{{service?.published_at | date:'medium' }}</div>
     </div>
     <div class="service-full-img">
-      <img src="{{replaceImage(service?.image?.url)}}" alt="{{service.image.alt}}"
-        *ngIf="!(service.image.cloudinary_id); else serviceFullimg" />
+      <img src="{{replaceImage(service?.image?.url)}}" alt="{{service.image.alt}}" *ngIf="!(service.image.cloudinary_id); else serviceFullimg" />
       <ng-template #serviceFullimg>
         <cl-image loading="lazy" public-id="{{replaceImage(service.image.cloudinary_id)}}" secure="true">
           <cl-transformation width="1500" height="400" gravity="face" crop="thumb">
@@ -51,12 +50,9 @@
         <div class="sticky-box">
           <div class="is-profile">
             <a [routerLink]="[getServiceUrl(service),service?.author?.slug]" itemprop="url" *ngIf="service">
-              <img class="avatar" src="{{replaceImage(service?.author?.avatar?.url)}}"
-                alt="{{service?.author?.avatar?.alt}}" onerror="this.src='assets/images/default-avatar.png'"
-                *ngIf="!(service.author.avatar.cloudinary_id); else authorImg" />
+              <img class="avatar" src="{{replaceImage(service?.author?.avatar?.url)}}" alt="{{service?.author?.avatar?.alt}}" onerror="this.src='assets/images/default-avatar.png'" *ngIf="!(service.author.avatar.cloudinary_id); else authorImg" />
               <ng-template #authorImg>
-                <cl-image loading="lazy" public-id="{{replaceImage(service.author.avatar.cloudinary_id)}}"
-                  secure="true">
+                <cl-image loading="lazy" public-id="{{replaceImage(service.author.avatar.cloudinary_id)}}" secure="true">
                   <cl-transformation width="140" height="140" gravity="face" crop="thumb">
                   </cl-transformation>
                 </cl-image>
@@ -73,16 +69,15 @@
               </a>
               <a class="follow-btn" *ngIf="!isFollowing" (click)="follow()">
                 <img src="assets/images/article/icon/follow.png" />
-                {{'followAuthor' | translate}}
+                {{'followService' | translate}}
               </a>
               <a class="follow-btn" *ngIf="isFollowing" (click)="unfollow()">
                 <img src="assets/images/article/icon/un-follow.png" />
-                {{'unfollowAuthor' | translate}}
+                {{'unfollowService' | translate}}
               </a>
 
               <div class="login-popup" *ngIf="!isLoggedInUser">
-                <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()"
-                  (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
+                <nz-modal [(nzVisible)]="isVisible" nzTitle="My Trending Stories" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
                   <div class="popup-content">
                     <div>
                       <a [routerLink]="['/']" class="bg-logo">
@@ -103,7 +98,7 @@
           <div class="is-like-sec is-divider">
             <a class="is-like" *ngIf="!isLike" (click)="like()">
               <i class="far fa-thumbs-up"></i>
-              {{'like' | translate}} <span class="like-count" *ngIf = "serviceLikes">{{serviceLikes}}</span>
+              {{'like' | translate}} <span class="like-count" *ngIf="serviceLikes">{{serviceLikes}}</span>
             </a>
             <a class="is-like" *ngIf="isLike" (click)="disLike()">
               <i class="fas fa-heart"></i>
@@ -123,17 +118,13 @@
                   <div class="is-followers-item" *ngFor="let follower of followers">
 
                     <a [routerLink]="['/',follower.slug]">
-                      <img src="{{replaceImage(follower?.avatar?.url)}}"
-                        onerror="this.src='assets/images/default-avatar.png'" alt="{{follower?.avatar?.alt}}" />
+                      <img src="{{replaceImage(follower?.avatar?.url)}}" onerror="this.src='assets/images/default-avatar.png'" alt="{{follower?.avatar?.alt}}" />
                     </a>
                   </div>
                 </div>
               </div>
             </section>
-            <a href="{{bookingURL}}/?slug={{userSlug}}" itemprop="url" nz-button
-              class="is-see-more show-more" [nzType]="'primary'">
-              {{'Bookingser' | translate}}
-            </a>
+
           </div>
         </div>
       </div>
@@ -150,10 +141,7 @@
             <div class="is-small-profile">
               <div class="is-image">
                 <a [routerLink]="[getServiceUrl(service),service?.author?.slug]" itemprop="url" *ngIf="service">
-                  <img class="avatar" alt="{{service?.author?.avatar?.alt}}"
-                    src="{{replaceImage(service?.author?.avatar?.url)}}"
-                    onerror="this.src='assets/images/default-avatar.png'"
-                    *ngIf="!(service.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg" />
+                  <img class="avatar" alt="{{service?.author?.avatar?.alt}}" src="{{replaceImage(service?.author?.avatar?.url)}}" onerror="this.src='assets/images/default-avatar.png'" *ngIf="!(service.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg" />
                   <ng-template #CateAvatarCloudinoryImg>
                     <div class="hide-feature-img d-inline-block">
                       <app-cloudinary-img [article]="service"></app-cloudinary-img>
@@ -165,8 +153,7 @@
               </div>
               <div class="is-date">
                 {{service?.published_at | date:'medium' }}
-                <a class="category" [routerLink]="['/category/',service?.category?.slug]" *ngIf="service"
-                  [ngClass]="service.category.slug">
+                <a class="category" [routerLink]="['/category/',service?.category?.slug]" *ngIf="service" [ngClass]="service.category.slug">
                   {{service?.category.title}}
                 </a>
               </div>
@@ -178,21 +165,19 @@
           <div class="is-body">
             <div *ngIf="serviceType === VIDEO" class="main-video-sec">
               <h5 *ngIf="service.service_file.name" class="font-weight-bold">{{service.service_file.name}}</h5>
-              <cl-video *ngIf="service.service_file.cloudinary_id" [public-id]="service.service_file.cloudinary_id" secure="true" controls="true"
-                class="cld-video"></cl-video>
-                <div class="row pt-3" *ngIf="service.service_file.name">
+              <cl-video *ngIf="service.service_file.cloudinary_id" [public-id]="service.service_file.cloudinary_id" secure="true" controls="true" class="cld-video"></cl-video>
+              <div class="row pt-3" *ngIf="service.service_file.name">
+
+              </div>
+              <div class="is-line" *ngIf="service.service_file.name"></div>
+              <div *ngFor="let file of files">
+                <h5 class="font-weight-bold">{{file.name}}</h5>
+                <cl-video [public-id]="file.cloudinary_id" secure="true" controls="true" class="cld-video"></cl-video>
+                <div class="row pt-3" *ngIf="file.name">
 
                 </div>
-                <div class="is-line" *ngIf="service.service_file.name"></div>
-                <div *ngFor="let file of files">
-                  <h5 class="font-weight-bold">{{file.name}}</h5>
-                  <cl-video [public-id]="file.cloudinary_id" secure="true" controls="true"
-                  class="cld-video"></cl-video>
-                  <div class="row pt-3" *ngIf="file.name">
-
-                  </div>
-                  <div class="is-line"></div>
-                </div>
+                <div class="is-line"></div>
+              </div>
               <div class="video-control">
                 <ul>
                   <li>
@@ -253,8 +238,7 @@
               <p class="big " innerHTML="{{service?.content}}"></p>
               <p class="hidden-on-xs">
                 {{'publishedBy' | translate}}
-                <a [routerLink]="['/profile/',service?.author?.slug]" target="_blank"
-                  title="  {{service?.author.fullname}}" *ngIf="service">
+                <a [routerLink]="['/profile/',service?.author?.slug]" target="_blank" title="  {{service?.author.fullname}}" *ngIf="service">
                   <span class="name" itemprop="name">
                     {{service?.author.fullname}}</span>
                 </a>
@@ -262,10 +246,7 @@
               <div class="xs-service-publish">
                 <div class="xs-service-publisher-img">
                   <a [routerLink]="[getServiceUrl(service),service?.author?.slug]" itemprop="url" *ngIf="service">
-                    <img class="avatar" alt="{{service?.author?.avatar?.alt}}"
-                      src="{{replaceImage(service?.author?.avatar?.url)}}"
-                      onerror="this.src='assets/images/default-avatar.png'"
-                      *ngIf="!(service.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg" />
+                    <img class="avatar" alt="{{service?.author?.avatar?.alt}}" src="{{replaceImage(service?.author?.avatar?.url)}}" onerror="this.src='assets/images/default-avatar.png'" *ngIf="!(service.author.avatar.cloudinary_id); else CateAvatarCloudinoryImg" />
                     <ng-template #CateAvatarCloudinoryImg>
                       <div class="hide-feature-img d-inline-block">
                         <app-cloudinary-img [article]="service"></app-cloudinary-img>
@@ -276,8 +257,7 @@
                 </div>
                 <div class="xs-articl-publisher-name">
                   {{'WrittenBy' | translate}}
-                  <a [routerLink]="['/profile/',service?.author?.slug]" target="_blank"
-                    title="  {{service?.author.fullname}}" *ngIf="service">
+                  <a [routerLink]="['/profile/',service?.author?.slug]" target="_blank" title="  {{service?.author.fullname}}" *ngIf="service">
                     <span class="name" itemprop="name">
                       {{service?.author.fullname}}</span>
                   </a>
@@ -300,41 +280,23 @@
             </div>
           </div>
         </div>
-        <div class="form-contactus">
-          <div>
-            <button class="request-info-btn" (click)="serviceMoreInfo()">
-              Request More Info
-              <img src="assets/images/read-more-icon.png" alt="">
-            </button>
-          </div>
-          <app-service-contact-form *ngIf="serviceId" [serviceId]="serviceId" [meeting_settings]="service.meeting_settings"></app-service-contact-form>
-        </div>
+
 
       </div>
-      <div class="is-right-ad-section" [ngClass]="SlideRelatedService ? 'removeSlide' : 'openSlideService'">
+      <div class="is-right-ad-section">
 
-        <app-company-lead-form *ngIf="service?.author?.type == 'company'" [companyId]="service.author.id">
-        </app-company-lead-form>
 
-        <app-charity-donate-form *ngIf="service?.author?.type == 'charity'" [charityId]="service.author.id">
-        </app-charity-donate-form>
 
-        <app-similar-services *ngIf="service" [service]="service"></app-similar-services>
-
-        <div class="slide-service">
-          <button type="button" nz-button class="is-see-more show-more" [nzType]="'primary'" (click)="slideService()">
-            {{'ShowMore' | translate}}
-          </button>
-          <button type="button" nz-button class="is-see-more less-more" [nzType]="'primary'" (click)="slideService()">
-            {{'ShowLess' | translate}}
+        <div>
+          <button class="request-info-btn" (click)="serviceMoreInfo()">
+            Request More Info
+            <img src="assets/images/read-more-icon.png" alt="">
           </button>
         </div>
+        <app-service-contact-form *ngIf="serviceId" [serviceId]="serviceId" [meeting_settings]="service.meeting_settings"></app-service-contact-form>
+
 
         <div adItem id="playwire-test" type="playwire" adUnit="med_rect_atf" style="width: 300px; height: 600px;">
-        </div>
-
-        <div class="ads-box">
-          <div adItem id="div-gpt-ad-1599554597929-0" style="width: 300px; height: 600px;"></div>
         </div>
       </div>
     </div>

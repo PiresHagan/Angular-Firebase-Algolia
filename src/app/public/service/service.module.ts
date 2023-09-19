@@ -9,10 +9,12 @@ import { createTranslateLoader, SharedModule } from 'src/app/shared/shared.modul
 import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
 import { Cloudinary } from 'cloudinary-core';
 import { NgAisModule } from 'angular-instantsearch';
+import { ServiceCatagoryComponent } from './service-catagory-list/service-list.component';
 
 @NgModule({
   declarations: [
     ServiceComponent,
+    ServiceCatagoryComponent
   ],
   imports: [
     CloudinaryModule.forRoot({ Cloudinary }, { cloud_name: 'mytrendingstories' } as CloudinaryConfiguration),
