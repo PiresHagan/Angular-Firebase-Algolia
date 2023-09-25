@@ -9,8 +9,8 @@ export const environment = {
   production: false,
   captchaKey: '6LfMnKoZAAAAALeLCs7H9LL9MhOy3EmcwtchxUf-',
   baseAPIDomain: 'https://us-central1-my-trending-stories-dev.cloudfunctions.net',
-  agoraConfiguration:{
-    appid:'113b0649c5e6430ab2eddb3f7696a12f'
+  agoraConfiguration: {
+    appid: '113b0649c5e6430ab2eddb3f7696a12f'
   },
   algolia: {
     applicationId: 'N7WFUORZZU',
@@ -23,8 +23,8 @@ export const environment = {
       textArticles: 'dev_text_articles_',
       audioArticles: 'dev_audio_article_',
       videoArticles: 'dev_video_article_',
-      hair_salon:'dev_hair_salon_',
-      vacancies:'dev_vacancies_',
+      hair_salon: 'dev_hair_salon_',
+      vacancies: 'dev_vacancies_',
     },
   },
   facebook: {

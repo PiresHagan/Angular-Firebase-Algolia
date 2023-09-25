@@ -25,7 +25,7 @@ export class InfluencerService {
     private http: HttpClient
   ) { }
 
-  getInfluencer(limit: number = 10, navigation: string = "first", lastVisible = null, type = null) {
+  getInfluencer(limit: number = 10, navigation: string = "first", lastVisible = null, type = undefined) {
     if (!limit) {
       limit = 10;
     }
@@ -137,19 +137,20 @@ export class InfluencerService {
     }
   }
 
-  getInfluencerserchtitle(title, limit: number = 10, navigation: string = "first", lastVisible = null, type = null) {
+  getInfluencerserchtitle(title, limit: number = 10, navigation: string = "first", lastVisible = null, type = undefined) {
     console.log(title);
     if (!limit) {
       limit = 10;
     }
     let dataQuery = this.db.collection<Infleuncer[]>(`${this.infleuncerCollection}`, ref => ref
-      .orderBy('created_at', 'desc').where('title', '==', title)
+      .orderBy('title', 'desc').orderBy('created_at', 'desc').where('title', '>=', title).where('title', '<=', title + '\uf8ff')
+
       .limit(limit)
     )
     switch (navigation) {
       case 'next':
         dataQuery = this.db.collection<Infleuncer[]>(`${this.infleuncerCollection}`, ref => ref
-          .orderBy('created_at', 'desc').where('title', '==', title)
+          .orderBy('title', 'desc').orderBy('created_at', 'desc').where('title', '>=', title).where('title', '<=', title + '\uf8ff')
           .limit(limit)
           .startAfter(lastVisible))
         break;

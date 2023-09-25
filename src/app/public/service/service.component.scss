@@ -7,12 +7,21 @@
   position: relative;
   display: flex;
 }
+.nz-select-top-control {
+  height: 3.1rem !important;
+}
+.ant-select {
+  color: #706565 !important;
+  background-color: #c8c8c8 !important;
+}
+
+.ant-select-selector {
+  background-color: #c8c8c8 !important;
+}
 
 .searchTerm {
   border: 1px solid #cacaca;
   border-right: none;
-  padding: 6px;
-  height: 120%;
   border-radius: 5px 0 0 5px;
   outline: none;
   color: #9dbfaf;
@@ -21,18 +30,25 @@
 .searchTerm:focus {
   color: #cacaca;
 }
-
-.searchButton {
-  width: 40px;
-  height: 36px;
+.searchButton1 {
   border: 1px solid #cacaca;
   border-left: none;
-  background: white;
+  text-align: center;
+  color: #cacaca;
+  cursor: pointer;
+}
+
+.ant-btn-icon-only {
+  width: 49px !important;
+}
+
+.searchButton {
+  border: 1px solid #cacaca;
+  border-left: none;
   text-align: center;
   color: #cacaca;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
-  font-size: 20px;
 }
 
 /*Resize the wrap to see the search bar change!*/
@@ -341,7 +357,6 @@ td {
   padding: 7px;
 }
 .mega-menu-header {
-  padding-bottom: 20px;
   border-bottom: 1px solid #ccc;
   margin-bottom: 20px;
   .shopping-header {
@@ -349,7 +364,6 @@ td {
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: center;
-    max-width: 1200px;
     margin: 0px auto;
     .category-dropdown {
       width: 220px;

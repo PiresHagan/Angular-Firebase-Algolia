@@ -9,52 +9,49 @@
 </div>
 
 <div class="mega-menu-header">
-    <div class="container">
-        <div class="shopping-header">
-            <form nz-form id="service-form" [formGroup]="influencerForm">
-                <table>
-                    <tr>
-                        <td>
+    <form nz-form id="service-form" [formGroup]="influencerForm">
+        <div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-7">
 
-                        <td>
-                            <nz-form-item>
-                                <input type="text" name="searcher" formControlName="searcherCon" [(ngModel)]="searcher" nz-input placeholder=" {{ 'search' | translate }} influencers" />
-                            </nz-form-item>
+                    <nz-form-item>
+                        <div style="width: 100%;">
+                            <div class="search">
+                                <input type="text" name="searcher" formControlName="searcherCon" [(ngModel)]="searcher" nz-input placeholder=" {{ 'search' | translate }} influencers" nzSize="small" />
+                                <button nz-button class="searchButton1" (click)="search()" [disabled]="!searcher ?true:false">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <button nz-button class="searchButton" (click)="resetSearch()">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
 
-                        </td>
-                        <td>
-                            <nz-form-item>
-                                <nz-form-control>
-                                    <button nz-button nzType="primary" nzSize="large" nzSearch (click)="search()">{{'search' |
-                                        translate}}</button>
-                                    <button class="m-l-10" nz-button nzType="primary" nzSize="large" nzSearch (click)="resetSearch()">{{'Reset' | translate}}</button>
-                                </nz-form-control>
-                            </nz-form-item>
-                        </td>
-                        <td>
-
-                            <nz-form-item>
-                                <nz-form-control>
-                                    <select (change)="onChange($event.target.value)" class="minimal" id="dropdown" formControlName="listCat">
-                                        <option value="null" selected="true" disabled="disabled">{{ 'artCategoryErr' |
-                                            translate }}</option>
-                                        <option *ngFor="let cat of categories" value="{{cat.slug}}">
-                                            {{cat.title}}</option>
-                                    </select>
-                                </nz-form-control>
-                            </nz-form-item>
-                        </td>
-
-                    </tr>
-                </table>
-            </form>
-
-
-
-
+                    </nz-form-item>
+                </div>
+                <div class="col-3">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <nz-select [(ngModel)]="selectedCategory" (ngModelChange)="onChange()" formControlName="listCat" nzPlaceHolder="{{ 'artCategoryErr' |
+                                            translate }}" nzSize="large">
+                                <nz-option *ngFor="let cat of categories" nzValue="{{cat.slug}}" nzLabel="{{cat.title}}">
+                                </nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="col-1"></div>
+            </div>
         </div>
-    </div>
+
+    </form>
+
+
+
+
 </div>
+
 
 <div class="row d-flex justify-content-center pb-20" style="padding-bottom: 100px">
     <nz-empty nzNotFoundImage="simple" *ngIf="!influencers?.length" [nzNotFoundContent]="contentTpl">

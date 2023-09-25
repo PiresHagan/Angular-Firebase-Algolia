@@ -77,11 +77,10 @@ export class InfluencerComponent implements OnInit {
     this.selectedLanguage = this.languageService.getSelectedLanguage();
     this.categories = this.categoryService.getAll(this.selectedLanguage);
     this.influencerService.getInfluencer().subscribe((data) => {
-
       this.influencers = data.serviceList;
       this.lastVisible = data.lastVisible;
       this.loading = false;
-
+      this.resetSearch()
     });
 
 
@@ -104,6 +103,7 @@ export class InfluencerComponent implements OnInit {
     this.categoryService.getAll(this.selectedLanguage).subscribe((data) => {
       this.categories = data;
     });
+
   }
 
 
@@ -137,6 +137,7 @@ export class InfluencerComponent implements OnInit {
           });
         }
         if (this.isSearch) {
+
           this.influencerService.getInfluencerserchtitle(this.searcher, 20, 'next', this.lastVisible).subscribe((data) => {
             this.loadingMore = false;
             this.influencers = [...this.influencers, ...data.serviceList];
@@ -165,8 +166,7 @@ export class InfluencerComponent implements OnInit {
     }
     return latestURL;
   }
-  onChange(selected): void {
-    this.selectedCategory = selected;
+  onChange(): void {
     this.influencerService.getInfluencerByCat(this.selectedCategory, this.searcher).subscribe((data) => {
       this.loadingMore = false;
       this.influencers = data.serviceList;

@@ -29,7 +29,7 @@ export class ServiceService {
   getAll() {
     return this.db.collection<Service[]>(this.serviceCollection, ref => ref
       .limit(2)
-      ).snapshotChanges().pipe(
+    ).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
@@ -40,65 +40,64 @@ export class ServiceService {
     );
   }
 
-  getServices( limit: number = 10, navigation: string = "first", lastVisible = null ,categorySlug: string = null,lang: string = 'en') {
+  getServices(limit: number = 10, navigation: string = "first", lastVisible = null, categorySlug: string = null, lang: string = 'en') {
     if (!limit) {
       limit = 10;
     }
     let dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
-    .where('lang', "==", lang)
-    .where('status', "==", ACTIVE)
-    .orderBy('published_at', 'desc')
-    .limit(limit)
+      .where('lang', "==", lang)
+      .where('status', "==", ACTIVE)
+      .orderBy('published_at', 'desc')
+      .limit(limit)
     )
     if (categorySlug) {
-      if(categorySlug.split(" ")[0]!= "subcategory")
-      dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
-        .where("category.slug", "==", categorySlug)
-        .where('lang', "==", lang)
-        .where('status', "==", ACTIVE)
-        .orderBy('published_at', 'desc')
-        .limit(limit)
-      )
-      else{
-        console.log(categorySlug.substring(10))
+      if (categorySlug.split(" ")[0] != "subcategory")
         dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
-        .where("topic_list", "array-contains-any", [categorySlug.substring(12)])
-        .where('lang', "==", lang)
-        .where('status', "==", ACTIVE)
-        .orderBy('published_at', 'desc')
-        .limit(limit)
-      )
+          .where("category.slug", "==", categorySlug)
+          .where('lang', "==", lang)
+          .where('status', "==", ACTIVE)
+          .orderBy('published_at', 'desc')
+          .limit(limit)
+        )
+      else {
+        dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
+          .where("topic_list", "array-contains-any", [categorySlug.substring(12)])
+          .where('lang', "==", lang)
+          .where('status', "==", ACTIVE)
+          .orderBy('published_at', 'desc')
+          .limit(limit)
+        )
       }
     }
 
     switch (navigation) {
       case 'next':
         if (categorySlug)
-        if(categorySlug.split[0]!= "subcategory")
+          if (categorySlug.split[0] != "subcategory")
+            dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
+              .where("category.slug", "==", categorySlug)
+              .where('lang', "==", lang)
+              .where('status', "==", ACTIVE)
+              .orderBy('published_at', 'desc')
+              .limit(limit)
+              .startAfter(lastVisible))
+          else {
+            dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
+              .where("topic_list", "array-contains-any", [categorySlug.substring(10)])
+              .where('lang', "==", lang)
+              .where('status', "==", ACTIVE)
+              .orderBy('published_at', 'desc')
+              .limit(limit)
+              .startAfter(lastVisible))
+            break;
+          }
+        else
           dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
-            .where("category.slug", "==", categorySlug)
             .where('lang', "==", lang)
             .where('status', "==", ACTIVE)
             .orderBy('published_at', 'desc')
             .limit(limit)
             .startAfter(lastVisible))
-          else{
-            dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
-        .where("topic_list", "array-contains-any", [categorySlug.substring(10)])
-        .where('lang', "==", lang)
-        .where('status', "==", ACTIVE)
-        .orderBy('published_at', 'desc')
-        .limit(limit)
-        .startAfter(lastVisible))
-        break;
-          }
-        else   
-        dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
-        .where('lang', "==", lang)
-        .where('status', "==", ACTIVE)
-        .orderBy('published_at', 'desc')
-        .limit(limit)
-        .startAfter(lastVisible))
         break;
     }
     return dataQuery.snapshotChanges().pipe(map(actions => {
@@ -116,21 +115,19 @@ export class ServiceService {
   }
 
 
-  getServicessub( limit: number = 10, navigation: string = "first", lastVisible = null ,categorySlug: string = null,lang: string = 'en') {
+  getServicessub(limit: number = 10, navigation: string = "first", lastVisible = null, categorySlug: string = null, lang: string = 'en') {
     if (!limit) {
       limit = 10;
     }
-    if (categorySlug==null) 
-    console.log(categorySlug);
     let dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
-    .where('lang', "==", lang)
-    .where('status', "==", ACTIVE)
-    .orderBy('published_at', 'desc')
-    .limit(limit)
+      .where('lang', "==", lang)
+      .where('status', "==", ACTIVE)
+      .orderBy('published_at', 'desc')
+      .limit(limit)
     )
     if (categorySlug) {
       dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
-      .where("topic_list", "array-contains-any", [categorySlug])
+        .where("topic_list", "array-contains-any", [categorySlug])
         .where('lang', "==", lang)
         .where('status', "==", ACTIVE)
         .orderBy('published_at', 'desc')
@@ -142,19 +139,19 @@ export class ServiceService {
       case 'next':
         if (categorySlug)
           dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
-          .where("topic_list", "array-contains-any", [categorySlug])
+            .where("topic_list", "array-contains-any", [categorySlug])
             .where('lang', "==", lang)
             .where('status', "==", ACTIVE)
             .orderBy('published_at', 'desc')
             .limit(limit)
             .startAfter(lastVisible))
-        else   
-        dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
-        .where('lang', "==", lang)
-        .where('status', "==", ACTIVE)
-        .orderBy('published_at', 'desc')
-        .limit(limit)
-        .startAfter(lastVisible))
+        else
+          dataQuery = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
+            .where('lang', "==", lang)
+            .where('status', "==", ACTIVE)
+            .orderBy('published_at', 'desc')
+            .limit(limit)
+            .startAfter(lastVisible))
         break;
     }
     return dataQuery.snapshotChanges().pipe(map(actions => {
@@ -188,18 +185,19 @@ export class ServiceService {
       })
     );
   }
-  getServicessearch( limit: number = 10, navigation: string = "first", lastVisible = null ,categorySlug: string = null,lang: string = 'en',searchValue : string,searchfield) {
+  getServicessearch(limit: number = 10, navigation: string = "first", lastVisible = null, categorySlug: string = null, lang: string = 'en', searchValue: string, searchfield) {
     if (!limit) {
       limit = 10;
     }
+    searchValue = searchValue == null ? undefined : searchValue;
     let dataQuery1 = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
-    .where(searchfield, ">=", searchValue)
-    .where(searchfield, "<=", searchValue + '\uf8ff')
-    .where('lang', "==", lang)
-    .where('status', "==", ACTIVE)
-    .orderBy(searchfield, 'desc')
-    .orderBy('published_at', 'desc')
-    .limit(limit)
+      .where(searchfield, ">=", searchValue)
+      .where(searchfield, "<=", searchValue + '\uf8ff')
+      .where('lang', "==", lang)
+      .where('status', "==", ACTIVE)
+      .orderBy(searchfield, 'desc')
+      .orderBy('published_at', 'desc')
+      .limit(limit)
     )
     if (categorySlug) {
       dataQuery1 = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
@@ -216,7 +214,7 @@ export class ServiceService {
 
     switch (navigation) {
       case 'next':
-        if (categorySlug){
+        if (categorySlug) {
           dataQuery1 = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
             .where("category.slug", "==", categorySlug)
             .where(searchfield, ">=", searchValue)
@@ -226,16 +224,16 @@ export class ServiceService {
             .limit(limit)
             .startAfter(lastVisible))
         }
-        else  {
-        dataQuery1 = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
-        .where('lang', "==", lang)
-        .where(searchfield, ">=", searchValue)
-        .where('status', "==", ACTIVE)
-        .orderBy('published_at', 'desc')
-        .limit(limit)
-        .startAfter(lastVisible))
-        break;
-      }
+        else {
+          dataQuery1 = this.db.collection<Service[]>(`${this.serviceCollection}`, ref => ref
+            .where('lang', "==", lang)
+            .where(searchfield, ">=", searchValue)
+            .where('status', "==", ACTIVE)
+            .orderBy('published_at', 'desc')
+            .limit(limit)
+            .startAfter(lastVisible))
+          break;
+        }
     }
 
     return dataQuery1.snapshotChanges().pipe(map(actions => {
@@ -244,7 +242,7 @@ export class ServiceService {
 
           const data: any = a.payload.doc.data();
           const id = a.payload.doc.id;
-          return{id , ...data}
+          return { id, ...data }
         }),
         lastVisible: actions && actions.length < limit ? null : actions[actions.length - 1].payload.doc
       }
@@ -254,7 +252,7 @@ export class ServiceService {
   }
 
 
- 
+
 
 
   getServiceLikes(serviceId: string) {
@@ -295,7 +293,7 @@ export class ServiceService {
    */
 
 
-  
+
   getCategoryRow(slug: string, lang: string = 'en', limit: number, afterId?: string) {
     const startAfter = afterId
       ? this.getService(afterId, true).pipe(map(a => a[0].__doc))
@@ -328,7 +326,7 @@ export class ServiceService {
     );
   }
 
- 
+
   getCategory(slug: string, lang: string = 'en') {
     return this.db.collection<Service[]>(this.serviceCollection, ref => ref
       .where('category.slug', '==', slug)
@@ -407,7 +405,7 @@ export class ServiceService {
   }
 
 
-  
+
 
   getServicesByUser(authorId, limit: number = 10, navigation: string = "first", lastVisible = null) {
     if (!limit) {
@@ -441,7 +439,7 @@ export class ServiceService {
     );
   }
 
-  
+
   getServicesBySlug(limit: number = 10, navigation: string = "first", lastVisible = null, categorySlug: string = null, topicSlug: string = '', lang: string = 'en') {
     if (!limit) {
       limit = 10;
@@ -461,7 +459,7 @@ export class ServiceService {
         .orderBy('published_at', 'desc')
         .limit(limit)
       )
-    }    
+    }
 
     switch (navigation) {
       case 'next':
@@ -512,11 +510,11 @@ export class ServiceService {
 
 
   like(serviceId: string, likerData) {
-    var likes = {like :true};
+    var likes = { like: true };
     this.likeCount(serviceId);
     return new Promise<any>((resolve, reject) => {
-      this.db.collection(`services/${serviceId}/likes`).doc(likerData.id).set(likes).then(()=>{
-      resolve();
+      this.db.collection(`services/${serviceId}/likes`).doc(likerData.id).set(likes).then(() => {
+        resolve();
       })
     });
 
@@ -526,14 +524,14 @@ export class ServiceService {
   disLike(serviceId: string, likerData) {
     this.disLikeCount(serviceId);
     return new Promise<any>((resolve, reject) => {
-      this.db.collection(`services/${serviceId}/likes`).doc(likerData).delete().then(()=>{
-      resolve();
+      this.db.collection(`services/${serviceId}/likes`).doc(likerData).delete().then(() => {
+        resolve();
       })
     });
 
 
   }
-  
+
 
   isLikedByUser(serviceId: string, likerId) {
     return this.db.collection(this.serviceCollection).doc(serviceId).collection(this.serviceLikesCollection).doc(likerId).valueChanges();

@@ -15,8 +15,10 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class ServiceComponent implements OnInit {
   defcatagory: any;
+  selectList: any;
   selectedLanguage: string = '';
   form: FormGroup;
+  defcatagory1: any;
   form1: FormGroup;
   slugWiseData = {};
   selectedcategory: any;
@@ -53,6 +55,7 @@ export class ServiceComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.selectList = 'title';
     this.form = this.fb.group({
       category: [null],
     });
@@ -66,9 +69,9 @@ export class ServiceComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.selectedcategory = params.get('catagoryslug');
       this.defcatagory = params.get('catagoryslug');
+      this.defcatagory1 = this.defcatagory;
       this.route.queryParams.subscribe((params) => {
-        console.log(this.selectedcategory);
-        this.getPageDetails(this.selectedcategory);
+        this.getPageDetails();
       });
     })
     this.translate.onLangChange.subscribe(() => {
@@ -110,15 +113,18 @@ export class ServiceComponent implements OnInit {
     }
 
   }
-  getsearchfield(searchfield: any) {
-
-    this.searchfield = searchfield
-    if (searchfield == "country") this.isCountry = true
+  getsearchfield() {
+    this.searchfield = this.selectList
+    if (this.searchfield == "country") this.isCountry = true
     else this.isCountry = false
 
   }
 
   getService(nav = '') {
+    if (this.searchfield == 'country')
+      this.searchres = this.form1.get("serviceserchform").value;
+
+
     if (nav == 'next') {
       this.serviceService.getServicessearch(20, nav, this.lastVisible, this.selectedcategory, this.selectedLanguage, this.searchres, this.searchfield).subscribe((data) => {
         this.services = [...this.services, ...data.serviceList];
@@ -140,9 +146,9 @@ export class ServiceComponent implements OnInit {
   }
 
   resetSearch() {
-    this.form.reset();
     this.form1.reset();
-    this.getPageDetails(this.defcatagory);
+    this.defcatagory = this.defcatagory1
+    this.getPageDetails();
   }
 
   replaceImage(url) {
@@ -162,9 +168,9 @@ export class ServiceComponent implements OnInit {
   });
 
 
-  getPageDetails(catslug = null) {
+  getPageDetails() {
 
-    this.selectedcategory = catslug
+    this.selectedcategory = this.defcatagory
     this.serviceService.getServices(20, '', this.lastVisible, this.selectedcategory, this.selectedLanguage).subscribe((data) => {
       this.services = data.serviceList;
       this.lastVisible = data.lastVisible;
