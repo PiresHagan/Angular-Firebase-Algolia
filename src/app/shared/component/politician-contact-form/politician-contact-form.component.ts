@@ -56,10 +56,25 @@ export class PoliticianContactFormComponent implements OnInit {
     let currentDate =  new Date();
     let hh=currentDate.getHours();
     let mm = currentDate.getMinutes();
-    if(hh==hour)
-    {
-      for(var i =0; i < mm; i++){
+    let disabledHours_ =this.disabledHours();
+    if(disabledHours_.length==24){
+      for(var i =0; i < 59; i++){
         minutes.push(i);
+      }
+    }
+    else{
+      if(hh==hour)
+      {
+        if(disabledHours_.find(h=>h==hour)){
+          for(var i =0; i < 59; i++){
+            minutes.push(i);
+          }
+        }
+        else{
+          for(var i =0; i < mm; i++){
+            minutes.push(i);
+          }
+        }
       }
     }
     return minutes;
@@ -117,7 +132,7 @@ export class PoliticianContactFormComponent implements OnInit {
      this.isMeetingFormSaving = false;
    });
    const tempDate = new Date().toString();
-   this.timeZoneValue = new Date().toString().slice(tempDate.lastIndexOf('GMT'), tempDate.length - 1);
+   this.timeZoneValue = new Date().toString().slice(tempDate.lastIndexOf('GMT')-1, tempDate.length);
   }
 
   submitForm() {
@@ -132,8 +147,8 @@ export class PoliticianContactFormComponent implements OnInit {
         if (this.captchaToken) {
           this.invalidCaptcha = false;
           this.authService.validateCaptcha(this.captchaToken).pipe(take(1)).subscribe((success) => {
-            window['grecaptcha'].reset(this.capchaObject);
             this.saveDataOnServer(this.addLeadForm.value);
+            window['grecaptcha'].reset(this.capchaObject);
           }, (error) => {
             window['grecaptcha'].reset(this.capchaObject);
             this.isFormSaving = false;
@@ -280,9 +295,6 @@ export class PoliticianContactFormComponent implements OnInit {
       result.setMinutes(mm);
       result.setSeconds(0);
       result.setMilliseconds(0);
-      result.setMinutes(0);
-      result.setSeconds(0);
-      result.setMilliseconds(0);
       this.sessionObject.date=result;
     }
     this.disabledHours = () =>{
@@ -291,6 +303,12 @@ export class PoliticianContactFormComponent implements OnInit {
       let dayOflsDate = lsDate.getDay();
       let currentDate =  new Date();
       let hh=currentDate.getHours();
+      if(!this.meeting_settings){
+        for(var i =0; i < 23; i++){
+          hours.push(i);
+        }
+        return hours;
+      }
       if(currentDate.setHours(0,0,0,0) == lsDate.setHours(0,0,0,0)){
         for(var i =0; i < hh; i++){
             hours.push(i);
@@ -490,6 +508,18 @@ export class PoliticianContactFormComponent implements OnInit {
     let currentDate =  new Date();
     let hh=currentDate.getHours();
     let mm = currentDate.getMinutes();
+    let disabledHours_ =this.disabledHours();
+    if(disabledHours_.length==24){
+      for(var i =0; i < 59; i++){
+        minutes.push(i);
+      }
+      return minutes;
+    }
+    if(disabledHours_.find(h=>h==hour)){
+      for(var i =0; i < 59; i++){
+        minutes.push(i);
+      }
+    }
     if(currentDate.setHours(0,0,0,0) === lsDate.setHours(0,0,0,0)){
       if(hh==hour)
       {
@@ -517,12 +547,46 @@ export class PoliticianContactFormComponent implements OnInit {
       }
     return minutes;
     }
+    if(this.sessionObject.start_time !=null && result != null){
+      let start_time_value_:Date = new Date(this.sessionObject.start_time);
+      let start_time_value_with_date:Date = new Date(result);
+      if(start_time_value_.getFullYear() != start_time_value_with_date.getFullYear() ||
+        start_time_value_.getMonth() != start_time_value_with_date.getMonth() ||
+        start_time_value_.getDay() != start_time_value_with_date.getDay()){
+          start_time_value_with_date.setHours(start_time_value_.getHours());
+          start_time_value_with_date.setMinutes(start_time_value_.getMinutes());
+          start_time_value_with_date.setSeconds(0);
+          start_time_value_with_date.setMilliseconds(0);
+          this.sessionObject.start_time=start_time_value_with_date;
+          this.addLeadMeetingForm.controls['start_time'].setValue(start_time_value_with_date);
+      }
+    }
   }
 
   startTimeChanged(result: Date){
     try{
-      let start_time_value:Date = result;
-      if(!this.checkStartDate(start_time_value))
+      let start_time_value:Date = new Date(result);
+      if(result==null || start_time_value ==null){
+        this.sessionObject.end_time=null;
+        this.addLeadMeetingForm.controls['end_time'].setValue(null);
+        return;
+      }
+      if(this.sessionObject.date !=null){
+        let start_time_value_:Date = new Date(start_time_value);
+        let start_time_value_with_date:Date = new Date(this.sessionObject.date);
+        if(start_time_value_.getFullYear() != start_time_value_with_date.getFullYear()||
+          start_time_value_.getMonth() != start_time_value_with_date.getMonth() ||
+          start_time_value_.getDay() != start_time_value_with_date.getDay()){
+            start_time_value_with_date.setHours(start_time_value_.getHours());
+            start_time_value_with_date.setMinutes(start_time_value_.getMinutes());
+            start_time_value_with_date.setSeconds(0);
+            start_time_value_with_date.setMilliseconds(0);
+            this.sessionObject.start_time=start_time_value_with_date;
+            this.addLeadMeetingForm.controls['start_time'].setValue(start_time_value_with_date);
+          }
+      }
+      start_time_value = this.checkStartDate(start_time_value);
+      if(!start_time_value || start_time_value == null)
         return;
       this.sessionObject.start_time=start_time_value;
       let duration_value:number = +this.sessionObject.duration;
@@ -533,11 +597,13 @@ export class PoliticianContactFormComponent implements OnInit {
         return;
       }
       let end_time_value = new Date(start_time_value);
-          end_time_value.setMinutes(end_time_value.getMinutes() + Number(duration_value));
-          this.sessionObject.end_time=end_time_value;
-          this.addLeadMeetingForm.controls['end_time'].setValue(end_time_value);
+      end_time_value.setMinutes(end_time_value.getMinutes() + Number(duration_value));
+      this.sessionObject.end_time=end_time_value;
+      this.addLeadMeetingForm.controls['end_time'].setValue(end_time_value);
     }
     catch(err){
+      this.sessionObject.start_time=null;
+      this.addLeadMeetingForm.controls['start_time'].setValue(null);
       this.sessionObject.end_time=null;
       this.addLeadMeetingForm.controls['end_time'].setValue(null);
     }
@@ -546,15 +612,15 @@ export class PoliticianContactFormComponent implements OnInit {
   durationChanged(result: number){
     try{
       this.sessionObject.duration=result;
-      let start_time_value:Date = this.sessionObject.start_time;
+      let start_time_value:Date = new Date(this.sessionObject.start_time);
       if(start_time_value==null){
         this.sessionObject.end_time=null;
         this.addLeadMeetingForm.controls['end_time'].setValue(null);
         return;
       }
       let duration_value =+ result;
-
-      if(!this.checkStartDate(start_time_value))
+      start_time_value = this.checkStartDate(start_time_value);
+      if(!start_time_value || start_time_value == null)
         return;
       if(duration_value!=null && !Number.isNaN(duration_value)){
         let end_time_value:Date = new Date(start_time_value);
@@ -576,19 +642,51 @@ export class PoliticianContactFormComponent implements OnInit {
     }
   }
 
-  checkStartDate(result:Date):boolean{
+  checkStartDate(result:Date):Date{
     let start_time_value:Date = new Date(result);
       let hh=start_time_value.getHours();
       let mm = start_time_value.getMinutes();
-      if(hh>23 || mm>59 || start_time_value == null || this.disabledHours().find(h=>h==hh) || this.disabledMinutes(hh).find(m=>m==mm))
+      let ss = start_time_value.getSeconds();
+      let disabledHours_ = this.disabledHours();
+      let disabledMinutes_= this.disabledMinutes(hh);
+      if(hh<0 || hh>23 || mm<0 || mm>59 || start_time_value == null || disabledHours_.find(h=>h==hh) || disabledMinutes_.find(m=>m==mm))
       {
         this.sessionObject.start_time=null;
         this.addLeadMeetingForm.controls['start_time'].setValue(null);
         this.sessionObject.end_time=null;
         this.addLeadMeetingForm.controls['end_time'].setValue(null);
-        return false;
+        return null;
       }
-      return true;
+      else{
+        if(mm >0 && mm <15 ){
+          start_time_value.setMinutes(0);
+          this.sessionObject.start_time=start_time_value;
+          this.addLeadMeetingForm.controls['start_time'].setValue(start_time_value);
+        }
+        else if(mm >15 && mm <30 ){
+          start_time_value.setMinutes(15);
+          this.sessionObject.start_time=start_time_value;
+          this.addLeadMeetingForm.controls['start_time'].setValue(start_time_value);
+        }
+        else if(mm >30 && mm <45 ){
+          start_time_value.setMinutes(30);
+          this.sessionObject.start_time=start_time_value;
+          this.addLeadMeetingForm.controls['start_time'].setValue(start_time_value);
+        }
+        else if(mm >45 && mm <59 ){
+          start_time_value.setMinutes(45);
+          this.sessionObject.start_time=start_time_value;
+          this.addLeadMeetingForm.controls['start_time'].setValue(start_time_value);
+        }
+        let ss = start_time_value.getSeconds();
+        if(ss!=0){
+          start_time_value.setSeconds(0);
+          start_time_value.setMilliseconds(0);
+          this.sessionObject.start_time=start_time_value;
+          this.addLeadMeetingForm.controls['start_time'].setValue(start_time_value);
+        }
+        return start_time_value;
+      }
   }
   showModal(data:any): void {
     this.sessionObject = {
@@ -740,7 +838,7 @@ export class PoliticianContactFormComponent implements OnInit {
         start_time: null,
         end_time: null
       };
-      this.getInTouchService.getPoliticianContactSessions(this.politicianId, null, meetingData.email).pipe(take(1)).subscribe((clmdata) => {
+      this.getInTouchService.getPoliticianContactSessions(this.politicianId, null, meetingData.lead_email).pipe(take(1)).subscribe((clmdata) => {
         if(clmdata && clmdata.sessionList && clmdata.sessionList.length>0){
           this.lmSession = clmdata.sessionList[0];
           if(!this.lmSession.link)

@@ -84,14 +84,6 @@
                 </nz-form-control>
             </nz-form-item>
             </div>
-            <div nz-col nzFlex="100px">
-              <nz-form-item>
-                <nz-form-control >
-                    <button nz-button nzType="primary" class="margin-l-5 black-btn" nzSize="small" nzSearch
-                        (click)="resetSearch()">{{'reset'|translate}}</button>
-                </nz-form-control>
-            </nz-form-item>
-            </div>
           </div>
           <nz-empty class="empty-data" nzNotFoundImage="simple" *ngIf="hairSalonsData?.length==0" [nzNotFoundContent]="contentTpl">
             <ng-template #contentTpl>
@@ -104,15 +96,17 @@
             <div nz-col class="gutter-row standard-col mb-3" [nzSpan]="6"  nzXs="24" nzSm="12" nzMd="8" nzLg="6" nzXXl="6" nzXl="6" *ngFor="let hairSalon of hairSalonsData">
                 <div class="hairSalon-box">
                     <a [routerLink]="['/hair-salon/hair-salon-details',hairSalon.id]">
-                        <img class="hairSalon-image" width="309" height="162" [src]="hairSalon?.cover?.url" alt="hairSalon?.cover?.alt" onerror="this.src='./assets/images/hair-salon/hair-salon-home-main.png';" >
+                        <img class="hairSalon-image" [src]="hairSalon?.cover?.url" alt="hairSalon?.cover?.alt" onerror="this.src='./assets/images/hair-salon/hair-salon-home-main.png';" >
                     </a>
                     <div class="hairSalon-box-content">
-                            <span class="hair-salon-name">
-                               {{hairSalon?.name}}
+                            <div class="hairSalon-box-content-info">
+                              <span class="hair-salon-name">
+                                {{hairSalon?.name}}
+                             </span>
+                             <span *ngIf="hairSalon?.price" class="hair-salon-price">
+                               $ {{hairSalon?.price}}
                             </span>
-                            <span calss="hair-salon-price">
-                              {{hairSalon?.price}}
-                           </span>
+                            </div>
                            <div class="hair-salon-view-btns-container">
                             <a  class="hair-salon-view-btn" [nzType]="'default'" [routerLink]="['/hair-salon/hair-salon-details',hairSalon.id]">
                               {{'View' | translate}}

@@ -90,3 +90,7 @@ nz-alert {
   font-family: "josefin_sanssemibold";
   font-size: 16px;
 }
+
+::ng-deep .ant-picker-footer {
+  display: none !important;
+}

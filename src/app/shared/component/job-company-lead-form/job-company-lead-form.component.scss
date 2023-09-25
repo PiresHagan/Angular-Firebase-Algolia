@@ -110,3 +110,7 @@ nz-alert {
   border-radius: 10px;
   margin-bottom: 10px;
 }
+
+::ng-deep .ant-picker-footer {
+  display: none !important;
+}

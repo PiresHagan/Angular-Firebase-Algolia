@@ -77,13 +77,13 @@
             <nz-form-item>
               <nz-form-label nzFor="start_time" nzRequired>{{'StartTime'| translate}}</nz-form-label>
               <nz-form-control nzErrorTip="{{'PleaseInputField'| translate}}">
-                <nz-time-picker nzShowTime formControlName="start_time" nzFormat="HH:mm" [nzDisabled]="!sessionObject.date"
-                [nzDefaultOpenValue]="defaultStartTimeOpenValue"
+                <nz-time-picker formControlName="start_time" nzFormat="HH:mm" [nzDisabled]="!sessionObject.date"
                 [nzDisabledHours]= "disabledHours"
                 [nzDisabledMinutes]="disabledMinutes"
                 [nzMinuteStep]="15"
                 (ngModelChange)="startTimeChanged($event)" (nzInputReadOnly)=true
                 style="width: 100%;"
+                [nzHideDisabledOptions]="true"
                 nzPlaceHolder="{{'StartTime'| translate}}">
                 </nz-time-picker>
               </nz-form-control>

@@ -11,10 +11,14 @@ export class HairSalonConstant {
   public static MEN = "Men";
   public static WOMEN = "Women";
   public static MENWOMEN = "MenWomen";
+  public static NAILSALON = "NAILSALON";
+  public static SPAMESSAGE = "SPAMESSAGE";
 
-  public static HAIR_SALON_TYPES = {MEN: "Men Barbershop",
-  WOMEN:"Women Hairdresser",
-    MENWOMEN:"Men Barbershop & Women Hairdresser"
+  public static HAIR_SALON_TYPES = {
+    MEN: "Men Barbershop",
+    WOMEN:"Women Hairdresser",
+    NAILSALON:"Nail Salon",
+    SPAMESSAGE:"Spa Massage"
   };
 
   public static ATSALON = "at salon only";

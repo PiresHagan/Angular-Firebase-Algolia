@@ -80,8 +80,7 @@ export class HairSalonService {
     let dataQuery: AngularFirestoreCollection<unknown>;
     if(hairSalonType!=null){
       dataQuery = this.db.collection<HairSalonType[]>(`${this.hairSalonCollection}`, ref => ref
-        .where('type', ">=", hairSalonType)
-        .where('type', "<=", hairSalonType)
+        .where('type', "==", hairSalonType)
         .orderBy('type', 'desc')
         .orderBy('created_at', 'desc')
         .limit(limit)
@@ -89,8 +88,7 @@ export class HairSalonService {
       switch (navigation) {
         case 'next':
           dataQuery = this.db.collection<HairSalonType[]>(`${this.hairSalonCollection}`, ref => ref
-          .where('type', ">=", hairSalonType)
-          .where('type', "<=", hairSalonType)
+          .where('type', "==", hairSalonType)
           .orderBy('type', 'desc')
           .orderBy('created_at', 'desc')
             .limit(limit)
